@@ -28,7 +28,7 @@ public class LoggerInterceptor extends HandlerInterceptorAdapter {
 			ModelAndView modelAndView) throws Exception {
 		// TODO Auto-generated method stub
 
-		log.debug(request.getRequestURI() + "실행 종료");
+		log.debug(request.getRequestURI());
 		log.debug(" =========== end =========== ");
 
 		super.postHandle(request, response, handler, modelAndView);

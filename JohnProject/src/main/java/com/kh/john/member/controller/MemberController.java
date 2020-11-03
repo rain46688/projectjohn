@@ -18,7 +18,7 @@ public class MemberController {
 
 	@RequestMapping("/index")
 	public ModelAndView mainPage() {
-		log.debug("mainPage ¸ÞÀÎ ½ÇÇà");
+		log.debug("mainPage ì‹¤í–‰");
 		ModelAndView mv = new ModelAndView("common/index");
 		mv.addObject("list", service.selectMember());
 		return mv;
