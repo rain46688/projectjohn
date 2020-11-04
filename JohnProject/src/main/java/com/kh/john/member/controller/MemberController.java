@@ -16,10 +16,10 @@ public class MemberController {
 	@Autowired
 	private MemberService service;
 
-	@RequestMapping("/index")
+	@RequestMapping("/")
 	public ModelAndView mainPage() {
 		log.debug("mainPage 실행");
-		ModelAndView mv = new ModelAndView("common/index");
+		ModelAndView mv = new ModelAndView("index");
 		mv.addObject("list", service.selectMember());
 		return mv;
 	}

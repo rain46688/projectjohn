@@ -8,7 +8,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>존조</title>
+<title>재판하는존경장님</title>
 <!-- Latest compiled and minified CSS -->
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
 <!-- jQuery library -->
@@ -17,8 +17,18 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
 <!-- Latest compiled JavaScript -->
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+<link rel="stylesheet" href="${path}/resources/css/layout.css">
 </head>
 <body>
-	<div id="container">
-	헤더 영역
-	</div>
+    <div class="containerJohn">
+        <div class="box">
+            <div id="side">
+                <div id="container_logo">
+                <img src="${path}/resources/images/logo_long_black.png" alt="" id="sidebar_logo">
+                </div>
+                    <!-- 사이드바 메뉴 -->
+            </div>
+            <div id="headerAndContent">
+                <div id="header">
+                    <!-- 알람 및 마이페이지 버튼 -->
+                </div>
