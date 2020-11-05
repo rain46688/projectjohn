@@ -23,5 +23,18 @@ public class MemberController {
 		mv.addObject("list", service.selectMember());
 		return mv;
 	}
+	
+	@RequestMapping("/member/memberLogin")
+	public String enterPage() {
+		return "/member/memberLogin";
+	}
+	
+	@RequestMapping("/member/memberLoginEnd")
+	public ModelAndView loginPage(ModelAndView mv) {
+		
+		mv.setViewName("/board/boardList");
+		
+		return mv;
+	}
 
 }
