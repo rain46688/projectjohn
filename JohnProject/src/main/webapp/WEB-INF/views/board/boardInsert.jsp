@@ -2,7 +2,7 @@
 <%@ include file="/WEB-INF/views/common/header.jsp"%>
 <div id="content">
                     <!-- 내용 -->
-                    <button onclick="${path}/board/boardWrite">글쓰기</button>
+                    
                 </div>
             </div>
         </div>
