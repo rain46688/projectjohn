@@ -41,10 +41,22 @@ pageEncoding="UTF-8"%>
             </p>
         </div>
         <div class="scale">
+            <!--저울대-->
             <img src="${path}/resources/images/scale1.png" alt="">
-            <img src="${path}/resources/images/scale2.png" alt="">
-            <img src="${path}/resources/images/scale3.png" alt="">
-            <img src="${path}/resources/images/scale3.png" alt="">
+            
+            <!--저울 봉-->
+            <div class="scale-2">
+                <img src="${path}/resources/images/scale2.png" alt="">
+            </div>
+
+            <!--저울 바구니 왼-->
+            <div class="scale-left">
+                <img src="${path}/resources/images/scale3.png" alt="">
+            </div>
+            <!--저울 바구니 오-->
+            <div class="scale-right">
+                <img src="${path}/resources/images/scale3.png" alt="">
+            </div>
         </div>
         <div class="enter" onclick="location.href='${path}/member/memberLogin'">
             <p class="animate__animated animate__slideInLeft animate__slow animate__infinite">&gt; &gt; 입장하기</p>

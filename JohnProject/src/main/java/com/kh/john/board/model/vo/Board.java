@@ -12,7 +12,7 @@ public class Board {
 	private String writer_nickname;
 	private String title;
 	private String content;
-	private Date enroll_data;
+	private Date enroll_date;
 	private int hit;
 	private String big_category;
 	private String small_category;
