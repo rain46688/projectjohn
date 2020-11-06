@@ -57,7 +57,6 @@ Latest compiled JavaScript
     </style>
     
 <body>
-
   <div class = "container projects">
         <!-- <h1>재판하는 존경장님</h1> -->
         
@@ -115,9 +114,5 @@ Latest compiled JavaScript
  
     
         </div>
-
-
-	
-
 </body>
 </html>

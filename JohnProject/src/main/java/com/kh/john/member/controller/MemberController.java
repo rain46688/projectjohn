@@ -15,7 +15,7 @@ public class MemberController {
 
 	@Autowired
 	private MemberService service;
-
+	
 	@RequestMapping("/")
 	public ModelAndView mainPage() {
 		log.debug("mainPage 실행");
@@ -34,6 +34,12 @@ public class MemberController {
 		
 		mv.setViewName("/board/boardList");
 		
+		return mv;
+	}
+	
+	@RequestMapping("/member/signUp")
+	public ModelAndView signUpPage(ModelAndView mv) {
+		mv.setViewName("/member/signUp");
 		return mv;
 	}
 
