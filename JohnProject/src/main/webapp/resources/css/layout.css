@@ -49,6 +49,11 @@ body{
     justify-content: center;
 }
 
+#anchor_logo{
+    display: flex;
+    justify-content: center;
+}
+
 #sidebar_logo{
     width: 80%;
 }

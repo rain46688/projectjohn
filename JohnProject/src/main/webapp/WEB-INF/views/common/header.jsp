@@ -30,8 +30,8 @@
         <div class="box">
             <div id="side">
                 <div id="container_logo">
-                <a href="${path }/board/boardList" >
-                	<img src="${path}/resources/images/logo_long_black.png" alt="">
+                <a href="${path }/board/boardList" id="anchor_logo">
+                	<img src="${path}/resources/images/logo_long_black.png" id="sidebar_logo" alt="로고">
                 </a>
                 </div>
                     <!-- 사이드바 메뉴 -->
