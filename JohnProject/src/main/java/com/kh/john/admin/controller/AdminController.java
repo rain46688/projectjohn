@@ -30,15 +30,12 @@ public class AdminController {
 	@Autowired
 	private SqlSession sqlSession;
 	
+	//어드민 메뉴화면 이동(임시)
 	@RequestMapping("/admin/adminPage")
 	public String adminPage() {
 		return "/admin/adminPage";
 	}
 	
-	@RequestMapping("/customer/customerPage")
-	public String customerPage() {
-		return "/customer/customerPage";
-	}
 	
 	//멤버 리스트 불러오기
 	@RequestMapping("/admin/adminMember")
@@ -56,6 +53,7 @@ public class AdminController {
 		return mv;
 	}
 	
+	//게시판 리스트 불러오기
 	@RequestMapping("/admin/adminBoard")
 	public ModelAndView adminBoard(ModelAndView mv, 
 			@RequestParam(value="cPage",required=false, defaultValue="1")int cPage,
@@ -73,9 +71,25 @@ public class AdminController {
 		return mv;
 	}
 	
-	
+	//전문가 리스트 불러오기 (향후 수정예정)
+	@RequestMapping("/admin/adminExpert")
+	public ModelAndView adminExpert(ModelAndView mv, @RequestParam(value="cPage",required=false, defaultValue="1") int cPage,
+																						@RequestParam(value="numPerPage",required=false, defaultValue="10")int numPerPage) {
+		List<Member> list = service.selectMemberList(cPage, numPerPage);
+		int totalData = service.selectMemberCount();
+		
+		mv.addObject("pageBar",PageBarFactory.getPageBar(totalData, cPage, numPerPage, "adminExpert"));
+		
+		mv.addObject("totalData",totalData);
+		
+		mv.addObject("list",list);
+		mv.setViewName("admin/adminExpert");
+		return mv;
+	}
 	
 
+	
+	//1:1 채팅답변 불러오기
 	
 	
 	
