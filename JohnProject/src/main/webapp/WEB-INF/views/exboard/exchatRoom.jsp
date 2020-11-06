@@ -14,4 +14,7 @@
 
 chat
 
-</section>
+<p>세션 : ${loginnedMember.nickname}</p>
+<p>전문가 : ${loginnedMember.expert}</p>
+
+</section>4

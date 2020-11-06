@@ -1,5 +1,7 @@
 package com.kh.john.exboard.controller;
 
+import javax.servlet.http.HttpSession;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -24,6 +26,7 @@ public class ExboardController {
 	public ModelAndView expertPage(SessionStatus status) {
 		log.debug("expertPage 실행");
 		if (!status.isComplete()) {
+			log.debug("세션 삭제됨");
 			status.setComplete();
 		}
 		ModelAndView mv = new ModelAndView("/exboard/exboardMain");
@@ -31,7 +34,7 @@ public class ExboardController {
 	}
 
 	@RequestMapping("/expertRtc")
-	public ModelAndView expertChatPage(String nick, String num, String ex) {
+	public ModelAndView expertChatPage(String nick, String num, String ex, HttpSession session) {
 		log.debug("expertChatPage 실행");
 		log.debug(nick + " " + num + " " + ex);
 		SessionVo sv = new SessionVo();
@@ -42,6 +45,7 @@ public class ExboardController {
 		} else {
 			sv.setExpert(false);
 		}
+		session.setAttribute("loginnedMember", sv);
 		ModelAndView mv = new ModelAndView("/exboard/exchatRoom");
 		return mv;
 	}

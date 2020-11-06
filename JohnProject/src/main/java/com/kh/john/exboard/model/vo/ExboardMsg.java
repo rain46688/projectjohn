@@ -1,4 +1,4 @@
-package com.kh.john.exboard.model.service;
+package com.kh.john.exboard.model.vo;
 
 import lombok.Data;
 
