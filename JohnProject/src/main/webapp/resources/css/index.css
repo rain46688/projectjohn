@@ -1,0 +1,32 @@
+body{
+    background-color:#05135C;
+}
+
+div.title *{
+    color: white;
+    font-weight: bold;
+    font-size: 60px;
+}
+div.title .first { opacity: 0; animation: moveRight 1.2s forwards;}
+div.title .second { opacity: 0; animation: moveLeft 1.2s forwards; animation-delay: 1s;}
+div.title .third { opacity: 0; animation: moveUp 1.2s forwards; animation-delay: 2s;}
+
+div.enter{
+    cursor: pointer;
+}
+div.enter p{ opacity: 0.5; color: white; font-size: 60px; color: white; }
+
+@keyframes moveUp { 
+0% { opacity:0; transform: translateY(120%) } 
+100% { opacity:1; transform: translateY(0%) } 
+}
+
+@keyframes moveLeft { 
+0% { opacity: 0; transform: translateX(30px) } 
+100% { opacity: 1; transform: translateX(0) } 
+}
+
+@keyframes moveRight { 
+0% { opacity: 0; transform: translateX(-30px) } 
+100% { opacity: 1; transform: translateX(0) } 
+}
