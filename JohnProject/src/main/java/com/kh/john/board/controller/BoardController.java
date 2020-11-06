@@ -20,9 +20,15 @@ public class BoardController {
 	
 	@RequestMapping("/board/boardInsert")
 	public ModelAndView boardInsert(ModelAndView mv) {
-
+		
 		mv.setViewName("/board/boardInsert");
 		
+		return mv;
+	}
+	
+	@RequestMapping("/board/boardList")
+	public ModelAndView boardList(ModelAndView mv) {
+		mv.setViewName("board/boardList");
 		return mv;
 	}
 }
