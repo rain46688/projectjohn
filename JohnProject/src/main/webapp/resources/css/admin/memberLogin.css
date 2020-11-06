@@ -211,7 +211,7 @@ h1::before {
   height: 60px;
   border-radius: 30px;
   width: 100%;
-  font-family: 'Black Han Sans', sans-serif;
+/*   font-family: 'Black Han Sans', sans-serif; */
 }
 
 .input_field {
@@ -222,7 +222,7 @@ h1::before {
   font-size: 1.3rem;
   font-weight: 400;
   padding-left: 30px;
-  font-family: 'Black Han Sans', sans-serif;
+/*   font-family: 'Black Han Sans', sans-serif; */
   margin-top: 40px;
   margin-bottom: 40px;
 }
@@ -259,7 +259,7 @@ h1::before {
 /* 비번찾기 */
 #find_password {
   text-align: center;
-  font-family: 'Black Han Sans', sans-serif;
+ /*  font-family: 'Black Han Sans', sans-serif; */
 }
 
 /* 회원가입 */
@@ -267,7 +267,7 @@ h1::before {
   display: block;
   position: relative;
   top: 30px;
-  font-family: 'Black Han Sans', sans-serif;
+/*   font-family: 'Black Han Sans', sans-serif; */
 }
 
 a {

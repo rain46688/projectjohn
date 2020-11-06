@@ -1,19 +1,12 @@
 package com.kh.john.admin.controller;
 
-import java.util.HashMap;
 import java.util.List;
-import java.util.Locale;
 
-import javax.servlet.http.HttpServletRequest;
-
-import org.apache.ibatis.session.SqlSession;
+import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.kh.john.admin.model.service.AdminService;
@@ -27,9 +20,7 @@ public class AdminController {
 	@Autowired
 	private AdminService service;
 	
-	@Autowired
-	private SqlSession sqlSession;
-	
+
 	//어드민 메뉴화면 이동(임시)
 	@RequestMapping("/admin/adminPage")
 	public String adminPage() {
