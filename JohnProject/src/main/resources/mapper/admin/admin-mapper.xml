@@ -8,8 +8,8 @@
 <resultMap type="com.kh.john.board.model.vo.Board" id="boardMap">
 </resultMap>
 
-<select id="selectMemberList" resultMap="memberMap">
-	SELECT * FROM MEMBER
+<select id="selectMemberList" resultMap="memberMap"><!-- 향후 수정 에정 -->
+	SELECT * FROM MEMBER 
 </select>
 
 <select id="selectMemberCount" resultType="_int">select count(*) from member</select>

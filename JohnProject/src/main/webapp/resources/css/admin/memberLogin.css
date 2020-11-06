@@ -1,0 +1,297 @@
+@charset "UTF-8";
+
+* {
+  margin: 0;
+  padding: 0;
+  -webkit-box-sizing: border-box;
+  box-sizing: border-box;
+}
+
+/* 화면효과색깔 */
+:root {
+  --primary-color: #ffcc66;
+  --secondary-color: #003478;
+  --complimentary-color:#ffcc66;
+}
+
+/* 전체컨테이너 */
+.container {
+  min-height: 100vh;
+  position: relative;
+  width: 100vw;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  background-color: var(--complimentary-color);
+  -webkit-box-pack: center;
+  -ms-flex-pack: center;
+  justify-content: center;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  position: relative;
+}
+
+/* 존경하는재판장님 로고 */
+h1 {
+  font-size: 20px;
+  color: var(--primary-color);
+  -webkit-transform: translateY(-600px);
+  transform: translateY(-600px);
+  -webkit-animation: 1.2s slideIn ease-in-out forwards 1s;
+  animation: 1.2s slideIn ease-in-out forwards 1s;
+  z-index: 10;
+  opacity: 0;
+  position: relative;
+  text-align: center;
+  margin-top: 5%;
+}
+
+h1::before {
+  content: '';
+  width: 0%;
+  height: 35%;
+  background-color: var(--secondary-color);
+  position: absolute;
+  bottom: -10px;
+  mix-blend-mode: screen;
+}
+
+/* 화면효과 두번째색깔 (남색) */
+.overlay {
+  position: absolute;
+  width: 100%;
+  top: 0;
+  bottom: 0;
+  opacity: 0;
+  left: 0;
+  right: 0;
+  background-color: var(--secondary-color);
+  -webkit-transform: scale(0.5);
+  transform: scale(0.5);
+  -webkit-animation: .5s slideIn ease-in-out forwards, 1s skewBg ease-in-out;
+  animation: .5s slideIn ease-in-out forwards, 1s skewBg ease-in-out;
+}
+
+@-webkit-keyframes skewBg {
+  0% {
+    -webkit-transform: scale(0.5);
+    transform: scale(0.5);
+  }
+  100% {
+    -webkit-transform: scale(1);
+    transform: scale(1);
+  }
+}
+
+@keyframes skewBg {
+  0% {
+    -webkit-transform: scale(0.5);
+    transform: scale(0.5);
+  }
+  100% {
+    -webkit-transform: scale(1);
+    transform: scale(1);
+  }
+}
+
+@-webkit-keyframes underline {
+  100% {
+    width: 100%;
+  }
+}
+
+@keyframes underline {
+  100% {
+    width: 100%;
+  }
+}
+
+@-webkit-keyframes slideIn {
+  100% {
+    -webkit-transform: translateY(0px);
+    transform: translateY(0px);
+    opacity: 1;
+  }
+}
+
+@keyframes slideIn {
+  100% {
+    -webkit-transform: translateY(0px);
+    transform: translateY(0px);
+    opacity: 1;
+  }
+}
+
+/* 로그인화면 */
+:root {
+  --form_bg: #ffffff;
+  --input_bg: #E5E5E5;
+  --input_hover:#eaeaea;
+  --submit_bg: #003478;
+  --submit_hover: #ffcc66;
+  --icon_color:#6b6b6b;
+}
+
+/* 로그인화면 전체 */
+#form_wrapper {
+  padding: 0;
+  margin: 0;
+  -webkit-box-sizing: border-box;
+  box-sizing: border-box;
+}
+
+#form_wrapper {
+  width: 100%;
+  height: 60%;
+  margin: auto;
+  background-color: var(--form_bg);
+  border-radius: 50px;
+  display: -ms-grid;
+  display: grid;
+  -ms-grid-columns: 1fr 1fr;
+  grid-template-columns: 1fr 1fr;
+  grid-gap: 3vw;
+  padding: 5vh 15px;
+  margin-bottom: 5%;
+}
+
+/* 로그인폼 왼쪽(사진) */
+#form_left {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+  -ms-flex-pack: center;
+  justify-content: center;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  width: 500px;
+  height: 500px;
+  padding: 10% 1%;
+}
+
+#form_left img {
+  width: 500px;
+  height: 500px;
+}
+
+/* 로그인폼 오른쪽(로그인) */
+#form_right {
+  display: -ms-grid;
+  display: grid;
+  -ms-grid-columns: 1fr;
+  grid-template-columns: 1fr;
+  grid-gap: 20px;
+  padding: 10% 5%;
+  width: 500px;
+  height: 500px;
+}
+
+/* 로그인 입력 */
+.input_container {
+  background-color: var(--input_bg);
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  padding-left: 20px;
+  margin-top: 30px;
+}
+
+.input_container:hover {
+  background-color: var(--input_hover);
+}
+
+.input_container,
+#input_submit {
+  height: 60px;
+  border-radius: 30px;
+  width: 100%;
+  font-family: 'Black Han Sans', sans-serif;
+}
+
+.input_field {
+  color: var(--icon_color);
+  background-color: inherit;
+  width: 90%;
+  border: none;
+  font-size: 1.3rem;
+  font-weight: 400;
+  padding-left: 30px;
+  font-family: 'Black Han Sans', sans-serif;
+  margin-top: 40px;
+  margin-bottom: 40px;
+}
+
+.input_field:hover,
+.input_field:focus {
+  outline: none;
+}
+
+/* 로그인버튼 */
+#input_submit {
+  background-color: var(--submit_bg);
+  padding-left: 0;
+  font-weight: bold;
+  color: white;
+  text-transform: uppercase;
+}
+
+#input_submit:hover {
+  background-color: var(--submit_hover);
+  -webkit-transition: background-color,
+ 1s;
+  transition: background-color,
+ 1s;
+  cursor: pointer;
+  /*로그인버튼 네온효과*/
+  background: #ffcc66;
+  color: #fff;
+  border-radius: 5px;
+  -webkit-box-shadow: 0 0 5px #ffcc66, 0 0 25px #ffcc66, 0 0 50px #ffcc66, 0 0 100px #ffcc66;
+  box-shadow: 0 0 5p #ffcc66, s 0 0 25px #ffcc66, 0 0 50px #ffcc66, 0 0 100px #ffcc66;
+}
+
+/* 비번찾기 */
+#find_password {
+  text-align: center;
+  font-family: 'Black Han Sans', sans-serif;
+}
+
+/* 회원가입 */
+#create_account {
+  display: block;
+  position: relative;
+  top: 30px;
+  font-family: 'Black Han Sans', sans-serif;
+}
+
+a {
+  text-decoration: none;
+  color: var(--submit_bg);
+  font-weight: bold;
+}
+
+a:hover {
+  color: var(--submit_hover);
+}
+
+i {
+  color: var(--icon_color);
+}
+
+@media screen and (max-width: 768px) {
+  #form_wrapper {
+    -ms-grid-columns: 1fr;
+    grid-template-columns: 1fr;
+    margin-left: 10px;
+    margin-right: 10px;
+  }
+  #form_left {
+    display: none;
+  }
+}

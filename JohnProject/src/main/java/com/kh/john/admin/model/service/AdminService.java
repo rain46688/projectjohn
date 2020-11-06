@@ -14,4 +14,6 @@ public interface AdminService {
 	List<Board> selectBoardList(int cPage, int numPerPage);	
 	
 	int selectBoardCount();
+	
+
 }
