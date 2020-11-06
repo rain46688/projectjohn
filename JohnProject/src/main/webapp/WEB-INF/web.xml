@@ -7,6 +7,15 @@
 		<param-value>/WEB-INF/spring/root-context.xml</param-value>
 	</context-param>
 	
+	<!-- email-config추가 -->
+	<context-param>
+	    <param-name>contextConfigLocation</param-name>
+	    <param-value>
+	            classpath:spring/application-config.xml
+	            classpath:spring/email/email-config.xml
+	        </param-value>
+	  </context-param>
+
 	<!-- Creates the Spring Container shared by all Servlets and Filters -->
 	<listener>
 		<listener-class>org.springframework.web.context.ContextLoaderListener</listener-class>
