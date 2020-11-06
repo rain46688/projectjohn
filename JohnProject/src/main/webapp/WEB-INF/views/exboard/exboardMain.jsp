@@ -17,11 +17,24 @@ label, input {
 </style>
 
 <section id="content">
-
 EXPERT
-
 	<label class="input-group-text" >닉네임 </label><input type="input" name="nick" class="form-control short" /><br>
 	<label class="input-group-text" >방 번호 </label><input type="input" name="num" class="form-control short" /><br>
-	<button class="btn btn-outline-success" onclick="sendMessage($('input[name=room]').val())">알람 보내기</button>
-
+	<button class="btn btn-outline-success" onclick="expertChat('e');">전문가 입장</button>
+	<button class="btn btn-outline-success" onclick="expertChat('m');">일반인 입장</button>
 </section>
+
+<script>
+
+function expertChat(e){
+	if(e == 'e'){
+		location.replace('${path}/expertRtc?nick='+$("input[name=nick]").val()+"&num="+$("input[name=num]").val()+"&ex=e");
+	}
+	else{
+		location.replace('${path}/expertRtc?nick='+$("input[name=nick]").val()+"&num="+$("input[name=num]").val()+"&ex=m");
+	}
+}
+
+
+
+</script>
