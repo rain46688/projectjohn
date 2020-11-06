@@ -11,13 +11,13 @@ public class BoardListSocket extends TextWebSocketHandler  {
 	@Override
 	public void afterConnectionEstablished(WebSocketSession session) throws Exception {
 		// TODO Auto-generated method stub
-		System.out.println(session.getLocalAddress() + "접속");
+		System.out.println(session.getId() + "접속");
 	}
 	
 	@Override
 	protected void handleTextMessage(WebSocketSession session, TextMessage message) throws Exception {
 		// TODO Auto-generated method stub
-		super.handleTextMessage(session, message);
+		System.out.println(session.getPrincipal());
 	}
 	
 	@Override
