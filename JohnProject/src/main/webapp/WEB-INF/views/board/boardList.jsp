@@ -8,7 +8,7 @@
         </div>
     </div>
 <script>
-	const socket = new SockJS("http://192.168.140.126:9090/list");
+	const socket = new SockJS("http://192.168.140.126:9090/${path}/list");
 	
 	socket.onopen = function(e){
 		console.log("접속");
