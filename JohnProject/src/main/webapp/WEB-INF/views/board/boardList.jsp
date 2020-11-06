@@ -7,5 +7,12 @@
             </div>
         </div>
     </div>
+<script>
+	const socket = new SockJS("http://192.168.140.126:9090/list");
+	
+	socket.onopen = function(e){
+		console.log("접속");
+	}
+</script>
 </body>
 </html>
