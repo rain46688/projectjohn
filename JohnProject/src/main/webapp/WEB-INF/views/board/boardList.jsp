@@ -17,7 +17,7 @@
 	
     socket.onmessage = function(e){
         message = e.data;
-        console.log(message);
+        console.log(JSON.parse(message));
     }
     
     

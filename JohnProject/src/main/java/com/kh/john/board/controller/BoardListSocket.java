@@ -1,5 +1,7 @@
 package com.kh.john.board.controller;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.socket.CloseStatus;
 import org.springframework.web.socket.TextMessage;
@@ -22,7 +24,8 @@ public class BoardListSocket extends TextWebSocketHandler  {
 	public void afterConnectionEstablished(WebSocketSession session) throws Exception {
 		// TODO Auto-generated method stub
 		System.out.println(session.getId() + "접속");
-		session.sendMessage(new TextMessage(mapper.writeValueAsString(new Board())));
+		List<Board> list = service.boardList();
+		session.sendMessage(new TextMessage(mapper.writeValueAsString(list)));
 	}
 	
 	@Override
