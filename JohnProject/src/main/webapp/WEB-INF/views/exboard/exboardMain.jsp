@@ -20,8 +20,14 @@ label, input {
 EXPERT
 	<label class="input-group-text" >닉네임 </label><input type="input" name="nick" class="form-control short" /><br>
 	<label class="input-group-text" >방 번호 </label><input type="input" name="num" class="form-control short" /><br>
-	<button class="btn btn-outline-success" onclick="expertChat('e');">전문가 입장</button>
-	<button class="btn btn-outline-success" onclick="expertChat('m');">일반인 입장</button>
+	<button class="btn btn-outline-success" onclick="expertChat('e');">전문가 접속</button>
+	<!-- <button class="btn btn-outline-success" onclick="expertChat('m');">일반인 입장</button> -->
+	<br>
+	<hr>
+	<br>
+	<div id="expertList">
+	
+	</div>
 </section>
 
 <script>

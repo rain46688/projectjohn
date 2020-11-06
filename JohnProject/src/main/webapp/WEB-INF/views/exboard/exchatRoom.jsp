@@ -105,12 +105,12 @@ video {
 
 			//---------------------------- signaling 서버 -------------------------------------
 
-			const conn = new WebSocket('ws://localhost/expertRtc');
+			const conn = new WebSocket('ws://localhost/${path}/expertRtc');
 
 			conn.onopen = function() {
 				printdiv("signaling server 연결");
 				printdiv("닉네임 : ${loginnedMember.nickname}, 방번호 : ${loginnedMember.curRoomBid}, 전문가 여부 : ${loginnedMember.expert}");
-				if(${loginnedMember.host} === true){
+				if(${loginnedMember.expert} === true){
 					gotStream();			
 				}
 			};
