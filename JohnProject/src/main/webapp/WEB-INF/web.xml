@@ -5,17 +5,7 @@
 	<context-param>
 		<param-name>contextConfigLocation</param-name>
 		<param-value>/WEB-INF/spring/*-context.xml</param-value>
-<<<<<<< HEAD
 	  </context-param>
-=======
-	</context-param>
-	
-	<!-- email-config추가 -->
-<!-- 	<context-param>
-	    <param-name>contextConfigLocation</param-name>
-	    <param-value>/WEB-INF/spring/email-config.xml</param-value>
-	  </context-param> -->
->>>>>>> 4756b3d4dee4f99375b266a593d11e7272a74d99
 
 	<!-- Creates the Spring Container shared by all Servlets and Filters -->
 	<listener>
