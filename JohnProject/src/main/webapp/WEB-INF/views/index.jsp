@@ -59,7 +59,7 @@ pageEncoding="UTF-8"%>
             </div>
         </div>
         <div class="enter" onclick="location.href='${path}/member/memberLogin'">
-            <p class="animate__animated animate__slideInLeft animate__slow animate__infinite">&gt; &gt; 입장하기</p>
+            <p>&gt; &gt; 입장하기</p>
         </div>
     </div>
 
