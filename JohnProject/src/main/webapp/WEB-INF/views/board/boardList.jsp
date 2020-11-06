@@ -8,11 +8,21 @@
         </div>
     </div>
 <script>
-	const socket = new SockJS("http://192.168.140.126:9090/${path}/list");
-	
+	const socket = new SockJS("http://localhost:9090/${path}/list");
+	let message = '';
 	socket.onopen = function(e){
 		console.log("접속");
+		socket.send('메세지를 보냄');
 	}
+	
+    socket.onmessage = function(e){
+        message = e.data;
+        console.log(message);
+    }
+    
+    
+
+    document.getElementById('content').innerHTML = message;
 </script>
 </body>
 </html>
