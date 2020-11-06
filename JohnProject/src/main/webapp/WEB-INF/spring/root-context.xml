@@ -11,8 +11,8 @@
 		<property name="driverClassName"
 			value="oracle.jdbc.driver.OracleDriver" />
 		<property name="url" value="jdbc:oracle:thin:@rclass.iptime.org:1521:XE" />
-		<property name="username" value="nbbang" />
-		<property name="password" value="nbbang" />
+		<property name="username" value="john" />
+		<property name="password" value="john" />
 		<!-- 아이디 비번 임시로 정해놓은것 john -->
 	</bean>
 	
