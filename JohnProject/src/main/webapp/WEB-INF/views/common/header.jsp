@@ -37,7 +37,8 @@
             <div id="headerAndContent">
                 <div id="header">
                     <!-- 알람 및 마이페이지 버튼 -->
-                    <button onclick="location.href='${path}/report/reportPage'">고객센터</button>
+                    <button onclick="location.href='${path}/customer/customerPage'">고객센터</button>
                     <button>알람</button>
                     <button onclick="location.href='${path}/member/memberPage'">마이페이지</button>
+                    <button onclick="location.href='${path}/admin/adminPage'">ADMIN</button>
                 </div>
