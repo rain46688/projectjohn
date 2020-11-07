@@ -8,7 +8,7 @@
         </div>
     </div>
 <script>
-	const socket = new SockJS("http://localhost:9090/${path}/list");
+	const socket = new SockJS("http://localhost:9090${path}/list");
 	let message = '';
 	socket.onopen = function(e){
 		console.log("접속");
