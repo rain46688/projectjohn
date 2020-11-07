@@ -6,4 +6,9 @@
  	<typeAlias type="com.kh.spring.demo.model.vo.Demo" alias="demo"/>
  </typeAliases>
  -->
+ 
+ <typeAliases>
+ 	<typeAlias type="com.kh.john.member.model.vo.Member" alias="member"/>
+ </typeAliases>
+ 
 </configuration>

@@ -35,7 +35,7 @@
               <div class="card_content">
                 <h2 class="card_title">전문가관리</h2>
                 <!-- <p class="card_text">Demo of pixel perfect pure CSS simple responsive card grid layout</p> -->
-                <button class="btn card_btn" onclick="location.href='${path}/admin/adminExpert'">이동하기</button>
+                <button class="btn card_btn" onclick="location.href='${path}/admin/adminBeforeExpert'">이동하기</button>
               </div>
             </div>
           </li>
