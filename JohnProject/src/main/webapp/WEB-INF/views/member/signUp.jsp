@@ -265,6 +265,7 @@
 	<script>
 		// id제약조건
 		var idPattern = /^[0-9a-zA-Z]([-_\.]?[0-9a-zA-Z])*@[0-9a-zA-Z]([-_\.]?[0-9a-zA-Z])*\.[a-zA-Z]{2,3}$/i;
+		const id=$("#id").val().trim();
 		$(function(){
 			$("#id").blur(e=>{
 				const id=$("#id").val().trim();
@@ -285,7 +286,6 @@
 				}
 			});
 		});
-		const id=$("#id").val().trim();
 		$("#id").keyup(e=>{
 			$.ajax({
 				url:"<%=request.getContextPath()%>/checkIdDuplicate",
@@ -307,7 +307,7 @@
 				alert("중복된 아이디는 사용할 수 없습니다.")
 			}else{
 				$.ajax({
-					url: "<%=request.getContextPath()%>/certiEmail",
+					url: "${path}/member/certiEmail",
 					data: {"email":$("#id").val()},
 					type: "post",
 					dataType: "html",

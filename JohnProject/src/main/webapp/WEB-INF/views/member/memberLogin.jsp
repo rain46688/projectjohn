@@ -102,7 +102,7 @@ Latest compiled JavaScript
                     <span id="find_password">까먹었다 <a href="#"> 비밀번호</a></span>
 
                     <span id="create_account">
-                        <a href="#">★회원가입★</a>
+                        <a href="${path }/member/signUp">★회원가입★</a>
                     </span>
 
                 </div>
