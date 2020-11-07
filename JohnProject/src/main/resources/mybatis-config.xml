@@ -3,5 +3,6 @@
 <configuration>
  <typeAliases>
  	<typeAlias type="com.kh.john.member.model.vo.Member" alias="member"/>
+ 	<typeAlias type="com.kh.john.board.model.vo.Board" alias="board"/>
  </typeAliases>
 </configuration>
