@@ -18,6 +18,10 @@ public interface AdminDao {
 	
 	int deleteMember(SqlSessionTemplate session, Member m);
 	
+	List<Member> searchMemberList(SqlSessionTemplate session, Map<String,Object> param, int cPage, int numPerPage);
+	
+	int searchMemberListCount(SqlSession session, Map<String,Object> param);
+
 	//게시판관련
 	List<Board> selectBoardList(SqlSessionTemplate session, int cPage, int numPerPage);
 	

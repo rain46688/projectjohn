@@ -5,6 +5,8 @@
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
 <c:set var="path" value="${pageContext.request.contextPath }"/>
 
+
+
 <jsp:include page="/WEB-INF/views/common/header.jsp">
 	
 	<jsp:param name="title" value="adminMember"/>
@@ -13,6 +15,52 @@
 
 
 	<section id="content">
+	
+	<div id="search-container">
+		<form action="${path }/admin/adminMemberSearch" method="post">
+			<select name="searchType" required>
+				<option value=" " disabled selected>검색타입</option> 
+				
+														<!--if쓴 이유 : 검색되고 검색한거 유지되게 하기 위해 -->
+				<option value="mem_name" <c:if test="${param.searchType eq 'mem_name'}">selected</c:if>>이름</option>
+				<option value="mem_email" <c:if test="${param.searchType eq 'mem_email'}">selected</c:if>>이메일</option>
+				<option value="mem_nickname" ${param.searchType eq 'mem_nickname'?"selected":"" }>닉네임</option>	
+																							<!-- 삼항연산자도 가넝 -->
+			
+				<!-- 동적쿼리문 위해 조건들 지워버림 -->
+<!-- 				<option value="emp_id" >사번</option>
+				<option value="emp_name" >이름</option>
+				<option value="email" >이메일</option>
+				<option value="phone" >전화번호</option> -->
+			
+			</select>
+			
+			<input type="search" name="keyword"
+			value="${param.keyword }"/> <!-- required내가 삭제함 -->
+			<!-- <input type="search" name="keyword" /> -->
+			
+			<br>
+			<!-- 검색추가 (where에 if문 써보기)-->
+			<label>성별</label>
+			<label><input type="radio" name="gender" value='M'>남</label>
+			<label><input type="radio" name="gender" value='F'>여</label>
+			<!--  -->
+			
+			
+			<br>
+			<!-- 검색추가4 -->
+			<input type="checkbox" name="leave_mem" value="0">현재 회원
+			<input type="checkbox" name="leave_mem" value="1">탈퇴한 회원
+
+			<br>
+			
+			<input type="checkbox" name="mem_class" value="일반유저">일반유저
+			<input type="checkbox" name="mem_class" value="전문가">전문가
+						
+			<input type="submit" value="검색">
+		</form>
+	</div>
+	
 	
 	
 	<form id="operForm" >
@@ -56,15 +104,16 @@
 		</form>
 	</section>
 	
-	<script>
+	<script type="text/javascript">
 	function deleteMember(usid){
 		console.log("클릭됨");
 		alert("정말 탈퇴시키겠습니까?");
 		location.replace("${path}/admin/adminDeleteMember?usid="+usid);
 	}
 	
+
+
 	</script>
 	
 
 <jsp:include page="/WEB-INF/views/common/footer.jsp"/>
-	

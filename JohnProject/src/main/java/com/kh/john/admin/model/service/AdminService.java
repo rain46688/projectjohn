@@ -15,6 +15,10 @@ public interface AdminService {
 	
 	int deleteMember(Member m);
 	
+	List<Member> searchMemberList(Map<String,Object> param, int cPage, int numPerPage);
+	
+	int searchMemberListCount(Map<String,Object> param);
+	
 	//게시판관련
 	List<Board> selectBoardList(int cPage, int numPerPage);	
 	
