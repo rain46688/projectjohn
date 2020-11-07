@@ -33,12 +33,15 @@ EXPERT
 <script>
 
 function expertChat(e){
+	
+	location.replace('${path}/expertRtc');
+			
 	if(e == 'e'){
 		location.replace('${path}/expertRtc?nick='+$("input[name=nick]").val()+"&num="+$("input[name=num]").val()+"&ex=e");
 	}
 	else{
 		location.replace('${path}/expertRtc?nick='+$("input[name=nick]").val()+"&num="+$("input[name=num]").val()+"&ex=m");
-	}
+	} 
 }
 
 

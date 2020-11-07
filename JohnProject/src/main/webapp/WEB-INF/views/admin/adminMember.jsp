@@ -34,7 +34,7 @@
 				<tr>
 					<td><c:out value="${m.usid}"/></td>
 					<td><c:out value="${m.mem_email}"/></td>
-					<td><c:out value="${m.mem_name}"/></td>
+					<td><a href="javascript:deleteMember(${m.usid});"><c:out value="${m.mem_name}"/></a></td>
 					<td><c:out value="${m.mem_nickname}"/></td>
 					<td><c:out value="${m.gender}"/></td>
 					<td><c:out value="${m.birthday}"/></td>
@@ -55,6 +55,15 @@
 		       
 		</form>
 	</section>
+	
+	<script>
+	function deleteMember(usid){
+		console.log("클릭됨");
+		alert("정말 탈퇴시키겠습니까?");
+		location.replace("${path}/admin/adminDeleteMember?usid="+usid);
+	}
+	
+	</script>
 	
 
 <jsp:include page="/WEB-INF/views/common/footer.jsp"/>

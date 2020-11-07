@@ -18,6 +18,6 @@ public class Member {
 	private boolean leave_mem;
 	private int pw_is_uuid;
 	private String mem_class;
-	private String proifle_pic;
+	private String profile_pic;
 	private int expert_rating;
 }

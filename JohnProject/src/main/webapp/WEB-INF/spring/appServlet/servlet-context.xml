@@ -26,10 +26,20 @@
 	<context:component-scan base-package="com.kh.john" />
 	
 	<beans:bean id="boardList" class="com.kh.john.board.controller.BoardListSocket"></beans:bean>
+
 	
 	<websocket:handlers>
 		<websocket:mapping handler="boardList" path="/list"/>	
 		<websocket:sockjs/>
 	</websocket:handlers>
+	
+	<websocket:handlers>
+		<websocket:mapping handler="expertHandler" path="/ertc"/>
+		<websocket:handshake-interceptors>
+			<beans:bean class="org.springframework.web.socket.server.support.HttpSessionHandshakeInterceptor" />
+		</websocket:handshake-interceptors>	
+	</websocket:handlers>
+	
+	<beans:bean id="expertHandler" class="com.kh.john.exboard.socket.ExpertHandler"></beans:bean>
 	
 </beans:beans>

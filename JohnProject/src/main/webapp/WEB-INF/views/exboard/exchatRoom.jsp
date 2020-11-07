@@ -2,7 +2,7 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
-<c:set var="path" value="${pageContext.request.contextPath }" />
+<c:set var="path" value="${pageContext.request.contextPath}" />
 <!DOCTYPE html>
 <html>
 <head>
@@ -66,6 +66,7 @@ video {
 	<section>
 		<section class="container">
 			<!-- muted="muted" 상태가 아니면 오토 플레이가 되지않는다! -->
+			<p>패스 : ${path}</p><br>
 			<p>세션 : ${loginnedMember.nickname}</p><br>
 			<p>전문가 : ${loginnedMember.expert}</p><br>
 			<br>
@@ -105,7 +106,7 @@ video {
 
 			//---------------------------- signaling 서버 -------------------------------------
 
-			const conn = new WebSocket('ws://localhost/${path}/expertRtc');
+			const conn = new WebSocket('wss://localhost/ertc');
 
 			conn.onopen = function() {
 				printdiv("signaling server 연결");
@@ -276,7 +277,6 @@ video {
 	
 		function stop() {
 			printdiv("연결 종료");
-			  isStarted = false;
 				for(var i=0;i<pc.length;i++){
 					  pc[i].close();
 					  pc[i] = null;
