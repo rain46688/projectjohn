@@ -17,9 +17,8 @@ ul li {
 }
 
 .tab-box {
-	/* 	margin: 50px auto 0 auto;
+/* 	margin: 50px auto 0 auto;
 	width: 520px; */
-	
 }
 
 .tab-box ul {
@@ -30,21 +29,20 @@ ul li {
 	float: left;
 	width: 100px;
 	height: 30px;
-	line-height: 30px;
+	line-height: 30px; 
 	margin-right: 2px;
 	text-align: center;
 	background-color: #ccc;
 	border-radius: 3px 3px 0 0;
-	cursor: pointer;
+	cursor: pointer; 
 }
 
 /* .tab-box li.selected {
 	background-color: #ffcc66
 } */
 
-
 .tab-view {
-	/* 	width: 506px;
+/* 	width: 506px;
 	height: 100px;
 	line-height: 100px;
 	border: 1px solid gray;
@@ -56,6 +54,8 @@ ul li {
 
 
 <section id="content">
+
+
 	<div class="tab-box">
 
 		<ul>
@@ -67,6 +67,8 @@ ul li {
 		</ul>
 
 		<div class="tab-view">
+
+
 			<form id="operForm">
 				<table class="table">
 					<tr>
@@ -86,7 +88,7 @@ ul li {
 						<tr>
 							<td><c:out value="${m.usid}" /></td>
 							<td><c:out value="${m.mem_email}" /></td>
-							<td><c:out value="${m.mem_name}"/></td>
+							<td><a href="javascript:updateMemberToExpert(${m.usid});"><c:out value="${m.mem_name}"/></a></td>
 							<td><c:out value="${m.mem_nickname}" /></td>
 							<td><c:out value="${m.gender}" /></td>
 							<td><c:out value="${m.birthday}" /></td>
@@ -104,12 +106,19 @@ ul li {
 
 
 			</form>
+
 		</div>
 
 	</div>
+
 </section>
 
-
+<script>
+function updateMemberToExpert(usid){
+	console.log("클릭됨");
+	location.replace("${path}/admin/adminUpdateMemberToExpert?usid="+usid);
+}
+</script>
 
 <jsp:include page="/WEB-INF/views/common/footer.jsp" />
 

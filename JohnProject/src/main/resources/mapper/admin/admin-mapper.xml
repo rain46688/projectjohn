@@ -2,25 +2,65 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="admin">
 
-<resultMap type="com.kh.john.member.model.vo.Member" id="memberMap">
-</resultMap>
+	<resultMap type="com.kh.john.member.model.vo.Member"
+		id="memberMap">
+	</resultMap>
+	<resultMap type="com.kh.john.board.model.vo.Board"
+		id="boardMap">
+	</resultMap>
+	<resultMap type="com.kh.john.admin.model.vo.Notice"
+		id="NoticeMap">
+	</resultMap>
 
-<resultMap type="com.kh.john.board.model.vo.Board" id="boardMap">
-</resultMap>
+	<!-- 멤버관련 -->
+	<select id="selectMemberList" resultMap="memberMap">
+		SELECT * FROM MEMBER
+		WHERE MEM_CLASS LIKE ('일반유저') AND LEAVE_MEM LIKE 0
+	</select>
+	<select id="selectMemberCount" resultType="_int">
+		SELECT COUNT(*) FROM
+		MEMBER WHERE MEM_CLASS LIKE ('일반유저') AND LEAVE_MEM LIKE 0
+	</select>
+	
+	<insert id="deleteMember" parameterType="com.kh.john.member.model.vo.Member">
+		UPDATE MEMBER SET LEAVE_MEM=1
+		WHERE USID=#{usid}
+	</insert>
 
-<select id="selectMemberList" resultMap="memberMap"><!-- 향후 수정 에정 -->
-	SELECT * FROM MEMBER 
-</select>
+	<!-- 게시판관련 -->
+	<select id="selectBoardList" resultMap="boardMap">
+		SELECT * FROM BOARD 
+	</select>
+	<select id="selectBoardCount" resultType="_int">
+		SELECT COUNT(*) FROM
+		BOARD
+	</select>
 
-<select id="selectMemberCount" resultType="_int">select count(*) from member</select>
+	<!-- 전문가관련 -->
+	<select id="selectExpertList" resultMap="memberMap">
+		SELECT * FROM MEMBER
+		WHERE MEM_CLASS LIKE ('전문가') AND LEAVE_MEM LIKE 0
+	</select>
+	<select id="selectExpertCount" resultType="_int">
+		SELECT COUNT(*) FROM
+		MEMBER WHERE MEM_CLASS LIKE ('전문가') AND LEAVE_MEM LIKE 0
+	</select>
 
-
-<select id="selectBoardList" resultMap="boardMap">
-	SELECT * FROM BOARD
-</select>
-
-<select id="selectBoardCount" resultType="_int">select count(*) from board</select>
-
-
+	<select id="selectBeforeExpertList" resultMap="memberMap">
+		SELECT * FROM MEMBER WHERE LEAVE_MEM LIKE 0
+	</select>
+	<select id="selectBeforeExpertCount" resultType="_int">
+		SELECT COUNT(*) FROM MEMBER WHERE LEAVE_MEM LIKE 0
+	</select>
+	
+	<select id="updateMemberToExpert" parameterType="map" resultMap="memberMap">
+		SELECT * FROM MEMBER WHERE USID=#{usid} 
+	</select>
+	
+	
+	<!-- 공지관련 -->
+	<!-- <select id="selectNoticeList" resultMap="noticeMap"> SELECT * FROM 
+		NOTICE </select> <select id="selectNoticeCount" resultType="_int"> SELECT 
+		COUNT(*) FROM NOTICE </select> -->
 
 </mapper>

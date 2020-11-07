@@ -30,8 +30,8 @@ public class ExpertHandler extends TextWebSocketHandler {
 		Map<String, Object> map = session.getAttributes();
 		SessionVo sv = (SessionVo) map.get("loginnedMember");
 		users.put(sv, session);
+		log.debug("sv : " + sv);
 		log.info("닉네임 : " + sv.getNickname());
-
 	}
 
 	@Override

@@ -106,7 +106,7 @@ video {
 
 			//---------------------------- signaling 서버 -------------------------------------
 
-			const conn = new WebSocket('wss://localhost/john/expertRtc');
+			const conn = new WebSocket('wss://localhost/ertc');
 
 			conn.onopen = function() {
 				printdiv("signaling server 연결");

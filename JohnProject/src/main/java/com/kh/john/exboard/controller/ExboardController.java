@@ -5,7 +5,6 @@ import javax.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.bind.support.SessionStatus;
 import org.springframework.web.servlet.ModelAndView;
 
@@ -16,7 +15,7 @@ import lombok.extern.slf4j.Slf4j;
 
 @Controller
 @Slf4j
-@SessionAttributes(value = { "loginnedMember" }) // 세션 처리
+//@SessionAttributes(value = { "loginnedMember" }) // 세션 처리
 public class ExboardController {
 
 	@Autowired
@@ -25,10 +24,10 @@ public class ExboardController {
 	@RequestMapping("/expert")
 	public ModelAndView expertPage(SessionStatus status) {
 		log.debug("expertPage 실행");
-		if (!status.isComplete()) {
-			log.debug("세션 삭제됨");
-			status.setComplete();
-		}
+//		if (!status.isComplete()) {
+//			log.debug("세션 삭제됨");
+//			status.setComplete();
+//		}
 		ModelAndView mv = new ModelAndView("/exboard/exboardMain");
 		return mv;
 	}
@@ -47,6 +46,10 @@ public class ExboardController {
 		}
 		session.setAttribute("loginnedMember", sv);
 		ModelAndView mv = new ModelAndView("/exboard/exchatRoom");
+		// mv.addObject("loginnedMember", sv);
+
+		SessionVo ss = (SessionVo) session.getAttribute("loginnedMember");
+		log.debug("ss : " + ss);
 		return mv;
 	}
 
