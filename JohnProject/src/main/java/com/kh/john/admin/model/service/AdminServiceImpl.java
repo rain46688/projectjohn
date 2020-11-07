@@ -34,11 +34,19 @@ public class AdminServiceImpl implements AdminService{
 		return dao.selectMemberCount(session);
 	}
 	
-	
-	
 	@Override
 	public int deleteMember(Member m) {
 		return dao.deleteMember(session, m);
+	}
+	
+	@Override
+	public List<Member> searchMemberList(Map<String,Object> param, int cPage, int numPerPage) {
+		return dao.searchMemberList(session, param, cPage, numPerPage);
+	}
+
+	@Override
+	public int searchMemberListCount(Map<String,Object> param) {
+		return dao.searchMemberListCount(session, param);
 	}
 
 	//게시판관련

@@ -21,15 +21,47 @@
 		SELECT COUNT(*) FROM
 		MEMBER WHERE MEM_CLASS LIKE ('일반유저') AND LEAVE_MEM LIKE 0
 	</select>
-	
-	<insert id="deleteMember" parameterType="com.kh.john.member.model.vo.Member">
+
+	<insert id="deleteMember"
+		parameterType="com.kh.john.member.model.vo.Member">
 		UPDATE MEMBER SET LEAVE_MEM=1
 		WHERE USID=#{usid}
 	</insert>
 
+	<select id="searchMemberList" parameterType="map" resultType="member">
+			SELECT * FROM MEMBER WHERE 1=1 
+	 			<if test="type !=null and keyword !=null">
+	 				AND ${type} LIKE '%'||#{keyword, jdbcType=VARCHAR}||'%'
+	 			</if>	 
+	 			
+	 			<if test="gender !=null">
+	 				AND GENDER = #{gender, jdbcType=VARCHAR}
+	 			</if>  
+
+		<!-- 다중값 넣기 -->
+		<if test="mem_class!=null"> <!-- 다중값 비교 IN -->
+			AND MEM_CLASS IN 
+			<foreach collection="mem_class" item="v" index="i" 
+			open="(" close=")" separator=","> #{v, jdbcType=VARCHAR} 
+			</foreach>
+		</if> 
+		
+		<if test="leave_mem!=null"> <!-- 다중값 비교 IN -->
+			AND LEAVE_MEM IN 
+			<foreach collection="leave_mem" item="a" index="i" 
+			open="(" close=")" separator=","> #{a, jdbcType=INTEGER} 
+			</foreach>
+		</if> 
+		
+	</select>
+	
+	<select id="searchMemberListCount" resultType="_int" parameterType="map">
+		SELECT COUNT(*) FROM MEMBER WHERE ${type} LIKE '%'||#{keyword, jdbcType=VARCHAR}||'%'
+	</select>
+
 	<!-- 게시판관련 -->
 	<select id="selectBoardList" resultMap="boardMap">
-		SELECT * FROM BOARD 
+		SELECT * FROM BOARD
 	</select>
 	<select id="selectBoardCount" resultType="_int">
 		SELECT COUNT(*) FROM
@@ -47,17 +79,20 @@
 	</select>
 
 	<select id="selectBeforeExpertList" resultMap="memberMap">
-		SELECT * FROM MEMBER WHERE LEAVE_MEM LIKE 0
+		SELECT * FROM
+		MEMBER WHERE LEAVE_MEM LIKE 0
 	</select>
 	<select id="selectBeforeExpertCount" resultType="_int">
-		SELECT COUNT(*) FROM MEMBER WHERE LEAVE_MEM LIKE 0
+		SELECT COUNT(*)
+		FROM MEMBER WHERE LEAVE_MEM LIKE 0
 	</select>
-	
-	<select id="updateMemberToExpert" parameterType="map" resultMap="memberMap">
-		SELECT * FROM MEMBER WHERE USID=#{usid} 
+
+	<select id="updateMemberToExpert" parameterType="map"
+		resultMap="memberMap">
+		SELECT * FROM MEMBER WHERE USID=#{usid}
 	</select>
-	
-	
+
+
 	<!-- 공지관련 -->
 	<!-- <select id="selectNoticeList" resultMap="noticeMap"> SELECT * FROM 
 		NOTICE </select> <select id="selectNoticeCount" resultType="_int"> SELECT 
