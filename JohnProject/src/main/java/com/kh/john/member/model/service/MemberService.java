@@ -7,4 +7,6 @@ public interface MemberService {
 
 	List<Map<String, Object>> selectMember();
 
+	String sendAuthKey(String email) throws Exception;
+
 }
