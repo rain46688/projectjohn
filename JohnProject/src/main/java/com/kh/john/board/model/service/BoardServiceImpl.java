@@ -5,9 +5,11 @@ import java.util.List;
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.kh.john.board.model.dao.BoardDao;
 import com.kh.john.board.model.vo.Board;
+import com.kh.john.board.model.vo.BoardFile;
 
 @Service
 public class BoardServiceImpl implements BoardService {
@@ -22,5 +24,23 @@ public class BoardServiceImpl implements BoardService {
 	public List<Board> boardList() {
 		// TODO Auto-generated method stub
 		return dao.boardList(session);
+	}
+	
+	@Override
+	@Transactional
+	public int boardInsert(List<BoardFile> files, Board b) {
+		// TODO Auto-generated method stub
+		
+		int result = dao.boardInsert(session, b);
+		
+		if(result > 0) {
+			if(!files.isEmpty()) {
+				for(BoardFile f : files) {
+					dao.boardInsertFiles(session, f);
+				}
+			}
+		}
+		
+		return result;
 	}
 }

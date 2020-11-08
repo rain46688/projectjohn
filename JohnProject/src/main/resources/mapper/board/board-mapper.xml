@@ -6,4 +6,16 @@
 		SELECT * FROM BOARD
 	</select>
 	
+	<insert id="boardInsert" parameterType="board">
+		INSERT INTO BOARD VALUES(
+		SEQ_BOARD_NO.NEXTVAL, 9, '홍잭슨', #{title}, #{content}, SYSDATE, default, #{big_category}, #{small_category}, 0, default, #{agree_name}, #{disagree_name}
+		)
+	</insert>
+	
+	<insert id="boardInsertFile" parameterType="boardFile">
+		INSERT INTO BOARD_FILE VALUES(#{board_file_no}, #{board_file_name})
+		<selectKey keyProperty="board_file_no" resultType="_int" order="BEFORE">
+			SELECT SEQ_BOARD_NO.CURRVAL FROM DUAL
+		</selectKey>
+	</insert>
 </mapper>
