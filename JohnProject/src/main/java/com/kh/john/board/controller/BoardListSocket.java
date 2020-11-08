@@ -1,5 +1,6 @@
 package com.kh.john.board.controller;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,27 +21,36 @@ public class BoardListSocket extends TextWebSocketHandler  {
 	
 	private ObjectMapper mapper = new ObjectMapper();
 	
+	private List<WebSocketSession> sessions = new ArrayList();
+	
 	@Override
 	public void afterConnectionEstablished(WebSocketSession session) throws Exception {
 		// TODO Auto-generated method stub
 		System.out.println(session.getId() + "접속");
-		List<Board> list = service.boardList();
-		session.sendMessage(new TextMessage(mapper.writeValueAsString(list)));
+		sessions.add(session);
 	}
 	
 	@Override
 	protected void handleTextMessage(WebSocketSession session, TextMessage message) throws Exception {
 		// TODO Auto-generated method stub
 		String messageFromClient = message.getPayload();
-		if(messageFromClient.equals("boardList")||messageFromClient.equals("boardInsertSuccess")) {
+		if(messageFromClient.equals("boardList")) {
 			List<Board> list = service.boardList();
 			session.sendMessage(new TextMessage(mapper.writeValueAsString(list)));
+		}
+		if(messageFromClient.equals("boardInsertSuccess")) {
+			List<Board> list = service.boardList();
+			System.out.println("??????");
+			System.out.println(sessions.size());
+			for(WebSocketSession sess : sessions) {
+				sess.sendMessage(new TextMessage(mapper.writeValueAsString(list)));
+			}
 		}
 	}
 	
 	@Override
 	public void afterConnectionClosed(WebSocketSession session, CloseStatus status) throws Exception {
 		// TODO Auto-generated method stub
-		super.afterConnectionClosed(session, status);
+		sessions.remove(session);
 	}
 }

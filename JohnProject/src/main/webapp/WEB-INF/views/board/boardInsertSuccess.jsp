@@ -12,13 +12,10 @@
 	
 	let socket = SockJS("http://localhost:9090${path}/list")
 	
-	socket.onopen = function(e) {
-		socket.send("insertSuccess");
-		
-	}
-	
-	socket.onclose = function(){
+	socket.onopen = function() {
+		socket.send("boardInsertSuccess");
 		location.href = '${path}/board/boardList';
 	}
+	
 </script>
 </html>
