@@ -9,6 +9,7 @@ import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.stereotype.Repository;
 
 import com.kh.john.admin.model.vo.Notice;
+import com.kh.john.admin.model.vo.NoticeFile;
 import com.kh.john.board.model.vo.Board;
 import com.kh.john.member.model.vo.Member;
 
@@ -55,6 +56,17 @@ public class AdminDaoImpl implements AdminDao {
 		return session.selectOne("admin.selectBoardCount");
 	}
 	
+	@Override
+	public List<Board> searchBoardList(SqlSessionTemplate session, Map<String, Object> param, int cPage,
+			int numPerPage) {
+		return session.selectList("admin.searchBoardList",param,new RowBounds((cPage-1)*numPerPage, numPerPage));
+	}
+
+	@Override
+	public int searchBoardListCount(SqlSession session, Map<String, Object> param) {
+		return session.selectOne("admin.searchBoardListCount",param);
+	}
+
 	//전문가관련
 	@Override
 	public List<Member> selectExpertList(SqlSessionTemplate session, int cPage, int numPerPage) {
@@ -83,20 +95,50 @@ public class AdminDaoImpl implements AdminDao {
 		return session.selectOne("admin.updateMemberToExpert",param);
 	}
 
+	@Override
+	public List<Member> searchExpertList(SqlSessionTemplate session, Map<String, Object> param, int cPage,
+			int numPerPage) {
+		return session.selectList("admin.searchExpertList",param,new RowBounds((cPage-1)*numPerPage, numPerPage));
+	}
+
+	@Override
+	public int searchExpertListCount(SqlSession session, Map<String, Object> param) {
+		return session.selectOne("admin.searchExpertListCount",param);
+	}
 
 	
 	
-	
 	//공지관련
-//	@Override
-//	public List<Notice> selectNoticeList(SqlSessionTemplate session, int cPage, int numPerPage) {
-//		return session.selectList("admin.selectNoticeList",null,new RowBounds((cPage-1)*numPerPage,numPerPage));
-//	}
-//
-//	@Override
-//	public int selectNoticeCount(SqlSession session) {
-//		return session.selectOne("admin.selectNoticeCount");
-//	}
+	@Override
+	public List<Notice> selectNoticeList(SqlSessionTemplate session, int cPage, int numPerPage) {
+		return session.selectList("admin.selectNoticeList",null,new RowBounds((cPage-1)*numPerPage,numPerPage));
+	}
+
+	@Override
+	public int selectNoticeCount(SqlSession session) {
+		return session.selectOne("admin.selectNoticeCount");
+	}
+
+	@Override
+	public int insertNotice(SqlSession session, Notice n) {
+		return session.insert("admin.insertNotice",n);
+	}
+
+	@Override
+	public int insertNoticeFile(SqlSession session, NoticeFile file) {
+		return session.insert("admin.insertNoticeFile",file);
+	}
+
+	@Override
+	public Notice selectOneNotice(SqlSessionTemplate session, int notice_id) {
+		return session.selectOne("admin.selectOneNotice",notice_id);
+	}
+
+	@Override
+	public List<NoticeFile> selectNoticeFile(SqlSession session, int notice_id) {
+		return session.selectList("admin.selectNoticeFile",notice_id);
+	}
+	
 	
 	
 	

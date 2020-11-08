@@ -3,6 +3,8 @@ package com.kh.john.admin.model.service;
 import java.util.List;
 import java.util.Map;
 
+import com.kh.john.admin.model.vo.Notice;
+import com.kh.john.admin.model.vo.NoticeFile;
 import com.kh.john.board.model.vo.Board;
 import com.kh.john.member.model.vo.Member;
 
@@ -24,6 +26,10 @@ public interface AdminService {
 	
 	int selectBoardCount();
 	
+	List<Board> searchBoardList(Map<String,Object> param, int cPage, int numPerPage);
+	
+	int searchBoardListCount(Map<String,Object> param);
+	
 	//전문가관련
 	List<Member> selectExpertList(int cPage, int numPerPage);
 	
@@ -35,12 +41,20 @@ public interface AdminService {
 	
 	Member updateMemberToExpert(Map param);
 	
+	List<Member> searchExpertList(Map<String,Object> param, int cPage, int numPerPage);
 	
+	int searchExpertListCount(Map<String,Object> param);
 	
 	//공지관련
-//	List<Notice> selectNoticeList(int cPage, int numPerPage);
-//	
-//	int selectNoticeCount();
+	List<Notice> selectNoticeList(int cPage, int numPerPage);
+	
+	int selectNoticeCount();
+	
+	int insertNotice(Notice n, List<NoticeFile> files);
+	
+	Notice selectOneNotice(int notice_id);
+	
+	List<NoticeFile> selectNoticeFile(int notice_id);
 	
 	
 	
