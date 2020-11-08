@@ -72,6 +72,12 @@ public class BoardController {
 		}
 		int result = service.boardInsert(files, b);
 		
+		if(result>0) {
+			mv.setViewName("/board/boardInsertSuccess");
+		}else {
+			mv.addObject("msg", "글 등록에 실패했습니다");
+			mv.addObject("loc", "/board/boardList");
+		}
 		
 		return mv;
 	}
