@@ -70,31 +70,42 @@
 
 </style>
 <div id="content">
-                    <!-- 내용 -->
   <div id="wrapper">
 	<div id="title"><h4>글쓰기</h4></div>
 	<hr color="black">
 	<div id="editor">
-		<form id="frm" action="${path }/board/boardWriteEnd" method="POST"
+		<form id="frm" action="${path }/board/boardInsertEnd" method="POST"
 			enctype="multipart/form-data">
-			<select class="custom-select custom-select-sm" name="category" id="category">
-				<option value="" >게시판을 선택하세요</option>
-				<option value="식품">식품</option>
-				<option value="패션잡화">패션잡화</option>
-				<option value="취미-문구">취미-문구</option>
-				<option value="티켓">티켓</option>
-				<option value="애완용품">애완용품</option>
+			<div class="input-group marginTop">
+			<select class="custom-select custom-select-sm" name="big_category" id="category">
+				<option value="" >게시글 타입을 선택하세요</option>
+				<option value="일반게시판">일반게시판</option>
+				<option value="음성게시판">음성게시판</option>
 			</select>
-			<input type="hidden" name="writerNickname" value="" >
-			<input type="hidden" name="writerUsid" value="" >
-			<input type="hidden" name="tradeArea" value="" >
+			<select class="custom-select custom-select-sm" name="small_category" id="category">
+				<option value="" >큰 카테고리를 선택하세요</option>
+				<option value="연애상담">연애상담</option>
+				<option value="가족문제">가족문제</option>
+				<option value="회사문제">회사문제</option>
+				<option value="친구문제">친구문제</option>
+				<option value="반려견문제">반려견문제</option>
+			</select>
+			</div>
+			<select class="custom-select custom-select-sm marginTop" name="" id="category">
+				<option value="" >게시판을 선택하세요 (수정예정)</option>
+				<option value="1">1</option>
+				<option value="2">2</option>
+				<option value="3">3</option>
+				<option value="4">4</option>
+				<option value="5">5</option>
+			</select>
 			<div class="input-group marginTop">
 			<input class="form-control" type="text" name="title" id="titleInput" placeholder="제목을 입력하세요">
 			</div>
 			<div class="input-group marginTop">	
-			<input class="form-control" type="text" name="price" id="price" placeholder="가격">
+			<!-- <input class="form-control" type="text" name="price" id="price" placeholder="가격">
 			<select class="custom-select custom-select-md" name="maxMems" id="maxMems">
-				<option value="" selected>n빵 인원</option>
+				<option value="" selected>희망 참여 인원</option>
 				<option value="2">2</option>
 				<option value="3">3</option>
 				<option value="4">4</option>
@@ -109,31 +120,21 @@
 				<option value="13">13</option>
 				<option value="14">14</option>
 				<option value="15">15</option>
-			</select>
-			<select class="custom-select custom-select-md" name="tradeMethod" id="tradeMethod">
-				<option value="">거래방식</option>
-				<option value="직거래">직거래</option>
-				<option value="택배배송">택배배송</option>
-			</select>
-			<select class="custom-select custom-select-md" name="ownStatus" id="ownStatus">
-				<option value="구매예정">구매예정</option>
-				<option value="제품소유중">개인보유</option>
-			</select>
+			</select> -->
 			</div>
 			<div id="textEditor" class="marginTop">
-				<textarea name="content" id="content" rows="20" cols="80" placeholder="내용을 입력해주세요.">
-
-				</textarea>
+				<textarea name="content" id="content" rows="20" cols="80" placeholder=" 내용을 입력해주세요."></textarea>
 			</div>
 			<div id="imageUpload" class="marginTop">
 				<label id="uploadBtn" class="btn btn-lg btn-outline-secondary" for="file"><p>이미지</p>업로드</label>
-				<input style="display: none;" type="file" name="file" id="file" multiple="true">
+				<input style="display: none;" type="file" name="upFiles" id="file" multiple="true">
 				<div id="image-prev">
 					<!-- 이미지 미리보기 -->
 				</div>
 			</div>
-			<div id="urlInsert" class="input-group marginTop">
-				<input type="text" class="form-control" name="url" id="url" placeholder="제품 URL">
+			<div class="input-group marginTop">	
+			<input class="form-control" type="text" name="agree_name" id="agree_name" placeholder="찬성 이름">
+			<input class="form-control" type="text" name="disagree_name" id="disagree_name" placeholder="반대 이름">
 			</div>
 			<div id="submitBtn">
 				<button class="marginTop btn btn-outline-secondary" type="button" onclick="fn_submit();">글 등록</button>
@@ -141,9 +142,14 @@
 			</form>
 		</div>
 	</div>
-            </div>
-        </div>
-    </div>
+ </div>
 </div>
+</div>
+</div>
+<script>
+	function fn_submit(){
+		document.getElementById('frm').submit();
+	}
+</script>
 </body>
 </html>

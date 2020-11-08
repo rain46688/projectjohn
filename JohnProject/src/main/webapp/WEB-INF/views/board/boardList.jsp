@@ -12,17 +12,14 @@
 	let message = '';
 	socket.onopen = function(e){
 		console.log("접속");
-		socket.send('메세지를 보냄');
+		socket.send('boardList');
 	}
 	
     socket.onmessage = function(e){
         message = e.data;
         console.log(JSON.parse(message));
     }
-    
-    
 
-    document.getElementById('content').innerHTML = message;
 </script>
 </body>
 </html>

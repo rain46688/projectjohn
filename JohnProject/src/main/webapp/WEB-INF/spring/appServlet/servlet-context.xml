@@ -25,8 +25,8 @@
 	
 	<context:component-scan base-package="com.kh.john" />
 	
+	<!-- 게시판 리스트용 웹소켓 핸들러 등록 -->
 	<beans:bean id="boardList" class="com.kh.john.board.controller.BoardListSocket"></beans:bean>
-
 	
 	<websocket:handlers>
 		<websocket:mapping handler="boardList" path="/list"/>	
@@ -41,5 +41,13 @@
 	</websocket:handlers>
 	
 	<beans:bean id="expertHandler" class="com.kh.john.exboard.socket.ExpertHandler"></beans:bean>
+	
+	<!-- 게시판 업로드용 멀티파트 리졸버 등록 -->
+	<beans:bean id="multipartResolver" class="org.springframework.web.multipart.commons.CommonsMultipartResolver">
+		<!-- 업로드 최대 크기 -->
+		<beans:property name="maxUploadSize" value="52428800"/>
+		<!-- 인코딩 디폴트 -->
+		<beans:property name="defaultEncoding" value="utf-8"/>
+	</beans:bean>
 	
 </beans:beans>
