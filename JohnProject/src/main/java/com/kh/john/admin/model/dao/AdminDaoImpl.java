@@ -30,7 +30,20 @@ public class AdminDaoImpl implements AdminDao {
 	public int deleteMember(SqlSessionTemplate session, Member m) {
 		return session.delete("admin.deleteMember",m);
 	}
+	
+	@Override
+	public List<Member> searchMemberList(SqlSessionTemplate session, Map<String,Object> param, int cPage,
+			int numPerPage) {
+		return session.selectList("admin.searchMemberList",param,new RowBounds((cPage-1)*numPerPage, numPerPage));
+	}
 
+	@Override
+	public int searchMemberListCount(SqlSession session, Map<String,Object> param) {
+		return session.selectOne("admin.searchMemberListCount",param);
+	}
+
+
+	
 	//게시판관련
 	@Override
 	public List<Board> selectBoardList(SqlSessionTemplate session, int cPage, int numPerPage) {
@@ -69,6 +82,8 @@ public class AdminDaoImpl implements AdminDao {
 	public Member updateMemberToExpert(SqlSessionTemplate session, Map param) {
 		return session.selectOne("admin.updateMemberToExpert",param);
 	}
+
+
 	
 	
 	
