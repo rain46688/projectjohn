@@ -21,6 +21,7 @@ EXPERT 테스트 페이지
 
 	<label class="input-group-text" >닉네임 </label><input type="input" name="nick" class="form-control short" /><br>
 	<!-- <label class="input-group-text" >방 번호 </label><input type="input" name="num" class="form-control short" /><br> -->
+	임시 로그인 : 
 	<button class="btn btn-outline-success" onclick="expertChat('e');">전문가 로그인</button>
 	<button class="btn btn-outline-success" onclick="expertChat('m');">유저 로그인</button>
 	<br>

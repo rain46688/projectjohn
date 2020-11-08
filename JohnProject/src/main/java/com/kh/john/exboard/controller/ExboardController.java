@@ -42,6 +42,7 @@ public class ExboardController {
 		}
 		session.setAttribute("loginnedMember", sv);
 		ModelAndView mv = new ModelAndView("/exboard/expertList");
+		mv.addObject("list", service.selectExpert());
 		return mv;
 	}
 
