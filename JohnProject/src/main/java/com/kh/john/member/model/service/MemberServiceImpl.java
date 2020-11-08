@@ -74,4 +74,9 @@ public class MemberServiceImpl implements MemberService {
 		return dao.selectMember(session, member);
 	}
 
+	@Override
+	public Member selectMemberById(Map param) {
+		return dao.selectMemberById(session, param);
+	}
+
 }

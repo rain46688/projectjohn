@@ -6,7 +6,7 @@
 	SELECT * FROM MEMBER
 </select> 
 
-<select id="selectMemberById" resultType="member" parameterType="string">
+<select id="selectMemberById" resultType="member" parameterType="map">
 	SELECT * FROM MEMBER WHERE MEM_EMAIL=#{mem_email}
 </select>
 
@@ -26,4 +26,5 @@
 <select id="memberTest" parameterType="member" resultType="member">
 	SELECT * FROM MEMBER WHERE MEM_EMAIL=#{mem_email}
 </select>
+
 </mapper>

@@ -18,6 +18,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.fasterxml.jackson.core.JsonGenerationException;
@@ -31,6 +32,7 @@ import lombok.extern.slf4j.Slf4j;
 
 @Controller
 @Slf4j
+@SessionAttributes("loginMember")
 public class MemberController {
 
 	@Autowired
@@ -58,11 +60,27 @@ public class MemberController {
 	}
 	
 //	로그인 로직
-	@RequestMapping("/member/memberLoginEnd")
-	public ModelAndView loginPage(ModelAndView mv) {
-		
-		mv.setViewName("/board/boardList");
-		
+	@RequestMapping(value="/member/memberLoginEnd", method = RequestMethod.POST)
+	public ModelAndView loginPage(@RequestParam Map param, ModelAndView mv) {
+		Member loginMember=service.selectMemberById(param);
+		String msg="";
+		String loc="";
+		if(loginMember!=null) {
+			if(param.get("mem_pwd")==loginMember.getMem_pwd()) {
+//			if(encoder.matches((String)param.get("password"), loginMember.getMem_pwd())) {
+				loc="/board/boardList";
+				mv.addObject("loginMember",loginMember);
+			}else {
+				msg="아이디나 비밀번호를 확인해주세요.";
+				loc="/member/memberLogin";
+			}
+		}else {
+			msg="아이디나 비밀번호를 확인해주세요.";
+			loc="/member/memberLogin";
+		}
+		mv.addObject("msg",msg);
+		mv.addObject("loc",loc);
+		mv.setViewName("common/msg");
 		return mv;
 	}
 	

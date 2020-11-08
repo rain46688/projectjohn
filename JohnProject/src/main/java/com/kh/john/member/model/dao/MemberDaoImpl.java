@@ -43,5 +43,10 @@ public class MemberDaoImpl implements MemberDao {
 		// TODO Auto-generated method stub
 		return session.selectOne("member.selectMemberById");
 	}
-	
+
+	@Override
+	public Member selectMemberById(SqlSessionTemplate session, Map param) {
+		return session.selectOne("member.selectMemberById");
+	}
+
 }

@@ -21,4 +21,6 @@ public interface MemberDao {
 
 	Member selectMember(SqlSessionTemplate session, Member member);
 
+	Member selectMemberById(SqlSessionTemplate session, Map param);
+
 }
