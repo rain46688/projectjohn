@@ -11,11 +11,34 @@
 	
 </jsp:include>
 	
-	<section id="content">
+<section id="content" >
+		           
+		        <%-- <table id="tbl-board" class="table table-striped table-hover">
+		            <tr>
+		                <th>번호</th>
+		                <th>제목</th>
+		                <th>닉네임</th>
+		                <th>날짜</th>
+		                
+		            </tr>
+		            <c:forEach items="${list }" var="n">
+		           <tr>
+            		<td><c:out value="${n.notice_id }"/></td> 
+            		<td><c:out value="${n.notice_admin_nickname }"/></td> 
+            		<td><c:out value="${n.notice_title }"/></td> 
+            		<td><c:out value="${n.notice_enrolldate }"/></td> 
+            		
+            	</tr>
+		            </c:forEach>
+		        </table> 
+		        
 	
-	
-	
-	</section>
+		        
+		       <div id="pageBar">
+		        ${pageBar } 
+		       </div> --%>
+		      
+		      </section>
 	
 <jsp:include page="/WEB-INF/views/common/footer.jsp"/>
 	

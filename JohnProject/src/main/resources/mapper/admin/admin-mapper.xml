@@ -2,25 +2,100 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="admin">
 
-<resultMap type="com.kh.john.member.model.vo.Member" id="memberMap">
-</resultMap>
+	<resultMap type="com.kh.john.member.model.vo.Member"
+		id="memberMap">
+	</resultMap>
+	<resultMap type="com.kh.john.board.model.vo.Board"
+		id="boardMap">
+	</resultMap>
+	<resultMap type="com.kh.john.admin.model.vo.Notice"
+		id="NoticeMap">
+	</resultMap>
 
-<resultMap type="com.kh.john.board.model.vo.Board" id="boardMap">
-</resultMap>
+	<!-- 멤버관련 -->
+	<select id="selectMemberList" resultMap="memberMap">
+		SELECT * FROM MEMBER
+		WHERE MEM_CLASS LIKE ('일반유저') AND LEAVE_MEM LIKE 0
+	</select>
+	<select id="selectMemberCount" resultType="_int">
+		SELECT COUNT(*) FROM
+		MEMBER WHERE MEM_CLASS LIKE ('일반유저') AND LEAVE_MEM LIKE 0
+	</select>
 
-<select id="selectMemberList" resultMap="memberMap"><!-- 향후 수정 에정 -->
-	SELECT * FROM MEMBER 
-</select>
+	<insert id="deleteMember"
+		parameterType="com.kh.john.member.model.vo.Member">
+		UPDATE MEMBER SET LEAVE_MEM=1
+		WHERE USID=#{usid}
+	</insert>
 
-<select id="selectMemberCount" resultType="_int">select count(*) from member</select>
+	<select id="searchMemberList" parameterType="map" resultType="member">
+			SELECT * FROM MEMBER WHERE 1=1 
+	 			<if test="type !=null and keyword !=null">
+	 				AND ${type} LIKE '%'||#{keyword, jdbcType=VARCHAR}||'%'
+	 			</if>	 
+	 			
+	 			<if test="gender !=null">
+	 				AND GENDER = #{gender, jdbcType=VARCHAR}
+	 			</if>  
+
+		<!-- 다중값 넣기 -->
+		<if test="mem_class!=null"> <!-- 다중값 비교 IN -->
+			AND MEM_CLASS IN 
+			<foreach collection="mem_class" item="v" index="i" 
+			open="(" close=")" separator=","> #{v, jdbcType=VARCHAR} 
+			</foreach>
+		</if> 
+		
+		<if test="leave_mem!=null"> <!-- 다중값 비교 IN -->
+			AND LEAVE_MEM IN 
+			<foreach collection="leave_mem" item="a" index="i" 
+			open="(" close=")" separator=","> #{a, jdbcType=INTEGER} 
+			</foreach>
+		</if> 
+		
+	</select>
+	
+	<select id="searchMemberListCount" resultType="_int" parameterType="map">
+		SELECT COUNT(*) FROM MEMBER WHERE ${type} LIKE '%'||#{keyword, jdbcType=VARCHAR}||'%'
+	</select>
+
+	<!-- 게시판관련 -->
+	<select id="selectBoardList" resultMap="boardMap">
+		SELECT * FROM BOARD
+	</select>
+	<select id="selectBoardCount" resultType="_int">
+		SELECT COUNT(*) FROM
+		BOARD
+	</select>
+
+	<!-- 전문가관련 -->
+	<select id="selectExpertList" resultMap="memberMap">
+		SELECT * FROM MEMBER
+		WHERE MEM_CLASS LIKE ('전문가') AND LEAVE_MEM LIKE 0
+	</select>
+	<select id="selectExpertCount" resultType="_int">
+		SELECT COUNT(*) FROM
+		MEMBER WHERE MEM_CLASS LIKE ('전문가') AND LEAVE_MEM LIKE 0
+	</select>
+
+	<select id="selectBeforeExpertList" resultMap="memberMap">
+		SELECT * FROM
+		MEMBER WHERE LEAVE_MEM LIKE 0
+	</select>
+	<select id="selectBeforeExpertCount" resultType="_int">
+		SELECT COUNT(*)
+		FROM MEMBER WHERE LEAVE_MEM LIKE 0
+	</select>
+
+	<select id="updateMemberToExpert" parameterType="map"
+		resultMap="memberMap">
+		SELECT * FROM MEMBER WHERE USID=#{usid}
+	</select>
 
 
-<select id="selectBoardList" resultMap="boardMap">
-	SELECT * FROM BOARD
-</select>
-
-<select id="selectBoardCount" resultType="_int">select count(*) from board</select>
-
-
+	<!-- 공지관련 -->
+	<!-- <select id="selectNoticeList" resultMap="noticeMap"> SELECT * FROM 
+		NOTICE </select> <select id="selectNoticeCount" resultType="_int"> SELECT 
+		COUNT(*) FROM NOTICE </select> -->
 
 </mapper>
