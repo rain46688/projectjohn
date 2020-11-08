@@ -11,12 +11,12 @@
 <title>재판하는존경장님</title>
 <!-- Latest compiled and minified CSS -->
 <!-- <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
-jQuery library
+    Popper JS
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+    Latest compiled JavaScript
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script> -->
+<!--jQuery library-->
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-Popper JS
-<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
-Latest compiled JavaScript
-<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script> -->
 <!-- 파비콘 -->
 <link rel="icon" type="image/png" href="${path }/resources/images/favicon.ico">
 </head>
@@ -85,21 +85,21 @@ Latest compiled JavaScript
                 <!--폼 오른쪽 로그인폼-->
                 <div id="form_right">
                     
-                    <form>
-                    <div class="input_container">
-                        <!-- <i class="fas fa-envelope"></i> -->
-                        <input placeholder="Email" type="email" name="Email" id="" class="input_field">
-                    </div>
-                    <div class="input_container">
-                        <!-- <i class="fas fa-lock"></i> -->
-                        <input  placeholder="Password" type="password" name="Password" id="" class="input_field">
-                    </div>
+                    <form id="loginForm" action="${path}/member/memberLoginEnd" method="POST">
+                        <div class="input_container">
+                            <!-- <i class="fas fa-envelope"></i> -->
+                            <input placeholder="Email" type="email" name="mem_email" id="" class="input_field">
+                        </div>
+                        <div class="input_container">
+                            <!-- <i class="fas fa-lock"></i> -->
+                            <input  placeholder="Password" type="password" name="mem_pwd" id="" class="input_field">
+                        </div>
 
-                    <input type="submit" value="Login" id="input_submit" class="input_field" onclick="login()">
+                        <button type="button" id="input_submit" class="input_field" onclick="fn_login()">Login</button>
                     </form>
 
 					<!-- 임시입장 나중에 수정하셈  -->
-					<button onclick="location.href='${path}/member/memberLoginEnd'">임시입장임시입장</button>
+					<button onclick="location.href='${path}/board/boardList'">임시입장임시입장</button>
 
                     <span id="find_password">까먹었다 <a href="#"> 비밀번호</a></span>
 
@@ -116,5 +116,10 @@ Latest compiled JavaScript
  
     
         </div>
+        <script>
+            function fn_login(){
+                $("#loginForm").submit();
+            }
+        </script>
 </body>
 </html>

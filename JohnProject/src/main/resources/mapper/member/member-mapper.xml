@@ -6,4 +6,25 @@
 	SELECT * FROM MEMBER
 </select> 
 
+<select id="selectMemberById" resultType="member" parameterType="map">
+	SELECT * FROM MEMBER WHERE MEM_EMAIL=#{mem_email}
+</select>
+
+<select id="selectMemberByNick" resultType="map" parameterType="string">
+	SELECT * FROM MEMBER WHERE MEM_NICKNAME=#{nick}
+</select>
+
+<select id="selectMemberByPhone" resultType="map" parameterType="string">
+	SELECT * FROM MEMBER WHERE TEL=#{phone}
+</select>
+
+<insert id="signUpEnd" parameterType="member">
+	INSERT INTO MEMBER VALUES(SEQ_MEMBER_NO.NEXTVAL, #{userId}, #{password}, #{name}, #{nick}, #{gender}, 
+		#{birthday}, DEFAULT, DEFAULT, DEFAULT, DEFAULT, "일반유저", DEFAULT, DEFAULT, DEFAULT, DEFAULT, DEFAULT, #{phone}, DEFAULT, DEFAULT)
+</insert>
+
+<select id="memberTest" parameterType="member" resultType="member">
+	SELECT * FROM MEMBER WHERE MEM_EMAIL=#{mem_email}
+</select>
+
 </mapper>
