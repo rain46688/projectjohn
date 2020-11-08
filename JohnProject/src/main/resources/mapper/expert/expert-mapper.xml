@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="expert">
+
+<select id="selectExpert" resultType="member">
+	SELECT * FROM MEMBER WHERE MEM_CLASS LIKE '전문가' 
+</select> 
+
+<!-- SELECT * FROM MEMBER WHERE MEM_CLASS LIKE '전문가' -->
+
+</mapper>
