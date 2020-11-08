@@ -11,11 +11,14 @@ public interface MemberDao {
 
 	List<Map<String, Object>> selectMember(SqlSessionTemplate session);
 
-	Member selectMember(SqlSessionTemplate session, String id);
+//	Member selectMember(SqlSessionTemplate session, String id);
 
 	Member nickDuplicate(SqlSessionTemplate session, String nick);
 
-//	Member phoneDuplicate(SqlSessionTemplate session, String phone);
+	Member phoneDuplicate(SqlSessionTemplate session, String phone);
 	
 	int signUpEnd(SqlSessionTemplate session, Member member);
+
+	Member selectMember(SqlSessionTemplate session, Member member);
+
 }

@@ -49,26 +49,29 @@ public class MemberServiceImpl implements MemberService {
 		return authKey;
 	}
 
-	@Override
-	public Member selectMember(String id) {
-		return dao.selectMember(session, id);
-	}
+//	@Override
+//	public Member selectMember(String id) {
+//		return dao.selectMember(session, id);
+//	}
 
 	@Override
 	public Member nickDuplicate(String nick) {
 		return dao.nickDuplicate(session, nick);
 	}
 
-//	@Override
-//	public Member phoneDuplicate(String phone) {
-//		return dao.phoneDuplicate(session, phone);
-//	}
+	@Override
+	public Member phoneDuplicate(String phone) {
+		return dao.phoneDuplicate(session, phone);
+	}
 	
 	@Override
 	public int signUpEnd(Member member) {
 		return dao.signUpEnd(session, member);
 	}
-	
-	
+
+	@Override
+	public Member selectMember(Member member) {
+		return dao.selectMember(session, member);
+	}
 
 }

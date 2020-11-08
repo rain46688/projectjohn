@@ -115,8 +115,8 @@
 	<div id="signUpBox" style="padding-top: 50px;">
 		<div id="signUpField">
 			<h2 style="margin-bottom: 50px;">회원가입</h2>
-			<form id="memberEnrollFrm" name="memberEnrollFrm" action="${path}/signUpEnd" method="post">
-				<input type="email" id="id" name="userId" class="input" placeholder="이메일" required style="width: 59%;">
+			<form id="memberEnrollFrm" name="memberEnrollFrm" action="${path}/member/signUpEnd" method="post">
+				<input type="email" id="id" name="mem_email" class="input" placeholder="이메일" required style="width: 59%;">
 				<input type="button" class="button" id="certibtn" value="인증번호 전송" style="text-align: center;"><br>
 				<div class="constrain" id="idConstrain"></div>
 				<div class="constrain" id="idDuplicateAjax"></div>
@@ -184,12 +184,6 @@
 				<button class="bottombtns" type="button" style="width:40%; margin-top: 30px;" onclick="fn_enroll();">가입</button>
 				<button class="bottombtns" type="reset" style="width:40%; margin-top: 30px;">취소</button>
 			</form>
-			<form action="" name="checkNNDuplicate">
-				<input type="hidden" name="nick">
-			</form>
-			<form action="" name="checkPNDuplicate">
-				<input type="hidden" name="phone">
-			</form>
 		</div>
 	</div>
 
@@ -220,10 +214,11 @@
 		$("#id").keyup(e=>{
 			$.ajax({
 				url:"${path}/member/emailDuplicate",
-				data:{"userId":$(e.target).val()},
+				data:{"mem_email":$("#id").val().trim()},
 				type:"post",
 				dataType:"html",
-				success:function(data){
+				success: function(data){
+					console.log(data);
 					$("#idDuplicateAjax").html(data);
 					$("#idDuplicateAjax").css({"display":"block"});
 				}
@@ -252,7 +247,7 @@
 		});
 
 		$("#certiNum").keyup(e=>{
-			if($("#certiKey").val().trim()==$("#certiNum").val().trim()){
+			if($("#certiResult").val().trim()==$("#certiNum").val().trim()){
 				$("#certiDuplicate").html("인증번호가 일치합니다.");
 				$("#certiDuplicate").css({"display":"block"});
 				$("#certiDuplicate").css({"color":"green"});
@@ -266,6 +261,7 @@
 		$("#id").keyup(e=>{
 			$("#certiNum").val('');
 			$("#certiDuplicate").html('');
+			$("#certiResult").html('');
 		});
 
 		// pw제약조건
@@ -569,17 +565,11 @@
 				$("#pnConstrain").html("필수 입력 항목입니다.");
 				$("#pnConstrain").css({"display":"block"});
 			}
-			//주소
-			const address=$("#sample4_detailAddress").val().trim();
-			if(address===""){
-				$("#adConstrain").html("상세주소를 입력해주세요.");
-				$("#adConstrain").css({"display":"block"});
-			}
 			//중복확인을 했나요
 			if($("#checkIdhidden").val()=='existed'){
 				alert('아이디 중복 확인을 해주세요.');
 			}
-			if($("#certiKey").val().trim()!=$("#certiNum").val().trim()){
+			if($("#certiResult").val().trim()!=$("#certiNum").val().trim()){
 				alert('이메일 인증을 확인해주세요.');
 			}
 			if($("#checkNNhidden").val()=='existed'){
@@ -594,9 +584,9 @@
 			}
 			//제약조건을 만족했나요
 			if(id!=="" && (pw!==""&&pwPattern.test(pw)) && (pw2!==""&&pw===pw2) && (nn!==""&&nnPattern.test(nn)) && (name!==""&&namePattern.test(name)) && (gender.length=1||gender.length>1)
-				&& (yy!=="" && yyPattern.test(yy)) && mm!=="" && mm!=="월" && (dd!==""&&ddPattern.test(dd)) && (phone!==""&&pnPattern.test(phone)) && address!==""
+				&& (yy!=="" && yyPattern.test(yy)) && mm!=="" && mm!=="월" && (dd!==""&&ddPattern.test(dd)) && (phone!==""&&pnPattern.test(phone))
 				&& $("#checkIdhidden").val()!='existed' && $("#checkNNhidden").val()!='existed' && $("#checkPNhidden").val()!='existed' && $("input[name='checked_ad']").val()!=''
-				&& $("#certiKey").val().trim()==$("#certiNum").val().trim()){
+				&& $("#certiResult").val().trim()==$("#certiNum").val().trim()){
 				$("#memberEnrollFrm").submit();
 			}else{
 				alert("필수 입력 항목을 확인해주세요.");

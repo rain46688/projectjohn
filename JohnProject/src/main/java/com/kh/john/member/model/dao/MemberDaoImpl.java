@@ -17,25 +17,31 @@ public class MemberDaoImpl implements MemberDao {
 		return session.selectList("member.selectMember");
 	}
 
-	@Override
-	public Member selectMember(SqlSessionTemplate session, String id) {
-		return session.selectOne("member.selectMemberById");
-	}
+//	@Override
+//	public Member selectMember(SqlSessionTemplate session, String id) {
+//		return session.selectOne("member.selectMemberById");
+//	}
 
 	@Override
 	public Member nickDuplicate(SqlSessionTemplate session, String nick) {
 		return session.selectOne("member.selectMemberByNick");
 	}
 
-//	@Override
-//	public Member phoneDuplicate(SqlSessionTemplate session, String phone) {
-//		return session.selectOne("member.selectMemberByPhone");
-//	}
+	@Override
+	public Member phoneDuplicate(SqlSessionTemplate session, String phone) {
+		return session.selectOne("member.selectMemberByPhone");
+	}
 	
 	@Override
 	public int signUpEnd(SqlSessionTemplate session, Member member) {
 		// TODO Auto-generated method stub
 		return session.insert("member.signUpEnd");
-	}	
+	}
+
+	@Override
+	public Member selectMember(SqlSessionTemplate session, Member member) {
+		// TODO Auto-generated method stub
+		return session.selectOne("member.selectMemberById");
+	}
 	
 }

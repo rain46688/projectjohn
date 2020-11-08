@@ -13,14 +13,18 @@ public interface MemberService {
 	String sendAuthKey(String email) throws Exception;
 
 	//아이디로 멤버 찾기
-	Member selectMember(String id);
+//	Member selectMember(String id);
+	
 
 	//닉네임으로 멤버 찾기
 	Member nickDuplicate(String nick);
 
-	//폰번 중복 검사
-//	Member phoneDuplicate(String phone);
+//	폰번 중복 검사
+	Member phoneDuplicate(String phone);
 
 	//회원가입
 	int signUpEnd(Member member);
+
+	Member selectMember(Member member);
+
 }

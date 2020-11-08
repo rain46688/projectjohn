@@ -1,5 +1,6 @@
 package com.kh.john.member.controller;
 
+import java.io.IOException;
 import java.io.UnsupportedEncodingException;
 import java.security.GeneralSecurityException;
 import java.security.NoSuchAlgorithmException;
@@ -16,8 +17,13 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.fasterxml.jackson.core.JsonGenerationException;
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.JsonMappingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.kh.john.member.model.service.MemberService;
 import com.kh.john.member.model.vo.Member;
 
@@ -78,11 +84,14 @@ public class MemberController {
 
 //	이메일 중복 확인
 	@RequestMapping(value= "/member/emailDuplicate", method = RequestMethod.POST)
-	public ModelAndView emailDuplicate(@RequestParam("userId") String idStr, ModelAndView mv) throws NoSuchAlgorithmException, UnsupportedEncodingException, GeneralSecurityException {
+	public ModelAndView emailDuplicate(@RequestParam(value="mem_email",required=false) String mem_email, Member member, ModelAndView mv) throws NoSuchAlgorithmException, UnsupportedEncodingException, GeneralSecurityException {
 		//암호화
-		String id=aes.encrypt(idStr);
-		Member m=service.selectMember(id);
-		mv.addObject("member",m);
+		String id=aes.encrypt(mem_email);
+		System.out.println(mem_email);
+		System.out.println(id);
+		member.setMem_email(id);
+		member=service.selectMember(member);
+		mv.addObject("member",member);
 		mv.setViewName("member/emailDuplicate");
 		return mv;
 	}
@@ -97,30 +106,30 @@ public class MemberController {
 	}
 	
 //	핸드폰 중복 확인
-//	@RequestMapping(value="/member/PNDuplicate", method = RequestMethod.POST)
-//	public ModelAndView phoneDuplicate(@RequestParam("phone") String phoneStr, ModelAndView mv) throws NoSuchAlgorithmException, UnsupportedEncodingException, GeneralSecurityException {
-//		String phone=aes.encrypt(phoneStr);
-//		Member m=service.phoneDuplicate(phone);
-//		mv.addObject("member",m);
-//		mv.setViewName("member/phoneDulicate");
-//		return mv;
-//	}
+	@RequestMapping(value="/member/PNDuplicate", method = RequestMethod.POST)
+	public ModelAndView phoneDuplicate(@RequestParam("phone") String phoneStr, ModelAndView mv) throws NoSuchAlgorithmException, UnsupportedEncodingException, GeneralSecurityException {
+		String phone=aes.encrypt(phoneStr);
+		Member m=service.phoneDuplicate(phone);
+		mv.addObject("member",m);
+		mv.setViewName("member/phoneDulicate");
+		return mv;
+	}
 	
 //	회원가입 로직
 	@RequestMapping(value="/member/signUpEnd", method = RequestMethod.POST)
 	public String signUpEnd(@RequestParam Map param, Member member, Model m) throws NoSuchAlgorithmException, UnsupportedEncodingException, GeneralSecurityException {
 		//암호화(id,폰)
-		String encodeId=aes.encrypt(member.getMem_email());
-//		String encodePhone=aes.encrypt(member.get)
+		String encodeId=aes.encrypt(param.get("userId").toString());
+		member.setMem_email(encodeId);
+		String encodePhone=aes.encrypt(param.get("phone").toString());
+		member.setTel(encodePhone);
 		//암호화(pw)
-		String encodePw=encoder.encode(member.getMem_pwd());
+		String encodePw=encoder.encode(param.get("password").toString());
+		member.setMem_pwd(encodePw);
 		//생일 합치기
 		String birthdayStr=param.get("year")+"-"+param.get("month")+"-"+param.get("date");
 		Date birthday=Date.valueOf(birthdayStr);
 		member.setBirthday(birthday);
-		
-		member.setMem_email(encodeId);
-		member.setMem_pwd(encodePw);
 		
 		int result=service.signUpEnd(member);
 	
