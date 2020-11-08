@@ -1,9 +1,16 @@
 package com.kh.john.member.controller;
 
+import java.io.UnsupportedEncodingException;
+import java.security.GeneralSecurityException;
+import java.security.NoSuchAlgorithmException;
+import java.sql.Date;
+import java.util.Map;
+
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -23,6 +30,13 @@ public class MemberController {
 	@Autowired
 	private MemberService service;
 	
+	@Autowired
+	private AES256Util aes;
+	
+	@Autowired
+	private BCryptPasswordEncoder encoder;
+	
+//	메인 페이지로 가기
 	@RequestMapping("/")
 	public ModelAndView mainPage() {
 		log.debug("mainPage 실행");
@@ -31,11 +45,13 @@ public class MemberController {
 		return mv;
 	}
 	
+//	로그인 페이지로 가기
 	@RequestMapping("/member/memberLogin")
 	public String enterPage() {
 		return "/member/memberLogin";
 	}
 	
+//	로그인 로직
 	@RequestMapping("/member/memberLoginEnd")
 	public ModelAndView loginPage(ModelAndView mv) {
 		
@@ -44,19 +60,83 @@ public class MemberController {
 		return mv;
 	}
 	
+//	회원가입 페이지로 가기
 	@RequestMapping("/member/signUp")
 	public ModelAndView signUpPage(ModelAndView mv) {
 		mv.setViewName("/member/signUp");
 		return mv;
 	}
 	
+//	이메일 인증
 	@RequestMapping(value= "/member/certiEmail", method = RequestMethod.POST)
-	public ModelAndView certiEmail(HttpServletRequest request, ModelAndView mv) throws Exception {
-		String email=request.getParameter("email");
+	public ModelAndView certiEmail(@RequestParam("email") String email, ModelAndView mv) throws Exception {
 		String authKey=service.sendAuthKey(email);
         mv.addObject("authKey",authKey);
         mv.setViewName("member/certiResult");
 		return mv;
 	}
 
+//	이메일 중복 확인
+	@RequestMapping(value= "/member/emailDuplicate", method = RequestMethod.POST)
+	public ModelAndView emailDuplicate(@RequestParam("userId") String idStr, ModelAndView mv) throws NoSuchAlgorithmException, UnsupportedEncodingException, GeneralSecurityException {
+		//암호화
+		String id=aes.encrypt(idStr);
+		Member m=service.selectMember(id);
+		mv.addObject("member",m);
+		mv.setViewName("member/emailDuplicate");
+		return mv;
+	}
+	
+//	닉네임 중복 확인
+	@RequestMapping(value="/member/NNDuplicate", method = RequestMethod.POST)
+	public ModelAndView nickDuplicate(@RequestParam("nick") String nick, ModelAndView mv) {
+		Member m=service.nickDuplicate(nick);
+		mv.addObject("member",m);
+		mv.setViewName("member/nickDuplicate");
+		return mv;
+	}
+	
+//	핸드폰 중복 확인
+//	@RequestMapping(value="/member/PNDuplicate", method = RequestMethod.POST)
+//	public ModelAndView phoneDuplicate(@RequestParam("phone") String phoneStr, ModelAndView mv) throws NoSuchAlgorithmException, UnsupportedEncodingException, GeneralSecurityException {
+//		String phone=aes.encrypt(phoneStr);
+//		Member m=service.phoneDuplicate(phone);
+//		mv.addObject("member",m);
+//		mv.setViewName("member/phoneDulicate");
+//		return mv;
+//	}
+	
+//	회원가입 로직
+	@RequestMapping(value="/member/signUpEnd", method = RequestMethod.POST)
+	public String signUpEnd(@RequestParam Map param, Member member, Model m) throws NoSuchAlgorithmException, UnsupportedEncodingException, GeneralSecurityException {
+		//암호화(id,폰)
+		String encodeId=aes.encrypt(member.getMem_email());
+//		String encodePhone=aes.encrypt(member.get)
+		//암호화(pw)
+		String encodePw=encoder.encode(member.getMem_pwd());
+		//생일 합치기
+		String birthdayStr=param.get("year")+"-"+param.get("month")+"-"+param.get("date");
+		Date birthday=Date.valueOf(birthdayStr);
+		member.setBirthday(birthday);
+		
+		member.setMem_email(encodeId);
+		member.setMem_pwd(encodePw);
+		
+		int result=service.signUpEnd(member);
+	
+		String msg="";
+		String loc="";
+		if(result>0) {
+			msg="회원가입성공";
+			loc="/";
+		}
+		else {
+			msg="회원가입실패";
+			loc="/";
+		}
+		m.addAttribute("msg",msg);
+		m.addAttribute("loc",loc);
+		
+		return "common/msg";
+	}
 }

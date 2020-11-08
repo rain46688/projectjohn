@@ -115,7 +115,7 @@
 	<div id="signUpBox" style="padding-top: 50px;">
 		<div id="signUpField">
 			<h2 style="margin-bottom: 50px;">회원가입</h2>
-			<form id="memberEnrollFrm" name="memberEnrollFrm" action="<%=request.getContextPath() %>/memberEnrollEnd" method="post">
+			<form id="memberEnrollFrm" name="memberEnrollFrm" action="${path}/signUpEnd" method="post">
 				<input type="email" id="id" name="userId" class="input" placeholder="이메일" required style="width: 59%;">
 				<input type="button" class="button" id="certibtn" value="인증번호 전송" style="text-align: center;"><br>
 				<div class="constrain" id="idConstrain"></div>
@@ -192,7 +192,7 @@
 			</form>
 		</div>
 	</div>
-	
+
 	<script>
 		// id제약조건
 		var idPattern = /^[0-9a-zA-Z]([-_\.]?[0-9a-zA-Z])*@[0-9a-zA-Z]([-_\.]?[0-9a-zA-Z])*\.[a-zA-Z]{2,3}$/i;
@@ -219,7 +219,7 @@
 		});
 		$("#id").keyup(e=>{
 			$.ajax({
-				url:"<%=request.getContextPath()%>/checkIdDuplicate",
+				url:"${path}/member/emailDuplicate",
 				data:{"userId":$(e.target).val()},
 				type:"post",
 				dataType:"html",
@@ -265,6 +265,7 @@
 
 		$("#id").keyup(e=>{
 			$("#certiNum").val('');
+			$("#certiDuplicate").html('');
 		});
 
 		// pw제약조건
@@ -342,7 +343,7 @@
 		const nn=$("#nickname").val().trim();
 		$("#nickname").keyup(e=>{
 			$.ajax({
-				url:"<%=request.getContextPath()%>/checkNNDuplicate",
+				url:"${path}/member/NNDuplicate",
 				data:{"nick":$(e.target).val()},
 				type:"post",
 				dataType:"html",
@@ -500,7 +501,7 @@
 		const phone=$("#phone").val().trim();
 		$("#phone").keyup(e=>{
 			$.ajax({
-				url:"<%=request.getContextPath()%>/checkPNDuplicate",
+				url:"${path}/member/PNDuplicate",
 				data:{"phone":$(e.target).val()},
 				type:"post",
 				dataType:"html",
@@ -511,28 +512,6 @@
 			});
 		});
 		
-
-		//주소 제약조건
-		$(function(){
-			$("#sample4_detailAddress").blur(e=>{
-				const address=$("#sample4_detailAddress").val().trim();
-				if(address===""){
-					$("#adConstrain").html("상세주소를 입력해주세요.");
-					$("#adConstrain").css({"display":"block"});
-				}else{
-					$("#adConstrain").css({"display":"none"});
-				}
-			});
-			$("#sample4_detailAddress").keyup(function(e){
-				const address=$("#sample4_detailAddress").val().trim();
-				if(address===""){
-					$("#adConstrain").html("상세주소를 입력해주세요.");
-					$("#adConstrain").css({"display":"block"});
-				}else{
-					$("#adConstrain").css({"display":"none"});
-				}
-			});
-		});
 
 		//유효성 확인
 		function fn_enroll(){

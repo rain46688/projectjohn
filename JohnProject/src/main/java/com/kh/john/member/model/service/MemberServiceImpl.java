@@ -13,6 +13,7 @@ import org.springframework.stereotype.Service;
 import com.kh.john.member.controller.MailHandler;
 import com.kh.john.member.controller.UuidGenerator;
 import com.kh.john.member.model.dao.MemberDao;
+import com.kh.john.member.model.vo.Member;
 
 @Service
 public class MemberServiceImpl implements MemberService {
@@ -47,5 +48,27 @@ public class MemberServiceImpl implements MemberService {
 		sendMail.send();
 		return authKey;
 	}
+
+	@Override
+	public Member selectMember(String id) {
+		return dao.selectMember(session, id);
+	}
+
+	@Override
+	public Member nickDuplicate(String nick) {
+		return dao.nickDuplicate(session, nick);
+	}
+
+//	@Override
+//	public Member phoneDuplicate(String phone) {
+//		return dao.phoneDuplicate(session, phone);
+//	}
+	
+	@Override
+	public int signUpEnd(Member member) {
+		return dao.signUpEnd(session, member);
+	}
+	
+	
 
 }

@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <beans xmlns="http://www.springframework.org/schema/beans"
     xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xmlns:beans="http://www.springframework.org/schema/beans"
     xmlns:context="http://www.springframework.org/schema/context"
     xsi:schemaLocation="http://www.springframework.org/schema/beans
                         http://www.springframework.org/schema/beans/spring-beans.xsd
@@ -11,8 +12,8 @@
     <bean id="mailSender" class="org.springframework.mail.javamail.JavaMailSenderImpl">
     	<property name="host" value="smtp.gmail.com" />
 		<property name="port" value="587" />
-		<property name="username" value="minsu87750@gmail.com" />
-		<property name="password" value="alstn8775*" />
+		<property name="username" value="22mailme@gmail.com" />
+		<property name="password" value="fkpxttgzdbnjszkb" />
 
 		<property name="javaMailProperties">
 			<props>
