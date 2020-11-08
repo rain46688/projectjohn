@@ -24,10 +24,10 @@ public class ExboardController {
 	@RequestMapping("/expert")
 	public ModelAndView expertPage(SessionStatus status) {
 		log.debug("expertPage 실행");
-//		if (!status.isComplete()) {
-//			log.debug("세션 삭제됨");
-//			status.setComplete();
-//		}
+		if (!status.isComplete()) {
+			log.debug("세션 삭제됨");
+			status.setComplete();
+		}
 		ModelAndView mv = new ModelAndView("/exboard/exboardMain");
 		return mv;
 	}
@@ -50,6 +50,14 @@ public class ExboardController {
 
 		SessionVo ss = (SessionVo) session.getAttribute("loginnedMember");
 		log.debug("ss : " + ss);
+		return mv;
+	}
+
+	@RequestMapping("/expertsms")
+	public ModelAndView expertsms(String phone, String msg) {
+		log.debug("expertsms 실행");
+		log.debug("phone : " + phone + " msg : " + msg);
+		ModelAndView mv = new ModelAndView("/index");
 		return mv;
 	}
 

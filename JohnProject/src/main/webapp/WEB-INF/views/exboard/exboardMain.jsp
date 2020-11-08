@@ -28,6 +28,12 @@ EXPERT
 	<div id="expertList">
 	
 	</div>
+	<hr>
+	<form action="/expertsms" method="post">
+		<label class="input-group-text" > 문자내용 </label><input type="input" name="msg" class="form-control short" /><br>
+		<label class="input-group-text" > 전화번호 </label><input type="input" name="phone" class="form-control short" /><br>
+		<input type="submit" vale="발송"/>
+		</form>
 </section>
 
 <script>
