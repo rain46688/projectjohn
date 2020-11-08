@@ -127,14 +127,14 @@
 			</div>
 			<div id="imageUpload" class="marginTop">
 				<label id="uploadBtn" class="btn btn-lg btn-outline-secondary" for="file"><p>이미지</p>업로드</label>
-				<input style="display: none;" type="file" name="file" id="file" multiple="true">
+				<input style="display: none;" type="file" name="upFiles" id="file" multiple="true">
 				<div id="image-prev">
 					<!-- 이미지 미리보기 -->
 				</div>
 			</div>
 			<div class="input-group marginTop">	
-			<input class="form-control" type="text" name="agreeName" id="agree_name" placeholder="찬성 이름">
-			<input class="form-control" type="text" name="disagreeName" id="disagree_name" placeholder="반대 이름">
+			<input class="form-control" type="text" name="agree_name" id="agree_name" placeholder="찬성 이름">
+			<input class="form-control" type="text" name="disagree_name" id="disagree_name" placeholder="반대 이름">
 			</div>
 			<div id="submitBtn">
 				<button class="marginTop btn btn-outline-secondary" type="button" onclick="fn_submit();">글 등록</button>
