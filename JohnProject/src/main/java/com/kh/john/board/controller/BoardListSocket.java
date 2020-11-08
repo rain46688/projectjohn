@@ -32,7 +32,7 @@ public class BoardListSocket extends TextWebSocketHandler  {
 	protected void handleTextMessage(WebSocketSession session, TextMessage message) throws Exception {
 		// TODO Auto-generated method stub
 		String messageFromClient = message.getPayload();
-		if(messageFromClient.equals("boardList")||messageFromClient.equals("boardInsert")) {
+		if(messageFromClient.equals("boardList")||messageFromClient.equals("boardInsertSuccess")) {
 			List<Board> list = service.boardList();
 			session.sendMessage(new TextMessage(mapper.writeValueAsString(list)));
 		}
