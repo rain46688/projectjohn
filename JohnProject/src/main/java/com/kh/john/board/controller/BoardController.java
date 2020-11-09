@@ -12,9 +12,12 @@ import javax.servlet.http.HttpServletRequest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.fasterxml.jackson.core.JsonGenerationException;
+import com.fasterxml.jackson.databind.JsonMappingException;
 import com.kh.john.board.model.service.BoardService;
 import com.kh.john.board.model.vo.Board;
 import com.kh.john.board.model.vo.BoardFile;
@@ -94,10 +97,13 @@ public class BoardController {
 		
 		return mv;
 	}
-	
+	@ResponseBody
 	@RequestMapping("board/boardCommentList")
-	public void boardCommentList(int currBoardNo) {
-		System.out.println(currBoardNo);
+	public List<Comment> boardCommentList(int currBoardNo, ModelAndView mv)
+			throws JsonMappingException, JsonGenerationException, IOException{
+		
 		List<Comment> list = service.commentSelectList(currBoardNo);
+		
+		return list;
 	}
 }

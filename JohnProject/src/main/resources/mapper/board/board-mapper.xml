@@ -24,6 +24,6 @@
 	</select>
 	
 	<select id="commentSelectList" parameterType="_int" resultType="comment">
-		SELECt * FROM COMMENT WHERE COM_BOARD_ID = #{currBoardNo}
+		SELECt * FROM "COMMENT" WHERE COM_BOARD_ID = #{currBoardNo}
 	</select>
 </mapper>

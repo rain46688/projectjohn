@@ -24,24 +24,29 @@
         </div>
     </div>
 <script>
+'use strict'
 
-onload = fn_commentList();
+$(document).ready(function(){
+	fn_commentList();
+})
 
 function fn_commentList(){
 	$.ajax({
 		url: "${path}/board/boardCommentList",
-		type= "post",
-		dataType= "json",
+		type: "post",
+		dataType: "json",
 		data: {
-			currBoardNo: "${currBoard.board_id}"
+			currBoardNo: ${currBoard.board_id}
 		},
 		success: function(data) {
+			console.log(data);
 			let html = "";
 			$.each(data, function(index, item){
-				html += item;
+				html = JSON.stringify(item)
 			})
 			$(".comment_list").html(html);
-		}
+			
+		},
 	})
 	
 }
