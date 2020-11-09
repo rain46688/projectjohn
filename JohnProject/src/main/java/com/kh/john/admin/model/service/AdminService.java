@@ -50,7 +50,7 @@ public interface AdminService {
 	
 	int selectNoticeCount();
 	
-	int insertNotice(Notice n, List<NoticeFile> files);
+	int insertNotice(Notice n,List<NoticeFile> files);
 	
 	Notice selectOneNotice(int notice_id);
 	

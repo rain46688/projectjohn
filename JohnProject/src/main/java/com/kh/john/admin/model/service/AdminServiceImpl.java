@@ -124,17 +124,16 @@ public class AdminServiceImpl implements AdminService{
 	}
 
 	@Override
-	public int insertNotice(Notice n, List<NoticeFile> files) throws RuntimeException{
+	public int insertNotice(Notice n,List<NoticeFile> files) throws RuntimeException{
 		int result = dao.insertNotice(session,n);
-		
-		if(result==0) throw new RuntimeException("0값입력!");
-		
-		if(!files.isEmpty()) {
-			for(NoticeFile file:files) {
-				result = dao.insertNoticeFile(session, file);
-				if(result==0) throw new RuntimeException("입력 오류");
-				
-			}
+		System.out.println("서비스"+files);
+		if(result>0) {
+//			if(!files.isEmpty()) {
+				for(NoticeFile f:files) {
+					dao.insertNoticeFile(session, f);
+					
+				}
+			//}
 		}
 		
 		return result;
