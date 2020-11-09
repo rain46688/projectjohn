@@ -9,6 +9,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 import com.kh.john.exboard.model.service.ExboardService;
 import com.kh.john.exboard.model.vo.SessionVo;
+import com.kh.john.member.model.vo.Member;
 
 import lombok.extern.slf4j.Slf4j;
 
@@ -33,6 +34,12 @@ public class ExboardController {
 	public ModelAndView expertLoginPage(String nick, String ex, HttpSession session) {
 		log.debug("expertLoginPage 실행");
 		log.debug(nick + " " + ex);
+		try {
+			Member m = service.selectMember(nick);
+		} catch (Exception e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		}
 		SessionVo sv = new SessionVo();
 		sv.setNickname(nick);
 		if (ex.equals("e")) {
