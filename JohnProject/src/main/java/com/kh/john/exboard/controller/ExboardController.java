@@ -46,12 +46,13 @@ public class ExboardController {
 		return mv;
 	}
 
-//	@RequestMapping("/expertsms")
-//	public ModelAndView expertsms(String phone, String msg) {
-//		log.debug("expertsms 실행");
-//		log.debug("phone : " + phone + " msg : " + msg);
-//		ModelAndView mv = new ModelAndView("/index");
-//		return mv;
-//	}
+	@RequestMapping("/expertApply")
+	public ModelAndView expertApply(String no) {
+		log.debug("expertApply 실행");
+		log.debug("no : " + no);
+		ModelAndView mv = new ModelAndView("/exboard/expertApply");
+		mv.addObject("expert", service.selectExpertMem(no));
+		return mv;
+	}
 
 }

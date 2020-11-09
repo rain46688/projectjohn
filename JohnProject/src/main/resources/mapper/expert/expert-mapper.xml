@@ -6,6 +6,12 @@
 	SELECT * FROM MEMBER WHERE MEM_CLASS LIKE '전문가' 
 </select> 
 
+<select id="selectExpertMem" resultType="member" parameterType="string">
+	SELECT * FROM MEMBER WHERE MEM_CLASS LIKE '전문가' AND USID = #{no}
+</select>
+
+
+
 <!-- SELECT * FROM MEMBER WHERE MEM_CLASS LIKE '전문가' -->
 
 </mapper>

@@ -24,4 +24,10 @@ public class ExboardServiceImpl implements ExboardService {
 		return dao.selectExpert(session);
 	}
 
+	@Override
+	public Member selectExpertMem(String no) {
+		// TODO Auto-generated method stub
+		return dao.selectExpertMem(session, no);
+	}
+
 }
