@@ -34,24 +34,26 @@ public class ExboardController {
 	public ModelAndView expertLoginPage(String nick, HttpSession session) {
 		log.debug("expertLoginPage 실행");
 		log.debug(nick);
-		SessionVo sv = new SessionVo();
-		Member m = null;
-		try {
-			m = service.selectMember(nick);
-			sv.setSessionUsid(m.getUsid());
-		} catch (Exception e1) {
-			// TODO Auto-generated catch block
-			e1.printStackTrace();
-		}
-		sv.setNickname(nick);
+		SessionVo sv = null;
+		if (session.getAttribute("loginnedMember") == null) {
+			sv = new SessionVo();
+			Member m = null;
+			try {
+				m = service.selectMember(nick);
+				sv.setSessionUsid(m.getUsid());
+			} catch (Exception e1) {
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
+			}
+			sv.setNickname(nick);
 
-		if (m.getMem_class().equals("전문가")) {
-			sv.setExpert(true);
-		} else {
-			sv.setExpert(false);
+			if (m.getMem_class().equals("전문가")) {
+				sv.setExpert(true);
+			} else {
+				sv.setExpert(false);
+			}
+			session.setAttribute("loginnedMember", sv);
 		}
-
-		session.setAttribute("loginnedMember", sv);
 		ModelAndView mv = new ModelAndView("/exboard/expertList");
 		try {
 			mv.addObject("list", service.selectExpert());
@@ -82,14 +84,26 @@ public class ExboardController {
 	public ModelAndView expertRequest(String no, String nic, HttpSession session) {
 		log.debug("expertRequest 실행");
 		log.debug("no : " + no + " nic : " + nic);
+		SessionVo expert = new SessionVo();
+		expert.setSessionUsid(Integer.parseInt(no));
+		expert.setNickname(nic);
 		SessionVo mem = (SessionVo) session.getAttribute("loginnedMember");
-		ModelAndView mv = new ModelAndView("/exboard/expertApply");
+		ModelAndView mv = new ModelAndView("common/msg");
+
+		String msg = "";
+		String loc = "";
 		try {
-			service.insertExpertMemRequest(no, mem);
+			service.insertExpertMemRequest(expert, mem);
+			msg = "상담 신청 성공";
+			loc = "/expertLogin";
 		} catch (Exception e) {
 			e.printStackTrace();
-			log.error("전문가 신청 실패");
+			msg = "상담 신청 실패";
+			loc = "/expertLogin";
+			log.error(msg);
 		}
+		mv.addObject("msg", msg);
+		mv.addObject("loc", loc);
 		return mv;
 	}
 

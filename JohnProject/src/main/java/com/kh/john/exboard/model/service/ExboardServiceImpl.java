@@ -32,9 +32,9 @@ public class ExboardServiceImpl implements ExboardService {
 	}
 
 	@Override
-	public int insertExpertMemRequest(String no, SessionVo mem) throws Exception {
+	public int insertExpertMemRequest(SessionVo ex, SessionVo mem) throws Exception {
 		// TODO Auto-generated method stub
-		return dao.insertExpertMemRequest(session, no, mem);
+		return dao.insertExpertMemRequest(session, ex, mem);
 	}
 
 	@Override

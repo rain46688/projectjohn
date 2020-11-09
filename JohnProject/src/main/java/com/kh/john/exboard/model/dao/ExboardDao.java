@@ -13,7 +13,7 @@ public interface ExboardDao {
 
 	Member selectExpertMem(SqlSessionTemplate session, String no) throws Exception;
 
-	int insertExpertMemRequest(SqlSessionTemplate session, String no, SessionVo mem) throws Exception;
+	int insertExpertMemRequest(SqlSessionTemplate session, SessionVo ex, SessionVo mem) throws Exception;
 
 	Member selectMember(SqlSessionTemplate session, String nick) throws Exception;
 

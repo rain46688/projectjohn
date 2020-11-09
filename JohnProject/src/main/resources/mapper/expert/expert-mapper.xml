@@ -15,7 +15,7 @@
 </select>
 
 <insert id="insertExpertMemRequest" parameterType="map">
-
+	INSERT INTO EXPERT_REQUEST VALUES(#{exusid},#{memusid},#{exnick},#{memnick},DEFAULT)
 </insert>
 
 

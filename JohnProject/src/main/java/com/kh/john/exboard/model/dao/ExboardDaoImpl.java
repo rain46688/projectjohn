@@ -26,11 +26,13 @@ public class ExboardDaoImpl implements ExboardDao {
 	}
 
 	@Override
-	public int insertExpertMemRequest(SqlSessionTemplate session, String no, SessionVo mem) throws Exception {
+	public int insertExpertMemRequest(SqlSessionTemplate session, SessionVo ex, SessionVo mem) throws Exception {
 		// TODO Auto-generated method stub
 		Map<String, String> map = new HashMap<String, String>();
-		map.put("no", no);
-		map.put("mno", "" + mem.getSessionUsid());
+		map.put("exusid", "" + ex.getSessionUsid());
+		map.put("exnick", ex.getNickname());
+		map.put("memusid", "" + mem.getSessionUsid());
+		map.put("memnick", mem.getNickname());
 		return session.insert("expert.insertExpertMemRequest", map);
 	}
 

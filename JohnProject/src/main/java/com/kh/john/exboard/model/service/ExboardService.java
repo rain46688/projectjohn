@@ -11,7 +11,7 @@ public interface ExboardService {
 
 	Member selectExpertMem(String no) throws Exception;
 
-	int insertExpertMemRequest(String no, SessionVo mem) throws Exception;
+	int insertExpertMemRequest(SessionVo expert, SessionVo mem) throws Exception;
 
 	Member selectMember(String nick) throws Exception;
 
