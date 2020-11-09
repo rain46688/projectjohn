@@ -29,7 +29,7 @@ public class ExboardDaoImpl implements ExboardDao {
 	public int insertExpertMemRequest(SqlSessionTemplate session, Member expert, Member mem) throws Exception {
 		// TODO Auto-generated method stub
 		Map<String, String> map = new HashMap<String, String>();
-		map.put("exusid", "" + expert.getUsid();
+		map.put("exusid", "" + expert.getUsid());
 		map.put("exnick", expert.getMem_nickname());
 		map.put("memusid", "" + mem.getUsid());
 		map.put("memnick", mem.getMem_nickname());
