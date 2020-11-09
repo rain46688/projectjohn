@@ -14,11 +14,13 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.SessionAttributes;
+import org.springframework.web.bind.support.SessionStatus;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.fasterxml.jackson.core.JsonGenerationException;
@@ -61,27 +63,40 @@ public class MemberController {
 	
 //	로그인 로직
 	@RequestMapping(value="/member/memberLoginEnd", method = RequestMethod.POST)
-	public ModelAndView loginPage(@RequestParam Map param, ModelAndView mv) {
-		Member loginMember=service.selectMemberById(param);
+	public String loginPage(@RequestParam Map param, Member member, Model m) throws NoSuchAlgorithmException, UnsupportedEncodingException, GeneralSecurityException {
+		member.setMem_email(aes.encrypt((String)param.get("mem_email")));
+		Member loginMember=service.selectMemberById(member);
 		String msg="";
 		String loc="";
+		String path="";
+		
 		if(loginMember!=null) {
-			if(param.get("mem_pwd")==loginMember.getMem_pwd()) {
-//			if(encoder.matches((String)param.get("password"), loginMember.getMem_pwd())) {
-				loc="/board/boardList";
-				mv.addObject("loginMember",loginMember);
+			if(encoder.matches((String)param.get("mem_pwd"), loginMember.getMem_pwd())) {
+				path="/board/boardList";
+				m.addAttribute("loginMember",loginMember);
 			}else {
 				msg="아이디나 비밀번호를 확인해주세요.";
 				loc="/member/memberLogin";
+				path="common/msg";
 			}
 		}else {
 			msg="아이디나 비밀번호를 확인해주세요.";
 			loc="/member/memberLogin";
+			path="common/msg";
 		}
-		mv.addObject("msg",msg);
-		mv.addObject("loc",loc);
-		mv.setViewName("common/msg");
-		return mv;
+		m.addAttribute("msg",msg);
+		m.addAttribute("loc",loc);
+		return path;
+	}
+	
+//	로그아웃 로직
+	@RequestMapping("/member/logout")
+	public String memberLogout(HttpSession session, SessionStatus status) {
+		if(!status.isComplete()) {
+			status.setComplete();
+		}
+		
+		return "redirect:/";
 	}
 	
 //	회원가입 페이지로 가기
