@@ -130,7 +130,8 @@
 
 	리스트<br>
 	<p>세션 : ${loginnedMember.nickname}</p>
-	<p>전문가 : ${loginnedMember.expert}</p>
+		<p>전문가 : ${loginnedMember.expert}</p>
+	<p>USID : ${loginnedMember.sessionUsid}</p>
 	<br>
 
 

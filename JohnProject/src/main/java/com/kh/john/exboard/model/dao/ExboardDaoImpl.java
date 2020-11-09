@@ -7,6 +7,7 @@ import java.util.Map;
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.stereotype.Repository;
 
+import com.kh.john.exboard.model.vo.SessionVo;
 import com.kh.john.member.model.vo.Member;
 
 @Repository
@@ -25,11 +26,11 @@ public class ExboardDaoImpl implements ExboardDao {
 	}
 
 	@Override
-	public int insertExpertMemRequest(SqlSessionTemplate session, String no, Member mem) throws Exception {
+	public int insertExpertMemRequest(SqlSessionTemplate session, String no, SessionVo mem) throws Exception {
 		// TODO Auto-generated method stub
 		Map<String, String> map = new HashMap<String, String>();
 		map.put("no", no);
-		map.put("mno", "" + mem.getUsid());
+		map.put("mno", "" + mem.getSessionUsid());
 		return session.insert("expert.insertExpertMemRequest", map);
 	}
 

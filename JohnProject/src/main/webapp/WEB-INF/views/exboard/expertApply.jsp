@@ -30,7 +30,7 @@
 function expertRequest(){
 
 	console.log("상담 신청, ${expert.usid}");
-	location.replace('${path}/expertRequest?no=${expert.usid}');
+	location.replace('${path}/expertRequest?no=${expert.usid}&nic=${expert.mem_nickname}');
 	
 };
 

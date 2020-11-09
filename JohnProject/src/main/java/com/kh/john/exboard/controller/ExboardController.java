@@ -31,22 +31,26 @@ public class ExboardController {
 	}
 
 	@RequestMapping("/expertLogin")
-	public ModelAndView expertLoginPage(String nick, String ex, HttpSession session) {
+	public ModelAndView expertLoginPage(String nick, HttpSession session) {
 		log.debug("expertLoginPage 실행");
-		log.debug(nick + " " + ex);
+		log.debug(nick);
+		SessionVo sv = new SessionVo();
+		Member m = null;
 		try {
-			Member m = service.selectMember(nick);
+			m = service.selectMember(nick);
+			sv.setSessionUsid(m.getUsid());
 		} catch (Exception e1) {
 			// TODO Auto-generated catch block
 			e1.printStackTrace();
 		}
-		SessionVo sv = new SessionVo();
 		sv.setNickname(nick);
-		if (ex.equals("e")) {
+
+		if (m.getMem_class().equals("전문가")) {
 			sv.setExpert(true);
 		} else {
 			sv.setExpert(false);
 		}
+
 		session.setAttribute("loginnedMember", sv);
 		ModelAndView mv = new ModelAndView("/exboard/expertList");
 		try {
@@ -75,9 +79,9 @@ public class ExboardController {
 	}
 
 	@RequestMapping("/expertRequest")
-	public ModelAndView expertRequest(String no, HttpSession session) {
+	public ModelAndView expertRequest(String no, String nic, HttpSession session) {
 		log.debug("expertRequest 실행");
-		log.debug("no : " + no);
+		log.debug("no : " + no + " nic : " + nic);
 		SessionVo mem = (SessionVo) session.getAttribute("loginnedMember");
 		ModelAndView mv = new ModelAndView("/exboard/expertApply");
 		try {

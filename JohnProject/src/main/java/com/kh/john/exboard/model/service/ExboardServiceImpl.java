@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.kh.john.exboard.model.dao.ExboardDao;
+import com.kh.john.exboard.model.vo.SessionVo;
 import com.kh.john.member.model.vo.Member;
 
 @Service
@@ -31,7 +32,7 @@ public class ExboardServiceImpl implements ExboardService {
 	}
 
 	@Override
-	public int insertExpertMemRequest(String no, Member mem) throws Exception {
+	public int insertExpertMemRequest(String no, SessionVo mem) throws Exception {
 		// TODO Auto-generated method stub
 		return dao.insertExpertMemRequest(session, no, mem);
 	}
