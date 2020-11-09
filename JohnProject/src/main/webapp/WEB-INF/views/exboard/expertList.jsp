@@ -129,9 +129,7 @@
 <section id="content">
 
 	리스트<br>
-	<p>세션 : ${loginnedMember.nickname}</p>
-	<p>전문가 : ${loginnedMember.expert}</p>
-	<br>
+
 
 
 	<div class="carosel" id="carosel1">
@@ -184,5 +182,3 @@
 						$(this).parent().find('.carosel-item').first());
 			});
 </script>
-
-<jsp:include page="/WEB-INF/views/common/footer.jsp" />

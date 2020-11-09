@@ -6,8 +6,12 @@ import com.kh.john.member.model.vo.Member;
 
 public interface ExboardService {
 
-	List<Member> selectExpert();
+	List<Member> selectExpert() throws Exception;
 
-	Member selectExpertMem(String no);
+	Member selectExpertMem(String no) throws Exception;
+
+	Member selectMember(String nick) throws Exception;
+
+	int insertExpertMemRequest(Member expert, Member mem) throws Exception;
 
 }
