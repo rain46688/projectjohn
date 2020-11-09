@@ -1,6 +1,7 @@
 package com.kh.john.board.model.dao;
 
 import java.util.List;
+import java.util.Map;
 
 import org.apache.ibatis.session.SqlSession;
 
@@ -15,4 +16,5 @@ public interface BoardDao {
 	int boardInsertFiles(SqlSession session, BoardFile file);
 	Board boardSelectOne(SqlSession session, int boardNo);
 	List<Comment> commentSelectList(SqlSession session, int currBoardNo);
+	int boardCommentInsert(SqlSession session, Map param);
 }

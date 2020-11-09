@@ -1,6 +1,7 @@
 package com.kh.john.board.model.service;
 
 import java.util.List;
+import java.util.Map;
 
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -55,5 +56,11 @@ public class BoardServiceImpl implements BoardService {
 	public List<Comment> commentSelectList(int currBoardNo) {
 		// TODO Auto-generated method stub
 		return dao.commentSelectList(session, currBoardNo);
+	}
+	
+	@Override
+	public int boardCommentInsert(Map param) {
+		// TODO Auto-generated method stub
+		return dao.boardCommentInsert(session, param);
 	}
 }

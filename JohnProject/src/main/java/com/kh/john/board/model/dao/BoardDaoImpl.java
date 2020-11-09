@@ -1,6 +1,7 @@
 package com.kh.john.board.model.dao;
 
 import java.util.List;
+import java.util.Map;
 
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.stereotype.Repository;
@@ -40,5 +41,11 @@ public class BoardDaoImpl implements BoardDao{
 	public List<Comment> commentSelectList(SqlSession session, int currBoardNo) {
 		// TODO Auto-generated method stub
 		return session.selectList("board.commentSelectList", currBoardNo);
+	}
+	
+	@Override
+	public int boardCommentInsert(SqlSession session, Map param) {
+		// TODO Auto-generated method stub
+		return session.insert("board.boardCommentInsert", param);
 	}
 }

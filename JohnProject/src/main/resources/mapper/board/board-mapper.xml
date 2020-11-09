@@ -24,6 +24,10 @@
 	</select>
 	
 	<select id="commentSelectList" parameterType="_int" resultType="comment">
-		SELECt * FROM "COMMENT" WHERE COM_BOARD_ID = #{currBoardNo}
+		SELECT * FROM "COMMENT" WHERE COM_BOARD_ID = #{currBoardNo}
 	</select>
+	
+	<insert id="boardCommentInsert" parameterType="map">
+		INSERT INTO "COMMENT" VALUES(SEQ_COMMENT_NO.NEXTVAL, #{currBoardNo}, 9, '홍잭슨', #{content}, default, SYSDATE)
+	</insert>
 </mapper>

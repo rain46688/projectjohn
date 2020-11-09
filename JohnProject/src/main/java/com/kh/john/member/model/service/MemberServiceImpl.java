@@ -48,12 +48,16 @@ public class MemberServiceImpl implements MemberService {
 		sendMail.send();
 		return authKey;
 	}
-
-//	@Override
-//	public Member selectMember(String id) {
-//		return dao.selectMember(session, id);
-//	}
-
+	
+	@Override
+	public Member selectMemberById(Member member) {
+		return dao.selectMemberById(session, member);
+	}
+	@Override
+	public Member selectMemberById(Map param) {
+		return dao.selectMemberById(session, param);
+	}
+	
 	@Override
 	public Member nickDuplicate(String nick) {
 		return dao.nickDuplicate(session, nick);
@@ -69,14 +73,6 @@ public class MemberServiceImpl implements MemberService {
 		return dao.signUpEnd(session, member);
 	}
 
-	@Override
-	public Member selectMember(Member member) {
-		return dao.selectMember(session, member);
-	}
 
-	@Override
-	public Member selectMemberById(Map param) {
-		return dao.selectMemberById(session, param);
-	}
 
 }

@@ -11,7 +11,8 @@ public interface MemberDao {
 
 	List<Map<String, Object>> selectMember(SqlSessionTemplate session);
 
-//	Member selectMember(SqlSessionTemplate session, String id);
+	Member selectMemberById(SqlSessionTemplate session, Member member);
+	Member selectMemberById(SqlSessionTemplate session, Map param);
 
 	Member nickDuplicate(SqlSessionTemplate session, String nick);
 
@@ -19,8 +20,5 @@ public interface MemberDao {
 	
 	int signUpEnd(SqlSessionTemplate session, Member member);
 
-	Member selectMember(SqlSessionTemplate session, Member member);
-
-	Member selectMemberById(SqlSessionTemplate session, Map param);
 
 }
