@@ -135,7 +135,7 @@ h2 {
 	<script>
 	
 	function counselStart(num){
-		
+		console.log("num : "+num)
 		let result = confirm("해당 회원과 상담을 진행하시겠습니까?");
 		if(result){
 				location.replace('${path}/counselStart?no='+num);
