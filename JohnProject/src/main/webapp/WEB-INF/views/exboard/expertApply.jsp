@@ -19,8 +19,20 @@
 전문가 경력 : <br>
 전문 상담 분야 : <br>
 
-<button class="btn btn-outline-success" onclick="expertChat('e');">상담 신청하기</button>
+<button class="btn btn-outline-success" onclick="expertCounsel();">상담 신청하기</button>
 
 </section>
+
+
+<script>
+
+function expertCounsel(){
+
+	console.log("상담 신청");
+	
+};
+
+
+</script>
 
 <jsp:include page="/WEB-INF/views/common/footer.jsp" />

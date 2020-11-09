@@ -16,4 +16,10 @@ public class ExboardDaoImpl implements ExboardDao {
 		return session.selectList("expert.selectExpert");
 	}
 
+	@Override
+	public Member selectExpertMem(SqlSessionTemplate session, String no) {
+		// TODO Auto-generated method stub
+		return session.selectOne("expert.selectExpertMem", no);
+	}
+
 }

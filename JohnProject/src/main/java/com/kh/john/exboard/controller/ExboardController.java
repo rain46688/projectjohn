@@ -51,6 +51,7 @@ public class ExboardController {
 		log.debug("expertApply 실행");
 		log.debug("no : " + no);
 		ModelAndView mv = new ModelAndView("/exboard/expertApply");
+		mv.addObject("expert", service.selectExpertMem(no));
 		return mv;
 	}
 

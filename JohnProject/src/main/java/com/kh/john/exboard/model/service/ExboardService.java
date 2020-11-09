@@ -8,4 +8,6 @@ public interface ExboardService {
 
 	List<Member> selectExpert();
 
+	Member selectExpertMem(String no);
+
 }
