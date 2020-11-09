@@ -2,5 +2,23 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="report">
 
+	<resultMap type="com.kh.john.report.model.vo.Report" 
+		id="reportMap">
+	</resultMap>
 
+	<!-- customer -->
+	<insert id="insertReport" parameterType="report">
+		INSERT INTO REPORT VALUES(SEQ_REPORT_NO.NEXTVAL,#{report_board_id},#{report_writer_usid},#{report_target_usid},
+		#{report_type},#{report_title},#{report_content},sysdate,0,18,21,
+		null,0);
+	</insert>
+	
+	<!-- admin -->
+	<select id="selectReportList" resultMap="reportMap">
+		SELECT * FROM REPORT
+	</select>
+	
+	<select id="selectReportCount" resultType="_int">
+		SELECT COUNT(*) FROM REPORT
+	</select>
 </mapper>
