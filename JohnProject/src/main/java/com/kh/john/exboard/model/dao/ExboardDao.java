@@ -10,4 +10,6 @@ public interface ExboardDao {
 
 	List<Member> selectExpert(SqlSessionTemplate session);
 
+	Member selectExpertMem(SqlSessionTemplate session, String no);
+
 }

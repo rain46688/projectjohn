@@ -138,6 +138,22 @@ public class AdminDaoImpl implements AdminDao {
 	public List<NoticeFile> selectNoticeFile(SqlSession session, int notice_id) {
 		return session.selectList("admin.selectNoticeFile",notice_id);
 	}
+
+	@Override
+	public Notice noticeModify(SqlSessionTemplate session, Map param) {
+		return session.selectOne("admin.noticeModify",param);
+	}
+
+	@Override
+	public int noticeModifyEnd(SqlSessionTemplate session, Notice n) {
+		return session.insert("admin.noticeModifyEnd",n);
+	}
+
+	@Override
+	public int deleteNotice(SqlSessionTemplate session, Notice n) {
+		return session.delete("admin.deleteNotice",n);
+	}
+	
 	
 	
 	

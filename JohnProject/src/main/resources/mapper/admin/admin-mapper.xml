@@ -198,5 +198,21 @@
 	<select id="selectNoticeFile" parameterType="_int" resultType="noticeFIle">
 		SELECT * FROM NOTICE_FILE WHERE NOTICE_ID=#{notice_id}
 	</select>
+	
+	<select id="noticeModify" parameterType="map" resultMap="noticeMap">
+		SELECT * FROM NOTICE WHERE NOTICE_ID=#{notice_id}
+	</select>
+	
+	<insert id="noticeModifyEnd" parameterType="notice">
+		UPDATE NOTICE SET NOTICE_TITLE=#{notice_title},
+										NOTICE_CONTENT=#{notice_content},
+										NOTICE_ID=#{notice_id},
+										NOTICE_ADMIN_NICKNAME=#{notice_admin_nickname}
+		WHERE NOTICE_ID=#{notice_id}
+	</insert>
+	
+	<delete id="deleteNotice" parameterType="notice">
+		DELETE FROM NOTICE WHERE NOTICE_ID=#{notice_id}
+	</delete>
  
 </mapper>

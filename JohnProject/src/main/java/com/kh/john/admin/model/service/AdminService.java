@@ -56,6 +56,11 @@ public interface AdminService {
 	
 	List<NoticeFile> selectNoticeFile(int notice_id);
 	
+	Notice noticeModify(Map param);
+	
+	int noticeModifyEnd(Notice n);
+	
+	int deleteNotice(Notice n);
 	
 	
 
