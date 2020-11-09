@@ -18,6 +18,7 @@ import org.springframework.web.servlet.ModelAndView;
 import com.kh.john.board.model.service.BoardService;
 import com.kh.john.board.model.vo.Board;
 import com.kh.john.board.model.vo.BoardFile;
+import com.kh.john.board.model.vo.Comment;
 
 import lombok.extern.slf4j.Slf4j;
 
@@ -81,5 +82,22 @@ public class BoardController {
 		
 		return mv;
 	}
+
+	@RequestMapping("board/boardPage")
+	public ModelAndView boardPage(ModelAndView mv) {
+		int boardNo = 10;
+		
+		Board b = service.boardSelectOne(boardNo);
+		
+		mv.addObject("currBoard", b);
+		mv.setViewName("/board/boardPage");
+		
+		return mv;
+	}
 	
+	@RequestMapping("board/boardCommentList")
+	public void boardCommentList(int currBoardNo) {
+		System.out.println(currBoardNo);
+		List<Comment> list = service.commentSelectList(currBoardNo);
+	}
 }

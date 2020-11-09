@@ -3,6 +3,7 @@
 <div id="content">
                     <!-- 내용 -->
                     <button onclick="location.href = '${path}/board/boardInsert'">글쓰기</button>
+               		<button onclick="location.href = '${path}/board/boardPage'">글보기</button>
                 </div>
             </div>
         </div>

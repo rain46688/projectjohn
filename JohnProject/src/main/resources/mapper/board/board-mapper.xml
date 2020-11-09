@@ -18,4 +18,12 @@
 			SELECT SEQ_BOARD_NO.CURRVAL FROM DUAL
 		</selectKey>
 	</insert>
+	
+	<select id="boardSelectOne" parameterType="_int" resultType="board">
+		SELECT * FROM BOARD WHERE BOARD_ID = #{boardNO}
+	</select>
+	
+	<select id="commentSelectList" parameterType="_int" resultType="comment">
+		SELECt * FROM COMMENT WHERE COM_BOARD_ID = #{currBoardNo}
+	</select>
 </mapper>
