@@ -19,8 +19,8 @@
 </select>
 
 <insert id="signUpEnd" parameterType="member">
-	INSERT INTO MEMBER VALUES(SEQ_MEMBER_NO.NEXTVAL, #{userId}, #{password}, #{name}, #{nick}, #{gender}, 
-		#{birthday}, DEFAULT, DEFAULT, DEFAULT, DEFAULT, "일반유저", DEFAULT, DEFAULT, DEFAULT, DEFAULT, DEFAULT, #{phone}, DEFAULT, DEFAULT)
+	INSERT INTO MEMBER VALUES(SEQ_MEMBER_NO.NEXTVAL, #{mem_email}, #{password}, #{name}, #{nick}, #{gender}, 
+		#{birthday}, DEFAULT, DEFAULT, DEFAULT, DEFAULT, "#{mem_class}, DEFAULT, DEFAULT, DEFAULT, DEFAULT, DEFAULT, #{phone}, DEFAULT, DEFAULT)
 </insert>
 
 </mapper>

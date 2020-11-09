@@ -148,6 +148,9 @@ public class MemberController {
 		String birthdayStr=param.get("year")+"-"+param.get("month")+"-"+param.get("date");
 		Date birthday=Date.valueOf(birthdayStr);
 		member.setBirthday(birthday);
+		//회원구분
+		String mem_class=param.get("mem_class").toString();
+		member.setMem_class(mem_class);
 		
 		int result=service.signUpEnd(member);
 	

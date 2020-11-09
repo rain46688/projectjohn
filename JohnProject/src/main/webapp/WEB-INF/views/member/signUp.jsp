@@ -126,12 +126,12 @@
 					<div class="constrain" id="certiDuplicate"></div>
 				</div>
 
-				<input type="password" placeholder="비밀번호" class="input" id="pw" name="password" minlength="4" maxlength="16" required>
+				<input type="password" placeholder="비밀번호" class="input" id="pw" name="mem_pwd" minlength="4" maxlength="16" required>
 				<div class="constrain" id="pwConstrain"></div>
 				<input type="password" placeholder="비밀번호 확인" class="input" id="pw2">
 				<div class="constrain" id="pw2Constrain"></div>
 				
-				<input type="text" placeholder="닉네임" class="input" id="nickname" name="nick" maxlength="10" required>
+				<input type="text" placeholder="닉네임" class="input" id="nickname" name="mem_nickname" maxlength="10" required>
 				<div class="constrain" id="nnConstrain"></div>
 				<div class="constrain" id="nickDuplicateAjax"></div>
 
@@ -142,13 +142,13 @@
 					<div class="dividedText">
 						<input type="radio" class="mem_class" name="mem_class" id="normalUser" value="normalUser"><label for="normalUser">일반유저</label>
 						&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-						<input type="radio" class="mem_class" name="mem_class" id="expertUser" value="expertUser"><label for="expertUser">전문가</label>
+						<input type="radio" class="mem_class" name="mem_class" id="expertUser" value="normalUser"><label for="expertUser">전문가</label>
 					</div>
 				</div>
 				<div class="constrain" id="mcConstrain"></div>
 
 
-				<input type="text" placeholder="이름" class="input checkLength" id="name" name="name" minlength="2" maxlength="5" required>
+				<input type="text" placeholder="이름" class="input checkLength" id="name" name="mem_name" minlength="2" maxlength="5" required>
 				<div class="constrain" id="nameConstrain"></div>
 
 				<div class="dividedForm">
@@ -189,7 +189,7 @@
 				</div>
 				<div class="constrain" id="bdConstrain"></div>
 
-				<input type="tel" placeholder="휴대폰" class="input checkLength" id="phone" name="phone" maxlength="11">
+				<input type="tel" placeholder="휴대폰" class="input checkLength" id="phone" name="tel" maxlength="11">
 				<div class="constrain" id="pnConstrain"></div>
 				<div class="constrain" id="phoneDuplicateAjax"></div>
 				
@@ -250,6 +250,7 @@
 					type: "post",
 					dataType: "html",
 				success:function(data){
+					console.log(data);
 					$("#certiDiv").css({"display":"block"});
 					$("#certiResult").html(data);
 					alert("인증번호를 발송했습니다. 메일함을 확인해주세요.");
@@ -259,7 +260,7 @@
 		});
 
 		$("#certiNum").keyup(e=>{
-			if($("#certiResult").val().trim()==$("#certiNum").val().trim()){
+			if($("#certiKey").val().trim()==$("#certiNum").val().trim()){
 				$("#certiDuplicate").html("인증번호가 일치합니다.");
 				$("#certiDuplicate").css({"display":"block"});
 				$("#certiDuplicate").css({"color":"green"});
@@ -570,6 +571,9 @@
 				$("#mcConstrain").css({"display":"block"});
 				$("#mcConstrain").css({"color":"red"});
 			}
+			if(mem_class.val()=='expertUser'){
+				alert('전문가 신청은 회원가입 후 마이페이지에서 가능합니다.');
+			}
 			//성별
 			const gender=$('input:radio[name="gender"]:checked');
 			if(gender.length<1){
@@ -596,7 +600,7 @@
 			if($("#checkIdhidden").val()=='existed'){
 				alert('아이디 중복 확인을 해주세요.');
 			}
-			if($("#certiResult").val().trim()!=$("#certiNum").val().trim()){
+			if($("#certiKey").val().trim()!=$("#certiNum").val().trim()){
 				alert('이메일 인증을 확인해주세요.');
 			}
 			if($("#checkNNhidden").val()=='existed'){
@@ -616,7 +620,8 @@
 				&& (yy!=="" && yyPattern.test(yy)) && mm!=="" && mm!=="월" && (dd!==""&&ddPattern.test(dd)) 
 				&& (phone!==""&&pnPattern.test(phone))
 				&& $("#checkIdhidden").val()!='existed' && $("#checkNNhidden").val()!='existed' && $("#checkPNhidden").val()!='existed' && $("input[name='checked_ad']").val()!=''
-				&& $("#certiResult").val().trim()==$("#certiNum").val().trim()){
+				&& $("#certiKey").val().trim()==$("#certiNum").val().trim()
+			){
 				$("#memberEnrollFrm").submit();
 			}else{
 				alert("필수 입력 항목을 확인해주세요.");
