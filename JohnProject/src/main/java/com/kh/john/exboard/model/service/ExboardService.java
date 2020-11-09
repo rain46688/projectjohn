@@ -2,6 +2,7 @@ package com.kh.john.exboard.model.service;
 
 import java.util.List;
 
+import com.kh.john.exboard.model.vo.ExpertRequest;
 import com.kh.john.member.model.vo.Member;
 
 public interface ExboardService {
@@ -17,5 +18,9 @@ public interface ExboardService {
 	Boolean selectIsDuplicateReq(Member expert, Member mem) throws Exception;
 
 	int deleteExpertMemRequest(Member expert, Member mem) throws Exception;
+
+	List<ExpertRequest> selectExpertRequest(Member mem) throws Exception;
+
+	int insertExpertBoard(String memusid, Member expertmem) throws Exception;
 
 }

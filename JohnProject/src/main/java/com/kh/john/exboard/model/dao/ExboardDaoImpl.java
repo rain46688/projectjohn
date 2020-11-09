@@ -60,4 +60,10 @@ public class ExboardDaoImpl implements ExboardDao {
 		return session.delete("expert.deleteExpertMemRequest", map);
 	}
 
+	@Override
+	public List<ExpertRequest> selectExpertRequest(SqlSessionTemplate session, Member mem) throws Exception {
+		// TODO Auto-generated method stub
+		return session.selectList("expert.selectExpertRequest", mem);
+	}
+
 }

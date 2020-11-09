@@ -19,11 +19,15 @@
 </select>
 
 <insert id="insertExpertMemRequest" parameterType="map">
-	INSERT INTO EXPERT_REQUEST VALUES(#{exusid},#{memusid},#{exnick},#{memnick},DEFAULT)
+	INSERT INTO EXPERT_REQUEST VALUES(#{exusid},#{memusid},#{exnick},#{memnick},DEFAULT,DEFAULT)
 </insert>
 
 <delete id="deleteExpertMemRequest" parameterType="map">
 	DELETE FROM EXPERT_REQUEST WHERE EXPERT_REQUET_EX_USID = #{exusid} AND EXPERT_REQUEST_MEM_USID = #{memusid}
 </delete>
+
+<select id="selectExpertRequest" resultType="exrequest" parameterType="member">
+	SELECT * FROM EXPERT_REQUEST WHERE EXPERT_REQUET_EX_USID = #{usid}
+</select>
 
 </mapper>

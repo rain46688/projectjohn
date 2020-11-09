@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 
 import com.kh.john.common.exception.RequestDuplicateException;
 import com.kh.john.exboard.model.dao.ExboardDao;
+import com.kh.john.exboard.model.vo.ExpertBoard;
 import com.kh.john.exboard.model.vo.ExpertRequest;
 import com.kh.john.member.model.vo.Member;
 
@@ -73,6 +74,29 @@ public class ExboardServiceImpl implements ExboardService {
 	public int deleteExpertMemRequest(Member expert, Member mem) throws Exception {
 		// TODO Auto-generated method stub
 		return dao.deleteExpertMemRequest(session, expert, mem);
+	}
+
+	@Override
+	public List<ExpertRequest> selectExpertRequest(Member mem) throws Exception {
+		// TODO Auto-generated method stub
+		return dao.selectExpertRequest(session, mem);
+	}
+
+	@Override
+	public int insertExpertBoard(String memusid, Member expertmem) throws Exception {
+		// TODO Auto-generated method stub
+		ExpertBoard exboard = new ExpertBoard();
+		exboard.setEXPERT_BOARD_USID(expertmem.getUsid());
+		exboard.setEXPERT_BOARD_MEM_USID(Integer.parseInt(memusid));
+
+		int result = dao.insertExpertBoard(session, exboard);
+
+		if (result > 0) {
+			return exboard.getEXPERT_BOARD_ID();
+		} else {
+			return 0;
+		}
+
 	}
 
 }

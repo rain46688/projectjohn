@@ -30,6 +30,7 @@ public class ExboardController {
 
 	@RequestMapping("/expertPrintList")
 	public ModelAndView expertPrintList() {
+		log.debug("expertPrintList 실행");
 		ModelAndView mv = new ModelAndView("/exboard/expertList");
 		try {
 			mv.addObject("list", service.selectExpert());
@@ -40,41 +41,6 @@ public class ExboardController {
 		}
 		return mv;
 	}
-
-//	@RequestMapping("/expertLogin")
-//	public ModelAndView expertLoginPage(String nick, HttpSession session) {
-//		log.debug("expertLoginPage 실행");
-//		log.debug(nick);
-//		SessionVo sv = null;
-//		if (session.getAttribute("loginnedMember") == null) {
-//			sv = new SessionVo();
-//			Member m = null;
-//			try {
-//				m = service.selectMember(nick);
-//				sv.setSessionUsid(m.getUsid());
-//			} catch (Exception e1) {
-//				// TODO Auto-generated catch block
-//				e1.printStackTrace();
-//			}
-//			sv.setNickname(nick);
-//
-//			if (m.getMem_class().equals("전문가")) {
-//				sv.setExpert(true);
-//			} else {
-//				sv.setExpert(false);
-//			}
-//			session.setAttribute("loginnedMember", sv);
-//		}
-//		ModelAndView mv = new ModelAndView("/exboard/expertList");
-//		try {
-//			mv.addObject("list", service.selectExpert());
-//		} catch (Exception e) {
-//			// TODO Auto-generated catch block
-//			e.printStackTrace();
-//			log.error("전문가 리스트 불러오기 실패");
-//		}
-//		return mv;
-//	}
 
 	@RequestMapping("/expertApply")
 	public ModelAndView expertApply(String no, String nic, HttpSession session) {
@@ -106,29 +72,15 @@ public class ExboardController {
 		expert.setUsid(Integer.parseInt(no));
 		expert.setMem_nickname(nic);
 
-//		String msg = "";
-//		String loc = "";
 		String result = "";
 		try {
 			service.insertExpertMemRequest(expert, mem);
-			// msg = "상담 신청 성공";
-			// loc = "/expertPrintList";
-			// log.error(msg);
 			result = "1";
 		} catch (RequestDuplicateException e) {
-			// msg = "이미 상담 신청을 하셨습니다.";
-			// loc = "/expertPrintList";
-			// log.error(msg);
 			result = "2";
 		} catch (Exception e) {
-			// msg = "상담 신청 실패";
-			// loc = "/expertPrintList";
-			// log.error(msg);
 			result = "0";
 		}
-//		ModelAndView mv = new ModelAndView("common/msg");
-//		mv.addObject("msg", msg);
-//		mv.addObject("loc", loc);
 		return result;
 
 	}
@@ -136,7 +88,7 @@ public class ExboardController {
 	@ResponseBody
 	@RequestMapping("/expertRequestCancel")
 	public String expertRequestCancel(String no, String nic, HttpSession session) {
-		log.debug("expertRequest 실행");
+		log.debug("expertRequestCancel 실행");
 		log.debug("no : " + no + " nic : " + nic);
 		Member mem = (Member) session.getAttribute("loginMember");
 		Member expert = new Member();
@@ -151,7 +103,38 @@ public class ExboardController {
 			result = "0";
 		}
 		return result;
+	}
 
+	@RequestMapping("/expertRequestPrintList")
+	public ModelAndView expertRequestPrintList(HttpSession session) {
+		log.debug("expertRequestPrintList 실행");
+		ModelAndView mv = new ModelAndView("/exboard/expertRequestList");
+		Member mem = (Member) session.getAttribute("loginMember");
+		try {
+			mv.addObject("list", service.selectExpertRequest(mem));
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			log.error("상담 유저 리스트 불러오기 실패");
+		}
+		return mv;
+	}
+
+	@RequestMapping("/counselStart")
+	public ModelAndView counselStart(HttpSession session, String memusid) {
+		log.debug("counselStart 실행");
+		Member expertmem = (Member) session.getAttribute("loginMember");
+		int result = 0;
+		try {
+			result = service.insertExpertBoard(memusid, expertmem);
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+
+		ModelAndView mv = new ModelAndView("/exboard/exchatRoom");// 방번호 쿼리스트링 추가
+
+		return mv;
 	}
 
 }

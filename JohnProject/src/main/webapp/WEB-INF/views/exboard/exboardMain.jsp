@@ -9,27 +9,27 @@
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 
 <style>
-
 label, input {
-	max-width:200px;
+	max-width: 200px;
 }
-
 </style>
 <jsp:include page="/WEB-INF/views/common/header.jsp">
 	<jsp:param name="title" value=" " />
 </jsp:include>
 
 <section id="content">
-EXPERT 테스트 페이지
+	EXPERT 테스트 페이지
 
 	<p>세션 : ${loginMember.mem_nickname}</p>
-		<p>전문가 : ${loginMember.mem_class}</p>
+	<p>전문가 : ${loginMember.mem_class}</p>
 	<p>USID : ${loginMember.usid}</p>
 	<br>
-<button class="btn btn-outline-success" onclick="location.replace('${path}/expertPrintList');">전문가 리스트 보기</button>
+	<button class="btn btn-outline-success" onclick="location.replace('${path}/expertPrintList');">유저가 전문가 리스트 보기</button>
+	<c:if test="${loginMember.mem_class == '전문가'}">
+		<button class="btn btn-outline-success" onclick="location.replace('${path}/expertRequestPrintList');">전문가가 상담할 유저 리스트 보기</button>
+	</c:if>
 
-
-<!-- 	
+	<!-- 	
 <label class="input-group-text" >닉네임 </label><input type="input" name="nick" class="form-control short" /><br>
 	<label class="input-group-text" >방 번호 </label><input type="input" name="num" class="form-control short" /><br>
 	임시 로그인 : 
@@ -43,17 +43,13 @@ EXPERT 테스트 페이지
 		<input type="submit" vale="발송"/>
 		</form> 
 -->
-		
+
 </section>
 
 <script>
+	/* function expertChat(){
 
-/* function expertChat(){
-
-		location.replace('${path}/expertLogin?nick='+$("input[name=nick]").val());
+	 location.replace('${path}/expertLogin?nick='+$("input[name=nick]").val());
 	
-}  */
-
-
-
+	 }  */
 </script>
