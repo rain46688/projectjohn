@@ -6,5 +6,5 @@
 <c:set var="path" value="${pageContext.request.contextPath }"/>
 <c:if test="${member }!=null">
 사용 중인 닉네임입니다.
-<input type="hidden" id="checkIdhidden" value="existed">
+<input type="hidden" id="checkNNhidden" value="existed">
 </c:if>

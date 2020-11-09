@@ -39,8 +39,7 @@ public class MemberDaoImpl implements MemberDao {
 	
 	@Override
 	public int signUpEnd(SqlSessionTemplate session, Member member) {
-		// TODO Auto-generated method stub
-		return session.insert("member.signUpEnd");
+		return session.insert("member.signUpEnd",member);
 	}
 
 }
