@@ -6,7 +6,7 @@
 	SELECT * FROM MEMBER
 </select> 
 
-<select id="selectMemberById" resultType="member" parameterType="map">
+<select id="selectMemberById" resultType="member" parameterType="member">
 	SELECT * FROM MEMBER WHERE MEM_EMAIL=#{mem_email}
 </select>
 
@@ -22,9 +22,5 @@
 	INSERT INTO MEMBER VALUES(SEQ_MEMBER_NO.NEXTVAL, #{userId}, #{password}, #{name}, #{nick}, #{gender}, 
 		#{birthday}, DEFAULT, DEFAULT, DEFAULT, DEFAULT, "일반유저", DEFAULT, DEFAULT, DEFAULT, DEFAULT, DEFAULT, #{phone}, DEFAULT, DEFAULT)
 </insert>
-
-<select id="memberTest" parameterType="member" resultType="member">
-	SELECT * FROM MEMBER WHERE MEM_EMAIL=#{mem_email}
-</select>
 
 </mapper>

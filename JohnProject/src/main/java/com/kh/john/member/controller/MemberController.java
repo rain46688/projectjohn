@@ -108,7 +108,7 @@ public class MemberController {
 		System.out.println(mem_email);
 		System.out.println(id);
 		member.setMem_email(id);
-		member=service.selectMember(member);
+		member=service.selectMemberById(member);
 		mv.addObject("member",member);
 		mv.setViewName("member/emailDuplicate");
 		return mv;
@@ -137,7 +137,7 @@ public class MemberController {
 	@RequestMapping(value="/member/signUpEnd", method = RequestMethod.POST)
 	public String signUpEnd(@RequestParam Map param, Member member, Model m) throws NoSuchAlgorithmException, UnsupportedEncodingException, GeneralSecurityException {
 		//암호화(id,폰)
-		String encodeId=aes.encrypt(param.get("userId").toString());
+		String encodeId=aes.encrypt(param.get("mem_email").toString());
 		member.setMem_email(encodeId);
 		String encodePhone=aes.encrypt(param.get("phone").toString());
 		member.setTel(encodePhone);

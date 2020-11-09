@@ -17,7 +17,7 @@ public class Member {
 	private int point;
 	private boolean leave_mem;
 	private int pw_is_uuid;
-	private String mem_class;
+	private String mem_class;//
 	private String profile_pic;
 	private int expert_rating;
 	private String expert_greetings;

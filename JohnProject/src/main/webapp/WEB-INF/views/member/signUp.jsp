@@ -135,6 +135,18 @@
 				<div class="constrain" id="nnConstrain"></div>
 				<div class="constrain" id="nickDuplicateAjax"></div>
 
+				<div class="dividedForm">
+					<div class="dividedTitle">
+						회원구분
+					</div>
+					<div class="dividedText">
+						<input type="radio" class="mem_class" name="mem_class" id="normalUser" value="normalUser"><label for="normalUser">일반유저</label>
+						&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+						<input type="radio" class="mem_class" name="mem_class" id="expertUser" value="expertUser"><label for="expertUser">전문가</label>
+					</div>
+				</div>
+				<div class="constrain" id="mcConstrain"></div>
+
 
 				<input type="text" placeholder="이름" class="input checkLength" id="name" name="name" minlength="2" maxlength="5" required>
 				<div class="constrain" id="nameConstrain"></div>
@@ -379,6 +391,14 @@
 			});
 		});
 
+		//회원구분
+		$("#normalUser").click(function(e){
+			$("#mcConstrain").css({"display":"none"});
+		});
+		$("#expertUser").click(function(e){
+			$("#gdConstrain").css({"display":"none"});
+		});
+
 		//성별
 		$("#male").click(function(e){
 			$("#gdConstrain").css({"display":"none"});
@@ -543,6 +563,13 @@
 				$("#nameConstrain").css({"display":"block"});
 				$("#nameConstrain").css({"color":"red"});
 			}
+			//회원구분
+			const mem_class=$('input:radio[name="mem_class"]:checked');
+			if(mem_class.length<1){
+				$("#mcConstrain").html("필수 입력 항목입니다.");
+				$("#mcConstrain").css({"display":"block"});
+				$("#mcConstrain").css({"color":"red"});
+			}
 			//성별
 			const gender=$('input:radio[name="gender"]:checked');
 			if(gender.length<1){
@@ -583,8 +610,11 @@
 				alert('주소 입력을 해주세요.');
 			}
 			//제약조건을 만족했나요
-			if(id!=="" && (pw!==""&&pwPattern.test(pw)) && (pw2!==""&&pw===pw2) && (nn!==""&&nnPattern.test(nn)) && (name!==""&&namePattern.test(name)) && (gender.length=1||gender.length>1)
-				&& (yy!=="" && yyPattern.test(yy)) && mm!=="" && mm!=="월" && (dd!==""&&ddPattern.test(dd)) && (phone!==""&&pnPattern.test(phone))
+			if(id!=="" && (pw!==""&&pwPattern.test(pw)) && (pw2!==""&&pw===pw2) && (nn!==""&&nnPattern.test(nn))
+				&& (mem_class.length=10||mem_class.length>1) && (name!==""&&namePattern.test(name))
+				&& (gender.length=1||gender.length>1)
+				&& (yy!=="" && yyPattern.test(yy)) && mm!=="" && mm!=="월" && (dd!==""&&ddPattern.test(dd)) 
+				&& (phone!==""&&pnPattern.test(phone))
 				&& $("#checkIdhidden").val()!='existed' && $("#checkNNhidden").val()!='existed' && $("#checkPNhidden").val()!='existed' && $("input[name='checked_ad']").val()!=''
 				&& $("#certiResult").val().trim()==$("#certiNum").val().trim()){
 				$("#memberEnrollFrm").submit();
