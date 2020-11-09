@@ -6,9 +6,9 @@ import lombok.Data;
 public class ExpertBoard {
 
 	private int EXPERT_BOARD_ID;
-	private int EXPERT_USID;
-	private int EXPERT_MEM_USID;
-	private String EXPERT_ADVICE_RESULT;
-	private int EXPERT_RATING;
+	private int EXPERTT_BOARD_USID;
+	private int EXPERTT_BOARD_MEM_USID;
+	private String EXPERTT_BOARD_ADVICE_RESULT;
+	private int EXPERTT_BOARD_RATING;
 
 }

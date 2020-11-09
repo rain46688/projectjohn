@@ -6,8 +6,9 @@ import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.kh.john.common.exception.RequestDuplicateException;
 import com.kh.john.exboard.model.dao.ExboardDao;
-import com.kh.john.exboard.model.vo.SessionVo;
+import com.kh.john.exboard.model.vo.ExpertRequest;
 import com.kh.john.member.model.vo.Member;
 
 @Service
@@ -32,9 +33,16 @@ public class ExboardServiceImpl implements ExboardService {
 	}
 
 	@Override
-	public int insertExpertMemRequest(SessionVo ex, SessionVo mem) throws Exception {
+	public int insertExpertMemRequest(Member expert, Member mem) throws Exception {
 		// TODO Auto-generated method stub
-		return dao.insertExpertMemRequest(session, ex, mem);
+		// 이미 등록됬는지 확인
+		ExpertRequest result = dao.selectIsDuplicateReq(session, expert, mem);
+
+		if (result != null) {
+			return dao.insertExpertMemRequest(session, expert, mem);
+		} else {
+			throw new RequestDuplicateException();
+		}
 	}
 
 	@Override

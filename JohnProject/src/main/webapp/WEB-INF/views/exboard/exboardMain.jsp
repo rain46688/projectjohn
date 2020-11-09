@@ -19,29 +19,37 @@ label, input {
 <section id="content">
 EXPERT 테스트 페이지
 
-	<label class="input-group-text" >닉네임 </label><input type="input" name="nick" class="form-control short" /><br>
-	<!-- <label class="input-group-text" >방 번호 </label><input type="input" name="num" class="form-control short" /><br> -->
+	<p>세션 : ${loginMember.mem_nickname}</p>
+		<p>전문가 : ${loginMember.mem_class}</p>
+	<p>USID : ${loginMember.usid}</p>
+	<br>
+<button class="btn btn-outline-success" onclick="location.replace('${path}/expertPrintList');">전문가 리스트 보기</button>
+
+
+<!-- 	
+<label class="input-group-text" >닉네임 </label><input type="input" name="nick" class="form-control short" /><br>
+	<label class="input-group-text" >방 번호 </label><input type="input" name="num" class="form-control short" /><br>
 	임시 로그인 : 
 	<button class="btn btn-outline-success" onclick="expertChat();">로그인</button>
 	<br>
-	<br>
-	
-<!-- 	<hr>
+	<br> 
+ 	<hr>
 	<form action="/expertsms" method="post">
 		<label class="input-group-text" > 문자내용 </label><input type="input" name="msg" class="form-control short" /><br>
 		<label class="input-group-text" > 전화번호 </label><input type="input" name="phone" class="form-control short" /><br>
 		<input type="submit" vale="발송"/>
-		</form> -->
+		</form> 
+-->
 		
 </section>
 
 <script>
 
-function expertChat(){
+/* function expertChat(){
 
 		location.replace('${path}/expertLogin?nick='+$("input[name=nick]").val());
 	
-} 
+}  */
 
 
 

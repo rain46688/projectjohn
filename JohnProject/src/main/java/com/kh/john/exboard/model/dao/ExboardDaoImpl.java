@@ -7,7 +7,7 @@ import java.util.Map;
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.stereotype.Repository;
 
-import com.kh.john.exboard.model.vo.SessionVo;
+import com.kh.john.exboard.model.vo.ExpertRequest;
 import com.kh.john.member.model.vo.Member;
 
 @Repository
@@ -26,13 +26,13 @@ public class ExboardDaoImpl implements ExboardDao {
 	}
 
 	@Override
-	public int insertExpertMemRequest(SqlSessionTemplate session, SessionVo ex, SessionVo mem) throws Exception {
+	public int insertExpertMemRequest(SqlSessionTemplate session, Member expert, Member mem) throws Exception {
 		// TODO Auto-generated method stub
 		Map<String, String> map = new HashMap<String, String>();
-		map.put("exusid", "" + ex.getSessionUsid());
-		map.put("exnick", ex.getNickname());
-		map.put("memusid", "" + mem.getSessionUsid());
-		map.put("memnick", mem.getNickname());
+		map.put("exusid", "" + expert.getUsid();
+		map.put("exnick", expert.getMem_nickname());
+		map.put("memusid", "" + mem.getUsid());
+		map.put("memnick", mem.getMem_nickname());
 		return session.insert("expert.insertExpertMemRequest", map);
 	}
 
@@ -40,6 +40,15 @@ public class ExboardDaoImpl implements ExboardDao {
 	public Member selectMember(SqlSessionTemplate session, String nick) throws Exception {
 		// TODO Auto-generated method stub
 		return session.selectOne("expert.selectMember", nick);
+	}
+
+	@Override
+	public ExpertRequest selectIsDuplicateReq(SqlSessionTemplate session, Member expert, Member mem) throws Exception {
+		// TODO Auto-generated method stub
+		Map<String, String> map = new HashMap<String, String>();
+		map.put("exusid", "" + expert.getUsid());
+		map.put("memusid", "" + mem.getUsid());
+		return session.selectOne("expert.selectIsDuplicateReq", map);
 	}
 
 }
