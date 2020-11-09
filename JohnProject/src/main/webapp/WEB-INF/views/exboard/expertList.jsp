@@ -149,7 +149,7 @@
 								<p class="card-text">
 									<small class="text-muted">평점 : ${e.expert_rating}</small>
 								</p>
-								<a href="${path}/expertApply?no=${e.usid}">
+								<a href="${path}/expertApply?no=${e.usid}&nic=${e.mem_nickname}">
 									<button type="button" class="btn btn-outline-primary">상담 신청</button>
 								</a>
 							</div>
