@@ -126,7 +126,9 @@ public class AdminDaoImpl implements AdminDao {
 
 	@Override
 	public int insertNoticeFile(SqlSession session, NoticeFile file) {
+		System.out.println("dao"+file);
 		return session.insert("admin.insertNoticeFile",file);
+		
 	}
 
 	@Override

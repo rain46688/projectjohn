@@ -28,12 +28,13 @@ div#board-container input {
 		<form name="boardFrm" action="${path}/customer/customerNoticeFormEnd"
 			method="post" enctype="multipart/form-data">
 			
-			
+		<%-- <input type="text" class="form-control" name="notice_id" id="notice_id" value="${notice.notice_id }" readonly>  --%>
+
 				<!-- <input type="text" class="form-control" 
 					name="notice_id" id="notice_id" value="" readonly>  -->
 
 				<input type="text" class="form-control" 
-					name="notice_title" id="notice_title" placeholder="제목을 입력하세요"  required> 
+					name="notice_title" id="notice_title" placeholder="제목을 입력하세요"  required>
 						
 				
 				<%-- <input type="text" class="form-control"  

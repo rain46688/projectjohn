@@ -8,10 +8,14 @@ import org.springframework.stereotype.Service;
 
 import com.kh.john.common.exception.RequestDuplicateException;
 import com.kh.john.exboard.model.dao.ExboardDao;
+import com.kh.john.exboard.model.vo.ExpertBoard;
 import com.kh.john.exboard.model.vo.ExpertRequest;
 import com.kh.john.member.model.vo.Member;
 
+import lombok.extern.slf4j.Slf4j;
+
 @Service
+@Slf4j
 public class ExboardServiceImpl implements ExboardService {
 
 	@Autowired
@@ -38,9 +42,11 @@ public class ExboardServiceImpl implements ExboardService {
 		// 이미 등록됬는지 확인
 		ExpertRequest result = dao.selectIsDuplicateReq(session, expert, mem);
 
-		if (result != null) {
+		if (result == null) {
+			log.debug("result 널 아님");
 			return dao.insertExpertMemRequest(session, expert, mem);
 		} else {
+			log.debug("result 널");
 			throw new RequestDuplicateException();
 		}
 	}
@@ -49,6 +55,48 @@ public class ExboardServiceImpl implements ExboardService {
 	public Member selectMember(String nick) throws Exception {
 		// TODO Auto-generated method stub
 		return dao.selectMember(session, nick);
+	}
+
+	@Override
+	public Boolean selectIsDuplicateReq(Member expert, Member mem) throws Exception {
+		// TODO Auto-generated method stub
+		ExpertRequest result = dao.selectIsDuplicateReq(session, expert, mem);
+		if (result == null) {
+			// 신청한적 없음
+			return false;
+		} else {
+			// 신청한적 있음
+			return true;
+		}
+	}
+
+	@Override
+	public int deleteExpertMemRequest(Member expert, Member mem) throws Exception {
+		// TODO Auto-generated method stub
+		return dao.deleteExpertMemRequest(session, expert, mem);
+	}
+
+	@Override
+	public List<ExpertRequest> selectExpertRequest(Member mem) throws Exception {
+		// TODO Auto-generated method stub
+		return dao.selectExpertRequest(session, mem);
+	}
+
+	@Override
+	public int insertExpertBoard(String memusid, Member expertmem) throws Exception {
+		// TODO Auto-generated method stub
+		ExpertBoard exboard = new ExpertBoard();
+		exboard.setEXPERT_BOARD_USID(expertmem.getUsid());
+		exboard.setEXPERT_BOARD_MEM_USID(Integer.parseInt(memusid));
+
+		int result = dao.insertExpertBoard(session, exboard);
+
+		if (result > 0) {
+			return exboard.getEXPERT_BOARD_ID();
+		} else {
+			return 0;
+		}
+
 	}
 
 }
