@@ -15,9 +15,9 @@
 <section id="content">
 상담 신청 페이지
 
-전문가 인사말 : <br>
-전문가 경력 : <br>
-전문 상담 분야 : <br>
+전문가 인사말 : ${expert.expert_greetings }<br>
+전문가 경력 : ${expert.expert_profile }<br>
+전문 상담 분야 : ${expert.expert_counsel_area }<br>
 
 <button class="btn btn-outline-success" onclick="expertCounsel();">상담 신청하기</button>
 
