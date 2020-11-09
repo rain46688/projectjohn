@@ -7,6 +7,7 @@ import java.util.Map;
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.stereotype.Repository;
 
+import com.kh.john.exboard.model.vo.ExpertBoard;
 import com.kh.john.exboard.model.vo.ExpertRequest;
 import com.kh.john.member.model.vo.Member;
 
@@ -64,6 +65,12 @@ public class ExboardDaoImpl implements ExboardDao {
 	public List<ExpertRequest> selectExpertRequest(SqlSessionTemplate session, Member mem) throws Exception {
 		// TODO Auto-generated method stub
 		return session.selectList("expert.selectExpertRequest", mem);
+	}
+
+	@Override
+	public int insertExpertBoard(SqlSessionTemplate session, ExpertBoard exboard) throws Exception {
+		// TODO Auto-generated method stub
+		return session.insert("expert.insertExpertBoard", exboard);
 	}
 
 }

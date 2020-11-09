@@ -131,7 +131,7 @@ public class ExboardController {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-
+		log.debug("result : " + result);
 		ModelAndView mv = new ModelAndView("/exboard/exchatRoom");// 방번호 쿼리스트링 추가
 
 		return mv;
