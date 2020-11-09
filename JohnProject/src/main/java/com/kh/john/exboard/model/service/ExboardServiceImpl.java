@@ -11,7 +11,10 @@ import com.kh.john.exboard.model.dao.ExboardDao;
 import com.kh.john.exboard.model.vo.ExpertRequest;
 import com.kh.john.member.model.vo.Member;
 
+import lombok.extern.slf4j.Slf4j;
+
 @Service
+@Slf4j
 public class ExboardServiceImpl implements ExboardService {
 
 	@Autowired
@@ -38,9 +41,11 @@ public class ExboardServiceImpl implements ExboardService {
 		// 이미 등록됬는지 확인
 		ExpertRequest result = dao.selectIsDuplicateReq(session, expert, mem);
 
-		if (result != null) {
+		if (result == null) {
+			log.debug("result 널 아님");
 			return dao.insertExpertMemRequest(session, expert, mem);
 		} else {
+			log.debug("result 널");
 			throw new RequestDuplicateException();
 		}
 	}
@@ -49,6 +54,25 @@ public class ExboardServiceImpl implements ExboardService {
 	public Member selectMember(String nick) throws Exception {
 		// TODO Auto-generated method stub
 		return dao.selectMember(session, nick);
+	}
+
+	@Override
+	public Boolean selectIsDuplicateReq(Member expert, Member mem) throws Exception {
+		// TODO Auto-generated method stub
+		ExpertRequest result = dao.selectIsDuplicateReq(session, expert, mem);
+		if (result == null) {
+			// 신청한적 없음
+			return false;
+		} else {
+			// 신청한적 있음
+			return true;
+		}
+	}
+
+	@Override
+	public int deleteExpertMemRequest(Member expert, Member mem) throws Exception {
+		// TODO Auto-generated method stub
+		return dao.deleteExpertMemRequest(session, expert, mem);
 	}
 
 }

@@ -51,4 +51,13 @@ public class ExboardDaoImpl implements ExboardDao {
 		return session.selectOne("expert.selectIsDuplicateReq", map);
 	}
 
+	@Override
+	public int deleteExpertMemRequest(SqlSessionTemplate session, Member expert, Member mem) throws Exception {
+		// TODO Auto-generated method stub
+		Map<String, String> map = new HashMap<String, String>();
+		map.put("exusid", "" + expert.getUsid());
+		map.put("memusid", "" + mem.getUsid());
+		return session.delete("expert.deleteExpertMemRequest", map);
+	}
+
 }

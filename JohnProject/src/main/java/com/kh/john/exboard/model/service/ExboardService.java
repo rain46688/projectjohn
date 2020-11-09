@@ -14,4 +14,8 @@ public interface ExboardService {
 
 	int insertExpertMemRequest(Member expert, Member mem) throws Exception;
 
+	Boolean selectIsDuplicateReq(Member expert, Member mem) throws Exception;
+
+	int deleteExpertMemRequest(Member expert, Member mem) throws Exception;
+
 }

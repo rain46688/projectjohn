@@ -15,6 +15,9 @@ label, input {
 }
 
 </style>
+<jsp:include page="/WEB-INF/views/common/header.jsp">
+	<jsp:param name="title" value=" " />
+</jsp:include>
 
 <section id="content">
 EXPERT 테스트 페이지

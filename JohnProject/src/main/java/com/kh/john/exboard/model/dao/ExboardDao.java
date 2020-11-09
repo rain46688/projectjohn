@@ -19,4 +19,6 @@ public interface ExboardDao {
 
 	ExpertRequest selectIsDuplicateReq(SqlSessionTemplate session, Member expert, Member mem) throws Exception;
 
+	int deleteExpertMemRequest(SqlSessionTemplate session, Member expert, Member mem) throws Exception;
+
 }
