@@ -60,4 +60,10 @@ public interface AdminDao {
 	Notice selectOneNotice(SqlSessionTemplate session, int notice_id);
 	
 	List<NoticeFile> selectNoticeFile(SqlSession session, int notice_id);
+	
+	Notice noticeModify(SqlSessionTemplate session, Map param);
+	
+	int noticeModifyEnd(SqlSessionTemplate session, Notice n);
+	
+	int deleteNotice(SqlSessionTemplate session, Notice n);
 } 

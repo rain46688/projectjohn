@@ -149,6 +149,22 @@ public class AdminServiceImpl implements AdminService{
 	public List<NoticeFile> selectNoticeFile(int notice_id) {
 		return dao.selectNoticeFile(session, notice_id);
 	}
+
+	@Override
+	public Notice noticeModify(Map param) {
+		return dao.noticeModify(session, param);
+	}
+
+	@Override
+	public int noticeModifyEnd(Notice n) {
+		return dao.noticeModifyEnd(session,n);
+	}
+
+	@Override
+	public int deleteNotice(Notice n) {
+		int result = dao.deleteNotice(session,n);
+		return result;
+	}
 	
 	
 	
