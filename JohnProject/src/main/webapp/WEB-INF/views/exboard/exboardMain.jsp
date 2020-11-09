@@ -28,6 +28,31 @@ label, input {
 	<c:if test="${loginMember.mem_class == '전문가'}">
 		<button class="btn btn-outline-success" onclick="location.replace('${path}/expertRequestPrintList');">전문가가 상담할 유저 리스트 보기</button>
 	</c:if>
+	
+	
+	
+	<!-- 
+	
+	진행 순서
+	
+	유저가 전문가 리스트를 보고 상담 신청을 클릭 -> 상담신청이 완료됨
+	
+	전문가는 상담 신청 리스트를 보고 상담을 시작할수있음 -> 
+	
+	시작시 방이 개설되고 이메일로 알람이감 -> 
+	
+	상담시작함
+	
+	-------------------------------------------------------
+	
+	
+	1, 리스트에서 이미 룸이 생성된 유저는 생성이 아니라 입장으로 버튼 바꾸기
+
+	2, 유저나 전문가가 입장할때 판별해서 그외에 다른사람 못들어오게 하기
+
+	3, 방번호랑 링크를 이메일로 해당 유저한테 보내주기
+	
+	 -->
 
 	<!-- 	
 <label class="input-group-text" >닉네임 </label><input type="input" name="nick" class="form-control short" /><br>
