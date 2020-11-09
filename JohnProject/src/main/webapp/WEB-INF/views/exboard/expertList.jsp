@@ -184,5 +184,3 @@
 						$(this).parent().find('.carosel-item').first());
 			});
 </script>
-
-<jsp:include page="/WEB-INF/views/common/footer.jsp" />

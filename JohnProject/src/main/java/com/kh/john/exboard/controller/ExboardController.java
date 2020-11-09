@@ -42,7 +42,13 @@ public class ExboardController {
 		}
 		session.setAttribute("loginnedMember", sv);
 		ModelAndView mv = new ModelAndView("/exboard/expertList");
-		mv.addObject("list", service.selectExpert());
+		try {
+			mv.addObject("list", service.selectExpert());
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			log.error("전문가 리스트 불러오기 실패");
+		}
 		return mv;
 	}
 
@@ -51,7 +57,28 @@ public class ExboardController {
 		log.debug("expertApply 실행");
 		log.debug("no : " + no);
 		ModelAndView mv = new ModelAndView("/exboard/expertApply");
-		mv.addObject("expert", service.selectExpertMem(no));
+		try {
+			mv.addObject("expert", service.selectExpertMem(no));
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			log.error("전문가 정보 불러오기 실패");
+		}
+		return mv;
+	}
+
+	@RequestMapping("/expertRequest")
+	public ModelAndView expertRequest(String no, HttpSession session) {
+		log.debug("expertRequest 실행");
+		log.debug("no : " + no);
+		SessionVo mem = (SessionVo) session.getAttribute("loginnedMember");
+		ModelAndView mv = new ModelAndView("/exboard/expertApply");
+		try {
+			service.insertExpertMemRequest(no, mem);
+		} catch (Exception e) {
+			e.printStackTrace();
+			log.error("전문가 신청 실패");
+		}
 		return mv;
 	}
 
