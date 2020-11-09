@@ -45,4 +45,5 @@
                     <button>알람</button>
                     <button onclick="location.href='${path}/member/memberPage'">마이페이지</button>
                     <button onclick="location.href='${path}/admin/adminPage'">ADMIN</button>
+                    <button onclick="location.href='${path}/member/logout'">로그아웃</button>
                 </div>
