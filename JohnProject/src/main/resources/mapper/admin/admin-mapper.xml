@@ -188,7 +188,7 @@
 	<insert id="insertNoticeFile" parameterType="noticeFile">
 		INSERT INTO NOTICE_FILE VALUES(SEQ_NOTICE_NO.NEXTVAL,#{notice_file_name})
 		<!-- 수정해야됨 -->
-		<selectKey keyProperty="notice_id" resultType="_int" order="BEFORE"> SELECT SEQ.NOTICE_ID.CURRVAL FROM DUAL </selectKey>
+		<selectKey keyProperty="notice_id" resultType="_int" order="BEFORE"> SELECT SEQ_NOTICE_NO.CURRVAL FROM DUAL </selectKey>
 	</insert>
 	
 	<select id="selectOneNotice" parameterType="_int" resultType="notice">
