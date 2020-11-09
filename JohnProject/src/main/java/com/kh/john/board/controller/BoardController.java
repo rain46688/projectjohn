@@ -5,13 +5,16 @@ import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
@@ -99,11 +102,27 @@ public class BoardController {
 	}
 	@ResponseBody
 	@RequestMapping("board/boardCommentList")
-	public List<Comment> boardCommentList(int currBoardNo, ModelAndView mv)
+	public List<Comment> boardCommentList(int currBoardNo)
 			throws JsonMappingException, JsonGenerationException, IOException{
 		
 		List<Comment> list = service.commentSelectList(currBoardNo);
 		
 		return list;
+	}
+	
+	@ResponseBody
+	@RequestMapping("board/boardCommentInsert")
+	public Map boardCommentInsert(@RequestParam Map param) throws JsonMappingException, JsonGenerationException, IOException {
+		
+		Map<String,String> result = new HashMap();
+		
+		int intResult = service.boardCommentInsert(param);
+		
+		if(intResult > 0) {
+			result.put("result","success");
+		}else {
+			result.put("result","fail");
+		}
+		return result;
 	}
 }
