@@ -13,6 +13,8 @@
  	<typeAlias type="com.kh.john.admin.model.vo.Notice" alias="notice"/>
  	<typeAlias type="com.kh.john.admin.model.vo.NoticeFile" alias="noticeFile"/>
  	<typeAlias type="com.kh.john.board.model.vo.Comment" alias="comment"/>
+ 	<typeAlias type="com.kh.john.report.model.vo.Report" alias="report"/>
+ 	<typeAlias type="com.kh.john.report.model.vo.ReportFile" alias="reportFile"/>
  </typeAliases>
  
 

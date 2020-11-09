@@ -19,21 +19,26 @@
 	<section id="content">
 	  
 		<div id="board-container">
-	        <form name="boardFrm" action="${path}/board/boardFormEnd.do"   method="post" enctype="multipart/form-data" > <!-- 파일업로드시 enctype 멀티파트 써주는거 잊지말기!!!!!!!!!!!! -->
+	        <form name="boardFrm" action="${path}/report/customerReportEnd"   method="post" enctype="multipart/form-data" > <!-- 파일업로드시 enctype 멀티파트 써주는거 잊지말기!!!!!!!!!!!! -->
 	           
-	            <input type="text" class="form-control" name="report_board_id" id="report_board_id"  value="" readonly> <!-- 신고게시물번호 -->
+	           <!--  <input type="text" class="form-control" name="report_id" id="report_id"  value="" readonly> --> <!-- 신고게시물번호 -->
+	            <input type="text" class="form-control" name="report_board_id" id="report_board_id" value="" >
 	            <input type="text" class="form-control" placeholder="제목" name="report_title" id="report_title" required> <!-- 제목 -->
-	            <input type="text" class="form-control" name="report_target_usid" id="report_target_usid"  value="" readonly><!-- 신고할회원 -->
+	            <input type="text" class="form-control" name="report_target_nickname" id="report_target_nickname"  value="${report.report_target_nickname }" readonly><!-- 신고할회원 -->
+	 			<!-- <input type="hidden"  name="report_writer_usid" value="">
+	 			<input type="hidden"  name="report_target_usid" value=""> -->
+	 			<input type="hidden"  name="report_user_nickname" value="${report.report_user_nickname}">
 	 			
+	 				 			
 	 			<hr>
 	        
 	            <select name="report_type" id="report_type" class="form-control" >
-				  <option value="" >-- 신고유형 --</option>
-				  <option value="">홍보성</option>
-				  <option value='b11anana'>권리침해</option>
-				  <option value='lemon'>선정성</option>
-				  <option value='lemon'>인신공격</option>
-				  <option value='lemon'>기타</option>
+				  <option value="" selected disabled>-- 신고유형 --</option>
+				  <option value="홍보성">홍보성</option>
+				  <option value='권리침해'>권리침해</option>
+				  <option value='선정성'>선정성</option>
+				  <option value='인신공격'>인신공격</option>
+				  <option value='기타'>기타</option>
 				</select>
 				
 				<hr>
@@ -60,7 +65,7 @@
 	            </div>
 	            
 	            
-	            <textarea class="form-control" name="boardContent" placeholder="내용" required></textarea>
+	            <textarea class="form-control" name="report_content" placeholder="내용" required></textarea>
 	            <br />
 	            <input type="submit" class="btn btn-outline-info" value="신고하기" >
 	            <input type="reset" class="btn btn-outline-info" value="취소" >
