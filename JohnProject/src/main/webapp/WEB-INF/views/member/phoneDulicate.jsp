@@ -6,5 +6,5 @@
 <c:set var="path" value="${pageContext.request.contextPath }"/>
 <c:if test="${member }!=null">
 사용 중인 전화번호입니다.
-<input type="hidden" id="checkIdhidden" value="existed">
+<input type="hidden" id="checkPNhidden" value="existed">
 </c:if>

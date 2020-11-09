@@ -108,7 +108,7 @@ public class MemberController {
 		System.out.println(mem_email);
 		System.out.println(id);
 		member.setMem_email(id);
-		member=service.selectMember(member);
+		member=service.selectMemberById(member);
 		mv.addObject("member",member);
 		mv.setViewName("member/emailDuplicate");
 		return mv;
@@ -136,18 +136,37 @@ public class MemberController {
 //	회원가입 로직
 	@RequestMapping(value="/member/signUpEnd", method = RequestMethod.POST)
 	public String signUpEnd(@RequestParam Map param, Member member, Model m) throws NoSuchAlgorithmException, UnsupportedEncodingException, GeneralSecurityException {
+		System.out.println(member.getMem_email());
+		System.out.println(member.getMem_pwd());
+		System.out.println(member.getMem_nickname());
+		System.out.println(member.getMem_class());
+		System.out.println(member.getMem_name());
+		System.out.println(member.getGender());
+		System.out.println(member.getTel());
+		
 		//암호화(id,폰)
-		String encodeId=aes.encrypt(param.get("userId").toString());
+		String encodeId=aes.encrypt(param.get("mem_email").toString());
 		member.setMem_email(encodeId);
-		String encodePhone=aes.encrypt(param.get("phone").toString());
+		String encodePhone=aes.encrypt(param.get("tel").toString());
 		member.setTel(encodePhone);
 		//암호화(pw)
-		String encodePw=encoder.encode(param.get("password").toString());
+		String encodePw=encoder.encode(param.get("mem_pwd").toString());
 		member.setMem_pwd(encodePw);
 		//생일 합치기
 		String birthdayStr=param.get("year")+"-"+param.get("month")+"-"+param.get("date");
 		Date birthday=Date.valueOf(birthdayStr);
 		member.setBirthday(birthday);
+		
+		System.out.println(member.getBirthday());
+
+		//회원구분
+		String classMem=param.get("mem_class").toString();
+		if(classMem=="normalUser") {
+			member.setMem_class("일반유저");
+		}else {
+			member.setMem_class("전문가");
+		}
+		System.out.println("*********"+member.getMem_class());
 		
 		int result=service.signUpEnd(member);
 	
