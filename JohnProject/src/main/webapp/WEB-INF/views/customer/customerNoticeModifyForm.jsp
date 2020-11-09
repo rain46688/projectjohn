@@ -11,7 +11,7 @@
 	
 </jsp:include>
 	
-	  <style>
+	<style>
 	    div#board-container{width:400px; margin:0 auto; text-align:center;}
 	    div#board-container input,div#board-container button{margin-bottom:15px;}
 	    div#board-container label.custom-file-label{text-align:left;}
@@ -20,9 +20,10 @@
 	<section id="content">
 		<div id="board-container">
 		<h1>게시판상세화면</h1>
+		
+		<form name="customerNoticeModifyFrm" action="${path }/customer/customerNoticeModifyEnd" method="post">
 		<input type="text" class="form-control" name="notice_id" id="notice_id" value="${notice.notice_id }" readonly> 
         <input type="text" class="form-control" value="${notice.notice_title }" placeholder="제목" name="notice_title" id="notice_title"  required>
-        <input type="text" class="form-control" name="notice_enrolldate" id="notice_enrolldate" value="${notice.notice_enrolldate }" readonly> 
         <input type="text" class="form-control" name="notice_admin_nickname" value="${notice.notice_admin_nickname }" readonly required>
 		<c:forEach items="${noticeFile }" var="a" varStatus="vs">
                     <button type="button" 
@@ -35,32 +36,14 @@
         <textarea class="form-control" name="notice_content" placeholder="내용" required><c:out value="${notice.notice_content }"/></textarea>
         <br>
         
+        <input type="submit" value="수정완료">
+        <input type="reset" value="취소">
         
-        <button class="btn btn-outline-info" onclick="noticeViewModify('${notice.notice_id}');">수정하기</button>
-        <button class="btn btn-outline-info" onclick="noticeViewDelete('${notice.notice_id}');">삭제하기</button>
-    </div>
-
-	
+        </form>
+        
+        </div>
+        
 	</section>
-	
-	<script>
-		function fileDownload(oriName, reName){
-			oriName=encodeURIComponent(oriName);
-			location.href="${path}/board/fileDown.do?oriName="+oriName+"&reName="+reName;
-		}
-		
-		function noticeViewModify(notice_id){
-			location.href="${path}/customer/customerNoticeModify?notice_id="+notice_id;
-		}
-		
-		function noticeViewDelete(notice_id){
-			alert("정말 삭제하시겠습니까?");
-			location.href="${path}/customer/customerNoticeDelete?notice_id="+notice_id;
-		}
-		
-	
-	</script>
-	
 	
 <jsp:include page="/WEB-INF/views/common/footer.jsp"/>
 	

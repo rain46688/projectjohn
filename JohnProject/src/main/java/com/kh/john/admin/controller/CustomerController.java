@@ -6,10 +6,10 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 
-import org.slf4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -114,6 +114,58 @@ public class CustomerController {
 		
 		return mv;
 	}
+	
+	//공지사항 수정으로 이동
+	@RequestMapping("/customer/customerNoticeModify")
+	public ModelAndView noticeModify(@RequestParam Map param, ModelAndView mv) {
+		Notice n = service.noticeModify(param);
+		mv.addObject("notice",n);
+		mv.setViewName("customer/customerNoticeModifyForm");
+		
+		return mv;
+	}
+	
+	//공지사항 수정 완료
+	@RequestMapping("/customer/customerNoticeModifyEnd")
+	public ModelAndView noticeModifyEnd(Notice n, ModelAndView mv) {
+		int result = service.noticeModifyEnd(n);
+		
+		String msg = "";
+		
+		if(result>0) {
+			msg="수정 성공!";
+		}else {
+			msg="수정 실패ㅠㅠ";
+		}
+		
+		mv.addObject("msg",msg);
+		mv.addObject("loc","/customer/customerNotice");
+		mv.setViewName("common/msg");
+		
+		return mv;
+	}
+	
+	//공지사항 삭제
+	@RequestMapping(value="/customer/customerNoticeDelete")
+	public ModelAndView deleteNotice(Notice n, ModelAndView mv) {
+		
+		int result = service.deleteNotice(n);
+		
+		String msg = "";
+		
+		if(result>0) {
+			msg="삭제 성공!";
+		}else {
+			msg="삭제 실패 ㅠㅠ";
+		}
+		
+		mv.addObject("msg",msg);
+		mv.addObject("loc","/customer/customerNotice");
+		mv.setViewName("common/msg");
+		
+		return mv;
+	}
+	
 	
 	//1:1 채팅 불러오기
 	
