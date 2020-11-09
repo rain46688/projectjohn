@@ -7,6 +7,7 @@ import org.springframework.stereotype.Repository;
 
 import com.kh.john.board.model.vo.Board;
 import com.kh.john.board.model.vo.BoardFile;
+import com.kh.john.board.model.vo.Comment;
 
 @Repository
 public class BoardDaoImpl implements BoardDao{
@@ -27,5 +28,17 @@ public class BoardDaoImpl implements BoardDao{
 	public int boardInsertFiles(SqlSession session, BoardFile file) {
 		// TODO Auto-generated method stub
 		return session.insert("board.boardInsertFile", file);
+	}
+	
+	@Override
+	public Board boardSelectOne(SqlSession session, int boardNo) {
+		// TODO Auto-generated method stub
+		return session.selectOne("board.boardSelectOne", boardNo);
+	}
+	
+	@Override
+	public List<Comment> commentSelectList(SqlSession session, int currBoardNo) {
+		// TODO Auto-generated method stub
+		return session.selectList("board.commentSelectList", currBoardNo);
 	}
 }
