@@ -22,14 +22,15 @@
 				<th scope="col">성별</th>
 				<th scope="col">생일</th>
 				<th scope="col">가입날짜</th>
-				<th scope="col">포인트</th>
-				<th scope="col">탈퇴여부</th>
+				<th scope="col">퇴사여부</th>
 				<th scope="col">구분</th>
 				<th scope="col">전화번호</th>
+				<th scope="col">전문가 별점</th>
+				<th scope="col">전문가 분야</th>
 			</tr>
 			<c:if test="${empty list}">
 			<tr>
-				<td colspan="11">조회 결과가 없습니다.</td>
+				<td colspan="12">조회 결과가 없습니다.</td>
 			</tr>
 		</c:if>
 		<c:if test="${not empty list }">
@@ -45,7 +46,9 @@
 					<td><c:out value="${m['point']}"/></td>
 					<td><c:out value="${m['leave_mem']}"/></td>
 					<td><c:out value="${m['mem_class']}"/></td>
-					<%-- <td><c:out value="${m['tel']}"/></td> --%>
+					<%-- <td><c:out value="${m['tel']}"/></td>
+					<td><c:out value="${m['expert_rating']}"/></td>
+					<td><c:out value="${m['expert_counsel_area']}"/></td> --%>
 				</tr>
 			</c:forEach>
 		</c:if>

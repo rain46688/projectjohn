@@ -62,8 +62,8 @@
 	            
 	            <textarea class="form-control" name="boardContent" placeholder="내용" required></textarea>
 	            <br />
-	            <input type="submit" class="btn btn-outline-success" value="신고하기" >
-	            <input type="reset" class="btn btn-outline-success" value="취소" >
+	            <input type="submit" class="btn btn-outline-info" value="신고하기" >
+	            <input type="reset" class="btn btn-outline-info" value="취소" >
 	        </form>
 	        
 	        <script>

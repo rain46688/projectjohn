@@ -6,6 +6,8 @@ import java.util.Map;
 import org.apache.ibatis.session.SqlSession;
 import org.mybatis.spring.SqlSessionTemplate;
 
+import com.kh.john.admin.model.vo.Notice;
+import com.kh.john.admin.model.vo.NoticeFile;
 import com.kh.john.board.model.vo.Board;
 import com.kh.john.member.model.vo.Member;
 
@@ -27,6 +29,10 @@ public interface AdminDao {
 	
 	int selectBoardCount(SqlSession session);
 	
+	List<Board> searchBoardList(SqlSessionTemplate session, Map<String,Object> param, int cPage, int numPerPage);
+	
+	int searchBoardListCount(SqlSession session, Map<String,Object> param);
+	
 	//전문가관련
 	List<Member> selectExpertList(SqlSessionTemplate session, int cPage, int numPerPage);
 	
@@ -38,8 +44,26 @@ public interface AdminDao {
 	
 	Member updateMemberToExpert(SqlSessionTemplate session, Map param);
 	
+	List<Member> searchExpertList(SqlSessionTemplate session, Map<String,Object> param, int cPage, int numPerPage);
+	
+	int searchExpertListCount(SqlSession session, Map<String,Object> param);
+	
 	//공지관련
-//	List<Notice> selectNoticeList(SqlSessionTemplate session, int cPage, int numPerPage);
-//	
-//	int selectNoticeCount(SqlSession session);
+	List<Notice> selectNoticeList(SqlSessionTemplate session, int cPage, int numPerPage);
+	
+	int selectNoticeCount(SqlSession session);
+	
+	int insertNotice(SqlSession session, Notice n);
+	
+	int insertNoticeFile(SqlSession session, NoticeFile file);
+	
+	Notice selectOneNotice(SqlSessionTemplate session, int notice_id);
+	
+	List<NoticeFile> selectNoticeFile(SqlSession session, int notice_id);
+	
+	Notice noticeModify(SqlSessionTemplate session, Map param);
+	
+	int noticeModifyEnd(SqlSessionTemplate session, Notice n);
+	
+	int deleteNotice(SqlSessionTemplate session, Notice n);
 } 

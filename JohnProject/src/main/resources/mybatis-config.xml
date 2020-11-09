@@ -10,6 +10,8 @@
  	<typeAlias type="com.kh.john.member.model.vo.Member" alias="member"/>
  	<typeAlias type="com.kh.john.board.model.vo.Board" alias="board"/>
  	<typeAlias type="com.kh.john.board.model.vo.BoardFile" alias="boardFile"/>
+ 	<typeAlias type="com.kh.john.admin.model.vo.Notice" alias="notice"/>
+ 	<typeAlias type="com.kh.john.admin.model.vo.NoticeFile" alias="noticeFile"/>
  </typeAliases>
  
 

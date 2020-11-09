@@ -66,6 +66,49 @@ ul li {
 
 		</ul>
 
+	<div id="search-container">
+			<form action="${path }/admin/adminExpertSearch" method="post">
+			
+				<select name="searchType" required>
+					<option value=" " disabled selected>검색타입</option> 
+					
+					<option value="mem_name" <c:if test="${param.searchType eq 'mem_name'}">selected</c:if>>이름</option>
+					<option value="mem_email" <c:if test="${param.searchType eq 'mem_email'}">selected</c:if>>이메일</option>
+					<option value="mem_nickname" ${param.searchType eq 'mem_nickname'?"selected":"" }>닉네임</option>	
+										
+				
+				</select>
+				
+				<input type="search" name="keyword"
+				value="${param.keyword }"/> 
+				
+				<br>
+				
+				<label>성별</label>
+				<label><input type="radio" name="gender" value='M'>남</label>
+				<label><input type="radio" name="gender" value='F'>여</label>
+				
+				<br>
+				
+				<input type="checkbox" name="leave_mem" value="0">현직 전문가
+				<input type="checkbox" name="leave_mem" value="1">퇴사 전문가
+	
+				<br>
+				
+			<label><input type="radio" name="order" value='ascend'>오름차순</label>
+			<label><input type="radio" name="order" value='descend'>내림차순</label> 
+			
+			<select name="searchType2" required>
+				<option value=" " disabled selected>선택</option> 
+				<option value="enroll_date" <c:if test="${param.searchType eq 'enroll_date'}">selected</c:if>>입사날짜</option>
+				<%-- <option value="expert_rating" <c:if test="${param.searchType eq 'expert_rating'}">selected</c:if>>등급순</option>
+				<option value="expert_counsel_start_time" ${param.searchType eq 'expert_counsel_start_time'?"selected":"" }>상담시간순</option>	 --%>
+			</select>
+							
+				<input type="submit" value="검색">
+			</form>
+		</div>
+		
 		<div class="tab-view">
 			<form id="operForm">
 				<table class="table">
@@ -77,9 +120,9 @@ ul li {
 						<th scope="col">성별</th>
 						<th scope="col">생일</th>
 						<th scope="col">가입날짜</th>
-						<th scope="col">포인트</th>
-						<th scope="col">탈퇴여부</th>
+						<th scope="col">퇴사여부</th>
 						<th scope="col">구분</th>
+						<!-- <th scope="col">전화번호</th> -->
 					</tr>
 
 					<c:forEach items="${list }" var="m">
@@ -91,10 +134,9 @@ ul li {
 							<td><c:out value="${m.gender}" /></td>
 							<td><c:out value="${m.birthday}" /></td>
 							<td><c:out value="${m.enroll_date}" /></td>
-							<td><c:out value="${m.point}" /></td>
 							<td><c:out value="${m.leave_mem}" /></td>
 							<td><c:out value="${m.mem_class}" /></td>
-
+							<%-- <td><c:out value="${m.tel}"/></td> --%>
 						</tr>
 					</c:forEach>
 

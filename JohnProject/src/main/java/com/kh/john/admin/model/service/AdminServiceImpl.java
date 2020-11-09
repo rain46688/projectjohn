@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 
 import com.kh.john.admin.model.dao.AdminDao;
 import com.kh.john.admin.model.vo.Notice;
+import com.kh.john.admin.model.vo.NoticeFile;
 import com.kh.john.board.model.vo.Board;
 import com.kh.john.member.model.vo.Member;
 
@@ -60,6 +61,16 @@ public class AdminServiceImpl implements AdminService{
 		return dao.selectBoardCount(session);
 	}
 	
+	@Override
+	public List<Board> searchBoardList(Map<String, Object> param, int cPage, int numPerPage) {
+		return dao.searchBoardList(session, param, cPage, numPerPage);
+	}
+
+	@Override
+	public int searchBoardListCount(Map<String, Object> param) {
+		return dao.searchBoardListCount(session, param);
+	}
+
 	//전문가관련
 	@Override
 	public List<Member> selectExpertList(int cPage, int numPerPage) {
@@ -87,20 +98,75 @@ public class AdminServiceImpl implements AdminService{
 	public Member updateMemberToExpert(Map param) {
 		return dao.updateMemberToExpert(session, param);
 	}
+
+	@Override
+	public List<Member> searchExpertList(Map<String, Object> param, int cPage, int numPerPage) {
+		return dao.searchExpertList(session, param,cPage,numPerPage);
+	}
+
+	@Override
+	public int searchExpertListCount(Map<String, Object> param) {
+		return dao.searchExpertListCount(session, param);
+	}
 	
 	
 	
 	
 	//공지관련
-//	@Override
-//	public List<Notice> selectNoticeList(int cPage, int numPerPage) {
-//		return dao.selectNoticeList(session,cPage,numPerPage);
-//	}
-//
-//	@Override
-//	public int selectNoticeCount() {
-//		return dao.selectNoticeCount(session);
-//	}
+	@Override
+	public List<Notice> selectNoticeList(int cPage, int numPerPage) {
+		return dao.selectNoticeList(session,cPage,numPerPage);
+	}
+
+	@Override
+	public int selectNoticeCount() {
+		return dao.selectNoticeCount(session);
+	}
+
+	@Override
+	public int insertNotice(Notice n, List<NoticeFile> files) throws RuntimeException{
+		int result = dao.insertNotice(session,n);
+		
+		if(result==0) throw new RuntimeException("0값입력!");
+		
+		if(!files.isEmpty()) {
+			for(NoticeFile file:files) {
+				result = dao.insertNoticeFile(session, file);
+				if(result==0) throw new RuntimeException("입력 오류");
+				
+			}
+		}
+		
+		return result;
+	}
+
+	@Override
+	public Notice selectOneNotice(int notice_id) {
+		return dao.selectOneNotice(session, notice_id);
+	}
+
+	@Override
+	public List<NoticeFile> selectNoticeFile(int notice_id) {
+		return dao.selectNoticeFile(session, notice_id);
+	}
+
+	@Override
+	public Notice noticeModify(Map param) {
+		return dao.noticeModify(session, param);
+	}
+
+	@Override
+	public int noticeModifyEnd(Notice n) {
+		return dao.noticeModifyEnd(session,n);
+	}
+
+	@Override
+	public int deleteNotice(Notice n) {
+		int result = dao.deleteNotice(session,n);
+		return result;
+	}
+	
+	
 	
 	
 	

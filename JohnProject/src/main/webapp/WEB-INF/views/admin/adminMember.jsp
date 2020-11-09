@@ -18,37 +18,32 @@
 	
 	<div id="search-container">
 		<form action="${path }/admin/adminMemberSearch" method="post">
+		
 			<select name="searchType" required>
 				<option value=" " disabled selected>검색타입</option> 
 				
-														<!--if쓴 이유 : 검색되고 검색한거 유지되게 하기 위해 -->
 				<option value="mem_name" <c:if test="${param.searchType eq 'mem_name'}">selected</c:if>>이름</option>
 				<option value="mem_email" <c:if test="${param.searchType eq 'mem_email'}">selected</c:if>>이메일</option>
 				<option value="mem_nickname" ${param.searchType eq 'mem_nickname'?"selected":"" }>닉네임</option>	
-																							<!-- 삼항연산자도 가넝 -->
+																							
 			
-				<!-- 동적쿼리문 위해 조건들 지워버림 -->
-<!-- 				<option value="emp_id" >사번</option>
-				<option value="emp_name" >이름</option>
-				<option value="email" >이메일</option>
-				<option value="phone" >전화번호</option> -->
+
 			
 			</select>
 			
 			<input type="search" name="keyword"
-			value="${param.keyword }"/> <!-- required내가 삭제함 -->
-			<!-- <input type="search" name="keyword" /> -->
+			value="${param.keyword }"/> 
 			
 			<br>
-			<!-- 검색추가 (where에 if문 써보기)-->
+			
 			<label>성별</label>
 			<label><input type="radio" name="gender" value='M'>남</label>
 			<label><input type="radio" name="gender" value='F'>여</label>
-			<!--  -->
+			
 			
 			
 			<br>
-			<!-- 검색추가4 -->
+			
 			<input type="checkbox" name="leave_mem" value="0">현재 회원
 			<input type="checkbox" name="leave_mem" value="1">탈퇴한 회원
 
@@ -76,6 +71,7 @@
 				<th scope="col">포인트</th>
 				<th scope="col">탈퇴여부</th>
 				<th scope="col">구분</th>
+				<th scope="col">전화번호</th>
 			</tr>
 			
 			<c:forEach items="${list }" var="m">
@@ -88,8 +84,10 @@
 					<td><c:out value="${m.birthday}"/></td>
 					<td><c:out value="${m.enroll_date}"/></td>
 					<td><c:out value="${m.point}"/></td>
-					<td><c:out value="${m.leave_mem}"/></td>
+					<td><c:out value="${m.leave_mem}-"/></td>
 					<td><c:out value="${m.mem_class}"/></td>
+					<%-- <td><c:out value="${m.tel}"/></td> --%>
+					
 
 				</tr>
 			</c:forEach>
@@ -106,7 +104,6 @@
 	
 	<script type="text/javascript">
 	function deleteMember(usid){
-		console.log("클릭됨");
 		alert("정말 탈퇴시키겠습니까?");
 		location.replace("${path}/admin/adminDeleteMember?usid="+usid);
 	}
