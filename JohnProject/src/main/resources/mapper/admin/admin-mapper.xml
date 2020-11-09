@@ -9,7 +9,7 @@
 		id="boardMap">
 	</resultMap>
 	<resultMap type="com.kh.john.admin.model.vo.Notice"
-		id="NoticeMap">
+		id="noticeMap">
 	</resultMap>
 
 	<!-- 멤버관련 -->
@@ -28,35 +28,39 @@
 		WHERE USID=#{usid}
 	</insert>
 
-	<select id="searchMemberList" parameterType="map" resultType="member">
-			SELECT * FROM MEMBER WHERE 1=1 
-	 			<if test="type !=null and keyword !=null">
-	 				AND ${type} LIKE '%'||#{keyword, jdbcType=VARCHAR}||'%'
-	 			</if>	 
-	 			
-	 			<if test="gender !=null">
-	 				AND GENDER = #{gender, jdbcType=VARCHAR}
-	 			</if>  
+	<select id="searchMemberList" parameterType="map"
+		resultType="member">
+		SELECT * FROM MEMBER WHERE 1=1
+		<if test="type !=null and keyword !=null">
+			AND ${type} LIKE '%'||#{keyword, jdbcType=VARCHAR}||'%'
+		</if>
 
-		<!-- 다중값 넣기 -->
-		<if test="mem_class!=null"> <!-- 다중값 비교 IN -->
-			AND MEM_CLASS IN 
-			<foreach collection="mem_class" item="v" index="i" 
-			open="(" close=")" separator=","> #{v, jdbcType=VARCHAR} 
+		<if test="gender !=null">
+			AND GENDER = #{gender, jdbcType=VARCHAR}
+		</if>
+
+
+		<if test="mem_class!=null">
+			AND MEM_CLASS IN
+			<foreach collection="mem_class" item="v" index="i" open="("
+				close=")" separator=","> #{v, jdbcType=VARCHAR}
 			</foreach>
-		</if> 
-		
-		<if test="leave_mem!=null"> <!-- 다중값 비교 IN -->
-			AND LEAVE_MEM IN 
-			<foreach collection="leave_mem" item="a" index="i" 
-			open="(" close=")" separator=","> #{a, jdbcType=INTEGER} 
+		</if>
+
+		<if test="leave_mem!=null">
+			AND LEAVE_MEM IN
+			<foreach collection="leave_mem" item="a" index="i" open="("
+				close=")" separator=","> #{a, jdbcType=INTEGER}
 			</foreach>
-		</if> 
-		
+		</if>
+
 	</select>
+
+	<select id="searchMemberListCount" resultType="_int"
+		parameterType="map">
+		SELECT COUNT(*) FROM MEMBER WHERE ${type} LIKE
+		'%'||#{keyword, jdbcType=VARCHAR}||'%' 
 	
-	<select id="searchMemberListCount" resultType="_int" parameterType="map">
-		SELECT COUNT(*) FROM MEMBER WHERE ${type} LIKE '%'||#{keyword, jdbcType=VARCHAR}||'%'
 	</select>
 
 	<!-- 게시판관련 -->
@@ -66,6 +70,37 @@
 	<select id="selectBoardCount" resultType="_int">
 		SELECT COUNT(*) FROM
 		BOARD
+	</select>
+	
+	<select id="searchBoardList" parameterType="map"
+		resultType="board">
+		SELECT * FROM BOARD B, MEMBER M WHERE B.WRITER_USID=M.USID AND 1=1 
+		<if test="type !=null and keyword !=null">
+			AND ${type} LIKE '%'||#{keyword, jdbcType=VARCHAR}||'%'
+		</if>
+				
+		<if test="isclose!=null " >
+			AND B.ISCLOSE IN
+			<foreach collection="isclose" item="v" index="i" open="("
+				close=")" separator=","> #{v, jdbcType=VARCHAR}
+			</foreach>
+		</if>
+		
+		<if test='type2 != null  and (order eq "ascend".toString())'>
+			ORDER BY B.${type2} ASC
+		</if>
+		
+		<if test='type2 != null  and(order eq "descend".toString())'>
+			ORDER BY B.${type2} DESC
+		</if>
+		
+	</select>
+
+	<select id="searchBoardListCount" resultType="_int"
+		parameterType="map">
+		SELECT COUNT(*) FROM BOARD B, MEMBER M WHERE B.WRITER_USID=M.USID 
+		AND '${type}' LIKE '%'||#{keyword, jdbcType=VARCHAR}||'%'
+		
 	</select>
 
 	<!-- 전문가관련 -->
@@ -80,11 +115,11 @@
 
 	<select id="selectBeforeExpertList" resultMap="memberMap">
 		SELECT * FROM
-		MEMBER WHERE LEAVE_MEM LIKE 0
+		MEMBER WHERE MEM_CLASS LIKE('일반유저') AND LEAVE_MEM LIKE 0
 	</select>
 	<select id="selectBeforeExpertCount" resultType="_int">
 		SELECT COUNT(*)
-		FROM MEMBER WHERE LEAVE_MEM LIKE 0
+		FROM MEMBER WHERE MEM_CLASS LIKE('일반유저') AND LEAVE_MEM LIKE 0
 	</select>
 
 	<select id="updateMemberToExpert" parameterType="map"
@@ -92,10 +127,76 @@
 		SELECT * FROM MEMBER WHERE USID=#{usid}
 	</select>
 
+	<select id="searchExpertList" parameterType="map"
+		resultType="member">
+		SELECT * FROM MEMBER WHERE 1=1 AND MEM_CLASS LIKE('전문가')
+		
+		<if test="type !=null and keyword !=null">
+			AND ${type} LIKE '%'||#{keyword, jdbcType=VARCHAR}||'%'
+		</if>
 
+		<if test="gender !=null">
+			AND GENDER = #{gender, jdbcType=VARCHAR}
+		</if>
+
+		<if test="mem_class!=null">
+			AND MEM_CLASS IN
+			<foreach collection="mem_class" item="v" index="i" open="("
+				close=")" separator=","> #{v, jdbcType=VARCHAR}
+			</foreach>
+		</if>
+
+		<if test="leave_mem!=null">
+			AND LEAVE_MEM IN
+			<foreach collection="leave_mem" item="a" index="i" open="("
+				close=")" separator=","> #{a, jdbcType=INTEGER}
+			</foreach>
+		</if>
+		
+		<if test='type2 != null  and (order eq "ascend".toString())'>
+			ORDER BY ${type2} ASC
+		</if>
+		
+		<if test='type2 != null  and(order eq "descend".toString())'>
+			ORDER BY ${type2} DESC
+		</if>
+		
+		
+
+	</select>
+
+	<select id="searchExpertListCount" resultType="_int"
+		parameterType="map">
+		SELECT COUNT(*) FROM MEMBER WHERE  ${type2} LIKE '%'||#{keyword, jdbcType=VARCHAR}||'%'
+		AND MEM_CLASS LIKE('전문가')
+	</select>
+	
 	<!-- 공지관련 -->
-	<!-- <select id="selectNoticeList" resultMap="noticeMap"> SELECT * FROM 
-		NOTICE </select> <select id="selectNoticeCount" resultType="_int"> SELECT 
-		COUNT(*) FROM NOTICE </select> -->
-
+	<select id="selectNoticeList" resultMap="noticeMap"> 
+		SELECT * FROM NOTICE 
+	</select> 
+	
+	<select id="selectNoticeCount" resultType="_int"> 
+		SELECT COUNT(*) FROM NOTICE 
+	</select>
+	
+	<select id="insertNotice" parameterType="notice">
+		INSERT INTO NOTICE VALUES(SEQ_NOTICE_NO.NEXTVAL,25,'관리인',#{notice_title},#{notice_content},SYSDATE) 
+		<!-- 수정해야됨 -->
+	</select>
+	
+	<insert id="insertNoticeFile" parameterType="noticeFile">
+		INSERT INTO NOTICE_FILE VALUES(SEQ_NOTICE_NO.NEXTVAL,#{notice_file_name})
+		<!-- 수정해야됨 -->
+		<selectKey keyProperty="notice_id" resultType="_int" order="BEFORE"> SELECT SEQ.NOTICE_ID.CURRVAL FROM DUAL </selectKey>
+	</insert>
+	
+	<select id="selectOneNotice" parameterType="_int" resultType="notice">
+		SELECT * FROM NOTICE WHERE NOTICE_ID=#{notice_id}
+	</select>
+	
+	<select id="selectNoticeFile" parameterType="_int" resultType="noticeFIle">
+		SELECT * FROM NOTICE_FILE WHERE NOTICE_ID=#{notice_id}
+	</select>
+ 
 </mapper>

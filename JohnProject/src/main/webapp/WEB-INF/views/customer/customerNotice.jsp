@@ -12,20 +12,24 @@
 </jsp:include>
 	
 <section id="content" >
+
+<p>총 <c:out value="${totalData}"/>건의 게시물이 있습니다.</p>
+
+<button type="button" value="글쓰기" id="btn-add" class="btn btn-outline-info"  onclick="location.href='${path}/customer/customerNoticeForm'"> 글쓰기</button>
 		           
-		        <%-- <table id="tbl-board" class="table table-striped table-hover">
+		         <table id="tbl-board" class="table table-striped table-hover">
 		            <tr>
 		                <th>번호</th>
-		                <th>제목</th>
 		                <th>닉네임</th>
+		                <th>제목</th>
 		                <th>날짜</th>
-		                
 		            </tr>
+		            
 		            <c:forEach items="${list }" var="n">
 		           <tr>
             		<td><c:out value="${n.notice_id }"/></td> 
             		<td><c:out value="${n.notice_admin_nickname }"/></td> 
-            		<td><c:out value="${n.notice_title }"/></td> 
+            		<td><a href="${path }/customer/customerNoticeView?notice_id=${n.notice_id }"><c:out value="${n.notice_title }"/></a></td> 
             		<td><c:out value="${n.notice_enrolldate }"/></td> 
             		
             	</tr>
@@ -36,7 +40,7 @@
 		        
 		       <div id="pageBar">
 		        ${pageBar } 
-		       </div> --%>
+		       </div>
 		      
 		      </section>
 	

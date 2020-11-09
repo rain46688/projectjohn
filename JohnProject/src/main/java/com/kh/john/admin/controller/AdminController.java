@@ -119,6 +119,41 @@ public class AdminController {
 		mv.setViewName("admin/adminBoard");
 		return mv;
 	}
+	
+	//게시판 검색
+	@RequestMapping("/admin/adminBoardSearch")
+	public ModelAndView adminBoardSearch(ModelAndView mv, 
+			@RequestParam(value="searchType", required=false) String type,
+			@RequestParam(value="keyword", required=false) String keyword,
+			@RequestParam(value="searchType2", required=false) String type2,
+			@RequestParam(value="order", required=false) String order,
+			@RequestParam(value="isclose", required=false) String[] isclose,
+			@RequestParam(value="cPage", required = false, defaultValue = "1") int cPage,
+			@RequestParam(value="numPerPage", required = false, defaultValue = "10") int numPerPage) {
+
+		Map<String,Object> param = new HashMap(); 
+		
+		param.put("type", type);
+		param.put("keyword", keyword);
+		param.put("isclose", isclose);
+		param.put("type2",type2);
+		param.put("order",order);
+		System.out.println("맵안에:"+param);
+
+		int totalData = service.searchBoardListCount(param);
+		
+		List<Board> list = service.searchBoardList(param, cPage, numPerPage);
+		
+
+		mv.addObject("pageBar", PageBarFactory.getPageBar(totalData, cPage, numPerPage, "adminBoard"));
+
+		mv.addObject("totalData", totalData);
+		System.out.println("토탈데이터:"+totalData);
+		mv.addObject("list", list);
+		System.out.println("리스트:"+list);
+		mv.setViewName("admin/adminBoardSearch");
+		return mv;
+	}
 
 	// 전문가 리스트 불러오기
 	@RequestMapping("/admin/adminExpert")
@@ -137,7 +172,7 @@ public class AdminController {
 		return mv;
 	}
 
-	// 승인 전 전문가 리스트 불러오기 -- 향후 mapper 수정할것임
+	// 승인 전 전문가 리스트 불러오기
 	@RequestMapping("/admin/adminBeforeExpert")
 	public ModelAndView adminBeforeExpert(ModelAndView mv,
 			@RequestParam(value = "cPage", required = false, defaultValue = "1") int cPage,
@@ -163,6 +198,45 @@ public class AdminController {
 
 		return mv;
 
+	}
+	
+	//전문가 검색
+	@RequestMapping("/admin/adminExpertSearch")
+	public ModelAndView adminExpertSearch(ModelAndView mv, 
+			@RequestParam(value="searchType", required=false) String type,
+			@RequestParam(value="keyword", required=false) String keyword,
+			@RequestParam(value="gender", required=false) String gender,
+			@RequestParam(value="mem_class", required=false) String[] mem_class,
+			@RequestParam(value="leave_mem", required=false) String[] leave_mem,
+			@RequestParam(value="searchType2", required=false) String type2,
+			@RequestParam(value="order", required=false) String order,
+			@RequestParam(value="cPage", required = false, defaultValue = "1") int cPage,
+			@RequestParam(value="numPerPage", required = false, defaultValue = "10") int numPerPage) {
+
+		Map<String,Object> param = new HashMap(); 
+		
+		param.put("type", type);
+		param.put("keyword", keyword);
+		param.put("gender", gender);
+		param.put("mem_class", mem_class);
+		param.put("leave_mem", leave_mem);
+		param.put("type2", type2);
+		param.put("order", order);
+		System.out.println("맵안에:"+param);
+
+		int totalData = service.searchExpertListCount(param);
+		
+		List<Member> list = service.searchExpertList(param, cPage, numPerPage);
+		
+
+		mv.addObject("pageBar", PageBarFactory.getPageBar(totalData, cPage, numPerPage, "adminMember"));
+
+		mv.addObject("totalData", totalData);
+		System.out.println("토탈데이터:"+totalData);
+		mv.addObject("list", list);
+		System.out.println("리스트:"+list);
+		mv.setViewName("admin/adminExpertSearch");
+		return mv;
 	}
 
 	// 1:1 채팅답변 불러오기
