@@ -21,16 +21,18 @@
 		<div id="board-container">
 		<h1>게시판상세화면</h1>
 		<input type="text" class="form-control" name="notice_id" id="notice_id" value="${notice.notice_id }" readonly> 
-        <input type="text" class="form-control" value="${notice.notice_title }" placeholder="제목" name="notice_title" id="notice_title"  required>
-        <input type="text" class="form-control" name="notice_enrolldate" id="notice_enrolldate" value="${notice.notice_enrolldate }" readonly> 
+		<input type="hidden" class="form-control" name="notice_admin_uisd" id="notice_admin_uisd" value="${notice.notice_admin_uisd }" > 
         <input type="text" class="form-control" name="notice_admin_nickname" value="${notice.notice_admin_nickname }" readonly required>
-		<c:forEach items="${noticeFile }" var="a" varStatus="vs">
+        <input type="text" class="form-control" name="notice_title" id="notice_title"  value="${notice.notice_title }" placeholder="제목"  required>
+        <input type="text" class="form-control" name="notice_enrolldate" id="notice_enrolldate" value="${notice.notice_enrolldate }" readonly> 
+       
+		<c:forEach items="${noticeFile}" var="a" varStatus="vs">
                     <button type="button" 
                     class="btn btn-outline-info btn-block"
-                    onclick="fileDownload('${a.originalFilename});">
-                    	<c:out value="첨부파일  ${vs.count } - ${a.originalFilename }"/>
+                    onclick="fileDownload('${a.notice_file_name}');">
+                    	<c:out value="첨부파일  ${vs.count } - ${a.notice_file_name }"/>
            			</button>
-        </c:forEach>
+        </c:forEach> 
         
         <textarea class="form-control" name="notice_content" placeholder="내용" required><c:out value="${notice.notice_content }"/></textarea>
         <br>
