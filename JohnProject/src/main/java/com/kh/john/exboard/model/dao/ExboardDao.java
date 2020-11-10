@@ -26,4 +26,6 @@ public interface ExboardDao {
 
 	int insertExpertBoard(SqlSessionTemplate session, ExpertBoard exboard) throws Exception;
 
+	List<ExpertBoard> selectExpertBoard(SqlSessionTemplate session, Member mem) throws Exception;
+
 }

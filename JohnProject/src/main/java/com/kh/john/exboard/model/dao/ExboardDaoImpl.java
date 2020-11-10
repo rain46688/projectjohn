@@ -73,4 +73,10 @@ public class ExboardDaoImpl implements ExboardDao {
 		return session.insert("expert.insertExpertBoard", exboard);
 	}
 
+	@Override
+	public List<ExpertBoard> selectExpertBoard(SqlSessionTemplate session, Member mem) throws Exception {
+		// TODO Auto-generated method stub
+		return session.selectList("expert.selectExpertBoard", mem);
+	}
+
 }

@@ -99,4 +99,10 @@ public class ExboardServiceImpl implements ExboardService {
 
 	}
 
+	@Override
+	public List<ExpertBoard> selectExpertBoard(Member mem) throws Exception {
+		// TODO Auto-generated method stub
+		return dao.selectExpertBoard(session, mem);
+	}
+
 }
