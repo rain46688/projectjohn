@@ -200,4 +200,10 @@ public class MemberController {
 		
 		return "common/msg";
 	}
+	
+//	테스트 페이지
+	@RequestMapping("/member/test")
+	private String testPage() {
+		return "member/test";
+	}
 }
