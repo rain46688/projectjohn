@@ -29,7 +29,7 @@ body{
     height: 100%;
     background-color:#05135C;
     display: flex;
-    justify-content: center;
+    flex-direction: column;
     align-items: flex-start;
 }
 #headerAndContent {

@@ -29,22 +29,20 @@
         <input type="text" class="form-control" name="report_user_nickname" id="report_user_nickname" value="${report.report_user_nickname}" > 
         <input type="text" class="form-control" name="report_target_nickname" id="report_target_nickname" value="${report.report_target_nickname}" > 
         <input type="text" class="form-control" name="report_user_nickname" id="report_user_nickname" value="${report.report_user_nickname}" > 
+        
         <input type="text" class="form-control" name="report_target_nickname" id="report_target_nickname" value="${report.report_target_nickname}" >
         <input type="text" class="form-control" name="report_answer" id="report_answer"  value="${report.report_answer }" placeholder="제목"  required>
         <input type="text" class="form-control" name="notice_iswarning" id="notice_iswarning" value="${notice.notice_iswarning }" readonly> 
        
 		<c:forEach items="${reportFile}" var="a" varStatus="vs">
-                    <button type="button" 
-                    class="btn btn-outline-info btn-block"
-                    onclick="fileDownload('${a.report_file_name}');">
-                    	<c:out value="첨부파일  ${vs.count } - ${a.report_file_name }"/>
-           			</button>
+             <img src="${path }/resources/upload/report/${a.report_file_name }">
         </c:forEach> 
+        
         
         <textarea class="form-control" name="report_content" placeholder="내용" required><c:out value="${report.report_content }"/></textarea>
         <br>
         
-        
+        <button class="btn btn-outline-info" onclick="reportWarn('${report.report_target_usid}');">경고주기</button>
         <button class="btn btn-outline-info" onclick="reportViewDelete('${report.report_id}');">삭제하기</button>
         
         
@@ -55,18 +53,18 @@
 	</section>
 	
 	<script>
-		function fileDownload(oriName, reName){
-			oriName=encodeURIComponent(oriName);
-			location.href="${path}/board/fileDown.do?oriName="+oriName+"&reName="+reName;
+
+		function reportViewDelete(report_id){
+			 if (confirm("정말 삭제하시겠습니까?") == true){
+				 location.href="${path}/report/adminReportDelete?report_id="+report_id;
+			 }else{  
+			     return;
+			 }
 		}
 		
-		function noticeViewModify(notice_id){
-			location.href="${path}/customer/customerNoticeModify?notice_id="+notice_id;
-		}
-				
-		function noticeViewDelete(notice_id){
-			 if (confirm("정말 삭제하시겠습니까?") == true){
-				 location.href="${path}/customer/customerNoticeDelete?notice_id="+notice_id;
+		function reportWarn(report_target_usid){
+			 if (confirm("정말 경고를 주시겠습니까?") == true){
+				 location.href="${path}/report/adminReportWarn?report_target_usid="+report_target_usid;
 			 }else{  
 			     return;
 			 }

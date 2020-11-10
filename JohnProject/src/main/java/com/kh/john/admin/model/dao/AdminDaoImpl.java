@@ -114,6 +114,11 @@ public class AdminDaoImpl implements AdminDao {
 
 	
 	
+	@Override
+	public int updateMemberToExpertEnd(SqlSession session, Member m) {
+		return session.insert("admin.updateMemberToExpertEnd",m);
+	}
+
 	//공지관련
 	@Override
 	public List<Notice> selectNoticeList(SqlSessionTemplate session, int cPage, int numPerPage) {

@@ -27,4 +27,24 @@
 	<select id="selectReportCount" resultType="_int">
 		SELECT COUNT(*) FROM REPORT
 	</select>
+	
+	<select id="selectOneReport" parameterType="_int" resultType="report">
+		SELECT * FROM REPORT WHERE REPORT_ID=#{report_id}
+	</select>
+	
+	<select id="selectReportFile" parameterType="_int" resultType="reportFile">
+		SELECT * FROM REPORT_FILE WHERE REPORT_ID=#{report_id}
+	</select>
+	
+	<delete id="deleteReport" parameterType="report">
+		DELETE FROM REPORT WHERE REPORT_ID=#{report_id}
+	</delete>
+	
+	<insert id="reportWarn" parameterType="report">
+		UPDATE REPORT R
+		SET REPORT_ISWARNING = 1 WHERE EXISTS (
+		SELECT USID
+		FROM MEMBER M
+		WHERE R.REPORT_TARGET_USID = M.USID)
+	</insert>
 </mapper>

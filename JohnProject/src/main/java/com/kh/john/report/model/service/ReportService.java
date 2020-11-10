@@ -14,4 +14,13 @@ public interface ReportService {
 	List<Report> selectReportList(int cPage, int numPerPage);
 	
 	int selectReportCount();
+	
+	Report selectOneReport(int report_id);
+	
+	List<ReportFile> selectReportFile(int report_id);
+	
+	int deleteReport(Report r);
+	
+	int reportWarn(Report r);
+	
 }

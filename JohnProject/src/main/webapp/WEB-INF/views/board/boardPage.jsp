@@ -3,7 +3,8 @@
 <div id="content">
                     <!-- 내용 -->
                     ${currBoard }
-                    
+                    <button onclick="location.href = '${path}/board/boardModify'">수정하기</button>
+                    <button onclick="location.href = '${path}/board/boardDelete'">삭제하기</button>
                     <div id="commentSection">
 				      <div id="commentInsert">
 				          <input type="text" name="commentContent" class="commentContent" id="commentContent" size="48">
