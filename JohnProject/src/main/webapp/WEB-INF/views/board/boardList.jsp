@@ -55,7 +55,7 @@
 				if(subList[i]==element.small_category){
 					let name = 'subList' + (i+1);
 					console.log(element);
-					document.getElementById(name).innerHTML += '<br>' + element.title;
+					document.getElementById(name).innerHTML += '<br>' + element.title + element.writer_nickname + ;
 				}
 			}
         })
