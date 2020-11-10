@@ -23,7 +23,8 @@ public class ExpertRoomInterceptor extends HandlerInterceptorAdapter {
 			log.debug("로그인 안되있음");
 			String path = request.getServletPath();
 			log.debug("path : " + path + " " + request.getParameter("bno"));
-			session.setAttribute("URL", path + "?bno=" + request.getParameter("bno"));
+			// session.setAttribute("URL", path + "?bno=" + request.getParameter("bno"));
+			session.setAttribute("bnum", request.getParameter("bno"));
 			request.setAttribute("msg", "로그인을 해주세요");
 			request.setAttribute("loc", "/member/memberLogin");
 			request.getRequestDispatcher("/msg").forward(request, response);
