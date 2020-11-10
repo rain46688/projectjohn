@@ -6,6 +6,7 @@ import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.kh.john.admin.model.vo.NoticeFile;
 import com.kh.john.report.model.dao.ReportDao;
 import com.kh.john.report.model.vo.Report;
 import com.kh.john.report.model.vo.ReportFile;
@@ -22,16 +23,15 @@ public class ReportServiceImpl implements ReportService {
 	//customer
 	@Override
 	public int insertReport(Report r, List<ReportFile> files) throws RuntimeException {
-		int result = dao.insertReport(session, r);
-		
-		if(result==0) throw new RuntimeException("0값입력!");
-		
-		if(!files.isEmpty()) {
-			for(ReportFile file: files) {
-				result = dao.insertReportFile(session, file);
-				if(result==0) throw new RuntimeException("입력 오류");
-				
-			}
+		int result = dao.insertReport(session,r);
+		System.out.println("서비스"+files);
+		if(result>0) {
+//			if(!files.isEmpty()) {
+				for(ReportFile f: files) {
+					dao.insertReportFile(session, f);
+					
+				}
+			//}
 		}
 		
 		return result;

@@ -35,7 +35,7 @@ public class CustomerReportController {
 	}
 	
 	//신고하기 글쓰기 완료
-	@RequestMapping("/report/customerReportEnd")
+	@RequestMapping(value="/report/customerReportEnd")
 	public ModelAndView customerReportEnd(Report report, MultipartFile[] upFile, ModelAndView mv, HttpServletRequest request) {
 		String saveDir = request.getServletContext().getRealPath("resources/upload/report");
 		File dir = new File(saveDir);
@@ -45,7 +45,7 @@ public class CustomerReportController {
 		
 		List<ReportFile> files = new ArrayList();
 		for(MultipartFile f : upFile) {
-			if(!f.isEmpty()) {
+			//if(!f.isEmpty()) {
 				String originalFilename = f.getOriginalFilename();
 				String ext = originalFilename.substring(originalFilename.lastIndexOf('.')+1);
 				
@@ -60,11 +60,12 @@ public class CustomerReportController {
 				ReportFile reportFile = new ReportFile();
 				reportFile.setReport_file_name(renamedFilename);
 				files.add(reportFile);
-			}
+			//}
 		}
 		int result = service.insertReport(report, files);
 		
 		if(result>0) {
+			mv.addObject("msg","신고 완료!");
 			mv.setViewName("/report/customerReport");
 		}else {
 			mv.addObject("msg", "실패");

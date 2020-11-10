@@ -50,6 +50,13 @@ public class AdminServiceImpl implements AdminService{
 		return dao.searchMemberListCount(session, param);
 	}
 
+	
+	
+	@Override
+	public Member selectMemberById(Member member) {
+		return dao.selectMemberById(session, member);
+	}
+
 	//게시판관련
 	@Override
 	public List<Board> selectBoardList(int cPage, int numPerPage) {
@@ -70,6 +77,8 @@ public class AdminServiceImpl implements AdminService{
 	public int searchBoardListCount(Map<String, Object> param) {
 		return dao.searchBoardListCount(session, param);
 	}
+	
+	
 
 	//전문가관련
 	@Override

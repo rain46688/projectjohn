@@ -1,5 +1,8 @@
 package com.kh.john.admin.controller;
 
+import java.io.UnsupportedEncodingException;
+import java.security.GeneralSecurityException;
+import java.security.NoSuchAlgorithmException;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -13,13 +16,21 @@ import org.springframework.web.servlet.ModelAndView;
 import com.kh.john.admin.model.service.AdminService;
 import com.kh.john.board.model.vo.Board;
 import com.kh.john.common.page.PageBarFactory;
+import com.kh.john.member.controller.AES256Util;
+import com.kh.john.member.controller.MemberController;
 import com.kh.john.member.model.vo.Member;
 
+import lombok.extern.slf4j.Slf4j;
+
 @Controller
+@Slf4j
 public class AdminController {
 
 	@Autowired
 	private AdminService service;
+	
+	@Autowired
+	   private AES256Util aes;
 
 	// 어드민 메뉴화면 이동(임시)
 	@RequestMapping("/admin/adminPage")
@@ -30,16 +41,35 @@ public class AdminController {
 	// 멤버 리스트 불러오기
 	@RequestMapping("/admin/adminMember")
 	public ModelAndView adminMember(ModelAndView mv,
+			@RequestParam(value="mem_email",required=false) String mem_email, Member member,
 			@RequestParam(value = "cPage", required = false, defaultValue = "1") int cPage,
-			@RequestParam(value = "numPerPage", required = false, defaultValue = "10") int numPerPage) {
+			@RequestParam(value = "numPerPage", required = false, defaultValue = "10") int numPerPage) 
+					throws NoSuchAlgorithmException, UnsupportedEncodingException, GeneralSecurityException {
 		List<Member> list = service.selectMemberList(cPage, numPerPage);
+
+//		for(Member mem : list) {
+//			
+//			String id=member.getMem_email();
+//			String idStr=aes.decrypt(id);
+//			member.setMem_email(idStr);
+//			member=service.selectMemberById(member);
+//		
+//			System.out.println("idStr="+idStr);
+//			System.out.println("member.getMem_email();="+member.getMem_email());
+//			System.out.println("id="+id);
+//			System.out.println("member="+member);
+//			System.out.println("mem="+mem);
+//			
+//		
+//		}
+
 		int totalData = service.selectMemberCount();
 
 		mv.addObject("pageBar", PageBarFactory.getPageBar(totalData, cPage, numPerPage, "adminMember"));
 
 		mv.addObject("totalData", totalData);
-
-		mv.addObject("list", list);
+		//mv.addObject("member",member);
+		mv.addObject("list", list);	
 		mv.setViewName("admin/adminMember");
 		return mv;
 	}

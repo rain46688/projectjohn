@@ -21,15 +21,16 @@
 		<div id="board-container">
 	        <form name="boardFrm" action="${path}/report/customerReportEnd"   method="post" enctype="multipart/form-data" > <!-- 파일업로드시 enctype 멀티파트 써주는거 잊지말기!!!!!!!!!!!! -->
 	           
-	           <!--  <input type="text" class="form-control" name="report_id" id="report_id"  value="" readonly> --> <!-- 신고게시물번호 -->
-	            <input type="text" class="form-control" name="report_board_id" id="report_board_id" value="" >
+	          
+	            <input type="text" class="form-control" name="report_board_id" id="report_board_id" value="23" > <!-- 신고대상게시물번호 --><!-- 변경요망 -->
 	            <input type="text" class="form-control" placeholder="제목" name="report_title" id="report_title" required> <!-- 제목 -->
-	            <input type="text" class="form-control" name="report_target_nickname" id="report_target_nickname"  value="${report.report_target_nickname }" readonly><!-- 신고할회원 -->
-	 			<!-- <input type="hidden"  name="report_writer_usid" value="">
-	 			<input type="hidden"  name="report_target_usid" value=""> -->
-	 			<input type="hidden"  name="report_user_nickname" value="${report.report_user_nickname}">
+	            <input type="text" class="form-control" name="report_target_nickname" id="report_target_nickname"  
+	            	value="홍잭슨" readonly><!-- 신고할회원 --><!-- 변경요망 -->
+	 		
+	 			<input type="hidden"  name="report_writer_usid" value="${loginMember.getUsid()}">
+	 			<input type="hidden"  name="report_target_usid" value="9"><!-- 변경요망 -->
+	 			<input type="hidden"  name="report_user_nickname" value="${loginMember.getMem_nickname() }">
 	 			
-	 				 			
 	 			<hr>
 	        
 	            <select name="report_type" id="report_type" class="form-control" >
@@ -81,6 +82,8 @@
 	        	})
 	        })
 	        
+	   		
+			
 	        </script>
 	        
 	        

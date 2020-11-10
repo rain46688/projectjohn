@@ -59,16 +59,6 @@
 	<beans:bean id="AES256Util" class="com.kh.john.member.controller.AES256Util"></beans:bean>
 	
 	
-	<!-- 관리자 인터셉터 추가 -->
-	<interceptors>
-		<interceptor>
-			<mapping path="/admin/*"/>
-			<beans:bean class="com.kh.john.common.interceptor.LoginCheckInterceptor"/>
-		</interceptor>
-		<interceptor>
-			<mapping path="/customer/customerNoticeForm"/>
-			<beans:bean class="com.kh.john.common.interceptor.LoginCheckInterceptor"/>
-		</interceptor>
-	</interceptors>
+	
 	
 </beans:beans>

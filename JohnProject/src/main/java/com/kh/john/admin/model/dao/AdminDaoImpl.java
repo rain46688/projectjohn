@@ -45,6 +45,12 @@ public class AdminDaoImpl implements AdminDao {
 
 
 	
+	@Override
+	public Member selectMemberById(SqlSessionTemplate session, Member member) {
+		// TODO Auto-generated method stub
+		return session.selectOne("member.selectMemberById",member);
+	}
+
 	//게시판관련
 	@Override
 	public List<Board> selectBoardList(SqlSessionTemplate session, int cPage, int numPerPage) {
