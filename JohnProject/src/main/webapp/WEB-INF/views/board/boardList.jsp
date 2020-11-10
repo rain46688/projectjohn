@@ -4,6 +4,9 @@
                     <!-- 내용 -->
                     <button onclick="location.href = '${path}/board/boardInsert'">글쓰기</button>
                		<button onclick="location.href = '${path}/board/boardPage'">글보기</button>
+               		<button onclick="location.href = '${path }/board/boardSession'">세션만들기</button>
+               		${loginMember }<br>
+               		${subList }
                 </div>
             </div>
         </div>

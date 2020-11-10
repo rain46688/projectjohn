@@ -57,7 +57,7 @@ function fn_commentInsert(){
 		dataType:"json",
 		data:{
 			currBoardNo:${currBoard.board_id},
-			content:contentValue
+	gi		content:contentValue
 		},
 		success:function(data){
 			console.log(data);
