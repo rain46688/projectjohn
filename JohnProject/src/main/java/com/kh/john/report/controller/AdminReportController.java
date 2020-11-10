@@ -36,4 +36,16 @@ public class AdminReportController {
 		return mv;
 		
 	}
+	
+	//신고 게시글 불러오기
+	@RequestMapping("/report/adminReportView")
+	public ModelAndView reportView(ModelAndView mv, int report_id) {
+		
+		mv.addObject("report",service.selectOneReport(report_id));
+		mv.addObject("reportFile",service.selectReportFile(report_id));
+		mv.setViewName("report/adminReportView");
+	
+		return mv;
+	}
+	
 }

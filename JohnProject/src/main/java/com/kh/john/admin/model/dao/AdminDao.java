@@ -24,6 +24,7 @@ public interface AdminDao {
 	
 	int searchMemberListCount(SqlSession session, Map<String,Object> param);
 
+	Member selectMemberById(SqlSessionTemplate session, Member member);
 	//게시판관련
 	List<Board> selectBoardList(SqlSessionTemplate session, int cPage, int numPerPage);
 	

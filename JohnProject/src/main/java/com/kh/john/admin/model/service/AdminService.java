@@ -21,6 +21,8 @@ public interface AdminService {
 	
 	int searchMemberListCount(Map<String,Object> param);
 	
+	Member selectMemberById(Member member);
+	
 	//게시판관련
 	List<Board> selectBoardList(int cPage, int numPerPage);	
 	

@@ -9,8 +9,14 @@
 	<!-- customer -->
 	<insert id="insertReport" parameterType="report">
 		INSERT INTO REPORT VALUES(SEQ_REPORT_NO.NEXTVAL,#{report_board_id},#{report_writer_usid},#{report_target_usid},
-		#{report_type},#{report_title},#{report_content},sysdate,0,18,21,
-		null,0);
+		#{report_type},#{report_title},#{report_content},default,0,#{report_user_nickname},#{report_target_nickname},
+		null,0)
+	</insert>
+	
+	<insert id="insertReportFile" parameterType="reportFile">
+		INSERT INTO REPORT_FILE VALUES(#{report_id},#{report_file_name})
+		<selectKey keyProperty="report_id" resultType="_int" order="BEFORE">SELECT SEQ_REPORT_NO.CURRVAL FROM DUAL</selectKey>
+		
 	</insert>
 	
 	<!-- admin -->
