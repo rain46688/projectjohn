@@ -2,9 +2,11 @@ package com.kh.john.exboard.controller;
 
 import java.util.List;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -17,6 +19,8 @@ import com.kh.john.exboard.model.service.ExboardService;
 import com.kh.john.exboard.model.vo.ExpertBoard;
 import com.kh.john.exboard.model.vo.ExpertRequest;
 import com.kh.john.exboard.model.vo.SessionVo;
+import com.kh.john.member.controller.AES256Util;
+import com.kh.john.member.controller.MailHandler;
 import com.kh.john.member.model.vo.Member;
 
 import lombok.extern.slf4j.Slf4j;
@@ -27,6 +31,12 @@ public class ExboardController {
 
 	@Autowired
 	private ExboardService service;
+
+	@Autowired
+	private JavaMailSender mailSender;
+
+	@Autowired
+	private AES256Util aes;
 
 	@RequestMapping("/expert")
 	public ModelAndView expertPage(HttpSession session) {
@@ -156,14 +166,33 @@ public class ExboardController {
 
 	// 상담 게시판 개설
 	@RequestMapping("/counselStart")
-	public String counselStart(HttpSession session, String no, RedirectAttributes redirectAttributes) {
+	public String counselStart(HttpServletRequest req, HttpSession session, String no, String nic,
+			RedirectAttributes redirectAttributes) {
 		log.debug("counselStart 실행");
+		String context = "";
 		Member expertmem = (Member) session.getAttribute("loginMember");
 		int result = 0;
 		try {
 			log.debug("memusid : " + no);
 			log.debug("expertmem : " + expertmem);
 			result = service.insertExpertBoard(no, expertmem);
+			Member m = service.selectMember(nic);
+			String email = m.getMem_email();
+			email = aes.decrypt(email);
+			log.debug("email : " + email);
+			// log.debug("path2 : " + req.getRequestURI());
+			// log.debug("path : " + context);
+			// log.debug("path3 : " + req.getRequestURL());
+			int n = (req.getRequestURL()).indexOf(req.getRequestURI());
+			// log.debug((req.getRequestURL()).substring(0, n));
+			context = (req.getRequestURL()).substring(0, n);
+			MailHandler sendMail = new MailHandler(mailSender);
+			sendMail.setSubject("상담 채팅 요청이 도착했습니다.)");
+			sendMail.setText(
+					new StringBuffer().append("<h1>메일인증</h1><br>" + context + "/expertRoom?bno=" + result).toString());
+			sendMail.setFrom("minsu87750@gmail.com", "재판하는 존경장님");
+			sendMail.setTo(email);
+			sendMail.send();
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
