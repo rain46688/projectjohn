@@ -26,4 +26,6 @@ public interface ExboardService {
 
 	List<ExpertBoard> selectExpertBoard(Member mem) throws Exception;
 
+	int selectExBoardNum(Member expertmem, String no) throws Exception;
+
 }

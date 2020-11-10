@@ -105,4 +105,10 @@ public class ExboardServiceImpl implements ExboardService {
 		return dao.selectExpertBoard(session, mem);
 	}
 
+	@Override
+	public int selectExBoardNum(Member expertmem, String memusid) throws Exception {
+		// TODO Auto-generated method stub
+		return dao.selectExBoardNum(session, expertmem, memusid);
+	}
+
 }

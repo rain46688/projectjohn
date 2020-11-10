@@ -151,7 +151,7 @@ h2 {
 	
 	function counselConn(num){
 		console.log("num : "+num);
-		location.replace('${path}/counselStart?no='+num);
+		location.replace('${path}/counselConn?no='+num);
 	}
 	
 	

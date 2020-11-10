@@ -183,4 +183,22 @@ public class ExboardController {
 		return mv;
 	}
 
+	// 상담 게시판 개설
+	@RequestMapping("/counselConn")
+	public String counselConnction(HttpSession session, String no, RedirectAttributes redirectAttributes) {
+		log.debug("counselConnction 실행");
+		Member expertmem = (Member) session.getAttribute("loginMember");
+
+		int bno = 0;
+		try {
+			bno = service.selectExBoardNum(expertmem, no);
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+
+		redirectAttributes.addAttribute("bno", bno);
+		return "redirect:/expertRoom";
+	}
+
 }
