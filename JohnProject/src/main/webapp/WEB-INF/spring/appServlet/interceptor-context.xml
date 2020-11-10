@@ -23,6 +23,10 @@
 			<beans:bean class="com.kh.john.common.interceptor.LoginCheckInterceptor"/>
 		</interceptor>
 		
+		<interceptor>
+			<mapping path="/expertRoom" />
+			<beans:bean class=" com.kh.john.common.interceptor.ExpertRoomInterceptor" />
+		</interceptor>
 		
 	</interceptors>
 

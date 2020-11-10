@@ -210,4 +210,10 @@ public class ExboardController {
 		return "redirect:/expertRoom";
 	}
 
+	@RequestMapping(value = "/msg")
+	public ModelAndView error() throws Exception {
+		log.info(" ===== error 실행 ===== ");
+		ModelAndView mv = new ModelAndView("/common/msg");
+		return mv;
+	}
 }
