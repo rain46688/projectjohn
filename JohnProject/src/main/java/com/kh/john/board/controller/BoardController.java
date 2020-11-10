@@ -16,6 +16,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
@@ -25,16 +26,18 @@ import com.kh.john.board.model.service.BoardService;
 import com.kh.john.board.model.vo.Board;
 import com.kh.john.board.model.vo.BoardFile;
 import com.kh.john.board.model.vo.Comment;
+import com.kh.john.board.model.vo.Subscribe;
+import com.kh.john.member.model.vo.Member;
 
 import lombok.extern.slf4j.Slf4j;
 
 @Slf4j
 @Controller
+@SessionAttributes("loginMember")
 public class BoardController {
 	
 	@Autowired
 	private BoardService service;
-	
 	
 	@RequestMapping("/board/boardList")
 	public ModelAndView boardList(ModelAndView mv) {
@@ -124,5 +127,29 @@ public class BoardController {
 			result.put("result","fail");
 		}
 		return result;
+	}
+	
+	@RequestMapping("board/boardSession")
+	public ModelAndView boardSession(ModelAndView mv) {
+		
+		Member m = new Member();
+		m.setMem_email("jackson@naver.com");
+		m.setMem_nickname("홍잭슨");
+		m.setUsid(99);
+		
+		Subscribe s1 = new Subscribe(99, "연애상담");
+		Subscribe s2 = new Subscribe(99, "가족문제");
+		Subscribe s3 = new Subscribe(99, "회사문제");
+		
+		List<Subscribe> list = new ArrayList();
+		list.add(s1);
+		list.add(s2);
+		list.add(s3);
+		
+		mv.addObject("loginMember", m);
+		mv.addObject("subList", list);
+		mv.setViewName("/board/boardList");
+		
+		return mv;
 	}
 }

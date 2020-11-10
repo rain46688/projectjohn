@@ -1,5 +1,6 @@
 package com.kh.john.member.controller;
 
+import java.io.File;
 import java.io.IOException;
 import java.io.UnsupportedEncodingException;
 import java.security.GeneralSecurityException;
@@ -146,9 +147,15 @@ public class MemberController {
 		return mv;
 	}
 	
+//	전문가용 div로 가는 길
+	@RequestMapping("/member/divForExpert")
+	public String divForExpert() {
+		return "member/divForExpert";
+	}
+	
 //	회원가입 로직
 	@RequestMapping(value="/member/signUpEnd", method = RequestMethod.POST)
-	public String signUpEnd(@RequestParam Map param, Member member, Model m) throws NoSuchAlgorithmException, UnsupportedEncodingException, GeneralSecurityException {
+	public String signUpEnd(@RequestParam Map param, Member member, Model m, HttpServletRequest request) throws NoSuchAlgorithmException, UnsupportedEncodingException, GeneralSecurityException {
 		System.out.println(member.getMem_email());
 		System.out.println(member.getMem_pwd());
 		System.out.println(member.getMem_nickname());
@@ -171,28 +178,41 @@ public class MemberController {
 		member.setBirthday(birthday);
 		
 		System.out.println(member.getBirthday());
-
+		
+		int result=0;
+		String msg="";
+		String loc="";
+		
 		//회원구분
 		String classMem=param.get("mem_class").toString();
 		if(classMem=="normalUser") {
 			member.setMem_class("일반유저");
+			result=service.signUpEnd(member);
+			if(result>0) {
+				msg="회원가입성공";
+				loc="/";
+			}
+			else {
+				msg="회원가입실패";
+				loc="/";
+			}
+			
 		}else {
-			member.setMem_class("전문가");
+			member.setMem_class("예비전문가");
+			int resultExpert=service.signUpEnd(member);
+			if(resultExpert>0) {
+				String saveDir=request.getServletContext().getRealPath("/resources/upload/upload_license");
+				File dir=new File(saveDir);
+				if(!dir.exists()) {
+					//지정된경로의 폴더가 없으면 
+					dir.mkdirs();
+				}
+			}else {
+				msg="회원가입실패";
+				loc="/";
+			}
 		}
-		System.out.println("*********"+member.getMem_class());
 		
-		int result=service.signUpEnd(member);
-	
-		String msg="";
-		String loc="";
-		if(result>0) {
-			msg="회원가입성공";
-			loc="/";
-		}
-		else {
-			msg="회원가입실패";
-			loc="/";
-		}
 		m.addAttribute("msg",msg);
 		m.addAttribute("loc",loc);
 		

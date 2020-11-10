@@ -104,7 +104,8 @@
                     <span id="find_password">까먹었다 <a href="#"> 비밀번호</a></span>
 
                     <span id="create_account">
-                        <a href="${path }/member/signUp">★회원가입★</a>
+                        <!-- <a href="${path }/member/signUp">★회원가입★</a> -->
+                        <a onclick="fn_signUp();" style="cursor: pointer;">★회원가입★</a>
                     </span>
 
                 </div>
@@ -120,12 +121,25 @@
             //로그인 버튼 클릭시
             function fn_login(){
                 $("#loginForm").submit();
-            }
+            };
+
+            //엔터로 입장하기
             $('#mem_pwd').on('keypress', function(e){
 	            if(e.keyCode==13) {
                     $("#input_submit").click();
                 }
             });  
+
+            //회원가입으로 가는 길
+
+            function fn_signUp(){
+                const url="${path }/member/signUp";
+                const title="signUp";
+                const status="left=500px, top=100px, width=300px, height=auto";
+
+                open(url,title,status);
+
+            }
         </script>
         
     
