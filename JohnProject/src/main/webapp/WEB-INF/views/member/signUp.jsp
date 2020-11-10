@@ -51,13 +51,6 @@
 			font-size: 14px;
 		}
 
-		#saveIdField{
-			width: 80%;
-			text-align: left;
-			margin: -15px 15px 0 45px;
-			padding: 15px;
-		}
-
 		#signUpField button{
 			outline: none;
 			background: #735020;
@@ -77,12 +70,6 @@
 		}
 		#signUpField > form > button:nth-child(2){
 			width : 20%;
-		}
-		#signUpField > form > button:nth-child(9){
-			width : 30%;
-		}
-		#signUpField > form > button:nth-child(10){
-			width : 30%;
 		}
 		#signUpField > form:nth-child(2) input.button{
 			outline: none;

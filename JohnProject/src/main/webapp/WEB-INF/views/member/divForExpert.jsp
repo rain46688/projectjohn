@@ -29,40 +29,27 @@
         outline: none;
         border: black solid 1px;
         background-color: white;
-        width: 59%;
-        height: 36px;
-        margin: 0 10px 15px;
-        padding: 5px;
+        width: 80%;
+        margin: 0 0 15px;
+        padding: 15px;
         box-sizing: border-box;
         font-size: 14px;
-    }
-	button.pcbtn{
-        outline: none;
-        background: #735020;
-        min-width: 100px;
-        width: 15%;
-        height: 36px;
-        border: none;
-        padding: 5px;
-        color: #FFFFFF;
-        font-size: 14px;
-        cursor: pointer;
-        text-align: center;
-        margin: 0 0 15px 10px;
     }
 </style>
 <!-- 자격증 파일 넣는 곳 -->
 <input type="file" name="license_file_name" id="real-input" class="file" accept="img/*">
 <div class="input-group col-xs-12">
-    <input type="text" class="inputFile" id="fileNameField" disabled placeholder="이미지를 업로드 하세요.">
-    <button type="button" class="browse pcbtn" onclick="fn_browseFile();">
+    <input type="text" class="input inputFile" id="fileNameField" disabled placeholder="이미지를 업로드 하세요.">
+    <button type="button" class="browse button" onclick="fn_browseFile();" style="width: 20%;">
         파일찾기
     </button>
 </div>
 <!-- 자격증 발급 일자 -->
 <input type="date" class="input" name="license_date">
 <!-- 자격증 종류 -->
+<input type="text" class="input" name="license_type" placeholder="자격증 종류를 입력해주세요.">
 <!-- 자격증 발급 기관 -->
+<input type="text" class="input" name="license_company" placeholder="자격증 발급 기관을 입력해주세요.">
 <script>
     // 파일관련
     $(document).on('click','.browse',function(){
