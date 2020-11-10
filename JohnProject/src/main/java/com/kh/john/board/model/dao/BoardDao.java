@@ -12,6 +12,7 @@ import com.kh.john.board.model.vo.Comment;
 
 public interface BoardDao {
 	List<Board> boardList(SqlSession session);
+	List<Board> boardSelectCate(SqlSession session, String boardTitle);
 	int boardInsert(SqlSession session, Board b);
 	int boardInsertFiles(SqlSession session, BoardFile file);
 	Board boardSelectOne(SqlSession session, int boardNo);
