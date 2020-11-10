@@ -104,12 +104,12 @@
 	
 	<script type="text/javascript">
 	function deleteMember(usid){
-		alert("정말 탈퇴시키겠습니까?");
-		location.replace("${path}/admin/adminDeleteMember?usid="+usid);
+		 if (confirm("정말 탈퇴시키겠습니까?") == true){
+			location.replace("${path}/admin/adminDeleteMember?usid="+usid);
+		 }else{  
+		     return;
+		 }
 	}
-	
-
-
 	</script>
 	
 

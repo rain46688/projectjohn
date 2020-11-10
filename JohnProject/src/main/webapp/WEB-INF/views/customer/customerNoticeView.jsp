@@ -40,6 +40,9 @@
         
         <button class="btn btn-outline-info" onclick="noticeViewModify('${notice.notice_id}');">수정하기</button>
         <button class="btn btn-outline-info" onclick="noticeViewDelete('${notice.notice_id}');">삭제하기</button>
+        
+        
+        
     </div>
 
 	
@@ -54,11 +57,16 @@
 		function noticeViewModify(notice_id){
 			location.href="${path}/customer/customerNoticeModify?notice_id="+notice_id;
 		}
-		
+				
 		function noticeViewDelete(notice_id){
-			alert("정말 삭제하시겠습니까?");
-			location.href="${path}/customer/customerNoticeDelete?notice_id="+notice_id;
+			 if (confirm("정말 삭제하시겠습니까?") == true){
+				 location.href="${path}/customer/customerNoticeDelete?notice_id="+notice_id;
+			 }else{  
+			     return;
+			 }
 		}
+		
+		
 		
 	
 	</script>

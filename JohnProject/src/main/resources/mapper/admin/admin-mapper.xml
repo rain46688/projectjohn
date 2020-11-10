@@ -62,6 +62,11 @@
 		'%'||#{keyword, jdbcType=VARCHAR}||'%' 
 	
 	</select>
+	
+	<select id="selectMemberById" resultType="member" parameterType="member">
+		SELECT * FROM MEMBER WHERE MEM_EMAIL=#{mem_email}
+	</select>
+	
 
 	<!-- 게시판관련 -->
 	<select id="selectBoardList" resultMap="boardMap">
