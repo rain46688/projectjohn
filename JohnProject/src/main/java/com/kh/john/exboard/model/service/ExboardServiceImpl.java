@@ -88,15 +88,21 @@ public class ExboardServiceImpl implements ExboardService {
 		ExpertBoard exboard = new ExpertBoard();
 		exboard.setEXPERT_BOARD_USID(expertmem.getUsid());
 		exboard.setEXPERT_BOARD_MEM_USID(Integer.parseInt(memusid));
-
+		log.debug("방넘버 : " + exboard.getEXPERT_BOARD_ID());
 		int result = dao.insertExpertBoard(session, exboard);
-
+		log.debug("방넘버 후 : " + exboard.getEXPERT_BOARD_ID());
 		if (result > 0) {
 			return exboard.getEXPERT_BOARD_ID();
 		} else {
 			return 0;
 		}
 
+	}
+
+	@Override
+	public List<ExpertBoard> selectExpertBoard(Member mem) throws Exception {
+		// TODO Auto-generated method stub
+		return dao.selectExpertBoard(session, mem);
 	}
 
 }

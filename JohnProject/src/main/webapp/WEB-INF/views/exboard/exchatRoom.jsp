@@ -7,7 +7,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>RTC 삽질</title>
+<title>상담</title>
 <!-- Latest compiled and minified CSS -->
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
 <!-- jQuery library -->
@@ -66,13 +66,15 @@ video {
 	<section>
 		<section class="container">
 			<!-- muted="muted" 상태가 아니면 오토 플레이가 되지않는다! -->
-			<p>패스 : ${path}</p><br>
-			<p>세션 : ${loginnedMember.nickname}</p><br>
-			<p>전문가 : ${loginnedMember.expert}</p><br>
+				<p>세션 : ${loginMember.mem_nickname}</p><br>
+				<p>전문가 : ${loginMember.mem_class}</p><br>
+				<p>USID : ${loginMember.usid}</p><br>
+				<p>방번호 : ${bno}</p><br>
+				
 			<br>
 			<video id="video1" autoplay playsinline controls preload="metadata" muted="muted"></video>
 			<br> <br>
-			<c:if test="${loginnedMember.expert == true}">
+				<c:if test="${loginMember.mem_class == '전문가'}">
 				<button type="button" class="btn btn-outline-success my-2 my-sm-0" onclick='host();'>방송시작</button>
 				<button type="button" class="btn btn-outline-success my-2 my-sm-0" onclick='exit();'>연결 끊기</button>
 			</c:if>
@@ -106,13 +108,13 @@ video {
 
 			//---------------------------- signaling 서버 -------------------------------------
 
-			//const conn = new WebSocket('wss://localhost/ertc');
-			const conn = new WebSocket('wss://192.168.219.105/ertc');
+			const conn = new WebSocket('wss://localhost/ertc');
+			//const conn = new WebSocket('wss://192.168.219.105/ertc');
 
 			conn.onopen = function() {
 				printdiv("signaling server 연결");
-				printdiv("닉네임 : ${loginnedMember.nickname}, 방번호 : ${loginnedMember.curRoomBid}, 전문가 여부 : ${loginnedMember.expert}");
-				if(${loginnedMember.expert} === true){
+				printdiv("닉네임 : ${loginMember.mem_nickname}, 방번호 : ${bno}, 전문가 여부 : ${loginMember.mem_class}");
+				if("${loginMember.mem_class}" === '전문가'){
 					gotStream();			
 				}
 			};

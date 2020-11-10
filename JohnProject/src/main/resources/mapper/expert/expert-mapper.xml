@@ -30,4 +30,16 @@
 	SELECT * FROM EXPERT_REQUEST WHERE EXPERT_REQUET_EX_USID = #{usid}
 </select>
 
+<insert id="insertExpertBoard" parameterType="exboard">
+		INSERT INTO EXPERT_BOARD VALUES(SEQ_EXPERT_BOARD_NO.NEXTVAL,#{EXPERT_BOARD_USID}, #{EXPERT_BOARD_MEM_USID},NULL,default)
+	<selectKey keyProperty="EXPERT_BOARD_ID" resultType="_int" order="AFTER">
+		SELECT SEQ_EXPERT_BOARD_NO.CURRVAL FROM DUAL
+	</selectKey>
+</insert>
+
+<select id="selectExpertBoard" resultType="exboard" parameterType="member">
+	SELECT * FROM EXPERT_BOARD WHERE EXPERT_BOARD_USID = #{usid}
+</select>
+
+
 </mapper>
