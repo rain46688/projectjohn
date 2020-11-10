@@ -146,6 +146,12 @@ public class MemberController {
 		return mv;
 	}
 	
+//	전문가용 div로 가는 길
+	@RequestMapping("/member/divForExpert")
+	public String divForExpert() {
+		return "member/divForExpert";
+	}
+	
 //	회원가입 로직
 	@RequestMapping(value="/member/signUpEnd", method = RequestMethod.POST)
 	public String signUpEnd(@RequestParam Map param, Member member, Model m) throws NoSuchAlgorithmException, UnsupportedEncodingException, GeneralSecurityException {
@@ -177,9 +183,8 @@ public class MemberController {
 		if(classMem=="normalUser") {
 			member.setMem_class("일반유저");
 		}else {
-			member.setMem_class("전문가");
+			member.setMem_class("예비전문가");
 		}
-		System.out.println("*********"+member.getMem_class());
 		
 		int result=service.signUpEnd(member);
 	
