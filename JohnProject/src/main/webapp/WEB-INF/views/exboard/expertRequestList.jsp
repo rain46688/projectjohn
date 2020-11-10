@@ -109,6 +109,7 @@ h2 {
 			<div class="divRowTitle shadow p-3 mb-5 bg-white rounded">
 				<div class="divCell">상담 신청자</div>
 				<div class="divCell">상담 신청 날짜</div>
+					<div class="divCell">startCounsel</div>
 				<div class="divCell">상담 시작</div>
 				<div class="divCell">정보 보기</div>
 			</div>
@@ -119,6 +120,7 @@ h2 {
 						<div class="divRow shadow p-3 mb-5 bg-white rounded" ><!-- style="cursor: pointer"  -->
 							<div class="divCell">${n.EXPERT_REQUEST_MEM_NICK}</div>
 							<div class="divCell">${n.EXPERT_DATE}</div>
+								<div class="divCell">${n.startCounsel}</div>
 								<div class="divCell">
 							<c:if test="${n.startCounsel == false }">
 								<button class="btn btn-outline-success" onclick="counselStart('${n.EXPERT_REQUEST_MEM_USID}');">버튼</button>
@@ -151,7 +153,7 @@ h2 {
 	
 	function counselConn(num){
 		console.log("num : "+num);
-		location.replace('${path}/counselStart?no='+num);
+		location.replace('${path}/counselConn?no='+num);
 	}
 	
 	
