@@ -3,7 +3,7 @@
 <div id="content">
                     <!-- 내용 -->
                     <button onclick="location.href = '${path}/board/boardInsert'">글쓰기</button>
-               		<button onclick="location.href = '${path}/board/boardPage'">글보기</button>
+               		<button onclick="location.href = '${path}/board/boardPage?boardNo=10'">글보기</button>
                		<button onclick="location.href = '${path }/board/boardSession'">세션만들기</button>
                		${loginMember }<br>
                		${subList }
@@ -55,7 +55,9 @@
 				if(subList[i]==element.small_category){
 					let name = 'subList' + (i+1);
 					console.log(element);
-					document.getElementById(name).innerHTML += '<br>' + element.title + element.writer_nickname + ;
+					document.getElementById(name).innerHTML += 
+						"<br><a href='${path}/board/boardPage?boardNo="+element.board_id+"'>"
+								+ element.title + element.writer_nickname + "</a>";
 				}
 			}
         })

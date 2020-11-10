@@ -93,8 +93,7 @@ public class BoardController {
 	}
 
 	@RequestMapping("board/boardPage")
-	public ModelAndView boardPage(ModelAndView mv) {
-		int boardNo = 10;
+	public ModelAndView boardPage(ModelAndView mv, int boardNo) {
 		
 		Board b = service.boardSelectOne(boardNo);
 		
