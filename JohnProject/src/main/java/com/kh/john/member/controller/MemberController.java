@@ -120,8 +120,6 @@ public class MemberController {
 	public ModelAndView emailDuplicate(@RequestParam(value="mem_email",required=false) String mem_email, Member member, ModelAndView mv) throws NoSuchAlgorithmException, UnsupportedEncodingException, GeneralSecurityException {
 		//암호화
 		String id=aes.encrypt(mem_email);
-		System.out.println(mem_email);
-		System.out.println(id);
 		member.setMem_email(id);
 		member=service.selectMemberById(member);
 		mv.addObject("member",member);
