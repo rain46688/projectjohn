@@ -37,6 +37,10 @@ function fn_commentList(){
 		success: function(data) {
 			let html = "";
 			$.each(data, function(index, item){
+				let date = new Date(item.com_enroll_date);
+				let dateToString = date.toString();
+				let parsedString = dateToString.substring(0,25);
+				item.com_enroll_date = parsedString;
 				html += JSON.stringify(item)
 				html += "<br>"
 			})
@@ -53,7 +57,7 @@ function fn_commentInsert(){
 		dataType:"json",
 		data:{
 			currBoardNo:${currBoard.board_id},
-			content:contentValue
+	gi		content:contentValue
 		},
 		success:function(data){
 			console.log(data);
