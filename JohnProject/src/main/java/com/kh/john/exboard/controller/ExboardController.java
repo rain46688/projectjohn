@@ -128,12 +128,21 @@ public class ExboardController {
 			List<ExpertBoard> blist = service.selectExpertBoard(mem);
 
 			for (ExpertRequest er : rlist) {
-				for (ExpertBoard eb : blist) {
-					if (er.getEXPERT_REQUEST_MEM_USID() == eb.getEXPERT_BOARD_MEM_USID()) {
-						// 이미 상담 게시판이 만들어진 유저
-						er.setStartCounsel(true);
+
+				if (blist.size() == 0) {
+					er.setStartCounsel(false);
+				} else {
+					for (ExpertBoard eb : blist) {
+						if (er.getEXPERT_REQUEST_MEM_USID() == eb.getEXPERT_BOARD_MEM_USID()) {
+							// 이미 상담 게시판이 만들어진 유저
+							er.setStartCounsel(true);
+							log.debug("er : " + er.getStartCounsel());
+						} else {
+							er.setStartCounsel(false);
+						}
 					}
 				}
+
 			}
 
 			mv.addObject("list", rlist);
