@@ -139,45 +139,6 @@ public class CustomerController {
 		return mv;
 	}
 	
-	//파일다운
-	public void fileDown(HttpServletRequest request, HttpServletResponse response, String oriName, String reName, 
-																							@RequestHeader(name="user-agent")String header){
-		String path=request.getServletContext().getRealPath("/resources/upload/Notice");
-		File saveFile=new File(path+"/"+reName);
-		BufferedInputStream bis=null;
-		ServletOutputStream sos=null;
-		try {
-			bis=new BufferedInputStream(new FileInputStream(saveFile));
-			sos=response.getOutputStream();
-			boolean isMSIE=header.indexOf("Trident")!=-1||header.indexOf("MSIE")!=-1;
-			String encodeRename="";
-			if(isMSIE) {
-				encodeRename=URLEncoder.encode(oriName, "UTF-8"); 
-				encodeRename=encodeRename.replaceAll("\\+", "%20");
-			}else {
-				encodeRename=new String(oriName.getBytes("UTF-8"),"ISO-8859-1");
-			}
-			response.setContentType("application/octet-stream;charset=utf-8");
-			response.setHeader("Content-Disposition","attachment;filename=\""+encodeRename+"\"");
-			response.setContentLength((int)saveFile.length());
-			int read=-1;
-			while((read=bis.read())!=-1) {
-				sos.write(read);
-			}
-		}catch(IOException e) {
-			e.printStackTrace();
-		}finally {
-			try {
-				sos.close();
-				bis.close();
-			} catch (IOException e) {
-				e.printStackTrace();
-			}
-		}
-		
-	}
-	
-	
 	//공지사항 수정으로 이동
 	@RequestMapping("/customer/customerNoticeModify")
 	public ModelAndView noticeModify(@RequestParam Map param, ModelAndView mv) {

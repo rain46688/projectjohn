@@ -35,5 +35,25 @@ public class ReportDaoImpl implements ReportDao {
 		return session.selectOne("report.selectReportCount");
 	}
 
+	@Override
+	public Report selectOneReport(SqlSessionTemplate session, int report_id) {
+		return session.selectOne("report.selectOneReport",report_id);
+	}
+
+	@Override
+	public List<ReportFile> selectReportFile(SqlSession session, int report_id) {
+		return session.selectList("report.selectReportFile",report_id);
+	}
+
+	@Override
+	public int deleteReport(SqlSessionTemplate session, Report r) {
+		return session.delete("report.deleteReport",r);
+	}
+
+	@Override
+	public int reportWarn(SqlSessionTemplate session, Report r) {
+		return session.insert("report.reportWarn",r);
+	}
+
 	
 }

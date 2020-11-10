@@ -27,11 +27,7 @@
         <input type="text" class="form-control" name="notice_enrolldate" id="notice_enrolldate" value="${notice.notice_enrolldate }" readonly> 
        
 		<c:forEach items="${noticeFile}" var="a" varStatus="vs">
-                    <button type="button" 
-                    class="btn btn-outline-info btn-block"
-                    onclick="fileDownload('${a.notice_file_name}');">
-                    	<c:out value="첨부파일  ${vs.count } - ${a.notice_file_name }"/>
-           			</button>
+              <img src="${path }/resources/upload/notice/${a.notice_file_name }">      
         </c:forEach> 
         
         <textarea class="form-control" name="notice_content" placeholder="내용" required><c:out value="${notice.notice_content }"/></textarea>

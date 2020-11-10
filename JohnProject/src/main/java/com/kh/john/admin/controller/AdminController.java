@@ -17,7 +17,6 @@ import com.kh.john.admin.model.service.AdminService;
 import com.kh.john.board.model.vo.Board;
 import com.kh.john.common.page.PageBarFactory;
 import com.kh.john.member.controller.AES256Util;
-import com.kh.john.member.controller.MemberController;
 import com.kh.john.member.model.vo.Member;
 
 import lombok.extern.slf4j.Slf4j;
@@ -41,12 +40,12 @@ public class AdminController {
 	// 멤버 리스트 불러오기
 	@RequestMapping("/admin/adminMember")
 	public ModelAndView adminMember(ModelAndView mv,
-			@RequestParam(value="mem_email",required=false) String mem_email, Member member,
+//			@RequestParam(value="mem_email",required=false) String mem_email, Member member,
 			@RequestParam(value = "cPage", required = false, defaultValue = "1") int cPage,
 			@RequestParam(value = "numPerPage", required = false, defaultValue = "10") int numPerPage) 
 					throws NoSuchAlgorithmException, UnsupportedEncodingException, GeneralSecurityException {
 		List<Member> list = service.selectMemberList(cPage, numPerPage);
-
+		
 //		for(Member mem : list) {
 //			
 //			String id=member.getMem_email();
@@ -219,7 +218,7 @@ public class AdminController {
 		return mv;
 	}
 
-	// 전문가 승인해주기
+	// 전문가 승인화면으로 이동
 	@RequestMapping("/admin/adminUpdateMemberToExpert")
 	public ModelAndView adminUpdateMemberToExpert(@RequestParam Map param, ModelAndView mv) {
 		Member m = service.updateMemberToExpert(param);
@@ -229,6 +228,27 @@ public class AdminController {
 		return mv;
 
 	}
+	
+	//전문가 승인해주기
+	@RequestMapping("/admin/adminUpdateMemberToExpertEnd")
+	public ModelAndView adminUpdateMemberToExpertEnd(Member m, ModelAndView mv) {
+		int result = service.updateMemberToExpertEnd(m);
+		
+		String msg = "";
+		
+		if(result>0) {
+			msg="전문가 승인이 완료되었습니다";
+		}else {
+			msg="실패";
+		}
+		
+		mv.addObject("msg",msg);
+		mv.addObject("loc","/admin/adminMember");
+		mv.setViewName("common/msg");
+	
+		return mv;
+	}
+	
 	
 	//전문가 검색
 	@RequestMapping("/admin/adminExpertSearch")

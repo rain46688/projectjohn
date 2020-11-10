@@ -48,4 +48,45 @@ public class AdminReportController {
 		return mv;
 	}
 	
+	//신고 게시글 삭제
+	@RequestMapping(value="/report/adminReportDelete")
+	public ModelAndView deleteReport(Report r, ModelAndView mv){
+		
+		int result = service.deleteReport(r);
+		
+		String msg= "";
+		
+		if(result>0) {
+			msg="삭제 성공!";
+		}else {
+			msg="삭제 실패!ㅠㅠ";
+		}
+		
+		mv.addObject("msg",msg);
+		mv.addObject("loc","/report/adminReport");
+		
+		return mv;
+	}
+	
+	//신고 게시글 경고주기
+	@RequestMapping("/report/adminReportWarn")
+	public ModelAndView reportWarn(Report r, ModelAndView mv) {
+		int result = service.reportWarn(r);
+		
+		String msg = "";
+		
+		if(result>0) {
+			msg="경고 주기 성공!";
+		}else {
+			msg="실패";
+		}
+		
+		mv.addObject("msg",msg);
+		mv.addObject("loc","/report/adminReport");
+		mv.setViewName("common/msg");
+		
+		return mv;
+	}
+	
+	
 }

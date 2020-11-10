@@ -5,8 +5,6 @@
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
 <c:set var="path" value="${pageContext.request.contextPath }"/>
 
-
-
 <jsp:include page="/WEB-INF/views/common/header.jsp">
 	
 	<jsp:param name="title" value="adminMember"/>
@@ -72,6 +70,7 @@
 				<th scope="col">탈퇴여부</th>
 				<th scope="col">구분</th>
 				<th scope="col">전화번호</th>
+				<th scope="col">경고횟수</th>
 			</tr>
 			
 			<c:forEach items="${list }" var="m">
@@ -86,12 +85,11 @@
 					<td><c:out value="${m.point}"/></td>
 					<td><c:out value="${m.leave_mem}-"/></td>
 					<td><c:out value="${m.mem_class}"/></td>
-					<%-- <td><c:out value="${m.tel}"/></td> --%>
+					<%-- <td><c:out value="${report.report_iswarning}"/></td>  --%>
 					
-
 				</tr>
-			</c:forEach>
-			
+				</c:forEach>
+					
 		</table>
 		
 		     <div id="pageBar">
