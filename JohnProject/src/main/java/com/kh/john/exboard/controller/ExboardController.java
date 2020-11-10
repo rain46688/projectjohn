@@ -128,12 +128,21 @@ public class ExboardController {
 			List<ExpertBoard> blist = service.selectExpertBoard(mem);
 
 			for (ExpertRequest er : rlist) {
-				for (ExpertBoard eb : blist) {
-					if (er.getEXPERT_REQUEST_MEM_USID() == eb.getEXPERT_BOARD_MEM_USID()) {
-						// 이미 상담 게시판이 만들어진 유저
-						er.setStartCounsel(true);
+
+				if (blist.size() == 0) {
+					er.setStartCounsel(false);
+				} else {
+					for (ExpertBoard eb : blist) {
+						if (er.getEXPERT_REQUEST_MEM_USID() == eb.getEXPERT_BOARD_MEM_USID()) {
+							// 이미 상담 게시판이 만들어진 유저
+							er.setStartCounsel(true);
+							log.debug("er : " + er.getStartCounsel());
+						} else {
+							er.setStartCounsel(false);
+						}
 					}
 				}
+
 			}
 
 			mv.addObject("list", rlist);
@@ -183,4 +192,28 @@ public class ExboardController {
 		return mv;
 	}
 
+	// 상담 게시판 개설
+	@RequestMapping("/counselConn")
+	public String counselConnction(HttpSession session, String no, RedirectAttributes redirectAttributes) {
+		log.debug("counselConnction 실행");
+		Member expertmem = (Member) session.getAttribute("loginMember");
+
+		int bno = 0;
+		try {
+			bno = service.selectExBoardNum(expertmem, no);
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+
+		redirectAttributes.addAttribute("bno", bno);
+		return "redirect:/expertRoom";
+	}
+
+	@RequestMapping(value = "/msg")
+	public ModelAndView error() throws Exception {
+		log.info(" ===== error 실행 ===== ");
+		ModelAndView mv = new ModelAndView("/common/msg");
+		return mv;
+	}
 }
