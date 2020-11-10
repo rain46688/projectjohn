@@ -13,5 +13,6 @@ public class ExpertRequest {
 	private String EXPERT_REQUEST_MEM_NICK;
 	private int EXPERT_ISCOUNSEL;
 	private Date EXPERT_DATE;
+	private Boolean startCounsel;
 
 }
