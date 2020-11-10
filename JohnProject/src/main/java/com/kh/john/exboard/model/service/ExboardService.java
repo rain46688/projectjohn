@@ -30,4 +30,6 @@ public interface ExboardService {
 
 	ExpertBoard selectExpertBoard(String bnum) throws Exception;
 
+	int updateCounselResult(String extext, String bno) throws Exception;
+
 }

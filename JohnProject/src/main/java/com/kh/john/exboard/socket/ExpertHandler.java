@@ -60,9 +60,23 @@ public class ExpertHandler extends TextWebSocketHandler {
 				}
 			}
 
-		} else
+		} else if (msg.getType().equals("TXT")) {
 
-		{
+			Iterator<SessionVo> it = users.keySet().iterator();
+			while (it.hasNext()) {
+				SessionVo key = it.next();
+				// 같은 방의 인원만
+				if (key.getCurRoomBid().equals(sv.getCurRoomBid())) {
+					if (sv.isExpert()) {
+						// 호스트인 경우
+						if (!key.isExpert()) {
+							users.get(key).sendMessage(new TextMessage(objectMapper.writeValueAsString(msg)));
+						}
+					}
+				}
+			}
+
+		} else {
 			Iterator<SessionVo> it = users.keySet().iterator();
 			while (it.hasNext()) {
 				SessionVo key = it.next();
