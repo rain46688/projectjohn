@@ -88,11 +88,11 @@
                     <form id="loginForm" action="${path}/member/memberLoginEnd" method="POST">
                         <div class="input_container">
                             <!-- <i class="fas fa-envelope"></i> -->
-                            <input placeholder="Email" type="email" name="mem_email" id="" class="input_field">
+                            <input placeholder="Email" type="email" name="mem_email" id="mem_email" class="input_field">
                         </div>
                         <div class="input_container">
                             <!-- <i class="fas fa-lock"></i> -->
-                            <input  placeholder="Password" type="password" name="mem_pwd" id="" class="input_field">
+                            <input  placeholder="Password" type="password" name="mem_pwd" id="mem_pwd" class="input_field">
                         </div>
 
                         <button type="button" id="input_submit" class="input_field" onclick="fn_login()">Login</button>
@@ -117,9 +117,15 @@
     
         </div>
         <script>
+            //로그인 버튼 클릭시
             function fn_login(){
                 $("#loginForm").submit();
             }
+            $('#mem_pwd').on('keypress', function(e){
+	            if(e.keyCode==13) {
+                    $("#input_submit").click();
+                }
+            });  
         </script>
         
     
