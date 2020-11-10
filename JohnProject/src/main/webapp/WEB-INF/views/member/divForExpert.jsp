@@ -35,21 +35,68 @@
         box-sizing: border-box;
         font-size: 14px;
     }
+    div#licenseDiv2, div#licenseDiv3{
+        display: none;
+    }
 </style>
-<!-- 자격증 파일 넣는 곳 -->
-<input type="file" name="license_file_name" id="real-input" class="file" accept="img/*">
-<div class="input-group col-xs-12">
-    <input type="text" class="input inputFile" id="fileNameField" disabled placeholder="이미지를 업로드 하세요.">
-    <button type="button" class="browse button" onclick="fn_browseFile();" style="width: 20%;">
-        파일찾기
-    </button>
+<div>
+    자격증 정보(총 세 개까지 업로드 가능합니다.)
 </div>
-<!-- 자격증 발급 일자 -->
-<input type="date" class="input" name="license_date">
-<!-- 자격증 종류 -->
-<input type="text" class="input" name="license_type" placeholder="자격증 종류를 입력해주세요.">
-<!-- 자격증 발급 기관 -->
-<input type="text" class="input" name="license_company" placeholder="자격증 발급 기관을 입력해주세요.">
+
+<div class="licenseDiv" id="licenseDiv1">
+    <!-- 자격증 파일 넣는 곳 -->
+    <input type="file" name="license_file_name" id="real-input" class="file" accept="img/*">
+    <div class="input-group col-xs-12">
+        <input type="text" class="input inputFile" id="fileNameField" disabled placeholder="이미지를 업로드 하세요.">
+        <button type="button" class="browse button" onclick="fn_browseFile();" style="width: 20%;">
+            파일찾기
+        </button>
+    </div>
+    <!-- 자격증 발급 일자 -->
+    <input type="date" class="input" name="license_date">
+    <!-- 자격증 종류 -->
+    <input type="text" class="input" name="license_type" placeholder="자격증 종류를 입력해주세요.">
+    <!-- 자격증 발급 기관 -->
+    <input type="text" class="input" name="license_company" placeholder="자격증 발급 기관을 입력해주세요.">
+</div>
+
+<button onclick="fn_addLicenseDiv2()">추가</button>
+
+<div class="licenseDiv" id="licenseDiv2">
+    <!-- 자격증 파일 넣는 곳 -->
+    <input type="file" name="license_file_name" id="real-input" class="file" accept="img/*">
+    <div class="input-group col-xs-12">
+        <input type="text" class="input inputFile" id="fileNameField" disabled placeholder="이미지를 업로드 하세요.">
+        <button type="button" class="browse button" onclick="fn_browseFile();" style="width: 20%;">
+            파일찾기
+        </button>
+    </div>
+    <!-- 자격증 발급 일자 -->
+    <input type="date" class="input" name="license_date">
+    <!-- 자격증 종류 -->
+    <input type="text" class="input" name="license_type" placeholder="자격증 종류를 입력해주세요.">
+    <!-- 자격증 발급 기관 -->
+    <input type="text" class="input" name="license_company" placeholder="자격증 발급 기관을 입력해주세요.">
+</div>
+
+<button id="license3Btn" onclick="fn_addlicenseDiv3()" style="display: none;">추가</button>
+
+<div class="licenseDiv" id="licenseDiv3">
+    <!-- 자격증 파일 넣는 곳 -->
+    <input type="file" name="license_file_name" id="real-input" class="file" accept="img/*">
+    <div class="input-group col-xs-12">
+        <input type="text" class="input inputFile" id="fileNameField" disabled placeholder="이미지를 업로드 하세요.">
+        <button type="button" class="browse button" onclick="fn_browseFile();" style="width: 20%;">
+            파일찾기
+        </button>
+    </div>
+    <!-- 자격증 발급 일자 -->
+    <input type="date" class="input" name="license_date">
+    <!-- 자격증 종류 -->
+    <input type="text" class="input" name="license_type" placeholder="자격증 종류를 입력해주세요.">
+    <!-- 자격증 발급 기관 -->
+    <input type="text" class="input" name="license_company" placeholder="자격증 발급 기관을 입력해주세요.">
+</div>
 <script>
     // 파일관련
     $(document).on('click','.browse',function(){
@@ -59,4 +106,13 @@
 	$(document).on('change','.file',function(){
 		$(this).parent().find('.inputFile').val($(this).val().replace(/C:\\fakepath\\/i,''));
 	});
+
+    //자격증 추가
+    function fn_addLicenseDiv2(){
+        $("#licenseDiv2").css({"display":"block"});
+        $("#license3Btn").css({"display":"block"});
+    }
+    function fn_addlicenseDiv3(){
+        $("#licenseDiv3").css({"display":"block"});
+    }
 </script>
