@@ -173,7 +173,8 @@
 	
 	<!-- 공지관련 -->
 	<select id="selectNoticeList" resultMap="noticeMap"> 
-		SELECT * FROM NOTICE 
+		SELECT A.*,(SELECT COUNT(*) FROM NOTICE_FILE WHERE NOTICE_ID=A.NOTICE_ID) AS FILECOUNT
+		FROM NOTICE A ORDER BY NOTICE_ENROLLDATE DESC
 	</select> 
 	
 	<select id="selectNoticeCount" resultType="_int"> 
@@ -181,13 +182,13 @@
 	</select>
 	
 	<select id="insertNotice" parameterType="notice">
-		INSERT INTO NOTICE VALUES(SEQ_NOTICE_NO.NEXTVAL,25,'관리인',#{notice_title},#{notice_content},SYSDATE) 
-		<!-- 수정해야됨 -->
+		INSERT INTO NOTICE VALUES(SEQ_NOTICE_NO.NEXTVAL,31,'관리자',#{notice_title},#{notice_content},SYSDATE) 
+		
 	</select>
 	
 	<insert id="insertNoticeFile" parameterType="noticeFile">
-		INSERT INTO NOTICE_FILE VALUES(SEQ_NOTICE_NO.NEXTVAL,#{notice_file_name})
-		<!-- 수정해야됨 -->
+		INSERT INTO NOTICE_FILE VALUES(#{notice_id},#{notice_file_name})
+	
 		<selectKey keyProperty="notice_id" resultType="_int" order="BEFORE"> SELECT SEQ_NOTICE_NO.CURRVAL FROM DUAL </selectKey>
 	</insert>
 	
@@ -195,7 +196,7 @@
 		SELECT * FROM NOTICE WHERE NOTICE_ID=#{notice_id}
 	</select>
 	
-	<select id="selectNoticeFile" parameterType="_int" resultType="noticeFIle">
+	<select id="selectNoticeFile" parameterType="_int" resultType="noticeFile">
 		SELECT * FROM NOTICE_FILE WHERE NOTICE_ID=#{notice_id}
 	</select>
 	

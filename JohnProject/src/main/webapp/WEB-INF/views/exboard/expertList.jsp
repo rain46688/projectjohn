@@ -129,9 +129,7 @@
 <section id="content">
 
 	리스트<br>
-	<p>세션 : ${loginnedMember.nickname}</p>
-	<p>전문가 : ${loginnedMember.expert}</p>
-	<br>
+
 
 
 	<div class="carosel" id="carosel1">
@@ -151,7 +149,7 @@
 								<p class="card-text">
 									<small class="text-muted">평점 : ${e.expert_rating}</small>
 								</p>
-								<a href="${path}/expertApply?no=${e.usid}">
+								<a href="${path}/expertApply?no=${e.usid}&nic=${e.mem_nickname}">
 									<button type="button" class="btn btn-outline-primary">상담 신청</button>
 								</a>
 							</div>
@@ -184,5 +182,3 @@
 						$(this).parent().find('.carosel-item').first());
 			});
 </script>
-
-<jsp:include page="/WEB-INF/views/common/footer.jsp" />
