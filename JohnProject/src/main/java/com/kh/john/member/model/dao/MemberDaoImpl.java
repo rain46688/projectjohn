@@ -6,6 +6,7 @@ import java.util.Map;
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.stereotype.Repository;
 
+import com.kh.john.member.model.vo.License;
 import com.kh.john.member.model.vo.Member;
 
 @Repository
@@ -40,6 +41,11 @@ public class MemberDaoImpl implements MemberDao {
 	@Override
 	public int signUpEnd(SqlSessionTemplate session, Member member) {
 		return session.insert("member.signUpEnd",member);
+	}
+
+	@Override
+	public int signUpExpert(SqlSessionTemplate session, License l) {
+		return session.insert("member.signUpExpert",l);
 	}
 
 }

@@ -1,10 +1,14 @@
 package com.kh.john.member.controller;
 
 import java.io.File;
+import java.io.IOException;
 import java.io.UnsupportedEncodingException;
 import java.security.GeneralSecurityException;
 import java.security.NoSuchAlgorithmException;
 import java.sql.Date;
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
@@ -19,10 +23,12 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.bind.support.SessionStatus;
+import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.kh.john.member.model.service.MemberService;
+import com.kh.john.member.model.vo.License;
 import com.kh.john.member.model.vo.Member;
 
 import lombok.extern.slf4j.Slf4j;
@@ -166,7 +172,7 @@ public class MemberController {
 
 //	회원가입 로직
 	@RequestMapping(value = "/member/signUpEnd", method = RequestMethod.POST)
-	public String signUpEnd(@RequestParam Map param, Member member, Model m, HttpServletRequest request)
+	public String signUpEnd(@RequestParam Map param, @RequestParam("licensePic") MultipartFile[] licensePic, Member member, Model m, HttpServletRequest request)
 			throws NoSuchAlgorithmException, UnsupportedEncodingException, GeneralSecurityException {
 
 		// 암호화(id,폰)
@@ -201,30 +207,74 @@ public class MemberController {
 
 		} else {
 			member.setMem_class("예비전문가");
-//			int resultExpert = service.signUpEnd(member);
-//			if (resultExpert > 0) {
-			result = service.signUpEnd(member);
-			if (result > 0) {
-				String[] license1=(String[]) param.get("license1");
-				String[] license2=(String[]) param.get("license2");
-				String[] license3=(String[]) param.get("license3");
-				
-				System.out.println("&&&&&&&&&&&&&&"+license1);
-				System.out.println("&&&&&&&&&&&&&&"+license2);
-				System.out.println("&&&&&&&&&&&&&&"+license3);
-				
-				msg = "회원가입성공";
-				loc = "/";
-//				String saveDir = request.getServletContext().getRealPath("/resources/upload/upload_license");
-//				File dir = new File(saveDir);
-//				if (!dir.exists()) {
-//					// 지정된경로의 폴더가 없으면
-//					dir.mkdirs();
-//				}
-			} else {
-				msg = "회원가입실패";
-				loc = "/";
+			
+			//license 사진 파일 올리기 lisencePic->lisenceFile
+			String saveDir = request.getServletContext().getRealPath("/resources/upload/upload_license");
+			File dir = new File(saveDir);
+			if (!dir.exists()) {
+				dir.mkdirs();
 			}
+			List<License> files = new ArrayList();
+			for(MultipartFile f : licensePic) {
+				if(!f.isEmpty()) {
+					String originalFilename = f.getOriginalFilename();
+					String ext = originalFilename.substring(originalFilename.lastIndexOf('.')+1);
+					
+					SimpleDateFormat sdf = new SimpleDateFormat("yyyy_MM_ddHHmmssSSS");
+					int rndNum = (int)(Math.random()*1000);
+					String renamedFilename = sdf.format(new Date(System.currentTimeMillis())) + "_" + rndNum + "_john." + ext;
+					try {
+						f.transferTo(new File(saveDir + "/" + renamedFilename));
+					}catch(IOException e) {
+						e.printStackTrace();
+					}
+					License lisenceFile=new License();
+					lisenceFile.setLicense_file_name(renamedFilename);
+					files.add(lisenceFile);
+				}
+			}
+			//Info처리
+//			License[] licenseArr;
+//			licenseArr=Date.valueOf((String)param.get("licenseDate1")));
+//			for(int i=0; i<3; i++) {
+//				for(int j=i;j<3;j++) {
+//					
+//				}
+//			}
+			
+			String[] license1=(String[]) param.get("license1");
+			String[] license2=(String[]) param.get("license2");
+			String[] license3=(String[]) param.get("license3");
+			
+			String[][] licenseArr=new String[3][3];
+			licenseArr[0][0]=(String)param.get("licenseDate1");
+			licenseArr[1][0]=(String)param.get("licenseDate2");
+			licenseArr[2][0]=(String)param.get("licenseDate1");
+			for(int i=0; i<3; i++) {
+				for(int j=1; j<3; j++) {
+					if(i==0) {
+						licenseArr[i][j]=license1[j-1];
+					}else if(i==1) {
+						licenseArr[i][j]=license2[j-1];
+					}else {
+						licenseArr[i][j]=license3[j-1];
+					}
+				}
+			}
+			
+			int resultExpert=service.signUpExpert(member, files, licenseArr);
+					
+			
+//			License licenseInfo1=new License();
+//			licenseInfo1.setLicense_mem_usid(member.getUsid());
+//			licenseInfo1.setLicense_date(Date.valueOf((String)param.get("licenseDate1")));
+//			licenseInfo1.setLicense_type(license1[0]);
+//			licenseInfo1.setLicense_company(license1[1]);
+//			int resultInfo1=service.uploadLicenseInfo(licenseInfo1);
+			
+//				license2
+//				license3
+//			int resultCpl=service.uploadAll(member, files, licenseInfo);
 		}
 
 		m.addAttribute("msg", msg);

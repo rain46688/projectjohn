@@ -19,11 +19,5 @@ public class Member {
 	private int pw_is_uuid;
 	private String mem_class;
 	private String profile_pic;
-	private int expert_rating;
-	private String expert_greetings;
-	private String expert_profile;
-	private String expert_counsel_area;
 	private String tel;
-	private Date expert_counsel_end_time;
-	private Date expert_counsel_start_time;
 }

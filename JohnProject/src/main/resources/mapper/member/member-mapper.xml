@@ -22,4 +22,5 @@
 	INSERT INTO MEMBER VALUES(SEQ_MEMBER_NO.NEXTVAL, #{mem_email}, #{mem_pwd}, #{mem_name}, #{mem_nickname}, #{gender}, 
 		#{birthday,jdbcType=DATE}, DEFAULT, DEFAULT, DEFAULT, DEFAULT, #{mem_class}, DEFAULT, #{tel})
 </insert>
+
 </mapper>

@@ -45,7 +45,7 @@
 
 <div class="licenseDiv" id="licenseDiv1">
     <!-- 자격증 파일 넣는 곳 -->
-    <input type="file" name="license1" id="real-input1" class="file real-input" accept="img/*">
+    <input type="file" name="licensePic" id="real-input1" class="file real-input" accept="img/*">
     <div class="input-group col-xs-12">
         <input type="text" class="input inputFile fileNameField" id="fileNameField1" disabled placeholder="이미지를 업로드 하세요.">
         <button type="button" class="browse button" id="browse1" style="width: 20%;">
@@ -53,7 +53,7 @@
         </button>
     </div>
     <!-- 자격증 발급 일자 -->
-    <input type="date" class="input" name="license1">
+    <input type="date" class="input" name="licenseDate1">
     <!-- 자격증 종류 -->
     <input type="text" class="input" name="license1" placeholder="자격증 종류를 입력해주세요.">
     <!-- 자격증 발급 기관 -->
@@ -65,7 +65,7 @@
 
 <div class="licenseDiv" id="licenseDiv2">
     <!-- 자격증 파일 넣는 곳 -->
-    <input type="file" name="license2" id="real-input2" class="file real-input" accept="img/*">
+    <input type="file" name="licensePic" id="real-input2" class="file real-input" accept="img/*">
     <div class="input-group col-xs-12">
         <input type="text" class="input inputFile fileNameField" id="fileNameField2" disabled placeholder="이미지를 업로드 하세요.">
         <button type="button" class="browse button" id="browse2" style="width: 20%;">
@@ -73,7 +73,7 @@
         </button>
     </div>
     <!-- 자격증 발급 일자 -->
-    <input type="date" class="input" name="license2">
+    <input type="date" class="input" name="licenseDate2">
     <!-- 자격증 종류 -->
     <input type="text" class="input" name="license2" placeholder="자격증 종류를 입력해주세요.">
     <!-- 자격증 발급 기관 -->
@@ -85,7 +85,7 @@
 
 <div class="licenseDiv" id="licenseDiv3">
     <!-- 자격증 파일 넣는 곳 -->
-    <input type="file" name="license3" id="real-input3" class="file real-input" accept="img/*">
+    <input type="file" name="licensePic" id="real-input3" class="file real-input" accept="img/*">
     <div class="input-group col-xs-12">
         <input type="text" class="input inputFile fileNameField" id="fileNameField3" disabled placeholder="이미지를 업로드 하세요.">
         <button type="button" class="browse button" id="browse3" style="width: 20%;">
@@ -93,7 +93,7 @@
         </button>
     </div>
     <!-- 자격증 발급 일자 -->
-    <input type="date" class="input" name="license3">
+    <input type="date" class="input" name="licenseDate3">
     <!-- 자격증 종류 -->
     <input type="text" class="input" name="license3" placeholder="자격증 종류를 입력해주세요.">
     <!-- 자격증 발급 기관 -->
