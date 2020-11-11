@@ -28,8 +28,10 @@
 }
 
 video {
-	width: 40%;
-	height: 50%;
+	/* width: 40%;
+	height: 50%; */
+	width: 60%;
+	height: 70%;
 	float: center;
 }
 
@@ -60,26 +62,40 @@ video {
 ::-webkit-scrollbar {
 	display: none;
 }
+
+#textboard{
+	display:inline-block;
+
+}
+
 </style>
 
 <body>
 	<section>
 		<section class="container">
 			<!-- muted="muted" 상태가 아니면 오토 플레이가 되지않는다! -->
-				<p>세션 : ${loginMember.mem_nickname}</p><br>
+			<%-- 	<p>세션 : ${loginMember.mem_nickname}</p><br>
 				<p>전문가 : ${loginMember.mem_class}</p><br>
 				<p>USID : ${loginMember.usid}</p><br>
-				<p>방번호 : ${bno}</p><br>
+				<p>방번호 : ${bno}</p><br> --%>
 				
 			<br>
 			<video id="video1" autoplay playsinline controls preload="metadata" muted="muted"></video>
-			<br> <br>
-				<c:if test="${loginMember.mem_class == '전문가'}">
-				<button type="button" class="btn btn-outline-success my-2 my-sm-0" onclick='host();'>방송시작</button>
+			<%-- 	<c:if test="${loginMember.mem_class == '전문가'}">
+			<button type="button" class="btn btn-outline-success my-2 my-sm-0" onclick='host();'>방송시작</button
 				<button type="button" class="btn btn-outline-success my-2 my-sm-0" onclick='exit();'>연결 끊기</button>
+			</c:if> --%>
+			<!-- <div id="board"></div> -->
+			<div id="textboard">
+			<c:if test="${loginMember.mem_class == '전문가'}">
+			<textarea id="extext" rows="20" cols="60" ></textarea><br>
+			<button type="button" class="btn btn-outline-success my-2 my-sm-0" onclick='counselEnd();'>상담 완료</button>
 			</c:if>
-			<br> <br>
-			<div id="board"></div>
+				<c:if test="${loginMember.mem_class != '전문가'}"><br>
+				<textarea id="memtext" rows="20" cols="60" readonly></textarea>
+				</c:if>
+				
+			</div>
 		</section>
 		<script>
 		
@@ -106,10 +122,6 @@ video {
 						  ]
 				};
 			
-			//----------------------------  데어티 채널 -------------------------------------
-			
-			let dataChannel;
-			
 
 			//---------------------------- signaling 서버 -------------------------------------
 
@@ -120,12 +132,12 @@ video {
 				printdiv("signaling server 연결");
 				printdiv("닉네임 : ${loginMember.mem_nickname}, 방번호 : ${bno}, 전문가 여부 : ${loginMember.mem_class}","${loginMember.usid}");
 				if("${loginMember.mem_class}" === '전문가'){
-					gotStream();			
+					gotStream();
+				
 				}else{
 					sendMessage(new ExboardMsg("SYS","${loginMember.mem_nickname}","접속"));
  				}
 			};
-
 			conn.onmessage = function(msg) {
 				printdiv("onmessage 실행");
 				printdiv("msg : "+msg);
@@ -154,9 +166,17 @@ video {
 							  pc[i].addIceCandidate(candidate);
 						  }
 					 }else if(content.type  === 'bye'){
-					     handleRemoteHangup();
+						 exit();
 					 }else if(content.type == 'SYS'){
 						 printdiv(content.nick+"님이 접속하셨습니다.");
+						 host();
+					 }else if(content.type == 'TXT'){
+						 $("#memtext").html("");
+						 $("#memtext").html(content.msg);
+					 }else if(content.type == 'END'){
+						 //sendMessage(new ExboardMsg("SYS2","${loginMember.mem_nickname}","종료료"));
+						 //exit();
+						 location.replace('${path}/');
 					 }
 			};
 
@@ -285,12 +305,12 @@ video {
 	
 		
 		//연결 끊기
-			function handleRemoteHangup() {
+		/* 	function handleRemoteHangup() {
 				printdiv("Session 종료");
 				  stop();
 				  isInitiator = false;
 				};
-				
+				 */
 		function exit() {
 			  stop();
 				printdiv("연결 종료 응답 보내기");
@@ -318,8 +338,8 @@ video {
 
 			function printdiv(msg) {
 				console.log(msg);
-				$("#board").append("<div>" + msg + "</div>");
-				$("#board").scrollTop($("#board")[0].scrollHeight);
+				//$("#board").append("<div>" + msg + "</div>");
+				//$("#board").scrollTop($("#board")[0].scrollHeight);
 			};
 		
 			//메세지 객체
@@ -330,25 +350,40 @@ video {
 				this.id = id;
 			};
 			
-			
-		/* 	function sendMsgData(message) {
-				console.log("데이터 채널 메세지 발송 : "+message);
-				dataChannel.send(message);
-			}; */
-			
-		/* 	dataChannel.onerror = function(error) {
-				console.log("데이터 채널 에러", error);
-			};
+			//엔터키 입력시 메세지 발송
+			$("#extext").keyup(function(key) {
+				if (key.keyCode == 13) {
+					let txt = $("#extext").val();
+					console.log(txt);
+					sendMessage(new ExboardMsg("TXT","",txt));
+		
+					
+				}
+			}); 
 
-			// 다른 세션에서 전달받은 메세지를 보여줌
-			dataChannel.onmessage = function(event) {
-				console.log("message:", event.data);
-				$('#board').append("<p>"+event.data+"</p>");
-			};
-
-			dataChannel.onclose = function() {
-				console.log("데이터 채널 닫힘");
-			}; */
+			function counselEnd(){
+				  let form = document.createElement("form");
+			         form.setAttribute("charset", "UTF-8");
+			         form.setAttribute("method", "Post"); 
+			         form.setAttribute("action", "/counselEnd"); 
+			         
+			         let hiddenField = document.createElement("input");
+			         hiddenField.setAttribute("type", "hidden");
+			         hiddenField.setAttribute("name", "extext");
+			         hiddenField.setAttribute("value", $("#extext").val());
+			         form.appendChild(hiddenField);
+			         
+			         let hiddenField2 = document.createElement("input");
+			         hiddenField2.setAttribute("type", "hidden");
+			         hiddenField2.setAttribute("name", "bno");
+			         hiddenField2.setAttribute("value", "${bno}");
+			         form.appendChild(hiddenField2);
+			         
+			         document.body.appendChild(form);
+			         form.submit();
+			         exit();
+			         sendMessage(new ExboardMsg("END","${loginMember.mem_nickname}","종료"));
+			}
 			
 			
 		</script>

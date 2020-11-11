@@ -49,5 +49,8 @@
 	SELECT * FROM EXPERT_BOARD WHERE EXPERT_BOARD_ID = #{bnum}
 </select>
 
+<update id="updateCounselResult" parameterType="map">
+	UPDATE EXPERT_BOARD SET EXPERT_BOARD_ADVICE_RESULT =#{extext} WHERE EXPERT_BOARD_ID=#{bno}
+</update>
 
 </mapper>

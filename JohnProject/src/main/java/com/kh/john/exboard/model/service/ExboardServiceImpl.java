@@ -126,4 +126,10 @@ public class ExboardServiceImpl implements ExboardService {
 		return dao.selectExpertBoard(session, bnum);
 	}
 
+	@Override
+	public int updateCounselResult(String extext, String bno) throws Exception {
+		// TODO Auto-generated method stub
+		return dao.updateCounselResult(session, extext, bno);
+	}
+
 }

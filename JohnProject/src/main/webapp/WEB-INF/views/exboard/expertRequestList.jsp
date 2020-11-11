@@ -110,6 +110,7 @@ h2 {
 				<div class="divCell">상담 신청자</div>
 				<div class="divCell">상담 신청 날짜</div>
 					<div class="divCell">startCounsel</div>
+								<div class="divCell">endCounsel</div>
 				<div class="divCell">상담 시작</div>
 				<div class="divCell">정보 보기</div>
 			</div>
@@ -122,15 +123,24 @@ h2 {
 							<div class="divCell">${n.EXPERT_REQUEST_MEM_NICK}</div>
 							<div class="divCell">${n.EXPERT_DATE}</div>
 								<div class="divCell">${n.startCounsel}</div>
+									<div class="divCell">${n.endCounsel}</div>
 								<div class="divCell">
+								
+							<c:if test="${n.endCounsel != true }">
+								
 							<c:if test="${n.startCounsel == false }">
-								<button class="btn btn-outline-success" onclick="counselStart('${n.EXPERT_REQUEST_MEM_USID}','${n.EXPERT_REQUEST_MEM_NICK}');">버튼</button>
+								<button class="btn btn-outline-success" onclick="counselStart('${n.EXPERT_REQUEST_MEM_USID}','${n.EXPERT_REQUEST_MEM_NICK}');">상담 시작</button>
 							</c:if>
 							<c:if test="${n.startCounsel == true }">
 									<button class="btn btn-outline-success" onclick="counselConn('${n.EXPERT_REQUEST_MEM_USID}');">채팅 접속</button>
 							</c:if>
+						</c:if>
+							<c:if test="${n.endCounsel == true }">
+									상담 완료
+									<!-- <div class="divCell"><button class="btn btn-outline-success" onclick="">상담 완료</button></div> -->
+							</c:if>
 								</div>
-							<div class="divCell"><button class="btn btn-outline-success" onclick="">버튼2</button></div>
+							<div class="divCell"><button class="btn btn-outline-success" onclick="">회원 정보</button></div>
 						</div>
 					</c:forEach>
 				</c:when>

@@ -94,4 +94,13 @@ public class ExboardDaoImpl implements ExboardDao {
 		return session.selectOne("expert.selectExpertBoardbnum", bnum);
 	}
 
+	@Override
+	public int updateCounselResult(SqlSessionTemplate session, String extext, String bno) throws Exception {
+		// TODO Auto-generated method stub
+		Map<String, String> map = new HashMap<String, String>();
+		map.put("extext", extext);
+		map.put("bno", "" + bno);
+		return session.insert("expert.updateCounselResult", map);
+	}
+
 }

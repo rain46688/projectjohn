@@ -30,6 +30,8 @@ public interface ExboardDao {
 
 	int selectExBoardNum(SqlSessionTemplate session, Member expertmem, String memusid) throws Exception;
 
-	ExpertBoard selectExpertBoard(SqlSessionTemplate session, String bnum) throws Exception;;
+	ExpertBoard selectExpertBoard(SqlSessionTemplate session, String bnum) throws Exception;
+
+	int updateCounselResult(SqlSessionTemplate session, String extext, String bno) throws Exception;
 
 }

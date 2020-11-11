@@ -9,4 +9,8 @@ public class ExboardMsg {
 	private String nick;
 	private String msg;
 	private String id;
+	private String sdp;
+	private String label;
+	private String candidate;
+
 }
