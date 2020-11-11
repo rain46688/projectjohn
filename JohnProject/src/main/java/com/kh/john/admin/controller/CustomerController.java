@@ -112,13 +112,15 @@ public class CustomerController {
 		int result = service.insertNotice(notice,files);
 		System.out.println("파일파일파일"+files);
 		System.out.println("공지공지"+notice);
+		System.out.println("result::::::"+result);
 		
 		if(result>0) {
 			mv.addObject("msg","등록성공!");
-			mv.setViewName("customer/customerNotice");
+			mv.addObject("loc", "/customer/customerNotice");
+			mv.setViewName("common/msg");
 		}else {
 			mv.addObject("msg", "실패");
-			mv.addObject("loc", "customer/customerNotice");
+			mv.addObject("loc", "/customer/customerNotice");
 		}
 		
 		return mv;
@@ -192,5 +194,8 @@ public class CustomerController {
 	
 	
 	//1:1 채팅 불러오기
-	
+	@RequestMapping("/customer/customerChat")
+	public String adminChat() {
+		return "/customer/customerIndex";
+	}
 }

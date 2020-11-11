@@ -53,6 +53,7 @@
                    	<a href="${path }/board/boardListSmall?boardTitle=60대이야기">60대 이야기</a><br>
                    	<a href="${path }/board/boardListSmall?boardTitle=싱글이야기">싱글 이야기</a><br>
                    	</div>
+                   	
             </div>
             <div id="headerAndContent">
                 <div id="header">
@@ -60,9 +61,11 @@
                     <button onclick="location.href='${path}/customer/customerPage'">고객센터</button>
                     <button>알람</button>
                     <button onclick="location.href='${path}/member/memberPage'">마이페이지</button>
-                    <button onclick="location.href='${path}/admin/adminPage'">ADMIN</button>
+                    <button onclick="location.href='${path}/admin/adminPage'" >ADMIN</button>
                     <button onclick="location.href='${path}/member/logout'">로그아웃</button>
                 </div>
+                
+                
                 <!-- 이게 인생이냐
 					10대 ~ 50대, 싱글
 					
@@ -93,3 +96,4 @@
 					 - 건강/다이어트
 					 - 여행추천
                  -->
+       

@@ -52,22 +52,21 @@
 <section id="content">
 
 	<div id="search-container">
-		<form action="${path }/admin/adminBoardSearch" method="post" >
+		<form  id="myForm" action="${path }/admin/adminBoardSearch" method="post">
 		
 			
-		 <%-- <label>대분류</label>
-		    <select class="s0" name="searchType">
+ 		  <label>대분류</label>
+		    <select name="searchType2" id="searchType" >
 		        <option selected disabled>선택하세요</option>
-		        <option value="big_category" <c:if test="${param.searchType eq '연애상담'}">selected</c:if>>연애상담</option>
-		        <option value="big_category" <c:if test="${param.searchType eq '일반게시판'}">selected</c:if>>일반게시판</option>
-		        <option value="big_category" <c:if test="${param.searchType eq '음성게시판'}">selected</c:if>>음성게시판</option>
-		        
+		        <option value="big_category" <c:if test="${y[x].text eq '연애상담'}">selected</c:if>>연애상담</option>
+		        <option value="big_category" <c:if test="${y[x].text eq '일반게시판'}">selected</c:if>>일반게시판</option>
+		        <option value="big_category" <c:if test="${y[x].text eq '음성게시판'}">selected</c:if>>음성게시판</option>
 		    </select>
-
-   		 <label>소분류</label>
+   		
+   	<!-- 	 <label>소분류</label>
 		    <select class="s1" name="searchType">
 		        <option value=" " disabled selected>선택하세요</option>
-		    </select> --%>
+		    </select>   -->
 		  	 
 		    <br>
 		    
@@ -105,8 +104,8 @@
 
 			
 			
-						
-			<input type="submit" value="검색">
+			<button onclick="goSubmit();">검색</button>
+			<input type="submit" value="검색" >
 		</form>
 	</div>
 	
@@ -143,6 +142,36 @@
 	<div id="pageBar">${pageBar }</div>
 
 </section>
+
+		<script>
+ 		var big=$("select[name=searchType]").val();
+		console.log(big);
+		
+		var index = $("#searchType option").index($("#searchType option:selected"));
+		console.log(index);
+
+/* 		var love = document.querySelector('#searchType2').value;
+		console.log(love); */
+		
+/* 		var lucky = document.getElementById('searchType2').value;
+		console.log(lucky); */
+		
+/* 		var moon = document.getElementById("searchType2")[document.getElementById("searchType2").selelctedIndex].text
+		console.log(moon); */
+		
+/* 		var x = document.getElementById("searchType2").selectedIndex;
+		console.log(x); */
+		
+		function goSubmit(){
+			var x = document.getElementById("searchType2").selectedIndex;
+			var y = document.getElementById("searchType2").options;
+			alert("Index: " + y[x].index + " is " + y[x].text);
+			console.log(x);
+			
+			$("#myForm").submit();
+		}
+		</script>
+		
 
 <jsp:include page="/WEB-INF/views/common/footer.jsp" />
 
