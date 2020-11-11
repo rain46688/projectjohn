@@ -26,6 +26,47 @@
 		background-image:url("${path}/resources/images/background_pattern.png");
 		background-repeated:repeated;
 	}
+	
+	#alarmdiv{
+	display:inline-block;
+	/* border:1px solid black; */
+	width:50px;
+	height:40px;
+	overflow:hidden;
+	}
+	
+	#al {
+	width: 20px;
+	height: 20px;
+	display: inline-block;
+	color: yellow;
+	background-color: red;
+	border-radius: 70%;
+	font-weight: bold;
+	position: relative;
+	z-index: 2;
+/* 	top: 20px;
+	left: -2px;
+	right: 4px; */
+	bottom:18px;
+	left:15px;
+	border:1px solid black;
+	text-align: center;
+	font-size: 12px;
+	 box-shadow: 1px 1px 1px 1px gray;
+}
+
+#bell {
+	z-index: 1;
+	position: relative;
+	/* border:1px solid black;  */
+}
+
+#bell>img{
+	width: 35px; 
+	height: 35px;
+}
+
 </style>
 <body>
     <div class="containerJohn">
@@ -59,10 +100,17 @@
                 <div id="header">
                     <!-- 알람 및 마이페이지 버튼 -->
                     <button onclick="location.href='${path}/customer/customerPage'">고객센터</button>
-                    <button>알람</button>
                     <button onclick="location.href='${path}/member/memberPage'">마이페이지</button>
                     <button onclick="location.href='${path}/admin/adminPage'" >ADMIN</button>
                     <button onclick="location.href='${path}/member/logout'">로그아웃</button>
+                    <div id="alarmdiv">
+                     	<c:if test="${loginMember.usid != null}">
+						<a id="bell" class="bell2" href="/alarmList?usid=${loginMember.usid }"><img src="${path }/resources/images/bell.png" ></a>
+						<c:if test="${loginMember.usid != null}">
+						<a id="number" href="${path }/alarmList?usid=${loginMember.usid }"></a>
+						</c:if>
+					</c:if>
+                    </div>
                 </div>
                 
                 
@@ -96,4 +144,69 @@
 					 - 건강/다이어트
 					 - 여행추천
                  -->
+                 
+                 <script>
+                 
+                 'use strict';
+                 
+                 let num = 1;
+         		
+         		function alarmPrint(){
+         			if("${loginMember.usid}" != ""){
+         			$.ajax({
+         			    type: "GET",
+         			    data: {
+         			      "usid": "${loginMember.usid}"
+         			    },
+         			      dataType: "json",
+         			      url: "${path}/alarmCount",
+         			    success: function (data) {
+         			    	console.log("data : "+data);
+         			    	num = data;
+         					if(num > 0){
+         						console.log("0보다 큼")
+         						$("#number").append("<div id='al'>"+num+"</div>");
+         					}else{
+         						console.log("0보다 안큼")
+         						$("#bell").removeClass('bell2');
+         					}
+         			    }
+         			  });
+         			}else{
+         				console.log("로그인이 안되있습니다.");
+         			}
+         		};
+         		alarmPrint();
+                 
+                 const alsocket = new WebSocket("wss://192.168.219.105${path}/alsocket");
+                 
+                 alsocket.onopen = function(){
+        			
+        		};
+        		
+        		alsocket.onmessage = function(msg){
+        			console.log("msg 콘솔 : "+msg);
+        			console.log("num : "+num++);
+        			console.log("num2 : "+num);
+        			$("#number").html("");
+        			$("#number").append("<div id='al'>"+num+"</div>");
+        			$("#bell").addClass('bell2');
+        		};
+        		
+        		function sendAlarm(send_usid,receive_usid,type,msg,send_nick){
+        			alsocket.send(JSON.stringify(new Alarm("",send_usid,receive_usid,type,msg,send_nick)));
+        		};
+        		
+        		function Alarm(ALARM_ID,ALARM_SEND_MEM_USID,ALARM_RECEIVE_MEM_USID,ALARM_TYPE,ALARM_MSG_CONTENT,ALARM_SEND_MEM_NICKNAME,ALARM_DATE,ALARM_ISCHECKED){
+        			this.ALARM_ID = ALARM_ID;
+        			this.ALARM_SEND_MEM_USID = ALARM_SEND_MEM_USID;
+        			this.ALARM_RECEIVE_MEM_USID = ALARM_RECEIVE_MEM_USID;
+        			this.ALARM_TYPE = ALARM_TYPE;
+        			this.ALARM_MSG_CONTENT = ALARM_MSG_CONTENT;
+        			this.ALARM_SEND_MEM_NICKNAME = ALARM_SEND_MEM_NICKNAME;
+        			this.ALARM_DATE = ALARM_DATE;
+        			this.ALARM_ISCHECKED = ALARM_ISCHECKED;
+        		};
+                 
+                 </script>
        

@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="alarm">
+
+<select id="selectAlarmCount" parameterType="_int" resultType="string"> 
+	SELECT COUNT(*) FROM ALARM WHERE ALARM_RECEIVE_MEM_USID = #{usid} AND ALARM_ISCHECKED = 0
+</select> 
+
+	<select id="selectAlarmList" parameterType="_int" resultType="com.kh.john.alarm.model.vo.Alarm"> 
+		SELECT * FROM ALARM WHERE ALARM_RECEIVE_MEM_USID = #{usid} AND ALARM_ISCHECKED = 0
+	</select>
+
+	<update id="updateAlarmRead" parameterType="_int">
+		UPDATE ALARM SET ALARM_ISCHECKED = 1 WHERE ALARM_ID = #{aid}
+	</update>
+
+</mapper>
