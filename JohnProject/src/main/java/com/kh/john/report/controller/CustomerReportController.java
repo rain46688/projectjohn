@@ -66,7 +66,8 @@ public class CustomerReportController {
 		
 		if(result>0) {
 			mv.addObject("msg","신고 완료!");
-			mv.setViewName("/report/customerReport");
+			mv.addObject("loc", "/report/customerReport");
+			mv.setViewName("common/msg");
 		}else {
 			mv.addObject("msg", "실패");
 			mv.addObject("loc", "/report/customerReport");

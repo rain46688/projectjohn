@@ -100,7 +100,7 @@ ul li {
 			
 			<select name="searchType2" required>
 				<option value=" " disabled selected>선택</option> 
-				<option value="enroll_date" <c:if test="${param.searchType eq 'enroll_date'}">selected</c:if>>입사날짜</option>
+				<option value="enroll_date" <c:if test="${param.searchType2 eq 'enroll_date'}">selected</c:if>>입사날짜</option>
 				<%-- <option value="expert_rating" <c:if test="${param.searchType eq 'expert_rating'}">selected</c:if>>등급순</option>
 				<option value="expert_counsel_start_time" ${param.searchType eq 'expert_counsel_start_time'?"selected":"" }>상담시간순</option>	 --%>
 			</select>

@@ -98,6 +98,7 @@ public class AdminController {
 	@RequestMapping("/admin/adminMemberSearch")
 	public ModelAndView adminMemberSearch(ModelAndView mv, 
 			@RequestParam(value="searchType", required=false) String type,
+			@RequestParam(value="searchType", required=false) String type2,
 			@RequestParam(value="keyword", required=false) String keyword,
 			@RequestParam(value="gender", required=false) String gender,
 			@RequestParam(value="mem_class", required=false) String[] mem_class,
@@ -108,6 +109,7 @@ public class AdminController {
 		Map<String,Object> param = new HashMap(); 
 		
 		param.put("type", type);
+		param.put("type2", type2);
 		param.put("keyword", keyword);
 		param.put("gender", gender);
 		param.put("mem_class", mem_class);
@@ -138,9 +140,8 @@ public class AdminController {
 		List<Board> list = service.selectBoardList(cPage, numPerPage);
 		int totalData = service.selectBoardCount();
 
-		mv.addObject("pageBar", PageBarFactory.getPageBar(totalData, cPage, numPerPage, "adminBoard")); // 페이지바
-																										// PageBarFactory에서
-																										// 가져오기
+		mv.addObject("pageBar", PageBarFactory.getPageBar(totalData, cPage, numPerPage, "adminBoard"));
+																										
 
 		mv.addObject("totalData", totalData);
 
@@ -164,8 +165,8 @@ public class AdminController {
 		
 		param.put("type", type);
 		param.put("keyword", keyword);
+		param.put("type2", type2);
 		param.put("isclose", isclose);
-		param.put("type2",type2);
 		param.put("order",order);
 		System.out.println("맵안에:"+param);
 
@@ -237,15 +238,14 @@ public class AdminController {
 		String msg = "";
 		
 		if(result>0) {
-			msg="전문가 승인이 완료되었습니다";
+			mv.addObject("msg","전문가 승인이 완료되었습니다");
+			mv.addObject("loc","/admin/adminMember");
+			mv.setViewName("common/msg");
 		}else {
-			msg="실패";
+			mv.addObject("msg","전문가 승인이 완료되었습니다");
+			mv.addObject("loc","/admin/adminMember");
 		}
 		
-		mv.addObject("msg",msg);
-		mv.addObject("loc","/admin/adminMember");
-		mv.setViewName("common/msg");
-	
 		return mv;
 	}
 	
@@ -290,5 +290,8 @@ public class AdminController {
 	}
 
 	// 1:1 채팅답변 불러오기
-
+	@RequestMapping("/admin/adminChat")
+	public String adminChat() {
+		return "/admin/adminIndex";
+	}
 }
