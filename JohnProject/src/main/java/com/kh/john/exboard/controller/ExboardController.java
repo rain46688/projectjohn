@@ -146,7 +146,11 @@ public class ExboardController {
 						if (er.getEXPERT_REQUEST_MEM_USID() == eb.getEXPERT_BOARD_MEM_USID()) {
 							// 이미 상담 게시판이 만들어진 유저
 							er.setStartCounsel(true);
-							log.debug(er.getEXPERT_REQUEST_MEM_NICK() + " : " + er.getStartCounsel());
+							if (eb.getEXPERT_BOARD_ADVICE_RESULT() != null) {
+								er.setEndCounsel(true);
+							}
+							log.debug(er.getEXPERT_REQUEST_MEM_NICK() + " START : " + er.getStartCounsel());
+							log.debug(er.getEXPERT_REQUEST_MEM_NICK() + " END : " + er.getEndCounsel());
 							break;
 						} else {
 							er.setStartCounsel(false);

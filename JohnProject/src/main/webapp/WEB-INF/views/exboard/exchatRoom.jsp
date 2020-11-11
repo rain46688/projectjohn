@@ -166,13 +166,17 @@ video {
 							  pc[i].addIceCandidate(candidate);
 						  }
 					 }else if(content.type  === 'bye'){
-					     handleRemoteHangup();
+						 exit();
 					 }else if(content.type == 'SYS'){
 						 printdiv(content.nick+"님이 접속하셨습니다.");
 						 host();
 					 }else if(content.type == 'TXT'){
 						 $("#memtext").html("");
 						 $("#memtext").html(content.msg);
+					 }else if(content.type == 'END'){
+						 //sendMessage(new ExboardMsg("SYS2","${loginMember.mem_nickname}","종료료"));
+						 //exit();
+						 location.replace('${path}/');
 					 }
 			};
 
@@ -301,12 +305,12 @@ video {
 	
 		
 		//연결 끊기
-			function handleRemoteHangup() {
+		/* 	function handleRemoteHangup() {
 				printdiv("Session 종료");
 				  stop();
 				  isInitiator = false;
 				};
-				
+				 */
 		function exit() {
 			  stop();
 				printdiv("연결 종료 응답 보내기");
@@ -377,6 +381,8 @@ video {
 			         
 			         document.body.appendChild(form);
 			         form.submit();
+			         exit();
+			         sendMessage(new ExboardMsg("END","${loginMember.mem_nickname}","종료"));
 			}
 			
 			

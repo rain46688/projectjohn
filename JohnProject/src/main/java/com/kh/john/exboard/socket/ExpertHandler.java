@@ -60,7 +60,7 @@ public class ExpertHandler extends TextWebSocketHandler {
 				}
 			}
 
-		} else if (msg.getType().equals("TXT")) {
+		} else if (msg.getType().equals("TXT") || msg.getType().equals("END")) {
 
 			Iterator<SessionVo> it = users.keySet().iterator();
 			while (it.hasNext()) {
