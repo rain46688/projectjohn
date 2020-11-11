@@ -9,6 +9,7 @@ import com.kh.john.board.model.vo.Comment;
 
 public interface BoardService {
 	List<Board> boardList();
+	List<Board> boardSelectCate(String boardTitle);
 	int boardInsert(List<BoardFile> files, Board b);
 	Board boardSelectOne(int boardNo);
 	List<Comment> commentSelectList(int currBoardNo);

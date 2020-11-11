@@ -24,18 +24,21 @@ public class ExboardServiceImpl implements ExboardService {
 	@Autowired
 	private SqlSessionTemplate session;
 
+	// 전문가인 멤버 리스트 가져오기
 	@Override
 	public List<Member> selectExpert() throws Exception {
 		// TODO Auto-generated method stub
 		return dao.selectExpert(session);
 	}
 
+	// 전문가 한명 정보 가져오기
 	@Override
 	public Member selectExpertMem(String no) throws Exception {
 		// TODO Auto-generated method stub
 		return dao.selectExpertMem(session, no);
 	}
 
+	// 전문가한테 상담 신청 등록하기
 	@Override
 	public int insertExpertMemRequest(Member expert, Member mem) throws Exception {
 		// TODO Auto-generated method stub
@@ -51,12 +54,14 @@ public class ExboardServiceImpl implements ExboardService {
 		}
 	}
 
+	// 닉네임으로 유저 한명 가져오기
 	@Override
 	public Member selectMember(String nick) throws Exception {
 		// TODO Auto-generated method stub
 		return dao.selectMember(session, nick);
 	}
 
+	// 같은 전문가한테 상담 중복 신청 여부 확인하기
 	@Override
 	public Boolean selectIsDuplicateReq(Member expert, Member mem) throws Exception {
 		// TODO Auto-generated method stub
@@ -70,27 +75,28 @@ public class ExboardServiceImpl implements ExboardService {
 		}
 	}
 
+	// 상담 신청 취소하기
 	@Override
 	public int deleteExpertMemRequest(Member expert, Member mem) throws Exception {
 		// TODO Auto-generated method stub
 		return dao.deleteExpertMemRequest(session, expert, mem);
 	}
 
+	// 해당 전문가한테 온 상담 신청 리스트 출력하기
 	@Override
 	public List<ExpertRequest> selectExpertRequest(Member mem) throws Exception {
 		// TODO Auto-generated method stub
 		return dao.selectExpertRequest(session, mem);
 	}
 
+	// 상담 게시판 개설하기
 	@Override
 	public int insertExpertBoard(String memusid, Member expertmem) throws Exception {
 		// TODO Auto-generated method stub
 		ExpertBoard exboard = new ExpertBoard();
 		exboard.setEXPERT_BOARD_USID(expertmem.getUsid());
 		exboard.setEXPERT_BOARD_MEM_USID(Integer.parseInt(memusid));
-		log.debug("방넘버 : " + exboard.getEXPERT_BOARD_ID());
 		int result = dao.insertExpertBoard(session, exboard);
-		log.debug("방넘버 후 : " + exboard.getEXPERT_BOARD_ID());
 		if (result > 0) {
 			return exboard.getEXPERT_BOARD_ID();
 		} else {
@@ -99,16 +105,25 @@ public class ExboardServiceImpl implements ExboardService {
 
 	}
 
+	// 상담 게시판 리스트 가져오기 이미 상담 개설된 유저인지 판별용
 	@Override
 	public List<ExpertBoard> selectExpertBoard(Member mem) throws Exception {
 		// TODO Auto-generated method stub
 		return dao.selectExpertBoard(session, mem);
 	}
 
+	// 방 번호 가져오기
 	@Override
 	public int selectExBoardNum(Member expertmem, String memusid) throws Exception {
 		// TODO Auto-generated method stub
 		return dao.selectExBoardNum(session, expertmem, memusid);
+	}
+
+	// 전문가 상담 채팅 게시판 유저들 판별을 위해 가져오기
+	@Override
+	public ExpertBoard selectExpertBoard(String bnum) throws Exception {
+		// TODO Auto-generated method stub
+		return dao.selectExpertBoard(session, bnum);
 	}
 
 }

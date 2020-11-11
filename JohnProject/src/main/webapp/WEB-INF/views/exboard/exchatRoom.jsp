@@ -105,6 +105,11 @@ video {
 						    }
 						  ]
 				};
+			
+			//----------------------------  데어티 채널 -------------------------------------
+			
+			let dataChannel;
+			
 
 			//---------------------------- signaling 서버 -------------------------------------
 
@@ -113,14 +118,17 @@ video {
 
 			conn.onopen = function() {
 				printdiv("signaling server 연결");
-				printdiv("닉네임 : ${loginMember.mem_nickname}, 방번호 : ${bno}, 전문가 여부 : ${loginMember.mem_class}");
+				printdiv("닉네임 : ${loginMember.mem_nickname}, 방번호 : ${bno}, 전문가 여부 : ${loginMember.mem_class}","${loginMember.usid}");
 				if("${loginMember.mem_class}" === '전문가'){
 					gotStream();			
-				}
+				}else{
+					sendMessage(new ExboardMsg("SYS","${loginMember.mem_nickname}","접속"));
+ 				}
 			};
 
 			conn.onmessage = function(msg) {
 				printdiv("onmessage 실행");
+				printdiv("msg : "+msg);
 				let content = JSON.parse(msg.data);
 				printdiv("content : "+content.type);
 					 if(content.type  === 'offer'){
@@ -147,6 +155,8 @@ video {
 						  }
 					 }else if(content.type  === 'bye'){
 					     handleRemoteHangup();
+					 }else if(content.type == 'SYS'){
+						 printdiv(content.nick+"님이 접속하셨습니다.");
 					 }
 			};
 
@@ -200,7 +210,16 @@ video {
 		printdiv("createPeerConnection 실행");
 		try{
 			//수정
-			pc.push(new RTCPeerConnection(configuration));
+			 pc.push(new RTCPeerConnection(configuration)); 
+			
+		/* 	pc = new RTCPeerConnection(configuration,{
+				optional : [{
+					RtpDataChannels : true
+				}]
+			}); 
+			dataChannel = pc.createDataChannel("dataChannel", {
+				reliable : true
+			});*/
 			printdiv("PC 객체 생성 : "+pc.length);
 			for(var i=0;i<pc.length;i++){
 				pc[i].onicecandidate = handleIceCandidate;
@@ -302,6 +321,34 @@ video {
 				$("#board").append("<div>" + msg + "</div>");
 				$("#board").scrollTop($("#board")[0].scrollHeight);
 			};
+		
+			//메세지 객체
+			function ExboardMsg(type, nick, msg, id){
+				this.type=type;
+				this.nick=nick;
+				this.msg = msg;
+				this.id = id;
+			};
+			
+			
+		/* 	function sendMsgData(message) {
+				console.log("데이터 채널 메세지 발송 : "+message);
+				dataChannel.send(message);
+			}; */
+			
+		/* 	dataChannel.onerror = function(error) {
+				console.log("데이터 채널 에러", error);
+			};
+
+			// 다른 세션에서 전달받은 메세지를 보여줌
+			dataChannel.onmessage = function(event) {
+				console.log("message:", event.data);
+				$('#board').append("<p>"+event.data+"</p>");
+			};
+
+			dataChannel.onclose = function() {
+				console.log("데이터 채널 닫힘");
+			}; */
 			
 			
 		</script>

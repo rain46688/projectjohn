@@ -45,5 +45,9 @@
 	SELECT EXPERT_BOARD_ID FROM EXPERT_BOARD WHERE EXPERT_BOARD_USID = #{exusid} AND EXPERT_BOARD_MEM_USID = #{memusid}
 </select>
 
+<select id="selectExpertBoardbnum" resultType="exboard" parameterType="string">
+	SELECT * FROM EXPERT_BOARD WHERE EXPERT_BOARD_ID = #{bnum}
+</select>
+
 
 </mapper>

@@ -13,7 +13,9 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.kh.john.board.model.service.BoardService;
 import com.kh.john.board.model.vo.Board;
 
+import lombok.extern.slf4j.Slf4j;
 
+@Slf4j
 public class BoardListSocket extends TextWebSocketHandler  {
 	
 	@Autowired
@@ -26,7 +28,7 @@ public class BoardListSocket extends TextWebSocketHandler  {
 	@Override
 	public void afterConnectionEstablished(WebSocketSession session) throws Exception {
 		// TODO Auto-generated method stub
-		System.out.println(session.getId() + "접속");
+		log.info(session.getId() + "접속");
 		sessions.add(session);
 	}
 	
@@ -40,8 +42,6 @@ public class BoardListSocket extends TextWebSocketHandler  {
 		}
 		if(messageFromClient.equals("boardInsertSuccess")) {
 			List<Board> list = service.boardList();
-			System.out.println("??????");
-			System.out.println(sessions.size());
 			for(WebSocketSession sess : sessions) {
 				sess.sendMessage(new TextMessage(mapper.writeValueAsString(list)));
 			}

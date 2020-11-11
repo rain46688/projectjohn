@@ -47,6 +47,8 @@ public interface AdminService {
 	
 	int searchExpertListCount(Map<String,Object> param);
 	
+	int updateMemberToExpertEnd(Member m);
+	
 	//공지관련
 	List<Notice> selectNoticeList(int cPage, int numPerPage);
 	

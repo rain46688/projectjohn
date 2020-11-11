@@ -48,4 +48,10 @@ public class BoardDaoImpl implements BoardDao{
 		// TODO Auto-generated method stub
 		return session.insert("board.boardCommentInsert", param);
 	}
+	
+	@Override
+	public List<Board> boardSelectCate(SqlSession session, String boardTitle) {
+		// TODO Auto-generated method stub
+		return session.selectList("board.boardSelectCate", boardTitle);
+	}
 }

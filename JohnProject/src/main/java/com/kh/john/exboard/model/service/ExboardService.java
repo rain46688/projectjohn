@@ -28,4 +28,6 @@ public interface ExboardService {
 
 	int selectExBoardNum(Member expertmem, String no) throws Exception;
 
+	ExpertBoard selectExpertBoard(String bnum) throws Exception;
+
 }

@@ -50,6 +50,35 @@ public class ReportServiceImpl implements ReportService {
 	public int selectReportCount() {
 		return dao.selectReportCount(session);
 	}
+
+	@Override
+	public Report selectOneReport(int report_id) {
+		return dao.selectOneReport(session, report_id);
+	}
+
+	@Override
+	public List<ReportFile> selectReportFile(int report_id) {
+		return dao.selectReportFile(session, report_id);
+	}
+
+
+
+
+	@Override
+	public int deleteReport(Report r) {
+		int result = dao.deleteReport(session, r);
+		return result;
+	}
+
+
+
+
+	@Override
+	public int reportWarn(Report r) {
+		return dao.reportWarn(session, r);
+	}
+	
+	
 	
 	
 

@@ -28,8 +28,8 @@
 		            <c:forEach items="${list }" var="r">
 		           <tr>
             		<td><c:out value="${r.report_id }"/></td> 
-            		<td><a href="${path }/report/adminReportView?report_id=${r.report_id }"><c:out value="${r.report_type }"/></a></td> 
-            		<td><c:out value="${r.report_title }"/></td> 
+            		<td><c:out value="${r.report_type }"/></td> 
+            		<td><a href="${path }/report/adminReportView?report_id=${r.report_id }"><c:out value="${r.report_title }"/></a></td> 
             		<td><c:out value="${r.report_date }"/></td> 
             		<td><c:out value="${r.report_ischeck }"/></td> 
             		<td><c:out value="${r.report_user_nickname }"/></td> 

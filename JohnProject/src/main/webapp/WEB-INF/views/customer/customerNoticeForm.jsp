@@ -65,7 +65,7 @@ div#board-container input {
 
 			<textarea class="form-control" name="notice_content" placeholder="내용" required></textarea>
 			<br /> 
-			<input type="submit" class="btn btn-outline-info" value="저장">
+			<input type="submit" class="btn btn-outline-info" value="저장" onclick="submit();">
 		</form>
 
 		<script>
@@ -76,6 +76,11 @@ div#board-container input {
         		
         	})
         })
+        
+        
+        function submit(){
+        	alert("등록되었습니다");
+        }
         
         </script>
 

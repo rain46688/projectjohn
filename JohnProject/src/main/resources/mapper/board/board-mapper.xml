@@ -30,4 +30,8 @@
 	<insert id="boardCommentInsert" parameterType="map">
 		INSERT INTO "COMMENT" VALUES(SEQ_COMMENT_NO.NEXTVAL, #{currBoardNo}, 9, '홍잭슨', #{content}, default, SYSDATE)
 	</insert>
+	
+	<select id="boardSelectCate" parameterType="string" resultType="board">
+		SELECT * FROM BOARD WHERE SMALL_CATEGORY = #{boardTitle}
+	</select>
 </mapper>

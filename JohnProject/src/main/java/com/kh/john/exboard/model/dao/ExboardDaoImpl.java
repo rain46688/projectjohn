@@ -88,4 +88,10 @@ public class ExboardDaoImpl implements ExboardDao {
 		return session.selectOne("expert.selectExBoardNum", map);
 	}
 
+	@Override
+	public ExpertBoard selectExpertBoard(SqlSessionTemplate session, String bnum) throws Exception {
+		// TODO Auto-generated method stub
+		return session.selectOne("expert.selectExpertBoardbnum", bnum);
+	}
+
 }

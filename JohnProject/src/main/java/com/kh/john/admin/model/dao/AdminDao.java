@@ -49,6 +49,8 @@ public interface AdminDao {
 	
 	int searchExpertListCount(SqlSession session, Map<String,Object> param);
 	
+	int updateMemberToExpertEnd(SqlSession session, Member m);
+	
 	//공지관련
 	List<Notice> selectNoticeList(SqlSessionTemplate session, int cPage, int numPerPage);
 	

@@ -121,6 +121,11 @@ public class AdminServiceImpl implements AdminService{
 	
 	
 	
+	@Override
+	public int updateMemberToExpertEnd(Member m) {
+		return dao.updateMemberToExpertEnd(session, m);
+	}
+
 	//공지관련
 	@Override
 	public List<Notice> selectNoticeList(int cPage, int numPerPage) {

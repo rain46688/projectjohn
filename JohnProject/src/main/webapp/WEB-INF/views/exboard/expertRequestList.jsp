@@ -114,6 +114,7 @@ h2 {
 				<div class="divCell">정보 보기</div>
 			</div>
 
+
 			<c:choose>
 				<c:when test="${fn:length(list) > 0}">
 					<c:forEach items="${list }" var="n">
@@ -123,7 +124,7 @@ h2 {
 								<div class="divCell">${n.startCounsel}</div>
 								<div class="divCell">
 							<c:if test="${n.startCounsel == false }">
-								<button class="btn btn-outline-success" onclick="counselStart('${n.EXPERT_REQUEST_MEM_USID}');">버튼</button>
+								<button class="btn btn-outline-success" onclick="counselStart('${n.EXPERT_REQUEST_MEM_USID}','${n.EXPERT_REQUEST_MEM_NICK}');">버튼</button>
 							</c:if>
 							<c:if test="${n.startCounsel == true }">
 									<button class="btn btn-outline-success" onclick="counselConn('${n.EXPERT_REQUEST_MEM_USID}');">채팅 접속</button>
@@ -143,11 +144,11 @@ h2 {
 	
 	<script>
 	
-	function counselStart(num){
+	function counselStart(num,nick){
 		console.log("num : "+num);
 		let result = confirm("해당 회원과 상담을 진행하시겠습니까?");
 		if(result){
-				location.replace('${path}/counselStart?no='+num);
+				location.replace('${path}/counselStart?no='+num+"&nic="+nick);
 		}
 	}
 	

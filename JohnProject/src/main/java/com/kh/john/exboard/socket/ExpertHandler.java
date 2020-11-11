@@ -38,36 +38,56 @@ public class ExpertHandler extends TextWebSocketHandler {
 	public void handleTextMessage(WebSocketSession session, TextMessage message)
 			throws InterruptedException, IOException {
 		log.info("handleTextMessage 실행 시그널링 서버");
-
 		ExboardMsg msg = objectMapper.readValue(message.getPayload(), ExboardMsg.class);
-		log.info("sdp : " + msg.getSdp() + " type : " + msg.getType());
 		Map<String, Object> map = session.getAttributes();
 		SessionVo sv = (SessionVo) map.get("loginnedMember");
-		log.info("users Size : " + users.size());
-		Iterator<SessionVo> it = users.keySet().iterator();
-		while (it.hasNext()) {
-			SessionVo key = it.next();
-			// 같은 방의 인원만
-			if (key.getCurRoomBid().equals(sv.getCurRoomBid())) {
-				if (sv.isExpert()) {
-					// 호스트인 경우
-					log.debug("현재 세션 호스트");
-					if (!key.isExpert()) {
-						log.debug("현재 세션 호스트 이니깐 참여자한테 메세지 보냄");
-						users.get(key).sendMessage(message);
-					}
-				} else {
-					// 호스트가 아닌경우
-					log.debug("현재 세션 참여자");
-					if (key.isExpert()) {
-						log.debug("현재 세션 호스트 아니니깐 호스트한테 메세지 보냄");
-						users.get(key).sendMessage(message);
+
+		log.debug("msg : " + msg);
+		if (msg.getType().equals("SYS")) {
+			log.debug("메세지 : " + msg.getMsg());
+
+			Iterator<SessionVo> it = users.keySet().iterator();
+			while (it.hasNext()) {
+				SessionVo key = it.next();
+				// 같은 방의 인원만
+				if (key.getCurRoomBid().equals(sv.getCurRoomBid())) {
+					if (!sv.isExpert()) {
+						// 호스트가 아닌경우
+						if (key.isExpert()) {
+							users.get(key).sendMessage(new TextMessage(objectMapper.writeValueAsString(msg)));
+						}
 					}
 				}
-
 			}
-		}
 
+		} else
+
+		{
+			Iterator<SessionVo> it = users.keySet().iterator();
+			while (it.hasNext()) {
+				SessionVo key = it.next();
+				// 같은 방의 인원만
+				if (key.getCurRoomBid().equals(sv.getCurRoomBid())) {
+					if (sv.isExpert()) {
+						// 호스트인 경우
+						log.debug("현재 세션 호스트");
+						if (!key.isExpert()) {
+							log.debug("현재 세션 호스트 이니깐 참여자한테 메세지 보냄");
+							users.get(key).sendMessage(message);
+						}
+					} else {
+						// 호스트가 아닌경우
+						log.debug("현재 세션 참여자");
+						if (key.isExpert()) {
+							log.debug("현재 세션 호스트 아니니깐 호스트한테 메세지 보냄");
+							users.get(key).sendMessage(message);
+						}
+					}
+
+				}
+			}
+
+		}
 	}
 
 	@Override

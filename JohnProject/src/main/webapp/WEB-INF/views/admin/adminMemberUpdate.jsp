@@ -60,12 +60,14 @@
                 </td>
             </tr>
             <tr>
-                <th>파일 확인하기</th> 
+                <th>사진</th> 
                 <td>
-                    <input type="text" name="profile_pic" id="profile_pic" value="${member.profile_pic }">
+                    <img src="${path}/resources/upload/${member.profile_pic }"> <!-- 향후 경로수정 지금 엑박임-->
+           
                 </td>
             </tr>
            
+           <!-- 향후 추가로 라이센스 받아온 것도 넣기 -->
         </table>
         <input type="submit" value="전문가 승인하기">
 	</form>

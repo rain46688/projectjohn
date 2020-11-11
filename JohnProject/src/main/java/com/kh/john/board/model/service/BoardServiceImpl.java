@@ -63,4 +63,10 @@ public class BoardServiceImpl implements BoardService {
 		// TODO Auto-generated method stub
 		return dao.boardCommentInsert(session, param);
 	}
+	
+	@Override
+	public List<Board> boardSelectCate(String boardTitle) {
+		// TODO Auto-generated method stub
+		return dao.boardSelectCate(session, boardTitle);
+	}
 }

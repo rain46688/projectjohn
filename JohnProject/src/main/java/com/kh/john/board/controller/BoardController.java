@@ -93,8 +93,7 @@ public class BoardController {
 	}
 
 	@RequestMapping("board/boardPage")
-	public ModelAndView boardPage(ModelAndView mv) {
-		int boardNo = 10;
+	public ModelAndView boardPage(ModelAndView mv, int boardNo) {
 		
 		Board b = service.boardSelectOne(boardNo);
 		
@@ -128,15 +127,12 @@ public class BoardController {
 		}
 		return result;
 	}
-	
+	//세션 만들기
 	@RequestMapping("board/boardSession")
-	public ModelAndView boardSession(ModelAndView mv) {
+	public ModelAndView boardSession(ModelAndView mv, HttpServletRequest request) {
 		
-		Member m = new Member();
-		m.setMem_email("jackson@naver.com");
-		m.setMem_nickname("홍잭슨");
-		m.setUsid(99);
-		
+		Member m = (Member) request.getSession().getAttribute("loginMember");
+		System.out.println(m);
 		Subscribe s1 = new Subscribe(99, "연애상담");
 		Subscribe s2 = new Subscribe(99, "가족문제");
 		Subscribe s3 = new Subscribe(99, "회사문제");
@@ -149,6 +145,20 @@ public class BoardController {
 		mv.addObject("loginMember", m);
 		mv.addObject("subList", list);
 		mv.setViewName("/board/boardList");
+		
+		return mv;
+	}
+	
+	//작은 카테고리 조회
+	@RequestMapping("/board/boardListSmall")
+	public ModelAndView boardListSmall(String boardTitle, ModelAndView mv) {
+		
+		log.debug(boardTitle);
+		
+		List<Board> list = service.boardSelectCate(boardTitle);
+		
+		mv.addObject("list", list);
+		mv.setViewName("/board/boardListSmall");
 		
 		return mv;
 	}
