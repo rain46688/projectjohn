@@ -233,14 +233,6 @@ public class MemberController {
 					files.add(lisenceFile);
 				}
 			}
-			//Info처리
-//			License[] licenseArr;
-//			licenseArr=Date.valueOf((String)param.get("licenseDate1")));
-//			for(int i=0; i<3; i++) {
-//				for(int j=i;j<3;j++) {
-//					
-//				}
-//			}
 			
 			String[] license1=(String[]) param.get("license1");
 			String[] license2=(String[]) param.get("license2");
@@ -263,18 +255,7 @@ public class MemberController {
 			}
 			
 			int resultExpert=service.signUpExpert(member, files, licenseArr);
-					
 			
-//			License licenseInfo1=new License();
-//			licenseInfo1.setLicense_mem_usid(member.getUsid());
-//			licenseInfo1.setLicense_date(Date.valueOf((String)param.get("licenseDate1")));
-//			licenseInfo1.setLicense_type(license1[0]);
-//			licenseInfo1.setLicense_company(license1[1]);
-//			int resultInfo1=service.uploadLicenseInfo(licenseInfo1);
-			
-//				license2
-//				license3
-//			int resultCpl=service.uploadAll(member, files, licenseInfo);
 		}
 
 		m.addAttribute("msg", msg);

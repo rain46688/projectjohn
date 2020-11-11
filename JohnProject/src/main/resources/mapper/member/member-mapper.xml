@@ -23,4 +23,7 @@
 		#{birthday,jdbcType=DATE}, DEFAULT, DEFAULT, DEFAULT, DEFAULT, #{mem_class}, DEFAULT, #{tel})
 </insert>
 
+<insert id="signUpExpert" parameterType="license">
+	INSERT INTO LICENSE VALUES(#{license_mem_usid}, #{license_file_name}, #{license_date}, #{license_type}, #{license_company})
+</insert>
 </mapper>
