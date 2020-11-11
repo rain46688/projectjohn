@@ -25,7 +25,7 @@
 		visibility: hidden;
 		position: relative;
 	}
-	#fileNameField{
+	.fileNameField{
         outline: none;
         border: black solid 1px;
         background-color: white;
@@ -45,60 +45,63 @@
 
 <div class="licenseDiv" id="licenseDiv1">
     <!-- 자격증 파일 넣는 곳 -->
-    <input type="file" name="license_file_name" id="real-input" class="file" accept="img/*">
+    <input type="file" name="license1" id="real-input1" class="file real-input" accept="img/*">
     <div class="input-group col-xs-12">
-        <input type="text" class="input inputFile" id="fileNameField" disabled placeholder="이미지를 업로드 하세요.">
-        <button type="button" class="browse button" onclick="fn_browseFile();" style="width: 20%;">
+        <input type="text" class="input inputFile fileNameField" id="fileNameField1" disabled placeholder="이미지를 업로드 하세요.">
+        <button type="button" class="browse button" id="browse1" style="width: 20%;">
             파일찾기
         </button>
     </div>
     <!-- 자격증 발급 일자 -->
-    <input type="date" class="input" name="license_date">
+    <input type="date" class="input" name="license1">
     <!-- 자격증 종류 -->
-    <input type="text" class="input" name="license_type" placeholder="자격증 종류를 입력해주세요.">
+    <input type="text" class="input" name="license1" placeholder="자격증 종류를 입력해주세요.">
     <!-- 자격증 발급 기관 -->
-    <input type="text" class="input" name="license_company" placeholder="자격증 발급 기관을 입력해주세요.">
+    <input type="text" class="input" name="license1" placeholder="자격증 발급 기관을 입력해주세요.">
 </div>
 
-<button onclick="fn_addLicenseDiv2()">추가</button>
+<button type="button" id="license2Btn" onclick="fn_addLicenseDiv2()">추가</button>
+<button type="button" id="license2Remove" onclick="fn_removeLicenseDiv2()" style="display: none;">삭제</button>
 
 <div class="licenseDiv" id="licenseDiv2">
     <!-- 자격증 파일 넣는 곳 -->
-    <input type="file" name="license_file_name" id="real-input" class="file" accept="img/*">
+    <input type="file" name="license2" id="real-input2" class="file real-input" accept="img/*">
     <div class="input-group col-xs-12">
-        <input type="text" class="input inputFile" id="fileNameField" disabled placeholder="이미지를 업로드 하세요.">
-        <button type="button" class="browse button" onclick="fn_browseFile();" style="width: 20%;">
+        <input type="text" class="input inputFile fileNameField" id="fileNameField2" disabled placeholder="이미지를 업로드 하세요.">
+        <button type="button" class="browse button" id="browse2" style="width: 20%;">
             파일찾기
         </button>
     </div>
     <!-- 자격증 발급 일자 -->
-    <input type="date" class="input" name="license_date">
+    <input type="date" class="input" name="license2">
     <!-- 자격증 종류 -->
-    <input type="text" class="input" name="license_type" placeholder="자격증 종류를 입력해주세요.">
+    <input type="text" class="input" name="license2" placeholder="자격증 종류를 입력해주세요.">
     <!-- 자격증 발급 기관 -->
-    <input type="text" class="input" name="license_company" placeholder="자격증 발급 기관을 입력해주세요.">
+    <input type="text" class="input" name="license2" placeholder="자격증 발급 기관을 입력해주세요.">
 </div>
 
-<button id="license3Btn" onclick="fn_addlicenseDiv3()" style="display: none;">추가</button>
+<button type="button" id="license3Btn" onclick="fn_addLicenseDiv3()" style="display: none;">추가</button>
+<button type="button" id="license3Remove" onclick="fn_removeLicenseDiv3()" style="display: none;">삭제</button>
 
 <div class="licenseDiv" id="licenseDiv3">
     <!-- 자격증 파일 넣는 곳 -->
-    <input type="file" name="license_file_name" id="real-input" class="file" accept="img/*">
+    <input type="file" name="license3" id="real-input3" class="file real-input" accept="img/*">
     <div class="input-group col-xs-12">
-        <input type="text" class="input inputFile" id="fileNameField" disabled placeholder="이미지를 업로드 하세요.">
-        <button type="button" class="browse button" onclick="fn_browseFile();" style="width: 20%;">
+        <input type="text" class="input inputFile fileNameField" id="fileNameField3" disabled placeholder="이미지를 업로드 하세요.">
+        <button type="button" class="browse button" id="browse3" style="width: 20%;">
             파일찾기
         </button>
     </div>
     <!-- 자격증 발급 일자 -->
-    <input type="date" class="input" name="license_date">
+    <input type="date" class="input" name="license3">
     <!-- 자격증 종류 -->
-    <input type="text" class="input" name="license_type" placeholder="자격증 종류를 입력해주세요.">
+    <input type="text" class="input" name="license3" placeholder="자격증 종류를 입력해주세요.">
     <!-- 자격증 발급 기관 -->
-    <input type="text" class="input" name="license_company" placeholder="자격증 발급 기관을 입력해주세요.">
+    <input type="text" class="input" name="license3" placeholder="자격증 발급 기관을 입력해주세요.">
 </div>
 <script>
     // 파일관련
+    //license1
     $(document).on('click','.browse',function(){
 		var file=$(this).parent().parent().find('.file');
 		file.trigger('click');
@@ -111,8 +114,25 @@
     function fn_addLicenseDiv2(){
         $("#licenseDiv2").css({"display":"block"});
         $("#license3Btn").css({"display":"block"});
+        $("#license2Remove").css({"display":"block"});
+        $("#license2Btn").css({"display":"none"});
     }
-    function fn_addlicenseDiv3(){
+    function fn_removeLicenseDiv2(){
+        $("#licenseDiv2").css({"display":"none"});
+        $("#license3Btn").css({"display":"none"});
+        $("#license2Remove").css({"display":"none"});
+        $("#license2Btn").css({"display":"block"});
+        $("#licenseDiv3").css({"display":"none"});
+        $("#license3Remove").css({"display":"none"});
+    }
+    function fn_addLicenseDiv3(){
         $("#licenseDiv3").css({"display":"block"});
+        $("#license3Remove").css({"display":"block"});
+        $("#license3Btn").css({"display":"none"});
+    }
+    function fn_removeLicenseDiv3(){
+        $("#licenseDiv3").css({"display":"none"});
+        $("#license3Remove").css({"display":"none"});
+        $("#license3Btn").css({"display":"block"});
     }
 </script>

@@ -14,9 +14,9 @@ public interface MemberDao {
 	Member selectMemberById(SqlSessionTemplate session, Member member);
 	Member selectMemberById(SqlSessionTemplate session, Map param);
 
-	Member nickDuplicate(SqlSessionTemplate session, String nick);
+	Member nickDuplicate(SqlSessionTemplate session, Member member);
 
-	Member phoneDuplicate(SqlSessionTemplate session, String phone);
+	Member phoneDuplicate(SqlSessionTemplate session, Member member);
 	
 	int signUpEnd(SqlSessionTemplate session, Member member);
 

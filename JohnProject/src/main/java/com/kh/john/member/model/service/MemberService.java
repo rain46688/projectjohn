@@ -17,10 +17,10 @@ public interface MemberService {
 	Member selectMemberById(Map param);
 
 	//닉네임으로 멤버 찾기
-	Member nickDuplicate(String nick);
+	Member nickDuplicate(Member member);
 
 	//폰번 중복 검사
-	Member phoneDuplicate(String phone);
+	Member phoneDuplicate(Member member);
 
 	//회원가입
 	int signUpEnd(Member member);

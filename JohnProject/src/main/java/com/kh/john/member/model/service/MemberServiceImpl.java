@@ -43,7 +43,7 @@ public class MemberServiceImpl implements MemberService {
                 .append("<h1>메일인증</h1>")
                 .append(authKey)
                 .toString());
-		sendMail.setFrom("minsu87750@gmail.com", "재판하는 존경장님");
+		sendMail.setFrom("22mailme@gmail.com", "재판하는 존경장님");
 		sendMail.setTo(email);
 		sendMail.send();
 		return authKey;
@@ -59,13 +59,13 @@ public class MemberServiceImpl implements MemberService {
 	}
 	
 	@Override
-	public Member nickDuplicate(String nick) {
-		return dao.nickDuplicate(session, nick);
+	public Member nickDuplicate(Member member) {
+		return dao.nickDuplicate(session, member);
 	}
 
 	@Override
-	public Member phoneDuplicate(String phone) {
-		return dao.phoneDuplicate(session, phone);
+	public Member phoneDuplicate(Member member) {
+		return dao.phoneDuplicate(session, member);
 	}
 	
 	@Override

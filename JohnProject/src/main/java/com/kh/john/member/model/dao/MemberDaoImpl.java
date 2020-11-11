@@ -28,13 +28,13 @@ public class MemberDaoImpl implements MemberDao {
 	}
 
 	@Override
-	public Member nickDuplicate(SqlSessionTemplate session, String nick) {
-		return session.selectOne("member.selectMemberByNick",nick);
+	public Member nickDuplicate(SqlSessionTemplate session, Member member) {
+		return session.selectOne("member.selectMemberByNick", member);
 	}
 
 	@Override
-	public Member phoneDuplicate(SqlSessionTemplate session, String phone) {
-		return session.selectOne("member.selectMemberByPhone", phone);
+	public Member phoneDuplicate(SqlSessionTemplate session, Member member) {
+		return session.selectOne("member.selectMemberByPhone", member);
 	}
 	
 	@Override

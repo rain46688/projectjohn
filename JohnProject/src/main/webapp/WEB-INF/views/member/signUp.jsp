@@ -259,6 +259,7 @@
 						type: "post",
 						dataType: "html",
 					success:function(data){
+						console.log(data);
 						$("#certiDiv").css({"display":"block"});
 						$("#certiResult").html(data);
 						alert("인증번호를 발송했습니다. 메일함을 확인해주세요.");
@@ -361,7 +362,7 @@
 			$("#nickname").keyup(e=>{
 				$.ajax({
 					url:"${path}/member/NNDuplicate",
-					data:{"nick":$(e.target).val()},
+					data:{"mem_nickname":$(e.target).val()},
 					type:"post",
 					dataType:"html",
 					success:function(data){
@@ -545,7 +546,7 @@
 			$("#phone").keyup(e=>{
 				$.ajax({
 					url:"${path}/member/PNDuplicate",
-					data:{"phone":$(e.target).val()},
+					data:{"tel":$(e.target).val()},
 					type:"post",
 					dataType:"html",
 					success:function(data){

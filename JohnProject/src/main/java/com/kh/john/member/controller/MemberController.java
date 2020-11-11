@@ -73,7 +73,7 @@ public class MemberController {
 				if (session.getAttribute("bnum") != null) {
 					String bo = (String) session.getAttribute("bnum");
 					log.debug("bo : " + bo);
-					session.invalidate();
+					session.removeAttribute("bnum");
 					m.addAttribute("loginMember", loginMember);
 					redirectAttributes.addAttribute("bno", bo);
 					return "redirect:/expertRoom";
@@ -124,7 +124,7 @@ public class MemberController {
 
 //	이메일 중복 확인
 	@RequestMapping(value = "/member/emailDuplicate", method = RequestMethod.POST)
-	public ModelAndView emailDuplicate(@RequestParam(value = "mem_email", required = false) String mem_email,
+	public ModelAndView emailDuplicate(@RequestParam("mem_email") String mem_email,
 			Member member, ModelAndView mv)
 			throws NoSuchAlgorithmException, UnsupportedEncodingException, GeneralSecurityException {
 		// 암호화
@@ -138,8 +138,9 @@ public class MemberController {
 
 //	닉네임 중복 확인
 	@RequestMapping(value = "/member/NNDuplicate", method = RequestMethod.POST)
-	public ModelAndView nickDuplicate(@RequestParam("nick") String nick, ModelAndView mv) {
-		Member m = service.nickDuplicate(nick);
+	public ModelAndView nickDuplicate(@RequestParam("mem_nickname") String mem_nick, Member m, ModelAndView mv) {
+		m.setMem_nickname(mem_nick);
+		m = service.nickDuplicate(m);
 		mv.addObject("member", m);
 		mv.setViewName("member/nickDuplicate");
 		return mv;
@@ -147,10 +148,11 @@ public class MemberController {
 
 //	핸드폰 중복 확인
 	@RequestMapping(value = "/member/PNDuplicate", method = RequestMethod.POST)
-	public ModelAndView phoneDuplicate(@RequestParam("phone") String phoneStr, ModelAndView mv)
+	public ModelAndView phoneDuplicate(@RequestParam("tel") String phoneStr, Member m, ModelAndView mv)
 			throws NoSuchAlgorithmException, UnsupportedEncodingException, GeneralSecurityException {
 		String phone = aes.encrypt(phoneStr);
-		Member m = service.phoneDuplicate(phone);
+		m.setTel(phone);
+		m = service.phoneDuplicate(m);
 		mv.addObject("member", m);
 		mv.setViewName("member/phoneDulicate");
 		return mv;
@@ -166,13 +168,6 @@ public class MemberController {
 	@RequestMapping(value = "/member/signUpEnd", method = RequestMethod.POST)
 	public String signUpEnd(@RequestParam Map param, Member member, Model m, HttpServletRequest request)
 			throws NoSuchAlgorithmException, UnsupportedEncodingException, GeneralSecurityException {
-		System.out.println(member.getMem_email());
-		System.out.println(member.getMem_pwd());
-		System.out.println(member.getMem_nickname());
-		System.out.println(member.getMem_class());
-		System.out.println(member.getMem_name());
-		System.out.println(member.getGender());
-		System.out.println(member.getTel());
 
 		// 암호화(id,폰)
 		String encodeId = aes.encrypt(param.get("mem_email").toString());
@@ -186,8 +181,6 @@ public class MemberController {
 		String birthdayStr = param.get("year") + "-" + param.get("month") + "-" + param.get("date");
 		Date birthday = Date.valueOf(birthdayStr);
 		member.setBirthday(birthday);
-
-		System.out.println(member.getBirthday());
 
 		int result = 0;
 		String msg = "";
@@ -208,14 +201,26 @@ public class MemberController {
 
 		} else {
 			member.setMem_class("예비전문가");
-			int resultExpert = service.signUpEnd(member);
-			if (resultExpert > 0) {
-				String saveDir = request.getServletContext().getRealPath("/resources/upload/upload_license");
-				File dir = new File(saveDir);
-				if (!dir.exists()) {
-					// 지정된경로의 폴더가 없으면
-					dir.mkdirs();
-				}
+//			int resultExpert = service.signUpEnd(member);
+//			if (resultExpert > 0) {
+			result = service.signUpEnd(member);
+			if (result > 0) {
+				String[] license1=(String[]) param.get("license1");
+				String[] license2=(String[]) param.get("license2");
+				String[] license3=(String[]) param.get("license3");
+				
+				System.out.println("&&&&&&&&&&&&&&"+license1);
+				System.out.println("&&&&&&&&&&&&&&"+license2);
+				System.out.println("&&&&&&&&&&&&&&"+license3);
+				
+				msg = "회원가입성공";
+				loc = "/";
+//				String saveDir = request.getServletContext().getRealPath("/resources/upload/upload_license");
+//				File dir = new File(saveDir);
+//				if (!dir.exists()) {
+//					// 지정된경로의 폴더가 없으면
+//					dir.mkdirs();
+//				}
 			} else {
 				msg = "회원가입실패";
 				loc = "/";
