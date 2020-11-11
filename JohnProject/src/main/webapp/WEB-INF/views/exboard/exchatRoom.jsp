@@ -7,7 +7,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>상담</title>
+<title>영상 상담</title>
 <!-- Latest compiled and minified CSS -->
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
 <!-- jQuery library -->
@@ -27,11 +27,15 @@
 	padding: 2%;
 }
 
-video {
-	/* width: 40%;
-	height: 50%; */
+#video2 {
 	width: 60%;
 	height: 70%;
+	float: center;
+}
+
+#video1{
+	width: 30%;
+	height: 40%; 
 	float: center;
 }
 
@@ -73,190 +77,217 @@ video {
 <body>
 	<section>
 		<section class="container">
-			<!-- muted="muted" 상태가 아니면 오토 플레이가 되지않는다! -->
-			<%-- 	<p>세션 : ${loginMember.mem_nickname}</p><br>
-				<p>전문가 : ${loginMember.mem_class}</p><br>
-				<p>USID : ${loginMember.usid}</p><br>
-				<p>방번호 : ${bno}</p><br> --%>
-				
+		expert : ${loginMember.mem_class}
+			<!-- <h3>Another</h3> -->
+			<video id="video2" autoplay playsinline controls preload="metadata"></video>
+			<!-- <h3>ME</h3> -->
+			<video id="video1" autoplay playsinline controls preload="metadata"></video>
 			<br>
-			<video id="video1" autoplay playsinline controls preload="metadata" muted="muted"></video>
-			<%-- 	<c:if test="${loginMember.mem_class == '전문가'}">
-			<button type="button" class="btn btn-outline-success my-2 my-sm-0" onclick='host();'>방송시작</button
-				<button type="button" class="btn btn-outline-success my-2 my-sm-0" onclick='exit();'>연결 끊기</button>
-			</c:if> --%>
-			<!-- <div id="board"></div> -->
+			<br>
+			
+		<!-- 	<button type="button" class="btn btn-outline-success my-2 my-sm-0" onclick='connection();'>연결</button>
+			<button type="button" class="btn btn-outline-success my-2 my-sm-0" onclick='exit();'>연결 끊기</button> -->
+			
 			<div id="textboard">
 			<c:if test="${loginMember.mem_class == '전문가'}">
 			<textarea id="extext" rows="20" cols="60" ></textarea><br>
 			<button type="button" class="btn btn-outline-success my-2 my-sm-0" onclick='counselEnd();'>상담 완료</button>
 			</c:if>
+			
 				<c:if test="${loginMember.mem_class != '전문가'}"><br>
 				<textarea id="memtext" rows="20" cols="60" readonly></textarea>
 				</c:if>
-				
-			</div>
+			</div>	
+			
 		</section>
-		<script>
-		
-			//---------------------------- 설정 -------------------------------------
+	<script>
+	
+	'use strict';
 
-			'use strict';
+	//---------------------------- signaling 서버 -------------------------------------
+	
+const conn = new WebSocket('wss://192.168.120.31${path}/ertc');
 
-			//마이크 비디오 설정
-			const video1 = document.getElementById('video1');
-			//수정
-			let pc = new Array();
-			let localStream;
-			let remoteStream;
-			const configuration = {
-					  'iceServers': [
-						    {
-						      url: 'stun:stun.l.google.com:19302'
-						    },
-						    {
-						    	url: 'turn:numb.viagenie.ca',
-						    	credential: 'muazkh',
-						    	username: 'webrtc@live.com'
-						    }
-						  ]
-				};
-			
+	conn.onopen = function() {
+		console.log("onopen => signaling server 연결");
+		if("${loginMember.mem_class}" != '전문가'){
+			sendMessage(new ExboardMsg("SYS","${loginMember.mem_nickname}","접속"));
+		}
+	};
 
-			//---------------------------- signaling 서버 -------------------------------------
+	conn.onmessage = function(msg) {
+		console.log("onmessage => 메세지 출력 : "+msg);
+		let content = JSON.parse(msg.data);
+		console.log("content.type : "+content.type);
+		if(content.type === 'expert'){
+			console.log(" === 분기 expert === ");
+			start();
+		}else if(content.type  === 'offer'){
+			console.log(" === 분기 offer === ");
+			if(!isInitiator && !isStarted){
+				console.log(" === 분기 offer 2 === ");
+				start();
+			}
+			pc.setRemoteDescription(new RTCSessionDescription(content));
+			 doAnswer();
+		} else if (content.type  === 'answer' && isStarted) {
+			console.log(" === 분기 answer === ");
+			 pc.setRemoteDescription(new RTCSessionDescription(content));
+		} else if (content.type  === 'candidate' && isStarted) {
+			console.log(" === 분기 candidate === ");
+		    let candidate = new RTCIceCandidate({
+		        sdpMLineIndex: content.label,
+		        candidate: content.candidate
+		      });
+		      pc.addIceCandidate(candidate);
+		    } else if (content.type  === 'bye' && isStarted) {
+				console.log(" === 분기 bye === ");
+		      handleRemoteHangup();
+		    }else if(content.type == 'SYS'){
+		    	connection();
+				 //printdiv(content.nick+"님이 접속하셨습니다.");
+			 }else if(content.type == 'TXT'){
+				 $("#memtext").html("");
+				 $("#memtext").html(content.msg);
+			 }else if(content.type == 'END'){
+				 //exit();
+				 location.replace('${path}/');
+			 }
+	};
+	
+	conn.onclose = function() {
+		console.log('onclose 실행');
+	};
 
-			const conn = new WebSocket('wss://localhost/ertc');
-			//const conn = new WebSocket('wss://192.168.219.105/ertc');
+	function sendMessage(message) {
+		conn.send(JSON.stringify(message));
+		console.log("메세지 보내는 함수 sendMessage");
+	};
+	
+	//---------------------------- 설정 -------------------------------------
+	
+	//마이크 비디오 설정
+	const video1 = document.getElementById('video1');
+	const video2 = document.getElementById('video2');
+	let isStarted = false;
+	let pc;
+	let isInitiator = true;//방이 열려있는지 여부, 일단 열려있다 치자
+	let localStream;
+	let remoteStream;
+	let isChannelReady = true;
+	
+	//TURN & STUN 서버 등록
+	var configuration = {
+			  'iceServers': [
+				    {
+				      'urls': 'stun:stun.l.google.com:19302'
+				    },
+				    {
+				    	'url': 'turn:numb.viagenie.ca',
+				    	'credential': 'muazkh',
+				    	'username': 'webrtc@live.com'
+				    }
+				  ]
+		};
 
-			conn.onopen = function() {
-				printdiv("signaling server 연결");
-				printdiv("닉네임 : ${loginMember.mem_nickname}, 방번호 : ${bno}, 전문가 여부 : ${loginMember.mem_class}","${loginMember.usid}");
-				if("${loginMember.mem_class}" === '전문가'){
-					gotStream();
-				
-				}else{
-					sendMessage(new ExboardMsg("SYS","${loginMember.mem_nickname}","접속"));
- 				}
-			};
-			conn.onmessage = function(msg) {
-				printdiv("onmessage 실행");
-				printdiv("msg : "+msg);
-				let content = JSON.parse(msg.data);
-				printdiv("content : "+content.type);
-					 if(content.type  === 'offer'){
-						 createPeerConnection();
-							for(var i=0;i<pc.length;i++){
-								 pc[i].setRemoteDescription(new RTCSessionDescription(content));
-							}
-						 doAnswer();
-					 }else if(content.type  === 'answer'){
-						 try{
-							 for(var i=0;i<pc.length;i++){
-								 pc[i].setRemoteDescription(new RTCSessionDescription(content));
-							 }
-						 }catch(e){
-							 printdiv("e : "+e);
-						 }
-					 }else if(content.type  === 'candidate'){
-						  var candidate = new RTCIceCandidate({
-						        sdpMLineIndex: content.label,
-						        candidate: content.candidate
-						      });
-						  for(var i=0;i<pc.length;i++){
-							  pc[i].addIceCandidate(candidate);
-						  }
-					 }else if(content.type  === 'bye'){
-						 exit();
-					 }else if(content.type == 'SYS'){
-						 printdiv(content.nick+"님이 접속하셨습니다.");
-						 host();
-					 }else if(content.type == 'TXT'){
-						 $("#memtext").html("");
-						 $("#memtext").html(content.msg);
-					 }else if(content.type == 'END'){
-						 //sendMessage(new ExboardMsg("SYS2","${loginMember.mem_nickname}","종료료"));
-						 //exit();
-						 location.replace('${path}/');
-					 }
-			};
-
-			conn.onclose = function() {
-				printdiv("onclose 실행");
-				exit();
-			};
-
-			function sendMessage(message) {
-				conn.send(JSON.stringify(message));
-			};
-			
-			//---------------------------- 비디오 -------------------------------------
-			
-			const constraints = {
+	
+	//---------------------------- 비디오 -------------------------------------
+	
+	
+	const constraints = {
 			  video: {width: {exact: 1280}, height: {exact: 720}},
 		    audio : true
 		};
 	
-		function gotStream(stream){
-		printdiv("미디어 불러오기");
-		navigator.mediaDevices.getUserMedia(constraints)
-		.then(function(stream){
-			//스트림 요청 성공
-			printdiv("스트림 획득 성공");
-			localStream = stream;
-			console.log("localStream : "+localStream);
-		})
-		  //스트림 요청 실패
-		  .catch(function(e) { 
-				printdiv("스트림 획득 실패");
-			    alert('카메라와 마이크를 허용해주세요 / 에러 : '+e.name);
-		    });
-		};
-
-			//---------------------------- P2P 연결 로직 -------------------------------------
-			
-			function host(){
-				printdiv("host() 실행");
-				video1.srcObject = localStream;
-				createPeerConnection();
-				for(var i=0;i<pc.length;i++){
-					console.log("pc "+i+" : "+pc[i]);
-					pc[i].addStream(localStream);
-				}
-				doCall();
-			};
 	
-
-	function createPeerConnection(){
-		printdiv("createPeerConnection 실행");
-		try{
-			//수정
-			 pc.push(new RTCPeerConnection(configuration)); 
-			
-		/* 	pc = new RTCPeerConnection(configuration,{
-				optional : [{
-					RtpDataChannels : true
-				}]
-			}); 
-			dataChannel = pc.createDataChannel("dataChannel", {
-				reliable : true
-			});*/
-			printdiv("PC 객체 생성 : "+pc.length);
-			for(var i=0;i<pc.length;i++){
-				pc[i].onicecandidate = handleIceCandidate;
-				pc[i].onaddstream = handleRemoteStreamAdded;
+	navigator.mediaDevices.getUserMedia(constraints)
+	.then(gotStream)
+	  //스트림 요청 실패
+	  .catch(function(e) { 
+		    alert('카메라와 마이크를 허용해주세요 / 에러 : '+e.name);
+	    });
+	
+	function gotStream(stream){
+			//스트림 요청 성공
+			 console.log('stream 함수 => 스트림 요청 성공');
+			localStream = stream;
+			console.log("localStream : "+localStream)
+			video1.srcObject = stream;
+			if(isInitiator){
+				sendMessage({type:'expert'});
+				console.log("메세지 보냄!");
+				console.log("gotStream 함수 => start 실행");
+				start();
 			}
-			console.log(" RTCPeerConnection 생성 완료 ");
-		}catch(e){
-			printdiv("RTCPeerConnection 생성 에러발생 : "+e.message);
-			alert("RTCPeerConnection 에러");
-			return;
+	};
+	
+	
+	//---------------------------- P2P 연결 로직 -------------------------------------
+	
+	function start(){
+		console.log("start 함수 실행 : "+!isStarted+", "+(typeof localStream !== 'undefined')+", "+(isChannelReady));
+		
+		if(!isStarted && typeof localStream !== 'undefined' && isChannelReady){
+			console.log("peer 연결 부분 분기 진입");
+			createPeerConnection();
+			pc.addStream(localStream);
+			console.log("isStarted 트루");
+			isStarted = true;
+			console.log("isInitiator : "+isInitiator);
+			
+			//if(isInitiator){//isInitiator 기본 false라 실행안됨
+				console.log("do call 실행됨 ");
+				doCall();
+			//}
+			
 		}
 	};
 	
+	function createPeerConnection(){
+		console.log("createPeerConnection 실행");
+		try{
+			//configuration에는 STUN & TURN 서버가 있음
+			//STUN : Session Traversal Utilities for NAT의 약자로 자신의 공인 아이피를 알아오기위해 STUN 서버에 요청하고 STUN 서버는 공인 IP주소를 응답함.
+			//TURN : Traversal Using Relays around NAT 의 약자 NAT 또는 방화벽에서 보조하는 프로토콜. 클라이언트는 직접 서버와 통신 하지않고 TURN 서버를 경유함.
+			pc = new RTCPeerConnection(configuration);
+			pc.onicecandidate = handleIceCandidate;
+			pc.onaddstream = handleRemoteStreamAdded;
+			pc.onremovestream = handleRemoteStreamRemoved;
+			console.log(" RTCPeerConnection 생성 완료 ");
+		}catch(e){
+			console.log(" RTCPeerConnection 생성 에러발생 : "+e.message);
+			alert("RTCPeerConnection 에러");
+			return;
+		}
+		
+	};
+	
+	function handleRemoteStreamAdded(event){
+		console.log("RemoteStream 추가됨");
+		//원격 스트림에 스트림을 넣어줌
+		remoteStream = event.stream;
+		video2.srcObject = remoteStream;
+	};
+	
+	function doCall(){
+		console.log("createOff 함수를 통해서 통신 요청");
+		pc.createOffer(setLocalAndSendMessage, handleCreateOfferError);
+	};
+	
+	function doAnswer() {
+		  console.log('peer에게 응답 보내기.');
+		  pc.createAnswer().then(
+		    setLocalAndSendMessage,
+		    onCreateSessionDescriptionError
+		  );
+		};
+	
+	//핸들러 후보 상대방 탐색
+	//ICE : Interactive Connectivity Establishment의 약자로 두 단말이 서로 통신할수 있는 최적의 경로를 찾을수있도록 도와주는 프레임워크임.
 	function handleIceCandidate(event) {
-		printdiv("handleIceCandidate 실행");
+		  console.log('icecandidate 실행 event : '+ event);
 		  if (event.candidate) {
-				printdiv("event.candidate 분기문 진입");
+			  console.log('icecandidate 응답 보내기 ');
 		    sendMessage({
 		      type: 'candidate',
 		      label: event.candidate.sdpMLineIndex,
@@ -264,128 +295,97 @@ video {
 		      candidate: event.candidate.candidate
 		    });
 		  } else {
-			printdiv("handleIceCandidate 탐색 종료");
+		    console.log(' handleIceCandidate 탐색 종료 ');
 		  }
 	};
 	
-	function handleRemoteStreamAdded(event){
-		//원격 스트림에 스트림을 넣어줌
-		remoteStream = event.stream;
-		video1.srcObject = remoteStream;
-		printdiv("스트림 받아와서 VIDEO에 넣음");
-	};
-	
-	function doCall(){
-		printdiv("doCall 실행");
-		for(var i=0;i<pc.length;i++){
-			pc[i].createOffer(setLocalAndSendMessage, handleCreateOfferError);
-		}
-	};
-	
-	function doAnswer() {
-		printdiv("doAnswer 실행");
-		
-		for(var i=0;i<pc.length;i++){
-		  pc[i].createAnswer().then(
-		    setLocalAndSendMessage,
-		    onCreateSessionDescriptionError
-		  );
-		}
-		  
+	function handleRemoteStreamRemoved(event) {
+		 	 console.log('원격 스트림 삭제됨 Event : '+event);
 		};
-	
-	function setLocalAndSendMessage(sessionDescription) {
-		printdiv("setLocalAndSendMessage 실행");
-		printdiv("sessionDescription : "+sessionDescription);
-		for(var i=0;i<pc.length;i++){
-		  pc[i].setLocalDescription(sessionDescription);
-		}
-		  sendMessage(sessionDescription);
-		};
-	
 		
-		//연결 끊기
-		/* 	function handleRemoteHangup() {
-				printdiv("Session 종료");
+		function setLocalAndSendMessage(sessionDescription) {
+			  pc.setLocalDescription(sessionDescription);
+			console.log("setLocalAndSendMessage 응답 보내기 : "+sessionDescription);
+			  sendMessage(sessionDescription);
+			};
+		
+			function handleRemoteHangup() {
+				  console.log('Session 종료.');
 				  stop();
 				  isInitiator = false;
 				};
-				 */
-		function exit() {
-			  stop();
-				printdiv("연결 종료 응답 보내기");
-			  sendMessage({type:'bye'});
-			};
-	
-		function stop() {
-			printdiv("연결 종료");
-				for(var i=0;i<pc.length;i++){
-					  pc[i].close();
-					  pc[i] = null;
-				}
-			};
+				
+			function connection(){
+				isInitiator = true;
+				start();
+			}
+					
+			//연결 끊기
+			function exit() {
+				/* conn.close(); */
+				  stop();
+				  console.log('연결 종료 응답 보내기 ');
+				  sendMessage({type:'bye'});
+				};
+		
+			function stop() {
+				  console.log('연결 종료');
+				  isStarted = false;
+				  pc.close();
+				  pc = null;
+				};
+				
+	//---------------------------- 에러 -------------------------------------
 
-			//---------------------------- 잡 -------------------------------------
-			
-			
 		function handleCreateOfferError(event) {
-			printdiv("Offer부분 생성 에러 error:"+event);
-		};	
+					console.log('Offer부분 생성 에러 error: ', event);
+			};	
 				
 		function onCreateSessionDescriptionError(error) {
-				printdiv("onCreateSessionDescriptionError 에러 :"+ error.toString());
-			};
-
-			function printdiv(msg) {
-				console.log(msg);
-				//$("#board").append("<div>" + msg + "</div>");
-				//$("#board").scrollTop($("#board")[0].scrollHeight);
-			};
-		
-			//메세지 객체
-			function ExboardMsg(type, nick, msg, id){
-				this.type=type;
-				this.nick=nick;
-				this.msg = msg;
-				this.id = id;
-			};
-			
-			//엔터키 입력시 메세지 발송
-			$("#extext").keyup(function(key) {
-				if (key.keyCode == 13) {
-					let txt = $("#extext").val();
-					console.log(txt);
-					sendMessage(new ExboardMsg("TXT","",txt));
-		
-					
-				}
-			}); 
-
-			function counselEnd(){
-				  let form = document.createElement("form");
-			         form.setAttribute("charset", "UTF-8");
-			         form.setAttribute("method", "Post"); 
-			         form.setAttribute("action", "/counselEnd"); 
-			         
-			         let hiddenField = document.createElement("input");
-			         hiddenField.setAttribute("type", "hidden");
-			         hiddenField.setAttribute("name", "extext");
-			         hiddenField.setAttribute("value", $("#extext").val());
-			         form.appendChild(hiddenField);
-			         
-			         let hiddenField2 = document.createElement("input");
-			         hiddenField2.setAttribute("type", "hidden");
-			         hiddenField2.setAttribute("name", "bno");
-			         hiddenField2.setAttribute("value", "${bno}");
-			         form.appendChild(hiddenField2);
-			         
-			         document.body.appendChild(form);
-			         form.submit();
-			         exit();
-			         sendMessage(new ExboardMsg("END","${loginMember.mem_nickname}","종료"));
+				trace('onCreateSessionDescriptionError 에러 : ' + error.toString());
 			}
-			
-			
-		</script>
+
+		//메세지 객체
+		function ExboardMsg(type, nick, msg, id){
+			this.type=type;
+			this.nick=nick;
+			this.msg = msg;
+			this.id = id;
+		};
+		
+		//엔터키 입력시 메세지 발송
+		$("#extext").keyup(function(key) {
+			if (key.keyCode == 13) {
+				let txt = $("#extext").val();
+				console.log(txt);
+				sendMessage(new ExboardMsg("TXT","",txt));
+			}
+		}); 
+		
+		function counselEnd(){
+			  let form = document.createElement("form");
+		         form.setAttribute("charset", "UTF-8");
+		         form.setAttribute("method", "Post"); 
+		         form.setAttribute("action", "/counselEnd"); 
+		         
+		         let hiddenField = document.createElement("input");
+		         hiddenField.setAttribute("type", "hidden");
+		         hiddenField.setAttribute("name", "extext");
+		         hiddenField.setAttribute("value", $("#extext").val());
+		         form.appendChild(hiddenField);
+		         
+		         let hiddenField2 = document.createElement("input");
+		         hiddenField2.setAttribute("type", "hidden");
+		         hiddenField2.setAttribute("name", "bno");
+		         hiddenField2.setAttribute("value", "${bno}");
+		         form.appendChild(hiddenField2);
+		         
+		         document.body.appendChild(form);
+		         form.submit();
+		         exit();
+		         sendMessage(new ExboardMsg("END","${loginMember.mem_nickname}","종료"));
+		}
+		
+	</script>
 </body>
 </html>
