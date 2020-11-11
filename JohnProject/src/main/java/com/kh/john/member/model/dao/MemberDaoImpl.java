@@ -6,6 +6,7 @@ import java.util.Map;
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.stereotype.Repository;
 
+import com.kh.john.member.model.vo.License;
 import com.kh.john.member.model.vo.Member;
 
 @Repository
@@ -28,18 +29,23 @@ public class MemberDaoImpl implements MemberDao {
 	}
 
 	@Override
-	public Member nickDuplicate(SqlSessionTemplate session, String nick) {
-		return session.selectOne("member.selectMemberByNick",nick);
+	public Member nickDuplicate(SqlSessionTemplate session, Member member) {
+		return session.selectOne("member.selectMemberByNick", member);
 	}
 
 	@Override
-	public Member phoneDuplicate(SqlSessionTemplate session, String phone) {
-		return session.selectOne("member.selectMemberByPhone", phone);
+	public Member phoneDuplicate(SqlSessionTemplate session, Member member) {
+		return session.selectOne("member.selectMemberByPhone", member);
 	}
 	
 	@Override
 	public int signUpEnd(SqlSessionTemplate session, Member member) {
 		return session.insert("member.signUpEnd",member);
+	}
+
+	@Override
+	public int signUpExpert(SqlSessionTemplate session, License l) {
+		return session.insert("member.signUpExpert",l);
 	}
 
 }

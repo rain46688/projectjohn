@@ -1,5 +1,6 @@
 package com.kh.john.member.model.service;
 
+import java.sql.Date;
 import java.util.List;
 import java.util.Map;
 
@@ -9,10 +10,12 @@ import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.kh.john.member.controller.MailHandler;
 import com.kh.john.member.controller.UuidGenerator;
 import com.kh.john.member.model.dao.MemberDao;
+import com.kh.john.member.model.vo.License;
 import com.kh.john.member.model.vo.Member;
 
 @Service
@@ -43,7 +46,7 @@ public class MemberServiceImpl implements MemberService {
                 .append("<h1>메일인증</h1>")
                 .append(authKey)
                 .toString());
-		sendMail.setFrom("minsu87750@gmail.com", "재판하는 존경장님");
+		sendMail.setFrom("22mailme@gmail.com", "재판하는 존경장님");
 		sendMail.setTo(email);
 		sendMail.send();
 		return authKey;
@@ -59,13 +62,13 @@ public class MemberServiceImpl implements MemberService {
 	}
 	
 	@Override
-	public Member nickDuplicate(String nick) {
-		return dao.nickDuplicate(session, nick);
+	public Member nickDuplicate(Member member) {
+		return dao.nickDuplicate(session, member);
 	}
 
 	@Override
-	public Member phoneDuplicate(String phone) {
-		return dao.phoneDuplicate(session, phone);
+	public Member phoneDuplicate(Member member) {
+		return dao.phoneDuplicate(session, member);
 	}
 	
 	@Override
@@ -73,6 +76,40 @@ public class MemberServiceImpl implements MemberService {
 		return dao.signUpEnd(session, member);
 	}
 
+//	@Override
+//	@Transactional
+//	public int uploadLicensePic(List<License> files, Member member) {
+//		int result=dao.signUpEnd(session, member);
+//		if(result>0) {
+//			if(!files.isEmpty()) {
+//				for(License l : files) {
+//					l.setLicense_mem_usid(member.getUsid());
+//					result += dao.uploadLicensePic(session, l);
+//				}
+//			}			
+//		}
+//		return result;
+//	}
 
+	@Override
+	@Transactional
+	public int signUpExpert(Member member, List<License> files, String[][] licenseArr) {
+		int resultFirst=0;
+		int resultSecond=0;
+		resultFirst=dao.signUpEnd(session, member);
+		if(resultFirst>0) {
+			if(!files.isEmpty()) {
+				for(int i=0; i<files.size(); i++) {
+					License l=files.get(i);
+					l.setLicense_mem_usid(member.getUsid());
+					l.setLicense_date(Date.valueOf(licenseArr[i][0]));
+					l.setLicense_type(licenseArr[i][1]);
+					l.setLicense_company(licenseArr[i][2]);
+					resultSecond=dao.signUpExpert(session,l);
+				}
+			}
+		}
+		return resultSecond;
+	}
 
 }

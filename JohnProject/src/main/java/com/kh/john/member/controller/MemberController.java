@@ -1,10 +1,14 @@
 package com.kh.john.member.controller;
 
 import java.io.File;
+import java.io.IOException;
 import java.io.UnsupportedEncodingException;
 import java.security.GeneralSecurityException;
 import java.security.NoSuchAlgorithmException;
 import java.sql.Date;
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
@@ -19,10 +23,12 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.bind.support.SessionStatus;
+import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.kh.john.member.model.service.MemberService;
+import com.kh.john.member.model.vo.License;
 import com.kh.john.member.model.vo.Member;
 
 import lombok.extern.slf4j.Slf4j;
@@ -73,7 +79,7 @@ public class MemberController {
 				if (session.getAttribute("bnum") != null) {
 					String bo = (String) session.getAttribute("bnum");
 					log.debug("bo : " + bo);
-					session.invalidate();
+					session.removeAttribute("bnum");
 					m.addAttribute("loginMember", loginMember);
 					redirectAttributes.addAttribute("bno", bo);
 					return "redirect:/expertRoom";
@@ -124,7 +130,7 @@ public class MemberController {
 
 //	이메일 중복 확인
 	@RequestMapping(value = "/member/emailDuplicate", method = RequestMethod.POST)
-	public ModelAndView emailDuplicate(@RequestParam(value = "mem_email", required = false) String mem_email,
+	public ModelAndView emailDuplicate(@RequestParam("mem_email") String mem_email,
 			Member member, ModelAndView mv)
 			throws NoSuchAlgorithmException, UnsupportedEncodingException, GeneralSecurityException {
 		// 암호화
@@ -138,8 +144,9 @@ public class MemberController {
 
 //	닉네임 중복 확인
 	@RequestMapping(value = "/member/NNDuplicate", method = RequestMethod.POST)
-	public ModelAndView nickDuplicate(@RequestParam("nick") String nick, ModelAndView mv) {
-		Member m = service.nickDuplicate(nick);
+	public ModelAndView nickDuplicate(@RequestParam("mem_nickname") String mem_nick, Member m, ModelAndView mv) {
+		m.setMem_nickname(mem_nick);
+		m = service.nickDuplicate(m);
 		mv.addObject("member", m);
 		mv.setViewName("member/nickDuplicate");
 		return mv;
@@ -147,10 +154,11 @@ public class MemberController {
 
 //	핸드폰 중복 확인
 	@RequestMapping(value = "/member/PNDuplicate", method = RequestMethod.POST)
-	public ModelAndView phoneDuplicate(@RequestParam("phone") String phoneStr, ModelAndView mv)
+	public ModelAndView phoneDuplicate(@RequestParam("tel") String phoneStr, Member m, ModelAndView mv)
 			throws NoSuchAlgorithmException, UnsupportedEncodingException, GeneralSecurityException {
 		String phone = aes.encrypt(phoneStr);
-		Member m = service.phoneDuplicate(phone);
+		m.setTel(phone);
+		m = service.phoneDuplicate(m);
 		mv.addObject("member", m);
 		mv.setViewName("member/phoneDulicate");
 		return mv;
@@ -164,15 +172,8 @@ public class MemberController {
 
 //	회원가입 로직
 	@RequestMapping(value = "/member/signUpEnd", method = RequestMethod.POST)
-	public String signUpEnd(@RequestParam Map param, Member member, Model m, HttpServletRequest request)
+	public String signUpEnd(@RequestParam Map param, @RequestParam("licensePic") MultipartFile[] licensePic, Member member, Model m, HttpServletRequest request)
 			throws NoSuchAlgorithmException, UnsupportedEncodingException, GeneralSecurityException {
-		System.out.println(member.getMem_email());
-		System.out.println(member.getMem_pwd());
-		System.out.println(member.getMem_nickname());
-		System.out.println(member.getMem_class());
-		System.out.println(member.getMem_name());
-		System.out.println(member.getGender());
-		System.out.println(member.getTel());
 
 		// 암호화(id,폰)
 		String encodeId = aes.encrypt(param.get("mem_email").toString());
@@ -186,8 +187,6 @@ public class MemberController {
 		String birthdayStr = param.get("year") + "-" + param.get("month") + "-" + param.get("date");
 		Date birthday = Date.valueOf(birthdayStr);
 		member.setBirthday(birthday);
-
-		System.out.println(member.getBirthday());
 
 		int result = 0;
 		String msg = "";
@@ -208,18 +207,55 @@ public class MemberController {
 
 		} else {
 			member.setMem_class("예비전문가");
-			int resultExpert = service.signUpEnd(member);
-			if (resultExpert > 0) {
-				String saveDir = request.getServletContext().getRealPath("/resources/upload/upload_license");
-				File dir = new File(saveDir);
-				if (!dir.exists()) {
-					// 지정된경로의 폴더가 없으면
-					dir.mkdirs();
-				}
-			} else {
-				msg = "회원가입실패";
-				loc = "/";
+			
+			//license 사진 파일 올리기 lisencePic->lisenceFile
+			String saveDir = request.getServletContext().getRealPath("/resources/upload/upload_license");
+			File dir = new File(saveDir);
+			if (!dir.exists()) {
+				dir.mkdirs();
 			}
+			List<License> files = new ArrayList();
+			for(MultipartFile f : licensePic) {
+				if(!f.isEmpty()) {
+					String originalFilename = f.getOriginalFilename();
+					String ext = originalFilename.substring(originalFilename.lastIndexOf('.')+1);
+					
+					SimpleDateFormat sdf = new SimpleDateFormat("yyyy_MM_ddHHmmssSSS");
+					int rndNum = (int)(Math.random()*1000);
+					String renamedFilename = sdf.format(new Date(System.currentTimeMillis())) + "_" + rndNum + "_john." + ext;
+					try {
+						f.transferTo(new File(saveDir + "/" + renamedFilename));
+					}catch(IOException e) {
+						e.printStackTrace();
+					}
+					License lisenceFile=new License();
+					lisenceFile.setLicense_file_name(renamedFilename);
+					files.add(lisenceFile);
+				}
+			}
+			
+			String[] license1=(String[]) param.get("license1");
+			String[] license2=(String[]) param.get("license2");
+			String[] license3=(String[]) param.get("license3");
+			
+			String[][] licenseArr=new String[3][3];
+			licenseArr[0][0]=(String)param.get("licenseDate1");
+			licenseArr[1][0]=(String)param.get("licenseDate2");
+			licenseArr[2][0]=(String)param.get("licenseDate1");
+			for(int i=0; i<3; i++) {
+				for(int j=1; j<3; j++) {
+					if(i==0) {
+						licenseArr[i][j]=license1[j-1];
+					}else if(i==1) {
+						licenseArr[i][j]=license2[j-1];
+					}else {
+						licenseArr[i][j]=license3[j-1];
+					}
+				}
+			}
+			
+			int resultExpert=service.signUpExpert(member, files, licenseArr);
+			
 		}
 
 		m.addAttribute("msg", msg);

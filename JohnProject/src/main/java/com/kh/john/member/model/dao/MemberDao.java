@@ -5,6 +5,7 @@ import java.util.Map;
 
 import org.mybatis.spring.SqlSessionTemplate;
 
+import com.kh.john.member.model.vo.License;
 import com.kh.john.member.model.vo.Member;
 
 public interface MemberDao {
@@ -14,11 +15,12 @@ public interface MemberDao {
 	Member selectMemberById(SqlSessionTemplate session, Member member);
 	Member selectMemberById(SqlSessionTemplate session, Map param);
 
-	Member nickDuplicate(SqlSessionTemplate session, String nick);
+	Member nickDuplicate(SqlSessionTemplate session, Member member);
 
-	Member phoneDuplicate(SqlSessionTemplate session, String phone);
+	Member phoneDuplicate(SqlSessionTemplate session, Member member);
 	
 	int signUpEnd(SqlSessionTemplate session, Member member);
 
+	int signUpExpert(SqlSessionTemplate session, License l);
 
 }

@@ -11,6 +11,7 @@ import javax.crypto.spec.SecretKeySpec;
 
 import org.apache.commons.codec.binary.Base64;
 
+//양방향 암호화
 public class AES256Util {
 	private String iv;
 	private Key keySpec;

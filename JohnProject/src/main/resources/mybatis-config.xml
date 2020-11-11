@@ -17,6 +17,8 @@
  	<typeAlias type="com.kh.john.report.model.vo.ReportFile" alias="reportFile"/>
  	<typeAlias type="com.kh.john.exboard.model.vo.ExpertRequest" alias="exrequest"/>
  	<typeAlias type="com.kh.john.exboard.model.vo.ExpertBoard" alias="exboard"/>
+ 	<typeAlias type="com.kh.john.member.model.vo.License" alias="license"/>
+	<typeAlias type="com.kh.john.member.model.vo.Expert" alias="expert"/>
  </typeAliases>
  
 
