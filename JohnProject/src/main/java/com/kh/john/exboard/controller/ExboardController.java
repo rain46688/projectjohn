@@ -293,4 +293,17 @@ public class ExboardController {
 		service.updateCounselResult(extext, bno);
 		return "redirect:/expertRequestPrintList";
 	}
+
+	@RequestMapping(value = "/exmemInfo")
+	public ModelAndView exmemInfo(String no, String nic) throws Exception {
+		log.info(" ===== exmemInfo 실행 ===== ");
+		log.debug("no : " + no + ", nic : " + nic);
+		ModelAndView mv = new ModelAndView("/exboard/exboardMemInfo");
+		Member m = service.selectMember(nic);
+		m.setMem_email(aes.decrypt(m.getMem_email()));
+
+		mv.addObject("m", m);
+		return mv;
+	}
+
 }

@@ -140,7 +140,11 @@ h2 {
 									<!-- <div class="divCell"><button class="btn btn-outline-success" onclick="">상담 완료</button></div> -->
 							</c:if>
 								</div>
-							<div class="divCell"><button class="btn btn-outline-success" onclick="">회원 정보</button></div>
+					<form  name="form">				
+						<input type="hidden" name="no" value="${n.EXPERT_REQUEST_MEM_USID}"> 
+						<input type="hidden" name="nic" value="${n.EXPERT_REQUEST_MEM_NICK}">
+						<div class="divCell"><button class="btn btn-outline-success" onclick="exmemInfo(this.form);">회원 정보</button></div>
+					</form>
 						</div>
 					</c:forEach>
 				</c:when>
@@ -154,6 +158,13 @@ h2 {
 	
 	<script>
 	
+	//부모창이 종료되면 자식창도 종료
+	let pop;
+	window.onunload = function() { 
+		pop.close(); 
+	  
+	}
+	
 	function counselStart(num,nick){
 		console.log("num : "+num);
 		let result = confirm("해당 회원과 상담을 진행하시겠습니까?");
@@ -165,6 +176,22 @@ h2 {
 	function counselConn(num){
 		console.log("num : "+num);
 		location.replace('${path}/counselConn?no='+num);
+	}
+	
+	function exmemInfo(f){
+			var x = 600;
+			var y = 800;
+			var cx = (window.screen.width / 2) - (x / 2);
+			var cy= (window.screen.height / 2) - (y / 2);
+
+			var url    ="${path}/exmemInfo";
+			var title  = "chat";
+			var status = "toolbar=no,directories=no,scrollbars=no,resizable=no,status=no,menubar=no,width="+x+", height="+y+", top="+cy+",left="+cx;
+			pop =  window.open("", title,status);
+			f.target = title;
+			f.action = url;
+			f.method = "post";
+			f.submit();    
 	}
 	
 	
