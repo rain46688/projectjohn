@@ -75,7 +75,6 @@
 <body>
 	<section>
 		<section class="container">
-			expert : ${loginMember.mem_class}
 			<!-- <h3>Another</h3> -->
 			<video id="video2" autoplay playsinline controls preload="metadata"></video>
 			<!-- <h3>ME</h3> -->
@@ -96,7 +95,7 @@
 					<br>
 					<textarea id="memtext" rows="20" cols="60" readonly></textarea>
 					<br>
-					<button type="button" class="btn btn-outline-success my-2 my-sm-0" onclick='onoff();'>카메라 끄기</button>
+					<button type="button" class="btn btn-outline-success my-2 my-sm-0" onclick='onoff();'>카메라 조정</button>
 				</c:if>
 			</div>
 
@@ -158,9 +157,9 @@
 					doAnswer();
 				} else if (content.type === 'answer') {
 					console.log(" === 분기 answer === ");
-					pc
-							.setRemoteDescription(new rtc_session_description(
+					pc.setRemoteDescription(new rtc_session_description(
 									content));
+		
 				} else if (content.type === 'candidate') {
 					console.log(" === 분기 candidate === ");
 					let candidate = new RTCIceCandidate({
@@ -173,10 +172,18 @@
 					start();
 					$("#extext").val(content.nick + "님이 접속하셨습니다.");
 					// printdiv(content.nick+"님이 접속하셨습니다.");
+	
 				} else if (content.type == 'TXT') {
 					console.log(" === 분기 TXT === ");
 					$("#memtext").html("");
 					$("#memtext").html(content.msg);
+				}else if (content.type == 'CAM') {
+					console.log(" === 분기 CAM === ");
+					if(content.msg === 'off'){
+						video2.srcObject = null;
+					}else{
+						video2.srcObject = remoteStream;
+					}
 				} else if (content.type == 'END') {
 					console.log(" === 분기 END === ");
 					exit();
@@ -186,6 +193,7 @@
 
 			conn.onclose = function() {
 				console.log('onclose 실행');
+				sendMessage(new ExboardMsg("SYS","${loginMember.mem_nickname}", "접속"));
 			};
 
 			function sendMessage(message) {
@@ -207,34 +215,37 @@
 				audio : true
 			};
 			if (navigator.getUserMedia) {
+				console.log("getUserMedia");
 				get_user_media = navigator.getUserMedia.bind(navigator);
 				videoStart();
 				rtc_peer_connection = RTCPeerConnection;
 				rtc_session_description = RTCSessionDescription;
 			} else if (navigator.mozGetUserMedia) {
+				console.log("mozGetUserMedia");
 				get_user_media = navigator.mozGetUserMedia.bind(navigator);
 				videoStart();
 				rtc_peer_connection = mozRTCPeerConnection;
 				rtc_session_description = mozRTCSessionDescription;
 			} else if (navigator.webkitGetUserMedia) {
+				console.log("webkitGetUserMedia");
 				get_user_media = navigator.webkitGetUserMedia.bind(navigator);
 				videoStart();
 				rtc_peer_connection = webkitRTCPeerConnection;
 				rtc_session_description = webkitRTCSessionDescription;
 			} else {
+				console.log("지원안하는 브라우저");
 				alert("지원하지 않는 브라우저입니다. firefox chrome브라우저를 이용하세요");
 				flag = false;
 			}
-
-			//let rtc_peer_connection=null;
-			//let rtc_session_description=null;
 
 			function videoStart() {
 				get_user_media(constraints, function(stream) {
 					console.log('stream 함수 => 스트림 요청 성공');
 					localStream = stream;
-					console.log("localStream : " + localStream)
-					video1.srcObject = localStream;
+					console.log("localStream : " + localStream);
+					if ("${loginMember.mem_class}" == '전문가') {
+						video1.srcObject = localStream;
+					}
 					sendMessage(new ExboardMsg("expert"));
 					console.log("메세지 보냄!");
 					console.log("gotStream 함수 => start 실행");
@@ -273,14 +284,15 @@
 					alert("RTCPeerConnection 에러");
 					return;
 				}
-
 			};
 
 			function handleRemoteStreamAdded(event) {
 				console.log("RemoteStream 추가됨");
 				//원격 스트림에 스트림을 넣어줌
 				remoteStream = event.stream;
-				video2.srcObject = remoteStream;
+				if ("${loginMember.mem_class}" != '전문가') {
+					video2.srcObject = remoteStream;
+				}
 			};
 
 			function doCall() {
