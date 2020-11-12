@@ -12,6 +12,9 @@
 
 <section id="content">
 
+EXPERT 상담 신청한 유저 정보고기<br>
+임시 테스트 페이지
+
 이메일 : ${m.mem_email }<br>
 이름 : ${m.mem_name }<br>
 닉네임 : ${m.mem_nickname }<br>

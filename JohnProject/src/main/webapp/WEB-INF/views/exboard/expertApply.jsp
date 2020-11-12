@@ -13,7 +13,8 @@
 </jsp:include>
 
 <section id="content">
-상담 신청 페이지
+<br>
+상담 신청 페이지 임시 테스트용
 <br>
 <img id="expertimg" alt="ㅈ문가" src="${path }/resources/images/expert.png"><br>
 전문가 인사말 :<br>

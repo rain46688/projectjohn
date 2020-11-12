@@ -128,6 +128,7 @@
 
 <section id="content">
 	<br>
+	<p>임시테스트용 사이트</p>
 	<div class="carosel" id="carosel1">
 		<a class="carosel-control carosel-control-left glyphicon glyphicon-chevron-left" href="#"></a>
 

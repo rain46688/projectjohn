@@ -36,4 +36,10 @@ public class AlarmServiceImpl implements AlarmService {
 		return dao.updateAlarmRead(session, aid);
 	}
 
+	@Override
+	public int insertExpertAlarm(Alarm almsg) throws Exception {
+		// TODO Auto-generated method stub
+		return dao.insetExpertAlarm(session, almsg);
+	}
+
 }

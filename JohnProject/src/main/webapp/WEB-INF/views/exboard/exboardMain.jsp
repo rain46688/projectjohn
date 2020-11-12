@@ -18,7 +18,8 @@ label, input {
 </jsp:include>
 
 <section id="content">
-	EXPERT 테스트 페이지
+<br>
+	EXPERT 임시 테스트 페이지
 
 	<p>세션 : ${loginMember.mem_nickname}</p>
 	<p>전문가 : ${loginMember.mem_class}</p>
