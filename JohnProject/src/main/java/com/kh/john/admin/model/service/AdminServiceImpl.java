@@ -11,6 +11,7 @@ import com.kh.john.admin.model.dao.AdminDao;
 import com.kh.john.admin.model.vo.Notice;
 import com.kh.john.admin.model.vo.NoticeFile;
 import com.kh.john.board.model.vo.Board;
+import com.kh.john.member.model.vo.License;
 import com.kh.john.member.model.vo.Member;
 
 @Service
@@ -106,6 +107,13 @@ public class AdminServiceImpl implements AdminService{
 	@Override
 	public Member updateMemberToExpert(Map param) {
 		return dao.updateMemberToExpert(session, param);
+	}
+	
+	
+
+	@Override
+	public List<License> updateMemberToExpertLicense(Map param) {
+		return dao.updateMemberToExpertLicense(session, param);
 	}
 
 	@Override

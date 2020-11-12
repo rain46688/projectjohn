@@ -15,11 +15,10 @@
 		 스크립트 : ${script} --%>
 
 	<script>
-		alert("${msg}");
-		if(${script}!=null){
-			${script}
-		} 
-		location.replace('${path}${loc}');
+	
+			alert("${msg}");
+			location.replace("${pageContext.request.contextPath}${loc}");
+			
 	</script>
 	
 </body>
