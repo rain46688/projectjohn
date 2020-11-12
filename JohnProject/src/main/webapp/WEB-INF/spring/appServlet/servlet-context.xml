@@ -37,10 +37,14 @@
 	
 	<websocket:handlers>
 		<websocket:mapping handler="expertHandler" path="/ertc"/>
+		<websocket:mapping handler="alarmHandler" path="/alsocket"/>
 		<websocket:handshake-interceptors>
 			<beans:bean class="org.springframework.web.socket.server.support.HttpSessionHandshakeInterceptor" />
 		</websocket:handshake-interceptors>	
 	</websocket:handlers>
+	
+	<beans:bean id="expertHandler" class="com.kh.john.exboard.socket.ExpertHandler"></beans:bean>
+	<beans:bean id="alarmHandler" class="com.kh.john.alarm.socket.AlarmSocketHandler"></beans:bean>
 	
 	<!-- 지선 -->
 <!-- 	<websocket:handlers>
@@ -50,8 +54,7 @@
 		</websocket:handshake-interceptors>
 		<websocket:sockjs/>
 	</websocket:handlers> -->
-	
-	<beans:bean id="expertHandler" class="com.kh.john.exboard.socket.ExpertHandler"></beans:bean>
+
 	
 	<!-- 게시판 업로드용 멀티파트 리졸버 등록 -->
 	<beans:bean id="multipartResolver" class="org.springframework.web.multipart.commons.CommonsMultipartResolver">
