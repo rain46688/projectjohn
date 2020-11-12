@@ -20,12 +20,13 @@ public interface MemberService {
 	//닉네임으로 멤버 찾기
 	Member nickDuplicate(Member member);
 
-	//폰번 중복 검사
+	//폰번 중복 검사(번호로 멤버 찾기)
 	Member phoneDuplicate(Member member);
-
+	
 	//회원가입
 	int signUpEnd(Member member);
-
 	int signUpExpert(Member member, List<License> files, String[][] licenseArr);
 
+	//아이디로 usid 찾기
+	Member selectMemUsidById(Member member);
 }

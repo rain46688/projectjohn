@@ -237,12 +237,19 @@ public class MemberController {
 			}
 			
 			//회원정보 설정
-			String[] license1;
-			String[] license2;
-			String[] license3;
+			String[] license1 = new String[2];
+			String[] license2 = new String[2];
+			String[] license3 = new String[2];
 			
-			if(files.size()) {
-				
+			if(files.size()==1) {
+				license1[0]=(String) param.get("licenseType1");
+				license1[1]=(String) param.get("licenseCompany1");
+			}else if(files.size()==2) {
+				license2[0]=(String) param.get("licenseType2");
+				license2[1]=(String) param.get("licenseCompany2");
+			}else {
+				license3[0]=(String) param.get("licenseType3");
+				license3[1]=(String) param.get("licenseCompany3");
 			}
 			
 			String[][] licenseArr=new String[3][3];
@@ -260,7 +267,6 @@ public class MemberController {
 					}
 				}
 			}
-			
 			int resultExpert=service.signUpExpert(member, files, licenseArr);
 			
 		}

@@ -26,4 +26,8 @@
 <insert id="signUpExpert" parameterType="license">
 	INSERT INTO LICENSE VALUES(#{license_mem_usid}, #{license_file_name}, #{license_date}, #{license_type}, #{license_company})
 </insert>
+
+<select id="selectMemUsidById" resultType="member" parameterType="member">
+	SELECT USID FROM MEMBER WHERE MEM_EMAIL=#{mem_email}
+</select>
 </mapper>

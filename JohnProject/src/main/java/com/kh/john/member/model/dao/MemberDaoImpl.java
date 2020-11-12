@@ -48,4 +48,9 @@ public class MemberDaoImpl implements MemberDao {
 		return session.insert("member.signUpExpert",l);
 	}
 
+	@Override
+	public Member selectMemUsidById(SqlSessionTemplate session, Member member) {
+		return session.selectOne("member.selectMemUsidById",member);
+	}
+
 }
