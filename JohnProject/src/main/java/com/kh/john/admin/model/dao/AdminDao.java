@@ -9,6 +9,7 @@ import org.mybatis.spring.SqlSessionTemplate;
 import com.kh.john.admin.model.vo.Notice;
 import com.kh.john.admin.model.vo.NoticeFile;
 import com.kh.john.board.model.vo.Board;
+import com.kh.john.member.model.vo.License;
 import com.kh.john.member.model.vo.Member;
 
 public interface AdminDao {
@@ -25,6 +26,7 @@ public interface AdminDao {
 	int searchMemberListCount(SqlSession session, Map<String,Object> param);
 
 	Member selectMemberById(SqlSessionTemplate session, Member member);
+	
 	//게시판관련
 	List<Board> selectBoardList(SqlSessionTemplate session, int cPage, int numPerPage);
 	
@@ -44,6 +46,8 @@ public interface AdminDao {
 	int selectBeforeExpertCount(SqlSession session);
 	
 	Member updateMemberToExpert(SqlSessionTemplate session, Map param);
+	
+	List<License> updateMemberToExpertLicense(SqlSessionTemplate session, Map param);
 	
 	List<Member> searchExpertList(SqlSessionTemplate session, Map<String,Object> param, int cPage, int numPerPage);
 	

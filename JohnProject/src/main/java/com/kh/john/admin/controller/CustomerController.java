@@ -196,6 +196,13 @@ public class CustomerController {
 	//1:1 채팅 불러오기
 	@RequestMapping("/customer/customerChat")
 	public String adminChat() {
-		return "/customer/customerIndex";
+		return "/customer/customerChat";
 	}
+	
+	
+	@RequestMapping("/john/web/echo.do")
+	public String adminChat2() {
+		return"/customer/echo";
+	}
+	
 }

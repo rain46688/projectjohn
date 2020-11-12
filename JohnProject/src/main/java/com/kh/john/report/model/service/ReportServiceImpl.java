@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.kh.john.admin.model.vo.NoticeFile;
+import com.kh.john.member.model.vo.Member;
 import com.kh.john.report.model.dao.ReportDao;
 import com.kh.john.report.model.vo.Report;
 import com.kh.john.report.model.vo.ReportFile;
@@ -61,21 +62,20 @@ public class ReportServiceImpl implements ReportService {
 		return dao.selectReportFile(session, report_id);
 	}
 
-
-
-
 	@Override
 	public int deleteReport(Report r) {
 		int result = dao.deleteReport(session, r);
 		return result;
 	}
 
-
-
-
 	@Override
 	public int reportWarn(Report r) {
 		return dao.reportWarn(session, r);
+	}
+
+	@Override
+	public int reportWarnOut(Member m) {
+		return dao.reportWarnOut(session, m);
 	}
 	
 	

@@ -6,6 +6,7 @@ import java.util.Map;
 import com.kh.john.admin.model.vo.Notice;
 import com.kh.john.admin.model.vo.NoticeFile;
 import com.kh.john.board.model.vo.Board;
+import com.kh.john.member.model.vo.License;
 import com.kh.john.member.model.vo.Member;
 
 public interface AdminService {
@@ -42,6 +43,8 @@ public interface AdminService {
 	int selectBeforeExpertCount();
 	
 	Member updateMemberToExpert(Map param);
+	
+	List<License> updateMemberToExpertLicense(Map param);
 	
 	List<Member> searchExpertList(Map<String,Object> param, int cPage, int numPerPage);
 	

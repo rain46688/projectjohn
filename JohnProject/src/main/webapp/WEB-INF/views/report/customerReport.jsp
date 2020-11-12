@@ -25,10 +25,10 @@
 	            <input type="text" class="form-control" name="report_board_id" id="report_board_id" value="23" > <!-- 신고대상게시물번호 --><!-- 변경요망 -->
 	            <input type="text" class="form-control" placeholder="제목" name="report_title" id="report_title" required> <!-- 제목 -->
 	            <input type="text" class="form-control" name="report_target_nickname" id="report_target_nickname"  
-	            	value="홍잭슨" readonly><!-- 신고할회원 --><!-- 변경요망 -->
+	            	value="김땡땡" readonly><!-- 신고할회원 --><!-- 변경요망 -->
 	 		
 	 			<input type="hidden"  name="report_writer_usid" value="${loginMember.getUsid()}">
-	 			<input type="hidden"  name="report_target_usid" value="9"><!-- 변경요망 -->
+	 			<input type="hidden"  name="report_target_usid" value="52"><!-- 변경요망 -->
 	 			<input type="hidden"  name="report_user_nickname" value="${loginMember.getMem_nickname() }">
 	 			
 	 			<hr>

@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.kh.john.common.page.PageBarFactory;
+import com.kh.john.member.model.vo.Member;
 import com.kh.john.report.model.service.ReportService;
 import com.kh.john.report.model.vo.Report;
 
@@ -70,14 +71,20 @@ public class AdminReportController {
 	
 	//신고 게시글 경고주기
 	@RequestMapping("/report/adminReportWarn")
-	public ModelAndView reportWarn(Report r, ModelAndView mv) {
+	public ModelAndView reportWarn(Report r, ModelAndView mv, Member m,
+			@RequestParam(value="report_iswarning", required=false) int report_iswarning) {
 		int result = service.reportWarn(r);
 		
 		String msg = "";
 		
-		if(result>0) {
+		
+		if(result>0&&report_iswarning<2) {
 			msg="경고 주기 성공!";
-		}else {
+		}else if(result>0&&report_iswarning>=2) {
+			msg="3번 경고 누적으로 강제탈퇴 처리됩니다";
+			service.reportWarnOut(m);
+		}
+		else {
 			msg="실패";
 		}
 		

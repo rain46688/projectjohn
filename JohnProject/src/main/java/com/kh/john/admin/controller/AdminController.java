@@ -17,6 +17,7 @@ import com.kh.john.admin.model.service.AdminService;
 import com.kh.john.board.model.vo.Board;
 import com.kh.john.common.page.PageBarFactory;
 import com.kh.john.member.controller.AES256Util;
+import com.kh.john.member.model.vo.License;
 import com.kh.john.member.model.vo.Member;
 
 import lombok.extern.slf4j.Slf4j;
@@ -40,38 +41,37 @@ public class AdminController {
 	// 멤버 리스트 불러오기
 	@RequestMapping("/admin/adminMember")
 	public ModelAndView adminMember(ModelAndView mv,
-//			@RequestParam(value="mem_email",required=false) String mem_email, Member member,
+			@RequestParam(value="mem_email",required=false) String mem_email, 
 			@RequestParam(value = "cPage", required = false, defaultValue = "1") int cPage,
 			@RequestParam(value = "numPerPage", required = false, defaultValue = "10") int numPerPage) 
 					throws NoSuchAlgorithmException, UnsupportedEncodingException, GeneralSecurityException {
 		List<Member> list = service.selectMemberList(cPage, numPerPage);
 		
-//		for(Member mem : list) {
-//			
-//			String id=member.getMem_email();
-//			String idStr=aes.decrypt(id);
-//			member.setMem_email(idStr);
-//			member=service.selectMemberById(member);
-//		
-//			System.out.println("idStr="+idStr);
-//			System.out.println("member.getMem_email();="+member.getMem_email());
-//			System.out.println("id="+id);
-//			System.out.println("member="+member);
-//			System.out.println("mem="+mem);
-//			
-//		
-//		}
+		
+		for (Member a : list) {
+			String memberId;
+			try {
+				memberId = aes.decrypt(a.getMem_email());
+			} catch (Exception e) {
+				memberId = a.getMem_email();
+			}
+			a.setMem_email(memberId);
+		}
+		
 
 		int totalData = service.selectMemberCount();
 
 		mv.addObject("pageBar", PageBarFactory.getPageBar(totalData, cPage, numPerPage, "adminMember"));
 
 		mv.addObject("totalData", totalData);
-		//mv.addObject("member",member);
 		mv.addObject("list", list);	
+		
+		
 		mv.setViewName("admin/adminMember");
 		return mv;
 	}
+
+	
 
 	// 멤버 탈퇴시키기
 	@RequestMapping(value = "/admin/adminDeleteMember")
@@ -120,7 +120,15 @@ public class AdminController {
 		
 		List<Member> list = service.searchMemberList(param, cPage, numPerPage);
 		
-
+		for (Member a : list) {
+			String memberId;
+			try {
+				memberId = aes.decrypt(a.getMem_email());
+			} catch (Exception e) {
+				memberId = a.getMem_email();
+			}
+			a.setMem_email(memberId);
+		}
 		mv.addObject("pageBar", PageBarFactory.getPageBar(totalData, cPage, numPerPage, "adminMember"));
 
 		mv.addObject("totalData", totalData);
@@ -139,6 +147,8 @@ public class AdminController {
 
 		List<Board> list = service.selectBoardList(cPage, numPerPage);
 		int totalData = service.selectBoardCount();
+		
+		
 
 		mv.addObject("pageBar", PageBarFactory.getPageBar(totalData, cPage, numPerPage, "adminBoard"));
 																										
@@ -199,6 +209,16 @@ public class AdminController {
 		List<Member> list = service.selectExpertList(cPage, numPerPage);
 		int totalData = service.selectExpertCount();
 
+		for (Member a : list) {
+			String memberId;
+			try {
+				memberId = aes.decrypt(a.getMem_email());
+			} catch (Exception e) {
+				memberId = a.getMem_email();
+			}
+			a.setMem_email(memberId);
+		}
+		
 		mv.addObject("pageBar", PageBarFactory.getPageBar(totalData, cPage, numPerPage, "adminExpert"));
 
 		mv.addObject("totalData", totalData);
@@ -216,6 +236,16 @@ public class AdminController {
 		List<Member> list = service.selectBeforeExpertList(cPage, numPerPage);
 		int totalData = service.selectBeforeExpertCount();
 
+		for (Member a : list) {
+			String memberId;
+			try {
+				memberId = aes.decrypt(a.getMem_email());
+			} catch (Exception e) {
+				memberId = a.getMem_email();
+			}
+			a.setMem_email(memberId);
+		}
+		
 		mv.addObject("pageBar", PageBarFactory.getPageBar(totalData, cPage, numPerPage, "adminBeforeExpert"));
 
 		mv.addObject("totalData", totalData);
@@ -228,7 +258,10 @@ public class AdminController {
 	// 전문가 승인화면으로 이동
 	@RequestMapping("/admin/adminUpdateMemberToExpert")
 	public ModelAndView adminUpdateMemberToExpert(@RequestParam Map param, ModelAndView mv) {
+		List<License> list = service.updateMemberToExpertLicense(param);
 		Member m = service.updateMemberToExpert(param);
+		
+		mv.addObject("list", list);
 		mv.addObject("member", m);
 		mv.setViewName("admin/adminMemberUpdate");
 
@@ -251,6 +284,8 @@ public class AdminController {
 			mv.addObject("msg","전문가 승인이 완료되었습니다");
 			mv.addObject("loc","/admin/adminMember");
 		}
+		
+		System.out.println("result="+result);
 		
 		return mv;
 	}
@@ -284,6 +319,15 @@ public class AdminController {
 		
 		List<Member> list = service.searchExpertList(param, cPage, numPerPage);
 		
+		for (Member a : list) {
+			String memberId;
+			try {
+				memberId = aes.decrypt(a.getMem_email());
+			} catch (Exception e) {
+				memberId = a.getMem_email();
+			}
+			a.setMem_email(memberId);
+		}
 
 		mv.addObject("pageBar", PageBarFactory.getPageBar(totalData, cPage, numPerPage, "adminMember"));
 
