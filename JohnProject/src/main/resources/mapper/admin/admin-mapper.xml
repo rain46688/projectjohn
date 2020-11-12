@@ -74,8 +74,7 @@
 		SELECT * FROM BOARD
 	</select>
 	<select id="selectBoardCount" resultType="_int">
-		SELECT COUNT(*) FROM
-		BOARD
+		SELECT COUNT(*) FROM BOARD
 	</select>
 	
 	<select id="searchBoardList" parameterType="map"
@@ -93,6 +92,14 @@
 			</foreach>
 		</if>
 		
+		<if test="big_category!=null" >
+			AND B.BIG_CATEGORY LIKE '%'||#{big_category, jdbcType=VARCHAR}||'%'
+		</if>
+		
+		<if test="small_category!=null" >
+			AND B.SMALL_CATEGORY LIKE '%'||#{small_category, jdbcType=VARCHAR}||'%'
+		</if>
+		
 		<if test='type2 != null  and (order eq "ascend".toString())'>
 			ORDER BY B.${type2} ASC
 		</if>
@@ -105,9 +112,11 @@
 
 	<select id="searchBoardListCount" resultType="_int"
 		parameterType="map">
-		SELECT COUNT(*) FROM BOARD B, MEMBER M WHERE B.WRITER_USID=M.USID 
-		AND ${type} LIKE '%'||#{keyword, jdbcType=VARCHAR}||'%'
-		
+		SELECT COUNT(*) FROM BOARD B, MEMBER M WHERE 1=1 AND
+		B.WRITER_USID=M.USID AND '${type}' LIKE '%'||#{keyword, jdbcType=VARCHAR}||'%'
+		<if test="big_category!=null" >
+			AND B.BIG_CATEGORY LIKE '%'||#{big_category, jdbcType=VARCHAR}||'%'
+		</if>
 	</select>
 
 	<!-- 전문가관련 -->
@@ -174,7 +183,7 @@
 
 	<select id="searchExpertListCount" resultType="_int"
 		parameterType="map">
-		SELECT COUNT(*) FROM MEMBER WHERE '${type2}' LIKE '%'||#{keyword, jdbcType=VARCHAR}||'%'
+		SELECT COUNT(*) FROM MEMBER WHERE ${type2} LIKE '%'||#{keyword, jdbcType=VARCHAR}||'%'
 		AND MEM_CLASS LIKE('전문가')
 	</select>
 	

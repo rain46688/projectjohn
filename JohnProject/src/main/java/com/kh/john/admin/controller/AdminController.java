@@ -155,7 +155,10 @@ public class AdminController {
 	public ModelAndView adminBoardSearch(ModelAndView mv, 
 			@RequestParam(value="searchType", required=false) String type,
 			@RequestParam(value="keyword", required=false) String keyword,
+			@RequestParam(value="keyword2", required=false) String keyword2,
 			@RequestParam(value="searchType2", required=false) String type2,
+			@RequestParam(value="big_category", required=false) String big_category,
+			@RequestParam(value="small_category", required=false) String small_category,
 			@RequestParam(value="order", required=false) String order,
 			@RequestParam(value="isclose", required=false) String[] isclose,
 			@RequestParam(value="cPage", required = false, defaultValue = "1") int cPage,
@@ -165,7 +168,10 @@ public class AdminController {
 		
 		param.put("type", type);
 		param.put("keyword", keyword);
+		param.put("keyword2", keyword2);
 		param.put("type2", type2);
+		param.put("big_category", big_category);
+		param.put("small_category", small_category);
 		param.put("isclose", isclose);
 		param.put("order",order);
 		System.out.println("맵안에:"+param);
