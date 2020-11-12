@@ -24,5 +24,6 @@
 		<id column="ALARM_DATE" property="alarmDate" />
 		<id column="ALARM_ISCHECKED" property="alarmIscheked" />
 	</resultMap>
+	
 
 </mapper>

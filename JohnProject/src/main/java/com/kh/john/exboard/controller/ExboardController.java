@@ -143,14 +143,12 @@ public class ExboardController {
 					er.setStartCounsel(false);
 				} else {
 					for (ExpertBoard eb : blist) {
-						if (er.getEXPERT_REQUEST_MEM_USID() == eb.getEXPERT_BOARD_MEM_USID()) {
+						if (er.getExpertRequestMemUsid() == eb.getExpertBoardMemUsid()) {
 							// 이미 상담 게시판이 만들어진 유저
 							er.setStartCounsel(true);
-							if (eb.getEXPERT_BOARD_ADVICE_RESULT() != null) {
+							if (eb.getExpertBoardAdviceResult() != null) {
 								er.setEndCounsel(true);
 							}
-							log.debug(er.getEXPERT_REQUEST_MEM_NICK() + " START : " + er.getStartCounsel());
-							log.debug(er.getEXPERT_REQUEST_MEM_NICK() + " END : " + er.getEndCounsel());
 							break;
 						} else {
 							er.setStartCounsel(false);
@@ -176,6 +174,7 @@ public class ExboardController {
 		Member expertmem = (Member) session.getAttribute("loginMember");
 		try {
 			result = "" + service.insertExpertBoard(no, expertmem);
+			log.debug("result : " + result);
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -233,14 +232,14 @@ public class ExboardController {
 		// 해당 게시판 넘버에 맞는 유저를 판별하기 위해서 가져옴
 		try {
 			ExpertBoard eb = service.selectExpertBoard(bnum);
-			log.debug(" 상담 결과 : " + eb.getEXPERT_BOARD_ADVICE_RESULT());
+			log.debug(" 상담 결과 : " + eb.getExpertBoardAdviceResult());
 			if (m.getMem_class().equals("전문가")) {
 				log.debug("전문가");
-				if (m.getUsid() != eb.getEXPERT_BOARD_USID()) {
+				if (m.getUsid() != eb.getExpertBoardUsid()) {
 					log.debug("잘못된 접근");
 					mv = gotoMsg(mv, "/", "잘못된 접근입니다.");
 					return mv;
-				} else if (eb.getEXPERT_BOARD_ADVICE_RESULT() != null) {
+				} else if (eb.getExpertBoardAdviceResult() != null) {
 					log.debug("이미 만료된 상담입니다.");
 					mv = gotoMsg(mv, "/", "만료된 상담입니다.");
 					return mv;
@@ -248,11 +247,11 @@ public class ExboardController {
 				s.setExpert(true);
 			} else {
 				log.debug("전문가 아님");
-				if (m.getUsid() != eb.getEXPERT_BOARD_MEM_USID()) {
+				if (m.getUsid() != eb.getExpertBoardMemUsid()) {
 					log.debug("잘못된 접근2");
 					mv = gotoMsg(mv, "/", "잘못된 접근입니다.");
 					return mv;
-				} else if (eb.getEXPERT_BOARD_ADVICE_RESULT() != null) {
+				} else if (eb.getExpertBoardAdviceResult() != null) {
 					log.debug("이미 만료된 상담입니다.");
 					mv = gotoMsg(mv, "/", "만료된 상담입니다.");
 					return mv;

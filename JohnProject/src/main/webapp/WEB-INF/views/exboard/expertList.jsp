@@ -127,11 +127,7 @@
 </style>
 
 <section id="content">
-
-	리스트<br>
-
-
-
+	<br>
 	<div class="carosel" id="carosel1">
 		<a class="carosel-control carosel-control-left glyphicon glyphicon-chevron-left" href="#"></a>
 
@@ -147,7 +143,7 @@
 								<p class="card-text">${e.mem_class}</p>
 								<div class="dropdown-divider"></div>
 								<p class="card-text">
-									<small class="text-muted">평점 : ${e.expert_rating}</small>
+									<small class="text-muted">평점 : 넣어야됨!</small>
 								</p>
 								<a href="${path}/expertApply?no=${e.usid}&nic=${e.mem_nickname}">
 									<button type="button" class="btn btn-outline-primary">상담 신청</button>

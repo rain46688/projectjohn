@@ -94,11 +94,11 @@ public class ExboardServiceImpl implements ExboardService {
 	public int insertExpertBoard(String memusid, Member expertmem) throws Exception {
 		// TODO Auto-generated method stub
 		ExpertBoard exboard = new ExpertBoard();
-		exboard.setEXPERT_BOARD_USID(expertmem.getUsid());
-		exboard.setEXPERT_BOARD_MEM_USID(Integer.parseInt(memusid));
+		exboard.setExpertBoardUsid(expertmem.getUsid());
+		exboard.setExpertBoardMemUsid(Integer.parseInt(memusid));
 		int result = dao.insertExpertBoard(session, exboard);
 		if (result > 0) {
-			return exboard.getEXPERT_BOARD_ID();
+			return exboard.getExpertBoardId();
 		} else {
 			return 0;
 		}

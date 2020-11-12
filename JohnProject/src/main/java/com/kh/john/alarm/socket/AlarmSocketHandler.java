@@ -42,6 +42,14 @@ public class AlarmSocketHandler extends TextWebSocketHandler {
 
 		log.debug("almsg : " + almsg);
 
+		Iterator<Member> it = users.keySet().iterator();
+		while (it.hasNext()) {
+			Member key = it.next();
+			if (almsg.getAlarmReceiveMemUsid() == key.getUsid()) {
+				users.get(key).sendMessage(new TextMessage(objectMapper.writeValueAsString(almsg)));
+			}
+		}
+
 	}
 
 	@Override

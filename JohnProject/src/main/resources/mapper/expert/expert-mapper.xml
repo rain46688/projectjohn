@@ -14,7 +14,7 @@
 	SELECT * FROM MEMBER WHERE MEM_NICKNAME = #{nick}
 </select>
 
-<select id="selectIsDuplicateReq" resultType="exrequest" parameterType="map">
+<select id="selectIsDuplicateReq" resultMap="exrequestMap" parameterType="map">
 	SELECT * FROM EXPERT_REQUEST WHERE EXPERT_REQUET_EX_USID = #{exusid} AND EXPERT_REQUEST_MEM_USID = #{memusid}
 </select>
 
@@ -26,18 +26,18 @@
 	DELETE FROM EXPERT_REQUEST WHERE EXPERT_REQUET_EX_USID = #{exusid} AND EXPERT_REQUEST_MEM_USID = #{memusid}
 </delete>
 
-<select id="selectExpertRequest" resultType="exrequest" parameterType="member">
+<select id="selectExpertRequest" resultMap="exrequestMap" parameterType="member">
 	SELECT * FROM EXPERT_REQUEST WHERE EXPERT_REQUET_EX_USID = #{usid}
 </select>
 
 <insert id="insertExpertBoard" parameterType="exboard">
-		INSERT INTO EXPERT_BOARD VALUES(SEQ_EXPERT_BOARD_NO.NEXTVAL,#{EXPERT_BOARD_USID}, #{EXPERT_BOARD_MEM_USID},NULL,default)
-	<selectKey keyProperty="EXPERT_BOARD_ID" resultType="_int" order="AFTER">
+		INSERT INTO EXPERT_BOARD VALUES(SEQ_EXPERT_BOARD_NO.NEXTVAL,#{expertBoardUsid}, #{expertBoardMemUsid},NULL,default)
+	<selectKey keyProperty="expertBoardId" resultType="_int" order="AFTER">
 		SELECT SEQ_EXPERT_BOARD_NO.CURRVAL FROM DUAL
 	</selectKey>
 </insert>
 
-<select id="selectExpertBoard" resultType="exboard" parameterType="member">
+<select id="selectExpertBoard" resultMap="exboardMap" parameterType="member">
 	SELECT * FROM EXPERT_BOARD WHERE EXPERT_BOARD_USID = #{usid}
 </select>
 
@@ -45,12 +45,30 @@
 	SELECT EXPERT_BOARD_ID FROM EXPERT_BOARD WHERE EXPERT_BOARD_USID = #{exusid} AND EXPERT_BOARD_MEM_USID = #{memusid}
 </select>
 
-<select id="selectExpertBoardbnum" resultType="exboard" parameterType="string">
+<select id="selectExpertBoardbnum" resultMap="exboardMap" parameterType="string">
 	SELECT * FROM EXPERT_BOARD WHERE EXPERT_BOARD_ID = #{bnum}
 </select>
 
 <update id="updateCounselResult" parameterType="map">
 	UPDATE EXPERT_BOARD SET EXPERT_BOARD_ADVICE_RESULT =#{extext} WHERE EXPERT_BOARD_ID=#{bno}
 </update>
+
+	<resultMap type="exboard" id="exboardMap">
+		<id column="EXPERT_BOARD_ID" property="expertBoardId" />
+		<id column="EXPERT_BOARD_USID" property="expertBoardUsid" />
+		<id column="EXPERT_BOARD_MEM_USID" property="expertBoardMemUsid" />
+		<id column="EXPERT_BOARD_ADVICE_RESULT" property="expertBoardAdviceResult" />
+		<id column="EXPERT_BOARD_RATING" property="expertBoardRating" />
+	</resultMap>
+	
+		<resultMap type="exrequest" id="exrequestMap">
+		<id column="EXPERT_REQUET_EX_USID" property="expertRequetExUsid" />
+		<id column="EXPERT_REQUEST_MEM_USID" property="expertRequestMemUsid" />
+		<id column="EXPERT_REQUET_EX_NICK" property="expertRequetExNick" />
+		<id column="EXPERT_REQUEST_MEM_NICK" property="expertRequestMemNick" />
+		<id column="EXPERT_ISCOUNSEL" property="expertIscounsel" />
+		<id column="EXPERT_DATE" property="expertDate" />
+	</resultMap>
+	
 
 </mapper>

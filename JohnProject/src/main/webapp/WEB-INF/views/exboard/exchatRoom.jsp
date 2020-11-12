@@ -381,28 +381,29 @@
 
 			//상담 종료 해당 텍스트 에어리어의 기록 디비에 저장하고 종료
 			function counselEnd() {
-				let form = document.createElement("form");
-				form.setAttribute("charset", "UTF-8");
-				form.setAttribute("method", "Post");
-				form.setAttribute("action", "${path}/counselEnd");
-
-				let hiddenField = document.createElement("input");
-				hiddenField.setAttribute("type", "hidden");
-				hiddenField.setAttribute("name", "extext");
-				hiddenField.setAttribute("value", $("#extext").val());
-				form.appendChild(hiddenField);
-
-				let hiddenField2 = document.createElement("input");
-				hiddenField2.setAttribute("type", "hidden");
-				hiddenField2.setAttribute("name", "bno");
-				hiddenField2.setAttribute("value", "${bno}");
-				form.appendChild(hiddenField2);
-
-				document.body.appendChild(form);
-				form.submit();
-				exit();
-				sendMessage(new ExboardMsg("END",
-						"${loginMember.mem_nickname}", "종료"));
+				
+				let result = confirm("해당 회원과 상담을 종료 하시겠습니까?");
+				if(result){
+					let form = document.createElement("form");
+					form.setAttribute("charset", "UTF-8");
+					form.setAttribute("method", "Post");
+					form.setAttribute("action", "${path}/counselEnd");
+					let hiddenField = document.createElement("input");
+					hiddenField.setAttribute("type", "hidden");
+					hiddenField.setAttribute("name", "extext");
+					hiddenField.setAttribute("value", $("#extext").val());
+					form.appendChild(hiddenField);
+					let hiddenField2 = document.createElement("input");
+					hiddenField2.setAttribute("type", "hidden");
+					hiddenField2.setAttribute("name", "bno");
+					hiddenField2.setAttribute("value", "${bno}");
+					form.appendChild(hiddenField2);
+					document.body.appendChild(form);
+					form.submit();
+					exit();
+					sendMessage(new ExboardMsg("END",
+							"${loginMember.mem_nickname}", "종료"));
+				}
 			}
 
 			function onoff() {
