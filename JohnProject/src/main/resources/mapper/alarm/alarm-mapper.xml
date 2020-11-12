@@ -6,12 +6,23 @@
 	SELECT COUNT(*) FROM ALARM WHERE ALARM_RECEIVE_MEM_USID = #{usid} AND ALARM_ISCHECKED = 0
 </select> 
 
-	<select id="selectAlarmList" parameterType="_int" resultType="com.kh.john.alarm.model.vo.Alarm"> 
+	<select id="selectAlarmList" parameterType="_int"  resultMap="alMap"> 
 		SELECT * FROM ALARM WHERE ALARM_RECEIVE_MEM_USID = #{usid} AND ALARM_ISCHECKED = 0
 	</select>
 
 	<update id="updateAlarmRead" parameterType="_int">
 		UPDATE ALARM SET ALARM_ISCHECKED = 1 WHERE ALARM_ID = #{aid}
 	</update>
+	
+		<resultMap type="com.kh.john.alarm.model.vo.Alarm" id="alMap">
+		<id column="ALARM_ID" property="alarmId" />
+		<id column="ALARM_SEND_MEM_USID" property="alarmSendMemUsid" />
+		<id column="ALARM_RECEIVE_MEM_USID" property="alarmReceiveMemUsid" />
+		<id column="ALARM_TYPE" property="alarmType" />
+		<id column="ALARM_MSG_CONTENT" property="alarmMsgContent" />
+		<id column="ALARM_SEND_MEM_NICKNAME" property="alarmSendMemNickname" />
+		<id column="ALARM_DATE" property="alarmDate" />
+		<id column="ALARM_ISCHECKED" property="alarmIscheked" />
+	</resultMap>
 
 </mapper>

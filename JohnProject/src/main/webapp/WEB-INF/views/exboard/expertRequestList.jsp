@@ -134,7 +134,7 @@ h2 {
 							<c:if test="${n.startCounsel == true }">
 									<button class="btn btn-outline-success" onclick="counselConn('${n.EXPERT_REQUEST_MEM_USID}');">채팅 접속</button>
 							</c:if>
-						</c:if>
+						</c:if> 
 							<c:if test="${n.endCounsel == true }">
 									상담 완료
 									<!-- <div class="divCell"><button class="btn btn-outline-success" onclick="">상담 완료</button></div> -->
@@ -166,11 +166,29 @@ h2 {
 	}
 	
 	function counselStart(num,nick){
+		let bno = "";
 		console.log("num : "+num);
 		let result = confirm("해당 회원과 상담을 진행하시겠습니까?");
 		if(result){
-				location.replace('${path}/counselStart?no='+num+"&nic="+nick);
+			  $.ajax({
+			 	   type:"GET",
+			 	   data:{
+			 		   "no" : num,
+			 		   "nic" : nick
+			 	   },
+			 	   url:"${path}/selectExpertBno",
+			 	   success:function (data){
+			 		   console.log("data : "+data);
+			 		 bno = data;
+			 		 console.log("bno : "+bno);
+			 	   }
+			    }); 
+			 	 console.log("bno2 : "+bno);
+				sendAlarm("${loginMember.usid}",num,"expert",bno,"${loginMember.mem_nickname}");
+				location.replace('${path}/counselStart?no='+num+"&nic="+nick+"$bno="+bno);
 		}
+		
+		
 	}
 	
 	function counselConn(num){
