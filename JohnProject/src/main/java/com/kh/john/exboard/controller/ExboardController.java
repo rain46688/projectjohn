@@ -169,18 +169,29 @@ public class ExboardController {
 		return mv;
 	}
 
+	@ResponseBody
+	@RequestMapping("/selectExpertBno")
+	public String selectExpertBno(HttpSession session, String no, String nic) {
+		String result = "";
+		Member expertmem = (Member) session.getAttribute("loginMember");
+		try {
+			result = "" + service.insertExpertBoard(no, expertmem);
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return result;
+	}
+
 	// 상담 게시판 개설
 	@RequestMapping("/counselStart")
-	public String counselStart(HttpServletRequest req, HttpSession session, String no, String nic,
+	public String counselStart(HttpServletRequest req, String no, String nic, String bno,
 			RedirectAttributes redirectAttributes) {
 		log.debug("counselStart 실행");
 		String context = "";
-		Member expertmem = (Member) session.getAttribute("loginMember");
-		int result = 0;
+		log.debug("bno : " + bno);
+		int result = Integer.parseInt(bno);
 		try {
-			log.debug("memusid : " + no);
-			log.debug("expertmem : " + expertmem);
-			result = service.insertExpertBoard(no, expertmem);
 			Member m = service.selectMember(nic);
 			String email = m.getMem_email();
 			email = aes.decrypt(email);

@@ -177,8 +177,10 @@
          			}
          		};
          		alarmPrint();
-                 
-                 const alsocket = new WebSocket("wss://192.168.219.105${path}/alsocket");
+         		
+         		 //const alsocket = new WebSocket("wss://localhost${path}/alsocket");
+         		 const alsocket = new WebSocket("wss://192.168.120.31${path}/alsocket");
+                // const alsocket = new WebSocket("wss://192.168.219.105${path}/alsocket");
                  
                  alsocket.onopen = function(){
         			
@@ -194,18 +196,17 @@
         		};
         		
         		function sendAlarm(send_usid,receive_usid,type,msg,send_nick){
-        			alsocket.send(JSON.stringify(new Alarm("",send_usid,receive_usid,type,msg,send_nick)));
+        			alsocket.send(JSON.stringify(new Alarm(send_usid,receive_usid,type,msg,send_nick)));
         		};
         		
-        		function Alarm(ALARM_ID,ALARM_SEND_MEM_USID,ALARM_RECEIVE_MEM_USID,ALARM_TYPE,ALARM_MSG_CONTENT,ALARM_SEND_MEM_NICKNAME,ALARM_DATE,ALARM_ISCHECKED){
-        			this.ALARM_ID = ALARM_ID;
-        			this.ALARM_SEND_MEM_USID = ALARM_SEND_MEM_USID;
-        			this.ALARM_RECEIVE_MEM_USID = ALARM_RECEIVE_MEM_USID;
-        			this.ALARM_TYPE = ALARM_TYPE;
-        			this.ALARM_MSG_CONTENT = ALARM_MSG_CONTENT;
-        			this.ALARM_SEND_MEM_NICKNAME = ALARM_SEND_MEM_NICKNAME;
-        			this.ALARM_DATE = ALARM_DATE;
-        			this.ALARM_ISCHECKED = ALARM_ISCHECKED;
+        		function Alarm(ALARM_SEND_MEM_USID,ALARM_RECEIVE_MEM_USID,ALARM_TYPE,ALARM_MSG_CONTENT,ALARM_SEND_MEM_NICKNAME,ALARM_DATE,ALARM_ISCHECKED){
+        			this.alarmSendMemUsid = ALARM_SEND_MEM_USID;
+        			this.alarmReceiveMemUsid = ALARM_RECEIVE_MEM_USID;
+        			this.alarmType = ALARM_TYPE;
+        			this.alarmMsgContent = ALARM_MSG_CONTENT;
+        			this.alarmSendMemNickname = ALARM_SEND_MEM_NICKNAME;
+        			this.alarmDate = ALARM_DATE;
+        			this.alarmIscheked = ALARM_ISCHECKED;
         		};
                  
                  </script>

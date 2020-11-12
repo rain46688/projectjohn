@@ -83,6 +83,8 @@
 
 <script>
 
+'use strict';
+
 $(function(){
 	$(".noti").slideToggle('fast', function() {
 	     });
