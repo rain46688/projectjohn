@@ -81,29 +81,44 @@ public class MemberServiceImpl implements MemberService {
 
 	@Override
 	@Transactional
-	public int signUpExpert(Member member, List<License> files, String[][] licenseArr) {
-		int resultFirst=0;
-		int resultSecond=0;
-		resultFirst=dao.signUpEnd(session, member);
-		member=service.selectMemUsidById(member);
-		if(resultFirst>0) {
-			if(!files.isEmpty()) {
-				for(int i=0; i<files.size(); i++) {
-					License l=files.get(i);
-					l.setLicense_mem_usid(member.getUsid());
-					l.setLicense_date(Date.valueOf(licenseArr[i][0]));
-					l.setLicense_type(licenseArr[i][1]);
-					l.setLicense_company(licenseArr[i][2]);
-					resultSecond=dao.signUpExpert(session,l);
+	public int signUpExpert(Member member, List<License> licenseList) {
+		int result=dao.signUpEnd(session, member);
+		
+		if(result>0) {
+			if(!licenseList.isEmpty()) {
+				for(License l : licenseList) {
+					dao.signUpExpert(session,l);
 				}
 			}
 		}
-		return resultSecond;
+		return result;
 	}
 
-	@Override
-	public Member selectMemUsidById(Member member) {
-		return dao.selectMemUsidById(session, member);
-	}
+//	@Override
+//	@Transactional
+//	public int signUpExpert(Member member, List<License> files, String[][] licenseArr) {
+//		int resultFirst=0;
+//		int resultSecond=0;
+//		resultFirst=dao.signUpEnd(session, member);
+//		member=service.selectMemUsidById(member);
+//		if(resultFirst>0) {
+//			if(!files.isEmpty()) {
+//				for(int i=0; i<files.size(); i++) {
+//					License l=files.get(i);
+//					l.setLicense_mem_usid(member.getUsid());
+//					l.setLicense_date(Date.valueOf(licenseArr[i][0]));
+//					l.setLicense_type(licenseArr[i][1]);
+//					l.setLicense_company(licenseArr[i][2]);
+//					resultSecond=dao.signUpExpert(session,l);
+//				}
+//			}
+//		}
+//		return resultSecond;
+//	}
+//
+//	@Override
+//	public Member selectMemUsidById(Member member) {
+//		return dao.selectMemUsidById(session, member);
+//	}
 
 }

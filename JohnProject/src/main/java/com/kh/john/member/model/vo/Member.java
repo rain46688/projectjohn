@@ -7,17 +7,17 @@ import lombok.Data;
 @Data
 public class Member {
 	private int usid;
-	private String mem_email;
-	private String mem_pwd;
-	private String mem_name;
-	private String mem_nickname;
+	private String memEmail;
+	private String memPwd;
+	private String memName;
+	private String memNickname;
 	private String gender;
 	private Date birthday;
-	private Date enroll_date;
+	private Date enrollDate;
 	private int point;
-	private boolean leave_mem;
-	private int pw_is_uuid;
-	private String mem_class;
-	private String profile_pic;
+	private boolean leaveMem;
+	private int pwIsUuid;
+	private String memClass;
+	private String profilePic;
 	private String tel;
 }

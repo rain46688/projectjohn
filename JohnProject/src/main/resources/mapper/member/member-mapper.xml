@@ -6,29 +6,53 @@
 	SELECT * FROM MEMBER
 </select> 
 
-<select id="selectMemberById" resultType="member" parameterType="member">
-	SELECT * FROM MEMBER WHERE MEM_EMAIL=#{mem_email}
+<select id="selectMemberById" resultType="memberMap" parameterType="member">
+	SELECT * FROM MEMBER WHERE MEM_EMAIL=#{memEmail}
 </select>
 
-<select id="selectMemberByNick" resultType="member" parameterType="member">
-	SELECT * FROM MEMBER WHERE MEM_NICKNAME=#{mem_nickname}
+<select id="selectMemberByNick" resultType="memberMap" parameterType="member">
+	SELECT * FROM MEMBER WHERE MEM_NICKNAME=#{memNickname}
 </select>
 
-<select id="selectMemberByPhone" resultType="member" parameterType="member">
+<select id="selectMemberByPhone" resultType="memberMap" parameterType="member">
 	SELECT * FROM MEMBER WHERE TEL=#{tel}
 </select>
 
 <insert id="signUpEnd" parameterType="member">
-	INSERT INTO MEMBER VALUES(SEQ_MEMBER_NO.NEXTVAL, #{mem_email}, #{mem_pwd}, #{mem_name}, #{mem_nickname}, #{gender}, 
-		#{birthday,jdbcType=DATE}, DEFAULT, DEFAULT, DEFAULT, DEFAULT, #{mem_class}, DEFAULT, #{tel})
+	INSERT INTO MEMBER VALUES(SEQ_MEMBER_NO.NEXTVAL, #{memEmail}, #{memPwd}, #{memName}, #{memNickname}, #{gender}, 
+		#{birthday,jdbcType=DATE}, DEFAULT, DEFAULT, DEFAULT, DEFAULT, #{memClass}, DEFAULT, #{tel})
 </insert>
 
 <insert id="signUpExpert" parameterType="license">
-	INSERT INTO LICENSE VALUES(#{license_mem_usid}, #{license_file_name}, #{license_date}, #{license_type}, #{license_company})
+	INSERT INTO LICENSE VALUES(#{licenseMemUsid}, #{licenseFileName}, #{licenseDate}, #{licenseType}, #{licenseCompany})
+	<selectKey keyProperty="licenseMemUsid" resultType="_int" order="BEFORE">
+		SELECT SEQ_MEMBER_NO.CURRVAL FROM DUAL
+	</selectKey>
 </insert>
+<!-- <insert id="signUpExpert" parameterType="license"> -->
+<!-- 	INSERT INTO LICENSE VALUES(#{license_mem_usid}, #{license_file_name}, #{license_date}, #{license_type}, #{license_company}) -->
+<!-- </insert> -->
 
-<select id="selectMemUsidById" resultType="member" parameterType="member">
-	SELECT USID FROM MEMBER WHERE MEM_EMAIL=#{mem_email}
-</select>
+<!-- <select id="selectMemUsidById" resultType="member" parameterType="member"> -->
+<!-- 	SELECT USID FROM MEMBER WHERE MEM_EMAIL=#{mem_email} -->
+<!-- </select> -->
+
+
+<resultMap id="memberMap" type="member">
+	<result property="usid" column="usid"/>
+	<result property="memEmail" column="mem_email"/>
+	<result property="memPwd" column="mem_pwd"/>
+	<result property="memName" column="mem_name"/>
+	<result property="memNickname" column="mem_nickname"/>
+	<result property="gender" column="gender"/>
+	<result property="birthday" column="birthday"/>
+	<result property="enrollDate" column="enroll_date"/>
+	<result property="point" column="point"/>
+	<result property="leaveMem" column="leave_mem"/>
+	<result property="pwIsUuid" column="pw_is_uuid"/>
+	<result property="memClass" column="mem_class"/>
+	<result property="profilePic" column="profile_pic"/>
+	<result property="tel" column="tel"/>
+</resultMap>
 
 </mapper>

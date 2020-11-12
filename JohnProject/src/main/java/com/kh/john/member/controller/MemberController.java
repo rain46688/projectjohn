@@ -18,6 +18,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -67,14 +68,14 @@ public class MemberController {
 	public String loginPage(@RequestParam Map param, Member member, Model m, HttpSession session,
 			RedirectAttributes redirectAttributes)
 			throws NoSuchAlgorithmException, UnsupportedEncodingException, GeneralSecurityException {
-		member.setMem_email(aes.encrypt((String) param.get("mem_email")));
+		member.setMemEmail(aes.encrypt((String) param.get("memEmail")));
 		Member loginMember = service.selectMemberById(member);
 		String msg = "";
 		String loc = "";
 		String path = "";
 
 		if (loginMember != null) {
-			if (encoder.matches((String) param.get("mem_pwd"), loginMember.getMem_pwd())) {
+			if (encoder.matches((String) param.get("memPwd"), loginMember.getMemPwd())) {
 
 				if (session.getAttribute("bnum") != null) {
 					String bo = (String) session.getAttribute("bnum");
@@ -130,12 +131,12 @@ public class MemberController {
 
 //	이메일 중복 확인
 	@RequestMapping(value = "/member/emailDuplicate", method = RequestMethod.POST)
-	public ModelAndView emailDuplicate(@RequestParam("mem_email") String mem_email,
+	public ModelAndView emailDuplicate(@RequestParam("memEmail") String memEmail,
 			Member member, ModelAndView mv)
 			throws NoSuchAlgorithmException, UnsupportedEncodingException, GeneralSecurityException {
 		// 암호화
-		String id = aes.encrypt(mem_email);
-		member.setMem_email(id);
+		String id = aes.encrypt(memEmail);
+		member.setMemEmail(id);
 		member = service.selectMemberById(member);
 		mv.addObject("member", member);
 		mv.setViewName("member/emailDuplicate");
@@ -144,8 +145,8 @@ public class MemberController {
 
 //	닉네임 중복 확인
 	@RequestMapping(value = "/member/NNDuplicate", method = RequestMethod.POST)
-	public ModelAndView nickDuplicate(@RequestParam("mem_nickname") String mem_nick, Member m, ModelAndView mv) {
-		m.setMem_nickname(mem_nick);
+	public ModelAndView nickDuplicate(@RequestParam("memNickname") String memNick, Member m, ModelAndView mv) {
+		m.setMemNickname(memNick);
 		m = service.nickDuplicate(m);
 		mv.addObject("member", m);
 		mv.setViewName("member/nickDuplicate");
@@ -173,18 +174,21 @@ public class MemberController {
 //	회원가입 로직
 	@RequestMapping(value = "/member/signUpEnd", method = RequestMethod.POST)
 	public String signUpEnd(
-			@RequestParam Map param, @RequestParam("licensePic") MultipartFile[] licensePic,
-			Member member, Model m, HttpServletRequest request)
+			@RequestParam("licenseFileName") MultipartFile[] licenseFileNames,
+			@RequestParam("licenseDate") Date[] licenseDates,
+			@RequestParam("licenseType") String[] licenseTypes,
+			@RequestParam("licenseCompany") String[] licenseCompanies,
+			@RequestParam Map param, Member member, Model m, HttpServletRequest request)
 			throws NoSuchAlgorithmException, UnsupportedEncodingException, GeneralSecurityException {
 		
 		// 암호화(id,폰)
-		String encodeId = aes.encrypt(param.get("mem_email").toString());
-		member.setMem_email(encodeId);
+		String encodeId = aes.encrypt(param.get("memEmail").toString());
+		member.setMemEmail(encodeId);
 		String encodePhone = aes.encrypt(param.get("tel").toString());
 		member.setTel(encodePhone);
 		// 암호화(pw)
-		String encodePw = encoder.encode(param.get("mem_pwd").toString());
-		member.setMem_pwd(encodePw);
+		String encodePw = encoder.encode(param.get("memPwd").toString());
+		member.setMemPwd(encodePw);
 		// 생일 합치기
 		String birthdayStr = param.get("year") + "-" + param.get("month") + "-" + param.get("date");
 		Date birthday = Date.valueOf(birthdayStr);
@@ -196,29 +200,34 @@ public class MemberController {
 		String script="";
 
 		// 회원구분
-		String classMem = param.get("mem_class").toString();
+		String classMem = param.get("memClass").toString();
 		if (classMem == "normalUser") {
-			member.setMem_class("일반유저");
+			member.setMemClass("일반유저");
 			result = service.signUpEnd(member);
 			if (result > 0) {
 				msg = "회원가입완료";
 				script= "window.close()";
 			} else {
 				msg = "회원가입실패";
-				script= "window.close()";
+				script= "history.back()";
 			}
 
 		} else {
-			member.setMem_class("예비전문가");
+			member.setMemClass("예비전문가");
 			
-			//license 사진 파일 올리기 lisencePic->lisenceFile
+			
+			//사진
 			String saveDir = request.getServletContext().getRealPath("/resources/upload/upload_license");
 			File dir = new File(saveDir);
 			if (!dir.exists()) {
 				dir.mkdirs();
 			}
-			List<License> files = new ArrayList();
-			for(MultipartFile f : licensePic) {
+			List<License> licenseList = new ArrayList<License>();
+			
+//			for(MultipartFile f : licenseFileNames) {
+			for(int i=0; i<licenseFileNames.length; i++) {
+				License license=new License();
+				MultipartFile f = licenseFileNames[i];
 				if(!f.isEmpty()) {
 					String originalFilename = f.getOriginalFilename();
 					String ext = originalFilename.substring(originalFilename.lastIndexOf('.')+1);
@@ -231,56 +240,77 @@ public class MemberController {
 					}catch(IOException e) {
 						e.printStackTrace();
 					}
-					License lisenceFile=new License();
-					lisenceFile.setLicense_file_name(renamedFilename);
-					files.add(lisenceFile);
+					license.setLicenseFileName(renamedFilename);
+					license.setLicenseDate(licenseDates[i]);
+					license.setLicenseType(licenseTypes[i]);
+					license.setLicenseCompany(licenseCompanies[i]);
+					licenseList.add(license);
+//					files.add(lisenceFile);
 				}
 			}
+			
+//			//날짜
+//			for(Date d : licenseDates) {
+//				licenseFile.setLicenseDate(d);
+//				licenseList.add(licenseFile);
+//			}
+//			//종류
+//			for(String s : licenseTypes) {
+//				licenseFile.setLicenseType(s);
+//				licenseList.add(licenseFile);
+//			}
+//			//발급기관
+//			for(String s : licenseCompanies) {
+//				licenseFile.setLicenseCompany(s);
+//				licenseList.add(licenseFile);
+//			}
+			
+//			License license=new License();
 			
 			//회원정보 설정
-			String[] license1 = new String[2];
-			String[] license2 = new String[2];
-			String[] license3 = new String[2];
-			
-			if(files.size()==1) {
-				license1[0]=(String) param.get("licenseType1");
-				license1[1]=(String) param.get("licenseCompany1");
-			}else if(files.size()==2) {
-				license1[0]=(String) param.get("licenseType1");
-				license1[1]=(String) param.get("licenseCompany1");
-				license2[0]=(String) param.get("licenseType2");
-				license2[1]=(String) param.get("licenseCompany2");
-			}else {
-				license1[0]=(String) param.get("licenseType1");
-				license1[1]=(String) param.get("licenseCompany1");
-				license2[0]=(String) param.get("licenseType2");
-				license2[1]=(String) param.get("licenseCompany2");
-				license3[0]=(String) param.get("licenseType3");
-				license3[1]=(String) param.get("licenseCompany3");
-			}
-			
-			String[][] licenseArr=new String[3][3];
-			licenseArr[0][0]=(String)param.get("licenseDate1");
-			licenseArr[1][0]=(String)param.get("licenseDate2");
-			licenseArr[2][0]=(String)param.get("licenseDate3");
-			for(int i=0; i<3; i++) {
-				for(int j=1; j<3; j++) {
-					if(i==0) {
-						licenseArr[i][j]=license1[j-1];
-					}else if(i==1) {
-						licenseArr[i][j]=license2[j-1];
-					}else {
-						licenseArr[i][j]=license3[j-1];
-					}
-				}
-			}
-			int resultExpert=service.signUpExpert(member, files, licenseArr);
+//			String[] license1 = new String[2];
+//			String[] license2 = new String[2];
+//			String[] license3 = new String[2];
+//			List<License> list=new ArrayList<License>();
+//			if(files.size()==1) {
+//				license1[0]=(String) param.get("licenseType1");
+//				license1[1]=(String) param.get("licenseCompany1");
+//			}else if(files.size()==2) {
+//				license1[0]=(String) param.get("licenseType1");
+//				license1[1]=(String) param.get("licenseCompany1");
+//				license2[0]=(String) param.get("licenseType2");
+//				license2[1]=(String) param.get("licenseCompany2");
+//			}else {
+//				license1[0]=(String) param.get("licenseType1");
+//				license1[1]=(String) param.get("licenseCompany1");
+//				license2[0]=(String) param.get("licenseType2");
+//				license2[1]=(String) param.get("licenseCompany2");
+//				license3[0]=(String) param.get("licenseType3");
+//				license3[1]=(String) param.get("licenseCompany3");
+//			}
+//			
+//			String[][] licenseArr=new String[3][3];
+//			licenseArr[0][0]=(String)param.get("licenseDate1");
+//			licenseArr[1][0]=(String)param.get("licenseDate2");
+//			licenseArr[2][0]=(String)param.get("licenseDate3");
+//			for(int i=0; i<3; i++) {
+//				for(int j=1; j<3; j++) {
+//					if(i==0) {
+//						licenseArr[i][j]=license1[j-1];
+//					}else if(i==1) {
+//						licenseArr[i][j]=license2[j-1];
+//					}else {
+//						licenseArr[i][j]=license3[j-1];
+//					}
+//				}
+//			}
+			int resultExpert=service.signUpExpert(member, licenseList);
 			if(resultExpert>0) {
 				msg = "회원가입완료";
 				script= "window.close()";
 			} else {
 				msg = "회원가입실패";
-				script= "window.close()";
+				script= "history.back()";
 			}
 		}
 
@@ -288,7 +318,7 @@ public class MemberController {
 		m.addAttribute("loc", loc);
 		m.addAttribute("script",script);
 
-		return "common/msg";
+		return "common/msgWithScript";
 	}
 
 //	테스트 페이지

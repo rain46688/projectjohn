@@ -25,8 +25,10 @@ public interface MemberService {
 	
 	//회원가입
 	int signUpEnd(Member member);
-	int signUpExpert(Member member, List<License> files, String[][] licenseArr);
+//	int signUpExpert(Member member, List<License> files, String[][] licenseArr);
+	int signUpExpert(Member member, List<License> licenseList);
 
-	//아이디로 usid 찾기
-	Member selectMemUsidById(Member member);
+//	//아이디로 usid 찾기
+//	Member selectMemUsidById(Member member);
+
 }

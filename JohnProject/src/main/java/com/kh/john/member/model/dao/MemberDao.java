@@ -20,9 +20,11 @@ public interface MemberDao {
 	Member phoneDuplicate(SqlSessionTemplate session, Member member);
 	
 	int signUpEnd(SqlSessionTemplate session, Member member);
+//
+//	int signUpExpert(SqlSessionTemplate session, License l);
+//
+//	Member selectMemUsidById(SqlSessionTemplate session, Member member);
 
 	int signUpExpert(SqlSessionTemplate session, License l);
-
-	Member selectMemUsidById(SqlSessionTemplate session, Member member);
 
 }
