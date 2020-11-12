@@ -11,64 +11,63 @@
 
 </jsp:include>
 
- <!-- <script type=text/javascript>
- 
+ <script type=text/javascript>
         $(document).ready(function(){
-            var ko=['헤어질까요?','말까요?'];
-            var ja=['가족문제','아닌가요?'];
-            var ch=['엥','아닌가요?'];
+            var ko=['헤어질까요?'];
+            var ja=['가족문제','회사문제','연애상담'];
+            var su=['가족문제','연애상담'];
+
             $('.s0').change(function(){
                 var sel=$(this).val();
-                if(sel==1){
+                if(sel=='연애상담'){
                     $('.op').remove();
                     $.each(ko,function(i,item){
-                        $('.s1').append('<option class="op" value="small_category" <c:if test="${param.searchType eq '헤어질까요?'}">selected</c:if>>'+item+'</option>');
-                        $('.s1').append('<option class="op" value="small_category" <c:if test="${param.searchType eq '말까요?'}">selected</c:if>>'+item+'</option>');
+                        $('.s1').append('<option class="op" value="'+item+'" <c:if test="${param.small_category eq '+item+'}">selected</c:if>>'+item+'</option>');
                     });
                 }
-                if(sel==2){
+                if(sel=='일반게시판'){
                     $('.op').remove();
                     $.each(ja,function(i,item){
-                        $('.s1').append('<option class="op" value="small_category" <c:if test="${param.searchType eq '가족문제'}">selected</c:if>>'+item+'</option>');
-                        $('.s1').append('<option class="op" value="small_category" <c:if test="${param.searchType eq '아닌가요?'}">selected</c:if>>'+item+'</option>');
+                        $('.s1').append('<option class="op" value="'+item+'" <c:if test="${param.small_category eq '+item+'}">selected</c:if>>'+item+'</option>');
                     });
                 }
-                if(sel==3){
+                if(sel=='음성게시판'){
                     $('.op').remove();
-                    $.each(ch,function(i,item){
-                        $('.s1').append('<option class="op" value="small_category" <c:if test="${param.searchType eq '엥?'}">selected</c:if>>'+item+'</option>');
-                        $('.s1').append('<option class="op" value="small_category" <c:if test="${param.searchType eq '아닌가요?'}">selected</c:if>>'+item+'</option>');
-
+                    $.each(su,function(i,item){
+                        $('.s1').append('<option class="op" value="'+item+'" <c:if test="${param.small_category eq '+item+'}">selected</c:if>>'+item+'</option>');
                     });
                 }
             });
 
         });
-        
-        
-
-    </script> -->
-
+    </script>
+    
 <section id="content">
 
 	<div id="search-container">
 		<form  id="myForm" action="${path }/admin/adminBoardSearch" method="post">
 		
+		 <select class="s0" name="big_category" required>
+		 		<option>대분류</option>
+				<option value="연애상담" <c:if test="${param.big_category eq '연애상담'}">selected</c:if>>연애상담</option> 
+				<option value="일반게시판" <c:if test="${param.big_category eq '일반게시판'}">selected</c:if>>일반게시판</option> 
+				<option value="음성게시판" <c:if test="${param.big_category eq '음성게시판'}">selected</c:if>>음성게시판</option> 
+	    </select>
+	
+	    <select class="s1" name="small_category">
+	        <option>소분류</option>
+	    </select>
 			
- 		  <label>대분류</label>
-		    <select name="searchType2" id="searchType" >
-		        <option selected disabled>선택하세요</option>
-		        <option value="big_category" <c:if test="${y[x].text eq '연애상담'}">selected</c:if>>연애상담</option>
-		        <option value="big_category" <c:if test="${y[x].text eq '일반게시판'}">selected</c:if>>일반게시판</option>
-		        <option value="big_category" <c:if test="${y[x].text eq '음성게시판'}">selected</c:if>>음성게시판</option>
-		    </select>
-   		
-   	<!-- 	 <label>소분류</label>
-		    <select class="s1" name="searchType">
-		        <option value=" " disabled selected>선택하세요</option>
-		    </select>   -->
-		  	 
-		    <br>
+			
+		<%-- 	<select name="big_category"  required>
+		
+				<option value="연애상담" <c:if test="${param.big_category eq '연애상담'}">selected</c:if>>연애상담</option> 
+				<option value="일반게시판" <c:if test="${param.big_category eq '일반게시판'}">selected</c:if>>일반게시판</option> 
+				<option value="음성게시판" <c:if test="${param.big_category eq '음성게시판'}">selected</c:if>>음성게시판</option> 
+				
+				
+			</select>	 --%>
+		    
 		    
 			<select name="searchType" required>
 				<option value=" " disabled selected>검색타입</option> 
@@ -104,7 +103,7 @@
 
 			
 			
-			<button onclick="goSubmit();">검색</button>
+
 			<input type="submit" value="검색" >
 		</form>
 	</div>
@@ -141,37 +140,10 @@
 
 	<div id="pageBar">${pageBar }</div>
 
-</section>
+ </section>
 
-		<script>
- 		var big=$("select[name=searchType]").val();
-		console.log(big);
 		
-		var index = $("#searchType option").index($("#searchType option:selected"));
-		console.log(index);
 
-/* 		var love = document.querySelector('#searchType2').value;
-		console.log(love); */
-		
-/* 		var lucky = document.getElementById('searchType2').value;
-		console.log(lucky); */
-		
-/* 		var moon = document.getElementById("searchType2")[document.getElementById("searchType2").selelctedIndex].text
-		console.log(moon); */
-		
-/* 		var x = document.getElementById("searchType2").selectedIndex;
-		console.log(x); */
-		
-		function goSubmit(){
-			var x = document.getElementById("searchType2").selectedIndex;
-			var y = document.getElementById("searchType2").options;
-			alert("Index: " + y[x].index + " is " + y[x].text);
-			console.log(x);
-			
-			$("#myForm").submit();
-		}
-		</script>
-		
 
 <jsp:include page="/WEB-INF/views/common/footer.jsp" />
 
