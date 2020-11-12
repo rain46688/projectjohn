@@ -23,6 +23,9 @@ public class MemberServiceImpl implements MemberService {
 
 	@Autowired
 	private MemberDao dao;
+	
+	@Autowired
+	private MemberService service;
 
 	@Autowired
 	private SqlSessionTemplate session;
@@ -76,27 +79,13 @@ public class MemberServiceImpl implements MemberService {
 		return dao.signUpEnd(session, member);
 	}
 
-//	@Override
-//	@Transactional
-//	public int uploadLicensePic(List<License> files, Member member) {
-//		int result=dao.signUpEnd(session, member);
-//		if(result>0) {
-//			if(!files.isEmpty()) {
-//				for(License l : files) {
-//					l.setLicense_mem_usid(member.getUsid());
-//					result += dao.uploadLicensePic(session, l);
-//				}
-//			}			
-//		}
-//		return result;
-//	}
-
 	@Override
 	@Transactional
 	public int signUpExpert(Member member, List<License> files, String[][] licenseArr) {
 		int resultFirst=0;
 		int resultSecond=0;
 		resultFirst=dao.signUpEnd(session, member);
+		member=service.selectMemUsidById(member);
 		if(resultFirst>0) {
 			if(!files.isEmpty()) {
 				for(int i=0; i<files.size(); i++) {
@@ -110,6 +99,11 @@ public class MemberServiceImpl implements MemberService {
 			}
 		}
 		return resultSecond;
+	}
+
+	@Override
+	public Member selectMemUsidById(Member member) {
+		return dao.selectMemUsidById(session, member);
 	}
 
 }

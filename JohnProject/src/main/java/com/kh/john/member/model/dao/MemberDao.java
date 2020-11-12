@@ -23,4 +23,6 @@ public interface MemberDao {
 
 	int signUpExpert(SqlSessionTemplate session, License l);
 
+	Member selectMemUsidById(SqlSessionTemplate session, Member member);
+
 }
