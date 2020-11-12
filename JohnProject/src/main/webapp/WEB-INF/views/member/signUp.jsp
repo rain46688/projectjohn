@@ -197,6 +197,7 @@
 							<input type="radio" class="mem_class" name="mem_class" id="expertUser" value="expertUser"><label for="expertUser">&nbsp;전문가</label>
 						</div>
 					</div>
+					<div class="constrain" id="classConstrain"></div>
 					<div class="constrain" id="mcConstrain"></div>
 					
 					<div id="forExpert"></div>
@@ -637,6 +638,21 @@
 				if($("input[name='checked_ad']").val()==''){
 					alert('주소 입력을 해주세요.');
 				}
+
+				//회원구분
+				const mem_class=$('input:radio[name="mem_class"]:checked');
+				if(mem_class.length<1){
+					$("#classConstrain").html("필수 선택 항목입니다.");
+					$("#classConstrain").css({"display":"block"});
+					$("#classConstrain").css({"color":"red"});
+				}
+				
+				if(mem_class.val()=='expertUser'){
+					if($(".license1").val('') && $(".license2").val('') && $(".license3").val('')){
+						alert('최소 한 개의 자격증을 업로드해야합니다.');
+					}
+				}
+
 				//제약조건을 만족했나요
 				if(id!=="" && (pw!==""&&pwPattern.test(pw)) && (pw2!==""&&pw===pw2) && (nn!==""&&nnPattern.test(nn))
 					&& (mem_class.length=10||mem_class.length>1) && (name!==""&&namePattern.test(name))

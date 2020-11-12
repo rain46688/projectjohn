@@ -135,7 +135,7 @@
             function fn_signUp(){
                 const url="${path }/member/signUp";
                 const title="signUp";
-                const status="left=500px, top=100px, width=300px, height=auto";
+                const status="left=500, top=100, width=800, height=800";
 
                 open(url,title,status);
 

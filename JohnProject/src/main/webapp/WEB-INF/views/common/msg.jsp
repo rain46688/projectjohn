@@ -11,11 +11,14 @@
 
 </head>
 <body>
-	<%-- 메세지 : ${msg} 패스 : ${path} 로케이션 : ${loc} 컨텍스트 : ${pageContext.request.contextPath } --%>
+	<%-- 메세지 : ${msg} 패스 : ${path} 로케이션 : ${loc} 컨텍스트 : ${pageContext.request.contextPath } 
+		 스크립트 : ${script} --%>
 
 	<script>
 		alert("${msg}");
-
+		if(${script}!=null){
+			${script}
+		} 
 		location.replace('${path}${loc}');
 	</script>
 	

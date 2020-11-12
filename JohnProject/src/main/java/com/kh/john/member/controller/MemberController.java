@@ -193,6 +193,7 @@ public class MemberController {
 		int result = 0;
 		String msg = "";
 		String loc = "";
+		String script="";
 
 		// 회원구분
 		String classMem = param.get("mem_class").toString();
@@ -200,11 +201,11 @@ public class MemberController {
 			member.setMem_class("일반유저");
 			result = service.signUpEnd(member);
 			if (result > 0) {
-				msg = "회원가입성공";
-				loc = "/";
+				msg = "회원가입완료";
+				script= "window.close()";
 			} else {
 				msg = "회원가입실패";
-				loc = "/";
+				script= "window.close()";
 			}
 
 		} else {
@@ -245,9 +246,15 @@ public class MemberController {
 				license1[0]=(String) param.get("licenseType1");
 				license1[1]=(String) param.get("licenseCompany1");
 			}else if(files.size()==2) {
+				license1[0]=(String) param.get("licenseType1");
+				license1[1]=(String) param.get("licenseCompany1");
 				license2[0]=(String) param.get("licenseType2");
 				license2[1]=(String) param.get("licenseCompany2");
 			}else {
+				license1[0]=(String) param.get("licenseType1");
+				license1[1]=(String) param.get("licenseCompany1");
+				license2[0]=(String) param.get("licenseType2");
+				license2[1]=(String) param.get("licenseCompany2");
 				license3[0]=(String) param.get("licenseType3");
 				license3[1]=(String) param.get("licenseCompany3");
 			}
@@ -268,11 +275,18 @@ public class MemberController {
 				}
 			}
 			int resultExpert=service.signUpExpert(member, files, licenseArr);
-			
+			if(resultExpert>0) {
+				msg = "회원가입완료";
+				script= "window.close()";
+			} else {
+				msg = "회원가입실패";
+				script= "window.close()";
+			}
 		}
 
 		m.addAttribute("msg", msg);
 		m.addAttribute("loc", loc);
+		m.addAttribute("script",script);
 
 		return "common/msg";
 	}
