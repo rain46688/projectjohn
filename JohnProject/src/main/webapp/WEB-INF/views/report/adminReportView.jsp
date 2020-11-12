@@ -32,7 +32,7 @@
         
         <input type="text" class="form-control" name="report_target_nickname" id="report_target_nickname" value="${report.report_target_nickname}" >
         <input type="text" class="form-control" name="report_answer" id="report_answer"  value="${report.report_answer }" placeholder="제목"  required>
-        <input type="text" class="form-control" name="notice_iswarning" id="notice_iswarning" value="${notice.notice_iswarning }" readonly> 
+        <input type="text" class="form-control" name="report_iswarning" id="report_iswarning" value="${report.report_iswarning }" readonly> 
        
 		<c:forEach items="${reportFile}" var="a" varStatus="vs">
              <img src="${path }/resources/upload/report/${a.report_file_name }">
@@ -62,9 +62,11 @@
 			 }
 		}
 		
+		var report_iswarning=document.getElementById("report_iswarning").value;
+		
 		function reportWarn(report_target_usid){
 			 if (confirm("정말 경고를 주시겠습니까?") == true){
-				 location.href="${path}/report/adminReportWarn?report_target_usid="+report_target_usid;
+				 location.href="${path}/report/adminReportWarn?report_target_usid="+report_target_usid+"&report_iswarning="+report_iswarning;
 			 }else{  
 			     return;
 			 }

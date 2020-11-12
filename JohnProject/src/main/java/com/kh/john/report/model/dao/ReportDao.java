@@ -5,6 +5,7 @@ import java.util.List;
 import org.apache.ibatis.session.SqlSession;
 import org.mybatis.spring.SqlSessionTemplate;
 
+import com.kh.john.member.model.vo.Member;
 import com.kh.john.report.model.vo.Report;
 import com.kh.john.report.model.vo.ReportFile;
 
@@ -27,4 +28,6 @@ public interface ReportDao {
 	int deleteReport(SqlSessionTemplate session, Report r);
 	
 	int reportWarn(SqlSessionTemplate session, Report r);
+	
+	int reportWarnOut(SqlSessionTemplate session, Member m);
 }

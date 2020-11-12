@@ -7,6 +7,7 @@ import org.apache.ibatis.session.SqlSession;
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.stereotype.Repository;
 
+import com.kh.john.member.model.vo.Member;
 import com.kh.john.report.model.vo.Report;
 import com.kh.john.report.model.vo.ReportFile;
 
@@ -54,6 +55,13 @@ public class ReportDaoImpl implements ReportDao {
 	public int reportWarn(SqlSessionTemplate session, Report r) {
 		return session.insert("report.reportWarn",r);
 	}
+
+	@Override
+	public int reportWarnOut(SqlSessionTemplate session, Member m) {
+		return session.delete("report.reportWarnOut",m);
+	}
+	
+	
 
 	
 }
