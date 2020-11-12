@@ -172,9 +172,11 @@ public class MemberController {
 
 //	회원가입 로직
 	@RequestMapping(value = "/member/signUpEnd", method = RequestMethod.POST)
-	public String signUpEnd(@RequestParam Map param, @RequestParam("licensePic") MultipartFile[] licensePic, Member member, Model m, HttpServletRequest request)
+	public String signUpEnd(
+			@RequestParam Map param, @RequestParam("licensePic") MultipartFile[] licensePic,
+			Member member, Model m, HttpServletRequest request)
 			throws NoSuchAlgorithmException, UnsupportedEncodingException, GeneralSecurityException {
-
+		
 		// 암호화(id,폰)
 		String encodeId = aes.encrypt(param.get("mem_email").toString());
 		member.setMem_email(encodeId);
@@ -234,14 +236,19 @@ public class MemberController {
 				}
 			}
 			
-			String[] license1=(String[]) param.get("license1");
-			String[] license2=(String[]) param.get("license2");
-			String[] license3=(String[]) param.get("license3");
+			//회원정보 설정
+			String[] license1;
+			String[] license2;
+			String[] license3;
+			
+			if(files.size()) {
+				
+			}
 			
 			String[][] licenseArr=new String[3][3];
 			licenseArr[0][0]=(String)param.get("licenseDate1");
 			licenseArr[1][0]=(String)param.get("licenseDate2");
-			licenseArr[2][0]=(String)param.get("licenseDate1");
+			licenseArr[2][0]=(String)param.get("licenseDate3");
 			for(int i=0; i<3; i++) {
 				for(int j=1; j<3; j++) {
 					if(i==0) {

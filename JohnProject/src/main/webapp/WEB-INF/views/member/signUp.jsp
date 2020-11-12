@@ -120,7 +120,7 @@
 		<div id="signUpBox" style="padding-top: 50px;">
 			<div id="signUpField">
 				<h2 style="margin-bottom: 50px;">회원가입</h2>
-				<form id="memberEnrollFrm" name="memberEnrollFrm" action="${path}/member/signUpEnd" method="post">
+				<form id="memberEnrollFrm" name="memberEnrollFrm" action="${path}/member/signUpEnd" method="post" enctype="multipart/form-data">
 					<input type="email" id="id" name="mem_email" class="input" placeholder="이메일" required style="width: 59%;">
 					<input type="button" class="button" id="certibtn" value="인증번호 전송" style="text-align: center;"><br>
 					<div class="constrain" id="idConstrain"></div>

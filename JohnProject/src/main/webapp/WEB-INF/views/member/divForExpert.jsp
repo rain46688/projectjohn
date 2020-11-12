@@ -55,9 +55,9 @@
     <!-- 자격증 발급 일자 -->
     <input type="date" class="input" name="licenseDate1">
     <!-- 자격증 종류 -->
-    <input type="text" class="input" name="license1" placeholder="자격증 종류를 입력해주세요.">
+    <input type="text" class="input" name="licenseType1" placeholder="자격증 종류를 입력해주세요.">
     <!-- 자격증 발급 기관 -->
-    <input type="text" class="input" name="license1" placeholder="자격증 발급 기관을 입력해주세요.">
+    <input type="text" class="input" name="licenseCompany1" placeholder="자격증 발급 기관을 입력해주세요.">
 </div>
 
 <button type="button" id="license2Btn" onclick="fn_addLicenseDiv2()">추가</button>
@@ -75,9 +75,9 @@
     <!-- 자격증 발급 일자 -->
     <input type="date" class="input" name="licenseDate2">
     <!-- 자격증 종류 -->
-    <input type="text" class="input" name="license2" placeholder="자격증 종류를 입력해주세요.">
+    <input type="text" class="input" name="licenseType2" placeholder="자격증 종류를 입력해주세요.">
     <!-- 자격증 발급 기관 -->
-    <input type="text" class="input" name="license2" placeholder="자격증 발급 기관을 입력해주세요.">
+    <input type="text" class="input" name="licenseCompany2" placeholder="자격증 발급 기관을 입력해주세요.">
 </div>
 
 <button type="button" id="license3Btn" onclick="fn_addLicenseDiv3()" style="display: none;">추가</button>
@@ -95,9 +95,9 @@
     <!-- 자격증 발급 일자 -->
     <input type="date" class="input" name="licenseDate3">
     <!-- 자격증 종류 -->
-    <input type="text" class="input" name="license3" placeholder="자격증 종류를 입력해주세요.">
+    <input type="text" class="input" name="licenseType3" placeholder="자격증 종류를 입력해주세요.">
     <!-- 자격증 발급 기관 -->
-    <input type="text" class="input" name="license3" placeholder="자격증 발급 기관을 입력해주세요.">
+    <input type="text" class="input" name="licenseCompany3" placeholder="자격증 발급 기관을 입력해주세요.">
 </div>
 <script>
     // 파일관련
@@ -135,4 +135,5 @@
         $("#license3Remove").css({"display":"none"});
         $("#license3Btn").css({"display":"block"});
     }
+
 </script>
