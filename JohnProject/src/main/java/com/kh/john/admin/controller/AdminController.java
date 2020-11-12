@@ -17,6 +17,7 @@ import com.kh.john.admin.model.service.AdminService;
 import com.kh.john.board.model.vo.Board;
 import com.kh.john.common.page.PageBarFactory;
 import com.kh.john.member.controller.AES256Util;
+import com.kh.john.member.model.vo.License;
 import com.kh.john.member.model.vo.Member;
 
 import lombok.extern.slf4j.Slf4j;
@@ -228,7 +229,10 @@ public class AdminController {
 	// 전문가 승인화면으로 이동
 	@RequestMapping("/admin/adminUpdateMemberToExpert")
 	public ModelAndView adminUpdateMemberToExpert(@RequestParam Map param, ModelAndView mv) {
+		List<License> list = service.updateMemberToExpertLicense(param);
 		Member m = service.updateMemberToExpert(param);
+		
+		mv.addObject("list", list);
 		mv.addObject("member", m);
 		mv.setViewName("admin/adminMemberUpdate");
 
@@ -251,6 +255,8 @@ public class AdminController {
 			mv.addObject("msg","전문가 승인이 완료되었습니다");
 			mv.addObject("loc","/admin/adminMember");
 		}
+		
+		System.out.println("result="+result);
 		
 		return mv;
 	}

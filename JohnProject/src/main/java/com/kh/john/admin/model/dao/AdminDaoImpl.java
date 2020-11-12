@@ -11,6 +11,7 @@ import org.springframework.stereotype.Repository;
 import com.kh.john.admin.model.vo.Notice;
 import com.kh.john.admin.model.vo.NoticeFile;
 import com.kh.john.board.model.vo.Board;
+import com.kh.john.member.model.vo.License;
 import com.kh.john.member.model.vo.Member;
 
 @Repository
@@ -102,6 +103,11 @@ public class AdminDaoImpl implements AdminDao {
 	}
 
 	@Override
+	public List<License> updateMemberToExpertLicense(SqlSessionTemplate session, Map param) {
+		return session.selectList("admin.updateMemberToExpertLicense",param);
+	}
+
+	@Override
 	public List<Member> searchExpertList(SqlSessionTemplate session, Map<String, Object> param, int cPage,
 			int numPerPage) {
 		return session.selectList("admin.searchExpertList",param,new RowBounds((cPage-1)*numPerPage, numPerPage));
@@ -112,8 +118,6 @@ public class AdminDaoImpl implements AdminDao {
 		return session.selectOne("admin.searchExpertListCount",param);
 	}
 
-	
-	
 	@Override
 	public int updateMemberToExpertEnd(SqlSession session, Member m) {
 		return session.insert("admin.updateMemberToExpertEnd",m);

@@ -11,6 +11,9 @@
 	<resultMap type="com.kh.john.admin.model.vo.Notice"
 		id="noticeMap">
 	</resultMap>
+	<resultMap type="com.kh.john.member.model.vo.License"
+		id="licenseMap">
+	</resultMap>
 
 	<!-- 멤버관련 -->
 	<select id="selectMemberList" resultMap="memberMap">
@@ -131,21 +134,29 @@
 
 	<select id="selectBeforeExpertList" resultMap="memberMap">
 		SELECT * FROM
-		MEMBER WHERE MEM_CLASS LIKE('일반유저') AND LEAVE_MEM LIKE 0
+		MEMBER WHERE MEM_CLASS LIKE('예비전문가') AND LEAVE_MEM LIKE 0
 	</select>
 	<select id="selectBeforeExpertCount" resultType="_int">
 		SELECT COUNT(*)
 		FROM MEMBER WHERE MEM_CLASS LIKE('일반유저') AND LEAVE_MEM LIKE 0
 	</select>
 
-	<select id="updateMemberToExpert" parameterType="map"
-		resultMap="memberMap">
-		SELECT * FROM MEMBER WHERE USID=#{usid}
+	<select id="updateMemberToExpert" parameterType="map" resultMap="memberMap">
+		
+		SELECT * FROM MEMBER M WHERE USID=#{usid}
+		
+	</select>
+	
+	<select id="updateMemberToExpertLicense" parameterType="map" resultMap="licenseMap">
+	
+		SELECT * FROM LICENSE L, MEMBER M WHERE L.LICENSE_MEM_USID = M.USID 
+		AND USID=#{usid} 
+		
 	</select>
 
 	<select id="searchExpertList" parameterType="map"
 		resultType="member">
-		SELECT * FROM MEMBER WHERE 1=1 AND MEM_CLASS LIKE('전문가')
+		SELECT * FROM MEMBER WHERE 1=1 AND MEM_CLASS LIKE('전문가') 
 		
 		<if test="type !=null and keyword !=null">
 			AND ${type} LIKE '%'||#{keyword, jdbcType=VARCHAR}||'%'
