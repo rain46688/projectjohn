@@ -647,7 +647,7 @@
 				}
 				
 				if(memClass.val()=='expertUser'){
-					if($(".license1").val('') && $(".license2").val('') && $(".license3").val('')){
+					if($(".license1").val()==null && $(".license2").val()==null && $(".license3").val()==null){
 						alert('최소 한 개의 자격증을 업로드해야합니다.');
 					}
 				}

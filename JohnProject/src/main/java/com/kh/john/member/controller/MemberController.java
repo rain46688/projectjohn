@@ -174,10 +174,10 @@ public class MemberController {
 //	회원가입 로직
 	@RequestMapping(value = "/member/signUpEnd", method = RequestMethod.POST)
 	public String signUpEnd(
-			@RequestParam("licenseFileName") MultipartFile[] licenseFileNames,
-			@RequestParam("licenseDate") Date[] licenseDates,
-			@RequestParam("licenseType") String[] licenseTypes,
-			@RequestParam("licenseCompany") String[] licenseCompanies,
+			@RequestParam(value="licenseFileName", required = false) MultipartFile[] licenseFileNames,
+			@RequestParam(value="licenseDate", required = false) Date[] licenseDates,
+			@RequestParam(value="licenseType", required = false) String[] licenseTypes,
+			@RequestParam(value="licenseCompany", required = false) String[] licenseCompanies,
 			@RequestParam Map param, Member member, Model m, HttpServletRequest request)
 			throws NoSuchAlgorithmException, UnsupportedEncodingException, GeneralSecurityException {
 		
@@ -215,8 +215,6 @@ public class MemberController {
 		} else {
 			member.setMemClass("예비전문가");
 			
-			
-			//사진
 			String saveDir = request.getServletContext().getRealPath("/resources/upload/upload_license");
 			File dir = new File(saveDir);
 			if (!dir.exists()) {
@@ -224,7 +222,6 @@ public class MemberController {
 			}
 			List<License> licenseList = new ArrayList<License>();
 			
-//			for(MultipartFile f : licenseFileNames) {
 			for(int i=0; i<licenseFileNames.length; i++) {
 				License license=new License();
 				MultipartFile f = licenseFileNames[i];
@@ -245,65 +242,9 @@ public class MemberController {
 					license.setLicenseType(licenseTypes[i]);
 					license.setLicenseCompany(licenseCompanies[i]);
 					licenseList.add(license);
-//					files.add(lisenceFile);
 				}
 			}
 			
-//			//날짜
-//			for(Date d : licenseDates) {
-//				licenseFile.setLicenseDate(d);
-//				licenseList.add(licenseFile);
-//			}
-//			//종류
-//			for(String s : licenseTypes) {
-//				licenseFile.setLicenseType(s);
-//				licenseList.add(licenseFile);
-//			}
-//			//발급기관
-//			for(String s : licenseCompanies) {
-//				licenseFile.setLicenseCompany(s);
-//				licenseList.add(licenseFile);
-//			}
-			
-//			License license=new License();
-			
-			//회원정보 설정
-//			String[] license1 = new String[2];
-//			String[] license2 = new String[2];
-//			String[] license3 = new String[2];
-//			List<License> list=new ArrayList<License>();
-//			if(files.size()==1) {
-//				license1[0]=(String) param.get("licenseType1");
-//				license1[1]=(String) param.get("licenseCompany1");
-//			}else if(files.size()==2) {
-//				license1[0]=(String) param.get("licenseType1");
-//				license1[1]=(String) param.get("licenseCompany1");
-//				license2[0]=(String) param.get("licenseType2");
-//				license2[1]=(String) param.get("licenseCompany2");
-//			}else {
-//				license1[0]=(String) param.get("licenseType1");
-//				license1[1]=(String) param.get("licenseCompany1");
-//				license2[0]=(String) param.get("licenseType2");
-//				license2[1]=(String) param.get("licenseCompany2");
-//				license3[0]=(String) param.get("licenseType3");
-//				license3[1]=(String) param.get("licenseCompany3");
-//			}
-//			
-//			String[][] licenseArr=new String[3][3];
-//			licenseArr[0][0]=(String)param.get("licenseDate1");
-//			licenseArr[1][0]=(String)param.get("licenseDate2");
-//			licenseArr[2][0]=(String)param.get("licenseDate3");
-//			for(int i=0; i<3; i++) {
-//				for(int j=1; j<3; j++) {
-//					if(i==0) {
-//						licenseArr[i][j]=license1[j-1];
-//					}else if(i==1) {
-//						licenseArr[i][j]=license2[j-1];
-//					}else {
-//						licenseArr[i][j]=license3[j-1];
-//					}
-//				}
-//			}
 			int resultExpert=service.signUpExpert(member, licenseList);
 			if(resultExpert>0) {
 				msg = "회원가입완료";

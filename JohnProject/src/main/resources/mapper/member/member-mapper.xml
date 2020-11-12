@@ -6,15 +6,15 @@
 	SELECT * FROM MEMBER
 </select> 
 
-<select id="selectMemberById" resultType="memberMap" parameterType="member">
+<select id="selectMemberById" resultMap="memberMap" parameterType="member">
 	SELECT * FROM MEMBER WHERE MEM_EMAIL=#{memEmail}
 </select>
 
-<select id="selectMemberByNick" resultType="memberMap" parameterType="member">
+<select id="selectMemberByNick" resultMap="memberMap" parameterType="member">
 	SELECT * FROM MEMBER WHERE MEM_NICKNAME=#{memNickname}
 </select>
 
-<select id="selectMemberByPhone" resultType="memberMap" parameterType="member">
+<select id="selectMemberByPhone" resultMap="memberMap" parameterType="member">
 	SELECT * FROM MEMBER WHERE TEL=#{tel}
 </select>
 
