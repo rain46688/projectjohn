@@ -41,28 +41,28 @@ ul{
 			<ul>
 				<li>번호<input type="text" name="usid" id="usid" value="${member.usid }"readonly></li> 
 				
-				<li>이름<input type="text" name="mem_name" id="mem_name"value="${member.mem_name}"></li> 
+				<li>이름<input type="text" name="memName" id="memName"value="${member.memName}"></li> 
 				
-				<li>닉네임<input type="text"name="mem_nickname" id="mem_nickname"value="${member.mem_nickname }"></li> 
+				<li>닉네임<input type="text"name="memNickname" id="memNickname"value="${member.memNickname }"></li> 
 				
 				<li>성별<input type="text" name="gender " id="gender" value="${member.gender}"></li>
 				
 				<li>생일<input type="text" name="birthday" id="birthday"value="${member.birthday }"></li> 
 				
-				<li>가입날짜<input type="text"name="enroll_date" id="enroll_date" value="${member.enroll_date }"></li>
+				<li>가입날짜<input type="text"name="enrollDate" id="enrollDate" value="${member.enrollDate }"></li>
 				
-				<li>멤버등급<input type="text" name="mem_class" id="mem_class" value="${member.mem_class }"></li> 
+				<li>멤버등급<input type="text" name="memClass" id="memClass" value="${member.memClass }"></li> 
 			</ul>	
 				
 				<h3>자격증</h3>
 				
 				<c:forEach items="${list }" var="l">
       			<ul>
-					<li>자격증번호<c:out value="${l.license_mem_usid}"/></li>
-					<li>자격증사진<img src="${path }/resources/upload/upload_license/<c:out value="${l.license_file_name }"/>"></li>
-					<li>자격증발급날짜<c:out value="${l.license_date}"/></li>
-					<li>자격증급수<c:out value="${l.license_type}"/></li>
-					<li>자격증발급기관<c:out value="${l.license_company}"/></li>
+					<li>자격증번호<c:out value="${l.licenseMemUsid}"/></li>
+					<li>자격증사진<img src="${path }/resources/upload/upload_license/<c:out value="${l.licenseFileName }"/>"></li>
+					<li>자격증발급날짜<c:out value="${l.licenseDate}"/></li>
+					<li>자격증급수<c:out value="${l.licenseType}"/></li>
+					<li>자격증발급기관<c:out value="${l.licenseCompany}"/></li>
 				</ul>
 				</c:forEach>
 					

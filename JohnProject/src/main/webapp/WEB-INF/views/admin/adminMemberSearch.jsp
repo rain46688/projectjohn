@@ -36,15 +36,15 @@
 			<c:forEach var="m" items="${list }">
 				<tr>
 					<td><c:out value="${m['usid']}"/></td>
-					<td><c:out value="${m['mem_email']}"/></td>
-					<td><c:out value="${m['mem_name']}"/></td>
-					<td><c:out value="${m['mem_nickname']}"/></td>
+					<td><c:out value="${m['memEmail']}"/></td>
+					<td><c:out value="${m['memName']}"/></td>
+					<td><c:out value="${m['memNickname']}"/></td>
 					<td><c:out value="${m['gender'] eq 'M' ? 'M' : 'F' }"/></td>
 					<td><c:out value="${m['birthday']}"/></td>
-					<td><c:out value="${m['enroll_date']}"/></td>
+					<td><c:out value="${m['enrollDate']}"/></td>
 					<td><c:out value="${m['point']}"/></td>
-					<td><c:out value="${m['leave_mem']}"/></td>
-					<td><c:out value="${m['mem_class']}"/></td>
+					<td><c:out value="${m['leaveMem']}"/></td>
+					<td><c:out value="${m['memClass']}"/></td>
 					<%-- <td><c:out value="${m['tel']}"/></td> --%>
 				</tr>
 			</c:forEach>

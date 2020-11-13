@@ -40,10 +40,10 @@ public class AdminReportController {
 	
 	//신고 게시글 불러오기
 	@RequestMapping("/report/adminReportView")
-	public ModelAndView reportView(ModelAndView mv, int report_id) {
+	public ModelAndView reportView(ModelAndView mv, int reportId) {
 		
-		mv.addObject("report",service.selectOneReport(report_id));
-		mv.addObject("reportFile",service.selectReportFile(report_id));
+		mv.addObject("report",service.selectOneReport(reportId));
+		mv.addObject("reportFile",service.selectReportFile(reportId));
 		mv.setViewName("report/adminReportView");
 	
 		return mv;
@@ -72,15 +72,15 @@ public class AdminReportController {
 	//신고 게시글 경고주기
 	@RequestMapping("/report/adminReportWarn")
 	public ModelAndView reportWarn(Report r, ModelAndView mv, Member m,
-			@RequestParam(value="report_iswarning", required=false) int report_iswarning) {
+			@RequestParam(value="reportIswarning", required=false) int reportIswarning) {
 		int result = service.reportWarn(r);
 		
 		String msg = "";
 		
 		
-		if(result>0&&report_iswarning<2) {
+		if(result>0&&reportIswarning<2) {
 			msg="경고 주기 성공!";
-		}else if(result>0&&report_iswarning>=2) {
+		}else if(result>0&&reportIswarning>=2) {
 			msg="3번 경고 누적으로 강제탈퇴 처리됩니다";
 			service.reportWarnOut(m);
 		}

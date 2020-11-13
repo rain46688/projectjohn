@@ -27,10 +27,10 @@
 		            
 		            <c:forEach items="${list }" var="n">
 		           <tr>
-            		<td><c:out value="${n.notice_id }"/></td> 
-            		<td><c:out value="${n.notice_admin_nickname }"/></td> 
-            		<td><a href="${path }/customer/customerNoticeView?notice_id=${n.notice_id }"><c:out value="${n.notice_title }"/></a></td> 
-            		<td><c:out value="${n.notice_enrolldate }"/></td> 
+            		<td><c:out value="${n.noticeId }"/></td> 
+            		<td><c:out value="${n.noticeAdminNickname }"/></td> 
+            		<td><a href="${path }/customer/customerNoticeView?noticeId=${n.noticeId }"><c:out value="${n.noticeTitle }"/></a></td> 
+            		<td><c:out value="${n.noticeEnrolldate }"/></td> 
             		
             	</tr>
 		            </c:forEach>
