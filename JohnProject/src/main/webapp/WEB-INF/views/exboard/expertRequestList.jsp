@@ -110,8 +110,8 @@ h2 {
 			<div class="divRowTitle shadow p-3 mb-5 bg-white rounded">
 				<div class="divCell">상담 신청자</div>
 				<div class="divCell">상담 신청 날짜</div>
-					<div class="divCell">startCounsel</div>
-								<div class="divCell">endCounsel</div>
+					<div class="divCell">원하는 상담 시간</div>
+								<div class="divCell">추가 전달 사항</div>
 				<div class="divCell">상담 시작</div>
 				<div class="divCell">정보 보기</div>
 			</div>
@@ -123,8 +123,8 @@ h2 {
 						<div class="divRow shadow p-3 mb-5 bg-white rounded" ><!-- style="cursor: pointer"  -->
 							<div class="divCell">${n.expertRequestMemNick}</div>
 							<div class="divCell">${n.expertDate}</div>
-								<div class="divCell">${n.startCounsel}</div>
-									<div class="divCell">${n.endCounsel}</div>
+								<div class="divCell">${n.expertCounselTime}</div>
+									<div class="divCell">${n.expertCounselRequire}</div>
 								<div class="divCell">
 								
 							<c:if test="${n.endCounsel != true }">

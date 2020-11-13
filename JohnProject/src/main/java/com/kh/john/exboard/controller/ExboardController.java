@@ -1,6 +1,8 @@
 package com.kh.john.exboard.controller;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
@@ -74,8 +76,11 @@ public class ExboardController {
 		expert.setMemNickname(nic);
 		ModelAndView mv = new ModelAndView("/exboard/expertApply");
 		try {
+			Map<String, String> map = new HashMap<String, String>();
+			map.put("exusid", "" + expert.getUsid());
+			map.put("memusid", "" + mem.getUsid());
 			mv.addObject("expert", service.selectExpertMem(no));
-			mv.addObject("requestIsDuplicate", service.selectIsDuplicateReq(expert, mem));
+			mv.addObject("requestIsDuplicate", service.selectIsDuplicateReq(map));
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -87,17 +92,25 @@ public class ExboardController {
 	// 상담 신청 버튼 눌렀을때
 	@ResponseBody
 	@RequestMapping("/expertRequest")
-	public String expertRequest(String no, String nic, HttpSession session) {
+	public String expertRequest(String no, String nic, String time, String applyText, HttpSession session) {
 		log.debug("expertRequest 실행");
-		log.debug("no : " + no + " nic : " + nic);
+		log.debug("no : " + no + " nic : " + nic + " time : " + time + " applyText : " + applyText);
 		Member mem = (Member) session.getAttribute("loginMember");
 		Member expert = new Member();
 		expert.setUsid(Integer.parseInt(no));
 		expert.setMemNickname(nic);
 
+		Map<String, String> map = new HashMap<String, String>();
+		map.put("exusid", "" + expert.getUsid());
+		map.put("exnick", expert.getMemNickname());
+		map.put("memusid", "" + mem.getUsid());
+		map.put("memnick", mem.getMemNickname());
+		map.put("time", time);
+		map.put("applyText", applyText);
+
 		String result = "";
 		try {
-			service.insertExpertMemRequest(expert, mem);
+			service.insertExpertMemRequest(map);
 			result = "1";
 		} catch (RequestDuplicateException e) {
 			result = "2";

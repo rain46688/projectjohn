@@ -1,6 +1,7 @@
 package com.kh.john.exboard.model.dao;
 
 import java.util.List;
+import java.util.Map;
 
 import org.mybatis.spring.SqlSessionTemplate;
 
@@ -14,11 +15,11 @@ public interface ExboardDao {
 
 	Member selectExpertMem(SqlSessionTemplate session, String no) throws Exception;
 
-	int insertExpertMemRequest(SqlSessionTemplate session, Member expert, Member mem) throws Exception;
+	int insertExpertMemRequest(SqlSessionTemplate session, Map<String, String> map) throws Exception;
 
 	Member selectMember(SqlSessionTemplate session, String nick) throws Exception;
 
-	ExpertRequest selectIsDuplicateReq(SqlSessionTemplate session, Member expert, Member mem) throws Exception;
+	ExpertRequest selectIsDuplicateReq(SqlSessionTemplate session, Map<String, String> map) throws Exception;
 
 	int deleteExpertMemRequest(SqlSessionTemplate session, Member expert, Member mem) throws Exception;
 

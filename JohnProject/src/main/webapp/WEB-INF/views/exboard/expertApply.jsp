@@ -21,8 +21,14 @@
 전문가 경력 : <br>
 전문 상담 분야 : <br>
 <br>
+
+원하는 시간 : <br><input type="time" name="time"><br>
+추가 전달 사항 : <br><textarea name="applyText" cols="20" rows="5"></textarea> 
+
 <div id="exbtn">
+<c:if test="${requestIsDuplicate != true}">
 <button class="btn btn-outline-success" onclick="expertRequest();">상담 신청하기</button>
+</c:if>
 <c:if test="${requestIsDuplicate == true}">
 <button class="btn btn-outline-success" onclick="expertRequestCancel();">상담 취소하기</button>
 </c:if>
@@ -34,20 +40,21 @@
 
 function expertRequest(){
 	console.log("상담 신청, ${expert.usid}");
-	/* 
-	location.replace('${path}/expertRequest?no=${expert.usid}&nic=${expert.mem_nickname}');
-	 */
+
     $.ajax({
  	   type:"GET",
  	   data:{
  		   "no":"${expert.usid}",
- 		   "nic":"${expert.memNickname}"
+ 		   "nic":"${expert.memNickname}",
+ 		   "time":$("input[name=time]").val(),
+ 		   "applyText":$("textarea[name=applyText]").val()
  	   },
  	   url:"${path}/expertRequest",
  	   success:function (data){
  		   if(data == 1){
  			   console.log("상담 신청 성공");
  			   alert("상담 신청 성공");
+ 			  $("#exbtn").html("");
  			   $("#exbtn").html( $("#exbtn").html()+"<button class='btn btn-outline-success' onclick='expertRequestCancel();''>상담 취소하기</button>");
  		   }else if(data == 2){
  			  console.log("이미 상담 신청을 하셨습니다");
@@ -74,6 +81,7 @@ function expertRequestCancel(){
   		   if(data == 1){
   			   console.log("상담 취소 성공");
   			   alert("상담 취소 성공");
+  			 $("#exbtn").html("");
   			   $("#exbtn").html("<button class='btn btn-outline-success' onclick='expertRequest();''>상담 신청하기</button>");
   		   }
   		   else{

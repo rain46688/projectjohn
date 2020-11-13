@@ -19,7 +19,7 @@
 </select>
 
 <insert id="insertExpertMemRequest" parameterType="map">
-	INSERT INTO EXPERT_REQUEST VALUES(#{exusid},#{memusid},#{exnick},#{memnick},DEFAULT,DEFAULT)
+	INSERT INTO EXPERT_REQUEST VALUES(#{exusid},#{memusid},#{exnick},#{memnick},DEFAULT,DEFAULT,#{time},#{applyText})
 </insert>
 
 <delete id="deleteExpertMemRequest" parameterType="map">
@@ -68,6 +68,8 @@
 		<id column="EXPERT_REQUEST_MEM_NICK" property="expertRequestMemNick" />
 		<id column="EXPERT_ISCOUNSEL" property="expertIscounsel" />
 		<id column="EXPERT_DATE" property="expertDate" />
+			<id column="EXPERT_COUNSEL_TIME" property="expertCounselTime" />
+				<id column="EXPERT_COUNSEL_REQUIRE" property="expertCounselRequire" />
 	</resultMap>
 	
 <resultMap id="memberMap" type="member">
