@@ -7,12 +7,12 @@ import lombok.Data;
 @Data
 public class Comment {
 	
-	private int com_id;
-	private int com_board_id;
-	private int com_writer_usid;
-	private String com_content;
-	private String com_writer_nickname;
-	private String com_profile_pic;
-	private Date com_enroll_date;
+	private int comIdd;
+	private int comBoardId;
+	private int comWriterUsid;
+	private String comContent;
+	private String comWriterNickname;
+	private String comProfilePic;
+	private Date comEnrollDate;
 	
 }

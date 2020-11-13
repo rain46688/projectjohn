@@ -6,6 +6,6 @@ import lombok.Data;
 @Data
 @AllArgsConstructor
 public class Subscribe {
-	private int sub_mem_usid;
-	private String sub_category;
+	private int subMemUsid;
+	private String subCategory;
 }
