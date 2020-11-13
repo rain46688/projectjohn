@@ -77,12 +77,12 @@
 		<form id="frm" action="${path }/board/boardInsertEnd" method="POST"
 			enctype="multipart/form-data">
 			<div class="input-group marginTop">
-			<select class="custom-select custom-select-sm" name="big_category" id="category">
+			<select class="custom-select custom-select-sm" name="bigCategory" id="category">
 				<option value="" >게시글 타입을 선택하세요</option>
 				<option value="일반게시판">일반게시판</option>
 				<option value="음성게시판">음성게시판</option>
 			</select>
-			<select class="custom-select custom-select-sm" name="small_category" id="category">
+			<select class="custom-select custom-select-sm" name="smallCategory" id="category">
 				<option value="" >큰 카테고리를 선택하세요</option>
 				<option value="연애상담">연애상담</option>
 				<option value="가족문제">가족문제</option>
@@ -133,8 +133,8 @@
 				</div>
 			</div>
 			<div class="input-group marginTop">	
-			<input class="form-control" type="text" name="agree_name" id="agree_name" placeholder="찬성 이름">
-			<input class="form-control" type="text" name="disagree_name" id="disagree_name" placeholder="반대 이름">
+			<input class="form-control" type="text" name="agreeName" id="agreeName" placeholder="찬성 이름">
+			<input class="form-control" type="text" name="disagreeName" id="disagreeName" placeholder="반대 이름">
 			</div>
 			<div id="submitBtn">
 				<button class="marginTop btn btn-outline-secondary" type="button" onclick="fn_submit();">글 등록</button>
