@@ -1,12 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ include file="/WEB-INF/views/common/header.jsp"%>
-<script defer src="http://localhost:3000/socket.io/socket.io.js"></script>
-<script defer>
-	const socket = io('http://localhost:3000')
-	socket.on('chat-message', data => {
-		console.log(data)
-	})
-</script>
 <div id="content">
                     <!-- 내용 -->
                     ${currBoard }
@@ -32,6 +25,7 @@
 'use strict'
 $(document).ready(function(){
 	fn_commentList();
+	
 })
 
 function fn_commentList(){
@@ -40,12 +34,12 @@ function fn_commentList(){
 		type: "post",
 		dataType: "json",
 		data: {
-			currBoardNo: ${currBoard.board_id}
+			currBoardNo: ${currBoard.boardId}
 		},
 		success: function(data) {
 			let html = "";
 			$.each(data, function(index, item){
-				let date = new Date(item.com_enroll_date);
+				let date = new Date(item.comEnrollDate);
 				let dateToString = date.toString();
 				let parsedString = dateToString.substring(0,25);
 				item.com_enroll_date = parsedString;
@@ -64,7 +58,7 @@ function fn_commentInsert(){
 		type:"post",
 		dataType:"json",
 		data:{
-			currBoardNo:${currBoard.board_id},
+			currBoardNo:${currBoard.boardId},
 			content:contentValue
 		},
 		success:function(data){
