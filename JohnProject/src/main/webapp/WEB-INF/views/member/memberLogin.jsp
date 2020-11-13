@@ -99,13 +99,12 @@
                     </form>
 
 					<!-- 임시입장 나중에 수정하셈  -->
-					<button onclick="location.href='${path}/board/boardList'">임시입장임시입장</button>
+					<button type="button" onclick="location.href='${path}/board/boardList'">임시입장임시입장</button>
 
-                    <span id="find_password">까먹었다 <a href="#"> 비밀번호</a></span>
+                    <span id="find_password">까먹었다&nbsp;<a onclick="fn_findId();">아이디</a>&nbsp;&nbsp;<a onclick="fn_findPw();">비밀번호</a></span>
 
                     <span id="create_account">
-                        <!-- <a href="${path }/member/signUp">★회원가입★</a> -->
-                        <a onclick="fn_signUp();" style="cursor: pointer;">★회원가입★</a>
+                        <a onclick="fn_signUp();">★회원가입★</a>
                     </span>
 
                 </div>
@@ -130,15 +129,31 @@
                 }
             });  
 
-            //회원가입으로 가는 길
+            //아이디 찾기
+            function fn_findId(){
+                const url="${path }/member/findId";
+                const tilte="findId";
+                const status="left=500, top=100, width=500, height=500";
 
+                open(url, title, status);
+            }
+
+            //비밀번호 찾기
+            function fn_findPw(){
+                const url="${path }/member/findPw";
+                const tilte="findPw";
+                const status="left=500, top=100, width=500, height=500";
+
+                open(url, title, status);
+            }
+
+            //회원가입으로 가는 길
             function fn_signUp(){
                 const url="${path }/member/signUp";
                 const title="signUp";
                 const status="left=500, top=100, width=800, height=800";
 
                 open(url,title,status);
-
             }
         </script>
         

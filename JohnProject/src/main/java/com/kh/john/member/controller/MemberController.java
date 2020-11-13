@@ -63,6 +63,9 @@ public class MemberController {
 		return "/member/memberLogin";
 	}
 
+//	아이디 찾기
+	
+	
 //	로그인 로직
 	@RequestMapping(value = "/member/memberLoginEnd", method = RequestMethod.POST)
 	public String loginPage(@RequestParam Map param, Member member, Model m, HttpSession session,
@@ -76,12 +79,12 @@ public class MemberController {
 
 		if (loginMember != null) {
 			if (encoder.matches((String) param.get("memPwd"), loginMember.getMemPwd())) {
-
 				if (session.getAttribute("bnum") != null) {
 					String bo = (String) session.getAttribute("bnum");
 					log.debug("bo : " + bo);
 					session.removeAttribute("bnum");
 					m.addAttribute("loginMember", loginMember);
+					
 					redirectAttributes.addAttribute("bno", bo);
 					return "redirect:/expertRoom";
 				} else {
