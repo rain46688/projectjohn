@@ -5,6 +5,9 @@
 	<resultMap type="com.kh.john.report.model.vo.Report" 
 		id="reportMap">
 	</resultMap>
+	<resultMap type="com.kh.john.member.model.vo.Member" 
+		id="memberMap">
+	</resultMap>
 
 	<!-- customer -->
 	<insert id="insertReport" parameterType="report">
@@ -42,9 +45,16 @@
 	
 	<insert id="reportWarn" parameterType="report">
 		UPDATE REPORT R
-		SET REPORT_ISWARNING = 1 WHERE EXISTS (
+		SET REPORT_ISWARNING=(REPORT_ISWARNING+1) WHERE EXISTS (
 		SELECT USID
 		FROM MEMBER M
-		WHERE R.REPORT_TARGET_USID = M.USID)
+		WHERE R.REPORT_TARGET_USID = M.USID AND R.REPORT_TARGET_USID=#{report_target_usid})
+		
 	</insert>
+	
+	<delete id="reportWarnOut" parameterType="member">
+		DELETE FROM MEMBER M WHERE
+		M.USID = (SELECT R.REPORT_TARGET_USID FROM REPORT R WHERE REPORT_ISWARNING = '3')
+	</delete>
+	
 </mapper>

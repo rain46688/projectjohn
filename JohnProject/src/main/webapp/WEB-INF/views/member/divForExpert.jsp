@@ -41,13 +41,13 @@
 </style>
 <div>
     자격증 정보
-    자격증 정보는 노출되지 않으며 관리자가 회원님이 상담전문가임을 확인하는 용도에만 쓰입니다.
-    자격증은 총 세 개까지 업로드 가능합니다.
+    <p style="font-size: 14px;">자격증 정보는 노출되지 않으며 관리자가 회원님이 상담전문가임을 확인하는 용도에만 쓰입니다.</p>
+    <p style="font-size: 14px;">자격증은 총 세 개까지 업로드 가능합니다.</p>
 </div>
 
 <div class="licenseDiv" id="licenseDiv1">
     <!-- 자격증 파일 넣는 곳 -->
-    <input type="file" name="licensePic" id="real-input1" class="file real-input license1" accept="img/*">
+    <input type="file" name="licenseFileName" id="real-input1" class="file real-input license1" accept="img/*">
     <div class="input-group col-xs-12">
         <input type="text" class="input inputFile fileNameField license1" id="fileNameField1" disabled placeholder="이미지를 업로드 하세요.">
         <button type="button" class="browse button" id="browse1" style="width: 20%;">
@@ -55,11 +55,11 @@
         </button>
     </div>
     <!-- 자격증 발급 일자 -->
-    <input type="date" class="input license1" name="licenseDate1">
+    <input type="date" class="input license1" name="licenseDate">
     <!-- 자격증 종류 -->
-    <input type="text" class="input license1" name="licenseType1" placeholder="자격증 종류를 입력해주세요.">
+    <input type="text" class="input license1" name="licenseType" placeholder="자격증 종류를 입력해주세요.">
     <!-- 자격증 발급 기관 -->
-    <input type="text" class="input license1" name="licenseCompany1" placeholder="자격증 발급 기관을 입력해주세요.">
+    <input type="text" class="input license1" name="licenseCompany" placeholder="자격증 발급 기관을 입력해주세요.">
 </div>
 
 <button type="button" id="license2Btn" onclick="fn_addLicenseDiv2()">추가</button>
@@ -67,7 +67,7 @@
 
 <div class="licenseDiv" id="licenseDiv2">
     <!-- 자격증 파일 넣는 곳 -->
-    <input type="file" name="licensePic" id="real-input2" class="file real-input license2" accept="img/*">
+    <input type="file" name="licenseFileName" id="real-input2" class="file real-input license2" accept="img/*">
     <div class="input-group col-xs-12">
         <input type="text" class="input inputFile fileNameField license2" id="fileNameField2" disabled placeholder="이미지를 업로드 하세요.">
         <button type="button" class="browse button" id="browse2" style="width: 20%;">
@@ -75,11 +75,11 @@
         </button>
     </div>
     <!-- 자격증 발급 일자 -->
-    <input type="date" class="input license2" name="licenseDate2">
+    <input type="date" class="input license2" name="licenseDate">
     <!-- 자격증 종류 -->
-    <input type="text" class="input license2" name="licenseType2" placeholder="자격증 종류를 입력해주세요.">
+    <input type="text" class="input license2" name="licenseType" placeholder="자격증 종류를 입력해주세요.">
     <!-- 자격증 발급 기관 -->
-    <input type="text" class="input license2" name="licenseCompany2" placeholder="자격증 발급 기관을 입력해주세요.">
+    <input type="text" class="input license2" name="licenseCompany" placeholder="자격증 발급 기관을 입력해주세요.">
 </div>
 
 <button type="button" id="license3Btn" onclick="fn_addLicenseDiv3()" style="display: none;">추가</button>
@@ -87,7 +87,7 @@
 
 <div class="licenseDiv" id="licenseDiv3">
     <!-- 자격증 파일 넣는 곳 -->
-    <input type="file" name="licensePic" id="real-input3" class="file real-input license3" accept="img/*">
+    <input type="file" name="licenseFileName" id="real-input3" class="file real-input license3" accept="img/*">
     <div class="input-group col-xs-12">
         <input type="text" class="input inputFile fileNameField license3" id="fileNameField3" disabled placeholder="이미지를 업로드 하세요.">
         <button type="button" class="browse button" id="browse3" style="width: 20%;">
@@ -95,11 +95,11 @@
         </button>
     </div>
     <!-- 자격증 발급 일자 -->
-    <input type="date" class="input license3" name="licenseDate3">
+    <input type="date" class="input license3" name="licenseDate">
     <!-- 자격증 종류 -->
-    <input type="text" class="input license3" name="licenseType3" placeholder="자격증 종류를 입력해주세요.">
+    <input type="text" class="input license3" name="licenseType" placeholder="자격증 종류를 입력해주세요.">
     <!-- 자격증 발급 기관 -->
-    <input type="text" class="input license3" name="licenseCompany3" placeholder="자격증 발급 기관을 입력해주세요.">
+    <input type="text" class="input license3" name="licenseCompany" placeholder="자격증 발급 기관을 입력해주세요.">
 </div>
 <script>
     // 파일관련
@@ -114,6 +114,7 @@
 
     //자격증 추가
     function fn_addLicenseDiv2(){
+        console.log($(".license1").val());
         $("#licenseDiv2").css({"display":"block"});
         $("#license3Btn").css({"display":"block"});
         $("#license2Remove").css({"display":"block"});

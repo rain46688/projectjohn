@@ -20,6 +20,7 @@
 		SELECT M.*,R.REPORT_ISWARNING FROM MEMBER M LEFT OUTER JOIN REPORT R ON M.USID=R.REPORT_TARGET_USID
 		WHERE MEM_CLASS LIKE ('일반유저') AND LEAVE_MEM LIKE 0
 	</select>
+	
 	<select id="selectMemberCount" resultType="_int">
 		SELECT COUNT(*) FROM
 		MEMBER WHERE MEM_CLASS LIKE ('일반유저') AND LEAVE_MEM LIKE 0
@@ -62,14 +63,15 @@
 
 	<select id="searchMemberListCount" resultType="_int"
 		parameterType="map">
-		SELECT COUNT(*) FROM MEMBER WHERE ${type} LIKE
+		SELECT COUNT(*) FROM MEMBER WHERE '${type}' LIKE
 		'%'||#{keyword, jdbcType=VARCHAR}||'%' 
 	
 	</select>
 	
-<!-- 	<select id="selectMemberById" resultType="member" parameterType="member">
-		SELECT * FROM MEMBER WHERE MEM_EMAIL=#{mem_email}
-	</select> -->
+ 	<select id="selectMemberById" resultType="member" parameterType="member">
+		SELECT M.*,R.REPORT_ISWARNING FROM MEMBER M LEFT OUTER JOIN REPORT R ON M.USID=R.REPORT_TARGET_USID
+		WHERE MEM_CLASS LIKE ('일반유저') AND LEAVE_MEM LIKE 0 AND MEM_EMAIL=#{mem_email}
+	</select>
 	
 
 	<!-- 게시판관련 -->
@@ -194,7 +196,7 @@
 
 	<select id="searchExpertListCount" resultType="_int"
 		parameterType="map">
-		SELECT COUNT(*) FROM MEMBER WHERE ${type2} LIKE '%'||#{keyword, jdbcType=VARCHAR}||'%'
+		SELECT COUNT(*) FROM MEMBER WHERE '${type2}' LIKE '%'||#{keyword, jdbcType=VARCHAR}||'%'
 		AND MEM_CLASS LIKE('전문가')
 	</select>
 	

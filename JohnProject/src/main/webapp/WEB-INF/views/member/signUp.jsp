@@ -121,7 +121,7 @@
 			<div id="signUpField">
 				<h2 style="margin-bottom: 50px;">회원가입</h2>
 				<form id="memberEnrollFrm" name="memberEnrollFrm" action="${path}/member/signUpEnd" method="post" enctype="multipart/form-data">
-					<input type="email" id="id" name="mem_email" class="input" placeholder="이메일" required style="width: 59%;">
+					<input type="email" id="id" name="memEmail" class="input" placeholder="이메일" required style="width: 59%;">
 					<input type="button" class="button" id="certibtn" value="인증번호 전송" style="text-align: center;"><br>
 					<div class="constrain" id="idConstrain"></div>
 					<div class="constrain" id="idDuplicateAjax"></div>
@@ -131,18 +131,18 @@
 						<div class="constrain" id="certiDuplicate"></div>
 					</div>
 
-					<input type="password" placeholder="비밀번호" class="input" id="pw" name="mem_pwd" minlength="4" maxlength="16" required>
+					<input type="password" placeholder="비밀번호" class="input" id="pw" name="memPwd" minlength="4" maxlength="16" required>
 					<div class="constrain" id="pwConstrain"></div>
 					<input type="password" placeholder="비밀번호 확인" class="input" id="pw2">
 					<div class="constrain" id="pw2Constrain"></div>
 					
-					<input type="text" placeholder="닉네임" class="input" id="nickname" name="mem_nickname" maxlength="10" required>
+					<input type="text" placeholder="닉네임" class="input" id="nickname" name="memNickname" maxlength="10" required>
 					<div class="constrain" id="nnConstrain"></div>
 					<div class="constrain" id="nickDuplicateAjax"></div>
 
 					
 					
-					<input type="text" placeholder="이름" class="input checkLength" id="name" name="mem_name" minlength="2" maxlength="5" required>
+					<input type="text" placeholder="이름" class="input checkLength" id="name" name="memName" minlength="2" maxlength="5" required>
 					<div class="constrain" id="nameConstrain"></div>
 					
 					<div class="dividedForm">
@@ -192,9 +192,9 @@
 							회원구분
 						</div>
 						<div class="dividedText">
-							<input type="radio" class="mem_class" name="mem_class" id="normalUser" value="normalUser"><label for="normalUser">&nbsp;일반유저</label>
+							<input type="radio" class="memClass" name="memClass" id="normalUser" value="normalUser"><label for="normalUser">&nbsp;일반유저</label>
 							&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-							<input type="radio" class="mem_class" name="mem_class" id="expertUser" value="expertUser"><label for="expertUser">&nbsp;전문가</label>
+							<input type="radio" class="memClass" name="memClass" id="expertUser" value="expertUser"><label for="expertUser">&nbsp;전문가</label>
 						</div>
 					</div>
 					<div class="constrain" id="classConstrain"></div>
@@ -236,7 +236,7 @@
 			$("#id").keyup(e=>{
 				$.ajax({
 					url:"${path}/member/emailDuplicate",
-					data:{"mem_email":$("#id").val().trim()},
+					data:{"memEmail":$("#id").val().trim()},
 					type:"post",
 					dataType:"html",
 					success: function(data){
@@ -363,7 +363,7 @@
 			$("#nickname").keyup(e=>{
 				$.ajax({
 					url:"${path}/member/NNDuplicate",
-					data:{"mem_nickname":$(e.target).val()},
+					data:{"memNickname":$(e.target).val()},
 					type:"post",
 					dataType:"html",
 					success:function(data){
@@ -593,8 +593,8 @@
 					$("#nameConstrain").css({"color":"red"});
 				}
 				//회원구분
-				const mem_class=$('input:radio[name="mem_class"]:checked');
-				if(mem_class.length<1){
+				const memClass=$('input:radio[name="memClass"]:checked');
+				if(memClass.length<1){
 					$("#mcConstrain").html("필수 선택 항목입니다.");
 					$("#mcConstrain").css({"display":"block"});
 					$("#mcConstrain").css({"color":"red"});
@@ -640,22 +640,21 @@
 				}
 
 				//회원구분
-				const mem_class=$('input:radio[name="mem_class"]:checked');
-				if(mem_class.length<1){
+				if(memClass.length<1){
 					$("#classConstrain").html("필수 선택 항목입니다.");
 					$("#classConstrain").css({"display":"block"});
 					$("#classConstrain").css({"color":"red"});
 				}
 				
-				if(mem_class.val()=='expertUser'){
-					if($(".license1").val('') && $(".license2").val('') && $(".license3").val('')){
+				if(memClass.val()=='expertUser'){
+					if($(".license1").val()==null && $(".license2").val()==null && $(".license3").val()==null){
 						alert('최소 한 개의 자격증을 업로드해야합니다.');
 					}
 				}
 
 				//제약조건을 만족했나요
 				if(id!=="" && (pw!==""&&pwPattern.test(pw)) && (pw2!==""&&pw===pw2) && (nn!==""&&nnPattern.test(nn))
-					&& (mem_class.length=10||mem_class.length>1) && (name!==""&&namePattern.test(name))
+					&& (memClass.length=10||memClass.length>1) && (name!==""&&namePattern.test(name))
 					&& (gender.length=1||gender.length>1)
 					&& (yy!=="" && yyPattern.test(yy)) && mm!=="" && mm!=="월" && (dd!==""&&ddPattern.test(dd)) 
 					&& (phone!==""&&pnPattern.test(phone))

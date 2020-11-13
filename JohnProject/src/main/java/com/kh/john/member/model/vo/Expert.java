@@ -7,11 +7,11 @@ import lombok.Data;
 @Data
 public class Expert {
 	
-	private int expert_usid;
-	private int expert_rating;
-	private String expert_greetings;
-	private String expert_profile;
-	private String expert_counsel_area;
-	private Date expert_counsel_start_time;
-	private Date expert_counsel_end_time;
+	private int expertUsid;
+	private int expertRating;
+	private String expertGreetings;
+	private String expertProfile;
+	private String expertCounselArea;
+	private Date expertCounselStartTime;
+	private Date expertCounselEndTime;
 }
