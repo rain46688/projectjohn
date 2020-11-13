@@ -16,6 +16,7 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
 <!-- Latest compiled JavaScript -->
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+<script src="//cdnjs.cloudflare.com/ajax/libs/lodash.js/0.10.0/lodash.min.js"></script>
 </head>
 <style>
 .container {
@@ -100,6 +101,7 @@
 			</div>
 
 		</section>
+		
 		<script>
 			'use strict';
 
@@ -115,7 +117,15 @@
 			let rtc_peer_connection = null;
 			let rtc_session_description = null;
 			let get_user_media = null;
-
+			//let user_cam=null;
+	
+ /* 		let cam = _.once = function(func){
+				console.log("once");
+				return false;
+			}; 
+			user_cam = cam();
+			console.log("user_cam : "+user_cam); */
+			
 			//TURN & STUN 서버 등록
 			const configuration = {
 				'iceServers' : [ {
@@ -129,8 +139,8 @@
 
 			//---------------------------- signaling 서버 -------------------------------------
 
-			const conn = new WebSocket('wss://192.168.120.31${path}/ertc');
-			//const conn = new WebSocket('wss://192.168.219.105${path}/ertc');
+			//const conn = new WebSocket('wss://192.168.120.31${path}/ertc');
+			const conn = new WebSocket('wss://192.168.219.105${path}/ertc');
 			//const conn = new WebSocket('wss://localhost${path}/ertc');
 
 			conn.onopen = function() {
@@ -139,6 +149,7 @@
 					sendMessage(new ExboardMsg("SYS",
 							"${loginMember.mem_nickname}", "접속"));
 				}
+				
 			};
 
 			conn.onmessage = function(msg) {
@@ -173,7 +184,6 @@
 					start();
 					$("#extext").val(content.nick + "님이 접속하셨습니다.");
 					// printdiv(content.nick+"님이 접속하셨습니다.");
-	
 				} else if (content.type == 'TXT') {
 					console.log(" === 분기 TXT === ");
 					$("#memtext").html("");
@@ -182,8 +192,12 @@
 					console.log(" === 분기 CAM === ");
 					if(content.msg === 'off'){
 						video2.srcObject = null;
+						$("#extext").val($("#extext").val()+"\n유저가 카메라를 끄셨습니다.");
+						//user_cam = false;
 					}else{
 						video2.srcObject = remoteStream;
+						$("#extext").val($("#extext").val()+"\n유저가 카메라를 키셨습니다.");
+						//user_cam = true;
 					}
 				} else if (content.type == 'END') {
 					console.log(" === 분기 END === ");
@@ -194,7 +208,6 @@
 
 			conn.onclose = function() {
 				console.log('onclose 실행');
-				sendMessage(new ExboardMsg("SYS","${loginMember.mem_nickname}", "접속"));
 			};
 
 			function sendMessage(message) {
@@ -294,6 +307,12 @@
 				if ("${loginMember.mem_class}" != '전문가') {
 					video2.srcObject = remoteStream;
 				}
+				/* else{
+					if(user_cam != false){
+						video2.srcObject = remoteStream;
+					} 
+				}
+				*/
 			};
 
 			function doCall() {

@@ -59,6 +59,9 @@ public class ExboardController {
 		}
 		return mv;
 	}
+//상담 희망시간, 요구사항 받아서 넘기기
+	// 상담 종료후에도 평점이랑 후기 적기
+//https://www.cssscript.com/accessible-star-rating-system-pure-css/
 
 	// 전문가 상세 프로필 보는곳 여기서 상담 신청 가능
 	@RequestMapping("/expertApply")
@@ -199,7 +202,7 @@ public class ExboardController {
 			context = (req.getRequestURL()).substring(0, n);
 			MailHandler sendMail = new MailHandler(mailSender);
 			sendMail.setSubject("상담 채팅 요청이 도착했습니다.)");
-			String html = context + "/expertRoom?bno=" + result;
+			String html = context + "/john/expertRoom?bno=" + result;
 			log.debug("html : " + html);
 			sendMail.setText(new StringBuffer().append(html + "<br> 링크를 클릭해서 상담으로 바로가기").toString());
 			sendMail.setFrom("minsu87750@gmail.com", "재판하는 존경장님");
@@ -232,27 +235,36 @@ public class ExboardController {
 		// 해당 게시판 넘버에 맞는 유저를 판별하기 위해서 가져옴
 		try {
 			ExpertBoard eb = service.selectExpertBoard(bnum);
-			log.debug(" 상담 결과 : " + eb.getExpertBoardAdviceResult());
+			log.debug("eb : " + eb);
+
+			// 쿼리스트링에 방넘버가 없거나 있지도 않는 방에 접근할때
+			if (eb == null || bnum.equals("") || bnum == null) {
+				log.debug("잘못된 접근");
+				mv = gotoMsg(mv, "/", "잘못된 접근입니다.");
+				return mv;
+			}
+
+			// log.debug(" 상담 결과 : " + eb.getExpertBoardAdviceResult());
 			if (m.getMem_class().equals("전문가")) {
-				log.debug("전문가");
+				// log.debug("전문가");
 				if (m.getUsid() != eb.getExpertBoardUsid()) {
-					log.debug("잘못된 접근");
+					// log.debug("잘못된 접근");
 					mv = gotoMsg(mv, "/", "잘못된 접근입니다.");
 					return mv;
 				} else if (eb.getExpertBoardAdviceResult() != null) {
-					log.debug("이미 만료된 상담입니다.");
+					// log.debug("이미 만료된 상담입니다.");
 					mv = gotoMsg(mv, "/", "만료된 상담입니다.");
 					return mv;
 				}
 				s.setExpert(true);
 			} else {
-				log.debug("전문가 아님");
+				// log.debug("전문가 아님");
 				if (m.getUsid() != eb.getExpertBoardMemUsid()) {
-					log.debug("잘못된 접근2");
+					// log.debug("잘못된 접근2");
 					mv = gotoMsg(mv, "/", "잘못된 접근입니다.");
 					return mv;
 				} else if (eb.getExpertBoardAdviceResult() != null) {
-					log.debug("이미 만료된 상담입니다.");
+					// log.debug("이미 만료된 상담입니다.");
 					mv = gotoMsg(mv, "/", "만료된 상담입니다.");
 					return mv;
 				}
