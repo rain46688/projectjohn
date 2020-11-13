@@ -102,7 +102,7 @@ public class CustomerController {
 				}
 				
 				NoticeFile noticeFile = new NoticeFile();
-				noticeFile.setNotice_file_name(renamedFilename);
+				noticeFile.setNoticeFileName(renamedFilename);
 				files.add(noticeFile);
 				System.out.println("노티스파일"+noticeFile);
 				System.out.println("파일스"+files);
@@ -129,13 +129,13 @@ public class CustomerController {
 	
 	//공지사항 상세보기
 	@RequestMapping("/customer/customerNoticeView")
-	public ModelAndView NoticeView(ModelAndView mv, int notice_id) {
+	public ModelAndView NoticeView(ModelAndView mv, int noticeId) {
 		
-		mv.addObject("notice",service.selectOneNotice(notice_id));
+		mv.addObject("notice",service.selectOneNotice(noticeId));
 		System.out.println("mv"+mv);
-		System.out.println("notice_id"+notice_id);
-		System.out.println("서비스.셀렉트원노티스"+service.selectOneNotice(notice_id));
-		mv.addObject("noticeFile",service.selectNoticeFile(notice_id));
+		System.out.println("noticeId"+noticeId);
+		System.out.println("서비스.셀렉트원노티스"+service.selectOneNotice(noticeId));
+		mv.addObject("noticeFile",service.selectNoticeFile(noticeId));
 		mv.setViewName("customer/customerNoticeView");
 		
 		return mv;

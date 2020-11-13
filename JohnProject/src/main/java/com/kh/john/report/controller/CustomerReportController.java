@@ -58,7 +58,7 @@ public class CustomerReportController {
 					e.printStackTrace();
 				}
 				ReportFile reportFile = new ReportFile();
-				reportFile.setReport_file_name(renamedFilename);
+				reportFile.setReportFileName(renamedFilename);
 				files.add(reportFile);
 			//}
 		}

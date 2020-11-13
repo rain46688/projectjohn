@@ -92,14 +92,14 @@ ul li {
 					<c:forEach items="${list }" var="m">
 						<tr>
 							<td><c:out value="${m.usid}" /></td>
-							<td><c:out value="${m.mem_email}" /></td>
-							<td><a href="javascript:updateMemberToExpert(${m.usid});"><c:out value="${m.mem_name}"/></a></td>
-							<td><c:out value="${m.mem_nickname}" /></td>
+							<td><c:out value="${m.memEmail}" /></td>
+							<td><a href="javascript:updateMemberToExpert(${m.usid});"><c:out value="${m.memName}"/></a></td>
+							<td><c:out value="${m.memNickname}" /></td>
 							<td><c:out value="${m.gender}" /></td>
 							<td><c:out value="${m.birthday}" /></td>
-							<td><c:out value="${m.enroll_date}" /></td>
-							<td><c:out value="${m.leave_mem}" /></td>
-							<td><c:out value="${m.mem_class}" /></td>
+							<td><c:out value="${m.enrollDate}" /></td>
+							<td><c:out value="${m.leaveMem}" /></td>
+							<td><c:out value="${m.memClass}" /></td>
 							<%-- <td><c:out value="${m.tel}"/></td>
 							<td><c:out value="${m.expert_rating}"/></td>
 							<td><c:out value="${m.expert_counsel_area}"/></td> --%>

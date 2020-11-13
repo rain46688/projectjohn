@@ -9,6 +9,6 @@ import lombok.NoArgsConstructor;
 @Data
 public class ReportFile {
 
-	private int report_id;
-	private String report_file_name;
+	private int reportId;
+	private String reportFileName;
 }

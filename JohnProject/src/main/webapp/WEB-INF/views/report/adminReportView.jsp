@@ -11,70 +11,62 @@
 	
 </jsp:include>
 	
-	  <style>
+	  	<style>
 	    div#board-container{width:400px; margin:0 auto; text-align:center;}
 	    div#board-container input,div#board-container button{margin-bottom:15px;}
 	    div#board-container label.custom-file-label{text-align:left;}
-    </style>
+   		</style>
     
 	<section id="content">
 		<div id="board-container">
-		<h1>게시판상세화면</h1>
-		<input type="text" class="form-control" name="report_id" id="report_id" value="${report.report_id }" readonly> 
-		<input type="text" class="form-control" name="report_board_id" id="report_board_id" value="${report.report_board_id }" > 
-        <input type="text" class="form-control" name="report_writer_usid" value="${report.report_writer_usid }" readonly required>
-        <input type="text" class="form-control" name="report_target_usid" id="report_target_usid" value="${report.report_target_usid}" > 
-       	<input type="text" class="form-control" name="report_type" id="report_type" value="${report.report_type}" > 
-        <input type="text" class="form-control" name="report_ischeck" id="report_ischeck" value="${report.report_ischeck}" > 
-        <input type="text" class="form-control" name="report_user_nickname" id="report_user_nickname" value="${report.report_user_nickname}" > 
-        <input type="text" class="form-control" name="report_target_nickname" id="report_target_nickname" value="${report.report_target_nickname}" > 
-        <input type="text" class="form-control" name="report_user_nickname" id="report_user_nickname" value="${report.report_user_nickname}" > 
+		<h1>게시판상세화면gg</h1>
+		<input type="text" class="form-control" name="reportId" id="reportId" value="${report.reportId }" readonly> 
+		<input type="text" class="form-control" name="reportBoardId" id="reportBoardId" value="${report.reportBoardId }" > 
+        <input type="text" class="form-control" name="reportWriterUsid" value="${report.reportWriterUsid }" readonly required>
+        <input type="text" class="form-control" name="reportTargetUsid" id="reportTargetUsid" value="${report.reportTargetUsid}" > 
+       	<input type="text" class="form-control" name="reportType" id="reportType" value="${report.reportType}" > 
+        <input type="text" class="form-control" name="reportIscheck" id="reportIscheck" value="${report.reportIscheck}" > 
+        <input type="text" class="form-control" name="reportUserNickname" id="reportUserNickname" value="${report.reportUserNickname}" > 
+        <input type="text" class="form-control" name="reportTargetNickname" id="reportTargetNickname" value="${report.reportTargetNickname}" > 
+        <input type="text" class="form-control" name="reportUserNickname" id="reportUserNickname" value="${report.reportUserNickname}" > 
         
-        <input type="text" class="form-control" name="report_target_nickname" id="report_target_nickname" value="${report.report_target_nickname}" >
-        <input type="text" class="form-control" name="report_answer" id="report_answer"  value="${report.report_answer }" placeholder="제목"  required>
-        <input type="text" class="form-control" name="report_iswarning" id="report_iswarning" value="${report.report_iswarning }" readonly> 
+        <input type="text" class="form-control" name="reportTargetNickname" id="reportTargetNickname" value="${report.reportTargetNickname}" >
+        <input type="text" class="form-control" name="reportAnswer" id="reportAnswer"  value="${report.reportAnswer }" placeholder="제목"  required>
+        <input type="text" class="form-control" name="reportIswarning" id="reportIswarning" value="${report.reportIswarning }" readonly> 
        
 		<c:forEach items="${reportFile}" var="a" varStatus="vs">
-             <img src="${path }/resources/upload/report/${a.report_file_name }">
+             <img src="${path }/resources/upload/report/${a.reportFileName }">
         </c:forEach> 
-        
-        
-        <textarea class="form-control" name="report_content" placeholder="내용" required><c:out value="${report.report_content }"/></textarea>
+
+        <textarea class="form-control" name="reportContent" placeholder="내용" required><c:out value="${report.reportContent }"/></textarea>
         <br>
-        
-        <button class="btn btn-outline-info" onclick="reportWarn('${report.report_target_usid}');">경고주기</button>
-        <button class="btn btn-outline-info" onclick="reportViewDelete('${report.report_id}');">삭제하기</button>
-        
-        
+   
+        <button class="btn btn-outline-info" onclick="reportWarn('${report.reportTargetUsid}');">경고주기</button>
+        <button class="btn btn-outline-info" onclick="reportViewDelete('${report.reportId}');">삭제하기</button>
         
     </div>
-
-	
 	</section>
 	
 	<script>
 
-		function reportViewDelete(report_id){
+		function reportViewDelete(reportId){
 			 if (confirm("정말 삭제하시겠습니까?") == true){
-				 location.href="${path}/report/adminReportDelete?report_id="+report_id;
+				 location.href="${path}/report/adminReportDelete?reportId="+reportId;
 			 }else{  
 			     return;
 			 }
 		}
 		
-		var report_iswarning=document.getElementById("report_iswarning").value;
+		var reportIswarning=document.getElementById("reportIswarning").value;
 		
-		function reportWarn(report_target_usid){
+		function reportWarn(reportTargetUsid){
 			 if (confirm("정말 경고를 주시겠습니까?") == true){
-				 location.href="${path}/report/adminReportWarn?report_target_usid="+report_target_usid+"&report_iswarning="+report_iswarning;
+				 location.href="${path}/report/adminReportWarn?reportTargetUsid="+reportTargetUsid+"&reportIswarning="+reportIswarning;
 			 }else{  
 			     return;
 			 }
 		}
 		
-		
-		
-	
 	</script>
 	
 	
