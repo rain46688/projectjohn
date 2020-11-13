@@ -48,16 +48,15 @@
 	text-align: center;
 	width: 25px;
 	height: 25px;
-	top:50%;
-	font-size: 15px;
-	font-weight: bold;
+	top: 50%;
+	font-size: 15px; font-weight : bold;
 	color: yellow;
 	background-color: red;
 	border-radius: 70%;
 	border: 1px solid black;
 	box-shadow: 1px 1px 1px 1px gray;
+	font-weight: bold;
 }
-
 </style>
 <body>
 	<div class="containerJohn">
@@ -90,6 +89,8 @@
 					<button onclick="location.href='${path}/member/memberPage'">마이페이지</button>
 					<button onclick="location.href='${path}/admin/adminPage'">ADMIN</button>
 					<button onclick="location.href='${path}/member/logout'">로그아웃</button>
+					<!-- 전문과 관련 페이지 접근용 임시 포탈 -->
+					<button onclick="location.href='${path}/expert'">전문가</button>
 					<!-- 알람 임시 위치 & 이미지 나중에 수정해야됨 -->
 					<div id="alarmdiv">
 						<c:if test="${loginMember.usid != null}">
@@ -151,12 +152,12 @@
 									console.log("data : " + data);
 									num = data;
 									if (num > 0) {
-										console.log("0보다 큼")
+										//console.log("0보다 큼")
 										$("#number").append(
 												"<div id='al'>" + num
 														+ "</div>");
 									} else {
-										console.log("0보다 안큼")
+										//console.log("0보다 안큼")
 										$("#bell").removeClass('bell2');
 									}
 								}
@@ -203,4 +204,16 @@
 						this.alarmDate = ALARM_DATE;
 						this.alarmIscheked = ALARM_ISCHECKED;
 					};
+
+					$('#alarmdiv').hover(function() {
+						$(this).css({
+							"height" : "110%",
+							"width" : "52px"
+						});
+					}, function() {
+						$(this).css({
+							"height" : "100%",
+							"width" : "50px"
+						});
+					});
 				</script>

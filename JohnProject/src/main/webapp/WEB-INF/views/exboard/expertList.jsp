@@ -146,7 +146,7 @@
 								<p class="card-text">
 									<small class="text-muted">평점 : 넣어야됨!</small>
 								</p>
-								<a href="${path}/expertApply?no=${e.usid}&nic=${e.memNickname}">
+								<a href="${path}/expert/expertApply?no=${e.usid}&nic=${e.memNickname}">
 									<button type="button" class="btn btn-outline-primary">상담 신청</button>
 								</a>
 							</div>

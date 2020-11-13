@@ -76,7 +76,7 @@
 								</div>
 								<div class="noti">
 									<div class="noContent">
-										안녕하세요 상담사 ${n.alarmSendMemNickname}입니다.<br> 아래 URL로 바로 접속하셔서 상담 진행하시면됩니다.<br> <a href="${path }/expertRoom?bno=${n.alarmMsgContent}">상담 링크 바로가기</a>
+										안녕하세요 상담사 ${n.alarmSendMemNickname}입니다.<br> 아래 URL로 바로 접속하셔서 상담 진행하시면됩니다.<br> <a href="${path }/expert/expertRoom?bno=${n.alarmMsgContent}">상담 링크 바로가기</a>
 									</div>
 								</div>
 							</c:when>

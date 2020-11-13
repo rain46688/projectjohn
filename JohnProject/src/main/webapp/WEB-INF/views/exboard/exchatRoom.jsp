@@ -118,6 +118,7 @@
 			let rtc_session_description = null;
 			let get_user_media = null;
 			//let user_cam=null;
+			let user_usid;
 	
  /* 		let cam = _.once = function(func){
 				console.log("once");
@@ -139,15 +140,15 @@
 
 			//---------------------------- signaling 서버 -------------------------------------
 
-			const conn = new WebSocket('wss://192.168.120.31${path}/ertc');
-			//const conn = new WebSocket('wss://192.168.219.105${path}/ertc');
+			//const conn = new WebSocket('wss://192.168.120.31${path}/ertc');
+			const conn = new WebSocket('wss://192.168.219.105${path}/ertc');
 			//const conn = new WebSocket('wss://localhost${path}/ertc');
 
 			conn.onopen = function() {
 				console.log("onopen => signaling server 연결");
 				if ("${loginMember.memClass}" != '전문가') {
 					sendMessage(new ExboardMsg("SYS",
-							"${loginMember.memNickname}", "접속"));
+							"${loginMember.memNickname}", "접속","${loginMember.usid}"));
 				}
 				
 			};
@@ -161,11 +162,8 @@
 					start();
 				} else if (content.type === 'offer') {
 					console.log(" === 분기 offer === ");
-					console.log(" === 분기 offer 2 === ");
 					start();
-					pc
-							.setRemoteDescription(new rtc_session_description(
-									content));
+					pc.setRemoteDescription(new rtc_session_description(content));
 					doAnswer();
 				} else if (content.type === 'answer') {
 					console.log(" === 분기 answer === ");
@@ -182,8 +180,8 @@
 				} else if (content.type == 'SYS') {
 					console.log(" === 분기 SYS === ");
 					start();
+					user_usid=content.id;
 					$("#extext").val(content.nick + "님이 접속하셨습니다.");
-					// printdiv(content.nick+"님이 접속하셨습니다.");
 				} else if (content.type == 'TXT') {
 					console.log(" === 분기 TXT === ");
 					$("#memtext").html("");
@@ -400,13 +398,13 @@
 
 			//상담 종료 해당 텍스트 에어리어의 기록 디비에 저장하고 종료
 			function counselEnd() {
-				
-				let result = confirm("해당 회원과 상담을 종료 하시겠습니까?");
+				console.log("user_usid : "+user_usid);
+			 	 let result = confirm("해당 회원과 상담을 종료 하시겠습니까?");
 				if(result){
 					let form = document.createElement("form");
 					form.setAttribute("charset", "UTF-8");
 					form.setAttribute("method", "Post");
-					form.setAttribute("action", "${path}/counselEnd");
+					form.setAttribute("action", "${path}/expert/counselEnd");
 					let hiddenField = document.createElement("input");
 					hiddenField.setAttribute("type", "hidden");
 					hiddenField.setAttribute("name", "extext");
@@ -422,6 +420,8 @@
 					exit();
 					sendMessage(new ExboardMsg("END",
 							"${loginMember.memClass}", "종료"));
+					//header가 없어서 알람을 못보냄 나중에 여기에 헤더를 넣을지 말지 상의해서 추가하기
+				//sendAlarm("${loginMember.usid}",user_usid,"expertend",bno,"${loginMember.memNickname}");
 				}
 			}
 

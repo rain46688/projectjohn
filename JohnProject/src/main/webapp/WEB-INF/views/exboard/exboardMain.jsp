@@ -25,9 +25,9 @@ label, input {
 	<p>전문가 : ${loginMember.memClass}</p>
 	<p>USID : ${loginMember.usid}</p>
 	<br>
-	<button class="btn btn-outline-success" onclick="location.replace('${path}/expertPrintList');">유저가 전문가 리스트 보기</button>
+	<button class="btn btn-outline-success" onclick="location.href='${path}/expert/expertPrintList'">유저가 전문가 리스트 보기</button>
 	<c:if test="${loginMember.memClass == '전문가'}">
-		<button class="btn btn-outline-success" onclick="location.replace('${path}/expertRequestPrintList');">전문가가 상담할 유저 리스트 보기</button>
+		<button class="btn btn-outline-success" onclick="location.href='${path}/expert/expertRequestPrintList'">전문가가 상담할 유저 리스트 보기</button>
 	</c:if>
 	
 	
