@@ -12,4 +12,6 @@ public interface AlarmService {
 
 	int updateAlarmRead(int aid) throws Exception;
 
+	int insertExpertAlarm(Alarm almsg) throws Exception;
+
 }

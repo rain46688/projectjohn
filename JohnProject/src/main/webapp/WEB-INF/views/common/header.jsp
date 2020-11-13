@@ -19,6 +19,8 @@
 <!-- Latest compiled JavaScript -->
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/sockjs-client/1.5.0/sockjs.min.js"></script>
+<script defer src="http://localhost:3000/socket.io/socket.io.js"></script>
+<script defer src="${path}/resources/js/script.js"></script>
 <link rel="stylesheet" href="${path}/resources/css/layout.css">
 </head>
 <style>
@@ -103,9 +105,10 @@
                     <button onclick="location.href='${path}/member/memberPage'">마이페이지</button>
                     <button onclick="location.href='${path}/admin/adminPage'" >ADMIN</button>
                     <button onclick="location.href='${path}/member/logout'">로그아웃</button>
+                    <!-- 알람 임시 위치 & 이미지 나중에 수정해야됨 -->
                     <div id="alarmdiv">
                      	<c:if test="${loginMember.usid != null}">
-						<a id="bell" class="bell2" href="/alarmList?usid=${loginMember.usid }"><img src="${path }/resources/images/bell.png" ></a>
+						<a id="bell" class="bell2" href="${path }/alarmList?usid=${loginMember.usid }"><img src="${path }/resources/images/bell.png" ></a>
 						<c:if test="${loginMember.usid != null}">
 						<a id="number" href="${path }/alarmList?usid=${loginMember.usid }"></a>
 						</c:if>
@@ -180,7 +183,7 @@
          		
          		 //const alsocket = new WebSocket("wss://localhost${path}/alsocket");
          		 const alsocket = new WebSocket("wss://192.168.120.31${path}/alsocket");
-                // const alsocket = new WebSocket("wss://192.168.219.105${path}/alsocket");
+                 //const alsocket = new WebSocket("wss://192.168.219.105${path}/alsocket");
                  
                  alsocket.onopen = function(){
         			
@@ -188,8 +191,8 @@
         		
         		alsocket.onmessage = function(msg){
         			console.log("msg 콘솔 : "+msg);
-        			console.log("num : "+num++);
-        			console.log("num2 : "+num);
+        			num++;
+           			console.log("num : "+num);
         			$("#number").html("");
         			$("#number").append("<div id='al'>"+num+"</div>");
         			$("#bell").addClass('bell2');

@@ -22,9 +22,9 @@
 		<h1>게시판상세화면</h1>
 		
 		<form name="customerNoticeModifyFrm" action="${path }/customer/customerNoticeModifyEnd" method="post">
-		<input type="text" class="form-control" name="notice_id" id="notice_id" value="${notice.notice_id }" readonly> 
-        <input type="text" class="form-control" value="${notice.notice_title }" placeholder="제목" name="notice_title" id="notice_title"  required>
-        <input type="text" class="form-control" name="notice_admin_nickname" value="${notice.notice_admin_nickname }" readonly required>
+		<input type="text" class="form-control" name="noticeId" id="noticeId" value="${notice.noticeId }" readonly> 
+        <input type="text" class="form-control" value="${notice.noticeTitle }" placeholder="제목" name="noticeTitle" id="noticeTitle"  required>
+        <input type="text" class="form-control" name="noticeAdminNickname" value="${notice.noticeAdminNickname }" readonly required>
 		<c:forEach items="${noticeFile }" var="a" varStatus="vs">
                     <button type="button" 
                     class="btn btn-outline-info btn-block"
@@ -33,7 +33,7 @@
            			</button>
         </c:forEach>
         
-        <textarea class="form-control" name="notice_content" placeholder="내용" required><c:out value="${notice.notice_content }"/></textarea>
+        <textarea class="form-control" name="noticeContent" placeholder="내용" required><c:out value="${notice.noticeContent }"/></textarea>
         <br>
         
         <input type="submit" value="수정완료">

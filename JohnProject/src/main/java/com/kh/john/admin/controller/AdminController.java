@@ -41,9 +41,9 @@ public class AdminController {
 	// 멤버 리스트 불러오기
 	@RequestMapping("/admin/adminMember")
 	public ModelAndView adminMember(ModelAndView mv,
-			@RequestParam(value="mem_email",required=false) String mem_email, 
-			@RequestParam(value = "cPage", required = false, defaultValue = "1") int cPage,
-			@RequestParam(value = "numPerPage", required = false, defaultValue = "10") int numPerPage) 
+			@RequestParam(value="memEmail",required=false) String memEmail, 
+			@RequestParam(value ="cPage", required = false, defaultValue = "1") int cPage,
+			@RequestParam(value ="numPerPage", required = false, defaultValue = "10") int numPerPage) 
 					throws NoSuchAlgorithmException, UnsupportedEncodingException, GeneralSecurityException {
 		List<Member> list = service.selectMemberList(cPage, numPerPage);
 		
@@ -51,15 +51,16 @@ public class AdminController {
 		for (Member a : list) {
 			String memberId;
 			try {
-				memberId = aes.decrypt(a.getMem_email());
+				memberId = aes.decrypt(a.getMemEmail());
 			} catch (Exception e) {
-				memberId = a.getMem_email();
+				memberId = a.getMemEmail();
 			}
-			a.setMem_email(memberId);
+			a.setMemEmail(memberId);
 		}
 		
 
 		int totalData = service.selectMemberCount();
+		System.out.println("멤버리스트토탈데이터:"+totalData);
 
 		mv.addObject("pageBar", PageBarFactory.getPageBar(totalData, cPage, numPerPage, "adminMember"));
 
@@ -101,8 +102,8 @@ public class AdminController {
 			@RequestParam(value="searchType", required=false) String type2,
 			@RequestParam(value="keyword", required=false) String keyword,
 			@RequestParam(value="gender", required=false) String gender,
-			@RequestParam(value="mem_class", required=false) String[] mem_class,
-			@RequestParam(value="leave_mem", required=false) String[] leave_mem,
+			@RequestParam(value="memClass", required=false) String[] memClass,
+			@RequestParam(value="leaveMem", required=false) String[] leaveMem,
 			@RequestParam(value="cPage", required = false, defaultValue = "1") int cPage,
 			@RequestParam(value="numPerPage", required = false, defaultValue = "10") int numPerPage) {
 
@@ -112,8 +113,8 @@ public class AdminController {
 		param.put("type2", type2);
 		param.put("keyword", keyword);
 		param.put("gender", gender);
-		param.put("mem_class", mem_class);
-		param.put("leave_mem", leave_mem);
+		param.put("memClass", memClass);
+		param.put("leaveMem", leaveMem);
 		System.out.println("맵안에:"+param);
 
 		int totalData = service.searchMemberListCount(param);
@@ -123,11 +124,11 @@ public class AdminController {
 		for (Member a : list) {
 			String memberId;
 			try {
-				memberId = aes.decrypt(a.getMem_email());
+				memberId = aes.decrypt(a.getMemEmail());
 			} catch (Exception e) {
-				memberId = a.getMem_email();
+				memberId = a.getMemEmail();
 			}
-			a.setMem_email(memberId);
+			a.setMemEmail(memberId);
 		}
 		mv.addObject("pageBar", PageBarFactory.getPageBar(totalData, cPage, numPerPage, "adminMember"));
 
@@ -167,8 +168,8 @@ public class AdminController {
 			@RequestParam(value="keyword", required=false) String keyword,
 			@RequestParam(value="keyword2", required=false) String keyword2,
 			@RequestParam(value="searchType2", required=false) String type2,
-			@RequestParam(value="big_category", required=false) String big_category,
-			@RequestParam(value="small_category", required=false) String small_category,
+			@RequestParam(value="bigCategory", required=false) String bigCategory,
+			@RequestParam(value="smallCategory", required=false) String smallCategory,
 			@RequestParam(value="order", required=false) String order,
 			@RequestParam(value="isclose", required=false) String[] isclose,
 			@RequestParam(value="cPage", required = false, defaultValue = "1") int cPage,
@@ -180,8 +181,8 @@ public class AdminController {
 		param.put("keyword", keyword);
 		param.put("keyword2", keyword2);
 		param.put("type2", type2);
-		param.put("big_category", big_category);
-		param.put("small_category", small_category);
+		param.put("bigCategory", bigCategory);
+		param.put("smallCategory", smallCategory);
 		param.put("isclose", isclose);
 		param.put("order",order);
 		System.out.println("맵안에:"+param);
@@ -212,11 +213,11 @@ public class AdminController {
 		for (Member a : list) {
 			String memberId;
 			try {
-				memberId = aes.decrypt(a.getMem_email());
+				memberId = aes.decrypt(a.getMemEmail());
 			} catch (Exception e) {
-				memberId = a.getMem_email();
+				memberId = a.getMemEmail();
 			}
-			a.setMem_email(memberId);
+			a.setMemEmail(memberId);
 		}
 		
 		mv.addObject("pageBar", PageBarFactory.getPageBar(totalData, cPage, numPerPage, "adminExpert"));
@@ -239,11 +240,11 @@ public class AdminController {
 		for (Member a : list) {
 			String memberId;
 			try {
-				memberId = aes.decrypt(a.getMem_email());
+				memberId = aes.decrypt(a.getMemEmail());
 			} catch (Exception e) {
-				memberId = a.getMem_email();
+				memberId = a.getMemEmail();
 			}
-			a.setMem_email(memberId);
+			a.setMemEmail(memberId);
 		}
 		
 		mv.addObject("pageBar", PageBarFactory.getPageBar(totalData, cPage, numPerPage, "adminBeforeExpert"));
@@ -297,8 +298,8 @@ public class AdminController {
 			@RequestParam(value="searchType", required=false) String type,
 			@RequestParam(value="keyword", required=false) String keyword,
 			@RequestParam(value="gender", required=false) String gender,
-			@RequestParam(value="mem_class", required=false) String[] mem_class,
-			@RequestParam(value="leave_mem", required=false) String[] leave_mem,
+			@RequestParam(value="memClass", required=false) String[] memClass,
+			@RequestParam(value="leaveMem", required=false) String[] leaveMem,
 			@RequestParam(value="searchType2", required=false) String type2,
 			@RequestParam(value="order", required=false) String order,
 			@RequestParam(value="cPage", required = false, defaultValue = "1") int cPage,
@@ -309,8 +310,8 @@ public class AdminController {
 		param.put("type", type);
 		param.put("keyword", keyword);
 		param.put("gender", gender);
-		param.put("mem_class", mem_class);
-		param.put("leave_mem", leave_mem);
+		param.put("memClass", memClass);
+		param.put("leaveMem", leaveMem);
 		param.put("type2", type2);
 		param.put("order", order);
 		System.out.println("맵안에:"+param);
@@ -322,11 +323,11 @@ public class AdminController {
 		for (Member a : list) {
 			String memberId;
 			try {
-				memberId = aes.decrypt(a.getMem_email());
+				memberId = aes.decrypt(a.getMemEmail());
 			} catch (Exception e) {
-				memberId = a.getMem_email();
+				memberId = a.getMemEmail();
 			}
-			a.setMem_email(memberId);
+			a.setMemEmail(memberId);
 		}
 
 		mv.addObject("pageBar", PageBarFactory.getPageBar(totalData, cPage, numPerPage, "adminMember"));

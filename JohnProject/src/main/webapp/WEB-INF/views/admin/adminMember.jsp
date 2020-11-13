@@ -42,13 +42,13 @@
 			
 			<br>
 			
-			<input type="checkbox" name="leave_mem" value="0">현재 회원
-			<input type="checkbox" name="leave_mem" value="1">탈퇴한 회원
+			<input type="checkbox" name="leaveMem" value="0">현재 회원
+			<input type="checkbox" name="leaveMem" value="1">탈퇴한 회원
 
 			<br>
 			
-			<input type="checkbox" name="mem_class" value="일반유저">일반유저
-			<input type="checkbox" name="mem_class" value="전문가">전문가
+			<input type="checkbox" name="memClass" value="일반유저">일반유저
+			<input type="checkbox" name="memClass" value="전문가">전문가
 						
 			<input type="submit" value="검색">
 		</form>
@@ -76,15 +76,15 @@
 			<c:forEach items="${list }" var="m">
 				<tr>
 					<td><c:out value="${m.usid}"/></td>
-					<td><c:out value="${m.mem_email}"/></td>
-					<td><a href="javascript:deleteMember(${m.usid});"><c:out value="${m.mem_name}"/></a></td>
-					<td><c:out value="${m.mem_nickname}"/></td>
+					<td><c:out value="${m.memEmail}"/></td>
+					<td><a href="javascript:deleteMember(${m.usid});"><c:out value="${m.memName}"/></a></td>
+					<td><c:out value="${m.memNickname}"/></td>
 					<td><c:out value="${m.gender}"/></td>
 					<td><c:out value="${m.birthday}"/></td>
-					<td><c:out value="${m.enroll_date}"/></td>
+					<td><c:out value="${m.enrollDate}"/></td>
 					<td><c:out value="${m.point}"/></td>
-					<td><c:out value="${m.leave_mem}-"/></td>
-					<td><c:out value="${m.mem_class}"/></td>
+					<td><c:out value="${m.leaveMem}"/></td>
+					<td><c:out value="${m.memClass}"/></td>
 					<%-- <td><c:out value="${report.report_iswarning}"/></td>  --%>
 					
 				</tr>

@@ -22,18 +22,18 @@
 	        <form name="boardFrm" action="${path}/report/customerReportEnd"   method="post" enctype="multipart/form-data" > <!-- 파일업로드시 enctype 멀티파트 써주는거 잊지말기!!!!!!!!!!!! -->
 	           
 	          
-	            <input type="text" class="form-control" name="report_board_id" id="report_board_id" value="23" > <!-- 신고대상게시물번호 --><!-- 변경요망 -->
-	            <input type="text" class="form-control" placeholder="제목" name="report_title" id="report_title" required> <!-- 제목 -->
-	            <input type="text" class="form-control" name="report_target_nickname" id="report_target_nickname"  
+	            <input type="text" class="form-control" name="reportBoardId" id="reportBoardId" value="23" > <!-- 신고대상게시물번호 --><!-- 변경요망 -->
+	            <input type="text" class="form-control" placeholder="제목" name="reportTitle" id="reportTitle" required> <!-- 제목 -->
+	            <input type="text" class="form-control" name="reportTargetNickname" id="reportTargetNickname"  
 	            	value="김땡땡" readonly><!-- 신고할회원 --><!-- 변경요망 -->
 	 		
-	 			<input type="hidden"  name="report_writer_usid" value="${loginMember.getUsid()}">
-	 			<input type="hidden"  name="report_target_usid" value="52"><!-- 변경요망 -->
-	 			<input type="hidden"  name="report_user_nickname" value="${loginMember.getMem_nickname() }">
+	 			<input type="hidden"  name="reportWriterUsid" value="${loginMember.getUsid()}">
+	 			<input type="hidden"  name="reportTargetUsid" value="52"><!-- 변경요망 -->
+	 			<input type="hidden"  name="reportUserNickname" value="${loginMember.getMemNickname() }">
 	 			
 	 			<hr>
 	        
-	            <select name="report_type" id="report_type" class="form-control" >
+	            <select name="reportType" id="reportType" class="form-control" >
 				  <option value="" selected disabled>-- 신고유형 --</option>
 				  <option value="홍보성">홍보성</option>
 				  <option value='권리침해'>권리침해</option>
@@ -66,7 +66,7 @@
 	            </div>
 	            
 	            
-	            <textarea class="form-control" name="report_content" placeholder="내용" required></textarea>
+	            <textarea class="form-control" name="reportContent" placeholder="내용" required></textarea>
 	            <br />
 	            <input type="submit" class="btn btn-outline-info" value="신고하기" >
 	            <input type="reset" class="btn btn-outline-info" value="취소" >

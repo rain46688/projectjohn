@@ -14,4 +14,6 @@ public interface AlarmDao {
 
 	int updateAlarmRead(SqlSessionTemplate session, int aid) throws Exception;
 
+	int insetExpertAlarm(SqlSessionTemplate session, Alarm almsg) throws Exception;
+
 }

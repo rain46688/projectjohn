@@ -2,23 +2,48 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="report">
 
-	<resultMap type="com.kh.john.report.model.vo.Report" 
-		id="reportMap">
+	<resultMap type="com.kh.john.report.model.vo.Report" id="reportMap">
+		<result property="reportId" column="report_id"/>
+		<result property="reportBoardId" column="report_board_id"/>
+		<result property="reportWriterUsid" column="report_writer_usid"/>
+		<result property="reportTargetUsid" column="report_target_usid"/>
+		<result property="reportType" column="report_type"/>
+		<result property="reportTitle" column="report_title"/>
+		<result property="reportContent" column="report_content"/>
+		<result property="reportDate" column="report_date"/>
+		<result property="reportIscheck" column="report_ischeck"/>
+		<result property="reportUserNickname" column="report_user_nickname"/>
+		<result property="reportTargetNickname" column="report_target_nickname"/>
+		<result property="reportAnswer" column="report_answer"/>
+		<result property="reportIswarning" column="report_iswarning"/>
 	</resultMap>
-	<resultMap type="com.kh.john.member.model.vo.Member" 
-		id="memberMap">
+	<resultMap type="com.kh.john.member.model.vo.Member" id="memberMap">
+		<result property="usid" column="usid"/>
+	    <result property="memEmail" column="mem_email"/>
+	    <result property="memPwd" column="mem_pwd"/>
+	    <result property="memName" column="mem_name"/>
+	    <result property="memNickname" column="mem_nickname"/>
+	    <result property="gender" column="gender"/>
+	    <result property="birthday" column="birthday"/>
+	    <result property="enrollDate" column="enroll_date"/>
+	    <result property="point" column="point"/>
+	    <result property="leaveMem" column="leave_mem"/>
+	    <result property="pwIsUuid" column="pw_is_uuid"/>
+	    <result property="memClass" column="mem_class"/>
+	    <result property="profilePic" column="profile_pic"/>
+	    <result property="tel" column="tel"/>
 	</resultMap>
 
 	<!-- customer -->
-	<insert id="insertReport" parameterType="report">
-		INSERT INTO REPORT VALUES(SEQ_REPORT_NO.NEXTVAL,#{report_board_id},#{report_writer_usid},#{report_target_usid},
-		#{report_type},#{report_title},#{report_content},default,0,#{report_user_nickname},#{report_target_nickname},
+	<insert id="insertReport" parameterType="report" >
+		INSERT INTO REPORT VALUES(SEQ_REPORT_NO.NEXTVAL,#{reportBoardId},#{reportWriterUsid},#{reportTargetUsid},
+		#{reportType},#{reportTitle},#{reportContent},default,0,#{reportUserNickname},#{reportTargetNickname},
 		null,0)
 	</insert>
 	
 	<insert id="insertReportFile" parameterType="reportFile">
-		INSERT INTO REPORT_FILE VALUES(#{report_id},#{report_file_name})
-		<selectKey keyProperty="report_id" resultType="_int" order="BEFORE">SELECT SEQ_REPORT_NO.CURRVAL FROM DUAL</selectKey>
+		INSERT INTO REPORT_FILE VALUES(#{reportId},#{reportFileName})
+		<selectKey keyProperty="reportId" resultType="_int" order="BEFORE">SELECT SEQ_REPORT_NO.CURRVAL FROM DUAL</selectKey>
 		
 	</insert>
 	
@@ -31,16 +56,16 @@
 		SELECT COUNT(*) FROM REPORT
 	</select>
 	
-	<select id="selectOneReport" parameterType="_int" resultType="report">
-		SELECT * FROM REPORT WHERE REPORT_ID=#{report_id}
+	<select id="selectOneReport" parameterType="_int" resultType="report" resultMap="reportMap">
+		SELECT * FROM REPORT WHERE REPORT_ID=#{reportId}
 	</select>
 	
-	<select id="selectReportFile" parameterType="_int" resultType="reportFile">
-		SELECT * FROM REPORT_FILE WHERE REPORT_ID=#{report_id}
+	<select id="selectReportFile" parameterType="_int" resultType="reportFile" resultMap="reportMap">
+		SELECT * FROM REPORT_FILE WHERE REPORT_ID=#{reportId}
 	</select>
 	
 	<delete id="deleteReport" parameterType="report">
-		DELETE FROM REPORT WHERE REPORT_ID=#{report_id}
+		DELETE FROM REPORT WHERE REPORT_ID=#{reportId}
 	</delete>
 	
 	<insert id="reportWarn" parameterType="report">
@@ -48,7 +73,7 @@
 		SET REPORT_ISWARNING=(REPORT_ISWARNING+1) WHERE EXISTS (
 		SELECT USID
 		FROM MEMBER M
-		WHERE R.REPORT_TARGET_USID = M.USID AND R.REPORT_TARGET_USID=#{report_target_usid})
+		WHERE R.REPORT_TARGET_USID = M.USID AND R.REPORT_TARGET_USID=#{reportTargetUsid})
 		
 	</insert>
 	

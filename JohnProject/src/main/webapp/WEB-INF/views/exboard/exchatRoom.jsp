@@ -7,7 +7,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>영상 상담</title>
+<title>영상 상담 임시 테스트용</title>
 <!-- Latest compiled and minified CSS -->
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
 <!-- jQuery library -->
@@ -16,6 +16,7 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
 <!-- Latest compiled JavaScript -->
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+<script src="//cdnjs.cloudflare.com/ajax/libs/lodash.js/0.10.0/lodash.min.js"></script>
 </head>
 <style>
 .container {
@@ -85,13 +86,13 @@
 			<button type="button" class="btn btn-outline-success my-2 my-sm-0" onclick='exit();'>연결 끊기</button> -->
 
 			<div id="textboard">
-				<c:if test="${loginMember.mem_class == '전문가'}">
+				<c:if test="${loginMember.memClass == '전문가'}">
 					<textarea id="extext" rows="20" cols="60"></textarea>
 					<br>
 					<button type="button" class="btn btn-outline-success my-2 my-sm-0" onclick='counselEnd();'>상담 완료</button>
 				</c:if>
 
-				<c:if test="${loginMember.mem_class != '전문가'}">
+				<c:if test="${loginMember.memClass != '전문가'}">
 					<br>
 					<textarea id="memtext" rows="20" cols="60" readonly></textarea>
 					<br>
@@ -100,6 +101,7 @@
 			</div>
 
 		</section>
+		
 		<script>
 			'use strict';
 
@@ -115,7 +117,15 @@
 			let rtc_peer_connection = null;
 			let rtc_session_description = null;
 			let get_user_media = null;
-
+			//let user_cam=null;
+	
+ /* 		let cam = _.once = function(func){
+				console.log("once");
+				return false;
+			}; 
+			user_cam = cam();
+			console.log("user_cam : "+user_cam); */
+			
 			//TURN & STUN 서버 등록
 			const configuration = {
 				'iceServers' : [ {
@@ -135,10 +145,11 @@
 
 			conn.onopen = function() {
 				console.log("onopen => signaling server 연결");
-				if ("${loginMember.mem_class}" != '전문가') {
+				if ("${loginMember.memClass}" != '전문가') {
 					sendMessage(new ExboardMsg("SYS",
-							"${loginMember.mem_nickname}", "접속"));
+							"${loginMember.memNickname}", "접속"));
 				}
+				
 			};
 
 			conn.onmessage = function(msg) {
@@ -173,7 +184,6 @@
 					start();
 					$("#extext").val(content.nick + "님이 접속하셨습니다.");
 					// printdiv(content.nick+"님이 접속하셨습니다.");
-	
 				} else if (content.type == 'TXT') {
 					console.log(" === 분기 TXT === ");
 					$("#memtext").html("");
@@ -182,8 +192,12 @@
 					console.log(" === 분기 CAM === ");
 					if(content.msg === 'off'){
 						video2.srcObject = null;
+						$("#extext").val($("#extext").val()+"\n유저가 카메라를 끄셨습니다.");
+						//user_cam = false;
 					}else{
 						video2.srcObject = remoteStream;
+						$("#extext").val($("#extext").val()+"\n유저가 카메라를 키셨습니다.");
+						//user_cam = true;
 					}
 				} else if (content.type == 'END') {
 					console.log(" === 분기 END === ");
@@ -194,7 +208,6 @@
 
 			conn.onclose = function() {
 				console.log('onclose 실행');
-				sendMessage(new ExboardMsg("SYS","${loginMember.mem_nickname}", "접속"));
 			};
 
 			function sendMessage(message) {
@@ -244,7 +257,7 @@
 					console.log('stream 함수 => 스트림 요청 성공');
 					localStream = stream;
 					console.log("localStream : " + localStream);
-					if ("${loginMember.mem_class}" == '전문가') {
+					if ("${loginMember.memClass}" == '전문가') {
 						video1.srcObject = localStream;
 					}
 					sendMessage(new ExboardMsg("expert"));
@@ -291,9 +304,15 @@
 				console.log("RemoteStream 추가됨");
 				//원격 스트림에 스트림을 넣어줌
 				remoteStream = event.stream;
-				if ("${loginMember.mem_class}" != '전문가') {
+				if ("${loginMember.memClass}" != '전문가') {
 					video2.srcObject = remoteStream;
 				}
+				/* else{
+					if(user_cam != false){
+						video2.srcObject = remoteStream;
+					} 
+				}
+				*/
 			};
 
 			function doCall() {
@@ -381,28 +400,29 @@
 
 			//상담 종료 해당 텍스트 에어리어의 기록 디비에 저장하고 종료
 			function counselEnd() {
-				let form = document.createElement("form");
-				form.setAttribute("charset", "UTF-8");
-				form.setAttribute("method", "Post");
-				form.setAttribute("action", "${path}/counselEnd");
-
-				let hiddenField = document.createElement("input");
-				hiddenField.setAttribute("type", "hidden");
-				hiddenField.setAttribute("name", "extext");
-				hiddenField.setAttribute("value", $("#extext").val());
-				form.appendChild(hiddenField);
-
-				let hiddenField2 = document.createElement("input");
-				hiddenField2.setAttribute("type", "hidden");
-				hiddenField2.setAttribute("name", "bno");
-				hiddenField2.setAttribute("value", "${bno}");
-				form.appendChild(hiddenField2);
-
-				document.body.appendChild(form);
-				form.submit();
-				exit();
-				sendMessage(new ExboardMsg("END",
-						"${loginMember.mem_nickname}", "종료"));
+				
+				let result = confirm("해당 회원과 상담을 종료 하시겠습니까?");
+				if(result){
+					let form = document.createElement("form");
+					form.setAttribute("charset", "UTF-8");
+					form.setAttribute("method", "Post");
+					form.setAttribute("action", "${path}/counselEnd");
+					let hiddenField = document.createElement("input");
+					hiddenField.setAttribute("type", "hidden");
+					hiddenField.setAttribute("name", "extext");
+					hiddenField.setAttribute("value", $("#extext").val());
+					form.appendChild(hiddenField);
+					let hiddenField2 = document.createElement("input");
+					hiddenField2.setAttribute("type", "hidden");
+					hiddenField2.setAttribute("name", "bno");
+					hiddenField2.setAttribute("value", "${bno}");
+					form.appendChild(hiddenField2);
+					document.body.appendChild(form);
+					form.submit();
+					exit();
+					sendMessage(new ExboardMsg("END",
+							"${loginMember.memClass}", "종료"));
+				}
 			}
 
 			function onoff() {
