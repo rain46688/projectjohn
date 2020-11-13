@@ -133,13 +133,13 @@
 		<a class="carosel-control carosel-control-left glyphicon glyphicon-chevron-left" href="#"></a>
 
 		<div class="carosel-inner">
-
+	
 			<c:choose>
 				<c:when test="${fn:length(list) > 0}">
 					<c:forEach items="${list }" var="e">
-						<div class="card card-shadow text-center carosel-item">
+							<div class="card card-shadow text-center carosel-item">
 							<div class="card-body">
-								<img id="expertimg" alt="ㅈ문가" src="${path }/resources/images/expert.png">
+								<img id="expertimg" alt="전문가" src="${path }/resources/images/expert.png">
 								<h4 class="card-title">${e.memName}</h4>
 								<p class="card-text">${e.memClass}</p>
 								<div class="dropdown-divider"></div>

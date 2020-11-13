@@ -139,8 +139,8 @@
 
 			//---------------------------- signaling 서버 -------------------------------------
 
-			//const conn = new WebSocket('wss://192.168.120.31${path}/ertc');
-			const conn = new WebSocket('wss://192.168.219.105${path}/ertc');
+			const conn = new WebSocket('wss://192.168.120.31${path}/ertc');
+			//const conn = new WebSocket('wss://192.168.219.105${path}/ertc');
 			//const conn = new WebSocket('wss://localhost${path}/ertc');
 
 			conn.onopen = function() {

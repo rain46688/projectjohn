@@ -36,7 +36,7 @@ public class AlarmSocketHandler extends TextWebSocketHandler {
 		Member m = (Member) map.get("loginMember");
 		users.put(m, session);
 		log.debug("m : " + m);
-		log.info("닉네임 : " + m.getMem_nickname());
+		log.info("닉네임 : " + m.getMemNickname());
 	}
 
 	@Override

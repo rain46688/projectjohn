@@ -2,15 +2,15 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="expert">
 
-<select id="selectExpert" resultType="member">
+<select id="selectExpert" resultMap="memberMap">
 	SELECT * FROM MEMBER WHERE MEM_CLASS LIKE '전문가' 
 </select> 
 
-<select id="selectExpertMem" resultType="member" parameterType="string">
+<select id="selectExpertMem" resultMap="memberMap" parameterType="string">
 	SELECT * FROM MEMBER WHERE MEM_CLASS LIKE '전문가' AND USID = #{no}
 </select>
 
-<select id="selectMember" resultType="member" parameterType="string">
+<select id="selectMember" resultMap="memberMap" parameterType="string">
 	SELECT * FROM MEMBER WHERE MEM_NICKNAME = #{nick}
 </select>
 
@@ -70,5 +70,22 @@
 		<id column="EXPERT_DATE" property="expertDate" />
 	</resultMap>
 	
+<resultMap id="memberMap" type="member">
+    <result property="usid" column="usid"/>
+    <result property="memEmail" column="mem_email"/>
+    <result property="memPwd" column="mem_pwd"/>
+    <result property="memName" column="mem_name"/>
+    <result property="memNickname" column="mem_nickname"/>
+    <result property="gender" column="gender"/>
+    <result property="birthday" column="birthday"/>
+    <result property="enrollDate" column="enroll_date"/>
+    <result property="point" column="point"/>
+    <result property="leaveMem" column="leave_mem"/>
+    <result property="pwIsUuid" column="pw_is_uuid"/>
+    <result property="memClass" column="mem_class"/>
+    <result property="profilePic" column="profile_pic"/>
+    <result property="tel" column="tel"/>
+</resultMap>
+
 
 </mapper>

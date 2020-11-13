@@ -180,8 +180,8 @@
          		alarmPrint();
          		
          		 //const alsocket = new WebSocket("wss://localhost${path}/alsocket");
-         		 //const alsocket = new WebSocket("wss://192.168.120.31${path}/alsocket");
-                 const alsocket = new WebSocket("wss://192.168.219.105${path}/alsocket");
+         		 const alsocket = new WebSocket("wss://192.168.120.31${path}/alsocket");
+                 //const alsocket = new WebSocket("wss://192.168.219.105${path}/alsocket");
                  
                  alsocket.onopen = function(){
         			
