@@ -21,12 +21,12 @@ label, input {
 <br>
 	EXPERT 임시 테스트 페이지
 
-	<p>세션 : ${loginMember.mem_nickname}</p>
-	<p>전문가 : ${loginMember.mem_class}</p>
+	<p>세션 : ${loginMember.memNickname}</p>
+	<p>전문가 : ${loginMember.memClass}</p>
 	<p>USID : ${loginMember.usid}</p>
 	<br>
 	<button class="btn btn-outline-success" onclick="location.replace('${path}/expertPrintList');">유저가 전문가 리스트 보기</button>
-	<c:if test="${loginMember.mem_class == '전문가'}">
+	<c:if test="${loginMember.memClass == '전문가'}">
 		<button class="btn btn-outline-success" onclick="location.replace('${path}/expertRequestPrintList');">전문가가 상담할 유저 리스트 보기</button>
 	</c:if>
 	

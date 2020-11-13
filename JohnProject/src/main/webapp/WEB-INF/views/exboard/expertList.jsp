@@ -140,13 +140,13 @@
 						<div class="card card-shadow text-center carosel-item">
 							<div class="card-body">
 								<img id="expertimg" alt="ㅈ문가" src="${path }/resources/images/expert.png">
-								<h4 class="card-title">${e.mem_name}</h4>
-								<p class="card-text">${e.mem_class}</p>
+								<h4 class="card-title">${e.memName}</h4>
+								<p class="card-text">${e.memClass}</p>
 								<div class="dropdown-divider"></div>
 								<p class="card-text">
 									<small class="text-muted">평점 : 넣어야됨!</small>
 								</p>
-								<a href="${path}/expertApply?no=${e.usid}&nic=${e.mem_nickname}">
+								<a href="${path}/expertApply?no=${e.usid}&nic=${e.memNickname}">
 									<button type="button" class="btn btn-outline-primary">상담 신청</button>
 								</a>
 							</div>

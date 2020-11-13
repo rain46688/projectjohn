@@ -86,13 +86,13 @@
 			<button type="button" class="btn btn-outline-success my-2 my-sm-0" onclick='exit();'>연결 끊기</button> -->
 
 			<div id="textboard">
-				<c:if test="${loginMember.mem_class == '전문가'}">
+				<c:if test="${loginMember.memClass == '전문가'}">
 					<textarea id="extext" rows="20" cols="60"></textarea>
 					<br>
 					<button type="button" class="btn btn-outline-success my-2 my-sm-0" onclick='counselEnd();'>상담 완료</button>
 				</c:if>
 
-				<c:if test="${loginMember.mem_class != '전문가'}">
+				<c:if test="${loginMember.memClass != '전문가'}">
 					<br>
 					<textarea id="memtext" rows="20" cols="60" readonly></textarea>
 					<br>
@@ -145,9 +145,9 @@
 
 			conn.onopen = function() {
 				console.log("onopen => signaling server 연결");
-				if ("${loginMember.mem_class}" != '전문가') {
+				if ("${loginMember.memClass}" != '전문가') {
 					sendMessage(new ExboardMsg("SYS",
-							"${loginMember.mem_nickname}", "접속"));
+							"${loginMember.memNickname}", "접속"));
 				}
 				
 			};
@@ -257,7 +257,7 @@
 					console.log('stream 함수 => 스트림 요청 성공');
 					localStream = stream;
 					console.log("localStream : " + localStream);
-					if ("${loginMember.mem_class}" == '전문가') {
+					if ("${loginMember.memClass}" == '전문가') {
 						video1.srcObject = localStream;
 					}
 					sendMessage(new ExboardMsg("expert"));
@@ -304,7 +304,7 @@
 				console.log("RemoteStream 추가됨");
 				//원격 스트림에 스트림을 넣어줌
 				remoteStream = event.stream;
-				if ("${loginMember.mem_class}" != '전문가') {
+				if ("${loginMember.memClass}" != '전문가') {
 					video2.srcObject = remoteStream;
 				}
 				/* else{
@@ -421,7 +421,7 @@
 					form.submit();
 					exit();
 					sendMessage(new ExboardMsg("END",
-							"${loginMember.mem_nickname}", "종료"));
+							"${loginMember.memClass}", "종료"));
 				}
 			}
 

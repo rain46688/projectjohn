@@ -71,7 +71,7 @@ public class ExboardController {
 		Member mem = (Member) session.getAttribute("loginMember");
 		Member expert = new Member();
 		expert.setUsid(Integer.parseInt(no));
-		expert.setMem_nickname(nic);
+		expert.setMemNickname(nic);
 		ModelAndView mv = new ModelAndView("/exboard/expertApply");
 		try {
 			mv.addObject("expert", service.selectExpertMem(no));
@@ -93,7 +93,7 @@ public class ExboardController {
 		Member mem = (Member) session.getAttribute("loginMember");
 		Member expert = new Member();
 		expert.setUsid(Integer.parseInt(no));
-		expert.setMem_nickname(nic);
+		expert.setMemNickname(nic);
 
 		String result = "";
 		try {
@@ -117,7 +117,7 @@ public class ExboardController {
 		Member mem = (Member) session.getAttribute("loginMember");
 		Member expert = new Member();
 		expert.setUsid(Integer.parseInt(no));
-		expert.setMem_nickname(nic);
+		expert.setMemNickname(nic);
 
 		String result = "";
 		try {
@@ -158,9 +158,7 @@ public class ExboardController {
 						}
 					}
 				}
-
 			}
-
 			mv.addObject("list", rlist);
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
@@ -195,7 +193,7 @@ public class ExboardController {
 		int result = Integer.parseInt(bno);
 		try {
 			Member m = service.selectMember(nic);
-			String email = m.getMem_email();
+			String email = m.getMemEmail();
 			email = aes.decrypt(email);
 			log.debug("email : " + email);
 			int n = (req.getRequestURL()).indexOf(req.getRequestURI());
@@ -245,7 +243,7 @@ public class ExboardController {
 			}
 
 			// log.debug(" 상담 결과 : " + eb.getExpertBoardAdviceResult());
-			if (m.getMem_class().equals("전문가")) {
+			if (m.getMemClass().equals("전문가")) {
 				// log.debug("전문가");
 				if (m.getUsid() != eb.getExpertBoardUsid()) {
 					// log.debug("잘못된 접근");
@@ -275,7 +273,7 @@ public class ExboardController {
 			e.printStackTrace();
 		}
 		s.setCurRoomBid(bnum);
-		s.setNickname(m.getMem_nickname());
+		s.setNickname(m.getMemNickname());
 		s.setSessionUsid(m.getUsid());
 		session.setAttribute("loginnedMember", s);
 		mv.addObject("bno", bnum);
@@ -322,7 +320,7 @@ public class ExboardController {
 		log.debug("no : " + no + ", nic : " + nic);
 		ModelAndView mv = new ModelAndView("/exboard/exboardMemInfo");
 		Member m = service.selectMember(nic);
-		m.setMem_email(aes.decrypt(m.getMem_email()));
+		m.setMemEmail(aes.decrypt(m.getMemEmail()));
 
 		mv.addObject("m", m);
 		return mv;

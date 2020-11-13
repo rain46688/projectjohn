@@ -31,9 +31,9 @@ public class ExboardDaoImpl implements ExboardDao {
 		// TODO Auto-generated method stub
 		Map<String, String> map = new HashMap<String, String>();
 		map.put("exusid", "" + expert.getUsid());
-		map.put("exnick", expert.getMem_nickname());
+		map.put("exnick", expert.getMemNickname());
 		map.put("memusid", "" + mem.getUsid());
-		map.put("memnick", mem.getMem_nickname());
+		map.put("memnick", mem.getMemNickname());
 		return session.insert("expert.insertExpertMemRequest", map);
 	}
 

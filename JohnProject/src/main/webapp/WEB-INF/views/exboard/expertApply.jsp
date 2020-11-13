@@ -41,7 +41,7 @@ function expertRequest(){
  	   type:"GET",
  	   data:{
  		   "no":"${expert.usid}",
- 		   "nic":"${expert.mem_nickname}"
+ 		   "nic":"${expert.memNickname}"
  	   },
  	   url:"${path}/expertRequest",
  	   success:function (data){
@@ -67,7 +67,7 @@ function expertRequestCancel(){
   	   type:"GET",
   	   data:{
   		   "no":"${expert.usid}",
-  		   "nic":"${expert.mem_nickname}"
+  		   "nic":"${expert.memNickname}"
   	   },
   	   url:"${path}/expertRequestCancel",
   	   success:function (data){
