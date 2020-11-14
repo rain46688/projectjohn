@@ -32,7 +32,7 @@
 	display: inline-flex;
 	/* border: 1px solid red; */
 	height: 100%;
-	width: 50px;
+	width: 60px;
 }
 
 #alarmdiv>#bell>img {
@@ -48,7 +48,8 @@
 	text-align: center;
 	width: 25px;
 	height: 25px;
-	top: 50%;
+	top: 55%;
+	left:10%;
 	font-size: 15px; font-weight : bold;
 	color: yellow;
 	background-color: red;
@@ -94,9 +95,9 @@
 					<!-- 알람 임시 위치 & 이미지 나중에 수정해야됨 -->
 					<div id="alarmdiv">
 						<c:if test="${loginMember.usid != null}">
-							<a id="bell" class="bell2" href="${path }/alarmList?usid=${loginMember.usid }"><img src="${path }/resources/images/bell.png"></a>
+							<a id="bell" class="bell2" href="${path }/alarm/alarmList?usid=${loginMember.usid }"><img src="${path }/resources/images/bell.png"></a>
 							<c:if test="${loginMember.usid != null}">
-								<a id="number" href="${path }/alarmList?usid=${loginMember.usid }"></a>
+								<a id="number" href="${path }/alarm/alarmList?usid=${loginMember.usid }"></a>
 							</c:if>
 						</c:if>
 					</div>
@@ -147,7 +148,7 @@
 									"usid" : "${loginMember.usid}"
 								},
 								dataType : "json",
-								url : "${path}/alarmCount",
+								url : "${path}/alarm/alarmCount",
 								success : function(data) {
 									console.log("data : " + data);
 									num = data;
@@ -170,8 +171,7 @@
 
 					//const alsocket = new WebSocket("wss://localhost${path}/alsocket");
 					//const alsocket = new WebSocket("wss://192.168.120.31${path}/alsocket");
-					const alsocket = new WebSocket(
-							"wss://192.168.219.105${path}/alsocket");
+					const alsocket = new WebSocket("wss://192.168.219.105${path}/alsocket");
 
 					alsocket.onopen = function() {
 
@@ -192,28 +192,28 @@
 								receive_usid, type, msg, send_nick)));
 					};
 
-					function Alarm(ALARM_SEND_MEM_USID, ALARM_RECEIVE_MEM_USID,
-							ALARM_TYPE, ALARM_MSG_CONTENT,
-							ALARM_SEND_MEM_NICKNAME, ALARM_DATE,
-							ALARM_ISCHECKED) {
-						this.alarmSendMemUsid = ALARM_SEND_MEM_USID;
-						this.alarmReceiveMemUsid = ALARM_RECEIVE_MEM_USID;
-						this.alarmType = ALARM_TYPE;
-						this.alarmMsgContent = ALARM_MSG_CONTENT;
-						this.alarmSendMemNickname = ALARM_SEND_MEM_NICKNAME;
-						this.alarmDate = ALARM_DATE;
-						this.alarmIscheked = ALARM_ISCHECKED;
+					function Alarm(alarmSendMemUsid, alarmReceiveMemUsid,
+							alarmType, alarmMsgContent,
+							alarmSendMemNickname, alarmDate,
+							alarmIscheked) {
+						this.alarmSendMemUsid = alarmSendMemUsid;
+						this.alarmReceiveMemUsid = alarmReceiveMemUsid;
+						this.alarmType = alarmType;
+						this.alarmMsgContent = alarmMsgContent;
+						this.alarmSendMemNickname = alarmSendMemNickname;
+						this.alarmDate = alarmDate;
+						this.alarmIscheked = alarmIscheked;
 					};
 
 					$('#alarmdiv').hover(function() {
 						$(this).css({
 							"height" : "110%",
-							"width" : "52px"
+							"width" : "62px"
 						});
 					}, function() {
 						$(this).css({
 							"height" : "100%",
-							"width" : "50px"
+							"width" : "60px"
 						});
 					});
 				</script>

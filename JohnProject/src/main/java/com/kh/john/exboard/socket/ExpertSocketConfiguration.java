@@ -5,6 +5,8 @@
 //import org.springframework.web.socket.config.annotation.WebSocketConfigurer;
 //import org.springframework.web.socket.config.annotation.WebSocketHandlerRegistry;
 //
+//import com.kh.john.alarm.socket.AlarmSocketHandler;
+//
 //import lombok.extern.slf4j.Slf4j;
 //
 //@Configuration
@@ -15,7 +17,7 @@
 //	@Override
 //	public void registerWebSocketHandlers(WebSocketHandlerRegistry registry) {
 //		// TODO Auto-generated method stub
-//		registry.addHandler(new ExpertHandler(), "/expertRtc").setAllowedOrigins("*");
+//		registry.addHandler(new AlarmSocketHandler(), "/alsocket").setAllowedOrigins("*");
 //	}
 //
 //}

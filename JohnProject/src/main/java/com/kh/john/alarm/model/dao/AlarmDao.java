@@ -1,6 +1,7 @@
 package com.kh.john.alarm.model.dao;
 
 import java.util.List;
+import java.util.Map;
 
 import org.mybatis.spring.SqlSessionTemplate;
 
@@ -15,5 +16,7 @@ public interface AlarmDao {
 	int updateAlarmRead(SqlSessionTemplate session, int aid) throws Exception;
 
 	int insetExpertAlarm(SqlSessionTemplate session, Alarm almsg) throws Exception;
+
+	List<Alarm> selectAlarmItem(SqlSessionTemplate session, Map<String, String> map) throws Exception;
 
 }

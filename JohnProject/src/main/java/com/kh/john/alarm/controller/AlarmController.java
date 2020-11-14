@@ -1,6 +1,9 @@
 package com.kh.john.alarm.controller;
 
+import java.text.SimpleDateFormat;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -8,6 +11,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.kh.john.alarm.model.service.AlarmService;
 import com.kh.john.alarm.model.vo.Alarm;
 
@@ -21,7 +26,7 @@ public class AlarmController {
 	private AlarmService service;
 
 	@ResponseBody
-	@RequestMapping("/alarmCount")
+	@RequestMapping("/alarm/alarmCount")
 	public String alarmCount(int usid) {
 		log.info("alarmCount 실행");
 		String count = "0";
@@ -35,13 +40,21 @@ public class AlarmController {
 		return count;
 	}
 
-	@RequestMapping("/alarmList")
+	@RequestMapping("/alarm/alarmList")
 	public ModelAndView alarmList(int usid) {
 		log.info("alarmCheck 실행");
 
 		List<Alarm> list = null;
 		try {
 			list = service.selectAlarmList(usid);
+
+			SimpleDateFormat fmt = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss");
+
+			for (Alarm a : list) {
+				String date = fmt.format(a.getAlarmDate());
+				log.debug("date : " + date);
+				a.setTmpDate(date);
+			}
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -53,7 +66,7 @@ public class AlarmController {
 	}
 
 	@ResponseBody
-	@RequestMapping("/alarmRead")
+	@RequestMapping("/alarm/alarmRead")
 	public int alarmRead(int aid) {
 		log.info("alarmRead 실행");
 		int result = 0;
@@ -66,4 +79,36 @@ public class AlarmController {
 		return result;
 	}
 
+	@ResponseBody
+	@RequestMapping("/alarm/selectAlarmItem")
+	public String selectAlarmItem(String item, String usid) {
+		log.info("selectAlarmItem 실행");
+
+		log.debug("item : " + item + " usid : " + usid);
+		Map<String, String> map = new HashMap<String, String>();
+		map.put("item", item);
+		map.put("usid", usid);
+
+		String result = "";
+
+		try {
+			List<Alarm> list = service.selectAlarmItem(map);
+			SimpleDateFormat fmt = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss");
+
+			for (Alarm a : list) {
+				String date = fmt.format(a.getAlarmDate());
+				log.debug("date : " + date);
+				a.setTmpDate(date);
+			}
+			result = new ObjectMapper().writeValueAsString(list);
+		} catch (JsonProcessingException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+
+		return result;
+	}
 }

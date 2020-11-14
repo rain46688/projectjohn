@@ -19,5 +19,6 @@ public class Alarm {
 	private String alarmSendMemNickname;
 	private Date alarmDate;
 	private Boolean alarmIscheked;
+	private String tmpDate;
 
 }

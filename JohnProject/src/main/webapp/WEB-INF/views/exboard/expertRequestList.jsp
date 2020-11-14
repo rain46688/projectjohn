@@ -179,7 +179,9 @@ h2 {
 			 	   success:function (data){
 			 		   console.log("data : "+data);
 			 		 bno = data;
+			 		 
 			 		sendAlarm("${loginMember.usid}",num,"expert",bno,"${loginMember.memNickname}");
+			 		
 			 		 console.log("bno : "+bno);
 					location.replace('${path}/expert/counselStart?no='+num+"&nic="+nick+"&bno="+bno);
 			 	   }
