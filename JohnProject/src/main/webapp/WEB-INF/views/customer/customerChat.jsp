@@ -12,8 +12,27 @@
 </jsp:include>
 
 <section id="content">
-<a href="${pageContext.request.contextPath}/web/echo.do">웹소켓 이용 EchoHandler</a>
+
 </section>
+
+<script>
+
+const adminsocket = new WebSocket("wss://localhost${path}/adminsocket");
+
+adminsocket.onopen = function(){
+	
+};
+
+adminsocket.onmessage = function(msg){
+	console.log("채팅 : "+msg);
+	//채팅나타나는곳
+};
+
+
+
+</script>
+
+
 
 <jsp:include page="/WEB-INF/views/common/footer.jsp"/>
 	
