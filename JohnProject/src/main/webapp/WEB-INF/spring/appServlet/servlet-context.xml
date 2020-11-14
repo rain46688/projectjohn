@@ -46,6 +46,8 @@
 	<beans:bean id="expertHandler" class="com.kh.john.exboard.socket.ExpertHandler"></beans:bean>
 	<beans:bean id="alarmHandler" class="com.kh.john.alarm.socket.AlarmSocketHandler"></beans:bean>
 	
+
+	
 	<!-- 게시판 업로드용 멀티파트 리졸버 등록 -->
 	<beans:bean id="multipartResolver" class="org.springframework.web.multipart.commons.CommonsMultipartResolver">
 		<!-- 업로드 최대 크기 -->
