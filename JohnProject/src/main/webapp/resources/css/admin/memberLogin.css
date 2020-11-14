@@ -274,11 +274,11 @@ a {
   text-decoration: none;
   color: var(--submit_bg);
   font-weight: bold;
-  cursor: pointer;
 }
 
 a:hover {
   color: var(--submit_hover);
+  cursor: pointer;
 }
 
 i {

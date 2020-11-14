@@ -112,7 +112,10 @@
 			display: none;
 			text-align: left;
 		}
-		div#forExpert{
+		div.divForExpert, div#forExpertTitle{
+			display: none;
+		}
+		div.addLicenseDiv,div.removeLicenseDiv{
 			display: none;
 		}
 	</style>
@@ -200,7 +203,28 @@
 					<div class="constrain" id="classConstrain"></div>
 					<div class="constrain" id="mcConstrain"></div>
 					
-					<div id="forExpert"></div>
+					<div id="forExpertTitle">
+						<!-- <div id="forExpertTitle2"> -->
+							자격증 정보
+							<p style="font-size: 14px;">자격증 정보는 노출되지 않으며 관리자가 회원님이 상담전문가임을 확인하는 용도에만 쓰입니다.</p>
+							<p style="font-size: 14px;">자격증은 총 세 개까지 업로드 가능합니다.</p>
+						<!-- </div> -->
+					</div>
+					<div id="forExpert1" class="divForExpert"></div>
+					<div id="forExpert2" class="divForExpert"></div>
+					<div id="forExpert3" class="divForExpert"></div>
+					<div class="addLicenseDiv" id="addLicenseDiv1">
+						<button type="button" class="addLicenseBtn licenseBtn" id="addLicenseBtn1">추가</button>
+					</div>
+					<div class="addLicenseDiv" id="addLicenseDiv2">
+						<button type="button" class="addLicenseBtn licenseBtn" id="addLicenseBtn2">추가2</button>
+					</div>
+					<div class="removeLicenseDiv" id="removeLicenseDiv1">
+						<button type="button" class="removeLicenseBtn licenseBtn" id="removeLicenseBtn1">삭제</button>
+					</div>
+					<div class="removeLicenseDiv" id="removeLicenseDiv2">
+						<button type="button" class="removeLicenseBtn licenseBtn" id="removeLicenseBtn2">삭제2</button>
+					</div>
 
 					<button class="bottombtns" type="button" style="width:40%; margin-top: 30px;" onclick="fn_enroll();">가입</button>
 					<button class="bottombtns" type="reset" style="width:40%; margin-top: 30px;">취소</button>
@@ -410,22 +434,99 @@
 				$("#mcConstrain").css({"display":"none"});
 			});
 
+			// 파일관련
+			$(document).on('click','.browse',function(){
+				var file=$(this).parent().parent().find('.file');
+				file.trigger('click');
+			});
+			$(document).on('change','.file',function(){
+				$(this).parent().find('.inputFile').val($(this).val().replace(/C:\\fakepath\\/i,''));
+			});
 			//회원이 전문가라면
+			// $("input:radio[id='expertUser']").click(function(e){
+			// 	$.ajax({
+			// 		url: "${path}/member/divForExpert",
+			// 		type: "get",
+			// 		dataType: "html",
+			// 	success:function(data){
+			// 		$("#forExpert").html(data);
+			// 		$("#forExpert").css({"display":"block"});
+			// 	}
+			// 	});
+			// });
+
+			//addLicense1
 			$("input:radio[id='expertUser']").click(function(e){
+				$("#forExpertTitle").css({"display":"block"});
 				$.ajax({
 					url: "${path}/member/divForExpert",
 					type: "get",
 					dataType: "html",
 				success:function(data){
-					$("#forExpert").html(data);
-					$("#forExpert").css({"display":"block"});
+					$("#forExpert1").html(data);
+					$("#forExpert1").css({"display":"block"});
+					$("#addLicenseDiv1").css({"display":"block"});
+				}
+				})
+			});
+
+			//addLicense2
+			$("#addLicenseBtn1").click(function(e){
+				$("#addLicenseDiv1").css({"display":"none"})
+				$.ajax({
+					url: "${path}/member/divForExpert",
+					type: "get",
+					dataType: "html",
+				success:function(data){
+					$("#forExpert2").html(data);
+					$("#forExpert2").css({"display":"block"});
+					$("#addLicenseDiv2").css({"display":"block"});
+					$("#removeLicenseDiv1").css({"display":"block"});
 				}
 				});
 			});
-			//아니라면
+
+			//addLicense3
+			$("#addLicenseBtn2").click(function(e){
+				$("#addLicenseDiv2").css({"display":"none"});
+				$("#removeLicenseDiv1").css({"display":"none"});
+				$.ajax({
+					url: "${path}/member/divForExpert",
+					type: "get",
+					dataType: "html",
+				success:function(data){
+					$("#forExpert3").html(data);
+					$("#forExpert3").css({"display":"block"});
+					$("#removeLicenseDiv2").css({"display":"block"});
+				}
+				});
+			});
+
+			//removeLicense3
+			$("#removeLicenseBtn2").click(function(e){
+				$("#forExpert3").html('');
+				$("#forExpert3").css({"display":"none"});
+				$("#removeLicenseDiv2").css({"display":"none"});
+				$("#addLicenseDiv2").css({"display":"block"});
+				$("#removeLicenseDiv1").css({"display":"block"});
+			});
+
+			//removeLicense2
+			$("#removeLicenseBtn1").click(function(e){
+				$("#forExpert2").html('');
+				$("#forExpert2").css({"display":"none"});
+				$("#removeLicenseDiv1").css({"display":"none"});
+				$("#addLicenseDiv2").css({"display":"none"});
+				$("#addLicenseDiv1").css({"display":"block"});
+			});
+
+			// 아니라면
 			$("input:radio[id='normalUser']").click(function(e){
-				$("#forExpert").html('');
-				$("#forExpert").css({"display":"none"});
+				$("#forExpertTitle").css({"display":"none"});
+				$(".divForExpert").html('');
+				$(".divForExpert").css({"display":"none"});
+				$(".addLicenseDiv").css({"display":"none"});
+				$(".removeLicenseDiv").css({"display":"none"});
 			});
 
 			//성별
@@ -634,10 +735,6 @@
 				if($("#checkPNhidden").val()=='existed'){
 					alert('휴대폰 번호 중복 확인을 해주세요.');
 				}
-				//주소 확인을 했나요
-				if($("input[name='checked_ad']").val()==''){
-					alert('주소 입력을 해주세요.');
-				}
 
 				//회원구분
 				if(memClass.length<1){
@@ -646,11 +743,11 @@
 					$("#classConstrain").css({"color":"red"});
 				}
 				
-				if(memClass.val()=='expertUser'){
-					if($(".license1").val()==null && $(".license2").val()==null && $(".license3").val()==null){
-						alert('최소 한 개의 자격증을 업로드해야합니다.');
-					}
-				}
+				// if(memClass.val()=='expertUser'){
+				// 	if($(".license1").val()==null && $(".license2").val()==null && $(".license3").val()==null){
+				// 		alert('최소 한 개의 자격증을 업로드해야합니다.');
+				// 	}
+				// }
 
 				//제약조건을 만족했나요
 				if(id!=="" && (pw!==""&&pwPattern.test(pw)) && (pw2!==""&&pw===pw2) && (nn!==""&&nnPattern.test(nn))
@@ -658,8 +755,8 @@
 					&& (gender.length=1||gender.length>1)
 					&& (yy!=="" && yyPattern.test(yy)) && mm!=="" && mm!=="월" && (dd!==""&&ddPattern.test(dd)) 
 					&& (phone!==""&&pnPattern.test(phone))
-					&& $("#checkIdhidden").val()!='existed' && $("#checkNNhidden").val()!='existed' && $("#checkPNhidden").val()!='existed' && $("input[name='checked_ad']").val()!=''
-					&& $("#certiKey").val().trim()==$("#certiNum").val().trim()
+					&& $("#checkIdhidden").val()!='existed' && $("#checkNNhidden").val()!='existed' 
+					&& $("#checkPNhidden").val()!='existed' && $("#certiKey").val().trim()==$("#certiNum").val().trim()
 				){
 					$("#memberEnrollFrm").submit();
 				}else{

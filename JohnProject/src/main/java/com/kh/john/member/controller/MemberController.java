@@ -171,7 +171,8 @@ public class MemberController {
 //	전문가용 div로 가는 길
 	@RequestMapping("/member/divForExpert")
 	public String divForExpert() {
-		return "member/divForExpert";
+//		return "member/divForExpert";
+		return "member/uploadLicense";
 	}
 
 //	회원가입 로직
@@ -212,7 +213,7 @@ public class MemberController {
 				script= "window.close()";
 			} else {
 				msg = "회원가입실패";
-				script= "history.back()";
+				script= "window.close()";
 			}
 
 		} else {
@@ -254,7 +255,7 @@ public class MemberController {
 				script= "window.close()";
 			} else {
 				msg = "회원가입실패";
-				script= "history.back()";
+				script= "window.close()";
 			}
 		}
 

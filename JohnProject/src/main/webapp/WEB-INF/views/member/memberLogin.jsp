@@ -101,7 +101,7 @@
 					<!-- 임시입장 나중에 수정하셈  -->
 					<button type="button" onclick="location.href='${path}/board/boardList'">임시입장임시입장</button>
 
-                    <span id="find_password">까먹었다&nbsp;<a onclick="fn_findId();">아이디</a>&nbsp;&nbsp;<a onclick="fn_findPw();">비밀번호</a></span>
+                    <span id="find_password">까먹었다&nbsp;<a onclick="fn_findId();">아이디</a>&nbsp;<a onclick="fn_findPw();">비밀번호</a></span>
 
                     <span id="create_account">
                         <a onclick="fn_signUp();">★회원가입★</a>
