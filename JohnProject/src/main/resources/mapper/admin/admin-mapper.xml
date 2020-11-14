@@ -60,7 +60,7 @@
 		WHERE MEM_CLASS LIKE ('일반유저') AND LEAVE_MEM LIKE 0
 	</select>
 	
-	<select id="selectMemberCount" resultType="_int" resultMap="memberMap">
+	<select id="selectMemberCount" resultType="_int">
 		SELECT COUNT(*) FROM
 		MEMBER WHERE MEM_CLASS LIKE ('일반유저') AND LEAVE_MEM LIKE 0
 	</select>
@@ -73,7 +73,7 @@
 
 	<select id="searchMemberList" resultMap="memberMap" parameterType="map">
 		SELECT M.*,R.REPORT_ISWARNING FROM MEMBER M LEFT OUTER JOIN REPORT R ON M.USID=R.REPORT_TARGET_USID 
-		WHERE 1=1 AND MEM_CLASS LIKE ('일반유저')
+		WHERE 1=1 AND MEM_CLASS LIKE ('일반유저') 
 		<if test="type !=null and keyword !=null">
 			AND ${type} LIKE '%'||#{keyword, jdbcType=VARCHAR}||'%'
 		</if>
@@ -81,7 +81,6 @@
 		<if test="gender !=null">
 			AND GENDER = #{gender, jdbcType=VARCHAR}
 		</if>
-
 
 		<if test="memClass!=null">
 			AND MEM_CLASS IN
@@ -100,7 +99,7 @@
 	</select>
 
 	<select id="searchMemberListCount" resultType="_int"
-		parameterType="map" resultMap="memberMap">
+		parameterType="map">
 		SELECT COUNT(*) FROM MEMBER WHERE '${type}' LIKE
 		'%'||#{keyword, jdbcType=VARCHAR}||'%' 
 	

@@ -58,7 +58,7 @@ public class ReportDaoImpl implements ReportDao {
 
 	@Override
 	public int reportWarnOut(SqlSessionTemplate session, Member m) {
-		return session.delete("report.reportWarnOut",m);
+		return session.insert("report.reportWarnOut",m);
 	}
 	
 	

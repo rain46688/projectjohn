@@ -33,7 +33,9 @@ public class AdminServiceImpl implements AdminService{
 
 	@Override
 	public int selectMemberCount() {
+		
 		return dao.selectMemberCount(session);
+		
 	}
 	
 	@Override
