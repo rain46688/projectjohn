@@ -14,7 +14,11 @@
 		UPDATE ALARM SET ALARM_ISCHECKED = 1 WHERE ALARM_ID = #{aid}
 	</update>
 	
-		<resultMap type="com.kh.john.alarm.model.vo.Alarm" id="alMap">
+	<insert id="insetExpertAlarm" parameterType="alarm">
+		INSERT INTO ALARM VALUES(SEQ_ALARM_NO.NEXTVAL,#{alarmSendMemUsid},#{alarmReceiveMemUsid},#{alarmType},#{alarmMsgContent},#{alarmSendMemNickname},SYSDATE,0)
+	</insert>
+	
+		<resultMap type="alarm" id="alMap">
 		<id column="ALARM_ID" property="alarmId" />
 		<id column="ALARM_SEND_MEM_USID" property="alarmSendMemUsid" />
 		<id column="ALARM_RECEIVE_MEM_USID" property="alarmReceiveMemUsid" />
@@ -24,5 +28,6 @@
 		<id column="ALARM_DATE" property="alarmDate" />
 		<id column="ALARM_ISCHECKED" property="alarmIscheked" />
 	</resultMap>
+	
 
 </mapper>

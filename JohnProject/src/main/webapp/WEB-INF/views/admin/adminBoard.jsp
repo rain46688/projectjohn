@@ -22,19 +22,19 @@
                 if(sel=='연애상담'){
                     $('.op').remove();
                     $.each(ko,function(i,item){
-                        $('.s1').append('<option class="op" value="'+item+'" <c:if test="${param.small_category eq '+item+'}">selected</c:if>>'+item+'</option>');
+                        $('.s1').append('<option class="op" value="'+item+'" <c:if test="${param.smallCategory eq '+item+'}">selected</c:if>>'+item+'</option>');
                     });
                 }
                 if(sel=='일반게시판'){
                     $('.op').remove();
                     $.each(ja,function(i,item){
-                        $('.s1').append('<option class="op" value="'+item+'" <c:if test="${param.small_category eq '+item+'}">selected</c:if>>'+item+'</option>');
+                        $('.s1').append('<option class="op" value="'+item+'" <c:if test="${param.smallCategory eq '+item+'}">selected</c:if>>'+item+'</option>');
                     });
                 }
                 if(sel=='음성게시판'){
                     $('.op').remove();
                     $.each(su,function(i,item){
-                        $('.s1').append('<option class="op" value="'+item+'" <c:if test="${param.small_category eq '+item+'}">selected</c:if>>'+item+'</option>');
+                        $('.s1').append('<option class="op" value="'+item+'" <c:if test="${param.smallCategory eq '+item+'}">selected</c:if>>'+item+'</option>');
                     });
                 }
             });
@@ -47,14 +47,14 @@
 	<div id="search-container">
 		<form  id="myForm" action="${path }/admin/adminBoardSearch" method="post">
 		
-		 <select class="s0" name="big_category" required>
+		 <select class="s0" name="bigCategory" required>
 		 		<option>대분류</option>
 				<option value="연애상담" <c:if test="${param.big_category eq '연애상담'}">selected</c:if>>연애상담</option> 
 				<option value="일반게시판" <c:if test="${param.big_category eq '일반게시판'}">selected</c:if>>일반게시판</option> 
 				<option value="음성게시판" <c:if test="${param.big_category eq '음성게시판'}">selected</c:if>>음성게시판</option> 
 	    </select>
 	
-	    <select class="s1" name="small_category">
+	    <select class="s1" name="smallCategory">
 	        <option>소분류</option>
 	    </select>
 			
@@ -123,14 +123,14 @@
 		</tr>
 		<c:forEach items="${list }" var="b">
 			<tr>
-				<td><c:out value="${b.board_id }" /></td>
-				<td><c:out value="${b.writer_usid }" /></td>
-				<td><c:out value="${b.writer_nickname }" /></td>
+				<td><c:out value="${b.boardId }" /></td>
+				<td><c:out value="${b.writerUsid }" /></td>
+				<td><c:out value="${b.writerNickname }" /></td>
 				<td><c:out value="${b.title }" /></td>
-				<td><c:out value="${b.enroll_date }" /></td>
+				<td><c:out value="${b.enrollDate }" /></td>
 				<td><c:out value="${b.hit}" /></td>
-				<td><c:out value="${b.big_category }" /></td>
-				<td><c:out value="${b.small_category }" /></td>
+				<td><c:out value="${b.bigCategory }" /></td>
+				<td><c:out value="${b.smallCategory }" /></td>
 				<td><c:out value="${b.isclose }" /></td>
 			</tr>
 		</c:forEach>

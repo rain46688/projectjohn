@@ -34,7 +34,7 @@ div#board-container input {
 					name="notice_id" id="notice_id" value="" readonly>  -->
 
 				<input type="text" class="form-control" 
-					name="notice_title" id="notice_title" placeholder="제목을 입력하세요"  required>
+					name="noticeTitle" id="noticeTitle" placeholder="제목을 입력하세요"  required>
 						
 				
 				<%-- <input type="text" class="form-control"  
@@ -63,7 +63,7 @@ div#board-container input {
 			</div>
 
 
-			<textarea class="form-control" name="notice_content" placeholder="내용" required></textarea>
+			<textarea class="form-control" name="noticeContent" placeholder="내용" required></textarea>
 			<br /> 
 			<input type="submit" class="btn btn-outline-info" value="저장" onclick="submit();">
 		</form>

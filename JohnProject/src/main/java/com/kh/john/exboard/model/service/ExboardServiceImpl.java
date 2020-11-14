@@ -1,6 +1,7 @@
 package com.kh.john.exboard.model.service;
 
 import java.util.List;
+import java.util.Map;
 
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -40,14 +41,14 @@ public class ExboardServiceImpl implements ExboardService {
 
 	// 전문가한테 상담 신청 등록하기
 	@Override
-	public int insertExpertMemRequest(Member expert, Member mem) throws Exception {
+	public int insertExpertMemRequest(Map<String, String> map) throws Exception {
 		// TODO Auto-generated method stub
 		// 이미 등록됬는지 확인
-		ExpertRequest result = dao.selectIsDuplicateReq(session, expert, mem);
+		ExpertRequest result = dao.selectIsDuplicateReq(session, map);
 
 		if (result == null) {
 			log.debug("result 널 아님");
-			return dao.insertExpertMemRequest(session, expert, mem);
+			return dao.insertExpertMemRequest(session, map);
 		} else {
 			log.debug("result 널");
 			throw new RequestDuplicateException();
@@ -63,9 +64,9 @@ public class ExboardServiceImpl implements ExboardService {
 
 	// 같은 전문가한테 상담 중복 신청 여부 확인하기
 	@Override
-	public Boolean selectIsDuplicateReq(Member expert, Member mem) throws Exception {
+	public Boolean selectIsDuplicateReq(Map<String, String> map) throws Exception {
 		// TODO Auto-generated method stub
-		ExpertRequest result = dao.selectIsDuplicateReq(session, expert, mem);
+		ExpertRequest result = dao.selectIsDuplicateReq(session, map);
 		if (result == null) {
 			// 신청한적 없음
 			return false;
@@ -94,11 +95,11 @@ public class ExboardServiceImpl implements ExboardService {
 	public int insertExpertBoard(String memusid, Member expertmem) throws Exception {
 		// TODO Auto-generated method stub
 		ExpertBoard exboard = new ExpertBoard();
-		exboard.setEXPERT_BOARD_USID(expertmem.getUsid());
-		exboard.setEXPERT_BOARD_MEM_USID(Integer.parseInt(memusid));
+		exboard.setExpertBoardUsid(expertmem.getUsid());
+		exboard.setExpertBoardMemUsid(Integer.parseInt(memusid));
 		int result = dao.insertExpertBoard(session, exboard);
 		if (result > 0) {
-			return exboard.getEXPERT_BOARD_ID();
+			return exboard.getExpertBoardId();
 		} else {
 			return 0;
 		}

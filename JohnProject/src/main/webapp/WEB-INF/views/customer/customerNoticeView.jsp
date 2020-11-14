@@ -11,7 +11,7 @@
 	
 </jsp:include>
 	
-	  <style>
+	 <style>
 	    div#board-container{width:400px; margin:0 auto; text-align:center;}
 	    div#board-container input,div#board-container button{margin-bottom:15px;}
 	    div#board-container label.custom-file-label{text-align:left;}
@@ -20,24 +20,22 @@
 	<section id="content">
 		<div id="board-container">
 		<h1>게시판상세화면</h1>
-		<input type="text" class="form-control" name="notice_id" id="notice_id" value="${notice.notice_id }" readonly> 
-		<input type="hidden" class="form-control" name="notice_admin_uisd" id="notice_admin_uisd" value="${notice.notice_admin_uisd }" > 
-        <input type="text" class="form-control" name="notice_admin_nickname" value="${notice.notice_admin_nickname }" readonly required>
-        <input type="text" class="form-control" name="notice_title" id="notice_title"  value="${notice.notice_title }" placeholder="제목"  required>
-        <input type="text" class="form-control" name="notice_enrolldate" id="notice_enrolldate" value="${notice.notice_enrolldate }" readonly> 
+		<input type="text" class="form-control" name="notice_id" id="noticeId" value="${notice.noticeId }" readonly> 
+		<input type="hidden" class="form-control" name="noticeAdminUisd" id="noticeAdminUisd" value="${notice.noticeAdminUisd }" > 
+        <input type="text" class="form-control" name="noticeAdminNickname" value="${notice.noticeAdminNickname }" readonly required>
+        <input type="text" class="form-control" name="noticeTitle" id="noticeTitle"  value="${notice.noticeTitle }" placeholder="제목"  required>
+        <input type="text" class="form-control" name="noticeEnrolldate" id="noticeEnrolldate" value="${notice.noticeEnrolldate }" readonly> 
        
 		<c:forEach items="${noticeFile}" var="a" varStatus="vs">
-              <img src="${path }/resources/upload/notice/${a.notice_file_name }">      
+              <img src="${path }/resources/upload/notice/${a.noticeFileName }">      
         </c:forEach> 
         
-        <textarea class="form-control" name="notice_content" placeholder="내용" required><c:out value="${notice.notice_content }"/></textarea>
+        <textarea class="form-control" name="noticeContent" placeholder="내용" required><c:out value="${notice.noticeContent }"/></textarea>
         <br>
         
         
-        <button class="btn btn-outline-info" onclick="noticeViewModify('${notice.notice_id}');">수정하기</button>
-        <button class="btn btn-outline-info" onclick="noticeViewDelete('${notice.notice_id}');">삭제하기</button>
-        
-        
+        <button class="btn btn-outline-info" onclick="noticeViewModify('${notice.noticeId}');">수정하기</button>
+        <button class="btn btn-outline-info" onclick="noticeViewDelete('${notice.noticeId}');">삭제하기</button>
         
     </div>
 
@@ -50,21 +48,18 @@
 			location.href="${path}/board/fileDown.do?oriName="+oriName+"&reName="+reName;
 		}
 		
-		function noticeViewModify(notice_id){
-			location.href="${path}/customer/customerNoticeModify?notice_id="+notice_id;
+		function noticeViewModify(noticeId){
+			location.href="${path}/customer/customerNoticeModify?noticeId="+noticeId;
 		}
 				
-		function noticeViewDelete(notice_id){
+		function noticeViewDelete(noticeId){
 			 if (confirm("정말 삭제하시겠습니까?") == true){
-				 location.href="${path}/customer/customerNoticeDelete?notice_id="+notice_id;
+				 location.href="${path}/customer/customerNoticeDelete?noticeId="+noticeId;
 			 }else{  
 			     return;
 			 }
 		}
 		
-		
-		
-	
 	</script>
 	
 	

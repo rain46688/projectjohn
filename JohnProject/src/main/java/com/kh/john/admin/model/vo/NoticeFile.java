@@ -9,7 +9,7 @@ import lombok.NoArgsConstructor;
 @Data
 public class NoticeFile {
 
-	private int notice_id;
-	private String notice_file_name;
+	private int noticeId;
+	private String noticeFileName;
 	
 }

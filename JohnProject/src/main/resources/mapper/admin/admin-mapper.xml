@@ -2,17 +2,56 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="admin">
 
-	<resultMap type="com.kh.john.member.model.vo.Member"
-		id="memberMap">
+	<resultMap type="com.kh.john.member.model.vo.Member" id="memberMap">
+		<result property="usid" column="usid"/>
+	    <result property="memEmail" column="mem_email"/>
+	    <result property="memPwd" column="mem_pwd"/>
+	    <result property="memName" column="mem_name"/>
+	    <result property="memNickname" column="mem_nickname"/>
+	    <result property="gender" column="gender"/>
+	    <result property="birthday" column="birthday"/>
+	    <result property="enrollDate" column="enroll_date"/>
+	    <result property="point" column="point"/>
+	    <result property="leaveMem" column="leave_mem"/>
+	    <result property="pwIsUuid" column="pw_is_uuid"/>
+	    <result property="memClass" column="mem_class"/>
+	    <result property="profilePic" column="profile_pic"/>
+	    <result property="tel" column="tel"/>
 	</resultMap>
-	<resultMap type="com.kh.john.board.model.vo.Board"
-		id="boardMap">
+	<resultMap type="com.kh.john.board.model.vo.Board" id="boardMap">
+		<result property="boardId" column="board_id"/>
+		<result property="writerUsid" column="writer_usid"/>
+		<result property="writerNickname" column="writer_nickname"/>
+		<result property="title" column="title"/>
+		<result property="content" column="content"/>
+		<result property="enrollDate" column="enroll_date"/>
+		<result property="hit" column="hit"/>
+		<result property="bigCategory" column="big_category"/>
+		<result property="smallCategory" column="small_category"/>
+		<result property="isclose" column="isclose"/>
+		<result property="maxMems" column="max_mems"/>
+		<result property="agreeName" column="agree_name"/>
+		<result property="disagreeName" column="disagree_name"/>
 	</resultMap>
-	<resultMap type="com.kh.john.admin.model.vo.Notice"
-		id="noticeMap">
+	<resultMap type="com.kh.john.admin.model.vo.Notice" id="noticeMap">
+		<result property="noticeId" column="notice_id"/>
+		<result property="noticeAdminUisd" column="notice_admin_uisd"/>
+		<result property="noticeAdminNickname" column="notice_admin_nickname"/>
+		<result property="noticeTitle" column="notice_title"/>
+		<result property="noticeContent" column="notice_content"/>
+		<result property="noticeEnrolldate" column="notice_enrolldate"/>
 	</resultMap>
-	<resultMap type="com.kh.john.member.model.vo.License"
-		id="licenseMap">
+	<resultMap type="com.kh.john.admin.model.vo.NoticeFile" id="noticeFileMap">
+		<result property="noticeId" column="notice_id"/>
+		<result property="noticeFileName" column="notice_file_name"/>
+	</resultMap>
+
+	<resultMap type="com.kh.john.member.model.vo.License" id="licenseMap">
+		<result property="licenseMemUsid" column="license_mem_usid"/>
+		<result property="licenseFileName" column="license_file_name"/>
+		<result property="licenseDate" column="license_date"/>
+		<result property="licenseType" column="license_type"/>
+		<result property="licenseCompany" column="license_company"/>
 	</resultMap>
 
 	<!-- 멤버관련 -->
@@ -21,7 +60,7 @@
 		WHERE MEM_CLASS LIKE ('일반유저') AND LEAVE_MEM LIKE 0
 	</select>
 	
-	<select id="selectMemberCount" resultType="_int">
+	<select id="selectMemberCount" resultType="_int" resultMap="memberMap">
 		SELECT COUNT(*) FROM
 		MEMBER WHERE MEM_CLASS LIKE ('일반유저') AND LEAVE_MEM LIKE 0
 	</select>
@@ -32,8 +71,7 @@
 		WHERE USID=#{usid}
 	</insert>
 
-	<select id="searchMemberList" parameterType="map"
-		resultType="member">
+	<select id="searchMemberList" resultMap="memberMap" parameterType="map">
 		SELECT M.*,R.REPORT_ISWARNING FROM MEMBER M LEFT OUTER JOIN REPORT R ON M.USID=R.REPORT_TARGET_USID 
 		WHERE 1=1 AND MEM_CLASS LIKE ('일반유저')
 		<if test="type !=null and keyword !=null">
@@ -45,16 +83,16 @@
 		</if>
 
 
-		<if test="mem_class!=null">
+		<if test="memClass!=null">
 			AND MEM_CLASS IN
-			<foreach collection="mem_class" item="v" index="i" open="("
+			<foreach collection="memClass" item="v" index="i" open="("
 				close=")" separator=","> #{v, jdbcType=VARCHAR}
 			</foreach>
 		</if>
 
-		<if test="leave_mem!=null">
+		<if test="leaveMem!=null">
 			AND LEAVE_MEM IN
-			<foreach collection="leave_mem" item="a" index="i" open="("
+			<foreach collection="leaveMem" item="a" index="i" open="("
 				close=")" separator=","> #{a, jdbcType=INTEGER}
 			</foreach>
 		</if>
@@ -62,15 +100,15 @@
 	</select>
 
 	<select id="searchMemberListCount" resultType="_int"
-		parameterType="map">
+		parameterType="map" resultMap="memberMap">
 		SELECT COUNT(*) FROM MEMBER WHERE '${type}' LIKE
 		'%'||#{keyword, jdbcType=VARCHAR}||'%' 
 	
 	</select>
 	
- 	<select id="selectMemberById" resultType="member" parameterType="member">
+ 	<select id="selectMemberById" resultType="member" parameterType="member" >
 		SELECT M.*,R.REPORT_ISWARNING FROM MEMBER M LEFT OUTER JOIN REPORT R ON M.USID=R.REPORT_TARGET_USID
-		WHERE MEM_CLASS LIKE ('일반유저') AND LEAVE_MEM LIKE 0 AND MEM_EMAIL=#{mem_email}
+		WHERE MEM_CLASS LIKE ('일반유저') AND LEAVE_MEM LIKE 0 AND MEM_EMAIL=#{memEmail}
 	</select>
 	
 
@@ -83,13 +121,12 @@
 	</select>
 	
 	<select id="searchBoardList" parameterType="map"
-		resultType="board">
+		resultType="board" resultMap="boardMap">
 		SELECT * FROM BOARD B, MEMBER M WHERE B.WRITER_USID=M.USID AND 1=1 
 		<if test="type !=null and keyword !=null">
 			AND ${type} LIKE '%'||#{keyword, jdbcType=VARCHAR}||'%'
 		</if>
 		
-				
 		<if test="isclose!=null " >
 			AND B.ISCLOSE IN
 			<foreach collection="isclose" item="v" index="i" open="("
@@ -97,12 +134,12 @@
 			</foreach>
 		</if>
 		
-		<if test="big_category!=null" >
-			AND B.BIG_CATEGORY LIKE '%'||#{big_category, jdbcType=VARCHAR}||'%'
+		<if test="bigCategory!=null" >
+			AND B.BIG_CATEGORY LIKE '%'||#{bigCategory, jdbcType=VARCHAR}||'%'
 		</if>
 		
-		<if test="small_category!=null" >
-			AND B.SMALL_CATEGORY LIKE '%'||#{small_category, jdbcType=VARCHAR}||'%'
+		<if test="smallCategory!=null" >
+			AND B.SMALL_CATEGORY LIKE '%'||#{smallCategory, jdbcType=VARCHAR}||'%'
 		</if>
 		
 		<if test='type2 != null  and (order eq "ascend".toString())'>
@@ -119,8 +156,8 @@
 		parameterType="map">
 		SELECT COUNT(*) FROM BOARD B, MEMBER M WHERE 1=1 AND
 		B.WRITER_USID=M.USID AND '${type}' LIKE '%'||#{keyword, jdbcType=VARCHAR}||'%'
-		<if test="big_category!=null" >
-			AND B.BIG_CATEGORY LIKE '%'||#{big_category, jdbcType=VARCHAR}||'%'
+		<if test="bigCategory!=null" >
+			AND B.BIG_CATEGORY LIKE '%'||#{bigCategory, jdbcType=VARCHAR}||'%'
 		</if>
 	</select>
 
@@ -157,7 +194,7 @@
 	</select>
 
 	<select id="searchExpertList" parameterType="map"
-		resultType="member">
+		resultType="member" resultMap="memberMap">
 		SELECT * FROM MEMBER WHERE 1=1 AND MEM_CLASS LIKE('전문가') 
 		
 		<if test="type !=null and keyword !=null">
@@ -168,16 +205,16 @@
 			AND GENDER = #{gender, jdbcType=VARCHAR}
 		</if>
 
-		<if test="mem_class!=null">
+		<if test="memClass!=null">
 			AND MEM_CLASS IN
-			<foreach collection="mem_class" item="v" index="i" open="("
+			<foreach collection="memClass" item="v" index="i" open="("
 				close=")" separator=","> #{v, jdbcType=VARCHAR}
 			</foreach>
 		</if>
 
-		<if test="leave_mem!=null">
+		<if test="leaveMem!=null">
 			AND LEAVE_MEM IN
-			<foreach collection="leave_mem" item="a" index="i" open="("
+			<foreach collection="leaveMem" item="a" index="i" open="("
 				close=")" separator=","> #{a, jdbcType=INTEGER}
 			</foreach>
 		</if>
@@ -195,7 +232,7 @@
 	</select>
 
 	<select id="searchExpertListCount" resultType="_int"
-		parameterType="map">
+		parameterType="map" >
 		SELECT COUNT(*) FROM MEMBER WHERE '${type2}' LIKE '%'||#{keyword, jdbcType=VARCHAR}||'%'
 		AND MEM_CLASS LIKE('전문가')
 	</select>
@@ -216,38 +253,38 @@
 	</select>
 	
 	<select id="insertNotice" parameterType="notice">
-		INSERT INTO NOTICE VALUES(SEQ_NOTICE_NO.NEXTVAL,31,'관리자',#{notice_title},#{notice_content},SYSDATE) 
+		INSERT INTO NOTICE VALUES(SEQ_NOTICE_NO.NEXTVAL,31,'관리자',#{noticeTitle},#{noticeContent},SYSDATE) 
 		
 	</select>
 	
 	<insert id="insertNoticeFile" parameterType="noticeFile">
-		INSERT INTO NOTICE_FILE VALUES(#{notice_id},#{notice_file_name})
+		INSERT INTO NOTICE_FILE VALUES(#{noticeId},#{noticeFileName})
 	
-		<selectKey keyProperty="notice_id" resultType="_int" order="BEFORE"> SELECT SEQ_NOTICE_NO.CURRVAL FROM DUAL </selectKey>
+		<selectKey keyProperty="noticeId" resultType="_int" order="BEFORE"> SELECT SEQ_NOTICE_NO.CURRVAL FROM DUAL </selectKey>
 	</insert>
 	
-	<select id="selectOneNotice" parameterType="_int" resultType="notice">
-		SELECT * FROM NOTICE WHERE NOTICE_ID=#{notice_id}
+	<select id="selectOneNotice" parameterType="_int" resultType="notice" resultMap="noticeMap">
+		SELECT * FROM NOTICE WHERE NOTICE_ID=#{noticeId}
 	</select>
 	
-	<select id="selectNoticeFile" parameterType="_int" resultType="noticeFile">
-		SELECT * FROM NOTICE_FILE WHERE NOTICE_ID=#{notice_id}
+	<select id="selectNoticeFile" parameterType="_int" resultType="noticeFile" resultMap="noticeFileMap">
+		SELECT * FROM NOTICE_FILE WHERE NOTICE_ID=#{noticeId}
 	</select>
 	
 	<select id="noticeModify" parameterType="map" resultMap="noticeMap">
-		SELECT * FROM NOTICE WHERE NOTICE_ID=#{notice_id}
+		SELECT * FROM NOTICE WHERE NOTICE_ID=#{noticeId}
 	</select>
 	
 	<insert id="noticeModifyEnd" parameterType="notice">
-		UPDATE NOTICE SET NOTICE_TITLE=#{notice_title},
-										NOTICE_CONTENT=#{notice_content},
-										NOTICE_ID=#{notice_id},
-										NOTICE_ADMIN_NICKNAME=#{notice_admin_nickname}
-		WHERE NOTICE_ID=#{notice_id}
+		UPDATE NOTICE SET NOTICE_TITLE=#{noticeTitle},
+										NOTICE_CONTENT=#{noticeContent},
+										NOTICE_ID=#{noticeId},
+										NOTICE_ADMIN_NICKNAME=#{noticeAdminNickname}
+		WHERE NOTICE_ID=#{noticeId}
 	</insert>
 	
 	<delete id="deleteNotice" parameterType="notice">
-		DELETE FROM NOTICE WHERE NOTICE_ID=#{notice_id}
+		DELETE FROM NOTICE WHERE NOTICE_ID=#{noticeId}
 	</delete>
  
 </mapper>

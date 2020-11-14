@@ -58,19 +58,39 @@
 }
 </style>
 <section id="content" class="container">
+	<br>
+	<p>임시 알람 테스트 리스트</p>
 	<div class="divList">
 		<div class="divListBody">
 			<c:choose>
 				<c:when test="${fn:length(list) > 0}">
 					<c:forEach items="${list }" var="n">
-						<div class="divRow shadow p-3 mb-5 bg-white rounded" style="cursor: pointer">
-							<%-- <div class="divCell">${n.ALARM_ID} 번호</div> --%>
-							<input type="hidden" value="${n.ALARM_ID}">
-							<div class="divCell">${n.ALARM_SEND_MEM_USID}님께서보낸 메세지</div>
-						</div>
-						<div class="noti">
-							<div class="noContent">내용 : ${n.ALARM_MSG_CONTENT}</div>
-						</div>
+					<%-- 	<p>${n.alarmMsgContent}</p> --%>
+						<c:choose>
+							<c:when test="${n.alarmType eq 'expert'}">
+								<div class="divRow shadow p-3 mb-5 bg-white rounded" style="cursor: pointer">
+									<input type="hidden" value="${n.alarmId}">
+									<div class="divCell">
+										"${n.alarmSendMemNickname}" 상담사님으로 부터 상담 요청이있습니다.<br> <small>${n.alarmDate }</small>
+									</div>
+								</div>
+								<div class="noti">
+									<div class="noContent">
+										안녕하세요 상담사 ${n.alarmSendMemNickname}입니다.<br> 아래 URL로 바로 접속하셔서 상담 진행하시면됩니다.<br> <a href="${path }/expertRoom?bno=${n.alarmMsgContent}">상담 링크 바로가기</a>
+									</div>
+								</div>
+							</c:when>
+							<c:otherwise>
+								<div class="divRow shadow p-3 mb-5 bg-white rounded" style="cursor: pointer">
+									<input type="hidden" value="${n.alarmId}">
+									<div class="divCell">${n.alarmSendMemUsid}님께서보낸메세지</div>
+								</div>
+								<div class="noti">
+									<div class="noContent">내용 : ${n.alarmMsgContent}</div>
+								</div>
+							</c:otherwise>
+						</c:choose>
+
 					</c:forEach>
 				</c:when>
 				<c:otherwise>
@@ -90,13 +110,16 @@ $(function(){
 	     });
 })
 	
+
+//알람 누르면 읽은것으로 처리되게 만듬
 $(".divRow").click(e=>{
    $(e.target).parent().next().slideToggle('slow', function() {
      });
    $(this).removeClass( 'shadow p-3 mb-5 bg-white rounded' );
    const aid = $(e.target).parent().children('input:eq(0)').val();
    console.log("누름"+aid);
-    $.ajax({
+   
+/*     $.ajax({
 	   type:"GET",
 	   data:{
 		   "aid":aid
@@ -110,8 +133,9 @@ $(".divRow").click(e=>{
 			   console.log("실패");
 		   }
 	   }
-   }); 
-});
+   });  */
+    
+}); 
 
 	$('.divRow').hover(function() {
 		$(this).css('color', '#FFC107');

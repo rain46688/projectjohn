@@ -102,15 +102,16 @@ h2 {
 </style>
 
 <section id="content">
-
+<br>
+	<p>임시 테스트용 사이트</p>
 	<div class="divList">
 		<div class="divListBody">
 
 			<div class="divRowTitle shadow p-3 mb-5 bg-white rounded">
 				<div class="divCell">상담 신청자</div>
 				<div class="divCell">상담 신청 날짜</div>
-					<div class="divCell">startCounsel</div>
-								<div class="divCell">endCounsel</div>
+					<div class="divCell">원하는 상담 시간</div>
+								<div class="divCell">추가 전달 사항</div>
 				<div class="divCell">상담 시작</div>
 				<div class="divCell">정보 보기</div>
 			</div>
@@ -120,19 +121,19 @@ h2 {
 				<c:when test="${fn:length(list) > 0}">
 					<c:forEach items="${list }" var="n">
 						<div class="divRow shadow p-3 mb-5 bg-white rounded" ><!-- style="cursor: pointer"  -->
-							<div class="divCell">${n.EXPERT_REQUEST_MEM_NICK}</div>
-							<div class="divCell">${n.EXPERT_DATE}</div>
-								<div class="divCell">${n.startCounsel}</div>
-									<div class="divCell">${n.endCounsel}</div>
+							<div class="divCell">${n.expertRequestMemNick}</div>
+							<div class="divCell">${n.expertDate}</div>
+								<div class="divCell">${n.expertCounselTime}</div>
+									<div class="divCell">${n.expertCounselRequire}</div>
 								<div class="divCell">
 								
 							<c:if test="${n.endCounsel != true }">
 								
 							<c:if test="${n.startCounsel == false }">
-								<button class="btn btn-outline-success" onclick="counselStart('${n.EXPERT_REQUEST_MEM_USID}','${n.EXPERT_REQUEST_MEM_NICK}');">상담 시작</button>
+								<button class="btn btn-outline-success" onclick="counselStart('${n.expertRequestMemUsid}','${n.expertRequestMemNick}');">상담 시작</button>
 							</c:if>
 							<c:if test="${n.startCounsel == true }">
-									<button class="btn btn-outline-success" onclick="counselConn('${n.EXPERT_REQUEST_MEM_USID}');">채팅 접속</button>
+									<button class="btn btn-outline-success" onclick="counselConn('${n.expertRequestMemUsid}');">채팅 접속</button>
 							</c:if>
 						</c:if> 
 							<c:if test="${n.endCounsel == true }">
@@ -141,8 +142,8 @@ h2 {
 							</c:if>
 								</div>
 					<form  name="form">				
-						<input type="hidden" name="no" value="${n.EXPERT_REQUEST_MEM_USID}"> 
-						<input type="hidden" name="nic" value="${n.EXPERT_REQUEST_MEM_NICK}">
+						<input type="hidden" name="no" value="${n.expertRequestMemUsid}"> 
+						<input type="hidden" name="nic" value="${n.expertRequestMemNick}">
 						<div class="divCell"><button class="btn btn-outline-success" onclick="exmemInfo(this.form);">회원 정보</button></div>
 					</form>
 						</div>
@@ -165,8 +166,8 @@ h2 {
 	  
 	}
 	
+	let bno = "";
 	function counselStart(num,nick){
-		let bno = "";
 		console.log("num : "+num);
 		let result = confirm("해당 회원과 상담을 진행하시겠습니까?");
 		if(result){
@@ -180,12 +181,11 @@ h2 {
 			 	   success:function (data){
 			 		   console.log("data : "+data);
 			 		 bno = data;
+			 		sendAlarm("${loginMember.usid}",num,"expert",bno,"${loginMember.memNickname}");
 			 		 console.log("bno : "+bno);
+					location.replace('${path}/counselStart?no='+num+"&nic="+nick+"&bno="+bno);
 			 	   }
 			    }); 
-			 	 console.log("bno2 : "+bno);
-				sendAlarm("${loginMember.usid}",num,"expert",bno,"${loginMember.mem_nickname}");
-				location.replace('${path}/counselStart?no='+num+"&nic="+nick+"$bno="+bno);
 		}
 		
 		
@@ -197,14 +197,14 @@ h2 {
 	}
 	
 	function exmemInfo(f){
-			var x = 600;
-			var y = 800;
-			var cx = (window.screen.width / 2) - (x / 2);
-			var cy= (window.screen.height / 2) - (y / 2);
+			const x = 600;
+			const y = 800;
+			const cx = (window.screen.width / 2) - (x / 2);
+			const cy= (window.screen.height / 2) - (y / 2);
 
-			var url    ="${path}/exmemInfo";
-			var title  = "chat";
-			var status = "toolbar=no,directories=no,scrollbars=no,resizable=no,status=no,menubar=no,width="+x+", height="+y+", top="+cy+",left="+cx;
+			const url    ="${path}/exmemInfo";
+			const title  = "chat";
+			const status = "toolbar=no,directories=no,scrollbars=no,resizable=no,status=no,menubar=no,width="+x+", height="+y+", top="+cy+",left="+cx;
 			pop =  window.open("", title,status);
 			f.target = title;
 			f.action = url;

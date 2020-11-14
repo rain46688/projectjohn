@@ -28,4 +28,10 @@ public class AlarmDaoImpl implements AlarmDao {
 		return session.update("alarm.updateAlarmRead", aid);
 	}
 
+	@Override
+	public int insetExpertAlarm(SqlSessionTemplate session, Alarm almsg) throws Exception {
+		// TODO Auto-generated method stub
+		return session.insert("alarm.insetExpertAlarm", almsg);
+	}
+
 }

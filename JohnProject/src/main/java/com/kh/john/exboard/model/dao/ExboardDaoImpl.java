@@ -27,13 +27,8 @@ public class ExboardDaoImpl implements ExboardDao {
 	}
 
 	@Override
-	public int insertExpertMemRequest(SqlSessionTemplate session, Member expert, Member mem) throws Exception {
+	public int insertExpertMemRequest(SqlSessionTemplate session, Map<String, String> map) throws Exception {
 		// TODO Auto-generated method stub
-		Map<String, String> map = new HashMap<String, String>();
-		map.put("exusid", "" + expert.getUsid());
-		map.put("exnick", expert.getMem_nickname());
-		map.put("memusid", "" + mem.getUsid());
-		map.put("memnick", mem.getMem_nickname());
 		return session.insert("expert.insertExpertMemRequest", map);
 	}
 
@@ -44,11 +39,8 @@ public class ExboardDaoImpl implements ExboardDao {
 	}
 
 	@Override
-	public ExpertRequest selectIsDuplicateReq(SqlSessionTemplate session, Member expert, Member mem) throws Exception {
+	public ExpertRequest selectIsDuplicateReq(SqlSessionTemplate session, Map<String, String> map) throws Exception {
 		// TODO Auto-generated method stub
-		Map<String, String> map = new HashMap<String, String>();
-		map.put("exusid", "" + expert.getUsid());
-		map.put("memusid", "" + mem.getUsid());
 		return session.selectOne("expert.selectIsDuplicateReq", map);
 	}
 

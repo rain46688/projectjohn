@@ -27,14 +27,14 @@
 		            
 		            <c:forEach items="${list }" var="r">
 		           <tr>
-            		<td><c:out value="${r.report_id }"/></td> 
-            		<td><c:out value="${r.report_type }"/></td> 
-            		<td><a href="${path }/report/adminReportView?report_id=${r.report_id }"><c:out value="${r.report_title }"/></a></td> 
-            		<td><c:out value="${r.report_date }"/></td> 
-            		<td><c:out value="${r.report_ischeck }"/></td> 
-            		<td><c:out value="${r.report_user_nickname }"/></td> 
-            		<td><c:out value="${r.report_target_nickname }"/></td> 
-            		<td><c:out value="${r.report_iswarning }"/></td> 
+            		<td><c:out value="${r.reportId }"/></td> 
+            		<td><c:out value="${r.reportType }"/></td> 
+            		<td><a href="${path }/report/adminReportView?reportId=${r.reportId }"><c:out value="${r.reportTitle }"/></a></td> 
+            		<td><c:out value="${r.reportDate }"/></td> 
+            		<td><c:out value="${r.reportIscheck }"/></td> 
+            		<td><c:out value="${r.reportUserNickname }"/></td> 
+            		<td><c:out value="${r.reportTargetNickname }"/></td> 
+            		<td><c:out value="${r.reportIswarning }"/></td> 
             	</tr>
 		            </c:forEach>
 		        </table> 

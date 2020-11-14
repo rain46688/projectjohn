@@ -1,6 +1,8 @@
 package com.kh.john.exboard.controller;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
@@ -59,6 +61,9 @@ public class ExboardController {
 		}
 		return mv;
 	}
+//상담 희망시간, 요구사항 받아서 넘기기
+	// 상담 종료후에도 평점이랑 후기 적기
+//https://www.cssscript.com/accessible-star-rating-system-pure-css/
 
 	// 전문가 상세 프로필 보는곳 여기서 상담 신청 가능
 	@RequestMapping("/expertApply")
@@ -68,11 +73,14 @@ public class ExboardController {
 		Member mem = (Member) session.getAttribute("loginMember");
 		Member expert = new Member();
 		expert.setUsid(Integer.parseInt(no));
-		expert.setMem_nickname(nic);
+		expert.setMemNickname(nic);
 		ModelAndView mv = new ModelAndView("/exboard/expertApply");
 		try {
+			Map<String, String> map = new HashMap<String, String>();
+			map.put("exusid", "" + expert.getUsid());
+			map.put("memusid", "" + mem.getUsid());
 			mv.addObject("expert", service.selectExpertMem(no));
-			mv.addObject("requestIsDuplicate", service.selectIsDuplicateReq(expert, mem));
+			mv.addObject("requestIsDuplicate", service.selectIsDuplicateReq(map));
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -84,17 +92,25 @@ public class ExboardController {
 	// 상담 신청 버튼 눌렀을때
 	@ResponseBody
 	@RequestMapping("/expertRequest")
-	public String expertRequest(String no, String nic, HttpSession session) {
+	public String expertRequest(String no, String nic, String time, String applyText, HttpSession session) {
 		log.debug("expertRequest 실행");
-		log.debug("no : " + no + " nic : " + nic);
+		log.debug("no : " + no + " nic : " + nic + " time : " + time + " applyText : " + applyText);
 		Member mem = (Member) session.getAttribute("loginMember");
 		Member expert = new Member();
 		expert.setUsid(Integer.parseInt(no));
-		expert.setMem_nickname(nic);
+		expert.setMemNickname(nic);
+
+		Map<String, String> map = new HashMap<String, String>();
+		map.put("exusid", "" + expert.getUsid());
+		map.put("exnick", expert.getMemNickname());
+		map.put("memusid", "" + mem.getUsid());
+		map.put("memnick", mem.getMemNickname());
+		map.put("time", time);
+		map.put("applyText", applyText);
 
 		String result = "";
 		try {
-			service.insertExpertMemRequest(expert, mem);
+			service.insertExpertMemRequest(map);
 			result = "1";
 		} catch (RequestDuplicateException e) {
 			result = "2";
@@ -114,7 +130,7 @@ public class ExboardController {
 		Member mem = (Member) session.getAttribute("loginMember");
 		Member expert = new Member();
 		expert.setUsid(Integer.parseInt(no));
-		expert.setMem_nickname(nic);
+		expert.setMemNickname(nic);
 
 		String result = "";
 		try {
@@ -143,23 +159,19 @@ public class ExboardController {
 					er.setStartCounsel(false);
 				} else {
 					for (ExpertBoard eb : blist) {
-						if (er.getEXPERT_REQUEST_MEM_USID() == eb.getEXPERT_BOARD_MEM_USID()) {
+						if (er.getExpertRequestMemUsid() == eb.getExpertBoardMemUsid()) {
 							// 이미 상담 게시판이 만들어진 유저
 							er.setStartCounsel(true);
-							if (eb.getEXPERT_BOARD_ADVICE_RESULT() != null) {
+							if (eb.getExpertBoardAdviceResult() != null) {
 								er.setEndCounsel(true);
 							}
-							log.debug(er.getEXPERT_REQUEST_MEM_NICK() + " START : " + er.getStartCounsel());
-							log.debug(er.getEXPERT_REQUEST_MEM_NICK() + " END : " + er.getEndCounsel());
 							break;
 						} else {
 							er.setStartCounsel(false);
 						}
 					}
 				}
-
 			}
-
 			mv.addObject("list", rlist);
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
@@ -176,6 +188,7 @@ public class ExboardController {
 		Member expertmem = (Member) session.getAttribute("loginMember");
 		try {
 			result = "" + service.insertExpertBoard(no, expertmem);
+			log.debug("result : " + result);
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -193,14 +206,14 @@ public class ExboardController {
 		int result = Integer.parseInt(bno);
 		try {
 			Member m = service.selectMember(nic);
-			String email = m.getMem_email();
+			String email = m.getMemEmail();
 			email = aes.decrypt(email);
 			log.debug("email : " + email);
 			int n = (req.getRequestURL()).indexOf(req.getRequestURI());
 			context = (req.getRequestURL()).substring(0, n);
 			MailHandler sendMail = new MailHandler(mailSender);
 			sendMail.setSubject("상담 채팅 요청이 도착했습니다.)");
-			String html = context + "/expertRoom?bno=" + result;
+			String html = context + "/john/expertRoom?bno=" + result;
 			log.debug("html : " + html);
 			sendMail.setText(new StringBuffer().append(html + "<br> 링크를 클릭해서 상담으로 바로가기").toString());
 			sendMail.setFrom("minsu87750@gmail.com", "재판하는 존경장님");
@@ -233,27 +246,36 @@ public class ExboardController {
 		// 해당 게시판 넘버에 맞는 유저를 판별하기 위해서 가져옴
 		try {
 			ExpertBoard eb = service.selectExpertBoard(bnum);
-			log.debug(" 상담 결과 : " + eb.getEXPERT_BOARD_ADVICE_RESULT());
-			if (m.getMem_class().equals("전문가")) {
-				log.debug("전문가");
-				if (m.getUsid() != eb.getEXPERT_BOARD_USID()) {
-					log.debug("잘못된 접근");
+			log.debug("eb : " + eb);
+
+			// 쿼리스트링에 방넘버가 없거나 있지도 않는 방에 접근할때
+			if (eb == null || bnum.equals("") || bnum == null) {
+				log.debug("잘못된 접근");
+				mv = gotoMsg(mv, "/", "잘못된 접근입니다.");
+				return mv;
+			}
+
+			// log.debug(" 상담 결과 : " + eb.getExpertBoardAdviceResult());
+			if (m.getMemClass().equals("전문가")) {
+				// log.debug("전문가");
+				if (m.getUsid() != eb.getExpertBoardUsid()) {
+					// log.debug("잘못된 접근");
 					mv = gotoMsg(mv, "/", "잘못된 접근입니다.");
 					return mv;
-				} else if (eb.getEXPERT_BOARD_ADVICE_RESULT() != null) {
-					log.debug("이미 만료된 상담입니다.");
+				} else if (eb.getExpertBoardAdviceResult() != null) {
+					// log.debug("이미 만료된 상담입니다.");
 					mv = gotoMsg(mv, "/", "만료된 상담입니다.");
 					return mv;
 				}
 				s.setExpert(true);
 			} else {
-				log.debug("전문가 아님");
-				if (m.getUsid() != eb.getEXPERT_BOARD_MEM_USID()) {
-					log.debug("잘못된 접근2");
+				// log.debug("전문가 아님");
+				if (m.getUsid() != eb.getExpertBoardMemUsid()) {
+					// log.debug("잘못된 접근2");
 					mv = gotoMsg(mv, "/", "잘못된 접근입니다.");
 					return mv;
-				} else if (eb.getEXPERT_BOARD_ADVICE_RESULT() != null) {
-					log.debug("이미 만료된 상담입니다.");
+				} else if (eb.getExpertBoardAdviceResult() != null) {
+					// log.debug("이미 만료된 상담입니다.");
 					mv = gotoMsg(mv, "/", "만료된 상담입니다.");
 					return mv;
 				}
@@ -264,7 +286,7 @@ public class ExboardController {
 			e.printStackTrace();
 		}
 		s.setCurRoomBid(bnum);
-		s.setNickname(m.getMem_nickname());
+		s.setNickname(m.getMemNickname());
 		s.setSessionUsid(m.getUsid());
 		session.setAttribute("loginnedMember", s);
 		mv.addObject("bno", bnum);
@@ -311,7 +333,7 @@ public class ExboardController {
 		log.debug("no : " + no + ", nic : " + nic);
 		ModelAndView mv = new ModelAndView("/exboard/exboardMemInfo");
 		Member m = service.selectMember(nic);
-		m.setMem_email(aes.decrypt(m.getMem_email()));
+		m.setMemEmail(aes.decrypt(m.getMemEmail()));
 
 		mv.addObject("m", m);
 		return mv;

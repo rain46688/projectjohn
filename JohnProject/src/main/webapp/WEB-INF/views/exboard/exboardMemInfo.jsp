@@ -12,11 +12,14 @@
 
 <section id="content">
 
-이메일 : ${m.mem_email }<br>
-이름 : ${m.mem_name }<br>
-닉네임 : ${m.mem_nickname }<br>
+EXPERT 상담 신청한 유저 정보고기<br>
+임시 테스트 페이지
+
+이메일 : ${m.memEmail }<br>
+이름 : ${m.memName }<br>
+닉네임 : ${m.memNickname }<br>
 성별 : ${m.gender }<br>
 생일 : ${m.birthday }<br>
-가입 날짜 : ${m.enroll_date }<br>
+가입 날짜 : ${m.enrollDate }<br>
 
 </section>

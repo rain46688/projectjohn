@@ -33,14 +33,14 @@
 		<c:if test="${not empty list }">
 			<c:forEach var="b" items="${list }">
 				<tr>
-					<td><c:out value="${b['board_id']}" /></td>
-					<td><c:out value="${b['writer_usid']}" /></td>
-					<td><c:out value="${b['writer_nickname']}" /></td>
+					<td><c:out value="${b['boardId']}" /></td>
+					<td><c:out value="${b['writerUsid']}" /></td>
+					<td><c:out value="${b['writerNickname']}" /></td>
 					<td><c:out value="${b['title']}" /></td>
-					<td><c:out value="${b['enroll_date']}" /></td>
+					<td><c:out value="${b['enrollDate']}" /></td>
 					<td><c:out value="${b['hit']}" /></td>
-					<td><c:out value="${b['big_category']}" /></td>
-					<td><c:out value="${b['small_category']}" /></td>
+					<td><c:out value="${b['bigCategory']}" /></td>
+					<td><c:out value="${b['smallCategory']}" /></td>
 					<td><c:out value="${b['isclose']}" /></td>
 				</tr>
 			</c:forEach>
