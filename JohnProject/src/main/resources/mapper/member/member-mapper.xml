@@ -67,11 +67,19 @@
 </select>
 
 <select id="searchBoard" parameterType="board" resultMap="boardMap">
-	SELECT * FROM BOARAD WHERE BOARD_ID=#{boardId} AND WRITER_USID=#{writerUsid}
+	SELECT * FROM BOARD WHERE BOARD_ID=#{boardId} AND WRITER_USID=#{writerUsid}
+</select>
+
+<select id="liked" parameterType="_int" resultMap="likeDislikeMap">
+
 </select>
 
 
-
+<resultMap type="likeDislike" id="likeDislikeMap">
+	<result property="likeUsid" column="like_usid"/>
+	<result property="likeBoardId" column="like_board_id"/>
+	<result property="likeIsdislike" column="like_isdislike"/>
+</resultMap>
 <resultMap id="memberMap" type="member">
 	<result property="usid" column="usid"/>
 	<result property="memEmail" column="mem_email"/>

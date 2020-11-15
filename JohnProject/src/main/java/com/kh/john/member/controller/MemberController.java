@@ -40,6 +40,7 @@ import com.kh.john.board.model.vo.Board;
 import com.kh.john.common.page.PageBarFactory;
 import com.kh.john.member.model.service.MemberService;
 import com.kh.john.member.model.vo.License;
+import com.kh.john.member.model.vo.LikeDislike;
 import com.kh.john.member.model.vo.Member;
 
 import lombok.extern.slf4j.Slf4j;
@@ -531,6 +532,16 @@ public class MemberController {
 		board.setBoardId(boardId);
 		board=service.searchBoard(board);
 		
+		mv.addObject("board",board);
+		mv.setViewName("member/myBoardDetail");
+		return mv;
+	}
+	
+//	좋아요 게시물 페이지
+	@RequestMapping("/member/myPage/liked")
+	public ModelAndView liked(ModelAndView mv, @SessionAttribute("loginMember") Member loginMember) {
+		int usid=loginMember.getUsid();
+		List<LikeDislike> liked=service.liked(usid);
 		
 		return mv;
 	}

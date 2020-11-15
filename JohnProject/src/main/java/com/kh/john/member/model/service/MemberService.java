@@ -5,6 +5,7 @@ import java.util.Map;
 
 import com.kh.john.board.model.vo.Board;
 import com.kh.john.member.model.vo.License;
+import com.kh.john.member.model.vo.LikeDislike;
 import com.kh.john.member.model.vo.Member;
 
 public interface MemberService {
@@ -57,6 +58,9 @@ public interface MemberService {
 
 	//게시물 디테일
 	Board searchBoard(Board board);
+
+//	좋아요 한 게시물
+	List<LikeDislike> liked(int usid);
 
 
 }

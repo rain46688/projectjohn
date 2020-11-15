@@ -9,6 +9,7 @@ import org.springframework.stereotype.Repository;
 
 import com.kh.john.board.model.vo.Board;
 import com.kh.john.member.model.vo.License;
+import com.kh.john.member.model.vo.LikeDislike;
 import com.kh.john.member.model.vo.Member;
 
 @Repository
@@ -98,6 +99,11 @@ public class MemberDaoImpl implements MemberDao {
 	@Override
 	public Board searchBoard(SqlSessionTemplate session, Board board) {
 		return session.selectOne("member.searchBoard",board);
+	}
+
+	@Override
+	public List<LikeDislike> liked(SqlSessionTemplate session, int usid) {
+		return session.selectList("member.liked",usid);
 	}
 
 }

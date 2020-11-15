@@ -17,6 +17,7 @@ import com.kh.john.member.controller.MailHandler;
 import com.kh.john.member.controller.UuidGenerator;
 import com.kh.john.member.model.dao.MemberDao;
 import com.kh.john.member.model.vo.License;
+import com.kh.john.member.model.vo.LikeDislike;
 import com.kh.john.member.model.vo.Member;
 
 @Service
@@ -141,6 +142,11 @@ public class MemberServiceImpl implements MemberService {
 	@Override
 	public Board searchBoard(Board board) {
 		return dao.searchBoard(session, board);
+	}
+
+	@Override
+	public List<LikeDislike> liked(int usid) {
+		return dao.liked(session, usid);
 	}
 
 

@@ -7,6 +7,7 @@ import org.mybatis.spring.SqlSessionTemplate;
 
 import com.kh.john.board.model.vo.Board;
 import com.kh.john.member.model.vo.License;
+import com.kh.john.member.model.vo.LikeDislike;
 import com.kh.john.member.model.vo.Member;
 
 public interface MemberDao {
@@ -42,5 +43,7 @@ public interface MemberDao {
 	int myBoardCount(SqlSessionTemplate session,int usid);
 
 	Board searchBoard(SqlSessionTemplate session, Board board);
+
+	List<LikeDislike> liked(SqlSessionTemplate session, int usid);
 
 }

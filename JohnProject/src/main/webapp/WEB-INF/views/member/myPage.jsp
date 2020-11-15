@@ -142,7 +142,7 @@
 						</div>
 						<div>
 							좋아요 한 게시물
-							<button>이동하기</button>
+							<button type="button" onclick="location.href='${path}/member/myPage/liked?usid=${loginMember.usid}'">이동하기</button>
 						</div>
 						<div>
 							내 신고 내역
