@@ -59,7 +59,7 @@ pageEncoding="UTF-8"%>
                 <img src="${path}/resources/images/scale3.png" alt="">
             </div>
         </div>
-        <div class="enter" onclick="location.href='${path}/member/memberLogin'">
+        <div class="enter" onclick="location.href='${path}/memberLogin'">
             <p>&gt; &gt; 입장하기</p>
         </div>
     </div>

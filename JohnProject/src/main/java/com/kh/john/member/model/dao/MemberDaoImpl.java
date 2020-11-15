@@ -48,14 +48,24 @@ public class MemberDaoImpl implements MemberDao {
 		return session.insert("member.signUpExpert",l);
 	}
 
-//	@Override
-//	public int signUpExpert(SqlSessionTemplate session, License l) {
-//		return session.insert("member.signUpExpert",l);
-//	}
-//
-//	@Override
-//	public Member selectMemUsidById(SqlSessionTemplate session, Member member) {
-//		return session.selectOne("member.selectMemUsidById",member);
-//	}
+	@Override
+	public Member findId(SqlSessionTemplate session, Member member) {
+		return session.selectOne("member.findId",member);
+	}
+
+	@Override
+	public Member findPw(SqlSessionTemplate session, Member member) {
+		return session.selectOne("member.findPw",member);
+	}
+
+	@Override
+	public int tempPw(SqlSessionTemplate session, Member member) {
+		return session.update("member.tempPw",member);
+	}
+
+	@Override
+	public int updatePw(SqlSessionTemplate session, Member member) {
+		return session.update("member.updatePw",member);
+	}
 
 }

@@ -29,14 +29,22 @@
 		SELECT SEQ_MEMBER_NO.CURRVAL FROM DUAL
 	</selectKey>
 </insert>
-<!-- <insert id="signUpExpert" parameterType="license"> -->
-<!-- 	INSERT INTO LICENSE VALUES(#{license_mem_usid}, #{license_file_name}, #{license_date}, #{license_type}, #{license_company}) -->
-<!-- </insert> -->
 
-<!-- <select id="selectMemUsidById" resultType="member" parameterType="member"> -->
-<!-- 	SELECT USID FROM MEMBER WHERE MEM_EMAIL=#{mem_email} -->
-<!-- </select> -->
+<select id="findId" parameterType="member" resultMap="memberMap">
+	SELECT * FROM MEMBER WHERE MEM_NAME=#{memName} AND TEL=#{tel}
+</select>
 
+<select id="findPw" parameterType="member" resultMap="memberMap">
+	SELECT * FROM MEMBER WHERE MEM_EMAIL=#{memEmail} AND MEM_NAME=#{memName} AND TEL=#{tel}
+</select>
+
+<update id="tempPw">
+	UPDATE MEMBER SET MEM_PWD=#{memPwd}, PW_IS_UUID=#{pwIsUuid} WHERE USID=#{usid}
+</update>
+
+<update id="updatePw" parameterType="member">
+	UPDATE MEMBER SET MEM_PWD=#{memPwd} WHERE USID=#{usid}
+</update>
 
 <resultMap id="memberMap" type="member">
 	<result property="usid" column="usid"/>
