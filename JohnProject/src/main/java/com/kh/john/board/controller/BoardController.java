@@ -34,7 +34,7 @@ import com.kh.john.member.model.vo.Member;
 import lombok.extern.slf4j.Slf4j;
 
 @Slf4j
-@CrossOrigin
+@CrossOrigin(origins = "http://localhost:3000")
 @Controller
 @SessionAttributes("loginMember")
 public class BoardController {
