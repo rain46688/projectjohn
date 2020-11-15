@@ -7,7 +7,7 @@ import lombok.Data;
 @Data
 public class Comment {
 	
-	private int comIdd;
+	private int comId;
 	private int comBoardId;
 	private int comWriterUsid;
 	private String comContent;

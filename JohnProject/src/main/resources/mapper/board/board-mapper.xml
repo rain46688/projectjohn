@@ -2,13 +2,40 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="board"><!-- 네임 스페이스 확인 후 변경바람 -->
 
-	<select id="boardList" resultType="board">
+	<resultMap type="board" id="boardMap">
+		<result property="boardId" column="board_id"/>
+		<result property="writerUsid" column="writer_usid"/>
+		<result property="writerNickname" column="writer_nickname"/>
+		<result property="title" column="title"/>
+		<result property="content" column="content"/>
+		<result property="enrollDate" column="enroll_date"/>
+		<result property="hit" column="hit"/>
+		<result property="bigCategory" column="big_category"/>
+		<result property="smallCategory" column="small_category"/>
+		<result property="isclose" column="isclose"/>
+		<result property="maxMems" column="max_mems"/>
+		<result property="agreeName" column="agree_name"/>
+		<result property="disagreeName" column="disagree_name"/>
+	</resultMap>
+	
+	<resultMap type="comment" id="commentMap">
+		<result property="comId" column="com_id"/>
+		<result property="comBoardId" column="com_board_id"/>
+		<result property="comWriterUsid" column="com_writer_usid"/>
+		<result property="comContent" column="com_content"/>
+		<result property="comWriterNickname" column="com_writer_nickname"/>
+		<result property="comProfilePic" column="com_profile_pic"/>
+		<result property="comEnrollDate" column="com_enroll_date"/>
+	</resultMap>
+	
+	<select id="boardList" resultMap="boardMap">
 		SELECT * FROM BOARD
 	</select>
 	
-	<insert id="boardInsert" parameterType="board">
+	
+	<insert id="boardInsert" parameterType="board" >
 		INSERT INTO BOARD VALUES(
-		SEQ_BOARD_NO.NEXTVAL, 9, '홍잭슨', #{title}, #{content}, SYSDATE, default, #{big_category}, #{small_category}, 0, default, #{agree_name}, #{disagree_name}
+		SEQ_BOARD_NO.NEXTVAL, 9, '홍잭슨', #{title}, #{content}, SYSDATE, default, #{bigCategory}, #{smallCategory}, 0, default, #{agreeName}, #{disagreeName}
 		)
 	</insert>
 	
@@ -19,11 +46,11 @@
 		</selectKey>
 	</insert>
 	
-	<select id="boardSelectOne" parameterType="_int" resultType="board">
-		SELECT * FROM BOARD WHERE BOARD_ID = #{boardNO}
+	<select id="boardSelectOne" parameterType="_int" resultMap="boardMap">
+		SELECT * FROM BOARD WHERE BOARD_ID = #{boardNo}
 	</select>
 	
-	<select id="commentSelectList" parameterType="_int" resultType="comment">
+	<select id="commentSelectList" parameterType="_int" resultMap="commentMap">
 		SELECT * FROM "COMMENT" WHERE COM_BOARD_ID = #{currBoardNo}
 	</select>
 	
@@ -31,7 +58,7 @@
 		INSERT INTO "COMMENT" VALUES(SEQ_COMMENT_NO.NEXTVAL, #{currBoardNo}, 9, '홍잭슨', #{content}, default, SYSDATE)
 	</insert>
 	
-	<select id="boardSelectCate" parameterType="string" resultType="board">
+	<select id="boardSelectCate" parameterType="string" resultMap="boardMap">
 		SELECT * FROM BOARD WHERE SMALL_CATEGORY = #{boardTitle}
 	</select>
 </mapper>
