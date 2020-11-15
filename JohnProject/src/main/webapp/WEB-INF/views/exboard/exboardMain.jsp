@@ -20,9 +20,10 @@ label, input {
 <section id="content">
 <br>
 	EXPERT 임시 테스트 페이지
-
-	<p>세션 : ${loginMember.memNickname}</p>
-	<p>전문가 : ${loginMember.memClass}</p>
+<br>
+<br>
+	<p>세션 닉네임 : ${loginMember.memNickname}</p>
+	<p>유저 타입 : ${loginMember.memClass}</p>
 	<p>USID : ${loginMember.usid}</p>
 	<br>
 	<button class="btn btn-outline-success" onclick="location.href='${path}/expert/expertPrintList'">유저가 전문가 리스트 보기</button>

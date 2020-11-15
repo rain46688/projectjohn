@@ -24,7 +24,7 @@
 		</interceptor>
 		
 		<interceptor>
-			<mapping path="/expertRoom" />
+			<mapping path="/expert/*" />
 			<beans:bean class=" com.kh.john.common.interceptor.ExpertRoomInterceptor" />
 		</interceptor>
 		
