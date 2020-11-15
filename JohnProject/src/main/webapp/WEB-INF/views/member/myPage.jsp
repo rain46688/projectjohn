@@ -112,19 +112,19 @@
 					<div>
 						<div>
 							<div>
-								<img src="${path }/resources/profile_images/${loginMember.getProfilePic()}">
+								<img src="${path }/resources/profile_images/${member.getProfilePic()}">
 							</div>
-							이름: ${loginMember.memName}
-							닉네임: ${loginMember.getMemNickname() }
+							이름: ${member.memName}
+							닉네임: ${member.getMemNickname() }
 							성별: 
 							<c:choose>
 								<c:when test="${loginMember.getGender() eq 'F' }">여</c:when>
 								<c:otherwise>남</c:otherwise>
 							</c:choose>
-							생년월일: ${loginMember.getBirthday() }
-							가입일: ${loginMember.getEnrollDate() }
-							포인트: ${loginMember.getPoint() }
-							회원구분: ${loginMember.getMemClass() }
+							생년월일: ${member.getBirthday() }
+							가입일: ${member.getEnrollDate() }
+							포인트: ${member.getPoint() }
+							회원구분: ${member.getMemClass() }
 							
 							
 						</div>
@@ -134,7 +134,7 @@
 						</div>
 						<div>
 							나의 게시물 내역
-							<button>이동하기</button>
+							<button type="button" onclick="location.href='${path}/member/myPage/myBoard?usid=${loginMember.usid}'">이동하기</button>
 						</div>
 						<div>
 							전문가 상담 내역
@@ -142,7 +142,7 @@
 						</div>
 						<div>
 							좋아요 한 게시물
-							<button>이동하기</button>
+							<button type="button" onclick="location.href='${path}/member/myPage/liked?usid=${loginMember.usid}'">이동하기</button>
 						</div>
 						<div>
 							내 신고 내역

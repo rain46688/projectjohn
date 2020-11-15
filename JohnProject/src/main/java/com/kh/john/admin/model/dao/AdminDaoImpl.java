@@ -8,6 +8,7 @@ import org.apache.ibatis.session.SqlSession;
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.stereotype.Repository;
 
+import com.kh.john.admin.model.vo.AdminChat;
 import com.kh.john.admin.model.vo.Notice;
 import com.kh.john.admin.model.vo.NoticeFile;
 import com.kh.john.board.model.vo.Board;
@@ -172,6 +173,12 @@ public class AdminDaoImpl implements AdminDao {
 	}
 	
 	
+	//1:1 문의관련
+	
+	@Override
+	public int insertAdminChat(SqlSessionTemplate session, AdminChat ac) throws Exception {
+		return session.insert("admin.insertAdminChat",ac);
+	}
 	
 	
 	

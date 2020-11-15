@@ -53,6 +53,14 @@
 		<result property="licenseType" column="license_type"/>
 		<result property="licenseCompany" column="license_company"/>
 	</resultMap>
+	<resultMap type="com.kh.john.admin.model.vo.AdminChat" id="adminChatMap">
+		<result property="adminUsid" column="admin_usid"/>
+		<result property="adminChatMemUsid" column="admin_chat_mem_usid"/>
+		<result property="adminChatContent" column="admin_chat_content"/>
+		<result property="adminChatDate" column="admin_chat_date"/>
+		<result property="adminChatFile" column="admin_chat_file"/>
+		
+	</resultMap>
 
 	<!-- 멤버관련 -->
 	<select id="selectMemberList" resultMap="memberMap">
@@ -286,4 +294,9 @@
 		DELETE FROM NOTICE WHERE NOTICE_ID=#{noticeId}
 	</delete>
  
+ <!-- 1:1 문의 관련 -->
+ 
+ 	<insert id="insertAdminChat" parameterType="adminChat">
+ 		INSERT INTO ADMIN_CHAT VALUES(#{adminUsid},#{adminChatMemUsid},#{adminChatContent},#{adminChatDate},#{adminChatFile})
+ 	</insert>
 </mapper>
