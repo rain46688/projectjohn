@@ -1,5 +1,9 @@
 package com.kh.john.exboard.controller;
 
+import java.io.File;
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -13,9 +17,12 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.kh.john.common.exception.RequestDuplicateException;
 import com.kh.john.exboard.model.service.ExboardService;
 import com.kh.john.exboard.model.vo.ExpertBoard;
@@ -341,24 +348,51 @@ public class ExboardController {
 		return mv;
 	}
 
-//	@ResponseBody
-//	@RequestMapping("/expert/uploadl")
-//	public String expertuUploadll(String uploadfile) {
-//		log.debug("expertuUploadll 실행");
-//		log.debug("no : " + no + " nic : " + nic);
-//		Member mem = (Member) session.getAttribute("loginMember");
-//		Member expert = new Member();
-//		expert.setUsid(Integer.parseInt(no));
-//		expert.setMemNickname(nic);
-//
-//		String result = "";
-//		try {
-//			service.deleteExpertMemRequest(expert, mem);
-//			result = "1";
-//		} catch (Exception e) {
-//			result = "0";
-//		}
-//		return result;
-//	}
+	@ResponseBody
+	@RequestMapping("/expert/upload")
+	public String expertuUploadll(MultipartFile[] upFile, HttpServletRequest request) {
+		log.debug("expertuUploadll 실행");
+		String result = "";
+		String path = request.getServletContext().getRealPath("/resources/upload_images");
+		List<String> list = new ArrayList<String>();
+		for (int i = 0; i < upFile.length; i++) {
+			log.debug(" ================================ ");
+			log.debug("파일명 : " + upFile[i].getOriginalFilename());
+			log.debug("파일크기 : " + upFile[i].getSize());
+		}
+		File dir = new File(path);
+		if (!dir.exists()) {
+			// 지정된 경로의 폴더가 없으면
+			dir.mkdirs();// s넣으면 중간 경로 없어도 알아서 만들어주는것!!
+		}
+
+		// 파일 업로드 로직 처리하기
+		for (MultipartFile f : upFile) {
+			if (!f.isEmpty()) {
+				// 전달된 파일이 있으면... 파일 업로드 처리
+				// 파일 리네임 처리 -> 중복방지를 위해!
+				String originalFileName = f.getOriginalFilename();
+				String ext = originalFileName.substring(originalFileName.lastIndexOf(".") + 1);
+				SimpleDateFormat sdf = new SimpleDateFormat("yyyy_MM_dd_HHmmssSSS");
+				int rndNum = (int) (Math.random() * 1000);
+				String renamedFileName = sdf.format(new Date(System.currentTimeMillis())) + "_" + rndNum + "." + ext;
+				try {
+					// renamedFileName 으로 파일을 저장하기 -> transferTo(파일)
+					f.transferTo(new File(path + "/" + renamedFileName));
+				} catch (Exception e) {
+					// TODO: handle exception
+					e.printStackTrace();
+				}
+				list.add(renamedFileName);
+			}
+		}
+		try {
+			result = new ObjectMapper().writeValueAsString(list);
+		} catch (JsonProcessingException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return result;
+	}
 
 }

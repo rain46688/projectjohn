@@ -49,14 +49,14 @@
 	font-size: 20px;
 }
 
-#board {
+/* #board {
 	border: 1px solid gray;
 	background-color: rgb(200, 200, 200);
 	width: 100%;
 	height: 500px;
 	overflow-x: hidden;
 	-ms-overflow-style: none;
-}
+} */
 
 #board>div {
 	font-size: 20px;
@@ -71,6 +71,27 @@
 #textboard {
 	display: inline-block;
 }
+
+#previewImg img{
+width:50px;
+height:50px;
+display:flex;
+}
+
+#expertTextDiv{
+	width:460px;
+	height:400px;
+	border:1px solid black;
+			overflow-x: hidden;
+	-ms-overflow-style: none;	
+}
+
+.upload{
+	width:100px;
+	height:100px;
+}
+
+
 </style>
 
 <body>
@@ -87,110 +108,130 @@
 
 			<div id="textboard">
 				<c:if test="${loginMember.memClass == '전문가'}">
-					<textarea id="extext" rows="20" cols="60"></textarea>
+					<div id="expertTextDiv"></div>
 					<br>
+					<textarea id="extext" rows="2" cols="60"></textarea>
+					<br>
+						<div id="previewImg"></div>
 					<button type="button" class="btn btn-outline-success my-2 my-sm-0" onclick='counselEnd();'>상담 완료</button>
+					<input type="button" class="btn btn-outline-success my-2 my-sm-0" id="btnSubmit" value="업로드" />
 				</c:if>
 
 				<c:if test="${loginMember.memClass != '전문가'}">
+					<div id="expertTextDiv"></div>
 					<br>
-					<textarea id="memtext" rows="20" cols="60" readonly></textarea>
-					<br>
+						<div id="previewImg"></div>
 					<button type="button" class="btn btn-outline-success my-2 my-sm-0" onclick='onoff();'>카메라 조정</button>
+					<input type="button" class="btn btn-outline-success my-2 my-sm-0" id="btnSubmit" value="업로드" />
 				</c:if>
+			
 			</div>
-
-<input type="button" id="btnSubmit" value="업로드"/>
-<div id="drop" style="border:1px solid black; width:800px; height:300px; padding:3px">
-여기로 drag & drop
-<div id="thumbnails">
-</div>
-</div>
 
 
 		</section>
 
 		<script>
 			'use strict';
-
 			
-			var uploadFiles = [];
-			var $drop = $("#drop");
+			function imgView(e){
+				console.log("눌림림 : "+$(e.target).attr( 'title' ));
+				window.open('${path}/resources/upload_images/'+$(e.target).attr( 'title' ),'이미지','width=800, height=700, toolbar=no, menubar=no, scrollbars=no, resizable=yes');
+			};
+			
+			//---------------------------- 드래그 파일 -------------------------------------
 
-			$drop.on("dragenter", function(e) { //드래그 요소가 들어왔을떄
-				console.log("드래그 요소가 들어왔을떄");
-			$(this).addClass('drag-over');
-			}).on("dragleave", function(e) { //드래그 요소가 나갔을때
-				console.log("드래그 요소가 나갔을때");
-			$(this).removeClass('drag-over');
+			let uploadFiles = [];
+ 			let $drop = $("#expertTextDiv");
+
+			$drop.on("dragenter", function(e) { 
+				console.log("드래그 들어왔을떄");
+				$(this).addClass('drag-over');
+			}).on("dragleave", function(e) { 
+				console.log("드래그 나갔을때");
+				$(this).removeClass('drag-over');
 			}).on("dragover", function(e) {
-			e.stopPropagation();
-			e.preventDefault();
-			}).on('drop', function(e) { //드래그한 항목을 떨어뜨렸을때
-				console.log("드래그한 항목을 떨어뜨렸을때");
-			e.preventDefault();
-			$(this).removeClass('drag-over');
-			
-			var files = e.originalEvent.dataTransfer.files;
-			console.log("files : "+files);
-			
-			for(var i = 0; i < files.length; i++) {
-				var file = files[i];
-				var size = uploadFiles.push(file); //업로드 목록에 추가
-				preview(file, size - 1); //미리보기 만들기
+				e.stopPropagation();
+				e.preventDefault();
+			}).on('drop', function(e) { 
+				console.log("드래그 항목을 떨어뜨렸을때");
+				e.preventDefault();
+				$(this).removeClass('drag-over');
+				let files = e.originalEvent.dataTransfer.files;
+				//console.log("files : " + files);
+				for (let i = 0; i < files.length; i++) {
+					let file = files[i];
+					let size = uploadFiles.push(file); //업로드 목록에 추가
+					preview(file, size - 1); //미리보기 만들기
 				}
-		
+
 			});
+			
+			//---------------------------- 드래그 파일 미리보기 -------------------------------------
 
 			function preview(file, idx) {
-				var reader = new FileReader();
+				let reader = new FileReader();
 				reader.onload = (function(f, idx) {
-				return function(e) {
-				var div = '<div class="thumb"> \
-				<div class="close" data-idx="' + idx + '">X</div> \
-				<img src="' + e.target.result + '" title="' + escape(f.name) + '"/> \
-				</div>';
-				$("#thumbnails").append(div);
-				};
+					return function(e) {
+						let div = '<div class="thumb"> \ <div class="close" data-idx="' + idx + '">X</div> \ <img src="' + e.target.result + '" title="' + escape(f.name) + '"/> \ </div>';
+						$("#previewImg").append(div);
+					};
 				})(file, idx);
 				reader.readAsDataURL(file);
-				}
+			}
 
+			//---------------------------- 드래그 파일 전송 -------------------------------------
+			
 			$("#btnSubmit").on("click", function() {
 				var formData = new FormData();
 				$.each(uploadFiles, function(i, file) {
-				if(file.upload != 'disable') //삭제하지 않은 이미지만 업로드 항목으로 추가
-				formData.append('upload-file', file, file.name);
-				});
-				
-				console.log($(formData));
-				
-				 $.ajax({
-				url: '${path}/resources/upload_images',
-				data : formData,
-				type : 'post',
-				contentType : false,
-				processData: false,
-				success : function(ret) {
-				alert("완료");
-				}
-				});
-				
+					if (file.upload != 'disable') //삭제하지 않은 이미지만 업로드 항목으로 추가
+						formData.append('upFile', file, file.name);
 				});
 
+				$.ajax({
+					url : '${path}/expert/upload',
+					data : formData,
+					type : 'post',
+					contentType : false,
+					processData : false,
+					dataType : "json",
+					success : function(data) {
+						console.log("파일 업로드 완료 data : " + data);
+						let msg = "";
+						$.each(data, function(i, item) {
+							console.log("i : " + i + ", item : " + item);
+							msg += item + "|";
+						});
+						console.log(msg);
+						sendMessage(new ExboardMsg("FILE", "", msg));
+						$("#previewImg").html("");
+						
+						let list = msg.split('|');
+						let imgprint = "";
+						console.log("길이 : "+list.length);
+						for(let i in list){
+							console.log(list[i]+"i : "+i);
+							console.log("i+1 == list.length : "+i+1 == list.length);
+							if(i == list.length-1){
+								console.log("나감");
+								break;
+							}
+							imgprint+="<img  class='upload' src='${path}/resources/upload_images/"+list[i]+"' title='"+list[i]+"' onclick='imgView(event);' style='cursor: pointer'/><br>";
+						}
+						$("#expertTextDiv").html($("#expertTextDiv").html()+imgprint);
+						$("#expertTextDiv").scrollTop($("#expertTextDiv")[0].scrollHeight);
+					}
+				});
+			});
 
-			$("#thumbnails").on("click", ".close", function(e) {
-				var $target = $(e.target);
-				var idx = $target.attr('data-idx');
+			$("#previewImg").on("click", ".close", function(e) {
+				let $target = $(e.target);
+				let idx = $target.attr('data-idx');
 				uploadFiles[idx].upload = 'disable'; //삭제된 항목은 업로드하지 않기 위해 플래그 생성
 				$target.parent().remove(); //프리뷰 삭제
-				});
+			});
 
-
-			
-			
-			
-			//---------------------------- 설정 -------------------------------------
+			//---------------------------- 상담 설정 -------------------------------------
 
 			//마이크 비디오 설정
 			const video1 = document.getElementById('video1');
@@ -270,24 +311,37 @@
 					console.log(" === 분기 SYS === ");
 					start();
 					user_usid = content.id;
-					$("#extext").val(content.nick + "님이 접속하셨습니다.");
+					$("#expertTextDiv").html("<p>"+content.nick + "님이 접속하셨습니다.</p><br>");
 				} else if (content.type == 'TXT') {
 					console.log(" === 분기 TXT === ");
-					$("#memtext").html("");
-					$("#memtext").html(content.msg);
+					
+					$("#expertTextDiv").html($("#expertTextDiv").html()+"<p>"+content.msg+"</p>");
 				} else if (content.type == 'CAM') {
 					console.log(" === 분기 CAM === ");
 					if (content.msg === 'off') {
 						video2.srcObject = null;
-						$("#extext").val(
-								$("#extext").val() + "\n유저가 카메라를 끄셨습니다.");
+						$("#expertTextDiv").html($("#expertTextDiv").html() + "\n<br><p>유저가 카메라를 끄셨습니다.</p>");
 						//user_cam = false;
 					} else {
 						video2.srcObject = remoteStream;
-						$("#extext").val(
-								$("#extext").val() + "\n유저가 카메라를 키셨습니다.");
+						$("#expertTextDiv").html($("#expertTextDiv").html() + "\n<br><p>유저가 카메라를 키셨습니다.</p>");
 						//user_cam = true;
 					}
+				} else if (content.type == 'FILE') {
+					console.log(" === 분기 FILE === ");
+					console.log("content : " + content.msg);
+					let list = content.msg.split('|');
+					let imgprint = "";
+					for(let i in list){
+						console.log(list[i]);
+						if(i == list.length-1){
+							console.log("나감");
+							break;
+						}
+						imgprint+="<img  class='upload' src='${path}/resources/upload_images/"+list[i]+"' title='"+list[i]+"' onclick='imgView(event);' style='cursor: pointer'/><br>";
+					}
+					$("#expertTextDiv").html($("#expertTextDiv").html()+imgprint);
+					$("#expertTextDiv").scrollTop($("#expertTextDiv")[0].scrollHeight);
 				} else if (content.type == 'END') {
 					console.log(" === 분기 END === ");
 					exit();
@@ -304,7 +358,7 @@
 				console.log("메세지 보내는 함수 sendMessage");
 			};
 
-			//---------------------------- 비디오 -------------------------------------
+			//---------------------------- 비디오 설정 -------------------------------------
 
 			const constraints = {
 				video : {
@@ -456,7 +510,7 @@
 				pc = null;
 			};
 
-			//---------------------------- 잡 -------------------------------------
+			//---------------------------- 잡다한 메소드 -------------------------------------
 
 			function handleCreateOfferError(event) {
 				console.log('Offer부분 생성 에러 error: ', event);
@@ -482,8 +536,11 @@
 			$("#extext").keyup(function(key) {
 				if (key.keyCode == 13) {
 					let txt = $("#extext").val();
+					$("#extext").val("");
 					console.log(txt);
 					sendMessage(new ExboardMsg("TXT", "", txt));
+					$("#expertTextDiv").html($("#expertTextDiv").html()+"<p>"+txt+"</p>");
+					$("#expertTextDiv").scrollTop($("#expertTextDiv")[0].scrollHeight);
 				}
 			});
 
@@ -499,7 +556,7 @@
 					let hiddenField = document.createElement("input");
 					hiddenField.setAttribute("type", "hidden");
 					hiddenField.setAttribute("name", "extext");
-					hiddenField.setAttribute("value", $("#extext").val());
+					hiddenField.setAttribute("value", $("#expertTextDiv").html());
 					form.appendChild(hiddenField);
 					let hiddenField2 = document.createElement("input");
 					hiddenField2.setAttribute("type", "hidden");
@@ -526,7 +583,13 @@
 					video1.srcObject = localStream;
 					sendMessage(new ExboardMsg("CAM", "", "on"));
 				}
-			}
+			};
+			
+		
+			
+			
+			
+			
 		</script>
 </body>
 </html>
