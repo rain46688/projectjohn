@@ -85,7 +85,7 @@
                 <!--폼 오른쪽 로그인폼-->
                 <div id="form_right">
                     
-                    <form id="loginForm" action="${path}/member/memberLoginEnd" method="POST">
+                    <form id="loginForm" action="${path}/memberLoginEnd" method="POST">
                         <div class="input_container">
                             <!-- <i class="fas fa-envelope"></i> -->
                             <input placeholder="Email" type="email" name="memEmail" id="mem_email" class="input_field">
@@ -101,7 +101,7 @@
 					<!-- 임시입장 나중에 수정하셈  -->
 					<button type="button" onclick="location.href='${path}/board/boardList'">임시입장임시입장</button>
 
-                    <span id="find_password">까먹었다&nbsp;<a onclick="fn_findId();">아이디</a>&nbsp;<a onclick="fn_findPw();">비밀번호</a></span>
+                    <span id="find_password">까먹었다&nbsp;<a onclick="fn_findIdPage();">아이디</a>&nbsp;<a onclick="fn_findPwPage();">비밀번호</a></span>
 
                     <span id="create_account">
                         <a onclick="fn_signUp();">★회원가입★</a>
@@ -130,18 +130,18 @@
             });  
 
             //아이디 찾기
-            function fn_findId(){
-                const url="${path }/member/findId";
-                const tilte="findId";
+            function fn_findIdPage(){
+                const url="${path }/findIdPage";
+                const title="findIdPage";
                 const status="left=500, top=100, width=500, height=500";
 
                 open(url, title, status);
             }
 
             //비밀번호 찾기
-            function fn_findPw(){
-                const url="${path }/member/findPw";
-                const tilte="findPw";
+            function fn_findPwPage(){
+                const url="${path }/findPwPage";
+                const title="findPwPage";
                 const status="left=500, top=100, width=500, height=500";
 
                 open(url, title, status);
@@ -149,7 +149,7 @@
 
             //회원가입으로 가는 길
             function fn_signUp(){
-                const url="${path }/member/signUp";
+                const url="${path }/signUp";
                 const title="signUp";
                 const status="left=500, top=100, width=800, height=800";
 

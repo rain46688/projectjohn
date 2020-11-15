@@ -123,7 +123,7 @@
 		<div id="signUpBox" style="padding-top: 50px;">
 			<div id="signUpField">
 				<h2 style="margin-bottom: 50px;">회원가입</h2>
-				<form id="memberEnrollFrm" name="memberEnrollFrm" action="${path}/member/signUpEnd" method="post" enctype="multipart/form-data">
+				<form id="memberEnrollFrm" name="memberEnrollFrm" action="${path}/signUpEnd" method="post" enctype="multipart/form-data">
 					<input type="email" id="id" name="memEmail" class="input" placeholder="이메일" required style="width: 59%;">
 					<input type="button" class="button" id="certibtn" value="인증번호 전송" style="text-align: center;"><br>
 					<div class="constrain" id="idConstrain"></div>
@@ -259,7 +259,7 @@
 			});
 			$("#id").keyup(e=>{
 				$.ajax({
-					url:"${path}/member/emailDuplicate",
+					url:"${path}/emailDuplicate",
 					data:{"memEmail":$("#id").val().trim()},
 					type:"post",
 					dataType:"html",
@@ -279,7 +279,7 @@
 					alert("중복된 아이디는 사용할 수 없습니다.")
 				}else{
 					$.ajax({
-						url: "${path}/member/certiEmail",
+						url: "${path}/certiEmail",
 						data: {"email":$("#id").val()},
 						type: "post",
 						dataType: "html",
@@ -386,7 +386,7 @@
 			const nn=$("#nickname").val().trim();
 			$("#nickname").keyup(e=>{
 				$.ajax({
-					url:"${path}/member/NNDuplicate",
+					url:"${path}/NNDuplicate",
 					data:{"memNickname":$(e.target).val()},
 					type:"post",
 					dataType:"html",
@@ -442,24 +442,12 @@
 			$(document).on('change','.file',function(){
 				$(this).parent().find('.inputFile').val($(this).val().replace(/C:\\fakepath\\/i,''));
 			});
-			//회원이 전문가라면
-			// $("input:radio[id='expertUser']").click(function(e){
-			// 	$.ajax({
-			// 		url: "${path}/member/divForExpert",
-			// 		type: "get",
-			// 		dataType: "html",
-			// 	success:function(data){
-			// 		$("#forExpert").html(data);
-			// 		$("#forExpert").css({"display":"block"});
-			// 	}
-			// 	});
-			// });
 
 			//addLicense1
 			$("input:radio[id='expertUser']").click(function(e){
 				$("#forExpertTitle").css({"display":"block"});
 				$.ajax({
-					url: "${path}/member/divForExpert",
+					url: "${path}/divForExpert",
 					type: "get",
 					dataType: "html",
 				success:function(data){
@@ -474,7 +462,7 @@
 			$("#addLicenseBtn1").click(function(e){
 				$("#addLicenseDiv1").css({"display":"none"})
 				$.ajax({
-					url: "${path}/member/divForExpert",
+					url: "${path}/divForExpert",
 					type: "get",
 					dataType: "html",
 				success:function(data){
@@ -491,7 +479,7 @@
 				$("#addLicenseDiv2").css({"display":"none"});
 				$("#removeLicenseDiv1").css({"display":"none"});
 				$.ajax({
-					url: "${path}/member/divForExpert",
+					url: "${path}/divForExpert",
 					type: "get",
 					dataType: "html",
 				success:function(data){
@@ -647,7 +635,7 @@
 			const phone=$("#phone").val().trim();
 			$("#phone").keyup(e=>{
 				$.ajax({
-					url:"${path}/member/PNDuplicate",
+					url:"${path}/PNDuplicate",
 					data:{"tel":$(e.target).val()},
 					type:"post",
 					dataType:"html",

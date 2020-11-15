@@ -27,4 +27,17 @@ public interface MemberService {
 	int signUpEnd(Member member);
 	int signUpExpert(Member member, List<License> licenseList);
 
+	//이름과 폰번으로 회원 찾기
+	Member findId(Member member);
+
+	//이름과 폰번과 아이디로 회원 찾기
+	Member findPw(Member member);
+
+	//임시 비밀번호로 비번 업뎃
+	int tempPw(Member member);
+	
+	//usid로 비밀번호 바꿔주기
+	int updatePw(Member member);
+
+
 }

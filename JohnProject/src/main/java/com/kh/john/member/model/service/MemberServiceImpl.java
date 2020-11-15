@@ -49,7 +49,7 @@ public class MemberServiceImpl implements MemberService {
                 .append("<h1>메일인증</h1>")
                 .append(authKey)
                 .toString());
-		sendMail.setFrom("22mailme@gmail.com", "재판하는 존경장님");
+		sendMail.setFrom("22mailme@gmail.com", "관리자");
 		sendMail.setTo(email);
 		sendMail.send();
 		return authKey;
@@ -91,5 +91,26 @@ public class MemberServiceImpl implements MemberService {
 		}
 		return result;
 	}
+
+	@Override
+	public Member findId(Member member) {
+		return dao.findId(session, member);
+	}
+
+	@Override
+	public Member findPw(Member member) {
+		return dao.findPw(session, member);
+	}
+
+	@Override
+	public int tempPw(Member member) {
+		return dao.tempPw(session,member);
+	}
+	
+	@Override
+	public int updatePw(Member member) {
+		return dao.updatePw(session,member);
+	}
+
 
 }

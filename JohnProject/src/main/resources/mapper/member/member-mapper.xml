@@ -30,6 +30,22 @@
 	</selectKey>
 </insert>
 
+<select id="findId" parameterType="member" resultMap="memberMap">
+	SELECT * FROM MEMBER WHERE MEM_NAME=#{memName} AND TEL=#{tel}
+</select>
+
+<select id="findPw" parameterType="member" resultMap="memberMap">
+	SELECT * FROM MEMBER WHERE MEM_EMAIL=#{memEmail} AND MEM_NAME=#{memName} AND TEL=#{tel}
+</select>
+
+<update id="tempPw">
+	UPDATE MEMBER SET MEM_PWD=#{memPwd}, PW_IS_UUID=#{pwIsUuid} WHERE USID=#{usid}
+</update>
+
+<update id="updatePw" parameterType="member">
+	UPDATE MEMBER SET MEM_PWD=#{memPwd} WHERE USID=#{usid}
+</update>
+
 <resultMap id="memberMap" type="member">
 	<result property="usid" column="usid"/>
 	<result property="memEmail" column="mem_email"/>

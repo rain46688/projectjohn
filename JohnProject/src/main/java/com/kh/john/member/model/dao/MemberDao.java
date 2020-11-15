@@ -22,5 +22,12 @@ public interface MemberDao {
 	int signUpEnd(SqlSessionTemplate session, Member member);
 	int signUpExpert(SqlSessionTemplate session, License l);
 
+	Member findId(SqlSessionTemplate session, Member member);
+
+	Member findPw(SqlSessionTemplate session, Member member);
+
+	int tempPw(SqlSessionTemplate session, Member member);
+
+	int updatePw(SqlSessionTemplate session, Member member);
 
 }
