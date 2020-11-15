@@ -49,7 +49,7 @@ public class MemberServiceImpl implements MemberService {
                 .append("<h1>메일인증</h1>")
                 .append(authKey)
                 .toString());
-		sendMail.setFrom("22mailme@gmail.com", "재판하는 존경장님");
+		sendMail.setFrom("22mailme@gmail.com", "관리자");
 		sendMail.setTo(email);
 		sendMail.send();
 		return authKey;
@@ -83,42 +83,34 @@ public class MemberServiceImpl implements MemberService {
 	@Transactional
 	public int signUpExpert(Member member, List<License> licenseList) {
 		int result=dao.signUpEnd(session, member);
-		
-		if(result>0) {
-			if(!licenseList.isEmpty()) {
-				for(License l : licenseList) {
-					dao.signUpExpert(session,l);
-				}
+	
+		if(!licenseList.isEmpty()) {
+			for(License l : licenseList) {
+				dao.signUpExpert(session,l);
 			}
 		}
 		return result;
 	}
 
-//	@Override
-//	@Transactional
-//	public int signUpExpert(Member member, List<License> files, String[][] licenseArr) {
-//		int resultFirst=0;
-//		int resultSecond=0;
-//		resultFirst=dao.signUpEnd(session, member);
-//		member=service.selectMemUsidById(member);
-//		if(resultFirst>0) {
-//			if(!files.isEmpty()) {
-//				for(int i=0; i<files.size(); i++) {
-//					License l=files.get(i);
-//					l.setLicense_mem_usid(member.getUsid());
-//					l.setLicense_date(Date.valueOf(licenseArr[i][0]));
-//					l.setLicense_type(licenseArr[i][1]);
-//					l.setLicense_company(licenseArr[i][2]);
-//					resultSecond=dao.signUpExpert(session,l);
-//				}
-//			}
-//		}
-//		return resultSecond;
-//	}
-//
-//	@Override
-//	public Member selectMemUsidById(Member member) {
-//		return dao.selectMemUsidById(session, member);
-//	}
+	@Override
+	public Member findId(Member member) {
+		return dao.findId(session, member);
+	}
+
+	@Override
+	public Member findPw(Member member) {
+		return dao.findPw(session, member);
+	}
+
+	@Override
+	public int tempPw(Member member) {
+		return dao.tempPw(session,member);
+	}
+	
+	@Override
+	public int updatePw(Member member) {
+		return dao.updatePw(session,member);
+	}
+
 
 }

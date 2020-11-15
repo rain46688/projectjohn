@@ -11,10 +11,12 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
+import javax.mail.MessagingException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -47,6 +49,9 @@ public class MemberController {
 
 	@Autowired
 	private BCryptPasswordEncoder encoder;
+	
+	@Autowired
+	private JavaMailSender mailSender;
 
 //	메인 페이지로 가기
 	@RequestMapping("/")
@@ -58,13 +63,88 @@ public class MemberController {
 	}
 
 //	로그인 페이지로 가기
-	@RequestMapping("/member/memberLogin")
+	@RequestMapping("/memberLogin")
 	public String enterPage() {
-		return "/member/memberLogin";
+		return "member/memberLogin";
 	}
 
+//	아이디 찾기
+	@RequestMapping("/findIdPage")
+	public String findIdPage() {
+		return "member/findId";
+	}
+	@RequestMapping("/findId")
+	public ModelAndView findId(Member member, ModelAndView mv) throws NoSuchAlgorithmException, UnsupportedEncodingException, GeneralSecurityException {
+		String encPhone=aes.encrypt(member.getTel());
+		member.setTel(encPhone);
+		member=service.findId(member);
+		if(member!=null) {
+			String idStr=aes.decrypt(member.getMemEmail());
+			member.setMemEmail(idStr);
+			mv.addObject("findMember",member);
+			mv.setViewName("member/findId");		
+		}else {
+			String msg = "존재하지 않는 회원입니다.";
+			String script= "window.close()";
+			mv.addObject("msg", msg);
+			mv.addObject("script",script);
+			mv.setViewName("common/msgWithScript");
+		}
+		return mv;
+	}
+	
+//	비번 찾기
+	@RequestMapping("/findPwPage")
+	public String findPwPage() {
+		return "member/findPw";
+	}
+	@RequestMapping("/findPw")
+	public ModelAndView findPw(Member member, ModelAndView mv) throws NoSuchAlgorithmException, UnsupportedEncodingException, GeneralSecurityException, MessagingException {
+		String encPhone=aes.encrypt(member.getTel());
+		member.setTel(encPhone);
+		String strId=member.getMemEmail();
+		String encId=aes.encrypt(strId);
+		member.setMemEmail(encId);
+		member=service.findPw(member);
+		
+		if(member!=null) {
+			UuidGenerator uuid=new UuidGenerator();
+			String tempPw=uuid.generateUuid(8);
+			String encTempPw=encoder.encode(tempPw);
+			member.setMemPwd(encTempPw);
+			member.setPwIsUuid(1);
+			int result=service.tempPw(member);
+			
+			if(result>0) {
+				MailHandler sendMail=new MailHandler(mailSender);
+				sendMail.setSubject("재판하는 존경장님 임시 비밀번호가 도착했습니다:)");
+				sendMail.setText(
+						new StringBuffer()
+						.append("<h1>임시 비밀번호</h1>")
+						.append(tempPw)
+						.toString());
+				sendMail.setFrom("22mailme@gmail.com", "관리자");
+				sendMail.setTo(strId);
+				sendMail.send();
+				mv.addObject("findMember",member);
+				mv.setViewName("member/findPw");				
+			}
+		}else {
+			String msg = "존재하지 않는 회원입니다.";
+			String script= "window.close()";
+			mv.addObject("msg", msg);
+			mv.addObject("script",script);
+			mv.setViewName("common/msgWithScript");
+		}
+		
+		
+		mv.addObject("findMember",member);
+		mv.setViewName("member/findPw");
+		return mv;
+	}
+	
 //	로그인 로직
-	@RequestMapping(value = "/member/memberLoginEnd", method = RequestMethod.POST)
+	@RequestMapping(value = "/memberLoginEnd", method = RequestMethod.POST)
 	public String loginPage(@RequestParam Map param, Member member, Model m, HttpSession session,
 			RedirectAttributes redirectAttributes)
 			throws NoSuchAlgorithmException, UnsupportedEncodingException, GeneralSecurityException {
@@ -76,26 +156,34 @@ public class MemberController {
 
 		if (loginMember != null) {
 			if (encoder.matches((String) param.get("memPwd"), loginMember.getMemPwd())) {
-
 				if (session.getAttribute("bnum") != null) {
 					String bo = (String) session.getAttribute("bnum");
 					log.debug("bo : " + bo);
 					session.removeAttribute("bnum");
 					m.addAttribute("loginMember", loginMember);
+					
 					redirectAttributes.addAttribute("bno", bo);
-					return "redirect:/expertRoom";
+					return "redirect:/expert/expertRoom"; 
 				} else {
-					path = "/board/boardList";
-					m.addAttribute("loginMember", loginMember);
+					//임시비번알림
+					if(loginMember.getPwIsUuid()==1) {
+						msg="임시 비밀번호를 사용 중입니다. 비밀번호를 변경해주세요.";
+						loc="/board/boardList";
+						path = "common/msg";
+						m.addAttribute("loginMember", loginMember);	
+					}else {
+						path = "/board/boardList";
+						m.addAttribute("loginMember", loginMember);						
+					}
 				}
 			} else {
 				msg = "아이디나 비밀번호를 확인해주세요.";
-				loc = "/member/memberLogin";
+				loc = "/memberLogin";
 				path = "common/msg";
 			}
 		} else {
 			msg = "아이디나 비밀번호를 확인해주세요.";
-			loc = "/member/memberLogin";
+			loc = "/memberLogin";
 			path = "common/msg";
 		}
 		m.addAttribute("msg", msg);
@@ -114,14 +202,14 @@ public class MemberController {
 	}
 
 //	회원가입 페이지로 가기
-	@RequestMapping("/member/signUp")
+	@RequestMapping("/signUp")
 	public ModelAndView signUpPage(ModelAndView mv) {
-		mv.setViewName("/member/signUp");
+		mv.setViewName("member/signUp");
 		return mv;
 	}
 
 //	이메일 인증
-	@RequestMapping(value = "/member/certiEmail", method = RequestMethod.POST)
+	@RequestMapping(value = "/certiEmail", method = RequestMethod.POST)
 	public ModelAndView certiEmail(@RequestParam("email") String email, ModelAndView mv) throws Exception {
 		String authKey = service.sendAuthKey(email);
 		mv.addObject("authKey", authKey);
@@ -130,7 +218,7 @@ public class MemberController {
 	}
 
 //	이메일 중복 확인
-	@RequestMapping(value = "/member/emailDuplicate", method = RequestMethod.POST)
+	@RequestMapping(value = "/emailDuplicate", method = RequestMethod.POST)
 	public ModelAndView emailDuplicate(@RequestParam("memEmail") String memEmail,
 			Member member, ModelAndView mv)
 			throws NoSuchAlgorithmException, UnsupportedEncodingException, GeneralSecurityException {
@@ -144,7 +232,7 @@ public class MemberController {
 	}
 
 //	닉네임 중복 확인
-	@RequestMapping(value = "/member/NNDuplicate", method = RequestMethod.POST)
+	@RequestMapping(value = "/NNDuplicate", method = RequestMethod.POST)
 	public ModelAndView nickDuplicate(@RequestParam("memNickname") String memNick, Member m, ModelAndView mv) {
 		m.setMemNickname(memNick);
 		m = service.nickDuplicate(m);
@@ -154,7 +242,7 @@ public class MemberController {
 	}
 
 //	핸드폰 중복 확인
-	@RequestMapping(value = "/member/PNDuplicate", method = RequestMethod.POST)
+	@RequestMapping(value = "/PNDuplicate", method = RequestMethod.POST)
 	public ModelAndView phoneDuplicate(@RequestParam("tel") String phoneStr, Member m, ModelAndView mv)
 			throws NoSuchAlgorithmException, UnsupportedEncodingException, GeneralSecurityException {
 		String phone = aes.encrypt(phoneStr);
@@ -166,13 +254,13 @@ public class MemberController {
 	}
 
 //	전문가용 div로 가는 길
-	@RequestMapping("/member/divForExpert")
+	@RequestMapping("/divForExpert")
 	public String divForExpert() {
-		return "member/divForExpert";
+		return "member/uploadLicense";
 	}
 
 //	회원가입 로직
-	@RequestMapping(value = "/member/signUpEnd", method = RequestMethod.POST)
+	@RequestMapping(value = "/signUpEnd", method = RequestMethod.POST)
 	public String signUpEnd(
 			@RequestParam(value="licenseFileName", required = false) MultipartFile[] licenseFileNames,
 			@RequestParam(value="licenseDate", required = false) Date[] licenseDates,
@@ -209,7 +297,7 @@ public class MemberController {
 				script= "window.close()";
 			} else {
 				msg = "회원가입실패";
-				script= "history.back()";
+				script= "window.close()";
 			}
 
 		} else {
@@ -251,7 +339,7 @@ public class MemberController {
 				script= "window.close()";
 			} else {
 				msg = "회원가입실패";
-				script= "history.back()";
+				script= "window.close()";
 			}
 		}
 
@@ -262,6 +350,18 @@ public class MemberController {
 		return "common/msgWithScript";
 	}
 
+//	마이페이지^^
+	@RequestMapping("/member/myPage")
+	private String myPage() {
+		return "member/myPage";
+	}
+	
+//	회원정보 수정하기
+	@RequestMapping("/member/myPage/updateMemberInfo")
+	private String modifyMemberInfo() {
+		return "member/updateMemberInfo";
+	}
+	
 //	테스트 페이지
 	@RequestMapping("/member/test")
 	private String testPage() {

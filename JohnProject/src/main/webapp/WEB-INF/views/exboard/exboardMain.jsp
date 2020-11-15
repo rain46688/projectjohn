@@ -20,14 +20,15 @@ label, input {
 <section id="content">
 <br>
 	EXPERT 임시 테스트 페이지
-
-	<p>세션 : ${loginMember.memNickname}</p>
-	<p>전문가 : ${loginMember.memClass}</p>
+<br>
+<br>
+	<p>세션 닉네임 : ${loginMember.memNickname}</p>
+	<p>유저 타입 : ${loginMember.memClass}</p>
 	<p>USID : ${loginMember.usid}</p>
 	<br>
-	<button class="btn btn-outline-success" onclick="location.replace('${path}/expertPrintList');">유저가 전문가 리스트 보기</button>
+	<button class="btn btn-outline-success" onclick="location.href='${path}/expert/expertPrintList'">유저가 전문가 리스트 보기</button>
 	<c:if test="${loginMember.memClass == '전문가'}">
-		<button class="btn btn-outline-success" onclick="location.replace('${path}/expertRequestPrintList');">전문가가 상담할 유저 리스트 보기</button>
+		<button class="btn btn-outline-success" onclick="location.href='${path}/expert/expertRequestPrintList'">전문가가 상담할 유저 리스트 보기</button>
 	</c:if>
 	
 	

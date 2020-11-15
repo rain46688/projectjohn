@@ -23,10 +23,7 @@
 				<option value="mem_name" <c:if test="${param.searchType eq 'mem_name'}">selected</c:if>>이름</option>
 				<option value="mem_email" <c:if test="${param.searchType eq 'mem_email'}">selected</c:if>>이메일</option>
 				<option value="mem_nickname" ${param.searchType eq 'mem_nickname'?"selected":"" }>닉네임</option>	
-																							
-			
-
-			
+										
 			</select>
 			
 			<input type="search" name="keyword"
@@ -37,8 +34,6 @@
 			<label>성별</label>
 			<label><input type="radio" name="gender" value='M'>남</label>
 			<label><input type="radio" name="gender" value='F'>여</label>
-			
-			
 			
 			<br>
 			

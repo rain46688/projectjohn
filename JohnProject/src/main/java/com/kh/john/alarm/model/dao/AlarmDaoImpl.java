@@ -1,6 +1,7 @@
 package com.kh.john.alarm.model.dao;
 
 import java.util.List;
+import java.util.Map;
 
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.stereotype.Repository;
@@ -32,6 +33,12 @@ public class AlarmDaoImpl implements AlarmDao {
 	public int insetExpertAlarm(SqlSessionTemplate session, Alarm almsg) throws Exception {
 		// TODO Auto-generated method stub
 		return session.insert("alarm.insetExpertAlarm", almsg);
+	}
+
+	@Override
+	public List<Alarm> selectAlarmItem(SqlSessionTemplate session, Map<String, String> map) throws Exception {
+		// TODO Auto-generated method stub
+		return session.selectList("alarm.selectAlarmItem", map);
 	}
 
 }

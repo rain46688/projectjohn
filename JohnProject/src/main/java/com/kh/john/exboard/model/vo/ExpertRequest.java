@@ -15,5 +15,7 @@ public class ExpertRequest {
 	private Date expertDate;
 	private Boolean startCounsel;
 	private Boolean endCounsel;
+	private String expertCounselTime;
+	private String expertCounselRequire;
 
 }

@@ -26,7 +26,7 @@ public class ExpertRoomInterceptor extends HandlerInterceptorAdapter {
 			// session.setAttribute("URL", path + "?bno=" + request.getParameter("bno"));
 			session.setAttribute("bnum", request.getParameter("bno"));
 			request.setAttribute("msg", "로그인을 해주세요");
-			request.setAttribute("loc", "/member/memberLogin");
+			request.setAttribute("loc", "/memberLogin");
 			request.getRequestDispatcher("/msg").forward(request, response);
 			return false;
 		}

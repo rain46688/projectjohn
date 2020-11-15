@@ -130,7 +130,7 @@ public class AdminController {
 			}
 			a.setMemEmail(memberId);
 		}
-		mv.addObject("pageBar", PageBarFactory.getPageBar(totalData, cPage, numPerPage, "adminMember"));
+		mv.addObject("pageBar", PageBarFactory.getPageBar(totalData, cPage, numPerPage, "adminMemberSearch"));
 
 		mv.addObject("totalData", totalData);
 		System.out.println("토탈데이터:"+totalData);

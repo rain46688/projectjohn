@@ -21,7 +21,7 @@ import lombok.extern.slf4j.Slf4j;
 @Slf4j
 public class ExpertHandler extends TextWebSocketHandler {
 
-	Map<SessionVo, WebSocketSession> users = new HashMap<SessionVo, WebSocketSession>();
+	private Map<SessionVo, WebSocketSession> users = new HashMap<SessionVo, WebSocketSession>();
 	private ObjectMapper objectMapper = new ObjectMapper();
 
 	@Override

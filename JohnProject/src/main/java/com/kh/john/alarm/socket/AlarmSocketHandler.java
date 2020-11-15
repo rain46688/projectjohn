@@ -25,7 +25,7 @@ public class AlarmSocketHandler extends TextWebSocketHandler {
 	@Autowired
 	private AlarmService service;
 
-	Map<Member, WebSocketSession> users = new HashMap<Member, WebSocketSession>();
+	private Map<Member, WebSocketSession> users = new HashMap<Member, WebSocketSession>();
 	private ObjectMapper objectMapper = new ObjectMapper();
 
 	@Override
@@ -43,10 +43,9 @@ public class AlarmSocketHandler extends TextWebSocketHandler {
 	protected void handleTextMessage(WebSocketSession session, TextMessage message) throws Exception {
 		// TODO Auto-generated method stub
 		log.debug("알람 서버 handleTextMessage");
+
 		Alarm almsg = objectMapper.readValue(message.getPayload(), Alarm.class);
-
 		log.debug("almsg : " + almsg);
-
 		Iterator<Member> it = users.keySet().iterator();
 		while (it.hasNext()) {
 			Member key = it.next();
