@@ -163,10 +163,10 @@
 				formData.append('upload-file', file, file.name);
 				});
 				
-				console.log(formData);
+				console.log($(formData));
 				
-				/* $.ajax({
-				url: '/api/etc/file/upload',
+				 $.ajax({
+				url: '${path}/resources/upload_images',
 				data : formData,
 				type : 'post',
 				contentType : false,
@@ -174,7 +174,7 @@
 				success : function(ret) {
 				alert("완료");
 				}
-				}); */
+				});
 				
 				});
 
