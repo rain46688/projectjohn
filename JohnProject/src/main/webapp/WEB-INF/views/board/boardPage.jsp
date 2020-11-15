@@ -1,16 +1,27 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ include file="/WEB-INF/views/common/header.jsp"%>
-<script defer src="http://localhost:3000/socket.io/socket.io.js"></script>
-<script defer>
-	const socket = io('http://localhost:3000')
-	socket.on('chat-message', data => {
-		console.log(data)
-	})
+<style>
+    #video-grid {
+        display:grid;
+        grid-template-columns: repeat(auto-fill,300px);
+        grid-auto-rows: 300px;
+    }
+
+    video {
+        width:100%;
+        height:100%;
+        object-fit: cover;
+    }
+</style>
+<script>
+	const ROOM_ID = ${currBoard.boardId}
 </script>
+<script defer src="http://localhost:82/socket.io/socket.io.js"></script>
 <div id="content">
                     <!-- 내용 -->
                     ${currBoard }
-                    <button onclick="location.href = '${path}/board/boardModify'">수정하기</button>
+                    <div id="video-grid"></div>
+                    <button onclick="location.href = 'http://localhost:3000'">수정하기</button>
                     <button onclick="location.href = '${path}/board/boardDelete'">삭제하기</button>
                     <div id="commentSection">
 				      <div id="commentInsert">
@@ -28,6 +39,65 @@
             </div>
         </div>
     </div>
+<script src="${path }/resources/js/peerJS.js"></script>
+<script>
+        $(document).ready(function() {
+            var socket = io("http://localhost:82");
+            const videoGrid = document.getElementById('video-grid')
+			socket.emit('message_from_jackson', "Message from view");
+			socket.on('messageFromServer', function(msg){
+				console.log(msg);
+			})
+			 const myPeer = new Peer(undefined, {
+				 host: '/',
+				 port: '3001'
+			 });
+			const myVideo = document.createElement('video')
+			myVideo.muted = true;
+
+			navigator.mediaDevices.getUserMedia({
+			    video:true,
+			    audio:true
+			}).then(stream => {
+			    addVideoStream(myVideo, stream)
+
+			    myPeer.on('call', call => {
+			        call.answer(stream)
+			        const video = document.createElement('video')
+			        call.on('stream', userVideoStream => {
+			            addVideoStream(video, userVideoStream)
+			        })
+			    })
+
+			    socket.on('user-connected', userId => {
+			        connectToNewUser(userId, stream)
+			    })
+			})
+
+			myPeer.on('open', id => {
+			    socket.emit('join-room', ROOM_ID, id);
+			})
+
+			function connectToNewUser(userId, stream){
+			    const call = myPeer.call(userId, stream)
+			    const video = document.createElement('video');
+			    call.on('stream', userVideoStream => {
+			        addVideoStream(userVideoStream);
+			    })
+			    call.on('close',()=>{
+			        video.remove();
+			    })
+			}
+			
+			function addVideoStream(video, stream) {
+			    video.srcObject = stream;
+			    video.addEventListener('loadedmetadata', () => {
+			        video.play();
+			    })
+			    videoGrid.append(video);
+			}
+        });
+    </script>
 <script>
 'use strict'
 $(document).ready(function(){
@@ -40,12 +110,12 @@ function fn_commentList(){
 		type: "post",
 		dataType: "json",
 		data: {
-			currBoardNo: ${currBoard.board_id}
+			currBoardNo: ${currBoard.boardId}
 		},
 		success: function(data) {
 			let html = "";
 			$.each(data, function(index, item){
-				let date = new Date(item.com_enroll_date);
+				let date = new Date(item.comEnrollDate);
 				let dateToString = date.toString();
 				let parsedString = dateToString.substring(0,25);
 				item.com_enroll_date = parsedString;
@@ -64,7 +134,7 @@ function fn_commentInsert(){
 		type:"post",
 		dataType:"json",
 		data:{
-			currBoardNo:${currBoard.board_id},
+			currBoardNo:${currBoard.boardId},
 			content:contentValue
 		},
 		success:function(data){

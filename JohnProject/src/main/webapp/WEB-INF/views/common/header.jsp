@@ -18,8 +18,6 @@
 <!-- Latest compiled JavaScript -->
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/sockjs-client/1.5.0/sockjs.min.js"></script>
-<%-- <script defer src="http://localhost:3000/socket.io/socket.io.js"></script>
-<script defer src="${path}/resources/js/script.js"></script> --%>
 <link rel="stylesheet" href="${path}/resources/css/layout.css">
 </head>
 <style>
