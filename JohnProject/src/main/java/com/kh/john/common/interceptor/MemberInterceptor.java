@@ -14,9 +14,6 @@ public class MemberInterceptor extends HandlerInterceptorAdapter {
 		
 		Member login=(Member)(request.getSession().getAttribute("loginMember"));
 		
-		String msg = "";
-		String contextPath = request.getContextPath();
-		
 		if(login==null) {
 			request.setAttribute("msg", "로그인 후 이용해주세요");
 			request.setAttribute("loc", "/");

@@ -24,7 +24,6 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.SessionAttribute;
 import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.bind.support.SessionStatus;
 import org.springframework.web.multipart.MultipartFile;
@@ -353,16 +352,14 @@ public class MemberController {
 
 //	마이페이지^^
 	@RequestMapping("/member/myPage")
-	private String myPage(@RequestParam("usid") int usid, @SessionAttribute("loginMember") Member loginMember ) {
-		String path="";
-		if(loginMember.getUsid()==usid) {
-			path="member/myPage";
-		}else {
-			String msg="접근 불가능한 페이지입니다.";
-			String loc="/";
-			path="common/msg";
-		}
-		return path;
+	private String myPage() {
+		return "member/myPage";
+	}
+	
+//	회원정보 수정하기
+	@RequestMapping("/member/myPage/modifyMemberInfo")
+	private String modifyMemberInfo() {
+		return "member/modifyMemberInfo";
 	}
 	
 //	테스트 페이지

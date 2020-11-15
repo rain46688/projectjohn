@@ -35,6 +35,11 @@
 		</interceptor>
 		
 		<interceptor>
+			<mapping path="/member/myPage"/>
+			<beans:bean class="com.kh.john.common.interceptor.MyPageInterceptor"/>
+		</interceptor>
+		
+		<interceptor>
 			<mapping path="/member/myPage/*"/>
 			<beans:bean class="com.kh.john.common.interceptor.MyPageInterceptor"/>
 		</interceptor>
