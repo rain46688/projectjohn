@@ -182,7 +182,7 @@ display:flex;
 			//---------------------------- 드래그 파일 전송 -------------------------------------
 			
 			$("#btnSubmit").on("click", function() {
-				var formData = new FormData();
+				let formData = new FormData();
 				$.each(uploadFiles, function(i, file) {
 					if (file.upload != 'disable') //삭제하지 않은 이미지만 업로드 항목으로 추가
 						formData.append('upFile', file, file.name);
@@ -205,21 +205,9 @@ display:flex;
 						console.log(msg);
 						sendMessage(new ExboardMsg("FILE", "", msg));
 						$("#previewImg").html("");
-						
-						let list = msg.split('|');
-						let imgprint = "";
-						console.log("길이 : "+list.length);
-						for(let i in list){
-							console.log(list[i]+"i : "+i);
-							console.log("i+1 == list.length : "+i+1 == list.length);
-							if(i == list.length-1){
-								console.log("나감");
-								break;
-							}
-							imgprint+="<img  class='upload' src='${path}/resources/upload_images/"+list[i]+"' title='"+list[i]+"' onclick='imgView(event);' style='cursor: pointer'/><br>";
-						}
-						$("#expertTextDiv").html($("#expertTextDiv").html()+imgprint);
-						$("#expertTextDiv").scrollTop($("#expertTextDiv")[0].scrollHeight);
+						imgDivPrint(msg);
+						//배열 초기화 안그러면 계속 들어감..
+						uploadFiles = [];
 					}
 				});
 			});
@@ -316,6 +304,7 @@ display:flex;
 					console.log(" === 분기 TXT === ");
 					
 					$("#expertTextDiv").html($("#expertTextDiv").html()+"<p>"+content.msg+"</p>");
+					$("#expertTextDiv").scrollTop($("#expertTextDiv")[0].scrollHeight);
 				} else if (content.type == 'CAM') {
 					console.log(" === 분기 CAM === ");
 					if (content.msg === 'off') {
@@ -330,18 +319,7 @@ display:flex;
 				} else if (content.type == 'FILE') {
 					console.log(" === 분기 FILE === ");
 					console.log("content : " + content.msg);
-					let list = content.msg.split('|');
-					let imgprint = "";
-					for(let i in list){
-						console.log(list[i]);
-						if(i == list.length-1){
-							console.log("나감");
-							break;
-						}
-						imgprint+="<img  class='upload' src='${path}/resources/upload_images/"+list[i]+"' title='"+list[i]+"' onclick='imgView(event);' style='cursor: pointer'/><br>";
-					}
-					$("#expertTextDiv").html($("#expertTextDiv").html()+imgprint);
-					$("#expertTextDiv").scrollTop($("#expertTextDiv")[0].scrollHeight);
+					imgDivPrint(content.msg);
 				} else if (content.type == 'END') {
 					console.log(" === 분기 END === ");
 					exit();
@@ -357,6 +335,27 @@ display:flex;
 				conn.send(JSON.stringify(message));
 				console.log("메세지 보내는 함수 sendMessage");
 			};
+			
+			function imgDivPrint(msg){
+				console.log("msg : "+msg);
+				let list = msg.split('|');
+				let imgprint = "";
+				for(let i in list){
+					console.log(list[i]);
+					if(i == list.length-1){
+						console.log("나감");
+						break;
+					}
+					imgprint+="<img  class='upload' src='${path}/resources/upload_images/"+list[i]+"' title='"+list[i]+"' onclick='imgView(event);' style='cursor: pointer'/><br>";
+				}
+				let con = $("#expertTextDiv").html()+imgprint;
+				$("#expertTextDiv").html("");
+				$("#expertTextDiv").html(con);
+				$("#expertTextDiv").scrollTop($("#expertTextDiv")[0].scrollHeight);
+				list="";
+				imgprint="";
+				console.log("msg2 : "+msg);
+			}
 
 			//---------------------------- 비디오 설정 -------------------------------------
 
