@@ -543,6 +543,8 @@ public class MemberController {
 		int usid=loginMember.getUsid();
 		List<LikeDislike> liked=service.liked(usid);
 		
+		mv.addObject("liked",liked);
+		mv.setViewName("member/liked");
 		return mv;
 	}
 	

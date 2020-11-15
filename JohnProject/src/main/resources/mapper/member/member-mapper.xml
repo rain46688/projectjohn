@@ -71,7 +71,7 @@
 </select>
 
 <select id="liked" parameterType="_int" resultMap="likeDislikeMap">
-
+	SELECT * FROM LIKE_DISLIKE WHERE LIKE_USID=#{usid} AND LIKE_ISDISLIKE=1
 </select>
 
 
