@@ -3,6 +3,7 @@ package com.kh.john.member.model.service;
 import java.util.List;
 import java.util.Map;
 
+import com.kh.john.board.model.vo.Board;
 import com.kh.john.member.model.vo.License;
 import com.kh.john.member.model.vo.Member;
 
@@ -38,6 +39,21 @@ public interface MemberService {
 	
 	//usid로 비밀번호 바꿔주기
 	int updatePw(Member member);
+
+	//닉네임 변경
+	int updateNick(Member member);
+
+	//프사 변경
+	int updatePic(Member member);
+
+	//번호 변경
+	int updatePhone(Member member);
+
+	//내 게시물 목록
+	List<Board> myBoard(int cPage, int numPerPage, int usid);
+
+	//내 게시물 개수
+	int myBoardCount(int usid);
 
 
 }

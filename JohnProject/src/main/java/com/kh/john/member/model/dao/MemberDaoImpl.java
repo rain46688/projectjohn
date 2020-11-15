@@ -3,9 +3,11 @@ package com.kh.john.member.model.dao;
 import java.util.List;
 import java.util.Map;
 
+import org.apache.ibatis.session.RowBounds;
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.stereotype.Repository;
 
+import com.kh.john.board.model.vo.Board;
 import com.kh.john.member.model.vo.License;
 import com.kh.john.member.model.vo.Member;
 
@@ -66,6 +68,31 @@ public class MemberDaoImpl implements MemberDao {
 	@Override
 	public int updatePw(SqlSessionTemplate session, Member member) {
 		return session.update("member.updatePw",member);
+	}
+
+	@Override
+	public int updateNick(SqlSessionTemplate session, Member member) {
+		return session.update("member.updateNick",member);
+	}
+
+	@Override
+	public int updatePic(SqlSessionTemplate session, Member member) {
+		return session.update("member.updatePic",member);
+	}
+
+	@Override
+	public int updatePhone(SqlSessionTemplate session, Member member) {
+		return session.update("member.updatePhone",member);
+	}
+
+	@Override
+	public List<Board> myBoard(SqlSessionTemplate session, int cPage, int numPerPage, int usid) {
+		return session.selectList("member.selectMyBoard",usid,new RowBounds((cPage-1)*numPerPage,numPerPage));
+	}
+
+	@Override
+	public int myBoardCount(SqlSessionTemplate session, int usid) {
+		return session.selectOne("member.myBoardCount",usid);
 	}
 
 }

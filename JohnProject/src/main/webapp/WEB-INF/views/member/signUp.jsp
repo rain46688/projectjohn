@@ -723,19 +723,15 @@
 				if($("#checkPNhidden").val()=='existed'){
 					alert('휴대폰 번호 중복 확인을 해주세요.');
 				}
-
-				//회원구분
-				if(memClass.length<1){
-					$("#classConstrain").html("필수 선택 항목입니다.");
-					$("#classConstrain").css({"display":"block"});
-					$("#classConstrain").css({"color":"red"});
-				}
 				
-				// if(memClass.val()=='expertUser'){
-				// 	if($(".license1").val()==null && $(".license2").val()==null && $(".license3").val()==null){
-				// 		alert('최소 한 개의 자격증을 업로드해야합니다.');
-				// 	}
-				// }
+				if(memClass.val()=='expertUser'){
+					const uploadedLicense1=$("#forExpert1 input[name='licenseFileName']").val();
+					const uploadedLicense2=$("#forExpert2 input[name='licenseFileName']").val();
+					const uploadedLicense3=$("#forExpert3 input[name='licenseFileName']").val();
+					if(uploadedLicense1==null || uploadedLicense2==null || uploadedLicense3==null){
+						alert('최소한 한 개의 자격증을 등록해야 합니다.');
+					}
+				}
 
 				//제약조건을 만족했나요
 				if(id!=="" && (pw!==""&&pwPattern.test(pw)) && (pw2!==""&&pw===pw2) && (nn!==""&&nnPattern.test(nn))

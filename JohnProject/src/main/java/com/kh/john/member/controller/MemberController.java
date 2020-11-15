@@ -15,7 +15,9 @@ import javax.mail.MessagingException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
+import org.apache.tomcat.util.http.fileupload.servlet.ServletFileUpload;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cglib.core.DefaultNamingPolicy;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
@@ -24,12 +26,16 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.SessionAttribute;
 import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.bind.support.SessionStatus;
 import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.multipart.MultipartHttpServletRequest;
+import org.springframework.web.multipart.MultipartRequest;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import com.kh.john.board.model.vo.Board;
 import com.kh.john.member.model.service.MemberService;
 import com.kh.john.member.model.vo.License;
 import com.kh.john.member.model.vo.Member;
@@ -352,14 +358,163 @@ public class MemberController {
 
 //	마이페이지^^
 	@RequestMapping("/member/myPage")
-	private String myPage() {
-		return "member/myPage";
+	private ModelAndView myPage(ModelAndView mv,@SessionAttribute("loginMember") Member loginMember) {
+		Member member=service.selectMemberById(loginMember);
+		mv.addObject("member",member);
+		mv.setViewName("member/myPage");
+		return mv;
 	}
 	
 //	회원정보 수정하기
 	@RequestMapping("/member/myPage/updateMemberInfo")
-	private String modifyMemberInfo() {
+	private String updateMemberInfo() {
 		return "member/updateMemberInfo";
+	}
+
+//	비밀번호 변경하기
+	@RequestMapping(value="/member/myPage/updatePw", method=RequestMethod.POST)
+	private ModelAndView updatePw(ModelAndView mv, @RequestParam("crtPw") String crtPw,@RequestParam("newPw") String newPw, Member member, @SessionAttribute("loginMember") Member loginMember) {
+
+		String msg="";
+		String loc="";
+		
+		if (encoder.matches(crtPw, loginMember.getMemPwd())) {
+			member.setMemPwd(encoder.encode(newPw));
+			member.setPwIsUuid(0);
+			member.setUsid(loginMember.getUsid());
+			int result=service.updatePw(member);
+			if(result>0) {
+				msg="비밀번호 변경에 성공하였습니다.";
+				loc="/member/myPage?usid="+loginMember.getUsid();
+				mv.addObject("msg",msg);
+				mv.addObject("loc",loc);
+				mv.setViewName("common/msg");
+			}else {
+				msg="비밀번호 변경에 실패하였습니다.";
+				loc="/member/myPage?usid="+loginMember.getUsid();
+				mv.addObject("msg",msg);
+				mv.addObject("loc",loc);
+				mv.setViewName("common/msg");
+			}
+		}else {
+			msg="현재 비밀번호가 일치하지 않습니다.";
+			loc="/member/myPage?usid="+loginMember.getUsid();
+			mv.addObject("msg",msg);
+			mv.addObject("loc",loc);
+			mv.setViewName("common/msg");
+		}
+		return mv;
+	}
+	
+//	닉네임 변경
+	@RequestMapping("/member/myPage/updateNick")
+	private ModelAndView updateNick(ModelAndView mv, Member member, @SessionAttribute("loginMember") Member loginMember) {
+		String msg="";
+		String loc="";
+		
+		member.setUsid(loginMember.getUsid());
+		int result=service.updateNick(member);
+		
+		if(result>0) {
+			msg="닉네임 변경에 성공하였습니다.";
+			loc="/member/myPage?usid="+loginMember.getUsid();
+			mv.addObject("msg",msg);
+			mv.addObject("loc",loc);
+			mv.setViewName("common/msg");
+		}else {
+			msg="닉네임 변경에 실패하였습니다.";
+			loc="/member/myPage?usid="+loginMember.getUsid();
+			mv.addObject("msg",msg);
+			mv.addObject("loc",loc);
+			mv.setViewName("common/msg");
+		}
+		return mv;
+	}
+	
+//	프사 변경
+	@RequestMapping("/member/myPage/updatePic")
+	public ModelAndView updatePic(ModelAndView mv, MultipartHttpServletRequest request, Member member, @SessionAttribute("loginMember") Member loginMember) {
+		
+		String saveDir=request.getServletContext().getRealPath("/resources/profile_images");
+		File dir=new File(saveDir);
+		if(!dir.exists()) {
+			dir.mkdirs();
+		}
+		
+		MultipartFile file=request.getFile("profilePic");
+		
+		if(!file.isEmpty()) {
+			String originalFileName=file.getOriginalFilename();
+			String ext = originalFileName.substring(originalFileName.lastIndexOf('.')+1);
+			
+			SimpleDateFormat sdf = new SimpleDateFormat("yyyy_MM_ddHHmmssSSS");
+			int rndNum = (int)(Math.random()*1000);
+			String renamedFilename = sdf.format(new Date(System.currentTimeMillis())) + "_" + rndNum + "_john." + ext;
+			try {
+				file.transferTo(new File(saveDir + "/" + renamedFilename));
+			}catch(IOException e) {
+				e.printStackTrace();
+			}
+			
+			member.setProfilePic(renamedFilename);
+			member.setUsid(loginMember.getUsid());
+		
+			int result=service.updatePic(member);
+			
+			if(result>0) {
+				mv.addObject("msg","프로필 사진 변경에 성공했습니다.");
+				mv.addObject("loc","/member/myPage?usid="+loginMember.getUsid());
+				mv.setViewName("common/msg");
+			}else {
+				mv.addObject("msg","프로필 사진 변경에 실패했습니다.");
+				mv.addObject("loc","/member/myPage?usid="+loginMember.getUsid());
+				mv.setViewName("common/msg");
+			}
+		}else {
+			mv.addObject("msg","프로필 사진 변경에 실패했습니다.");
+			mv.addObject("loc","/member/myPage?usid="+loginMember.getUsid());
+			mv.setViewName("common/msg");
+		}
+		return mv;
+	}
+	
+//	휴대폰 변경
+	@RequestMapping("/member/myPage/updatePhone")
+	public ModelAndView updatePhone(ModelAndView mv, Member member, @SessionAttribute("loginMember") Member loginMember) throws NoSuchAlgorithmException, UnsupportedEncodingException, GeneralSecurityException {
+		String msg="";
+		String loc="";
+		
+		String phoneStr=member.getTel();
+		member.setTel(aes.encrypt(phoneStr));
+		member.setUsid(loginMember.getUsid());
+		int result=service.updatePhone(member);
+		
+		if(result>0) {
+			msg="핸드폰 번호 변경에 성공하였습니다.";
+			loc="/member/myPage?usid="+loginMember.getUsid();
+			mv.addObject("msg",msg);
+			mv.addObject("loc",loc);
+			mv.setViewName("common/msg");
+		}else {
+			msg="핸드폰 번호 변경에 실패하였습니다.";
+			loc="/member/myPage?usid="+loginMember.getUsid();
+			mv.addObject("msg",msg);
+			mv.addObject("loc",loc);
+			mv.setViewName("common/msg");
+		}
+		return mv;	
+	}
+	
+//	나의 게시물 페이지로 가는 길
+	@RequestMapping("/member/myPage/myBoard")
+	private ModelAndView myBoard(ModelAndView mv,@SessionAttribute("loginMember") Member loginMember,
+			@RequestParam(value ="cPage", required = false, defaultValue = "1") int cPage,
+			@RequestParam(value ="numPerPage", required = false, defaultValue = "10") int numPerPage) {
+		int usid=loginMember.getUsid();
+		List<Board> boardList=service.myBoard(cPage,numPerPage,usid);
+		int totalData=service.myBoardCount(usid);
+		
+		return mv;
 	}
 	
 //	테스트 페이지
