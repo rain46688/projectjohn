@@ -309,11 +309,11 @@ display:flex;
 					console.log(" === 분기 CAM === ");
 					if (content.msg === 'off') {
 						video2.srcObject = null;
-						$("#expertTextDiv").html($("#expertTextDiv").html() + "\n<br><p>유저가 카메라를 끄셨습니다.</p>");
+						$("#expertTextDiv").html($("#expertTextDiv").html() + "<br><p>유저가 카메라를 끄셨습니다.</p>");
 						//user_cam = false;
 					} else {
 						video2.srcObject = remoteStream;
-						$("#expertTextDiv").html($("#expertTextDiv").html() + "\n<br><p>유저가 카메라를 키셨습니다.</p>");
+						$("#expertTextDiv").html($("#expertTextDiv").html() + "<br><p>유저가 카메라를 키셨습니다.</p>");
 						//user_cam = true;
 					}
 				} else if (content.type == 'FILE') {
