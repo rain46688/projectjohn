@@ -20,6 +20,7 @@
  	<typeAlias type="com.kh.john.member.model.vo.License" alias="license"/>
 	<typeAlias type="com.kh.john.member.model.vo.Expert" alias="expert"/>
 	<typeAlias type="com.kh.john.alarm.model.vo.Alarm" alias="alarm"/>
+	<typeAlias type="com.kh.john.admin.model.vo.AdminChat" alias="adminChat"/>
  </typeAliases>
  
 
