@@ -356,6 +356,12 @@ public class MemberController {
 		return "member/myPage";
 	}
 	
+//	회원정보 수정하기
+	@RequestMapping("/member/myPage/modifyMemberInfo")
+	private String modifyMemberInfo() {
+		return "member/modifyMemberInfo";
+	}
+	
 //	테스트 페이지
 	@RequestMapping("/member/test")
 	private String testPage() {

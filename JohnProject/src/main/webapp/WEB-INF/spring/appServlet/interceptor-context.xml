@@ -30,12 +30,17 @@
 		
 		<!--회원-->
 		<interceptor>
-			<mapping path="/member"/>
+			<mapping path="/member/*"/>
 			<beans:bean class="com.kh.john.common.interceptor.MemberInterceptor"/>
 		</interceptor>
 		
 		<interceptor>
 			<mapping path="/member/myPage"/>
+			<beans:bean class="com.kh.john.common.interceptor.MyPageInterceptor"/>
+		</interceptor>
+		
+		<interceptor>
+			<mapping path="/member/myPage/*"/>
 			<beans:bean class="com.kh.john.common.interceptor.MyPageInterceptor"/>
 		</interceptor>
 		

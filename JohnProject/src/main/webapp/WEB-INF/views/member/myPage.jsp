@@ -69,10 +69,10 @@
 				</div>
 				<div id="menu">
 					<div>
-						<a href="${path}/member/myPage">마이페이지 홈</a>
+						<a href="${path}/member/myPage?usid=${loginMember.usid}">마이페이지 홈</a>
 					</div>
 					<div>
-						<a href="${path}/member/modifyMemberInfo">회원정보 수정하기</a>
+						<a href="${path}/member/myPage/modifyMemberInfo?usid=${loginMember.usid}">회원정보 수정하기</a>
 					</div>
 					<div>
 						<a href="${path}/member/myBoard">나의 게시물 내역</a>
