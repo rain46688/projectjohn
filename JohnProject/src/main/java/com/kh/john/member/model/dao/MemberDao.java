@@ -41,4 +41,6 @@ public interface MemberDao {
 
 	int myBoardCount(SqlSessionTemplate session,int usid);
 
+	Board searchBoard(SqlSessionTemplate session, Board board);
+
 }

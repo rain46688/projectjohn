@@ -55,5 +55,8 @@ public interface MemberService {
 	//내 게시물 개수
 	int myBoardCount(int usid);
 
+	//게시물 디테일
+	Board searchBoard(Board board);
+
 
 }

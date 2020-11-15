@@ -95,4 +95,9 @@ public class MemberDaoImpl implements MemberDao {
 		return session.selectOne("member.myBoardCount",usid);
 	}
 
+	@Override
+	public Board searchBoard(SqlSessionTemplate session, Board board) {
+		return session.selectOne("member.searchBoard",board);
+	}
+
 }

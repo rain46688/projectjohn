@@ -138,5 +138,10 @@ public class MemberServiceImpl implements MemberService {
 		return dao.myBoardCount(session, usid);
 	}
 
+	@Override
+	public Board searchBoard(Board board) {
+		return dao.searchBoard(session, board);
+	}
+
 
 }

@@ -26,6 +26,7 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.RequestPart;
 import org.springframework.web.bind.annotation.SessionAttribute;
 import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.bind.support.SessionStatus;
@@ -36,6 +37,7 @@ import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.kh.john.board.model.vo.Board;
+import com.kh.john.common.page.PageBarFactory;
 import com.kh.john.member.model.service.MemberService;
 import com.kh.john.member.model.vo.License;
 import com.kh.john.member.model.vo.Member;
@@ -505,7 +507,7 @@ public class MemberController {
 		return mv;	
 	}
 	
-//	나의 게시물 페이지로 가는 길
+//	나의 게시물 리스트
 	@RequestMapping("/member/myPage/myBoard")
 	private ModelAndView myBoard(ModelAndView mv,@SessionAttribute("loginMember") Member loginMember,
 			@RequestParam(value ="cPage", required = false, defaultValue = "1") int cPage,
@@ -513,6 +515,22 @@ public class MemberController {
 		int usid=loginMember.getUsid();
 		List<Board> boardList=service.myBoard(cPage,numPerPage,usid);
 		int totalData=service.myBoardCount(usid);
+		
+		mv.addObject("pageBar",myPagePageBar.getPageBar(totalData, cPage, numPerPage, "myBoard", loginMember.getUsid()));
+		mv.addObject("totalData", totalData);
+		mv.addObject("boardList", boardList);	
+		mv.setViewName("member/myBoard");
+		return mv;
+	}
+	
+//	내 게시물 상세
+	@RequestMapping("/member/myPage/myBoardDetail")
+	private ModelAndView myBoardDetail(ModelAndView mv, @SessionAttribute("loginMember") Member loginMember,
+			@RequestParam("boardId") int boardId, Board board) {
+		board.setWriterUsid(loginMember.getUsid());
+		board.setBoardId(boardId);
+		board=service.searchBoard(board);
+		
 		
 		return mv;
 	}

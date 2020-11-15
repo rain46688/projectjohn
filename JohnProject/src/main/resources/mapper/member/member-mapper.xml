@@ -66,6 +66,12 @@
 	SELECT COUNT(*) FROM BOARD WHERE WRITER_USID=#{usid}
 </select>
 
+<select id="searchBoard" parameterType="board" resultMap="boardMap">
+	SELECT * FROM BOARAD WHERE BOARD_ID=#{boardId} AND WRITER_USID=#{writerUsid}
+</select>
+
+
+
 <resultMap id="memberMap" type="member">
 	<result property="usid" column="usid"/>
 	<result property="memEmail" column="mem_email"/>

@@ -6,7 +6,7 @@
 <c:set var="path" value="${pageContext.request.contextPath }"/>
 
 <jsp:include page="/WEB-INF/views/common/header.jsp">
-	<jsp:param name="title" value=""/>
+	<jsp:param name="title" value="myBoard"/>
 </jsp:include>
 	<section id="content">
 		<div>
@@ -32,7 +32,7 @@
 					<c:out value="${boardList.smallCategory}"/>
 				</div>
 				<div>
-					<a>
+					<a href="${path}/member/myPage/myBoardDetail?boardId=${boardList.boardId}&usid=${loginMember.usid}">
 						<c:out value="${boardList.title}"/>
 					</a>
 				</div>
@@ -49,6 +49,9 @@
 					</c:choose>
 				</div>
 			</c:forEach>
+		</div>
+		<div>
+			${pageBar}
 		</div>
 	</section>
 <jsp:include page="/WEB-INF/views/common/footer.jsp"/>
