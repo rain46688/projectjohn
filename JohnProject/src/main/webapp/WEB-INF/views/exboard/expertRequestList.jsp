@@ -193,7 +193,7 @@ h2 {
 	
 	function counselConn(num){
 		console.log("num : "+num);
-		location.replace('${path}/counselConn?no='+num);
+		location.replace('${path}/expert/counselConn?no='+num);
 	}
 	
 	function exmemInfo(f){

@@ -341,4 +341,24 @@ public class ExboardController {
 		return mv;
 	}
 
+//	@ResponseBody
+//	@RequestMapping("/expert/uploadl")
+//	public String expertuUploadll(String uploadfile) {
+//		log.debug("expertuUploadll 실행");
+//		log.debug("no : " + no + " nic : " + nic);
+//		Member mem = (Member) session.getAttribute("loginMember");
+//		Member expert = new Member();
+//		expert.setUsid(Integer.parseInt(no));
+//		expert.setMemNickname(nic);
+//
+//		String result = "";
+//		try {
+//			service.deleteExpertMemRequest(expert, mem);
+//			result = "1";
+//		} catch (Exception e) {
+//			result = "0";
+//		}
+//		return result;
+//	}
+
 }
