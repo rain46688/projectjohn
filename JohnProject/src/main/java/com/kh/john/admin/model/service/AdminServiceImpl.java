@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.kh.john.admin.model.dao.AdminDao;
+import com.kh.john.admin.model.vo.AdminChat;
 import com.kh.john.admin.model.vo.Notice;
 import com.kh.john.admin.model.vo.NoticeFile;
 import com.kh.john.board.model.vo.Board;
@@ -187,6 +188,14 @@ public class AdminServiceImpl implements AdminService{
 	public int deleteNotice(Notice n) {
 		int result = dao.deleteNotice(session,n);
 		return result;
+	}
+
+	
+	//1:1 문의관련
+	
+	@Override
+	public int insertAdminChat(AdminChat ac) throws Exception {
+		return dao.insertAdminChat(session, ac);
 	}
 	
 	

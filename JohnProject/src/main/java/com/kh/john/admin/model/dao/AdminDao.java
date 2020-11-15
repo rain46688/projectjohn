@@ -6,6 +6,7 @@ import java.util.Map;
 import org.apache.ibatis.session.SqlSession;
 import org.mybatis.spring.SqlSessionTemplate;
 
+import com.kh.john.admin.model.vo.AdminChat;
 import com.kh.john.admin.model.vo.Notice;
 import com.kh.john.admin.model.vo.NoticeFile;
 import com.kh.john.board.model.vo.Board;
@@ -73,4 +74,8 @@ public interface AdminDao {
 	int noticeModifyEnd(SqlSessionTemplate session, Notice n);
 	
 	int deleteNotice(SqlSessionTemplate session, Notice n);
+	
+	//1:1문의관련
+	
+	int insertAdminChat(SqlSessionTemplate session, AdminChat ac) throws Exception;
 } 
