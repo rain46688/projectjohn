@@ -49,11 +49,13 @@ function expertRequest(){
  		   "time":$("input[name=time]").val(),
  		   "applyText":$("textarea[name=applyText]").val()
  	   },
- 	   url:"${path}/expertRequest",
+ 	   url:"${path}/expert/expertRequest",
  	   success:function (data){
  		   if(data == 1){
  			   console.log("상담 신청 성공");
  			   alert("상담 신청 성공");
+ 			  $("input[name=time]").val("");
+ 			 $("textarea[name=applyText]").val("");
  			  $("#exbtn").html("");
  			   $("#exbtn").html( $("#exbtn").html()+"<button class='btn btn-outline-success' onclick='expertRequestCancel();''>상담 취소하기</button>");
  		   }else if(data == 2){
@@ -76,7 +78,7 @@ function expertRequestCancel(){
   		   "no":"${expert.usid}",
   		   "nic":"${expert.memNickname}"
   	   },
-  	   url:"${path}/expertRequestCancel",
+  	   url:"${path}/expert/expertRequestCancel",
   	   success:function (data){
   		   if(data == 1){
   			   console.log("상담 취소 성공");

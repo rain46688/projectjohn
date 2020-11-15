@@ -10,9 +10,11 @@ import java.util.List;
 import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -32,6 +34,7 @@ import com.kh.john.member.model.vo.Member;
 import lombok.extern.slf4j.Slf4j;
 
 @Slf4j
+@CrossOrigin(origins = "http://localhost:3000")
 @Controller
 @SessionAttributes("loginMember")
 public class BoardController {
@@ -76,7 +79,7 @@ public class BoardController {
 					e.printStackTrace();
 				}
 				BoardFile boardFile = new BoardFile();
-				boardFile.setBoard_file_name(renamedFilename);
+				boardFile.setBoardFileName(renamedFilename);
 				files.add(boardFile);
 			}
 		}
@@ -93,8 +96,9 @@ public class BoardController {
 	}
 
 	@RequestMapping("board/boardPage")
-	public ModelAndView boardPage(ModelAndView mv, int boardNo) {
+	public ModelAndView boardPage(ModelAndView mv, int boardNo, HttpServletResponse response) {
 		
+		response.setHeader("Access-Control-Allow-Origin", "*");
 		Board b = service.boardSelectOne(boardNo);
 		
 		mv.addObject("currBoard", b);

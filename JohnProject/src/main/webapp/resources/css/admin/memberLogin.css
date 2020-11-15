@@ -278,6 +278,7 @@ a {
 
 a:hover {
   color: var(--submit_hover);
+  cursor: pointer;
 }
 
 i {

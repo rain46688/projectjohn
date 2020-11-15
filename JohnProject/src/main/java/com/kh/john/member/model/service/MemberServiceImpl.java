@@ -12,10 +12,12 @@ import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.kh.john.board.model.vo.Board;
 import com.kh.john.member.controller.MailHandler;
 import com.kh.john.member.controller.UuidGenerator;
 import com.kh.john.member.model.dao.MemberDao;
 import com.kh.john.member.model.vo.License;
+import com.kh.john.member.model.vo.LikeDislike;
 import com.kh.john.member.model.vo.Member;
 
 @Service
@@ -49,7 +51,7 @@ public class MemberServiceImpl implements MemberService {
                 .append("<h1>메일인증</h1>")
                 .append(authKey)
                 .toString());
-		sendMail.setFrom("22mailme@gmail.com", "재판하는 존경장님");
+		sendMail.setFrom("22mailme@gmail.com", "관리자");
 		sendMail.setTo(email);
 		sendMail.send();
 		return authKey;
@@ -83,42 +85,69 @@ public class MemberServiceImpl implements MemberService {
 	@Transactional
 	public int signUpExpert(Member member, List<License> licenseList) {
 		int result=dao.signUpEnd(session, member);
-		
-		if(result>0) {
-			if(!licenseList.isEmpty()) {
-				for(License l : licenseList) {
-					dao.signUpExpert(session,l);
-				}
+	
+		if(!licenseList.isEmpty()) {
+			for(License l : licenseList) {
+				dao.signUpExpert(session,l);
 			}
 		}
 		return result;
 	}
 
-//	@Override
-//	@Transactional
-//	public int signUpExpert(Member member, List<License> files, String[][] licenseArr) {
-//		int resultFirst=0;
-//		int resultSecond=0;
-//		resultFirst=dao.signUpEnd(session, member);
-//		member=service.selectMemUsidById(member);
-//		if(resultFirst>0) {
-//			if(!files.isEmpty()) {
-//				for(int i=0; i<files.size(); i++) {
-//					License l=files.get(i);
-//					l.setLicense_mem_usid(member.getUsid());
-//					l.setLicense_date(Date.valueOf(licenseArr[i][0]));
-//					l.setLicense_type(licenseArr[i][1]);
-//					l.setLicense_company(licenseArr[i][2]);
-//					resultSecond=dao.signUpExpert(session,l);
-//				}
-//			}
-//		}
-//		return resultSecond;
-//	}
-//
-//	@Override
-//	public Member selectMemUsidById(Member member) {
-//		return dao.selectMemUsidById(session, member);
-//	}
+	@Override
+	public Member findId(Member member) {
+		return dao.findId(session, member);
+	}
+
+	@Override
+	public Member findPw(Member member) {
+		return dao.findPw(session, member);
+	}
+
+	@Override
+	public int tempPw(Member member) {
+		return dao.tempPw(session,member);
+	}
+	
+	@Override
+	public int updatePw(Member member) {
+		return dao.updatePw(session,member);
+	}
+
+	@Override
+	public int updateNick(Member member) {
+		return dao.updateNick(session,member);
+	}
+
+	@Override
+	public int updatePic(Member member) {
+		return dao.updatePic(session, member);
+	}
+
+	@Override
+	public int updatePhone(Member member) {
+		return dao.updatePhone(session, member);
+	}
+
+	@Override
+	public List<Board> myBoard(int cPage, int numPerPage, int usid) {
+		return dao.myBoard(session, cPage, numPerPage, usid);
+	}
+
+	@Override
+	public int myBoardCount(int usid) {
+		return dao.myBoardCount(session, usid);
+	}
+
+	@Override
+	public Board searchBoard(Board board) {
+		return dao.searchBoard(session, board);
+	}
+
+	@Override
+	public List<LikeDislike> liked(int usid) {
+		return dao.liked(session, usid);
+	}
+
 
 }

@@ -1,5 +1,9 @@
 package com.kh.john.exboard.controller;
 
+import java.io.File;
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -13,9 +17,12 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.kh.john.common.exception.RequestDuplicateException;
 import com.kh.john.exboard.model.service.ExboardService;
 import com.kh.john.exboard.model.vo.ExpertBoard;
@@ -40,6 +47,7 @@ public class ExboardController {
 	@Autowired
 	private AES256Util aes;
 
+	// 전문가 페이지 임시 메인
 	@RequestMapping("/expert")
 	public ModelAndView expertPage(HttpSession session) {
 		log.debug("expertPage 실행");
@@ -48,7 +56,7 @@ public class ExboardController {
 	}
 
 	// 전문가 리스트들 불러오기
-	@RequestMapping("/expertPrintList")
+	@RequestMapping("/expert/expertPrintList")
 	public ModelAndView expertPrintList() {
 		log.debug("expertPrintList 실행");
 		ModelAndView mv = new ModelAndView("/exboard/expertList");
@@ -61,89 +69,9 @@ public class ExboardController {
 		}
 		return mv;
 	}
-//상담 희망시간, 요구사항 받아서 넘기기
-	// 상담 종료후에도 평점이랑 후기 적기
-//https://www.cssscript.com/accessible-star-rating-system-pure-css/
-
-	// 전문가 상세 프로필 보는곳 여기서 상담 신청 가능
-	@RequestMapping("/expertApply")
-	public ModelAndView expertApply(String no, String nic, HttpSession session) {
-		log.debug("expertApply 실행");
-		log.debug("no : " + no + " nic : " + nic);
-		Member mem = (Member) session.getAttribute("loginMember");
-		Member expert = new Member();
-		expert.setUsid(Integer.parseInt(no));
-		expert.setMemNickname(nic);
-		ModelAndView mv = new ModelAndView("/exboard/expertApply");
-		try {
-			Map<String, String> map = new HashMap<String, String>();
-			map.put("exusid", "" + expert.getUsid());
-			map.put("memusid", "" + mem.getUsid());
-			mv.addObject("expert", service.selectExpertMem(no));
-			mv.addObject("requestIsDuplicate", service.selectIsDuplicateReq(map));
-		} catch (Exception e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-			log.error("전문가 정보 불러오기 실패");
-		}
-		return mv;
-	}
-
-	// 상담 신청 버튼 눌렀을때
-	@ResponseBody
-	@RequestMapping("/expertRequest")
-	public String expertRequest(String no, String nic, String time, String applyText, HttpSession session) {
-		log.debug("expertRequest 실행");
-		log.debug("no : " + no + " nic : " + nic + " time : " + time + " applyText : " + applyText);
-		Member mem = (Member) session.getAttribute("loginMember");
-		Member expert = new Member();
-		expert.setUsid(Integer.parseInt(no));
-		expert.setMemNickname(nic);
-
-		Map<String, String> map = new HashMap<String, String>();
-		map.put("exusid", "" + expert.getUsid());
-		map.put("exnick", expert.getMemNickname());
-		map.put("memusid", "" + mem.getUsid());
-		map.put("memnick", mem.getMemNickname());
-		map.put("time", time);
-		map.put("applyText", applyText);
-
-		String result = "";
-		try {
-			service.insertExpertMemRequest(map);
-			result = "1";
-		} catch (RequestDuplicateException e) {
-			result = "2";
-		} catch (Exception e) {
-			result = "0";
-		}
-		return result;
-
-	}
-
-	// 상담 신청 취소 버튼 눌렀을때
-	@ResponseBody
-	@RequestMapping("/expertRequestCancel")
-	public String expertRequestCancel(String no, String nic, HttpSession session) {
-		log.debug("expertRequestCancel 실행");
-		log.debug("no : " + no + " nic : " + nic);
-		Member mem = (Member) session.getAttribute("loginMember");
-		Member expert = new Member();
-		expert.setUsid(Integer.parseInt(no));
-		expert.setMemNickname(nic);
-
-		String result = "";
-		try {
-			service.deleteExpertMemRequest(expert, mem);
-			result = "1";
-		} catch (Exception e) {
-			result = "0";
-		}
-		return result;
-	}
 
 	// 전문가가 자신한테 유저들이 신청한 리스트 출력하기
-	@RequestMapping("/expertRequestPrintList")
+	@RequestMapping("/expert/expertRequestPrintList")
 	public ModelAndView expertRequestPrintList(HttpSession session) {
 		log.debug("expertRequestPrintList 실행");
 		ModelAndView mv = new ModelAndView("/exboard/expertRequestList");
@@ -181,8 +109,89 @@ public class ExboardController {
 		return mv;
 	}
 
+//상담 희망시간, 요구사항 받아서 넘기기
+	// 상담 종료후에도 평점이랑 후기 적기
+//https://www.cssscript.com/accessible-star-rating-system-pure-css/
+
+	// 전문가 상세 프로필 보는곳 여기서 상담 신청 가능
+	@RequestMapping("/expert/expertApply")
+	public ModelAndView expertApply(String no, String nic, HttpSession session) {
+		log.debug("expertApply 실행");
+		log.debug("no : " + no + " nic : " + nic);
+		Member mem = (Member) session.getAttribute("loginMember");
+		Member expert = new Member();
+		expert.setUsid(Integer.parseInt(no));
+		expert.setMemNickname(nic);
+		ModelAndView mv = new ModelAndView("/exboard/expertApply");
+		try {
+			Map<String, String> map = new HashMap<String, String>();
+			map.put("exusid", "" + expert.getUsid());
+			map.put("memusid", "" + mem.getUsid());
+			mv.addObject("expert", service.selectExpertMem(no));
+			mv.addObject("requestIsDuplicate", service.selectIsDuplicateReq(map));
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			log.error("전문가 정보 불러오기 실패");
+		}
+		return mv;
+	}
+
+	// 상담 신청 버튼 눌렀을때
 	@ResponseBody
-	@RequestMapping("/selectExpertBno")
+	@RequestMapping("/expert/expertRequest")
+	public String expertRequest(String no, String nic, String time, String applyText, HttpSession session) {
+		log.debug("expertRequest 실행");
+		log.debug("no : " + no + " nic : " + nic + " time : " + time + " applyText : " + applyText);
+		Member mem = (Member) session.getAttribute("loginMember");
+		Member expert = new Member();
+		expert.setUsid(Integer.parseInt(no));
+		expert.setMemNickname(nic);
+
+		Map<String, String> map = new HashMap<String, String>();
+		map.put("exusid", "" + expert.getUsid());
+		map.put("exnick", expert.getMemNickname());
+		map.put("memusid", "" + mem.getUsid());
+		map.put("memnick", mem.getMemNickname());
+		map.put("time", time);
+		map.put("applyText", applyText);
+
+		String result = "";
+		try {
+			service.insertExpertMemRequest(map);
+			result = "1";
+		} catch (RequestDuplicateException e) {
+			result = "2";
+		} catch (Exception e) {
+			result = "0";
+		}
+		return result;
+
+	}
+
+	// 상담 신청 취소 버튼 눌렀을때
+	@ResponseBody
+	@RequestMapping("/expert/expertRequestCancel")
+	public String expertRequestCancel(String no, String nic, HttpSession session) {
+		log.debug("expertRequestCancel 실행");
+		log.debug("no : " + no + " nic : " + nic);
+		Member mem = (Member) session.getAttribute("loginMember");
+		Member expert = new Member();
+		expert.setUsid(Integer.parseInt(no));
+		expert.setMemNickname(nic);
+
+		String result = "";
+		try {
+			service.deleteExpertMemRequest(expert, mem);
+			result = "1";
+		} catch (Exception e) {
+			result = "0";
+		}
+		return result;
+	}
+
+	@ResponseBody
+	@RequestMapping("/expert/selectExpertBno")
 	public String selectExpertBno(HttpSession session, String no, String nic) {
 		String result = "";
 		Member expertmem = (Member) session.getAttribute("loginMember");
@@ -197,7 +206,7 @@ public class ExboardController {
 	}
 
 	// 상담 게시판 개설
-	@RequestMapping("/counselStart")
+	@RequestMapping("/expert/counselStart")
 	public String counselStart(HttpServletRequest req, String no, String nic, String bno,
 			RedirectAttributes redirectAttributes) {
 		log.debug("counselStart 실행");
@@ -213,7 +222,7 @@ public class ExboardController {
 			context = (req.getRequestURL()).substring(0, n);
 			MailHandler sendMail = new MailHandler(mailSender);
 			sendMail.setSubject("상담 채팅 요청이 도착했습니다.)");
-			String html = context + "/john/expertRoom?bno=" + result;
+			String html = context + "/john/expert/expertRoom?bno=" + result;
 			log.debug("html : " + html);
 			sendMail.setText(new StringBuffer().append(html + "<br> 링크를 클릭해서 상담으로 바로가기").toString());
 			sendMail.setFrom("minsu87750@gmail.com", "재판하는 존경장님");
@@ -225,7 +234,7 @@ public class ExboardController {
 		}
 		log.debug("result : " + result);
 		redirectAttributes.addAttribute("bno", result);
-		return "redirect:/expertRoom";
+		return "redirect:/expert/expertRoom";
 	}
 
 	public ModelAndView gotoMsg(ModelAndView mv, String loc, String msg) {
@@ -236,7 +245,7 @@ public class ExboardController {
 	}
 
 	// 채팅창 입장
-	@RequestMapping("/expertRoom")
+	@RequestMapping("/expert/expertRoom")
 	public ModelAndView expertRoom(@RequestParam("bno") String bnum, HttpSession session) {
 		log.debug("expertRoom 실행");
 		ModelAndView mv = new ModelAndView("/exboard/exchatRoom");
@@ -294,7 +303,7 @@ public class ExboardController {
 	}
 
 	// 상담 게시판 개설
-	@RequestMapping("/counselConn")
+	@RequestMapping("/expert/counselConn")
 	public String counselConnction(HttpSession session, String no, RedirectAttributes redirectAttributes) {
 		log.debug("counselConnction 실행");
 		Member expertmem = (Member) session.getAttribute("loginMember");
@@ -308,7 +317,7 @@ public class ExboardController {
 		}
 
 		redirectAttributes.addAttribute("bno", bno);
-		return "redirect:/expertRoom";
+		return "redirect:/expert/expertRoom";
 	}
 
 	@RequestMapping(value = "/msg")
@@ -318,16 +327,16 @@ public class ExboardController {
 		return mv;
 	}
 
-	@RequestMapping(value = "/counselEnd")
+	@RequestMapping(value = "/expert/counselEnd")
 	public String counselEnd(String extext, String bno) throws Exception {
 		log.info(" ===== counselEnd 실행 ===== ");
 
 		log.debug("extext : " + extext);
 		service.updateCounselResult(extext, bno);
-		return "redirect:/expertRequestPrintList";
+		return "redirect:/expert/expertRequestPrintList";
 	}
 
-	@RequestMapping(value = "/exmemInfo")
+	@RequestMapping(value = "/expert/exmemInfo")
 	public ModelAndView exmemInfo(String no, String nic) throws Exception {
 		log.info(" ===== exmemInfo 실행 ===== ");
 		log.debug("no : " + no + ", nic : " + nic);
@@ -337,6 +346,53 @@ public class ExboardController {
 
 		mv.addObject("m", m);
 		return mv;
+	}
+
+	@ResponseBody
+	@RequestMapping("/expert/upload")
+	public String expertuUploadll(MultipartFile[] upFile, HttpServletRequest request) {
+		log.debug("expertuUploadll 실행");
+		String result = "";
+		String path = request.getServletContext().getRealPath("/resources/upload_images");
+		List<String> list = new ArrayList<String>();
+		for (int i = 0; i < upFile.length; i++) {
+			log.debug(" ================================ ");
+			log.debug("파일명 : " + upFile[i].getOriginalFilename());
+			log.debug("파일크기 : " + upFile[i].getSize());
+		}
+		File dir = new File(path);
+		if (!dir.exists()) {
+			// 지정된 경로의 폴더가 없으면
+			dir.mkdirs();// s넣으면 중간 경로 없어도 알아서 만들어주는것!!
+		}
+
+		// 파일 업로드 로직 처리하기
+		for (MultipartFile f : upFile) {
+			if (!f.isEmpty()) {
+				// 전달된 파일이 있으면... 파일 업로드 처리
+				// 파일 리네임 처리 -> 중복방지를 위해!
+				String originalFileName = f.getOriginalFilename();
+				String ext = originalFileName.substring(originalFileName.lastIndexOf(".") + 1);
+				SimpleDateFormat sdf = new SimpleDateFormat("yyyy_MM_dd_HHmmssSSS");
+				int rndNum = (int) (Math.random() * 1000);
+				String renamedFileName = sdf.format(new Date(System.currentTimeMillis())) + "_" + rndNum + "." + ext;
+				try {
+					// renamedFileName 으로 파일을 저장하기 -> transferTo(파일)
+					f.transferTo(new File(path + "/" + renamedFileName));
+				} catch (Exception e) {
+					// TODO: handle exception
+					e.printStackTrace();
+				}
+				list.add(renamedFileName);
+			}
+		}
+		try {
+			result = new ObjectMapper().writeValueAsString(list);
+		} catch (JsonProcessingException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return result;
 	}
 
 }

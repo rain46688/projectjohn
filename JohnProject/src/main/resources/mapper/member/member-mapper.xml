@@ -29,15 +29,57 @@
 		SELECT SEQ_MEMBER_NO.CURRVAL FROM DUAL
 	</selectKey>
 </insert>
-<!-- <insert id="signUpExpert" parameterType="license"> -->
-<!-- 	INSERT INTO LICENSE VALUES(#{license_mem_usid}, #{license_file_name}, #{license_date}, #{license_type}, #{license_company}) -->
-<!-- </insert> -->
 
-<!-- <select id="selectMemUsidById" resultType="member" parameterType="member"> -->
-<!-- 	SELECT USID FROM MEMBER WHERE MEM_EMAIL=#{mem_email} -->
-<!-- </select> -->
+<select id="findId" parameterType="member" resultMap="memberMap">
+	SELECT * FROM MEMBER WHERE MEM_NAME=#{memName} AND TEL=#{tel}
+</select>
+
+<select id="findPw" parameterType="member" resultMap="memberMap">
+	SELECT * FROM MEMBER WHERE MEM_EMAIL=#{memEmail} AND MEM_NAME=#{memName} AND TEL=#{tel}
+</select>
+
+<update id="tempPw">
+	UPDATE MEMBER SET MEM_PWD=#{memPwd}, PW_IS_UUID=#{pwIsUuid} WHERE USID=#{usid}
+</update>
+
+<update id="updatePw" parameterType="member">
+	UPDATE MEMBER SET MEM_PWD=#{memPwd}, PW_IS_UUID=#{pwIsUuid} WHERE USID=#{usid}
+</update>
+
+<update id="updateNick" parameterType="member">
+	UPDATE MEMBER SET MEM_NICKNAME=#{memNickname} WHERE USID=#{usid}
+</update>
+
+<update id="updatePic" parameterType="member">
+	UPDATE MEMBER SET PROFILE_PIC=#{profilePic} WHERE USID=#{usid}
+</update>
+
+<update id="updatePhone" parameterType="member">
+	UPDATE MEMBER SET TEL=#{tel} WHERE USID=#{usid}
+</update>
+
+<select id="selectMyBoard" parameterType="map" resultMap="boardMap">
+	SELECT * FROM BOARD WHERE WRITER_USID=#{usid}
+</select>
+
+<select id="myBoardCount" parameterType="_int" resultType="_int">
+	SELECT COUNT(*) FROM BOARD WHERE WRITER_USID=#{usid}
+</select>
+
+<select id="searchBoard" parameterType="board" resultMap="boardMap">
+	SELECT * FROM BOARD WHERE BOARD_ID=#{boardId} AND WRITER_USID=#{writerUsid}
+</select>
+
+<select id="liked" parameterType="_int" resultMap="likeDislikeMap">
+
+</select>
 
 
+<resultMap type="likeDislike" id="likeDislikeMap">
+	<result property="likeUsid" column="like_usid"/>
+	<result property="likeBoardId" column="like_board_id"/>
+	<result property="likeIsdislike" column="like_isdislike"/>
+</resultMap>
 <resultMap id="memberMap" type="member">
 	<result property="usid" column="usid"/>
 	<result property="memEmail" column="mem_email"/>
@@ -54,5 +96,19 @@
 	<result property="profilePic" column="profile_pic"/>
 	<result property="tel" column="tel"/>
 </resultMap>
-
+<resultMap type="com.kh.john.board.model.vo.Board" id="boardMap">
+	<result property="boardId" column="board_id"/>
+	<result property="writerUsid" column="writer_usid"/>
+	<result property="writerNickname" column="writer_nickname"/>
+	<result property="title" column="title"/>
+	<result property="content" column="content"/>
+	<result property="enrollDate" column="enroll_date"/>
+	<result property="hit" column="hit"/>
+	<result property="bigCategory" column="big_category"/>
+	<result property="smallCategory" column="small_category"/>
+	<result property="isclose" column="isclose"/>
+	<result property="maxMems" column="max_mems"/>
+	<result property="agreeName" column="agree_name"/>
+	<result property="disagreeName" column="disagree_name"/>
+</resultMap>
 </mapper>

@@ -90,7 +90,7 @@ h2 {
 	margin-top: 20px;
 	font-weight: bold;
 	margin-top: 15px;
-	margin-left: 150%;
+	margin-left: 200%;
 	width: 100%;
 	font-size: 15px;
 }
@@ -111,7 +111,6 @@ h2 {
 				<div class="divCell">상담 신청자</div>
 				<div class="divCell">상담 신청 날짜</div>
 					<div class="divCell">원하는 상담 시간</div>
-								<div class="divCell">추가 전달 사항</div>
 				<div class="divCell">상담 시작</div>
 				<div class="divCell">정보 보기</div>
 			</div>
@@ -124,7 +123,6 @@ h2 {
 							<div class="divCell">${n.expertRequestMemNick}</div>
 							<div class="divCell">${n.expertDate}</div>
 								<div class="divCell">${n.expertCounselTime}</div>
-									<div class="divCell">${n.expertCounselRequire}</div>
 								<div class="divCell">
 								
 							<c:if test="${n.endCounsel != true }">
@@ -177,13 +175,15 @@ h2 {
 			 		   "no" : num,
 			 		   "nic" : nick
 			 	   },
-			 	   url:"${path}/selectExpertBno",
+			 	   url:"${path}/expert/selectExpertBno",
 			 	   success:function (data){
 			 		   console.log("data : "+data);
 			 		 bno = data;
+			 		 
 			 		sendAlarm("${loginMember.usid}",num,"expert",bno,"${loginMember.memNickname}");
+			 		
 			 		 console.log("bno : "+bno);
-					location.replace('${path}/counselStart?no='+num+"&nic="+nick+"&bno="+bno);
+					location.replace('${path}/expert/counselStart?no='+num+"&nic="+nick+"&bno="+bno);
 			 	   }
 			    }); 
 		}
@@ -193,7 +193,7 @@ h2 {
 	
 	function counselConn(num){
 		console.log("num : "+num);
-		location.replace('${path}/counselConn?no='+num);
+		location.replace('${path}/expert/counselConn?no='+num);
 	}
 	
 	function exmemInfo(f){
@@ -202,7 +202,7 @@ h2 {
 			const cx = (window.screen.width / 2) - (x / 2);
 			const cy= (window.screen.height / 2) - (y / 2);
 
-			const url    ="${path}/exmemInfo";
+			const url    ="${path}/expert/exmemInfo";
 			const title  = "chat";
 			const status = "toolbar=no,directories=no,scrollbars=no,resizable=no,status=no,menubar=no,width="+x+", height="+y+", top="+cy+",left="+cx;
 			pop =  window.open("", title,status);

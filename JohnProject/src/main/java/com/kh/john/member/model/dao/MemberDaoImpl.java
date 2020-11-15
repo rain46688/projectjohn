@@ -3,10 +3,13 @@ package com.kh.john.member.model.dao;
 import java.util.List;
 import java.util.Map;
 
+import org.apache.ibatis.session.RowBounds;
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.stereotype.Repository;
 
+import com.kh.john.board.model.vo.Board;
 import com.kh.john.member.model.vo.License;
+import com.kh.john.member.model.vo.LikeDislike;
 import com.kh.john.member.model.vo.Member;
 
 @Repository
@@ -48,14 +51,59 @@ public class MemberDaoImpl implements MemberDao {
 		return session.insert("member.signUpExpert",l);
 	}
 
-//	@Override
-//	public int signUpExpert(SqlSessionTemplate session, License l) {
-//		return session.insert("member.signUpExpert",l);
-//	}
-//
-//	@Override
-//	public Member selectMemUsidById(SqlSessionTemplate session, Member member) {
-//		return session.selectOne("member.selectMemUsidById",member);
-//	}
+	@Override
+	public Member findId(SqlSessionTemplate session, Member member) {
+		return session.selectOne("member.findId",member);
+	}
+
+	@Override
+	public Member findPw(SqlSessionTemplate session, Member member) {
+		return session.selectOne("member.findPw",member);
+	}
+
+	@Override
+	public int tempPw(SqlSessionTemplate session, Member member) {
+		return session.update("member.tempPw",member);
+	}
+
+	@Override
+	public int updatePw(SqlSessionTemplate session, Member member) {
+		return session.update("member.updatePw",member);
+	}
+
+	@Override
+	public int updateNick(SqlSessionTemplate session, Member member) {
+		return session.update("member.updateNick",member);
+	}
+
+	@Override
+	public int updatePic(SqlSessionTemplate session, Member member) {
+		return session.update("member.updatePic",member);
+	}
+
+	@Override
+	public int updatePhone(SqlSessionTemplate session, Member member) {
+		return session.update("member.updatePhone",member);
+	}
+
+	@Override
+	public List<Board> myBoard(SqlSessionTemplate session, int cPage, int numPerPage, int usid) {
+		return session.selectList("member.selectMyBoard",usid,new RowBounds((cPage-1)*numPerPage,numPerPage));
+	}
+
+	@Override
+	public int myBoardCount(SqlSessionTemplate session, int usid) {
+		return session.selectOne("member.myBoardCount",usid);
+	}
+
+	@Override
+	public Board searchBoard(SqlSessionTemplate session, Board board) {
+		return session.selectOne("member.searchBoard",board);
+	}
+
+	@Override
+	public List<LikeDislike> liked(SqlSessionTemplate session, int usid) {
+		return session.selectList("member.liked",usid);
+	}
 
 }
