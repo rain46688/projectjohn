@@ -87,7 +87,7 @@
 				<div id="header">
 					<!-- 알람 및 마이페이지 버튼 -->
 					<button onclick="location.href='${path}/customer/customerPage'">고객센터</button>
-					<button onclick="location.href='${path}/member/myPage'">마이페이지</button>
+					<button onclick="location.href='${path}/member/myPage?usid=${loginMember.usid}'">마이페이지</button>
 					<button onclick="location.href='${path}/admin/adminPage'">ADMIN</button>
 					<button onclick="location.href='${path}/member/logout'">로그아웃</button>
 					<!-- 전문과 관련 페이지 접근용 임시 포탈 -->

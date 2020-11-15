@@ -100,8 +100,12 @@
 				</c:if>
 			</div>
 
+			<div id="drop" style="border: 1px solid black; width: 800px; height: 300px; padding: 3px">여기로 drag & drop</div>
+
+
+
 		</section>
-		
+
 		<script>
 			'use strict';
 
@@ -119,14 +123,14 @@
 			let get_user_media = null;
 			//let user_cam=null;
 			let user_usid;
-	
- /* 		let cam = _.once = function(func){
-				console.log("once");
-				return false;
-			}; 
-			user_cam = cam();
-			console.log("user_cam : "+user_cam); */
-			
+
+			/* 		let cam = _.once = function(func){
+						console.log("once");
+						return false;
+					}; 
+					user_cam = cam();
+					console.log("user_cam : "+user_cam); */
+
 			//TURN & STUN 서버 등록
 			const configuration = {
 				'iceServers' : [ {
@@ -148,9 +152,10 @@
 				console.log("onopen => signaling server 연결");
 				if ("${loginMember.memClass}" != '전문가') {
 					sendMessage(new ExboardMsg("SYS",
-							"${loginMember.memNickname}", "접속","${loginMember.usid}"));
+							"${loginMember.memNickname}", "접속",
+							"${loginMember.usid}"));
 				}
-				
+
 			};
 
 			conn.onmessage = function(msg) {
@@ -163,13 +168,16 @@
 				} else if (content.type === 'offer') {
 					console.log(" === 분기 offer === ");
 					start();
-					pc.setRemoteDescription(new rtc_session_description(content));
+					pc
+							.setRemoteDescription(new rtc_session_description(
+									content));
 					doAnswer();
 				} else if (content.type === 'answer') {
 					console.log(" === 분기 answer === ");
-					pc.setRemoteDescription(new rtc_session_description(
+					pc
+							.setRemoteDescription(new rtc_session_description(
 									content));
-		
+
 				} else if (content.type === 'candidate') {
 					console.log(" === 분기 candidate === ");
 					let candidate = new RTCIceCandidate({
@@ -180,21 +188,23 @@
 				} else if (content.type == 'SYS') {
 					console.log(" === 분기 SYS === ");
 					start();
-					user_usid=content.id;
+					user_usid = content.id;
 					$("#extext").val(content.nick + "님이 접속하셨습니다.");
 				} else if (content.type == 'TXT') {
 					console.log(" === 분기 TXT === ");
 					$("#memtext").html("");
 					$("#memtext").html(content.msg);
-				}else if (content.type == 'CAM') {
+				} else if (content.type == 'CAM') {
 					console.log(" === 분기 CAM === ");
-					if(content.msg === 'off'){
+					if (content.msg === 'off') {
 						video2.srcObject = null;
-						$("#extext").val($("#extext").val()+"\n유저가 카메라를 끄셨습니다.");
+						$("#extext").val(
+								$("#extext").val() + "\n유저가 카메라를 끄셨습니다.");
 						//user_cam = false;
-					}else{
+					} else {
 						video2.srcObject = remoteStream;
-						$("#extext").val($("#extext").val()+"\n유저가 카메라를 키셨습니다.");
+						$("#extext").val(
+								$("#extext").val() + "\n유저가 카메라를 키셨습니다.");
 						//user_cam = true;
 					}
 				} else if (content.type == 'END') {
@@ -310,7 +320,7 @@
 						video2.srcObject = remoteStream;
 					} 
 				}
-				*/
+				 */
 			};
 
 			function doCall() {
@@ -398,9 +408,9 @@
 
 			//상담 종료 해당 텍스트 에어리어의 기록 디비에 저장하고 종료
 			function counselEnd() {
-				console.log("user_usid : "+user_usid);
-			 	 let result = confirm("해당 회원과 상담을 종료 하시겠습니까?");
-				if(result){
+				console.log("user_usid : " + user_usid);
+				let result = confirm("해당 회원과 상담을 종료 하시겠습니까?");
+				if (result) {
 					let form = document.createElement("form");
 					form.setAttribute("charset", "UTF-8");
 					form.setAttribute("method", "Post");
@@ -421,7 +431,7 @@
 					sendMessage(new ExboardMsg("END",
 							"${loginMember.memClass}", "종료"));
 					//header가 없어서 알람을 못보냄 나중에 여기에 헤더를 넣을지 말지 상의해서 추가하기
-				//sendAlarm("${loginMember.usid}",user_usid,"expertend",bno,"${loginMember.memNickname}");
+					//sendAlarm("${loginMember.usid}",user_usid,"expertend",bno,"${loginMember.memNickname}");
 				}
 			}
 
