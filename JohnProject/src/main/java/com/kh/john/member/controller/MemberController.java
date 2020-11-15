@@ -65,7 +65,7 @@ public class MemberController {
 //	로그인 페이지로 가기
 	@RequestMapping("/memberLogin")
 	public String enterPage() {
-		return "/member/memberLogin";
+		return "member/memberLogin";
 	}
 
 //	아이디 찾기
@@ -163,7 +163,7 @@ public class MemberController {
 					m.addAttribute("loginMember", loginMember);
 					
 					redirectAttributes.addAttribute("bno", bo);
-					return "redirect:/expertRoom";
+					return "redirect:/expert/expertRoom"; 
 				} else {
 					//임시비번알림
 					if(loginMember.getPwIsUuid()==1) {
@@ -178,12 +178,12 @@ public class MemberController {
 				}
 			} else {
 				msg = "아이디나 비밀번호를 확인해주세요.";
-				loc = "/member/memberLogin";
+				loc = "/memberLogin";
 				path = "common/msg";
 			}
 		} else {
 			msg = "아이디나 비밀번호를 확인해주세요.";
-			loc = "/member/memberLogin";
+			loc = "/memberLogin";
 			path = "common/msg";
 		}
 		m.addAttribute("msg", msg);
@@ -204,7 +204,7 @@ public class MemberController {
 //	회원가입 페이지로 가기
 	@RequestMapping("/signUp")
 	public ModelAndView signUpPage(ModelAndView mv) {
-		mv.setViewName("/member/signUp");
+		mv.setViewName("member/signUp");
 		return mv;
 	}
 
@@ -357,9 +357,9 @@ public class MemberController {
 	}
 	
 //	회원정보 수정하기
-	@RequestMapping("/member/myPage/modifyMemberInfo")
+	@RequestMapping("/member/myPage/updateMemberInfo")
 	private String modifyMemberInfo() {
-		return "member/modifyMemberInfo";
+		return "member/updateMemberInfo";
 	}
 	
 //	테스트 페이지
