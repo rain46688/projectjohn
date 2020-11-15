@@ -1,6 +1,7 @@
 package com.kh.john.alarm.model.service;
 
 import java.util.List;
+import java.util.Map;
 
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -40,6 +41,12 @@ public class AlarmServiceImpl implements AlarmService {
 	public int insertExpertAlarm(Alarm almsg) throws Exception {
 		// TODO Auto-generated method stub
 		return dao.insetExpertAlarm(session, almsg);
+	}
+
+	@Override
+	public List<Alarm> selectAlarmItem(Map<String, String> map) throws Exception {
+		// TODO Auto-generated method stub
+		return dao.selectAlarmItem(session, map);
 	}
 
 }

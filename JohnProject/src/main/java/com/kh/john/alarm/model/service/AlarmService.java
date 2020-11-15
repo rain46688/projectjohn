@@ -1,6 +1,7 @@
 package com.kh.john.alarm.model.service;
 
 import java.util.List;
+import java.util.Map;
 
 import com.kh.john.alarm.model.vo.Alarm;
 
@@ -13,5 +14,7 @@ public interface AlarmService {
 	int updateAlarmRead(int aid) throws Exception;
 
 	int insertExpertAlarm(Alarm almsg) throws Exception;
+
+	List<Alarm> selectAlarmItem(Map<String, String> map) throws Exception;
 
 }
