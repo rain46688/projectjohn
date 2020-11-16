@@ -6,53 +6,50 @@
 <c:set var="path" value="${pageContext.request.contextPath }"/>
 
 <jsp:include page="/WEB-INF/views/common/header.jsp">
-	<jsp:param name="title" value="likedPage"/>
+	<jsp:param name="title" value="myReportPage"/>
 </jsp:include>
 	<section id="content">
 		<div>
 			<div>
-				세부 카테고리
+				신고 타입
 			</div>
 			<div>
-				제목
+				신고 제목
 			</div>
 			<div>
-				날짜
+				신고 대상
 			</div>
 			<div>
-				조회수
+				신고 날짜
 			</div>
 			<div>
-				종료여부
+				신고 처리 여부
 			</div>
 		</div>
 		<div>
-			<c:forEach var="liked" items="${liked}">
+			<c:forEach var="myReport" items="${myReport}">
 				<div>
-					<c:out value="${liked.smallCategory}"/>
+					<c:out value="${myReport.reportType}"/>
 				</div>
 				<div>
-					<a>
-						<c:out value="${liked.title}"/>
+					<a href="${path}/member/myPage/myReportDetail?reportId=${myReport.reportId}&usid=${loginMember.usid}">
+						<c:out value="${myReport.reportTitle}"/>
 					</a>
 				</div>
 				<div>
-					<c:out value="${liked.enrollDate}"/>
+					<c:out value="${myReport.reportTargetNickname}"/>
 				</div>
 				<div>
-					<c:out value="${liked.hit}"/>
+					<c:out value="${myReport.reportDate}"/>
 				</div>
 				<div>
 					<c:choose>
-						<c:when test="${liked.isclose eq true }">종료됨</c:when>
-						<c:otherwise>진행중</c:otherwise>
+						<c:when test="${myReport.reportIscheck eq true}">처리</c:when>
+						<c:otherwise>미처리</c:otherwise>
 					</c:choose>
 				</div>
 			</c:forEach>
 		</div>
-		<div>
-			${pageBar}
-		</div>	
 	</section>
 <jsp:include page="/WEB-INF/views/common/footer.jsp"/>
 

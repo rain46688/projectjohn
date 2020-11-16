@@ -146,11 +146,11 @@
 						</div>
 						<div>
 							내 신고 내역
-							<button>이동하기</button>
+							<button type="button" onclick="location.href='${path}/member/myPage/myReport?usid=${loginMember.usid}'">이동하기</button>
 						</div>
 						<div>
 							전문가 신청하기
-							<button>이동하기</button>
+							<button type="button" onclick="location.href='${path}/member/myPage/applyExpertPage?usid=${loginMember.usid}'">이동하기</button>
 						</div>
 					</div>
 				</div>

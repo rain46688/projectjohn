@@ -7,6 +7,7 @@ import com.kh.john.board.model.vo.Board;
 import com.kh.john.member.model.vo.License;
 import com.kh.john.member.model.vo.LikeDislike;
 import com.kh.john.member.model.vo.Member;
+import com.kh.john.report.model.vo.Report;
 
 public interface MemberService {
 
@@ -59,8 +60,21 @@ public interface MemberService {
 	//게시물 디테일
 	Board searchBoard(Board board);
 
-//	좋아요 한 게시물
-	List<LikeDislike> liked(int usid);
+	//좋아요 한 게시물
+	List<Board> liked(int cPage, int numPerPage, int usid);
+
+	//좋아요 게시물 개수
+	int likedCount(int usid);
+	
+	//신고 한 게시물
+	List<Report> myReport(int cPage, int numPerPage, int usid);
+
+	//신고한 게시물 개수
+	int myReportCount(int usid);
+
+	//신고 디테일
+	Report searchReport(Report report);
+	
 
 
 }

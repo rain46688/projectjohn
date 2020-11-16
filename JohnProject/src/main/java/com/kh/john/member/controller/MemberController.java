@@ -42,6 +42,7 @@ import com.kh.john.member.model.service.MemberService;
 import com.kh.john.member.model.vo.License;
 import com.kh.john.member.model.vo.LikeDislike;
 import com.kh.john.member.model.vo.Member;
+import com.kh.john.report.model.vo.Report;
 
 import lombok.extern.slf4j.Slf4j;
 
@@ -539,14 +540,62 @@ public class MemberController {
 	
 //	좋아요 게시물 페이지
 	@RequestMapping("/member/myPage/liked")
-	public ModelAndView liked(ModelAndView mv, @SessionAttribute("loginMember") Member loginMember) {
+	public ModelAndView liked(ModelAndView mv, @SessionAttribute("loginMember") Member loginMember,
+			@RequestParam(value ="cPage", required = false, defaultValue = "1") int cPage,
+			@RequestParam(value ="numPerPage", required = false, defaultValue = "10") int numPerPage) {
 		int usid=loginMember.getUsid();
-		List<LikeDislike> liked=service.liked(usid);
+		List<Board> liked=service.liked(cPage,numPerPage,usid);
+		int totalData=service.likedCount(usid);
 		
+		mv.addObject("pageBar",myPagePageBar.getPageBar(totalData, cPage, numPerPage, "likedPage", loginMember.getUsid()));
+		mv.addObject("totalData", totalData);
 		mv.addObject("liked",liked);
 		mv.setViewName("member/liked");
 		return mv;
 	}
+	
+//	신고 내역
+	@RequestMapping("/member/myPage/myReport")
+	public ModelAndView myReport(ModelAndView mv, @SessionAttribute("loginMember") Member loginMember,
+			@RequestParam(value ="cPage", required = false, defaultValue = "1") int cPage,
+			@RequestParam(value ="numPerPage", required = false, defaultValue = "10") int numPerPage) {
+		int usid=loginMember.getUsid();
+		List<Report> myReport=service.myReport(cPage,numPerPage,usid);
+		int totalData=service.myReportCount(usid);
+		
+		mv.addObject("pageBar",myPagePageBar.getPageBar(totalData, cPage, numPerPage, "myReportPage", loginMember.getUsid()));
+		mv.addObject("totalData", totalData);
+		mv.addObject("myReport", myReport);
+		mv.setViewName("member/myReport");
+		return mv;
+	}
+	
+//	신고 상세
+	@RequestMapping("/member/myPage/myReportDetail")
+	public ModelAndView myReportDetail(ModelAndView mv, @SessionAttribute("loginMember") Member loginMember,
+			@RequestParam("reportId") int reportId, Report report) {
+		report.setReportWriterUsid(loginMember.getUsid());
+		report.setReportId(reportId);
+		report=service.searchReport(report);
+		
+		mv.addObject("report",report);
+		mv.setViewName("member/myReportDetail");
+		return mv;
+	}
+	
+//	전문가 신청하기 페이지로
+	@RequestMapping("/member/myPage/applyExpertPage")
+	public ModelAndView applyExpertPage(ModelAndView mv, @SessionAttribute("loginMember") Member loginMember) {
+		Member member=service.selectMemberById(loginMember);
+		mv.addObject("member",member);
+		mv.setViewName("member/applyExpertPage");
+		return mv;
+	}
+	
+//	전문가 신청
+//	@RequestMapping("/member/myPage/applyExpert")
+//	public ModelAndView
+	
 	
 //	테스트 페이지
 	@RequestMapping("/member/test")
