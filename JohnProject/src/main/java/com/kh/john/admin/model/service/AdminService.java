@@ -74,4 +74,5 @@ public interface AdminService {
 	
 	int insertAdminChat(AdminChat ac) throws Exception;
 
+	List<AdminChat> selectAdminChat(int adminUsid);
 }
