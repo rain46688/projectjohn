@@ -129,8 +129,11 @@ const adminsocket = new WebSocket("wss://localhost${path}/adminsocket");
 
 adminsocket.onopen = function(){
 	console.log("onopen => signaling server 연결");
-
 	
+	var date = new Date();
+	if('${loginMember.memClass}'!='관리자'){
+	 sendChat(31,'${loginMember.usid}',"SYS1",date);
+	}
 };
 
 $(function(){
@@ -148,6 +151,8 @@ $(function(){
 		 else { 
 			sendMessage(new AdminChat("${loginMember.usid}",31, txt,date,""));
 		}  
+		
+		
 
 		}
 		
@@ -158,9 +163,9 @@ $(function(){
 })
 
 
-adminsocket.onmessage = function(adminChatContent){
+adminsocket.onmessage = function(e){
 	
- 	console.log("onmessage => 메세지 출력 : " + adminChatContent);
+ /* 	console.log("onmessage => 메세지 출력 : " + adminChatContent);
 	let chatMsg = JSON.stringify(adminChatContent.data);
 	console.log("inputMessage.type : " + inputMessage.type);
 	
@@ -168,12 +173,12 @@ adminsocket.onmessage = function(adminChatContent){
 		 var i = $("#inputMessage").val();
 		 
 			var date = new Date();
-			var dateInfo = date.getHours() + ":" + date.getMinutes() + ":" + date.getSeconds();
+			var dateInfo = date.getHours() + ":" + date.getMinutes() + ":" + date.getSeconds(); */
 			
 /* 	let getMemId = $('adminChatMemUsid').val();
 	console.log("getMemId:"+getMemId); */
 			
-			if(getMemId !== '${loginMember.usid}'){
+		/* 	if(getMemId !== '${loginMember.usid}'){
 				var $chat = $("<div class='my-chat-box'><div class='chat my-chat'>" + i + "</div><div class='chat-info'>"+ dateInfo +"</div></div>");
 				$('#chat-container').append($chat); 
 			}else{
@@ -184,20 +189,28 @@ adminsocket.onmessage = function(adminChatContent){
 		
 
 	console.log("채팅내용 : "+i);
-	
+	 */
+	 
+	 console.log("onmessage실행");
+	 const chatMsg = JSON.parse(e){
+		 console.log("발신인:"+["adminChatMemUsid"]);
+		 console.log("수신인:"+["adminUsid"]);
+		 
+		 if(msg["adminChatContent"]")
+	 }
 
 };
 
 	
 	
 
-	function sendMessage(message) {
+/* 	function sendMessage(message) {
 		adminsocket.send(JSON.stringify(message));
 		console.log("메세지 보내는 함수 sendMessage");
 		console.log("메세지내용:::"+JSON.stringify(message));
 		
 	
-	};
+	}; */
 	
 		function sendChat(adminUsid, adminChatMemUsid, adminChatContent, adminChatDate, adminChatFile) {
 			adminsocket.send(JSON.stringify(new AdminChat(adminUsid, adminChatMemUsid,
