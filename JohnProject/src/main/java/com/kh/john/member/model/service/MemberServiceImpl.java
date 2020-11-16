@@ -12,10 +12,12 @@ import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.kh.john.board.model.vo.Board;
 import com.kh.john.member.controller.MailHandler;
 import com.kh.john.member.controller.UuidGenerator;
 import com.kh.john.member.model.dao.MemberDao;
 import com.kh.john.member.model.vo.License;
+import com.kh.john.member.model.vo.LikeDislike;
 import com.kh.john.member.model.vo.Member;
 
 @Service
@@ -110,6 +112,41 @@ public class MemberServiceImpl implements MemberService {
 	@Override
 	public int updatePw(Member member) {
 		return dao.updatePw(session,member);
+	}
+
+	@Override
+	public int updateNick(Member member) {
+		return dao.updateNick(session,member);
+	}
+
+	@Override
+	public int updatePic(Member member) {
+		return dao.updatePic(session, member);
+	}
+
+	@Override
+	public int updatePhone(Member member) {
+		return dao.updatePhone(session, member);
+	}
+
+	@Override
+	public List<Board> myBoard(int cPage, int numPerPage, int usid) {
+		return dao.myBoard(session, cPage, numPerPage, usid);
+	}
+
+	@Override
+	public int myBoardCount(int usid) {
+		return dao.myBoardCount(session, usid);
+	}
+
+	@Override
+	public Board searchBoard(Board board) {
+		return dao.searchBoard(session, board);
+	}
+
+	@Override
+	public List<LikeDislike> liked(int usid) {
+		return dao.liked(session, usid);
 	}
 
 

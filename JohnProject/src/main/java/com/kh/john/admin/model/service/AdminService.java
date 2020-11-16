@@ -3,6 +3,7 @@ package com.kh.john.admin.model.service;
 import java.util.List;
 import java.util.Map;
 
+import com.kh.john.admin.model.vo.AdminChat;
 import com.kh.john.admin.model.vo.Notice;
 import com.kh.john.admin.model.vo.NoticeFile;
 import com.kh.john.board.model.vo.Board;
@@ -69,6 +70,8 @@ public interface AdminService {
 	
 	int deleteNotice(Notice n);
 	
+	//1:1문의관련
 	
+	int insertAdminChat(AdminChat ac) throws Exception;
 
 }

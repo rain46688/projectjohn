@@ -5,7 +5,9 @@ import java.util.Map;
 
 import org.mybatis.spring.SqlSessionTemplate;
 
+import com.kh.john.board.model.vo.Board;
 import com.kh.john.member.model.vo.License;
+import com.kh.john.member.model.vo.LikeDislike;
 import com.kh.john.member.model.vo.Member;
 
 public interface MemberDao {
@@ -29,5 +31,19 @@ public interface MemberDao {
 	int tempPw(SqlSessionTemplate session, Member member);
 
 	int updatePw(SqlSessionTemplate session, Member member);
+
+	int updateNick(SqlSessionTemplate session, Member member);
+
+	int updatePic(SqlSessionTemplate session, Member member);
+
+	int updatePhone(SqlSessionTemplate session, Member member);
+
+	List<Board> myBoard(SqlSessionTemplate session, int cPage, int numPerPage, int usid);
+
+	int myBoardCount(SqlSessionTemplate session,int usid);
+
+	Board searchBoard(SqlSessionTemplate session, Board board);
+
+	List<LikeDislike> liked(SqlSessionTemplate session, int usid);
 
 }
