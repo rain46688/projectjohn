@@ -113,15 +113,10 @@
 			
 		</div>
 		<div id="bottom-container">
-			<c:if test="${loginMember.memClass=='관리자'}">
+		
 				<input id="inputMessage" type="text">
 				<input id="btn-submit" type="submit" value="전송" >
-			</c:if>
-			
-			<c:if test="${loginMember.memClass!='관리자'}">
-				<input id="inputMessage" type="text">
-				<input id="btn-submit" type="submit" value="전송" >
-			</c:if>
+
 		</div>
 	</div>
 
@@ -134,10 +129,7 @@ const adminsocket = new WebSocket("wss://localhost${path}/adminsocket");
 
 adminsocket.onopen = function(){
 	console.log("onopen => signaling server 연결");
-/* 	if ("${loginMember.memClass}" != '관리자') {
-		sendMessage(new ExboardMsg("SYS",
-				"${loginMember.memNickname}", "접속"));
-	} */
+
 	
 };
 
@@ -150,81 +142,52 @@ $(function(){
 		var date = new Date();
 		
 		
-		 if ('${loginMember.memClass}' == '관리자') {
-			sendMessage(new AdminChat(31,56, txt,date,""));
-		}
-		  if ('${loginMember.memClass}' != '관리자') { 
+		  if ('${loginMember.memClass}' == '관리자') {
 			sendMessage(new AdminChat(31,"${loginMember.usid}", txt,date,""));
-		} 
+		}
+		 else { 
+			sendMessage(new AdminChat("${loginMember.usid}",31, txt,date,""));
+		}  
 
 		}
 		
 		
 	});
 	
-	/*  $('#btn-submit').click(function(){
-		 send(new AdminChat("adminChatContent", "", txt));
-	}); */
-	
-	
-	
+
 })
 
 
 adminsocket.onmessage = function(adminChatContent){
-/* 	var im = $('adminChatContent').val();
- */	console.log("onmessage => 메세지 출력 : " + adminChatContent);
+	
+ 	console.log("onmessage => 메세지 출력 : " + adminChatContent);
 	let chatMsg = JSON.stringify(adminChatContent.data);
 	console.log("inputMessage.type : " + inputMessage.type);
 	
-
-	
-	/* if (inputMessage.type == 'text') { */
-			console.log(" === 분기 TXT === ");
-			/* $("#inputMessage").html(""); */
-			 var i = $("#inputMessage").val();
-			 
-		/* if('${loginMember.memClass}' == '전문가'){ */	 
-				var date = new Date();
-				var dateInfo = date.getHours() + ":" + date.getMinutes() + ":" + date.getSeconds();
-				
-				 
-				/* if(chatMsg == 'text'){
-					var $chat = $("<div class='chat notice'>" + i + "</div>");
-					$('#chat-container').append($chat);
-				} */
-				
- 				var $chat = $("<div class='my-chat-box'><div class='chat my-chat'>" + i + "</div><div class='chat-info'>"+ dateInfo +"</div></div>");
-				$('#chat-container').append($chat); 
-				/* adminsocket.send(chatMsg); */
-				
-				$('#chat-container').scrollTop($('#chat-container')[0].scrollHeight+20);
-			
-				
-			
-				
-				
-				/*} else{
+		console.log(" ====== ");
+		 var i = $("#inputMessage").val();
+		 
 			var date = new Date();
 			var dateInfo = date.getHours() + ":" + date.getMinutes() + ":" + date.getSeconds();
 			
-			var $chat = $("<div class='my-chat-box'><div class='chat my-chat'>" + i + "</div><div class='chat-info'>"+ dateInfo +"</div></div>");
-			$('#chat-container').append($chat);
-			adminsocket.send(chatMsg);
-			/* inputMessage.value = ""; */
-			/*$('#chat-container').scrollTop($('#chat-container')[0].scrollHeight+20);
-		} */
-	/* } */
+/* 	let getMemId = $('adminChatMemUsid').val();
+	console.log("getMemId:"+getMemId); */
+			
+			if(getMemId !== '${loginMember.usid}'){
+				var $chat = $("<div class='my-chat-box'><div class='chat my-chat'>" + i + "</div><div class='chat-info'>"+ dateInfo +"</div></div>");
+				$('#chat-container').append($chat); 
+			}else{
+				var $chat = $("<div class='chat-box'><div class='chat'>" + i + "</div><div class='chat-info chat-box'>"+ dateInfo +"</div></div>");
+				$('#chat-container').append($chat);
+			}
+			$('#chat-container').scrollTop($('#chat-container')[0].scrollHeight+20); 
+		
+
 	console.log("채팅내용 : "+i);
 	
 
 };
-/* 	console.log("msg 콘솔 : " + msg);
-	num++;
-	console.log("num : " + num);
-	$("#number").html("");
-	$("#number").append("<div id='al'>" + num + "</div>");
-	$("#bell").addClass('bell2'); */
+
 	
 	
 
@@ -232,6 +195,8 @@ adminsocket.onmessage = function(adminChatContent){
 		adminsocket.send(JSON.stringify(message));
 		console.log("메세지 보내는 함수 sendMessage");
 		console.log("메세지내용:::"+JSON.stringify(message));
+		
+	
 	};
 	
 		function sendChat(adminUsid, adminChatMemUsid, adminChatContent, adminChatDate, adminChatFile) {

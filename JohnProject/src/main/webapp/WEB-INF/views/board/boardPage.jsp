@@ -21,7 +21,7 @@
                     <!-- 내용 -->
                     ${currBoard }
                     <div id="video-grid"></div>
-                    <button onclick="location.href = 'http://localhost:3000'">수정하기</button>
+                    <button onclick="location.href = '${path}/board/boardModify'">수정하기</button>
                     <button onclick="location.href = '${path}/board/boardDelete'">삭제하기</button>
                     <div id="commentSection">
 				      <div id="commentInsert">
@@ -40,64 +40,61 @@
         </div>
     </div>
 <script src="${path }/resources/js/peerJS.js"></script>
-<script>
-        $(document).ready(function() {
-            var socket = io("http://localhost:82");
-            const videoGrid = document.getElementById('video-grid')
-			socket.emit('message_from_jackson', "Message from view");
-			socket.on('messageFromServer', function(msg){
-				console.log(msg);
-			})
-			 const myPeer = new Peer(undefined, {
-				 host: '/',
-				 port: '3001'
-			 });
-			const myVideo = document.createElement('video')
-			myVideo.muted = true;
+<!-- <script>
+	$(document).ready(function() {
+		var socket = io("http://localhost:82");
+		const videoGrid = document.getElementById('video-grid')
+		const myPeer = new Peer(undefined, {
+			host: '/',
+			port: '3001'
+		});
 
-			navigator.mediaDevices.getUserMedia({
-			    video:true,
-			    audio:true
-			}).then(stream => {
-			    addVideoStream(myVideo, stream)
+		const myVideo = document.createElement('video')
+		myVideo.muted = true;
 
-			    myPeer.on('call', call => {
-			        call.answer(stream)
-			        const video = document.createElement('video')
-			        call.on('stream', userVideoStream => {
-			            addVideoStream(video, userVideoStream)
-			        })
-			    })
+		navigator.mediaDevices.getUserMedia({
+			video:true,
+			audio:true
+		}).then(stream => {
+			addVideoStream(myVideo, stream)
 
-			    socket.on('user-connected', userId => {
-			        connectToNewUser(userId, stream)
-			    })
+			myPeer.on('call', call => {
+				call.answer(stream)
+				const video = document.createElement('video')
+				call.on('stream', userVideoStream => {
+					addVideoStream(video, userVideoStream)
+				})
 			})
 
-			myPeer.on('open', id => {
-			    socket.emit('join-room', ROOM_ID, id);
+			socket.on('user-connected', userId => {
+				connectToNewUser(userId, stream)
 			})
+		})
 
-			function connectToNewUser(userId, stream){
-			    const call = myPeer.call(userId, stream)
-			    const video = document.createElement('video');
-			    call.on('stream', userVideoStream => {
-			        addVideoStream(userVideoStream);
-			    })
-			    call.on('close',()=>{
-			        video.remove();
-			    })
-			}
-			
-			function addVideoStream(video, stream) {
-			    video.srcObject = stream;
-			    video.addEventListener('loadedmetadata', () => {
-			        video.play();
-			    })
-			    videoGrid.append(video);
-			}
-        });
-    </script>
+		myPeer.on('open', id => {
+			socket.emit('join-room', ROOM_ID, id);
+		})
+
+		function connectToNewUser(userId, stream){
+			const call = myPeer.call(userId, stream)
+			const video = document.createElement('video');
+			call.on('stream', userVideoStream => {
+				addVideoStream(userVideoStream);
+			})
+			call.on('close',()=>{
+				video.remove();
+			})
+		}
+		
+		function addVideoStream(video, stream) {
+			video.srcObject = stream;
+			video.addEventListener('loadedmetadata', () => {
+				video.play();
+			})
+			videoGrid.append(video);
+		}
+	});
+</script> -->
 <script>
 'use strict'
 $(document).ready(function(){
