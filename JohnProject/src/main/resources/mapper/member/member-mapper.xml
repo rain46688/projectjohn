@@ -70,11 +70,44 @@
 	SELECT * FROM BOARD WHERE BOARD_ID=#{boardId} AND WRITER_USID=#{writerUsid}
 </select>
 
-<select id="liked" parameterType="_int" resultMap="likeDislikeMap">
+<select id="liked" parameterType="map" resultMap="boardMap">
+	SELECT * FROM BOARD B WHERE B.BOARD_ID IN (SELECT L.LIKE_BOARD_ID FROM LIKE_DISLIKE L WHERE L.LIKE_USID=#{usid} AND LIKE_ISDISLIKE=1)
+</select>
 
+<select id="likedCount" parameterType="_int" resultType="_int">
+	SELECT COUNT(*) FROM LIKE_DISLIKE WHERE LIKE_USID=#{usid} AND LIKE_ISDISLIKE=1
+</select>
+
+<select id="myReport" parameterType="map" resultMap="reportMap">
+	SELECT * FROM REPORT WHERE REPORT_WRITER_USID=#{usid}
+</select>
+
+<select id="myReportCount" parameterType="_int" resultType="_int">
+	SELECT COUNT(*) FROM REPORT WHERE REPORT_WRITER_USID=#{usid}
+</select>
+
+<select id="searchReport" parameterType="report" resultMap="reportMap">
+	SELECT * FROM REPORT WHERE REPORT_ID=#{reportId} AND REPORT_WRITER_USID=#{reportWriterUsid}
 </select>
 
 
+
+
+<resultMap type="com.kh.john.report.model.vo.Report" id="reportMap">
+	<result property="reportId" column="report_id"/>
+	<result property="reportBoardId" column="report_board_id"/>
+	<result property="reportWriterUsid" column="report_writer_usid"/>
+	<result property="reportTargetUsid" column="report_target_usid"/>
+	<result property="reportType" column="report_type"/>
+	<result property="reportTitle" column="report_title"/>
+	<result property="reportContent" column="report_content"/>
+	<result property="reportDate" column="report_date"/>
+	<result property="reportIscheck" column="report_ischeck"/>
+	<result property="reportUserNickname" column="report_user_nickname"/>
+	<result property="reportTargetNickname" column="report_target_nickname"/>
+	<result property="reportAnswer" column="report_answer"/>
+	<result property="reportIswarning" column="report_iswarning"/>
+</resultMap>
 <resultMap type="likeDislike" id="likeDislikeMap">
 	<result property="likeUsid" column="like_usid"/>
 	<result property="likeBoardId" column="like_board_id"/>

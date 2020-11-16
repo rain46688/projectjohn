@@ -78,4 +78,6 @@ public interface AdminDao {
 	//1:1문의관련
 	
 	int insertAdminChat(SqlSessionTemplate session, AdminChat ac) throws Exception;
+	
+	List<AdminChat> selectAdminChat(SqlSessionTemplate session, int adminUsid);
 } 

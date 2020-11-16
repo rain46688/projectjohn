@@ -299,4 +299,8 @@
  	<insert id="insertAdminChat" parameterType="adminChat">
  		INSERT INTO ADMIN_CHAT VALUES(#{adminUsid},#{adminChatMemUsid},#{adminChatContent},#{adminChatDate},#{adminChatFile})
  	</insert>
+
+ 	<select id="selectAdminChat" resultType="List" resultMap="adminChatMap">
+ 		SELECT * FROM ADMIN_CHAT WHERE ADMIN_CHAT_MEM_USID=#{adminUsid}
+ 	</select>
 </mapper>
