@@ -24,7 +24,6 @@
 	<c:forEach var="sub" items="${subList}">
 	   subList.push('${sub.sub_category}')
 	</c:forEach>
-	console.log(subList);
 	
 	//서브 목록만 쏴주기
 	subList.forEach(function(element, index){
@@ -39,7 +38,6 @@
 	const socket = new SockJS("http://localhost:9090${path}/list");
 	let message = '';
 	socket.onopen = function(e){
-		console.log("접속");
 		socket.send('boardList');
 	}
 	

@@ -62,6 +62,7 @@
 		<div class="box">
 			<!-- 사이드바 -->
 			<%@ include file="/WEB-INF/views/common/sidebar.jsp"%>
+			
 			<div id="headerAndContent">
 				<div id="header">
 					<!-- 알람 및 마이페이지 버튼 -->

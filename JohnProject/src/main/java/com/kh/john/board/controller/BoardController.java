@@ -34,6 +34,7 @@ import com.kh.john.member.model.vo.Member;
 import lombok.extern.slf4j.Slf4j;
 
 @Slf4j
+//크로스 오리진 나중에 삭제해보기
 @CrossOrigin(origins = "http://localhost:3000")
 @Controller
 @SessionAttributes("loginMember")
