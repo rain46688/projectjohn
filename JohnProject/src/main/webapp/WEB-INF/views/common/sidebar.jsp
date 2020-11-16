@@ -33,11 +33,6 @@
 	</div>
 	
 	<div id="menu">
-		<%-- 이게 인생이냐<br> <a href="${path }/board/boardListSmall?boardTitle=10대이야기">10대 이야기</a><br> <a
-			href="${path }/board/boardListSmall?boardTitle=20대이야기">20대 이야기</a><br> <a href="${path }/board/boardListSmall?boardTitle=30대이야기">30대
-			이야기</a><br> <a href="${path }/board/boardListSmall?boardTitle=40대이야기">40대 이야기</a><br> <a
-			href="${path }/board/boardListSmall?boardTitle=50대이야기">50대 이야기</a><br> <a href="${path }/board/boardListSmall?boardTitle=60대이야기">60대
-			이야기</a><br> <a href="${path }/board/boardListSmall?boardTitle=싱글이야기">싱글 이야기</a><br> --%>
 		<div id="homeBtn" class="menusOnSide">
 			<img src="${path}/resources/images/home.png" width="10em" height="10em">
 			HOME
