@@ -65,11 +65,16 @@
 				<c:when test="${sideBar eq 'member' }">
 					<%@ include file="/WEB-INF/views/member/myPageSideBar.jsp"%>
 				</c:when>
-				<c:when test="${sideBar eq 'admin' }"></c:when>
-				<c:when test="${sideBar eq 'customer' }"></c:when>
-				<c:otherwise></c:otherwise>
+				<c:when test="${sideBar eq 'admin' }">
+					<%@ include file="/WEB-INF/views/admin/adminSideBar.jsp"%>
+				</c:when>
+				<c:when test="${sideBar eq 'customer' }">
+					<%@ include file="/WEB-INF/views/customer/customerSideBar.jsp"%>
+				</c:when>
+				<c:otherwise>
+					<%@ include file="/WEB-INF/views/common/sidebar.jsp"%>			
+				</c:otherwise>
 			</c:choose>
-			<%@ include file="/WEB-INF/views/common/sidebar.jsp"%>
 			<div id="headerAndContent">
 				<div id="header">
 					<!-- 알람 및 마이페이지 버튼 -->
