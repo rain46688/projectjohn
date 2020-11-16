@@ -19,6 +19,7 @@ import com.kh.john.member.model.dao.MemberDao;
 import com.kh.john.member.model.vo.License;
 import com.kh.john.member.model.vo.LikeDislike;
 import com.kh.john.member.model.vo.Member;
+import com.kh.john.report.model.vo.Report;
 
 @Service
 public class MemberServiceImpl implements MemberService {
@@ -37,7 +38,6 @@ public class MemberServiceImpl implements MemberService {
 
 	@Override
 	public List<Map<String, Object>> selectMember() {
-		// TODO Auto-generated method stub
 		return dao.selectMember(session);
 	}
 
@@ -145,9 +145,30 @@ public class MemberServiceImpl implements MemberService {
 	}
 
 	@Override
-	public List<LikeDislike> liked(int usid) {
-		return dao.liked(session, usid);
+	public List<Board> liked(int cPage, int numPerPage, int usid) {
+		return dao.liked(session, cPage, numPerPage, usid);
+	}	
+
+	@Override
+	public int likedCount(int usid) {
+		return dao.likedCount(session, usid);
 	}
+
+	@Override
+	public List<Report> myReport(int cPage, int numPerPage, int usid) {
+		return dao.myReport(session, cPage, numPerPage, usid);
+	}
+
+	@Override
+	public int myReportCount(int usid) {
+		return dao.myReportCount(session,usid);
+	}
+
+	@Override
+	public Report searchReport(Report report) {
+		return dao.searchReport(session, report);
+	}
+
 
 
 }

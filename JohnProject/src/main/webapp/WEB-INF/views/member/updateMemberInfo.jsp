@@ -127,7 +127,7 @@
 							 </div>
 						</div>
 						<br>
-						<input type="file" name="profilePic" id="real-input" class="file">
+						<input type="file" name="filePic" id="real-input" class="file">
 						<div class="input-group col-xs-12">
 							<input type="text" class="inputFile" id="fileNameField" disabled placeholder="이미지를 업로드 하세요.">
 							<button type="button" class="browse pcbtn" onclick="fn_browseFile();">

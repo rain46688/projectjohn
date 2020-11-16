@@ -9,6 +9,7 @@ import com.kh.john.board.model.vo.Board;
 import com.kh.john.member.model.vo.License;
 import com.kh.john.member.model.vo.LikeDislike;
 import com.kh.john.member.model.vo.Member;
+import com.kh.john.report.model.vo.Report;
 
 public interface MemberDao {
 
@@ -44,6 +45,14 @@ public interface MemberDao {
 
 	Board searchBoard(SqlSessionTemplate session, Board board);
 
-	List<LikeDislike> liked(SqlSessionTemplate session, int usid);
+	List<Board> liked(SqlSessionTemplate session, int cPage, int numPerPage, int usid);
+
+	int likedCount(SqlSessionTemplate session, int usid);
+
+	List<Report> myReport(SqlSessionTemplate session, int cPage, int numPerPage, int usid);
+
+	int myReportCount(SqlSessionTemplate session, int usid);
+
+	Report searchReport(SqlSessionTemplate session, Report report);
 
 }
