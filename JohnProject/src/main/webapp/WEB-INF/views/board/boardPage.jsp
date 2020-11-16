@@ -40,7 +40,7 @@
         </div>
     </div>
 <script src="${path }/resources/js/peerJS.js"></script>
-<script>
+<!-- <script>
 	$(document).ready(function() {
 		var socket = io("http://localhost:82");
 		const videoGrid = document.getElementById('video-grid')
@@ -48,7 +48,7 @@
 			host: '/',
 			port: '3001'
 		});
-		
+
 		const myVideo = document.createElement('video')
 		myVideo.muted = true;
 
@@ -94,7 +94,7 @@
 			videoGrid.append(video);
 		}
 	});
-</script>
+</script> -->
 <script>
 'use strict'
 $(document).ready(function(){
