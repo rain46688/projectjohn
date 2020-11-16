@@ -8,7 +8,11 @@
 <jsp:include page="/WEB-INF/views/common/header.jsp">
 	<jsp:param name="title" value=""/>
 </jsp:include>
-
+<style>
+	div.addLicenseDiv,div.removeLicenseDiv{
+		display: none;
+	}
+</style>
 <section id="content">
 	<div id="forExpertTitle">
 		자격증 정보
@@ -21,7 +25,7 @@
 		</div>
 		<div id="forExpert2" class="divForExpert"></div>
 		<div id="forExpert3" class="divForExpert"></div>
-		<div class="addLicenseDiv" id="addLicenseDiv1">
+		<div class="addLicenseDiv" id="addLicenseDiv1" style="display: block;">
 			<button type="button" class="addLicenseBtn licenseBtn" id="addLicenseBtn1">추가</button>
 		</div>
 		<div class="addLicenseDiv" id="addLicenseDiv2">
