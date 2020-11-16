@@ -113,10 +113,21 @@ textarea:focus {
 	display: flex;
 }
 
+
 #buttonDiv {
 	border: 1px solid brown;
 	height: 100%;
 	width: 40%;
+	text-align: right;
+}
+
+#buttonDiv>button{
+	width:70%;
+	height:70%;
+	border-radius: 8px;
+	box-shadow: 8px 8px 8px rgba(0, 0, 0, 0.8);
+	font-size:50px;
+	font-weight: bold;
 }
 
 #imgDiv {
@@ -165,7 +176,14 @@ textarea:focus {
 	</div>
 
 	<div id="bottomDiv">
-		<div id="buttonDiv"></div>
+		<div id="buttonDiv">
+			<c:if test="${loginMember.memClass == '전문가'}">
+		<button type="button" class="btn btn-outline-success my-2 my-sm-0" onclick='counselEnd();'>상담 완료</button>
+		</c:if>
+			<c:if test="${loginMember.memClass != '전문가'}">
+			<button type="button" class="btn btn-outline-success my-2 my-sm-0" onclick='onoff();'>카메라 조정</button>
+			</c:if>
+		</div>
 		<div id="imgDiv"></div>
 	</div>
 
