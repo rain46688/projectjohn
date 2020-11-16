@@ -46,13 +46,12 @@ public class AdminSocketHandler extends TextWebSocketHandler {
 
 	@Override
 	protected void handleTextMessage(WebSocketSession session, TextMessage message) throws Exception {
-		Map<String, Object> map1 = session.getAttributes();
-		Member m = (Member)map1.get("loginMember");
-		users.put(m, session);
+//		Map<String, Object> map1 = session.getAttributes();
+//		Member m = (Member)map1.get("loginMember");
+//		users.put(m, session);
 		
 		System.out.println(session.getId()+"로부터 메세지 수신 : "+message.getPayload());
 	
-		
 		log.debug("메세지실행됨");
 		AdminChat acmsg = objectMapper.readValue(message.getPayload(), AdminChat.class);
 		log.debug("acmsg : "+acmsg);
@@ -61,12 +60,21 @@ public class AdminSocketHandler extends TextWebSocketHandler {
 		while(it.hasNext()) {
 			Member key = it.next();
 			if(acmsg.getAdminChatMemUsid()==key.getUsid()) {
-				
 				service.insertAdminChat(acmsg);
 				users.get(key).sendMessage(new TextMessage(objectMapper.writeValueAsString(acmsg)));
 			}
+			/*
+			 * if(acmsg.getAdminChatMemUsid()==key.getUsid()) {
+			 * service.insertAdminChat(acmsg);
+			 * service.selectAdminChat(acmsg.getAdminUsid()); users.get(key).sendMessage(new
+			 * TextMessage(objectMapper.writeValueAsString(acmsg)));
+			 * 
+			 * }
+			 */
+
 			
 		}
+		
 		
 		
 		/*

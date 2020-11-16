@@ -197,6 +197,11 @@ public class AdminServiceImpl implements AdminService{
 	public int insertAdminChat(AdminChat ac) throws Exception {
 		return dao.insertAdminChat(session, ac);
 	}
+
+	@Override
+	public List<AdminChat> selectAdminChat(int adminUsid) {
+		return dao.selectAdminChat(session, adminUsid);
+	}
 	
 	
 	

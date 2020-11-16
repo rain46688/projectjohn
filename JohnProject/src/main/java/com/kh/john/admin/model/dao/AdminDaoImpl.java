@@ -179,6 +179,11 @@ public class AdminDaoImpl implements AdminDao {
 	public int insertAdminChat(SqlSessionTemplate session, AdminChat ac) throws Exception {
 		return session.insert("admin.insertAdminChat",ac);
 	}
+
+	@Override
+	public List<AdminChat> selectAdminChat(SqlSessionTemplate session, int adminUsid) {
+		return session.selectList("admin.selectAdminChat",adminUsid);
+	}
 	
 	
 	
