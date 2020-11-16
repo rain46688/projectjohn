@@ -342,14 +342,18 @@ public class MemberController {
 					licenseList.add(license);
 				}
 			}
-			
-			int resultExpert=service.signUpExpert(member, licenseList);
-			if(resultExpert>0) {
-				msg = "회원가입완료";
-				script= "window.close()";
-			} else {
-				msg = "회원가입실패";
-				script= "window.close()";
+			if(licenseList.size()<1) {
+				msg="최소 한 개의 자격증을 등록해야 합니다.";
+				script="return false";
+			}else {
+				int resultExpert=service.signUpExpert(member, licenseList);
+				if(resultExpert>0) {
+					msg = "회원가입완료";
+					script= "window.close()";
+				} else {
+					msg = "회원가입실패";
+					script= "window.close()";
+				}				
 			}
 		}
 

@@ -103,14 +103,14 @@
 	 });
 
 	function fn_applyExpert(){
-		const uploadedLicense1=$("#forExpert1 input[name='licenseFileName']").val();
-		const uploadedLicense2=$("#forExpert2 input[name='licenseFileName']").val();
-		const uploadedLicense3=$("#forExpert3 input[name='licenseFileName']").val();
-		if(uploadedLicense1==null || uploadedLicense2==null || uploadedLicense3==null){
-			alert('최소한 한 개의 자격증을 등록해야 합니다.');
-		}else{
+		// const uploadedLicense1=$("#forExpert1 input[name='licenseFileName']").val();
+		// const uploadedLicense2=$("#forExpert2 input[name='licenseFileName']").val();
+		// const uploadedLicense3=$("#forExpert3 input[name='licenseFileName']").val();
+		// if(uploadedLicense1==null || uploadedLicense2==null || uploadedLicense3==null){
+		// 	alert('최소한 한 개의 자격증을 등록해야 합니다.');
+		// }else{
 			$("#applyExpertForm").submit();
-		}
+		// }
 	}
 
 </script>
