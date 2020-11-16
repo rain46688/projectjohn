@@ -21,6 +21,7 @@ public class MyPageInterceptor extends HandlerInterceptorAdapter {
 			request.setAttribute("loc","/");
 			request.getRequestDispatcher("/WEB-INF/views/common/msg.jsp").forward(request, response);
 		}
+		request.setAttribute("sideBar", "member");
 		return super.preHandle(request, response, handler);
 	}
 	

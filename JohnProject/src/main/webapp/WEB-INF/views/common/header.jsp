@@ -61,6 +61,14 @@
 	<div class="containerJohn">
 		<div class="box">
 			<!-- 사이드바 -->
+			<c:choose>
+				<c:when test="${sideBar eq 'member' }">
+					<%@ include file="/WEB-INF/views/member/myPageSideBar.jsp"%>
+				</c:when>
+				<c:when test="${sideBar eq 'admin' }"></c:when>
+				<c:when test="${sideBar eq 'customer' }"></c:when>
+				<c:otherwise></c:otherwise>
+			</c:choose>
 			<%@ include file="/WEB-INF/views/common/sidebar.jsp"%>
 			<div id="headerAndContent">
 				<div id="header">

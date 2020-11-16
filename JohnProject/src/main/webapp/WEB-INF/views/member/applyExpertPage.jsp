@@ -8,14 +8,7 @@
 <jsp:include page="/WEB-INF/views/common/header.jsp">
 	<jsp:param name="title" value=""/>
 </jsp:include>
-<style>
-	div.divForExpert, div#forExpertTitle{
-		display: none;
-	}
-	div.addLicenseDiv,div.removeLicenseDiv{
-		display: none;
-	}
-</style>
+
 <section id="content">
 	<div id="forExpertTitle">
 		자격증 정보

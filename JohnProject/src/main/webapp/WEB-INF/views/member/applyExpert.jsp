@@ -8,6 +8,11 @@
 <jsp:include page="/WEB-INF/views/common/header.jsp">
 	<jsp:param name="title" value=""/>
 </jsp:include>
+<style>
+	div.addLicenseDiv,div.removeLicenseDiv{
+		display: none;
+	}
+</style>
 <section id="content">
 	<div id="forExpertTitle">
 		자격증 정보
@@ -18,8 +23,8 @@
 		<div id="forExpert1" class="divForExpert">
 			<jsp:include page="/WEB-INF/views/member/uploadLicense.jsp"></jsp:include>
 		</div>
-		<div id="forExpert2" class="divForExpert"></div>
-		<div id="forExpert3" class="divForExpert"></div>
+		<div id="forExpert2" class="divForExpert">d</div>
+		<div id="forExpert3" class="divForExpert">d</div>
 		<div class="addLicenseDiv" id="addLicenseDiv1">
 			<button type="button" class="addLicenseBtn licenseBtn" id="addLicenseBtn1">추가</button>
 		</div>
@@ -47,55 +52,55 @@
 		$(this).parent().find('.inputFile').val($(this).val().replace(/C:\\fakepath\\/i,''));
 	});
 
-	//addLicense2
-	$("#addLicenseBtn1").click(function(e){
-		$("#addLicenseDiv1").css({"display":"none"})
-		$.ajax({
-			url: "${path}/divForExpert",
-			type: "get",
-			dataType: "html",
-		success:function(data){
-			$("#forExpert2").html(data);
-			$("#forExpert2").css({"display":"block"});
-			$("#addLicenseDiv2").css({"display":"block"});
-			$("#removeLicenseDiv1").css({"display":"block"});
-		}
-		});
-	});
+	//  addLicense2
+	 $("#addLicenseBtn1").click(function(e){
+	 	$("#addLicenseDiv1").css({"display":"none"})
+	 	$.ajax({
+	 		url: "${path}/divForExpert",
+	 		type: "get",
+	 		dataType: "html",
+	 	success:function(data){
+	 		$("#forExpert2").html(data);
+	 		$("#forExpert2").css({"display":"block"});
+	 		$("#addLicenseDiv2").css({"display":"block"});
+	 		$("#removeLicenseDiv1").css({"display":"block"});
+	 	}
+	 	});
+	 });
 
-	//addLicense3
-	$("#addLicenseBtn2").click(function(e){
-		$("#addLicenseDiv2").css({"display":"none"});
-		$("#removeLicenseDiv1").css({"display":"none"});
-		$.ajax({
-			url: "${path}/divForExpert",
-			type: "get",
-			dataType: "html",
-		success:function(data){
-			$("#forExpert3").html(data);
-			$("#forExpert3").css({"display":"block"});
-			$("#removeLicenseDiv2").css({"display":"block"});
-		}
-		});
-	});
+	// addLicense3
+	 $("#addLicenseBtn2").click(function(e){
+	 	$("#addLicenseDiv2").css({"display":"none"});
+	 	$("#removeLicenseDiv1").css({"display":"none"});
+	 	$.ajax({
+	 		url: "${path}/divForExpert",
+	 		type: "get",
+	 		dataType: "html",
+	 	success:function(data){
+	 		$("#forExpert3").html(data);
+	 		$("#forExpert3").css({"display":"block"});
+	 		$("#removeLicenseDiv2").css({"display":"block"});
+	 	}
+	 	});
+	 });
 
 	//removeLicense3
-	$("#removeLicenseBtn2").click(function(e){
-		$("#forExpert3").html('');
-		$("#forExpert3").css({"display":"none"});
-		$("#removeLicenseDiv2").css({"display":"none"});
-		$("#addLicenseDiv2").css({"display":"block"});
-		$("#removeLicenseDiv1").css({"display":"block"});
-	});
+	 $("#removeLicenseBtn2").click(function(e){
+	 	$("#forExpert3").html('');
+	 	$("#forExpert3").css({"display":"none"});
+	 	$("#removeLicenseDiv2").css({"display":"none"});
+	 	$("#addLicenseDiv2").css({"display":"block"});
+	 	$("#removeLicenseDiv1").css({"display":"block"});
+	 });
 
-	//removeLicense2
-	$("#removeLicenseBtn1").click(function(e){
-		$("#forExpert2").html('');
-		$("#forExpert2").css({"display":"none"});
-		$("#removeLicenseDiv1").css({"display":"none"});
-		$("#addLicenseDiv2").css({"display":"none"});
-		$("#addLicenseDiv1").css({"display":"block"});
-	});
+	//  removeLicense2
+	 $("#removeLicenseBtn1").click(function(e){
+	 	$("#forExpert2").html('');
+	 	$("#forExpert2").css({"display":"none"});
+	 	$("#removeLicenseDiv1").css({"display":"none"});
+	 	$("#addLicenseDiv2").css({"display":"none"});
+	 	$("#addLicenseDiv1").css({"display":"block"});
+	 });
 
 	function fn_applyExpert(){
 		const uploadedLicense1=$("#forExpert1 input[name='licenseFileName']").val();

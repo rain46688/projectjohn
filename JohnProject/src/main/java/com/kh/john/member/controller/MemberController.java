@@ -437,25 +437,23 @@ public class MemberController {
 	
 //	프사 변경
 	@RequestMapping("/member/myPage/updatePic")
-	public ModelAndView updatePic(ModelAndView mv, MultipartHttpServletRequest request, Member member, @SessionAttribute("loginMember") Member loginMember) {
-		
+	public ModelAndView updatePic(ModelAndView mv, HttpServletRequest request, MultipartFile filePic, Member member, @SessionAttribute("loginMember") Member loginMember) {
+		System.out.println(filePic.getOriginalFilename());
 		String saveDir=request.getServletContext().getRealPath("/resources/profile_images");
 		File dir=new File(saveDir);
 		if(!dir.exists()) {
 			dir.mkdirs();
 		}
 		
-		MultipartFile file=request.getFile("profilePic");
-		
-		if(!file.isEmpty()) {
-			String originalFileName=file.getOriginalFilename();
+		if(!filePic.isEmpty()) {
+			String originalFileName=filePic.getOriginalFilename();
 			String ext = originalFileName.substring(originalFileName.lastIndexOf('.')+1);
 			
 			SimpleDateFormat sdf = new SimpleDateFormat("yyyy_MM_ddHHmmssSSS");
 			int rndNum = (int)(Math.random()*1000);
 			String renamedFilename = sdf.format(new Date(System.currentTimeMillis())) + "_" + rndNum + "_john." + ext;
 			try {
-				file.transferTo(new File(saveDir + "/" + renamedFilename));
+				filePic.transferTo(new File(saveDir + "/" + renamedFilename));
 			}catch(IOException e) {
 				e.printStackTrace();
 			}
