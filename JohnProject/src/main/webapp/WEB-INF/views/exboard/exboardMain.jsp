@@ -25,6 +25,7 @@ label, input {
 	<p>세션 닉네임 : ${loginMember.memNickname}</p>
 	<p>유저 타입 : ${loginMember.memClass}</p>
 	<p>USID : ${loginMember.usid}</p>
+	<p>패스 : ${pageContext.request.requestURI}</p>
 	<br>
 	<button class="btn btn-outline-success" onclick="location.href='${path}/expert/expertPrintList'">유저가 전문가 리스트 보기</button>
 	<c:if test="${loginMember.memClass == '전문가'}">
