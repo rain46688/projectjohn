@@ -9,8 +9,7 @@ body *{
 
 #content{
 	
-	/* background-color: #121212; */
-	background-color: #1D1E22; 
+	background-color: #3B3A3A;
 
 }
 
@@ -50,12 +49,10 @@ body *{
 	height: 100%;
 	width: 80%;
 	/* background-color:#05135C; */
-	/* background-color: rgba(5, 19, 92, 0.96); */
-/* 	background-color: gray; */
-	background-color: #121212;
+	background-color: rgba(5, 19, 92, 0.96);
 	border-radius: 8px;
 	margin-right: 1%;
-	/* box-shadow: 8px 8px 8px rgba(0, 0, 0, 0.8); */
+	box-shadow: 8px 8px 8px rgba(0, 0, 0, 0.8);
 }
 
 /* 상단 텍스트 div */
@@ -64,12 +61,10 @@ body *{
 	height: 100%;
 	width: 30%;
 	/* background-color:#05135C; */
-	/* background-color: rgba(5, 19, 92, 0.96); */
-	/* background-color: gray; */
-	background-color: #121212;
+	background-color: rgba(5, 19, 92, 0.96);
 	border-radius: 8px;
 	padding: 1%;
-	/* box-shadow: 8px 8px 8px rgba(0, 0, 0, 0.8); */
+	box-shadow: 8px 8px 8px rgba(0, 0, 0, 0.8);
 }
 
 /* 상단 텍스트 영역 */
@@ -144,26 +139,24 @@ textarea:focus {
 
 /* 왼쪽 버튼 영역 div */
 #buttonDiv>button{
-	/* width:70%;
-	height:70%; */
+	width:70%;
+	height:70%;
 	border-radius: 8px;
-	/* box-shadow: 8px 8px 8px rgba(0, 0, 0, 0.8); */
-	/* font-size:50px;
-	font-weight: bold; */
+	box-shadow: 8px 8px 8px rgba(0, 0, 0, 0.8);
+	font-size:50px;
+	font-weight: bold;
 }
 
 /* 오른쪽 이미지 영역 div */
 #imgDiv {
-	/* border: 25px solid rgba(5, 19, 92, 0.96); */
-	/* border: 25px solid gray; */
-	border: 25px solid #121212;
+	border: 25px solid rgba(5, 19, 92, 0.96);
 	border-radius: 8px;
 	/* background-color:#05135C; */
 	/* background-color: rgba(5, 19, 92, 0.96); */
 	background-color:white;
 	height: 100%;
 	width: 60%;
-	/* box-shadow: 8px 8px 8px rgba(0, 0, 0, 0.8); */
+	box-shadow: 8px 8px 8px rgba(0, 0, 0, 0.8);
 	margin: 0% 1% 1%;
 	display:inline-block;
 	padding:2%;
@@ -207,7 +200,6 @@ padding:2%;
 		<div id="buttonDiv">
 			<c:if test="${loginMember.memClass == '전문가'}">
 				<button type="button" class="btn btn-outline-success my-2 my-sm-0" onclick='counselEnd();'>상담 완료</button>
-				<button type="button" class="btn btn-outline-success my-2 my-sm-0" onclick='counselEnd();'>회원 정보 보기</button>
 			</c:if>
 			<c:if test="${loginMember.memClass != '전문가'}">
 				<button type="button" class="btn btn-outline-success my-2 my-sm-0" onclick='onoff();'>카메라 조정</button>
