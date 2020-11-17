@@ -257,10 +257,11 @@ public class ExboardController {
 		ModelAndView mv = new ModelAndView("/exboard/exchatRoom");
 		Member m = (Member) session.getAttribute("loginMember");
 		SessionVo s = new SessionVo();
+		ExpertBoard eb = null;
 		log.debug("m : " + m);
 		// 해당 게시판 넘버에 맞는 유저를 판별하기 위해서 가져옴
 		try {
-			ExpertBoard eb = service.selectExpertBoard(bnum);
+			eb = service.selectExpertBoard(bnum);
 			log.debug("eb : " + eb);
 
 			// 쿼리스트링에 방넘버가 없거나 있지도 않는 방에 접근할때
@@ -305,6 +306,7 @@ public class ExboardController {
 		s.setSessionUsid(m.getUsid());
 		session.setAttribute("loginnedMember", s);
 		mv.addObject("bno", bnum);
+		mv.addObject("eb", eb);
 		return mv;
 	}
 
@@ -393,18 +395,6 @@ public class ExboardController {
 		return result;
 	}
 
-//	@RequestMapping(value = "/expert/exmemInfo")
-//	public ModelAndView exmemInfo(String no, String nic) throws Exception {
-//		log.info(" ===== exmemInfo 실행 ===== ");
-//		log.debug("no : " + no + ", nic : " + nic);
-//		ModelAndView mv = new ModelAndView("/exboard/exboardMemInfo");
-//		Member m = service.selectMember(nic);
-//		m.setMemEmail(aes.decrypt(m.getMemEmail()));
-//
-//		mv.addObject("m", m);
-//		return mv;
-//	}
-
 	@RequestMapping(value = "/expert/memInfo")
 	public ModelAndView memInfo(@RequestParam(required = false) String usid, @RequestParam(required = false) String bno,
 			@RequestParam(required = false) String musid) throws Exception {
@@ -446,6 +436,22 @@ public class ExboardController {
 		}
 
 		return mv;
+	}
+
+	@ResponseBody
+	@RequestMapping("/expert/counselMemberEnd")
+	public String counselMemberEnd(String bno) {
+		String result = "";
+		// expertBoardMemberend의 값을 1로 바꾸기
+		try {
+			service.updateCounselMemberEnd(bno);
+			result = "1";
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			result = "0";
+		}
+		return result;
 	}
 
 }

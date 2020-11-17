@@ -40,4 +40,6 @@ public interface ExboardService {
 
 	String selectExBoardNumUsid(Map<String, String> bomap) throws Exception;
 
+	void updateCounselMemberEnd(String bno) throws Exception;
+
 }

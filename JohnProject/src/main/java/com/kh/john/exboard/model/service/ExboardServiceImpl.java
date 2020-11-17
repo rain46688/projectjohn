@@ -153,4 +153,10 @@ public class ExboardServiceImpl implements ExboardService {
 		return dao.selectExBoardNumUsid(session, bomap);
 	}
 
+	@Override
+	public void updateCounselMemberEnd(String bno) throws Exception {
+		// TODO Auto-generated method stub
+		dao.updateCounselMemberEnd(session, bno);
+	}
+
 }

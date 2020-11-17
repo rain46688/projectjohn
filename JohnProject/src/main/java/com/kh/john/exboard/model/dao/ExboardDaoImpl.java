@@ -114,4 +114,10 @@ public class ExboardDaoImpl implements ExboardDao {
 		return session.selectOne("expert.selectExBoardNumUsid", bomap);
 	}
 
+	@Override
+	public void updateCounselMemberEnd(SqlSessionTemplate session, String bno) throws Exception {
+		// TODO Auto-generated method stub
+		session.update("expert.updateCounselMemberEnd", bno);
+	}
+
 }

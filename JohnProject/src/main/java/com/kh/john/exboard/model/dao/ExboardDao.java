@@ -42,4 +42,6 @@ public interface ExboardDao {
 
 	String selectExBoardNumUsid(SqlSessionTemplate session, Map<String, String> bomap) throws Exception;
 
+	void updateCounselMemberEnd(SqlSessionTemplate session, String bno) throws Exception;
+
 }

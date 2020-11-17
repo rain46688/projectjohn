@@ -50,7 +50,7 @@
 </select>
 
 <update id="updateCounselResult" parameterType="map">
-	UPDATE EXPERT_BOARD SET EXPERT_BOARD_ADVICE_RESULT =#{extext} WHERE EXPERT_BOARD_ID=#{bno}
+	UPDATE EXPERT_BOARD SET EXPERT_BOARD_ADVICE_RESULT =#{extext}, EXPERT_BOARD_EXPERTEND = 1 WHERE EXPERT_BOARD_ID=#{bno}
 </update>
 
 <select id="selectMemExboard" resultType="string" parameterType="map">
@@ -65,6 +65,10 @@
 	SELECT EXPERT_BOARD_ID FROM EXPERT_BOARD WHERE EXPERT_BOARD_MEM_USID = #{musid} AND EXPERT_BOARD_USID = #{usid}
 </select>
 
+<update id="updateCounselMemberEnd" parameterType="string">
+	UPDATE EXPERT_BOARD SET EXPERT_BOARD_MEMBEREND = 1 WHERE EXPERT_BOARD_ID=#{bno}
+</update>
+
 
 
 	<resultMap type="exboard" id="exboardMap">
@@ -73,6 +77,11 @@
 		<id column="EXPERT_BOARD_MEM_USID" property="expertBoardMemUsid" />
 		<id column="EXPERT_BOARD_ADVICE_RESULT" property="expertBoardAdviceResult" />
 		<id column="EXPERT_BOARD_RATING" property="expertBoardRating" />
+		<id column="EXPERT_BOARD_REVIEW" property="expertBoardReview" />
+		<id column="EXPERT_BOARD_DATE" property="expertBoardDate" />
+		<id column="EXPERT_BOARD_EX_NICK" property="expertBoardExNick" />
+		<id column="EXPERT_BOARD_MEMBEREND" property="expertBoardMemberend" />
+		<id column="EXPERT_BOARD_EXPERTEND" property="expertBoardExpertend" />
 	</resultMap>
 	
 		<resultMap type="exrequest" id="exrequestMap">

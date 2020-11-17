@@ -12,7 +12,10 @@ public class ExpertBoard {
 	private int expertBoardMemUsid;
 	private String expertBoardAdviceResult;
 	private int expertBoardRating;
+	private String expertBoardReview;
 	private Date expertBoardDate;
 	private String expertBoardExNick;
+	private int expertBoardMemberend;
+	private int expertBoardExpertend;
 
 }
