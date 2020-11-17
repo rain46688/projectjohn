@@ -106,6 +106,9 @@
 	SELECT COUNT(*) FROM EXPERT_BOARD WHERE EXPERT_BOARD_MEM_USID=#{usid}
 </select>
 
+<insert id="insertMemberChat" parameterType="memberChat">
+	INSERT INTO MEMBER_CHAT VALUES(#{mchatFirstUsid},#{mchatSecondUsid},#{mchatContent},#{mchatDate},#{mchatFile})
+</insert>
 
 
 

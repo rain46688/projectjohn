@@ -8,6 +8,7 @@ import com.kh.john.exboard.model.vo.ExpertBoard;
 import com.kh.john.member.model.vo.License;
 import com.kh.john.member.model.vo.LikeDislike;
 import com.kh.john.member.model.vo.Member;
+import com.kh.john.member.model.vo.MemberChat;
 import com.kh.john.report.model.vo.Report;
 
 public interface MemberService {
@@ -84,6 +85,9 @@ public interface MemberService {
 
 	//상담내역 개수
 	int expertBoardCount(int usid);
+
+	//채팅 저장
+	int insertMemberChat(MemberChat memberChat) throws Exception;
 	
 
 

@@ -12,6 +12,7 @@ import com.kh.john.exboard.model.vo.ExpertBoard;
 import com.kh.john.member.model.vo.License;
 import com.kh.john.member.model.vo.LikeDislike;
 import com.kh.john.member.model.vo.Member;
+import com.kh.john.member.model.vo.MemberChat;
 import com.kh.john.report.model.vo.Report;
 
 @Repository
@@ -144,6 +145,11 @@ public class MemberDaoImpl implements MemberDao {
 	@Override
 	public int expertBoardCount(SqlSessionTemplate session, int usid) {
 		return session.selectOne("member.expertBoardCount");
+	}
+
+	@Override
+	public int insertMemberChat(SqlSessionTemplate session, MemberChat memberChat) {
+		return session.insert("member.insertMemberChat",memberChat);
 	}
 
 

@@ -20,6 +20,7 @@ import com.kh.john.member.model.dao.MemberDao;
 import com.kh.john.member.model.vo.License;
 import com.kh.john.member.model.vo.LikeDislike;
 import com.kh.john.member.model.vo.Member;
+import com.kh.john.member.model.vo.MemberChat;
 import com.kh.john.report.model.vo.Report;
 
 @Service
@@ -190,6 +191,11 @@ public class MemberServiceImpl implements MemberService {
 	@Override
 	public int expertBoardCount(int usid) {
 		return dao.expertBoardCount(session, usid);
+	}
+
+	@Override
+	public int insertMemberChat(MemberChat memberChat) throws Exception {
+		return dao.insertMemberChat(session, memberChat);
 	}
 
 

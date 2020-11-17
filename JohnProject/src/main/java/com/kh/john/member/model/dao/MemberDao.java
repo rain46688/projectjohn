@@ -10,6 +10,7 @@ import com.kh.john.exboard.model.vo.ExpertBoard;
 import com.kh.john.member.model.vo.License;
 import com.kh.john.member.model.vo.LikeDislike;
 import com.kh.john.member.model.vo.Member;
+import com.kh.john.member.model.vo.MemberChat;
 import com.kh.john.report.model.vo.Report;
 
 public interface MemberDao {
@@ -63,5 +64,7 @@ public interface MemberDao {
 	List<ExpertBoard> expertBoardList(SqlSessionTemplate session, int cPage, int numPerPage, int usid);
 
 	int expertBoardCount(SqlSessionTemplate session, int usid);
+
+	int insertMemberChat(SqlSessionTemplate session, MemberChat memberChat);
 
 }
