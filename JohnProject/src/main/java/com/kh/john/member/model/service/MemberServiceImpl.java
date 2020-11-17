@@ -13,6 +13,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.kh.john.board.model.vo.Board;
+import com.kh.john.exboard.model.vo.ExpertBoard;
 import com.kh.john.member.controller.MailHandler;
 import com.kh.john.member.controller.UuidGenerator;
 import com.kh.john.member.model.dao.MemberDao;
@@ -179,6 +180,16 @@ public class MemberServiceImpl implements MemberService {
 			}
 		}
 		return result;
+	}
+
+	@Override
+	public List<ExpertBoard> expertBoardList(int cPage, int numPerPage, int usid) {
+		return dao.expertBoardList(session, cPage, numPerPage, usid);
+	}
+
+	@Override
+	public int expertBoardCount(int usid) {
+		return dao.expertBoardCount(session, usid);
 	}
 
 

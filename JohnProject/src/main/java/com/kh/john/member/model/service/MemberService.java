@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.Map;
 
 import com.kh.john.board.model.vo.Board;
+import com.kh.john.exboard.model.vo.ExpertBoard;
 import com.kh.john.member.model.vo.License;
 import com.kh.john.member.model.vo.LikeDislike;
 import com.kh.john.member.model.vo.Member;
@@ -77,6 +78,12 @@ public interface MemberService {
 
 	//전문가 신청하기
 	int applyExpert(Member member, List<License> licenseList);
+
+	//상담내역
+	List<ExpertBoard> expertBoardList(int cPage, int numPerPage, int usid);
+
+	//상담내역 개수
+	int expertBoardCount(int usid);
 	
 
 

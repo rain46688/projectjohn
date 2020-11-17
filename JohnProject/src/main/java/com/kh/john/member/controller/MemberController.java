@@ -38,6 +38,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.kh.john.board.model.vo.Board;
 import com.kh.john.common.page.PageBarFactory;
+import com.kh.john.exboard.model.vo.ExpertBoard;
 import com.kh.john.member.model.service.MemberService;
 import com.kh.john.member.model.vo.License;
 import com.kh.john.member.model.vo.LikeDislike;
@@ -657,6 +658,22 @@ public class MemberController {
 		return mv;
 	}
 	
+//	전문가 상담내역 페이지로
+	@RequestMapping("/member/myPage/expertCounsel")
+	public ModelAndView expertCounsel(ModelAndView mv,@SessionAttribute("loginMember") Member loginMember,
+			@RequestParam(value ="cPage", required = false, defaultValue = "1") int cPage,
+			@RequestParam(value ="numPerPage", required = false, defaultValue = "10") int numPerPage) {
+		
+		int usid=loginMember.getUsid();
+		List<ExpertBoard> expertBoardList=service.expertBoardList(cPage,numPerPage,usid);
+		int totalData=service.expertBoardCount(usid);
+		
+		mv.addObject("pageBar",myPagePageBar.getPageBar(totalData, cPage, numPerPage, "expertCounsel", loginMember.getUsid()));
+		mv.addObject("totalData", totalData);
+		mv.addObject("expertBoardList", expertBoardList);
+		mv.setViewName("member/expertCounsel");
+		return mv;
+	}
 	
 //	테스트 페이지
 	@RequestMapping("/member/test")

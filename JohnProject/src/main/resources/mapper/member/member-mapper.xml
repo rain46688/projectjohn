@@ -98,7 +98,24 @@
 	INSERT INTO LICENSE VALUES(#{licenseMemUsid}, #{licenseFileName}, #{licenseDate}, #{licenseType}, #{licenseCompany})
 </insert>
 
+<select id="expertBoardList" parameterType="map" resultMap="expertBoardMap">
+	SELECT * FROM EXPERT_BOARD WHERE EXPERT_BOARD_MEM_USID=#{usid}
+</select>
 
+<select id="expertBoardCount" parameterType="_int" resultType="_int">
+	SELECT COUNT(*) FROM EXPERT_BOARD WHERE EXPERT_BOARD_MEM_USID=#{usid}
+</select>
+
+
+
+
+<resultMap type="exboard" id="expertBoardMap">
+	<id column="EXPERT_BOARD_ID" property="expertBoardId" />
+	<id column="EXPERT_BOARD_USID" property="expertBoardUsid" />
+	<id column="EXPERT_BOARD_MEM_USID" property="expertBoardMemUsid" />
+	<id column="EXPERT_BOARD_ADVICE_RESULT" property="expertBoardAdviceResult" />
+	<id column="EXPERT_BOARD_RATING" property="expertBoardRating" />
+</resultMap>
 <resultMap type="com.kh.john.report.model.vo.Report" id="reportMap">
 	<result property="reportId" column="report_id"/>
 	<result property="reportBoardId" column="report_board_id"/>
