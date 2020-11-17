@@ -110,8 +110,22 @@
 	INSERT INTO MEMBER_CHAT VALUES(#{mchatFirstUsid},#{mchatSecondUsid},#{mchatContent},#{mchatDate},#{mchatFile})
 </insert>
 
+<select id="firstUsid" parameterType="_int" resultType="integer">
+	SELECT MCHAT_FIRST_USID FROM MEMBER_CHAT WHERE MCHAT_SECOND_USID=#{usid} GROUP BY MCHAT_FIRST_USID
+</select>
+
+<select id="secondUsid" parameterType="_int" resultType="integer">
+	SELECT MCHAT_SECOND_USID FROM MEMBER_CHAT WHERE MCHAT_FIRST_USID=#{usid} GROUP BY MCHAT_SECOND_USID
+</select>
+
+<select id="loadLatestMessage" parameterType="_int">
+	
+</select>
 
 
+
+
+<resultMap type="" id=""></resultMap>
 <resultMap type="exboard" id="expertBoardMap">
 	<id column="EXPERT_BOARD_ID" property="expertBoardId" />
 	<id column="EXPERT_BOARD_USID" property="expertBoardUsid" />

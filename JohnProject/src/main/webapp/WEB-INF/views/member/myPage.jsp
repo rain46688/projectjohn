@@ -108,7 +108,7 @@
 		</div>
 		<div>
 			서신함
-			<button type="button" onclick="location.href='${path}/member/myPage/messageList?usid=${loginMember.usid}'"></button>
+			<button type="button" onclick="location.href='${path}/member/myPage/messageList?usid=${loginMember.usid}'">이동하기</button>
 		</div>
 	</div>
 </div>

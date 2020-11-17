@@ -43,6 +43,8 @@ import com.kh.john.member.model.service.MemberService;
 import com.kh.john.member.model.vo.License;
 import com.kh.john.member.model.vo.LikeDislike;
 import com.kh.john.member.model.vo.Member;
+import com.kh.john.member.model.vo.MemberChat;
+import com.kh.john.member.model.vo.MemberMessage;
 import com.kh.john.report.model.vo.Report;
 
 import lombok.extern.slf4j.Slf4j;
@@ -677,7 +679,44 @@ public class MemberController {
 	
 //	메세지 리스트
 	@RequestMapping("/member/myPage/messageList")
-	public ModelAndView messageList(ModelAndView mv) {
+	public ModelAndView messageList(ModelAndView mv,@SessionAttribute("loginMember") Member loginMember) {
+		int myUsid=loginMember.getUsid();
+
+		List<Integer> usidList=new ArrayList<Integer>();
+		List<Integer> firstUsid=new ArrayList<Integer>();
+		List<Integer> secondUsid=new ArrayList<Integer>();
+		
+		firstUsid=service.firstUsid(myUsid);
+		for(int i=0; i<firstUsid.size(); i++) {
+			usidList.add(firstUsid.get(i));
+		}
+		secondUsid=service.secondUsid(myUsid);
+		for(int i=0; i<secondUsid.size(); i++) {
+			if(!usidList.contains(secondUsid.get(i))) {
+				usidList.add(secondUsid.get(i));
+			}
+		}
+		
+		List<MemberMessage> otherInfo=new ArrayList<>();
+		MemberMessage mM=new MemberMessage();
+		Member member=new Member();
+		MemberChat mCfirst=new MemberChat();
+		MemberChat mCsecond=new MemberChat();
+		for(int i=0; i<usidList.size(); i++) {
+			int otherUsid=usidList.get(i);
+			mM.setOtherUsid(otherUsid);
+			
+			member.setUsid(otherUsid);
+			member=service.selectMemberById(member);
+			mM.setOtherProfilPic(member.getProfilePic());
+			mM.setFromNick(member.getMemNickname());
+			
+			mM=service.loadLatestMessage(otherUsid);
+			
+		}
+		
+		
+		
 		mv.setViewName("member/messageList");
 		return mv;
 	}
