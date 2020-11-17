@@ -98,6 +98,7 @@ public class ExboardServiceImpl implements ExboardService {
 		ExpertBoard exboard = new ExpertBoard();
 		exboard.setExpertBoardUsid(expertmem.getUsid());
 		exboard.setExpertBoardMemUsid(Integer.parseInt(memusid));
+		exboard.setExpertBoardExNick(expertmem.getMemNickname());
 		int result = dao.insertExpertBoard(session, exboard);
 		if (result > 0) {
 			return exboard.getExpertBoardId();
