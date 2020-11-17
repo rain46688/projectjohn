@@ -186,8 +186,26 @@ public class CustomerController {
 
 		return mv;
 	}
-
+	
+	
+//	@RequestMapping("/customer/customerNoticeView")
+//	public ModelAndView NoticeView(ModelAndView mv, int noticeId) {
+//
+//		mv.addObject("notice", service.selectOneNotice(noticeId));
+//		System.out.println("mv" + mv);
+//		System.out.println("noticeId" + noticeId);
+//		System.out.println("서비스.셀렉트원노티스" + service.selectOneNotice(noticeId));
+//		mv.addObject("noticeFile", service.selectNoticeFile(noticeId));
+//		mv.setViewName("customer/customerNoticeView");
+//
+//		return mv;
+//	}
+	
 	// 1:1 채팅 불러오기
+//	@RequestMapping("/customer/customerChat")
+//	public ModelAndView adminChat(ModelAndView mv, int adminUsid) {
+//		mv.addObejct("adminChat", service.selectOneAdminChat);
+//	}
 	@RequestMapping("/customer/customerChat")
 	public String adminChat() {
 		return "/customer/customerChat";

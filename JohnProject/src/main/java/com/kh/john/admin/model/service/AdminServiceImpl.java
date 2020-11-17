@@ -12,6 +12,7 @@ import com.kh.john.admin.model.vo.AdminChat;
 import com.kh.john.admin.model.vo.Notice;
 import com.kh.john.admin.model.vo.NoticeFile;
 import com.kh.john.board.model.vo.Board;
+import com.kh.john.exboard.model.vo.ExpertRequest;
 import com.kh.john.member.model.vo.License;
 import com.kh.john.member.model.vo.Member;
 
@@ -129,12 +130,19 @@ public class AdminServiceImpl implements AdminService{
 		return dao.searchExpertListCount(session, param);
 	}
 	
-	
-	
-	
 	@Override
 	public int updateMemberToExpertEnd(Member m) {
 		return dao.updateMemberToExpertEnd(session, m);
+	}
+	
+	@Override
+	public List<ExpertRequest> selectAdminExpertCounsel(int cPage, int numPerPage) {
+		return dao.selectAdminExpertCounsel(session, cPage, numPerPage);
+	}
+
+	@Override
+	public int selectAdminExpertCounselCount() {
+		return dao.selectAdminExpertCounselCount(session);
 	}
 
 	//공지관련
@@ -199,9 +207,22 @@ public class AdminServiceImpl implements AdminService{
 	}
 
 	@Override
-	public List<AdminChat> selectAdminChat(int adminUsid) {
-		return dao.selectAdminChat(session, adminUsid);
+	public List<AdminChat> selectAdminChat(Map<String, Object> param,int cPage, int numPerPage) {
+		return dao.selectAdminChat(session, param, cPage, numPerPage);
 	}
+
+	@Override
+	public int selectAdminChatCount() {
+		return dao.selectAdminChatCount(session);
+	}
+
+	@Override
+	public List<AdminChat> selectAdminInChat(int adminUsid) {
+		return dao.selectAdminInChat(session, adminUsid);
+	}
+	
+	
+
 	
 	
 	
