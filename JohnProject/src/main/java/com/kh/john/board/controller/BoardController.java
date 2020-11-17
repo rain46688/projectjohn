@@ -137,7 +137,6 @@ public class BoardController {
 	public ModelAndView boardSession(ModelAndView mv, HttpServletRequest request) {
 		
 		Member m = (Member) request.getSession().getAttribute("loginMember");
-		System.out.println(m);
 		Subscribe s1 = new Subscribe(99, "연애상담");
 		Subscribe s2 = new Subscribe(99, "가족문제");
 		Subscribe s3 = new Subscribe(99, "회사문제");
