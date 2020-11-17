@@ -21,6 +21,7 @@ import com.kh.john.member.model.vo.License;
 import com.kh.john.member.model.vo.LikeDislike;
 import com.kh.john.member.model.vo.Member;
 import com.kh.john.member.model.vo.MemberChat;
+import com.kh.john.member.model.vo.MemberMessage;
 import com.kh.john.report.model.vo.Report;
 
 @Service
@@ -197,6 +198,23 @@ public class MemberServiceImpl implements MemberService {
 	public int insertMemberChat(MemberChat memberChat) throws Exception {
 		return dao.insertMemberChat(session, memberChat);
 	}
+
+	@Override
+	public List<Integer> firstUsid(int myUsid) {
+		return dao.firstUsid(session, myUsid);
+	}
+
+	@Override
+	public List<Integer> secondUsid(int myUsid) {
+		return dao.secondUsid(session, myUsid);
+	}
+
+	@Override
+	public MemberMessage loadLatestMessage(int otherUsid) {
+		return dao.loadLatestMessage(session,otherUsid);
+	}
+
+
 
 
 

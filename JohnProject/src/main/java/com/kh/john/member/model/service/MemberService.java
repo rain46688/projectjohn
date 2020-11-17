@@ -9,6 +9,7 @@ import com.kh.john.member.model.vo.License;
 import com.kh.john.member.model.vo.LikeDislike;
 import com.kh.john.member.model.vo.Member;
 import com.kh.john.member.model.vo.MemberChat;
+import com.kh.john.member.model.vo.MemberMessage;
 import com.kh.john.report.model.vo.Report;
 
 public interface MemberService {
@@ -88,7 +89,15 @@ public interface MemberService {
 
 	//채팅 저장
 	int insertMemberChat(MemberChat memberChat) throws Exception;
-	
+
+	//채팅 상대방 usid가져오기
+	List<Integer> firstUsid(int myUsid);
+	List<Integer> secondUsid(int myUsid);
+
+	//최근 메세지 내역 불러오기
+	MemberMessage loadLatestMessage(int otherUsid);
+
+
 
 
 }

@@ -106,6 +106,10 @@
 			전문가 신청하기
 			<button type="button" onclick="location.href='${path}/member/myPage/applyExpertPage?usid=${loginMember.usid}'">이동하기</button>
 		</div>
+		<div>
+			서신함
+			<button type="button" onclick="location.href='${path}/member/myPage/messageList?usid=${loginMember.usid}'">이동하기</button>
+		</div>
 	</div>
 </div>
 <jsp:include page="/WEB-INF/views/common/footer.jsp"/>
