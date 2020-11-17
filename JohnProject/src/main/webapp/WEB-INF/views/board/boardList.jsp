@@ -8,7 +8,7 @@
                		${loginMember }<br>
                		<c:forEach var="sub" items="${subList}">
                			<br>
-						${sub.sub_category}
+						${sub.subCategory}
 					</c:forEach>
 					<div id="result">
 						
@@ -22,7 +22,7 @@
 	//구독하는 채널 리스트
 	let subList = [];
 	<c:forEach var="sub" items="${subList}">
-	   subList.push('${sub.sub_category}')
+	   subList.push('${sub.subCategory}')
 	</c:forEach>
 	
 	//서브 목록만 쏴주기
