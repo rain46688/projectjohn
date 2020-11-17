@@ -675,9 +675,12 @@ public class MemberController {
 		return mv;
 	}
 	
-//	테스트 페이지
-	@RequestMapping("/member/test")
-	private String testPage() {
-		return "member/test";
+//	메세지 리스트
+	@RequestMapping("/member/myPage/messageList")
+	public ModelAndView messageList(ModelAndView mv) {
+		mv.setViewName("member/messageList");
+		return mv;
 	}
+	
+	
 }

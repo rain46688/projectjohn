@@ -9,7 +9,7 @@
 	<jsp:param name="title" value=""/>
 </jsp:include>
 	<section id="content">
-			${loginMember.getMem_name()}
+			
 	</section>
 <jsp:include page="/WEB-INF/views/common/footer.jsp"/>
 
