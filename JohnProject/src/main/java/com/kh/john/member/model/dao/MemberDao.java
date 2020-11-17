@@ -6,9 +6,11 @@ import java.util.Map;
 import org.mybatis.spring.SqlSessionTemplate;
 
 import com.kh.john.board.model.vo.Board;
+import com.kh.john.exboard.model.vo.ExpertBoard;
 import com.kh.john.member.model.vo.License;
 import com.kh.john.member.model.vo.LikeDislike;
 import com.kh.john.member.model.vo.Member;
+import com.kh.john.member.model.vo.MemberChat;
 import com.kh.john.report.model.vo.Report;
 
 public interface MemberDao {
@@ -54,5 +56,15 @@ public interface MemberDao {
 	int myReportCount(SqlSessionTemplate session, int usid);
 
 	Report searchReport(SqlSessionTemplate session, Report report);
+
+	int updateMemberClass(SqlSessionTemplate session, Member member);
+
+	int applyExpert(SqlSessionTemplate session, License l);
+
+	List<ExpertBoard> expertBoardList(SqlSessionTemplate session, int cPage, int numPerPage, int usid);
+
+	int expertBoardCount(SqlSessionTemplate session, int usid);
+
+	int insertMemberChat(SqlSessionTemplate session, MemberChat memberChat);
 
 }

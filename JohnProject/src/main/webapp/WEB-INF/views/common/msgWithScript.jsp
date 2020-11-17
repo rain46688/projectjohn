@@ -15,8 +15,9 @@
 		 스크립트 : ${script} --%>
 
 	<script>
+	const script=${script};
 		alert("${msg}");
-		if(${script}!=null){
+		if(script!=null){
 			${script}
 		} 
 		location.replace('${path}${loc}');

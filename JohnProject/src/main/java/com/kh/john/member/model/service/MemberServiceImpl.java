@@ -13,12 +13,14 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.kh.john.board.model.vo.Board;
+import com.kh.john.exboard.model.vo.ExpertBoard;
 import com.kh.john.member.controller.MailHandler;
 import com.kh.john.member.controller.UuidGenerator;
 import com.kh.john.member.model.dao.MemberDao;
 import com.kh.john.member.model.vo.License;
 import com.kh.john.member.model.vo.LikeDislike;
 import com.kh.john.member.model.vo.Member;
+import com.kh.john.member.model.vo.MemberChat;
 import com.kh.john.report.model.vo.Report;
 
 @Service
@@ -167,6 +169,33 @@ public class MemberServiceImpl implements MemberService {
 	@Override
 	public Report searchReport(Report report) {
 		return dao.searchReport(session, report);
+	}
+
+	@Override
+	public int applyExpert(Member member, List<License> licenseList) {
+		int result=dao.updateMemberClass(session, member);
+		
+		if(!licenseList.isEmpty()) {
+			for(License l : licenseList) {
+				dao.applyExpert(session,l);
+			}
+		}
+		return result;
+	}
+
+	@Override
+	public List<ExpertBoard> expertBoardList(int cPage, int numPerPage, int usid) {
+		return dao.expertBoardList(session, cPage, numPerPage, usid);
+	}
+
+	@Override
+	public int expertBoardCount(int usid) {
+		return dao.expertBoardCount(session, usid);
+	}
+
+	@Override
+	public int insertMemberChat(MemberChat memberChat) throws Exception {
+		return dao.insertMemberChat(session, memberChat);
 	}
 
 

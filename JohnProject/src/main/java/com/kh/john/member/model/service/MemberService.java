@@ -4,9 +4,11 @@ import java.util.List;
 import java.util.Map;
 
 import com.kh.john.board.model.vo.Board;
+import com.kh.john.exboard.model.vo.ExpertBoard;
 import com.kh.john.member.model.vo.License;
 import com.kh.john.member.model.vo.LikeDislike;
 import com.kh.john.member.model.vo.Member;
+import com.kh.john.member.model.vo.MemberChat;
 import com.kh.john.report.model.vo.Report;
 
 public interface MemberService {
@@ -74,6 +76,18 @@ public interface MemberService {
 
 	//신고 디테일
 	Report searchReport(Report report);
+
+	//전문가 신청하기
+	int applyExpert(Member member, List<License> licenseList);
+
+	//상담내역
+	List<ExpertBoard> expertBoardList(int cPage, int numPerPage, int usid);
+
+	//상담내역 개수
+	int expertBoardCount(int usid);
+
+	//채팅 저장
+	int insertMemberChat(MemberChat memberChat) throws Exception;
 	
 
 

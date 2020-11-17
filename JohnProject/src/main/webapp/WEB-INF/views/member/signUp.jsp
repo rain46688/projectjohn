@@ -682,16 +682,16 @@
 					$("#nameConstrain").css({"color":"red"});
 				}
 				//회원구분
-				const memClass=$('input:radio[name="memClass"]:checked');
-				if(memClass.length<1){
+				const memClass=$('input:radio[name="memClass"]:checked').val();
+				if(memClass==null){
 					$("#mcConstrain").html("필수 선택 항목입니다.");
 					$("#mcConstrain").css({"display":"block"});
 					$("#mcConstrain").css({"color":"red"});
 				}
 				//성별
-				const gender=$('input:radio[name="gender"]:checked');
-				if(gender.length<1){
-					$("#gdConstrain").html("필수 입력 항목입니다.");
+				const gender=$('input:radio[name="gender"]:checked').val();
+				if(gender==null){
+					$("#gdConstrain").html("필수 선택 항목입니다.");
 					$("#gdConstrain").css({"display":"block"});
 					$("#gdConstrain").css({"color":"red"});
 				}
@@ -723,20 +723,11 @@
 				if($("#checkPNhidden").val()=='existed'){
 					alert('휴대폰 번호 중복 확인을 해주세요.');
 				}
-				
-				// if(memClass.val()=='expertUser'){
-				// 	const uploadedLicense1=$("#forExpert1 input[name='licenseFileName']").val();
-				// 	const uploadedLicense2=$("#forExpert2 input[name='licenseFileName']").val();
-				// 	const uploadedLicense3=$("#forExpert3 input[name='licenseFileName']").val();
-				// 	if(uploadedLicense1==null || uploadedLicense2==null || uploadedLicense3==null){
-				// 		alert('최소한 한 개의 자격증을 등록해야 합니다.');
-				// 	}
-				// }
 
 				//제약조건을 만족했나요
 				if(id!=="" && (pw!==""&&pwPattern.test(pw)) && (pw2!==""&&pw===pw2) && (nn!==""&&nnPattern.test(nn))
-					&& (memClass.length=10||memClass.length>1) && (name!==""&&namePattern.test(name))
-					&& (gender.length=1||gender.length>1)
+					&& (memClass==10||memClass.length>1) && (name!==""&&namePattern.test(name))
+					&& (gender.length==1||gender.length>1)
 					&& (yy!=="" && yyPattern.test(yy)) && mm!=="" && mm!=="월" && (dd!==""&&ddPattern.test(dd)) 
 					&& (phone!==""&&pnPattern.test(phone))
 					&& $("#checkIdhidden").val()!='existed' && $("#checkNNhidden").val()!='existed' 
