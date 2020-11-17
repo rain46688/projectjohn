@@ -22,16 +22,7 @@ body{
     display: flex;
     flex-direction: row;
 }
-#side {
-    border-bottom-left-radius: 7.5px;
-    border-top-left-radius: 7.5px;
-    width: 18%;
-    height: 100%;
-    background-color:#05135C;
-    display: flex;
-    flex-direction: column;
-    align-items: flex-start;
-}
+
 #headerAndContent {
     width: 82%;
 }
