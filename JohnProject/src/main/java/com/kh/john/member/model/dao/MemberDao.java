@@ -55,4 +55,8 @@ public interface MemberDao {
 
 	Report searchReport(SqlSessionTemplate session, Report report);
 
+	int updateMemberClass(SqlSessionTemplate session, Member member);
+
+	int applyExpert(SqlSessionTemplate session, License l);
+
 }

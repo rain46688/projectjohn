@@ -74,6 +74,9 @@ public interface MemberService {
 
 	//신고 디테일
 	Report searchReport(Report report);
+
+	//전문가 신청하기
+	int applyExpert(Member member, List<License> licenseList);
 	
 
 

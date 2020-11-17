@@ -125,5 +125,15 @@ public class MemberDaoImpl implements MemberDao {
 		return session.selectOne("member.searchReport",report);
 	}
 
+	@Override
+	public int updateMemberClass(SqlSessionTemplate session, Member member) {
+		return session.update("member.updateMemberClass",member);
+	}
+
+	@Override
+	public int applyExpert(SqlSessionTemplate session, License l) {
+		return session.insert("member.applyExpert", l);
+	}
+
 
 }

@@ -90,7 +90,13 @@
 	SELECT * FROM REPORT WHERE REPORT_ID=#{reportId} AND REPORT_WRITER_USID=#{reportWriterUsid}
 </select>
 
+<update id="updateMemberClass" parameterType="member">
+	UPDATE MEMBER SET MEM_CLASS=#{memClass} WHERE USID=#{usid}
+</update>
 
+<insert id="applyExpert" parameterType="license">
+	INSERT INTO LICENSE VALUES(#{licenseMemUsid}, #{licenseFileName}, #{licenseDate}, #{licenseType}, #{licenseCompany})
+</insert>
 
 
 <resultMap type="com.kh.john.report.model.vo.Report" id="reportMap">

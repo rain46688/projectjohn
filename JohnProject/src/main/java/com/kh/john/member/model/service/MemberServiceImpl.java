@@ -169,6 +169,18 @@ public class MemberServiceImpl implements MemberService {
 		return dao.searchReport(session, report);
 	}
 
+	@Override
+	public int applyExpert(Member member, List<License> licenseList) {
+		int result=dao.updateMemberClass(session, member);
+		
+		if(!licenseList.isEmpty()) {
+			for(License l : licenseList) {
+				dao.applyExpert(session,l);
+			}
+		}
+		return result;
+	}
+
 
 
 }
