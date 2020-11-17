@@ -12,6 +12,7 @@ import com.kh.john.admin.model.vo.AdminChat;
 import com.kh.john.admin.model.vo.Notice;
 import com.kh.john.admin.model.vo.NoticeFile;
 import com.kh.john.board.model.vo.Board;
+import com.kh.john.exboard.model.vo.ExpertRequest;
 import com.kh.john.member.model.vo.License;
 import com.kh.john.member.model.vo.Member;
 
@@ -124,6 +125,17 @@ public class AdminDaoImpl implements AdminDao {
 		return session.insert("admin.updateMemberToExpertEnd",m);
 	}
 
+	@Override
+	public List<ExpertRequest> selectAdminExpertCounsel(SqlSessionTemplate session,int cPage,
+			int numPerPage) {
+		return session.selectList("admin.selectAdminExpertCounsel",new RowBounds((cPage-1)*numPerPage, numPerPage));
+	}
+
+	@Override
+	public int selectAdminExpertCounselCount(SqlSession session) {
+		return session.selectOne("admin.selectAdminExpertCounselCount");
+	}
+
 	//공지관련
 	@Override
 	public List<Notice> selectNoticeList(SqlSessionTemplate session, int cPage, int numPerPage) {
@@ -181,9 +193,20 @@ public class AdminDaoImpl implements AdminDao {
 	}
 
 	@Override
-	public List<AdminChat> selectAdminChat(SqlSessionTemplate session, int adminUsid) {
-		return session.selectList("admin.selectAdminChat",adminUsid);
+	public List<AdminChat> selectAdminChat(SqlSessionTemplate session, Map<String, Object> param, int cPage, int numPerPage) {
+		return session.selectList("admin.selectAdminChat",param,new RowBounds((cPage-1)*numPerPage,numPerPage));
 	}
+
+	@Override
+	public int selectAdminChatCount(SqlSessionTemplate session) {
+		return session.selectOne("admin.selectAdminChatCount");
+	}
+
+	@Override
+	public List<AdminChat> selectAdminInChat(SqlSessionTemplate session, int AdminUsid) {
+		return session.selectList("admin.selectAdminInChat",AdminUsid);
+	}
+
 	
 	
 	
