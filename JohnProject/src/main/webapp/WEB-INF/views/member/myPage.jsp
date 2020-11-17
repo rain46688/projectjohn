@@ -92,7 +92,7 @@
 		</div>
 		<div>
 			전문가 상담 내역
-			<button>이동하기</button>
+			<button type="button" onclick="location.href='${path}/member/myPage/expertCounsel?usid=${loginMember.usid}'">이동하기</button>
 		</div>
 		<div>
 			좋아요 한 게시물

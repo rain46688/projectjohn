@@ -9,6 +9,9 @@
 	<jsp:param name="title" value=""/>
 </jsp:include>
 <style>
+	div.divForExpert, div#forExpertTitle{
+		display: none;
+	}
 	div.addLicenseDiv,div.removeLicenseDiv{
 		display: none;
 	}
@@ -19,13 +22,11 @@
 		<p style="font-size: 14px;">자격증 정보는 노출되지 않으며 관리자가 회원님이 상담전문가임을 확인하는 용도에만 쓰입니다.</p>
 		<p style="font-size: 14px;">자격증은 총 세 개까지 업로드 가능합니다.</p>
 	</div>
-	<form action="${path}/member/myPage/applyExpert?usid=${loginMember.usid }" method="POST" id="applyExpertForm">
-		<div id="forExpert1" class="divForExpert" style="display: block;">
-			<jsp:include page="/WEB-INF/views/member/uploadLicense.jsp"></jsp:include>
-		</div>
+	<form action="${path}/member/myPage/applyExpert?usid=${loginMember.usid }" method="POST" id="applyExpertForm" enctype="multipart/form-data">
+		<div id="forExpert1" class="divForExpert"></div>
 		<div id="forExpert2" class="divForExpert"></div>
 		<div id="forExpert3" class="divForExpert"></div>
-		<div class="addLicenseDiv" id="addLicenseDiv1" style="display: block;">
+		<div class="addLicenseDiv" id="addLicenseDiv1">
 			<button type="button" class="addLicenseBtn licenseBtn" id="addLicenseBtn1">추가</button>
 		</div>
 		<div class="addLicenseDiv" id="addLicenseDiv2">
@@ -52,6 +53,20 @@
 		$(this).parent().find('.inputFile').val($(this).val().replace(/C:\\fakepath\\/i,''));
 	});
 
+	//addLicense1
+	$(function(){
+		$("#forExpertTitle").css({"display":"block"});
+		$.ajax({
+			url: "${path}/divForExpert",
+			type: "get",
+			dataType: "html",
+			success:function(data){
+				$("#forExpert1").html(data);
+				$("#forExpert1").css({"display":"block"});
+				$("#addLicenseDiv1").css({"display":"block"});
+			}
+		});
+	});
 	//addLicense2
 	$("#addLicenseBtn1").click(function(e){
 		$("#addLicenseDiv1").css({"display":"none"})
@@ -103,16 +118,8 @@
 	});
 
 	function fn_applyExpert(){
-		const uploadedLicense1=$("#forExpert1 input[name='licenseFileName']").val();
-		const uploadedLicense2=$("#forExpert2 input[name='licenseFileName']").val();
-		const uploadedLicense3=$("#forExpert3 input[name='licenseFileName']").val();
-		if(uploadedLicense1==null || uploadedLicense2==null || uploadedLicense3==null){
-			alert('최소한 한 개의 자격증을 등록해야 합니다.');
-		}else{
-			$("#applyExpertForm").submit();
-		}
+		$("#applyExpertForm").submit();
 	}
-
 </script>
 <jsp:include page="/WEB-INF/views/common/footer.jsp"/>
 

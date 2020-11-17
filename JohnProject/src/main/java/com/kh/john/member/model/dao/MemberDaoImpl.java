@@ -8,9 +8,11 @@ import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.stereotype.Repository;
 
 import com.kh.john.board.model.vo.Board;
+import com.kh.john.exboard.model.vo.ExpertBoard;
 import com.kh.john.member.model.vo.License;
 import com.kh.john.member.model.vo.LikeDislike;
 import com.kh.john.member.model.vo.Member;
+import com.kh.john.member.model.vo.MemberChat;
 import com.kh.john.report.model.vo.Report;
 
 @Repository
@@ -123,6 +125,31 @@ public class MemberDaoImpl implements MemberDao {
 	@Override
 	public Report searchReport(SqlSessionTemplate session, Report report) {
 		return session.selectOne("member.searchReport",report);
+	}
+
+	@Override
+	public int updateMemberClass(SqlSessionTemplate session, Member member) {
+		return session.update("member.updateMemberClass",member);
+	}
+
+	@Override
+	public int applyExpert(SqlSessionTemplate session, License l) {
+		return session.insert("member.applyExpert", l);
+	}
+
+	@Override
+	public List<ExpertBoard> expertBoardList(SqlSessionTemplate session, int cPage, int numPerPage, int usid) {
+		return session.selectList("member.expertBoardList",usid,new RowBounds((cPage-1)*numPerPage,numPerPage));
+	}
+
+	@Override
+	public int expertBoardCount(SqlSessionTemplate session, int usid) {
+		return session.selectOne("member.expertBoardCount");
+	}
+
+	@Override
+	public int insertMemberChat(SqlSessionTemplate session, MemberChat memberChat) {
+		return session.insert("member.insertMemberChat",memberChat);
 	}
 
 

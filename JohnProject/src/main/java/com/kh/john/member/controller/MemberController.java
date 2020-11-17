@@ -38,6 +38,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.kh.john.board.model.vo.Board;
 import com.kh.john.common.page.PageBarFactory;
+import com.kh.john.exboard.model.vo.ExpertBoard;
 import com.kh.john.member.model.service.MemberService;
 import com.kh.john.member.model.vo.License;
 import com.kh.john.member.model.vo.LikeDislike;
@@ -344,7 +345,7 @@ public class MemberController {
 			}
 			if(licenseList.size()<1) {
 				msg="최소 한 개의 자격증을 등록해야 합니다.";
-				script="return false";
+				script="history.back()";
 			}else {
 				int resultExpert=service.signUpExpert(member, licenseList);
 				if(resultExpert>0) {
@@ -595,9 +596,84 @@ public class MemberController {
 	}
 	
 //	전문가 신청
-//	@RequestMapping("/member/myPage/applyExpert")
-//	public ModelAndView
+	@RequestMapping("/member/myPage/applyExpert")
+	public ModelAndView applyExpert(ModelAndView mv, @SessionAttribute("loginMember") Member loginMember,
+			@RequestParam(value="licenseFileName", required = false) MultipartFile[] licenseFileNames,
+			@RequestParam(value="licenseDate", required = false) Date[] licenseDates,
+			@RequestParam(value="licenseType", required = false) String[] licenseTypes,
+			@RequestParam(value="licenseCompany", required = false) String[] licenseCompanies,
+			Member member,HttpServletRequest request) {
+		
+		String msg="";
+		String loc="";
+		String saveDir = request.getServletContext().getRealPath("/resources/upload/upload_license");
+		File dir = new File(saveDir);
+		if (!dir.exists()) {
+			dir.mkdirs();
+		}
+		List<License> licenseList = new ArrayList<License>();
+		for(int i=0; i<licenseFileNames.length; i++) {
+			License license=new License();
+			MultipartFile f = licenseFileNames[i];
+			if(!f.isEmpty()) {
+				String originalFilename = f.getOriginalFilename();
+				String ext = originalFilename.substring(originalFilename.lastIndexOf('.')+1);
+				
+				SimpleDateFormat sdf = new SimpleDateFormat("yyyy_MM_ddHHmmssSSS");
+				int rndNum = (int)(Math.random()*1000);
+				String renamedFilename = sdf.format(new Date(System.currentTimeMillis())) + "_" + rndNum + "_john." + ext;
+				try {
+					f.transferTo(new File(saveDir + "/" + renamedFilename));
+				}catch(IOException e) {
+					e.printStackTrace();
+				}
+				license.setLicenseMemUsid(loginMember.getUsid());
+				license.setLicenseFileName(renamedFilename);
+				license.setLicenseDate(licenseDates[i]);
+				license.setLicenseType(licenseTypes[i]);
+				license.setLicenseCompany(licenseCompanies[i]);
+				licenseList.add(license);
+			}
+		}
+		
+		if(licenseList.size()<1) {
+			msg="최소 한 개의 자격증을 등록해야 합니다.";
+			loc="/member/myPage?usid="+loginMember.getUsid();
+		}else {
+			member.setUsid(loginMember.getUsid());
+			member.setMemClass("예비전문가");
+			int resultExpert=service.applyExpert(member, licenseList);
+			if(resultExpert>0) {
+				msg = "전문가 신청이 완료되었습니다.";
+				loc="/member/myPage?usid="+loginMember.getUsid();
+			} else {
+				msg = "전문가 신청을 실패하였습니다.";
+				loc="/member/myPage?usid="+loginMember.getUsid();
+			}				
+		}
+		
+		mv.addObject("msg", msg);
+		mv.addObject("loc",loc);
+		mv.setViewName("common/msg");
+		return mv;
+	}
 	
+//	전문가 상담내역 페이지로
+	@RequestMapping("/member/myPage/expertCounsel")
+	public ModelAndView expertCounsel(ModelAndView mv,@SessionAttribute("loginMember") Member loginMember,
+			@RequestParam(value ="cPage", required = false, defaultValue = "1") int cPage,
+			@RequestParam(value ="numPerPage", required = false, defaultValue = "10") int numPerPage) {
+		
+		int usid=loginMember.getUsid();
+		List<ExpertBoard> expertBoardList=service.expertBoardList(cPage,numPerPage,usid);
+		int totalData=service.expertBoardCount(usid);
+		
+		mv.addObject("pageBar",myPagePageBar.getPageBar(totalData, cPage, numPerPage, "expertCounsel", loginMember.getUsid()));
+		mv.addObject("totalData", totalData);
+		mv.addObject("expertBoardList", expertBoardList);
+		mv.setViewName("member/expertCounsel");
+		return mv;
+	}
 	
 //	테스트 페이지
 	@RequestMapping("/member/test")
