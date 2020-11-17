@@ -99,6 +99,10 @@ textarea:focus {
 	outline: none;
 }
 
+textarea {
+    resize: none;
+}
+
 /* 드래그 드롭용 div 영역 */
 #dragImg {
 	width: 100%;
@@ -145,10 +149,21 @@ textarea:focus {
 	padding-right:1%;
 }
 
-/* 왼쪽 버튼 영역 div */
-#buttonDiv>button{
+/* 전문가 버튼 영역 div */
+#buttonDiv>.exBtn{
 	display:inline-block;
 	width:48%;
+	height:100%;
+	border-radius: 8px;
+	/* box-shadow: 8px 8px 8px rgba(0, 0, 0, 0.8); */
+	 font-size:30px;
+	font-weight: bold; 
+}
+
+/* 유저 버튼 영역 div */
+#buttonDiv>.memBtn{
+	display:inline-block;
+	width:32%;
 	height:100%;
 	border-radius: 8px;
 
@@ -157,7 +172,7 @@ textarea:focus {
 	font-weight: bold; 
 }
 
-/* 오른쪽 이미지 영역 div */
+/* 이미지 영역 div */
 #imgDiv {
 	/* border: 25px solid rgba(5, 19, 92, 0.96); */
 
@@ -175,6 +190,7 @@ textarea:focus {
 	/* padding:2%; */
 	overflow-x: hidden;
 	-ms-overflow-style: none;
+	padding-top:2%;
 }
 
 #imgDiv>p{
@@ -193,6 +209,7 @@ textarea:focus {
 </style>
 
 <div id="content">
+
 	<div id="upDiv">
 		<div id="videoDiv">
 			<video id="video2" autoplay playsinline controls preload="metadata"></video>
@@ -213,11 +230,13 @@ textarea:focus {
 	<div id="imgDiv"><p>왼쪽 상단 박스에 드래그하여 이미지를 전송 후  이 박스에 표시되며 클릭하여 이미지를 확대할수있습니다.</p></div>
 		<div id="buttonDiv">
 			<c:if test="${loginMember.memClass == '전문가'}">
-				<button type="button" class="btn btn-outline-success my-2 my-sm-0" onclick='counselEnd();'>상담 완료</button>
-				<button type="button" class="btn btn-outline-success my-2 my-sm-0" onclick='counselEnd();'>회원 정보 보기</button>
+				<button type="button" class="exBtn btn btn-outline-success my-2 my-sm-0" onclick='counselEnd();'>상담 완료</button>
+				<button type="button" class="exBtn btn btn-outline-success my-2 my-sm-0" onclick='memInfoView();'>회원 정보 보기</button>
 			</c:if>
 			<c:if test="${loginMember.memClass != '전문가'}">
-				<button type="button" class="btn btn-outline-success my-2 my-sm-0" onclick='onoff();'>카메라 조정</button>
+				<button type="button" class="memBtn btn btn-outline-success my-2 my-sm-0" onclick='onoff();'>캠 온오프</button>
+				<button type="button" class="memBtn btn btn-outline-success my-2 my-sm-0" onclick='counselMemberEnd();'>고민 해결</button>
+				<button type="button" class="memBtn btn btn-outline-success my-2 my-sm-0" onclick='memInfoView();'>상담사 정보 보기</button>
 			</c:if>
 		</div>
 	</div>
@@ -226,7 +245,7 @@ textarea:focus {
 <script>
 
 	'use strict';
-
+	
 	//---------------------------- 드래그 파일 -------------------------------------
 
 	let uploadFiles = [];
@@ -400,7 +419,6 @@ textarea:focus {
 							"${loginMember.memNickname}", "접속",
 							"${loginMember.usid}"));
 				}
-
 			};
 
 			conn.onmessage = function(msg) {
@@ -699,7 +717,11 @@ textarea:focus {
 				}
 			};
 	
-	
+			//---------------------------- 회원 정보 보기 -------------------------------------
+			
+			function memInfoView(e){
+				window.open('${path}/expert/memInfo?bno=${bno}&usid=${loginMember.usid}','회원','width=800, height=700, toolbar=no, menubar=no, scrollbars=no, resizable=yes');
+			};
 	
 	
 </script>

@@ -6,12 +6,12 @@
 	SELECT * FROM MEMBER WHERE MEM_CLASS LIKE '전문가' 
 </select> 
 
-<select id="selectExpertMem" resultMap="memberMap" parameterType="string">
-	SELECT * FROM MEMBER WHERE MEM_CLASS LIKE '전문가' AND USID = #{no}
+<select id="selectExpertMem" resultMap="expertMap" parameterType="string">
+	SELECT * FROM EXPERT_INFO WHERE EXPERT_USID = #{no}
 </select>
 
 <select id="selectMember" resultMap="memberMap" parameterType="string">
-	SELECT * FROM MEMBER WHERE MEM_NICKNAME = #{nick}
+	SELECT * FROM MEMBER WHERE USID = #{no}
 </select>
 
 <select id="selectIsDuplicateReq" resultMap="exrequestMap" parameterType="map">
@@ -53,6 +53,20 @@
 	UPDATE EXPERT_BOARD SET EXPERT_BOARD_ADVICE_RESULT =#{extext} WHERE EXPERT_BOARD_ID=#{bno}
 </update>
 
+<select id="selectMemExboard" resultType="string" parameterType="map">
+	SELECT EXPERT_BOARD_MEM_USID FROM EXPERT_BOARD WHERE EXPERT_BOARD_USID = #{expertusid} AND EXPERT_BOARD_ID = #{bno}
+</select>
+
+<select id="selectExpertExboard" resultType="string" parameterType="map">
+	SELECT EXPERT_BOARD_USID FROM EXPERT_BOARD WHERE EXPERT_BOARD_MEM_USID = #{memusid} AND EXPERT_BOARD_ID = #{bno}
+</select>
+
+<select id="selectExBoardNumUsid" resultType="string" parameterType="map">
+	SELECT EXPERT_BOARD_ID FROM EXPERT_BOARD WHERE EXPERT_BOARD_MEM_USID = #{musid} AND EXPERT_BOARD_USID = #{usid}
+</select>
+
+
+
 	<resultMap type="exboard" id="exboardMap">
 		<id column="EXPERT_BOARD_ID" property="expertBoardId" />
 		<id column="EXPERT_BOARD_USID" property="expertBoardUsid" />
@@ -88,6 +102,18 @@
     <result property="profilePic" column="profile_pic"/>
     <result property="tel" column="tel"/>
 </resultMap>
+
+<resultMap id="expertMap" type="expert">
+    <result property="expertUsid" column="expert_usid"/>
+    <result property="expertRating" column="expert_rating"/>
+    <result property="expertGreetings" column="expert_greetings"/>
+    <result property="expertProfile" column="expert_profile"/>
+    <result property="expertCounselArea" column="expert_counsel_area"/>
+    <result property="expertCounselStartTime" column="expert_counsel_start_time"/>
+ 	<result property="expertCounselEndTime" column="expert_counsel_end_time"/>
+</resultMap>
+
+
 
 
 </mapper>
