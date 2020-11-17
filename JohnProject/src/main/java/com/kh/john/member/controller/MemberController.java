@@ -601,18 +601,16 @@ public class MemberController {
 			@RequestParam(value="licenseDate", required = false) Date[] licenseDates,
 			@RequestParam(value="licenseType", required = false) String[] licenseTypes,
 			@RequestParam(value="licenseCompany", required = false) String[] licenseCompanies,
-			HttpServletRequest request) {
+			Member member,HttpServletRequest request) {
 		
 		String msg="";
-		String script="";
-		
+		String loc="";
 		String saveDir = request.getServletContext().getRealPath("/resources/upload/upload_license");
 		File dir = new File(saveDir);
 		if (!dir.exists()) {
 			dir.mkdirs();
 		}
 		List<License> licenseList = new ArrayList<License>();
-		System.out.println(licenseFileNames[0]);
 		for(int i=0; i<licenseFileNames.length; i++) {
 			License license=new License();
 			MultipartFile f = licenseFileNames[i];
@@ -639,24 +637,23 @@ public class MemberController {
 		
 		if(licenseList.size()<1) {
 			msg="최소 한 개의 자격증을 등록해야 합니다.";
-			script="history.back()";
+			loc="/member/myPage?usid="+loginMember.getUsid();
 		}else {
-			Member member=new Member();
 			member.setUsid(loginMember.getUsid());
 			member.setMemClass("예비전문가");
 			int resultExpert=service.applyExpert(member, licenseList);
 			if(resultExpert>0) {
-				msg = "회원가입완료";
-				script= "window.close()";
+				msg = "전문가 신청이 완료되었습니다.";
+				loc="/member/myPage?usid="+loginMember.getUsid();
 			} else {
-				msg = "회원가입실패";
-				script= "window.close()";
+				msg = "전문가 신청을 실패하였습니다.";
+				loc="/member/myPage?usid="+loginMember.getUsid();
 			}				
 		}
 		
 		mv.addObject("msg", msg);
-		mv.addObject("script",script);
-		mv.setViewName("common/msgWithScript");
+		mv.addObject("loc",loc);
+		mv.setViewName("common/msg");
 		return mv;
 	}
 	

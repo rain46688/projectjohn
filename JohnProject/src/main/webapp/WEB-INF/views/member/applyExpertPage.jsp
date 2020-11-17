@@ -22,7 +22,7 @@
 		<p style="font-size: 14px;">자격증 정보는 노출되지 않으며 관리자가 회원님이 상담전문가임을 확인하는 용도에만 쓰입니다.</p>
 		<p style="font-size: 14px;">자격증은 총 세 개까지 업로드 가능합니다.</p>
 	</div>
-	<form action="${path}/member/myPage/applyExpert?usid=${loginMember.usid }" method="POST" id="applyExpertForm">
+	<form action="${path}/member/myPage/applyExpert?usid=${loginMember.usid }" method="POST" id="applyExpertForm" enctype="multipart/form-data">
 		<div id="forExpert1" class="divForExpert"></div>
 		<div id="forExpert2" class="divForExpert"></div>
 		<div id="forExpert3" class="divForExpert"></div>
