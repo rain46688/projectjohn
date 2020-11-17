@@ -107,7 +107,6 @@
 </style>
 
 <section id="content">
-
 	<div id="main-container">
 		<div id="chat-container">
 			
@@ -125,12 +124,15 @@
 
 <script>
 
-const adminsocket = new WebSocket("wss://localhost${path}/adminsocket");
+const adminsocket = new WebSocket("wss://192.168.120.31${path}/adminsocket");
 
 adminsocket.onopen = function(){
 	console.log("onopen => signaling server 연결");
-
-	
+	console.log("닉 : "+"${loginMember.memNickname}");
+	var date = new Date();
+	if('${loginMember.memClass}'!='관리자'){
+	 sendChat(31,'${loginMember.usid}',"SYS1",date,"",'${loginMember.memNickname}');
+	}
 };
 
 $(function(){
@@ -138,16 +140,23 @@ $(function(){
 		if(key.keyCode == 13){
 			let txt = $("#inputMessage").val();
 			console.log(txt);
+			var date = new Date();
 
-		var date = new Date();
+			 sendChat('${loginMember.usid}',31,txt,date,"",'${loginMember.memNickname}');
+
+			 $('#inputMessage').val("");
+			 
+		/* var date = new Date(); */
 		
 		
-		  if ('${loginMember.memClass}' == '관리자') {
+/* 		  if ('${loginMember.memClass}' == '관리자') {
 			sendMessage(new AdminChat(31,"${loginMember.usid}", txt,date,""));
 		}
 		 else { 
 			sendMessage(new AdminChat("${loginMember.usid}",31, txt,date,""));
-		}  
+		}   */
+		
+		
 
 		}
 		
@@ -158,9 +167,19 @@ $(function(){
 })
 
 
-adminsocket.onmessage = function(adminChatContent){
+ adminsocket.onmessage = function(e){
+	 const chatMsg = JSON.parse(e.data);
+	if(chatMsg['adminChatContent']=='SYS1'){
+		$('#chat-container').html('<p>'+chatMsg['adminChatSenderNickname']+'입장</p>');
+		
+	}else if(chatMsg['adminChatMemUsid']==31){
+		$('#chat-container').html($('#chat-container').html()+'<p>'+chatMsg['adminChatContent']+'</p>');
+																							/*오른쪽 왼쪽 태그 달기*/
+		}
 	
- 	console.log("onmessage => 메세지 출력 : " + adminChatContent);
+}	
+	
+ /* 	console.log("onmessage => 메세지 출력 : " + adminChatContent);
 	let chatMsg = JSON.stringify(adminChatContent.data);
 	console.log("inputMessage.type : " + inputMessage.type);
 	
@@ -168,12 +187,12 @@ adminsocket.onmessage = function(adminChatContent){
 		 var i = $("#inputMessage").val();
 		 
 			var date = new Date();
-			var dateInfo = date.getHours() + ":" + date.getMinutes() + ":" + date.getSeconds();
+			var dateInfo = date.getHours() + ":" + date.getMinutes() + ":" + date.getSeconds(); */
 			
 /* 	let getMemId = $('adminChatMemUsid').val();
 	console.log("getMemId:"+getMemId); */
 			
-			if(getMemId !== '${loginMember.usid}'){
+		/* 	if(getMemId !== '${loginMember.usid}'){
 				var $chat = $("<div class='my-chat-box'><div class='chat my-chat'>" + i + "</div><div class='chat-info'>"+ dateInfo +"</div></div>");
 				$('#chat-container').append($chat); 
 			}else{
@@ -181,44 +200,52 @@ adminsocket.onmessage = function(adminChatContent){
 				$('#chat-container').append($chat);
 			}
 			$('#chat-container').scrollTop($('#chat-container')[0].scrollHeight+20); 
-		
+
 
 	console.log("채팅내용 : "+i);
+	 */
+	 
+	/*  console.log("onmessage실행");
+	 const chatMsg = JSON.parse(e){
+		 console.log("발신인:"+["adminChatMemUsid"]);
+		 console.log("수신인:"+["adminUsid"]);
+		 
+		 if(msg["adminChatContent"]")
+	 } */
+/* 
+}; */
+
+	
 	
 
-};
-
-	
-	
-
-	function sendMessage(message) {
+/* 	function sendMessage(message) {
 		adminsocket.send(JSON.stringify(message));
 		console.log("메세지 보내는 함수 sendMessage");
 		console.log("메세지내용:::"+JSON.stringify(message));
 		
 	
-	};
+	}; */
 	
-		function sendChat(adminUsid, adminChatMemUsid, adminChatContent, adminChatDate, adminChatFile) {
+		function sendChat(adminUsid, adminChatMemUsid, adminChatContent, adminChatDate, adminChatFile, adminChatSenderNickname) {
 			adminsocket.send(JSON.stringify(new AdminChat(adminUsid, adminChatMemUsid,
-					adminChatContent, adminChatDate, adminChatFile)));
+					adminChatContent, adminChatDate, adminChatFile,adminChatSenderNickname)));
 		};
 
 //----------------------------------------
-	function AdminChat(adminUsid, adminChatMemUsid, adminChatContent, adminChatDate, adminChatFile) {
+	function AdminChat(adminUsid, adminChatMemUsid, adminChatContent, adminChatDate, adminChatFile, adminChatSenderNickname) {
 				this.adminUsid = adminUsid;
 				this.adminChatMemUsid = adminChatMemUsid;
 				this.adminChatContent = adminChatContent;
 				this.adminChatDate = adminChatDate;
 				this.adminChatFile = adminChatFile;
-				
+				this.adminChatSenderNickname=adminChatSenderNickname;
 			
 			};
 			
 	
 
 	
-	function counselEnd() {
+/* 	function counselEnd() {
 				
 				let result = confirm("1:1 문의를 종료 하시겠습니까?");
 				if(result){
@@ -239,10 +266,10 @@ adminsocket.onmessage = function(adminChatContent){
 					document.body.appendChild(form);
 					form.submit();
 					exit();
-					/* sendMessage(new ExboardMsg("END",
-							"${loginMember.memClass}", "종료")); */
+					 sendMessage(new ExboardMsg("END",
+							"${loginMember.memClass}", "종료"));
 				}
-			}
+			} */
 	
 	adminsocket.onclose = function() {
 		console.log('onclose 실행');
