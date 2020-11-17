@@ -23,7 +23,7 @@
 			<beans:bean class="com.kh.john.common.interceptor.LoginCheckInterceptor"/>
 		</interceptor>
 		<interceptor>
-			<mapping path="/report/customerReport"/>
+			<mapping path="/report/*"/>
 			<beans:bean class="com.kh.john.common.interceptor.CustomerInterceptor"/>
 		</interceptor>
 				<interceptor>
