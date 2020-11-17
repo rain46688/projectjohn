@@ -14,8 +14,10 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.kh.john.admin.model.service.AdminService;
+import com.kh.john.admin.model.vo.AdminChat;
 import com.kh.john.board.model.vo.Board;
 import com.kh.john.common.page.PageBarFactory;
+import com.kh.john.exboard.model.vo.ExpertRequest;
 import com.kh.john.member.controller.AES256Util;
 import com.kh.john.member.model.vo.License;
 import com.kh.john.member.model.vo.Member;
@@ -340,9 +342,46 @@ public class AdminController {
 		return mv;
 	}
 
-	// 1:1 채팅답변 불러오기
-	@RequestMapping("/admin/adminChat")
-	public String adminChat() {
-		return "/admin/adminIndex";
+	//전문가 상담진행상황 불러오기
+	@RequestMapping("/admin/adminExpertCounsel")
+	public ModelAndView adminExpertCounsel(ModelAndView mv, 
+			@RequestParam(value = "cPage", required = false, defaultValue = "1") int cPage,
+			@RequestParam(value = "numPerPage", required = false, defaultValue = "10") int numPerPage) {
+		
+		List<ExpertRequest> list = service.selectAdminExpertCounsel(cPage,numPerPage);
+		int totalData = service.selectAdminExpertCounselCount();
+		
+		mv.addObject("pageBar", PageBarFactory.getPageBar(totalData, cPage, numPerPage, "adminExpert"));
+
+		mv.addObject("totalData", totalData);
+		
+		mv.addObject("list", list);
+		mv.setViewName("admin/adminExpertCounsel");
+		return mv;
 	}
+	
+	// 1:1 채팅답변 불러오기
+	@RequestMapping("/admin/adminChatRoom")
+	public ModelAndView adminChat(ModelAndView mv,
+			@RequestParam(value = "adminUsid", required=false) int[] adminUsid,
+			@RequestParam(value = "cPage", required = false, defaultValue = "1") int cPage,
+			@RequestParam(value = "numPerPage", required = false, defaultValue = "10") int numPerPage)  {
+		Map<String,Object> param = new HashMap(); 
+		param.put("adminUsid", adminUsid);
+		
+		List<AdminChat> list = service.selectAdminChat(param,cPage,numPerPage);
+		int totalData = service.selectAdminChatCount();
+		
+		mv.addObject("pageBar", PageBarFactory.getPageBar(totalData, cPage, numPerPage, "adminExpert"));
+
+		mv.addObject("totalData", totalData);
+		
+		mv.addObject("list", list);
+		mv.setViewName("admin/adminChatRoom");
+		return mv;
+	}
+	
+
+	
+
 }

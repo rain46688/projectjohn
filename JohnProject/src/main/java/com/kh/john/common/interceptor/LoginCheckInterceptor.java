@@ -26,17 +26,11 @@ public class LoginCheckInterceptor extends HandlerInterceptorAdapter {
 			request.getRequestDispatcher("/WEB-INF/views/common/msg.jsp")
 			.forward(request, response);
 			
-			return false;
-		}else {
-			
-		
-		
+
 		}
-		
-		return super.preHandle(request, response, handler);
-	}
-
+			request.setAttribute("sideBar", "admin");
+			return super.preHandle(request, response, handler);
 	
-
+	}
 	
 }

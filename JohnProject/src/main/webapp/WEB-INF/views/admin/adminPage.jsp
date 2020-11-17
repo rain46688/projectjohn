@@ -65,7 +65,7 @@
               <div class="card_content">
                 <h2 class="card_title">1:1문의답변</h2>
                 <!-- <p class="card_text">Demo of pixel perfect pure CSS simple responsive card grid layout</p> -->
-                <button class="btn card_btn" onclick="location.href='${path}/customer/customerChat'">이동하기</button>
+                <button class="btn card_btn" onclick="location.href='${path}/admin/adminChatRoom'">이동하기</button>
               </div>
             </div>
           </li>

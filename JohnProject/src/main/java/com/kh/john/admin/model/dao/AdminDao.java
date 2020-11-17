@@ -10,6 +10,7 @@ import com.kh.john.admin.model.vo.AdminChat;
 import com.kh.john.admin.model.vo.Notice;
 import com.kh.john.admin.model.vo.NoticeFile;
 import com.kh.john.board.model.vo.Board;
+import com.kh.john.exboard.model.vo.ExpertRequest;
 import com.kh.john.member.model.vo.License;
 import com.kh.john.member.model.vo.Member;
 
@@ -56,6 +57,10 @@ public interface AdminDao {
 	
 	int updateMemberToExpertEnd(SqlSession session, Member m);
 	
+	List<ExpertRequest> selectAdminExpertCounsel(SqlSessionTemplate session, int cPage, int numPerPage);
+	
+	int selectAdminExpertCounselCount(SqlSession session);
+	
 	//공지관련
 	List<Notice> selectNoticeList(SqlSessionTemplate session, int cPage, int numPerPage);
 	
@@ -79,5 +84,9 @@ public interface AdminDao {
 	
 	int insertAdminChat(SqlSessionTemplate session, AdminChat ac) throws Exception;
 	
-	List<AdminChat> selectAdminChat(SqlSessionTemplate session, int adminUsid);
+	List<AdminChat> selectAdminChat(SqlSessionTemplate session, Map<String, Object> param, int cPage, int numPerPage);
+	
+	int selectAdminChatCount(SqlSessionTemplate session);
+	
+	List<AdminChat> selectAdminInChat(SqlSessionTemplate session, int AdminUsid);
 } 

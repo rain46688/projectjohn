@@ -22,6 +22,14 @@
 			<mapping path="/customer/customerNoticeForm"/>
 			<beans:bean class="com.kh.john.common.interceptor.LoginCheckInterceptor"/>
 		</interceptor>
+		<interceptor>
+			<mapping path="/report/*"/>
+			<beans:bean class="com.kh.john.common.interceptor.CustomerInterceptor"/>
+		</interceptor>
+				<interceptor>
+			<mapping path="/customer/*"/>
+			<beans:bean class="com.kh.john.common.interceptor.CustomerInterceptor"/>
+		</interceptor>
 		
 		<interceptor>
 			<mapping path="/expert/*" />
