@@ -23,6 +23,7 @@
 	<typeAlias type="com.kh.john.admin.model.vo.AdminChat" alias="adminChat"/>
 	<typeAlias type="com.kh.john.member.model.vo.LikeDislike" alias="likeDislike"/>
 	<typeAlias type="com.kh.john.member.model.vo.MemberChat" alias="memberChat"/>
+	<typeAlias type="com.kh.john.member.model.vo.MemberMessage" alias="memberMessage"/>
  </typeAliases>
  
 

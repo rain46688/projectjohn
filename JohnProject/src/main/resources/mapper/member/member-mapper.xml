@@ -125,7 +125,6 @@
 
 
 
-<resultMap type="" id=""></resultMap>
 <resultMap type="exboard" id="expertBoardMap">
 	<id column="EXPERT_BOARD_ID" property="expertBoardId" />
 	<id column="EXPERT_BOARD_USID" property="expertBoardUsid" />
