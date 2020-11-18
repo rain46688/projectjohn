@@ -59,7 +59,16 @@
 		<result property="adminChatContent" column="admin_chat_content"/>
 		<result property="adminChatDate" column="admin_chat_date"/>
 		<result property="adminChatFile" column="admin_chat_file"/>
-		
+	</resultMap>
+	<resultMap type="com.kh.john.exboard.model.vo.ExpertRequest" id="expertRequestMap">
+		<id column="EXPERT_REQUET_EX_USID" property="expertRequetExUsid" />
+		<id column="EXPERT_REQUEST_MEM_USID" property="expertRequestMemUsid" />
+		<id column="EXPERT_REQUET_EX_NICK" property="expertRequetExNick" />
+		<id column="EXPERT_REQUEST_MEM_NICK" property="expertRequestMemNick" />
+		<id column="EXPERT_ISCOUNSEL" property="expertIscounsel" />
+		<id column="EXPERT_DATE" property="expertDate" />
+		<id column="EXPERT_COUNSEL_TIME" property="expertCounselTime" />
+		<id column="EXPERT_COUNSEL_REQUIRE" property="expertCounselRequire" />
 	</resultMap>
 
 	<!-- 멤버관련 -->
@@ -73,11 +82,11 @@
 		MEMBER WHERE MEM_CLASS LIKE ('일반유저') AND LEAVE_MEM LIKE 0
 	</select>
 
-	<insert id="deleteMember"
+	<update id="deleteMember"
 		parameterType="com.kh.john.member.model.vo.Member">
 		UPDATE MEMBER SET LEAVE_MEM=1
 		WHERE USID=#{usid}
-	</insert>
+	</update>
 
 	<select id="searchMemberList" resultMap="memberMap" parameterType="map">
 		SELECT M.*,R.REPORT_ISWARNING FROM MEMBER M LEFT OUTER JOIN REPORT R ON M.USID=R.REPORT_TARGET_USID 
@@ -234,8 +243,6 @@
 			ORDER BY ${type2} DESC
 		</if>
 		
-		
-
 	</select>
 
 	<select id="searchExpertListCount" resultType="_int"
@@ -244,10 +251,18 @@
 		AND MEM_CLASS LIKE('전문가')
 	</select>
 	
-	<insert id="updateMemberToExpertEnd" parameterType="member">
+	<update id="updateMemberToExpertEnd" parameterType="member">
 		UPDATE MEMBER SET MEM_CLASS='전문가'
 		WHERE USID=#{usid}
-	</insert>
+	</update>
+	
+	<select id="selectAdminExpertCounsel" resultMap="expertRequestMap">
+		SELECT * FROM EXPERT_REQUEST
+	</select>
+	
+	<select id="selectAdminExpertCounselCount" resultType="_int">
+		SELECT COUNT(*) FROM EXPERT_REQUEST
+	</select> 
 	
 	<!-- 공지관련 -->
 	<select id="selectNoticeList" resultMap="noticeMap"> 
@@ -282,13 +297,13 @@
 		SELECT * FROM NOTICE WHERE NOTICE_ID=#{noticeId}
 	</select>
 	
-	<insert id="noticeModifyEnd" parameterType="notice">
+	<update id="noticeModifyEnd" parameterType="notice">
 		UPDATE NOTICE SET NOTICE_TITLE=#{noticeTitle},
 										NOTICE_CONTENT=#{noticeContent},
 										NOTICE_ID=#{noticeId},
 										NOTICE_ADMIN_NICKNAME=#{noticeAdminNickname}
 		WHERE NOTICE_ID=#{noticeId}
-	</insert>
+	</update>
 	
 	<delete id="deleteNotice" parameterType="notice">
 		DELETE FROM NOTICE WHERE NOTICE_ID=#{noticeId}
@@ -301,6 +316,14 @@
  	</insert>
 
  	<select id="selectAdminChat" resultType="List" resultMap="adminChatMap">
- 		SELECT * FROM ADMIN_CHAT WHERE ADMIN_CHAT_MEM_USID=#{adminUsid}
+ 		SELECT * FROM ADMIN_CHAT WHERE ADMIN_USID=56
  	</select>
+ 		
+ 	<select id="selectAdminChatCount" resultType="_int">
+ 		SELECT COUNT(*) FROM ADMIN_cHAT
+ 	</select>
+ 	
+ 	<select id="selectAdminInChat" resultType="List" resultMap ="adminChatMap">
+ 		SELECT * FROM ADMIN_CHAT WHERE ADMIN_USID=56
+ 	</select> 	
 </mapper>

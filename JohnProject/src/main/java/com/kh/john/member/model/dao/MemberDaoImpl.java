@@ -13,6 +13,7 @@ import com.kh.john.member.model.vo.License;
 import com.kh.john.member.model.vo.LikeDislike;
 import com.kh.john.member.model.vo.Member;
 import com.kh.john.member.model.vo.MemberChat;
+import com.kh.john.member.model.vo.MemberMessage;
 import com.kh.john.report.model.vo.Report;
 
 @Repository
@@ -150,6 +151,21 @@ public class MemberDaoImpl implements MemberDao {
 	@Override
 	public int insertMemberChat(SqlSessionTemplate session, MemberChat memberChat) {
 		return session.insert("member.insertMemberChat",memberChat);
+	}
+
+	@Override
+	public List<Integer> firstUsid(SqlSessionTemplate session, int myUsid) {
+		return session.selectList("member.firstUsid",myUsid);
+	}
+
+	@Override
+	public List<Integer> secondUsid(SqlSessionTemplate session, int usid) {
+		return session.selectList("member.secondUsid",usid);
+	}
+
+	@Override
+	public MemberMessage loadLatestMessage(SqlSessionTemplate session, int otherUsid) {
+		return session.selectOne("member.loadLatestMessage",otherUsid);
 	}
 
 

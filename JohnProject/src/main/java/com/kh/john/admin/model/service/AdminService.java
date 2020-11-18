@@ -7,6 +7,7 @@ import com.kh.john.admin.model.vo.AdminChat;
 import com.kh.john.admin.model.vo.Notice;
 import com.kh.john.admin.model.vo.NoticeFile;
 import com.kh.john.board.model.vo.Board;
+import com.kh.john.exboard.model.vo.ExpertRequest;
 import com.kh.john.member.model.vo.License;
 import com.kh.john.member.model.vo.Member;
 
@@ -53,6 +54,10 @@ public interface AdminService {
 	
 	int updateMemberToExpertEnd(Member m);
 	
+	List<ExpertRequest> selectAdminExpertCounsel(int cPage, int numPerPage);
+	
+	int selectAdminExpertCounselCount();
+	
 	//공지관련
 	List<Notice> selectNoticeList(int cPage, int numPerPage);
 	
@@ -74,5 +79,10 @@ public interface AdminService {
 	
 	int insertAdminChat(AdminChat ac) throws Exception;
 
-	List<AdminChat> selectAdminChat(int adminUsid);
+	List<AdminChat> selectAdminChat(Map<String, Object> param,int cPage, int numPerPage);
+	
+	int selectAdminChatCount();
+	
+	List<AdminChat> selectAdminInChat(int adminUsid);
+
 }

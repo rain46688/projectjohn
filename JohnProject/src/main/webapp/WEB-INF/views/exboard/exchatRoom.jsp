@@ -7,13 +7,19 @@ body *{
 	margin: 0;
 }
 
+#content{
+	
+	/* background-color: #121212; */
+	background-color: #F1F3F3; 
+
+}
+
 /* 상단 영역 */
 #upDiv {
-	height: 70%;
+	height: 83.2%;
 	width: 100%;
-	border: 1px solid red;
+	/* border: 1px solid red; */
 	display: flex;
-	border: 1px solid red;
 	padding: 1%;
 }
 
@@ -29,35 +35,43 @@ body *{
 #video1 {
 	z-index: 2;
 	position: absolute;
-	right: 27%;
-	top: 41.8%;
+	right: 25.5%;
+	/* top: 50.7%; */
+	top: 65.5%;
 	border: 2px solid #FFCC66;
-	width: 20%;
+	width: 10%;
 }
 
 /* 상단 영역 비디오 div */
 #videoDiv {
-	padding: 3%;
-	border: 1px solid gray;
+	/* padding: 3%; */
+	padding:1%;
+/* 	border: 1px solid gray; */
 	height: 100%;
 	width: 80%;
 	/* background-color:#05135C; */
-	background-color: rgba(5, 19, 92, 0.96);
+	/* background-color: rgba(5, 19, 92, 0.96); */
+/* 	background-color: gray; */
+	/* background-color: #121212; */
+	background-color: white;
 	border-radius: 8px;
 	margin-right: 1%;
-	box-shadow: 8px 8px 8px rgba(0, 0, 0, 0.8);
+	/* box-shadow: 8px 8px 8px rgba(0, 0, 0, 0.8); */
 }
 
 /* 상단 텍스트 div */
 #textAreaDiv {
-	border: 1px solid green;
+	/* border: 1px solid green; */
 	height: 100%;
 	width: 30%;
 	/* background-color:#05135C; */
-	background-color: rgba(5, 19, 92, 0.96);
+	/* background-color: rgba(5, 19, 92, 0.96); */
+	/* background-color: gray; */
+/* 	background-color: #121212; */
+	background-color: white;
 	border-radius: 8px;
 	padding: 1%;
-	box-shadow: 8px 8px 8px rgba(0, 0, 0, 0.8);
+	/* box-shadow: 8px 8px 8px rgba(0, 0, 0, 0.8); */
 }
 
 /* 상단 텍스트 영역 */
@@ -89,7 +103,7 @@ textarea:focus {
 #dragImg {
 	width: 100%;
 	height: 100%;
-	display: none;
+	display: none; 
 	border-radius: 8px;
 	/* 	background-color: #E2E2E8; */
 	background-image: url(${path }/resources/images/expertimg.png);
@@ -117,42 +131,48 @@ textarea:focus {
 
 /* 하단 영역 div */
 #bottomDiv {
-	height: 28%;
-	border: 1px solid blue;
+	height: 15%;
+/* 	border: 1px solid blue; */
 	display: flex;
 }
 
 /* 왼쪽 버튼 영역 div */
 #buttonDiv {
-	border: 1px solid brown;
+	/* border: 1px solid brown; */
 	height: 100%;
-	width: 40%;
+	width: 30%;
 	text-align: right;
+	padding-right:1%;
 }
 
 /* 왼쪽 버튼 영역 div */
 #buttonDiv>button{
-	width:70%;
-	height:70%;
+	display:inline-block;
+	width:48%;
+	height:100%;
 	border-radius: 8px;
-	box-shadow: 8px 8px 8px rgba(0, 0, 0, 0.8);
-	font-size:50px;
-	font-weight: bold;
+
+	/* box-shadow: 8px 8px 8px rgba(0, 0, 0, 0.8); */
+	 font-size:30px;
+	font-weight: bold; 
 }
 
 /* 오른쪽 이미지 영역 div */
 #imgDiv {
-	border: 25px solid rgba(5, 19, 92, 0.96);
+	/* border: 25px solid rgba(5, 19, 92, 0.96); */
+
+	/* border: 25px solid #121212; */
+	 border: 25px solid white;
 	border-radius: 8px;
 	/* background-color:#05135C; */
 	/* background-color: rgba(5, 19, 92, 0.96); */
 	background-color:white;
 	height: 100%;
-	width: 60%;
-	box-shadow: 8px 8px 8px rgba(0, 0, 0, 0.8);
+	width: 77%;
+	/* box-shadow: 8px 8px 8px rgba(0, 0, 0, 0.8); */
 	margin: 0% 1% 1%;
 	display:inline-block;
-	padding:2%;
+	/* padding:2%; */
 	overflow-x: hidden;
 	-ms-overflow-style: none;
 }
@@ -161,13 +181,13 @@ textarea:focus {
  font-size:100%;
  color:gray;
  text-align:center;
-padding:2%;
+/* padding:2%; */
 }
 
 .upload{
-	width:20%;
-	height:100%;
-	padding:1%;
+	width:10%;
+	height:80%;
+	margin:1%;
 }
 
 </style>
@@ -190,15 +210,16 @@ padding:2%;
 	</div>
 <!--  -->
 	<div id="bottomDiv">
+	<div id="imgDiv"><p>왼쪽 상단 박스에 드래그하여 이미지를 전송 후  이 박스에 표시되며 클릭하여 이미지를 확대할수있습니다.</p></div>
 		<div id="buttonDiv">
 			<c:if test="${loginMember.memClass == '전문가'}">
 				<button type="button" class="btn btn-outline-success my-2 my-sm-0" onclick='counselEnd();'>상담 완료</button>
+				<button type="button" class="btn btn-outline-success my-2 my-sm-0" onclick='counselEnd();'>회원 정보 보기</button>
 			</c:if>
 			<c:if test="${loginMember.memClass != '전문가'}">
 				<button type="button" class="btn btn-outline-success my-2 my-sm-0" onclick='onoff();'>카메라 조정</button>
 			</c:if>
 		</div>
-		<div id="imgDiv"><p>왼쪽 상단 박스에 드래그하여 이미지를 전송 후  이 박스에 표시되며 클릭하여 이미지를 확대할수있습니다.</p></div>
 	</div>
 </div>
 
@@ -246,19 +267,33 @@ padding:2%;
 			"display" : "inline-block"
 		});
 		let files = e.originalEvent.dataTransfer.files;
-		//console.log("files : " + files);
+		console.log("files : " + files);
 		for (let i = 0; i < files.length; i++) {
 			let file = files[i];
 			let size = uploadFiles.push(file); 
+			console.log("확인 : "+file);
 		}
 		
 		//---------------------------- 드래그 파일 전송 -------------------------------------
 		
 		let formData = new FormData();
 		$.each(uploadFiles, function(i, file) {
-			if (file.upload != 'disable') //삭제하지 않은 이미지만 업로드 항목으로 추가
-				formData.append('upFile', file, file.name);
+		console.log("파일 이름 : "+file.name);
+		
+		let f = (file.name).substring((file.name).lastIndexOf('.'),(file.name).length);
+		
+		console.log("f : "+f);
+		
+		if(f != '.png' && f != '.jpg' && f != '.jpeg' && f != '.gif'){
+			console.log("업로드 안됨 파일 이름 : "+file.name);
+			alert('이미지 파일만 업로드 가능합니다.');
+		}else{
+			formData.append('upFile', file, file.name);
+			console.log("업로드 됨 파일 이름 : "+file.name);
+		}
+		
 		});
+		
 	 	$.ajax({
 			url : '${path}/expert/upload',
 			data : formData,
@@ -281,6 +316,8 @@ padding:2%;
 				uploadFiles = [];
 			}
 		});
+	 	
+	 	
 	});
 	
 	function imgDivPrint(msg){
@@ -295,7 +332,8 @@ padding:2%;
 			imgprint+="<img  class='upload' src='${path}/resources/upload_images/"+list[i]+"' title='"+list[i]+"' onclick='imgView(event);' style='cursor: pointer'/>";
 		}
 		
-		if($("#imgDiv").html() == ''){
+		if($("#imgDiv").children().html() != ''){
+			console.log("빔");
 			$("#imgDiv").html("");
 		}
 		

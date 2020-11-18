@@ -91,5 +91,8 @@
 		<div>
 			<a href="${path}/member/myPage/applyExpertPage?usid=${loginMember.usid}">전문가 신청하기</a>
 		</div>
+		<div>
+			<a href="${path}/member/myPage/messageList?usid=${loginMember.usid}">서신함</a>
+		</div>
 	</div>
 </div>

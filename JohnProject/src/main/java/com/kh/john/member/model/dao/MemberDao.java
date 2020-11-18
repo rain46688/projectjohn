@@ -11,6 +11,7 @@ import com.kh.john.member.model.vo.License;
 import com.kh.john.member.model.vo.LikeDislike;
 import com.kh.john.member.model.vo.Member;
 import com.kh.john.member.model.vo.MemberChat;
+import com.kh.john.member.model.vo.MemberMessage;
 import com.kh.john.report.model.vo.Report;
 
 public interface MemberDao {
@@ -66,5 +67,12 @@ public interface MemberDao {
 	int expertBoardCount(SqlSessionTemplate session, int usid);
 
 	int insertMemberChat(SqlSessionTemplate session, MemberChat memberChat);
+
+	List<Integer> firstUsid(SqlSessionTemplate session, int myUsid);
+
+	List<Integer> secondUsid(SqlSessionTemplate session, int myUsid);
+
+	MemberMessage loadLatestMessage(SqlSessionTemplate session, int otherUsid);
+
 
 }
