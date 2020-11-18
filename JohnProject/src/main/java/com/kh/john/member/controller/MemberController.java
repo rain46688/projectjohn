@@ -370,7 +370,7 @@ public class MemberController {
 
 //	마이페이지^^
 	@RequestMapping("/member/myPage")
-	private ModelAndView myPage(ModelAndView mv,@SessionAttribute("loginMember") Member loginMember) {
+	public ModelAndView myPage(ModelAndView mv,@SessionAttribute("loginMember") Member loginMember) {
 		Member member=service.selectMemberById(loginMember);
 		mv.addObject("member",member);
 		mv.setViewName("member/myPage");
@@ -379,13 +379,13 @@ public class MemberController {
 	
 //	회원정보 수정하기
 	@RequestMapping("/member/myPage/updateMemberInfo")
-	private String updateMemberInfo() {
+	public String updateMemberInfo() {
 		return "member/updateMemberInfo";
 	}
 
 //	비밀번호 변경하기
 	@RequestMapping(value="/member/myPage/updatePw", method=RequestMethod.POST)
-	private ModelAndView updatePw(ModelAndView mv, @RequestParam("crtPw") String crtPw,@RequestParam("newPw") String newPw, Member member, @SessionAttribute("loginMember") Member loginMember) {
+	public ModelAndView updatePw(ModelAndView mv, @RequestParam("crtPw") String crtPw,@RequestParam("newPw") String newPw, Member member, @SessionAttribute("loginMember") Member loginMember) {
 
 		String msg="";
 		String loc="";
@@ -420,7 +420,7 @@ public class MemberController {
 	
 //	닉네임 변경
 	@RequestMapping("/member/myPage/updateNick")
-	private ModelAndView updateNick(ModelAndView mv, Member member, @SessionAttribute("loginMember") Member loginMember) {
+	public ModelAndView updateNick(ModelAndView mv, Member member, @SessionAttribute("loginMember") Member loginMember) {
 		String msg="";
 		String loc="";
 		
@@ -517,7 +517,7 @@ public class MemberController {
 	
 //	나의 게시물 리스트
 	@RequestMapping("/member/myPage/myBoard")
-	private ModelAndView myBoard(ModelAndView mv,@SessionAttribute("loginMember") Member loginMember,
+	public ModelAndView myBoard(ModelAndView mv,@SessionAttribute("loginMember") Member loginMember,
 			@RequestParam(value ="cPage", required = false, defaultValue = "1") int cPage,
 			@RequestParam(value ="numPerPage", required = false, defaultValue = "10") int numPerPage) {
 		int usid=loginMember.getUsid();
@@ -533,7 +533,7 @@ public class MemberController {
 	
 //	내 게시물 상세
 	@RequestMapping("/member/myPage/myBoardDetail")
-	private ModelAndView myBoardDetail(ModelAndView mv, @SessionAttribute("loginMember") Member loginMember,
+	public ModelAndView myBoardDetail(ModelAndView mv, @SessionAttribute("loginMember") Member loginMember,
 			@RequestParam("boardId") int boardId, Board board) {
 		board.setWriterUsid(loginMember.getUsid());
 		board.setBoardId(boardId);
@@ -723,6 +723,14 @@ public class MemberController {
 		}
 		mv.addObject("otherInfo",otherInfo);
 		mv.setViewName("member/messageList");
+		return mv;
+	}
+	
+//	메세지 상세
+	@RequestMapping("/member/myPage/message")
+	public ModelAndView message(ModelAndView mv,@SessionAttribute("loginMember") Member loginMember,
+			@RequestParam("otherUsid") int otherUsid) {
+		mv.setViewName("member/message");
 		return mv;
 	}
 	

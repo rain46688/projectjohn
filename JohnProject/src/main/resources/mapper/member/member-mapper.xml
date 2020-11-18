@@ -140,6 +140,11 @@
 	<id column="EXPERT_BOARD_MEM_USID" property="expertBoardMemUsid" />
 	<id column="EXPERT_BOARD_ADVICE_RESULT" property="expertBoardAdviceResult" />
 	<id column="EXPERT_BOARD_RATING" property="expertBoardRating" />
+	<id column="EXPERT_BOARD_REVIEW" property="expertBoardReview" />
+	<id column="EXPERT_BOARD_DATE" property="expertBoardDate" />
+	<id column="EXPERT_BOARD_EX_NICK" property="expertBoardExNick" />
+	<id column="EXPERT_BOARD_MEMBEREND" property="expertBoardMemberend" />
+	<id column="EXPERT_BOARD_EXPERTEND" property="expertBoardExpertend" />
 </resultMap>
 <resultMap type="com.kh.john.report.model.vo.Report" id="reportMap">
 	<result property="reportId" column="report_id"/>

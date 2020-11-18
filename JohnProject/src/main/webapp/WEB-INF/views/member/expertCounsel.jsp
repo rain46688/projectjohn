@@ -26,7 +26,7 @@
 				상담 후기
 			</div>
 			<div>
-				<!-- <c:forEach var="expertBoardList" items="${expertBoardList}">
+				<c:forEach var="expertBoardList" items="${expertBoardList}">
 					<div>
 						<c:out value="${expertBoardList.expertBoardDate}"/>
 					</div>
@@ -42,7 +42,7 @@
 					<div>
 						<c:out value="${expertBoardList.expertBoardReview}"/>
 					</div>
-				</c:forEach> -->
+				</c:forEach>
 			</div>
 		</div>
 	</section>

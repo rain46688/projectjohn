@@ -8,13 +8,45 @@
 <jsp:include page="/WEB-INF/views/common/header.jsp">
 	<jsp:param name="title" value=""/>
 </jsp:include>
+<style>
+	.messageBox:hover{
+		background-color: #D3D3D3;
+	}
+</style>
 <section id="content">
+	<div>
+		<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal">
+			새로운 채팅
+		</button>
+	</div>
+	
+	<!-- Modal -->
+	<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+		<div class="modal-dialog modal-dialog-scrollable">
+			<div class="modal-content">
+				<div class="modal-header">
+					<h5 class="modal-title" id="exampleModalLabel">존경장 검색하기</h5>
+					<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+						<span aria-hidden="true">&times;</span>
+					</button>
+				</div>
+				<div class="modal-body">
+					<input type="text" id="newNick" placeholder="닉네임">
+					<div id="searchResult"></div>
+				</div>
+				<div class="modal-footer">
+					<button type="button" class="btn btn-primary">확인</button>
+					<button type="button" class="btn btn-secondary" data-dismiss="modal">닫기</button>
+				</div>
+			</div>
+		</div>
+	</div>
 	<div>
 		<!--상대방 프로필 사진, 가장 최근 메세지, 상대방 닉네임, 날짜-->
 		<c:forEach var="otherInfo" items="${otherInfo}">
-		<div id="messageBox">
+		<div class="messageBox" ondblclick="location.href='${path}/member/myPage/message?myUsid=${loginMember.usid}&otherUsid=${otherInfo.otherUsid}'">
 				<div>
-					<c:out value="${otherInfo.otherProfilePic}"/>
+					<img src="<c:out value="${path}/resources/profile_images/${otherInfo.otherProfilePic}"/>" alt="">
 				</div>
 				<div>
 					<c:out value="${otherInfo.otherNick}"/>
@@ -30,14 +62,26 @@
 	</div>
 </section>
 <script>
-	//클릭 했을때 약간 회색 되도록
-	$("#messageBox").click(function(){
-		$("#messageBox").css({"backgound-color":"#D3D3D3"});
-	});
-	//더블클릭 했을 때 이동하도록
-	$("#messageBox").dbclick(function(){
-
-	});
+// 	$("#newNick").keyup(e=>{
+// 		$.ajax({
+// 			url:"${path}/member/searchMemberByNick",
+// 			data:{"nick":$(e.target).val()},
+// 			type:"post",
+// 			dataType:"json",
+// 			success:function(data){
+// 				if(data.length>0){
+// 					let container=$("<div/>");
+// 					$.each(data,function(i,v){
+// 						let div=$("<div/>");
+// 						let otherProfilePic=$("<img>").attr("src","${path}/resources/profile_images/"+v['profilePic']);
+// 						div.append(otherProfilePic);
+// 						container.append(div);
+// 					})
+// 					$("#searchResult").html(container);
+// 				}
+// 			}
+// 		})
+// 	})
 </script>
 <jsp:include page="/WEB-INF/views/common/footer.jsp"/>
 
