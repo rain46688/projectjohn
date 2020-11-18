@@ -9,6 +9,7 @@ import org.springframework.stereotype.Repository;
 import com.kh.john.board.model.vo.Board;
 import com.kh.john.board.model.vo.BoardFile;
 import com.kh.john.board.model.vo.Comment;
+import com.kh.john.board.model.vo.Subscribe;
 
 @Repository
 public class BoardDaoImpl implements BoardDao{
@@ -53,5 +54,11 @@ public class BoardDaoImpl implements BoardDao{
 	public List<Board> boardSelectCate(SqlSession session, String boardTitle) {
 		// TODO Auto-generated method stub
 		return session.selectList("board.boardSelectCate", boardTitle);
+	}
+	
+	@Override
+	public List<Subscribe> boardSubList(SqlSession session, int usid) {
+		// TODO Auto-generated method stub
+		return session.selectList("board.boardSubList", usid);
 	}
 }

@@ -28,6 +28,11 @@
 		<result property="comEnrollDate" column="com_enroll_date"/>
 	</resultMap>
 	
+	<resultMap type="subscribe" id="subscribeMap">
+		<result property="subMemUsid" column="sub_mem_usid"/>
+		<result property="subCategory" column="sub_category"/>
+	</resultMap>
+	
 	<select id="boardList" resultMap="boardMap">
 		SELECT * FROM BOARD
 	</select>
@@ -60,5 +65,9 @@
 	
 	<select id="boardSelectCate" parameterType="string" resultMap="boardMap">
 		SELECT * FROM BOARD WHERE SMALL_CATEGORY = #{boardTitle}
+	</select>
+	
+	<select id="boardSubList" parameterType="_int" resultMap="subscribeMap">
+		SELECT * FROM SUBSCRIBE WHERE SUB_MEM_USID = #{usid}
 	</select>
 </mapper>
