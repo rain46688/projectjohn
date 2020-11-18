@@ -8,6 +8,7 @@ import org.apache.ibatis.session.SqlSession;
 import com.kh.john.board.model.vo.Board;
 import com.kh.john.board.model.vo.BoardFile;
 import com.kh.john.board.model.vo.Comment;
+import com.kh.john.board.model.vo.Subscribe;
 
 
 public interface BoardDao {
@@ -18,4 +19,5 @@ public interface BoardDao {
 	Board boardSelectOne(SqlSession session, int boardNo);
 	List<Comment> commentSelectList(SqlSession session, int currBoardNo);
 	int boardCommentInsert(SqlSession session, Map param);
+	List<Subscribe> boardSubList(SqlSession session, int usid);
 }

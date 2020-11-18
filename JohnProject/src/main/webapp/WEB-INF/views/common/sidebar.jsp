@@ -29,7 +29,7 @@
 	}
 	
 	#container_logo {
-		border:1px solid red;
+		/* border:1px solid red; */
 	}
 	
 	#menu {

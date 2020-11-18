@@ -12,6 +12,7 @@ import com.kh.john.board.model.dao.BoardDao;
 import com.kh.john.board.model.vo.Board;
 import com.kh.john.board.model.vo.BoardFile;
 import com.kh.john.board.model.vo.Comment;
+import com.kh.john.board.model.vo.Subscribe;
 
 @Service
 public class BoardServiceImpl implements BoardService {
@@ -68,5 +69,11 @@ public class BoardServiceImpl implements BoardService {
 	public List<Board> boardSelectCate(String boardTitle) {
 		// TODO Auto-generated method stub
 		return dao.boardSelectCate(session, boardTitle);
+	}
+	
+	@Override
+	public List<Subscribe> boardSubList(int usid) {
+		// TODO Auto-generated method stub
+		return dao.boardSubList(session, usid);
 	}
 }
