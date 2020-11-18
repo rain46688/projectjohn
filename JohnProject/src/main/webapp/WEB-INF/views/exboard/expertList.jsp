@@ -38,11 +38,11 @@ html, body, div, span, applet, object, iframe, h1, h2, h3, h4, h5, h6, p, blockq
 }
 
 #upDiv *{
-	/* border: 1px solid red; */
+	border: 1px solid red; 
 }
 
 #downDiv *{
-	/* border: 1px solid red; */
+	border: 1px solid red;
 }
 
 
@@ -337,6 +337,118 @@ h2 {
 							</div>
 					</li>
 						<!-- =========== -->
+								<!-- =========== -->
+					<li class="splide__slide">
+							<div class="card-body">
+								<img class="expertimg" alt="전문가" src="${path }/resources/images/expert.png">
+								<div class="exRight"><div class="exName">최민수</div><div class="exRating">
+								평점 : 
+								<span class="fa fa-star checked"></span>
+								<span class="fa fa-star checked"></span>
+								<span class="fa fa-star checked"></span>
+								<span class="fa fa-star"></span>
+								<span class="fa fa-star"></span>
+								</div><button type="button" class="btn btn-outline-primary">상담 신청</button></div>
+								<div class="exBottm">분야~~~분야~~~분야~~~분야~~~분야~~~분야~~~분야~~~분야~~~분야~~~분야~~~분야~~~분야~~~분야~~~분야~~~분야~~~분야~~~분야~~~분야~~~분야~~~분야~~~분야~~~분야~~~분야~~~분야~~~분야~~~분야~~~분야~~~분야~~~분야~~~분야~~~분야~~~분야~~~분야~~~분야~~~분야~~~분야~~~분야~~~분야~~~분야~~~분야~~~분야~~~분야~~~분야~~~분야~~~분야~~~분야~~~분야~~~분야~~~분야~~~분야~~~</div>
+							</div>
+					</li>
+						<!-- =========== -->
+								<!-- =========== -->
+					<li class="splide__slide">
+							<div class="card-body">
+								<img class="expertimg" alt="전문가" src="${path }/resources/images/expert.png">
+								<div class="exRight"><div class="exName">최민수</div><div class="exRating">
+								평점 : 
+								<span class="fa fa-star checked"></span>
+								<span class="fa fa-star checked"></span>
+								<span class="fa fa-star checked"></span>
+								<span class="fa fa-star"></span>
+								<span class="fa fa-star"></span>
+								</div><button type="button" class="btn btn-outline-primary">상담 신청</button></div>
+								<div class="exBottm">분야~~~분야~~~분야~~~분야~~~분야~~~분야~~~분야~~~분야~~~분야~~~분야~~~분야~~~분야~~~분야~~~분야~~~분야~~~분야~~~분야~~~분야~~~분야~~~분야~~~분야~~~분야~~~분야~~~분야~~~분야~~~분야~~~분야~~~분야~~~분야~~~분야~~~분야~~~분야~~~분야~~~분야~~~분야~~~분야~~~분야~~~분야~~~분야~~~분야~~~분야~~~분야~~~분야~~~분야~~~분야~~~분야~~~분야~~~분야~~~분야~~~분야~~~</div>
+							</div>
+					</li>
+						<!-- =========== -->
+								<!-- =========== -->
+					<li class="splide__slide">
+							<div class="card-body">
+								<img class="expertimg" alt="전문가" src="${path }/resources/images/expert.png">
+								<div class="exRight"><div class="exName">최민수</div><div class="exRating">
+								평점 : 
+								<span class="fa fa-star checked"></span>
+								<span class="fa fa-star checked"></span>
+								<span class="fa fa-star checked"></span>
+								<span class="fa fa-star"></span>
+								<span class="fa fa-star"></span>
+								</div><button type="button" class="btn btn-outline-primary">상담 신청</button></div>
+								<div class="exBottm">분야~~~분야~~~분야~~~분야~~~분야~~~분야~~~분야~~~분야~~~분야~~~분야~~~분야~~~분야~~~분야~~~분야~~~분야~~~분야~~~분야~~~분야~~~분야~~~분야~~~분야~~~분야~~~분야~~~분야~~~분야~~~분야~~~분야~~~분야~~~분야~~~분야~~~분야~~~분야~~~분야~~~분야~~~분야~~~분야~~~분야~~~분야~~~분야~~~분야~~~분야~~~분야~~~분야~~~분야~~~분야~~~분야~~~분야~~~분야~~~분야~~~분야~~~</div>
+							</div>
+					</li>
+						<!-- =========== -->
+								<!-- =========== -->
+					<li class="splide__slide">
+							<div class="card-body">
+								<img class="expertimg" alt="전문가" src="${path }/resources/images/expert.png">
+								<div class="exRight"><div class="exName">최민수</div><div class="exRating">
+								평점 : 
+								<span class="fa fa-star checked"></span>
+								<span class="fa fa-star checked"></span>
+								<span class="fa fa-star checked"></span>
+								<span class="fa fa-star"></span>
+								<span class="fa fa-star"></span>
+								</div><button type="button" class="btn btn-outline-primary">상담 신청</button></div>
+								<div class="exBottm">분야~~~분야~~~분야~~~분야~~~분야~~~분야~~~분야~~~분야~~~분야~~~분야~~~분야~~~분야~~~분야~~~분야~~~분야~~~분야~~~분야~~~분야~~~분야~~~분야~~~분야~~~분야~~~분야~~~분야~~~분야~~~분야~~~분야~~~분야~~~분야~~~분야~~~분야~~~분야~~~분야~~~분야~~~분야~~~분야~~~분야~~~분야~~~분야~~~분야~~~분야~~~분야~~~분야~~~분야~~~분야~~~분야~~~분야~~~분야~~~분야~~~분야~~~</div>
+							</div>
+					</li>
+						<!-- =========== -->
+								<!-- =========== -->
+					<li class="splide__slide">
+							<div class="card-body">
+								<img class="expertimg" alt="전문가" src="${path }/resources/images/expert.png">
+								<div class="exRight"><div class="exName">최민수</div><div class="exRating">
+								평점 : 
+								<span class="fa fa-star checked"></span>
+								<span class="fa fa-star checked"></span>
+								<span class="fa fa-star checked"></span>
+								<span class="fa fa-star"></span>
+								<span class="fa fa-star"></span>
+								</div><button type="button" class="btn btn-outline-primary">상담 신청</button></div>
+								<div class="exBottm">분야~~~분야~~~분야~~~분야~~~분야~~~분야~~~분야~~~분야~~~분야~~~분야~~~분야~~~분야~~~분야~~~분야~~~분야~~~분야~~~분야~~~분야~~~분야~~~분야~~~분야~~~분야~~~분야~~~분야~~~분야~~~분야~~~분야~~~분야~~~분야~~~분야~~~분야~~~분야~~~분야~~~분야~~~분야~~~분야~~~분야~~~분야~~~분야~~~분야~~~분야~~~분야~~~분야~~~분야~~~분야~~~분야~~~분야~~~분야~~~분야~~~분야~~~</div>
+							</div>
+					</li>
+						<!-- =========== -->
+								<!-- =========== -->
+					<li class="splide__slide">
+							<div class="card-body">
+								<img class="expertimg" alt="전문가" src="${path }/resources/images/expert.png">
+								<div class="exRight"><div class="exName">최민수</div><div class="exRating">
+								평점 : 
+								<span class="fa fa-star checked"></span>
+								<span class="fa fa-star checked"></span>
+								<span class="fa fa-star checked"></span>
+								<span class="fa fa-star"></span>
+								<span class="fa fa-star"></span>
+								</div><button type="button" class="btn btn-outline-primary">상담 신청</button></div>
+								<div class="exBottm">분야~~~분야~~~분야~~~분야~~~분야~~~분야~~~분야~~~분야~~~분야~~~분야~~~분야~~~분야~~~분야~~~분야~~~분야~~~분야~~~분야~~~분야~~~분야~~~분야~~~분야~~~분야~~~분야~~~분야~~~분야~~~분야~~~분야~~~분야~~~분야~~~분야~~~분야~~~분야~~~분야~~~분야~~~분야~~~분야~~~분야~~~분야~~~분야~~~분야~~~분야~~~분야~~~분야~~~분야~~~분야~~~분야~~~분야~~~분야~~~분야~~~분야~~~</div>
+							</div>
+					</li>
+						<!-- =========== -->
+								<!-- =========== -->
+					<li class="splide__slide">
+							<div class="card-body">
+								<img class="expertimg" alt="전문가" src="${path }/resources/images/expert.png">
+								<div class="exRight"><div class="exName">최민수</div><div class="exRating">
+								평점 : 
+								<span class="fa fa-star checked"></span>
+								<span class="fa fa-star checked"></span>
+								<span class="fa fa-star checked"></span>
+								<span class="fa fa-star"></span>
+								<span class="fa fa-star"></span>
+								</div><button type="button" class="btn btn-outline-primary">상담 신청</button></div>
+								<div class="exBottm">분야~~~분야~~~분야~~~분야~~~분야~~~분야~~~분야~~~분야~~~분야~~~분야~~~분야~~~분야~~~분야~~~분야~~~분야~~~분야~~~분야~~~분야~~~분야~~~분야~~~분야~~~분야~~~분야~~~분야~~~분야~~~분야~~~분야~~~분야~~~분야~~~분야~~~분야~~~분야~~~분야~~~분야~~~분야~~~분야~~~분야~~~분야~~~분야~~~분야~~~분야~~~분야~~~분야~~~분야~~~분야~~~분야~~~분야~~~분야~~~분야~~~분야~~~</div>
+							</div>
+					</li>
+						<!-- =========== -->
 						
 						
 					
@@ -372,7 +484,48 @@ h2 {
 						</div>
 						</li>
 						<!-- =========== -->
-						
+							<!-- =========== -->
+						<li class="splide__slide">
+						<div class="reviewDiv">
+						<div id="reviewDivTitle"><h1 id="reviewTitleH1">베스트 상담 후기</h1></div>
+						<div class="reviewInnerUpDiv">
+							<div class="userNickName">닉네임 : 최민수</div>
+							<div class="counselDate">날짜 : 2018-08-24</div>
+						</div>	
+							<div class="userRating">
+							평점 : 
+								<span class="fa fa-star checked"></span>
+								<span class="fa fa-star checked"></span>
+								<span class="fa fa-star checked"></span>
+								<span class="fa fa-star"></span>
+								<span class="fa fa-star"></span>
+							</div>
+							<div class="userReview">증말 좋습니다.증말 좋습니다.증말 좋습니다.증말 좋습니다.증말 좋습니다.증말 좋습니다.증말 좋습니다.증말 좋습니다.증말 좋습니다.증말 좋습니다.증말 좋습니다.증말 좋습니다.증말 좋습니다.증말 좋습니다.증말 좋습니다.증말 좋습니다.증말 좋습니다.증말 좋습니다.증말 좋습니다.
+							증말 좋습니다.증말 좋습니다.증말 좋습니다.증말 좋습니다.증말 좋습니다.증말 좋습니다.증말 좋습니다.증말 좋습니다.증말 좋습니다.증말 좋습니다.증말 좋습니다.</div>
+						</div>
+						</li>
+						<!-- =========== -->
+							<!-- =========== -->
+						<li class="splide__slide">
+						<div class="reviewDiv">
+						<div id="reviewDivTitle"><h1 id="reviewTitleH1">베스트 상담 후기</h1></div>
+						<div class="reviewInnerUpDiv">
+							<div class="userNickName">닉네임 : 최민수</div>
+							<div class="counselDate">날짜 : 2018-08-24</div>
+						</div>	
+							<div class="userRating">
+							평점 : 
+								<span class="fa fa-star checked"></span>
+								<span class="fa fa-star checked"></span>
+								<span class="fa fa-star checked"></span>
+								<span class="fa fa-star"></span>
+								<span class="fa fa-star"></span>
+							</div>
+							<div class="userReview">증말 좋습니다.증말 좋습니다.증말 좋습니다.증말 좋습니다.증말 좋습니다.증말 좋습니다.증말 좋습니다.증말 좋습니다.증말 좋습니다.증말 좋습니다.증말 좋습니다.증말 좋습니다.증말 좋습니다.증말 좋습니다.증말 좋습니다.증말 좋습니다.증말 좋습니다.증말 좋습니다.증말 좋습니다.
+							증말 좋습니다.증말 좋습니다.증말 좋습니다.증말 좋습니다.증말 좋습니다.증말 좋습니다.증말 좋습니다.증말 좋습니다.증말 좋습니다.증말 좋습니다.증말 좋습니다.</div>
+						</div>
+						</li>
+						<!-- =========== -->
 						
 						
 					</ul>
