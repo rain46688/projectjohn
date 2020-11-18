@@ -11,6 +11,9 @@
 	<section id="content">
 		<div>
 			<div>
+				상담 날짜
+			</div>
+			<div>
 				상담사 닉네임
 			</div>
 			<div>
@@ -23,10 +26,23 @@
 				상담 후기
 			</div>
 			<div>
-				<c:forEach var="expertBoardList" items="${expertBoardList}">
+				<!-- <c:forEach var="expertBoardList" items="${expertBoardList}">
 					<div>
+						<c:out value="${expertBoardList.expertBoardDate}"/>
 					</div>
-				</c:forEach>
+					<div>
+						<c:out value="${expertBoardList.expertBoardExNick}"/>
+					</div>
+					<div>
+						<c:out value="${expertBoardList.expertBoardAdviceResult}"/>
+					</div>
+					<div>
+						<c:out value="${expertBoardList.expertBoardRating}"/>
+					</div>
+					<div>
+						<c:out value="${expertBoardList.expertBoardReview}"/>
+					</div>
+				</c:forEach> -->
 			</div>
 		</div>
 	</section>
