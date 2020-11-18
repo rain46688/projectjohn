@@ -99,6 +99,10 @@ textarea:focus {
 	outline: none;
 }
 
+textarea {
+    resize: none;
+}
+
 /* 드래그 드롭용 div 영역 */
 #dragImg {
 	width: 100%;
@@ -145,10 +149,21 @@ textarea:focus {
 	padding-right:1%;
 }
 
-/* 왼쪽 버튼 영역 div */
-#buttonDiv>button{
+/* 전문가 버튼 영역 div */
+#buttonDiv>.exBtn{
 	display:inline-block;
 	width:48%;
+	height:100%;
+	border-radius: 8px;
+	/* box-shadow: 8px 8px 8px rgba(0, 0, 0, 0.8); */
+	 font-size:30px;
+	font-weight: bold; 
+}
+
+/* 유저 버튼 영역 div */
+#buttonDiv>.memBtn{
+	display:inline-block;
+	width:32%;
 	height:100%;
 	border-radius: 8px;
 
@@ -157,7 +172,7 @@ textarea:focus {
 	font-weight: bold; 
 }
 
-/* 오른쪽 이미지 영역 div */
+/* 이미지 영역 div */
 #imgDiv {
 	/* border: 25px solid rgba(5, 19, 92, 0.96); */
 
@@ -175,6 +190,7 @@ textarea:focus {
 	/* padding:2%; */
 	overflow-x: hidden;
 	-ms-overflow-style: none;
+	padding-top:2%;
 }
 
 #imgDiv>p{
@@ -186,13 +202,14 @@ textarea:focus {
 
 .upload{
 	width:10%;
-	height:80%;
+	height:100%;
 	margin:1%;
 }
 
 </style>
 
 <div id="content">
+
 	<div id="upDiv">
 		<div id="videoDiv">
 			<video id="video2" autoplay playsinline controls preload="metadata"></video>
@@ -213,11 +230,23 @@ textarea:focus {
 	<div id="imgDiv"><p>왼쪽 상단 박스에 드래그하여 이미지를 전송 후  이 박스에 표시되며 클릭하여 이미지를 확대할수있습니다.</p></div>
 		<div id="buttonDiv">
 			<c:if test="${loginMember.memClass == '전문가'}">
-				<button type="button" class="btn btn-outline-success my-2 my-sm-0" onclick='counselEnd();'>상담 완료</button>
-				<button type="button" class="btn btn-outline-success my-2 my-sm-0" onclick='counselEnd();'>회원 정보 보기</button>
+				<c:if test="${eb.expertBoardMemberend == 1}">
+				<button type="button" class="exBtn btn btn-outline-success my-2 my-sm-0" onclick='counselEnd();'>상담 완료</button>
+				</c:if>
+				<c:if test="${eb.expertBoardMemberend == 0}">
+				<button type="button" class="exBtn btn btn-outline-danger my-2 my-sm-0" onclick="alert('상담 받는 유저가 고민 해결 버튼을 클릭 후\n상담 종료가 가능합니다.');">상담 진행중</button>
+				</c:if>
+				<button type="button" class="exBtn btn btn-outline-success my-2 my-sm-0" onclick='memInfoView();'>회원 정보</button>
 			</c:if>
 			<c:if test="${loginMember.memClass != '전문가'}">
-				<button type="button" class="btn btn-outline-success my-2 my-sm-0" onclick='onoff();'>카메라 조정</button>
+				<button type="button" class="memBtn btn btn-outline-success my-2 my-sm-0" onclick='onoff();'>캠 온오프</button>
+				<c:if test="${eb.expertBoardMemberend == 0}">
+				<button type="button" class="memBtn btn btn-outline-success my-2 my-sm-0" onclick='counselMemberEnd();'>고민 해결</button>
+				</c:if>
+				<c:if test="${eb.expertBoardMemberend == 1}">
+					<button type="button" class="memBtn btn btn-outline-danger my-2 my-sm-0" onclick="alert('상담사 분이 상담 완료를 누르면 상담이 정상 종료됩니다.');">상담 종료중</button>
+				</c:if>
+				<button type="button" class="memBtn btn btn-outline-success my-2 my-sm-0" onclick='memInfoView();'>상담사 정보</button>
 			</c:if>
 		</div>
 	</div>
@@ -226,7 +255,7 @@ textarea:focus {
 <script>
 
 	'use strict';
-
+	
 	//---------------------------- 드래그 파일 -------------------------------------
 
 	let uploadFiles = [];
@@ -400,7 +429,6 @@ textarea:focus {
 							"${loginMember.memNickname}", "접속",
 							"${loginMember.usid}"));
 				}
-
 			};
 
 			conn.onmessage = function(msg) {
@@ -459,6 +487,12 @@ textarea:focus {
 					console.log(" === 분기 END === ");
 					exit();
 					location.replace('${path}/');
+				}else if(content.type == 'MEMEND'){
+					console.log(" === 분기 MEMEND === ");
+					let experthtml = "";
+					experthtml += "<button type='button' class='exBtn btn btn-outline-success my-2 my-sm-0' onclick='counselEnd();'>상담 완료</button>";
+					experthtml += "<button type='button' class='exBtn btn btn-outline-success my-2 my-sm-0' onclick='memInfoView();'>회원 정보 보기</button>";
+					$("#buttonDiv").html(experthtml);
 				}
 			};
 
@@ -699,7 +733,50 @@ textarea:focus {
 				}
 			};
 	
+			//---------------------------- 회원 정보 보기 -------------------------------------
+			
+			function memInfoView(e){
+				window.open('${path}/expert/memInfo?bno=${bno}&usid=${loginMember.usid}','회원','width=800, height=700, toolbar=no, menubar=no, scrollbars=no, resizable=yes');
+			};
 	
-	
+			
+			function counselMemberEnd(){
+				
+				let result = confirm("고민 해결을 완료하시면 상담사 분이 확인 후 종료됩니다.\n한번 완료하시면 취소가 불가능합니다.");
+				
+				if(result){
+				$.ajax({
+					url : "${path}/expert/counselMemberEnd",
+					type : 'post',
+					data : {"bno":"${bno}"},
+					dataType : "json",
+					success : function(data){
+						console.log("data : "+data);
+						if(data == '1'){
+							let memhtml="";
+							memhtml += "<button type='button' class='memBtn btn btn-outline-success my-2 my-sm-0' onclick='onoff();'>캠 온오프</button>";
+							memhtml += "<button type='button' class='memBtn btn btn-outline-danger my-2 my-sm-0' onclick='alert('상담사 분이 상담 완료를 누르면 상담이 정상 종료됩니다.');'>상담 종료중</button>";
+							memhtml += "<button type='button' class='memBtn btn btn-outline-success my-2 my-sm-0' onclick='memInfoView();'>상담사 정보 보기</button>";
+							$("#buttonDiv").html(memhtml);
+							sendMessage(new ExboardMsg("MEMEND","${loginMember.memClass}", "유저 종료"));
+							console.log("성공");
+						}else{
+							
+							console.log("실패");
+						}
+					}
+				})
+				}
+				
+				
+			}
+			
+			
+			
+			
+			
+			
+			
+			
 	
 </script>

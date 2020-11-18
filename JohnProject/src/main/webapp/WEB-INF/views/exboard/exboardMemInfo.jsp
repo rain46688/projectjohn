@@ -13,7 +13,7 @@
 <section id="content">
 
 EXPERT 상담 신청한 유저 정보고기<br>
-임시 테스트 페이지
+임시 테스트 페이지<br>
 
 이메일 : ${m.memEmail }<br>
 이름 : ${m.memName }<br>
@@ -21,5 +21,6 @@ EXPERT 상담 신청한 유저 정보고기<br>
 성별 : ${m.gender }<br>
 생일 : ${m.birthday }<br>
 가입 날짜 : ${m.enrollDate }<br>
+클래스 : ${m.memClass }<br>
 
 </section>

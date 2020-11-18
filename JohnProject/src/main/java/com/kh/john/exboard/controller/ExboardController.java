@@ -30,6 +30,7 @@ import com.kh.john.exboard.model.vo.ExpertRequest;
 import com.kh.john.exboard.model.vo.SessionVo;
 import com.kh.john.member.controller.AES256Util;
 import com.kh.john.member.controller.MailHandler;
+import com.kh.john.member.model.vo.Expert;
 import com.kh.john.member.model.vo.Member;
 
 import lombok.extern.slf4j.Slf4j;
@@ -127,7 +128,7 @@ public class ExboardController {
 			Map<String, String> map = new HashMap<String, String>();
 			map.put("exusid", "" + expert.getUsid());
 			map.put("memusid", "" + mem.getUsid());
-			mv.addObject("expert", service.selectExpertMem(no));
+			mv.addObject("expert", service.selectMember(no));
 			mv.addObject("requestIsDuplicate", service.selectIsDuplicateReq(map));
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
@@ -210,11 +211,12 @@ public class ExboardController {
 	public String counselStart(HttpServletRequest req, String no, String nic, String bno,
 			RedirectAttributes redirectAttributes) {
 		log.debug("counselStart 실행");
+		log.debug("no : " + no + " nic : " + nic);
 		String context = "";
 		log.debug("bno : " + bno);
 		int result = Integer.parseInt(bno);
 		try {
-			Member m = service.selectMember(nic);
+			Member m = service.selectMember(no);
 			String email = m.getMemEmail();
 			email = aes.decrypt(email);
 			log.debug("email : " + email);
@@ -234,6 +236,10 @@ public class ExboardController {
 		}
 		log.debug("result : " + result);
 		redirectAttributes.addAttribute("bno", result);
+		/*
+		 * redirectAttributes.addAttribute("no", no);
+		 * redirectAttributes.addAttribute("nic", nic);
+		 */
 		return "redirect:/expert/expertRoom";
 	}
 
@@ -251,10 +257,11 @@ public class ExboardController {
 		ModelAndView mv = new ModelAndView("/exboard/exchatRoom");
 		Member m = (Member) session.getAttribute("loginMember");
 		SessionVo s = new SessionVo();
+		ExpertBoard eb = null;
 		log.debug("m : " + m);
 		// 해당 게시판 넘버에 맞는 유저를 판별하기 위해서 가져옴
 		try {
-			ExpertBoard eb = service.selectExpertBoard(bnum);
+			eb = service.selectExpertBoard(bnum);
 			log.debug("eb : " + eb);
 
 			// 쿼리스트링에 방넘버가 없거나 있지도 않는 방에 접근할때
@@ -299,15 +306,16 @@ public class ExboardController {
 		s.setSessionUsid(m.getUsid());
 		session.setAttribute("loginnedMember", s);
 		mv.addObject("bno", bnum);
+		mv.addObject("eb", eb);
 		return mv;
 	}
 
 	// 상담 게시판 개설
 	@RequestMapping("/expert/counselConn")
-	public String counselConnction(HttpSession session, String no, RedirectAttributes redirectAttributes) {
+	public String counselConnction(HttpSession session, String no, String nick, RedirectAttributes redirectAttributes) {
 		log.debug("counselConnction 실행");
 		Member expertmem = (Member) session.getAttribute("loginMember");
-
+		log.debug("no : " + no + " nick : " + nick);
 		int bno = 0;
 		try {
 			bno = service.selectExBoardNum(expertmem, no);
@@ -317,6 +325,10 @@ public class ExboardController {
 		}
 
 		redirectAttributes.addAttribute("bno", bno);
+		/*
+		 * redirectAttributes.addAttribute("no", no);
+		 * redirectAttributes.addAttribute("nic", nick);
+		 */
 		return "redirect:/expert/expertRoom";
 	}
 
@@ -334,18 +346,6 @@ public class ExboardController {
 		log.debug("extext : " + extext);
 		service.updateCounselResult(extext, bno);
 		return "redirect:/expert/expertRequestPrintList";
-	}
-
-	@RequestMapping(value = "/expert/exmemInfo")
-	public ModelAndView exmemInfo(String no, String nic) throws Exception {
-		log.info(" ===== exmemInfo 실행 ===== ");
-		log.debug("no : " + no + ", nic : " + nic);
-		ModelAndView mv = new ModelAndView("/exboard/exboardMemInfo");
-		Member m = service.selectMember(nic);
-		m.setMemEmail(aes.decrypt(m.getMemEmail()));
-
-		mv.addObject("m", m);
-		return mv;
 	}
 
 	@ResponseBody
@@ -391,6 +391,65 @@ public class ExboardController {
 		} catch (JsonProcessingException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
+		}
+		return result;
+	}
+
+	@RequestMapping(value = "/expert/memInfo")
+	public ModelAndView memInfo(@RequestParam(required = false) String usid, @RequestParam(required = false) String bno,
+			@RequestParam(required = false) String musid) throws Exception {
+		log.info(" ===== exmemInfo 실행 ===== ");
+		log.debug("usid : " + usid + ", bno : " + bno);
+		ModelAndView mv = new ModelAndView("/exboard/exboardMemInfo");
+
+		Member enterMem = service.selectMember(usid);
+		String searchMemUsid = null;
+		Member searchMem = null;
+		Expert ex = null;
+
+		if (bno == null || bno.equals("")) {
+			Map<String, String> bomap = new HashMap<String, String>();
+			bomap.put("musid", musid);
+			bomap.put("usid", usid);
+			log.debug("bno null");
+			bno = service.selectExBoardNumUsid(bomap);
+		}
+
+		Map<String, String> map = new HashMap<String, String>();
+		if (enterMem.getMemClass().equals("전문가")) {
+			// 일반 유저 아이디
+			map.put("expertusid", "" + enterMem.getUsid());
+			map.put("bno", bno);
+			searchMemUsid = service.selectMemExboard(map);
+			searchMem = service.selectMember(searchMemUsid);
+			searchMem.setMemEmail(aes.decrypt(searchMem.getMemEmail()));
+			mv.addObject("m", searchMem);
+		} else if (enterMem.getMemClass().equals("일반유저")) {
+			map.put("memusid", "" + enterMem.getUsid());
+			map.put("bno", bno);
+			searchMemUsid = service.selectExpertExboard(map);
+			searchMem = service.selectMember(searchMemUsid);
+			ex = service.selectExpertMem("" + searchMem.getUsid());
+			searchMem.setMemEmail(aes.decrypt(searchMem.getMemEmail()));
+			mv.addObject("m", searchMem);
+			mv.addObject("ex", ex);
+		}
+
+		return mv;
+	}
+
+	@ResponseBody
+	@RequestMapping("/expert/counselMemberEnd")
+	public String counselMemberEnd(String bno) {
+		String result = "";
+		// expertBoardMemberend의 값을 1로 바꾸기
+		try {
+			service.updateCounselMemberEnd(bno);
+			result = "1";
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			result = "0";
 		}
 		return result;
 	}

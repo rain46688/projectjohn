@@ -11,6 +11,7 @@ import com.kh.john.common.exception.RequestDuplicateException;
 import com.kh.john.exboard.model.dao.ExboardDao;
 import com.kh.john.exboard.model.vo.ExpertBoard;
 import com.kh.john.exboard.model.vo.ExpertRequest;
+import com.kh.john.member.model.vo.Expert;
 import com.kh.john.member.model.vo.Member;
 
 import lombok.extern.slf4j.Slf4j;
@@ -34,7 +35,7 @@ public class ExboardServiceImpl implements ExboardService {
 
 	// 전문가 한명 정보 가져오기
 	@Override
-	public Member selectExpertMem(String no) throws Exception {
+	public Expert selectExpertMem(String no) throws Exception {
 		// TODO Auto-generated method stub
 		return dao.selectExpertMem(session, no);
 	}
@@ -57,9 +58,9 @@ public class ExboardServiceImpl implements ExboardService {
 
 	// 닉네임으로 유저 한명 가져오기
 	@Override
-	public Member selectMember(String nick) throws Exception {
+	public Member selectMember(String no) throws Exception {
 		// TODO Auto-generated method stub
-		return dao.selectMember(session, nick);
+		return dao.selectMember(session, no);
 	}
 
 	// 같은 전문가한테 상담 중복 신청 여부 확인하기
@@ -97,6 +98,7 @@ public class ExboardServiceImpl implements ExboardService {
 		ExpertBoard exboard = new ExpertBoard();
 		exboard.setExpertBoardUsid(expertmem.getUsid());
 		exboard.setExpertBoardMemUsid(Integer.parseInt(memusid));
+		exboard.setExpertBoardExNick(expertmem.getMemNickname());
 		int result = dao.insertExpertBoard(session, exboard);
 		if (result > 0) {
 			return exboard.getExpertBoardId();
@@ -131,6 +133,30 @@ public class ExboardServiceImpl implements ExboardService {
 	public int updateCounselResult(String extext, String bno) throws Exception {
 		// TODO Auto-generated method stub
 		return dao.updateCounselResult(session, extext, bno);
+	}
+
+	@Override
+	public String selectMemExboard(Map<String, String> map) throws Exception {
+		// TODO Auto-generated method stub
+		return dao.selectMemExboard(session, map);
+	}
+
+	@Override
+	public String selectExpertExboard(Map<String, String> map) throws Exception {
+		// TODO Auto-generated method stub
+		return dao.selectExpertExboard(session, map);
+	}
+
+	@Override
+	public String selectExBoardNumUsid(Map<String, String> bomap) throws Exception {
+		// TODO Auto-generated method stub
+		return dao.selectExBoardNumUsid(session, bomap);
+	}
+
+	@Override
+	public void updateCounselMemberEnd(String bno) throws Exception {
+		// TODO Auto-generated method stub
+		dao.updateCounselMemberEnd(session, bno);
 	}
 
 }

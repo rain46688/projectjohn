@@ -131,7 +131,7 @@ h2 {
 								<button class="btn btn-outline-success" onclick="counselStart('${n.expertRequestMemUsid}','${n.expertRequestMemNick}');">상담 시작</button>
 							</c:if>
 							<c:if test="${n.startCounsel == true }">
-									<button class="btn btn-outline-success" onclick="counselConn('${n.expertRequestMemUsid}');">채팅 접속</button>
+									<button class="btn btn-outline-success" onclick="counselConn('${n.expertRequestMemUsid}','${n.expertRequestMemNick}');">채팅 접속</button>
 							</c:if>
 						</c:if> 
 							<c:if test="${n.endCounsel == true }">
@@ -140,8 +140,8 @@ h2 {
 							</c:if>
 								</div>
 					<form  name="form">				
-						<input type="hidden" name="no" value="${n.expertRequestMemUsid}"> 
-						<input type="hidden" name="nic" value="${n.expertRequestMemNick}">
+						<input type="hidden" name="usid" value="${loginMember.usid}"> 
+							<input type="hidden" name="musid" value="${n.expertRequestMemUsid}"> 
 						<div class="divCell"><button class="btn btn-outline-success" onclick="exmemInfo(this.form);">회원 정보</button></div>
 					</form>
 						</div>
@@ -191,9 +191,9 @@ h2 {
 		
 	}
 	
-	function counselConn(num){
+	function counselConn(num,nick){
 		console.log("num : "+num);
-		location.replace('${path}/expert/counselConn?no='+num);
+		location.replace('${path}/expert/counselConn?no='+num+"&nick="+nick);
 	}
 	
 	function exmemInfo(f){
@@ -202,7 +202,7 @@ h2 {
 			const cx = (window.screen.width / 2) - (x / 2);
 			const cy= (window.screen.height / 2) - (y / 2);
 
-			const url    ="${path}/expert/exmemInfo";
+			const url    ="${path}/expert/memInfo";
 			const title  = "chat";
 			const status = "toolbar=no,directories=no,scrollbars=no,resizable=no,status=no,menubar=no,width="+x+", height="+y+", top="+cy+",left="+cx;
 			pop =  window.open("", title,status);

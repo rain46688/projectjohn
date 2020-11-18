@@ -9,6 +9,7 @@ import org.springframework.stereotype.Repository;
 
 import com.kh.john.exboard.model.vo.ExpertBoard;
 import com.kh.john.exboard.model.vo.ExpertRequest;
+import com.kh.john.member.model.vo.Expert;
 import com.kh.john.member.model.vo.Member;
 
 @Repository
@@ -21,7 +22,7 @@ public class ExboardDaoImpl implements ExboardDao {
 	}
 
 	@Override
-	public Member selectExpertMem(SqlSessionTemplate session, String no) throws Exception {
+	public Expert selectExpertMem(SqlSessionTemplate session, String no) throws Exception {
 		// TODO Auto-generated method stub
 		return session.selectOne("expert.selectExpertMem", no);
 	}
@@ -33,9 +34,9 @@ public class ExboardDaoImpl implements ExboardDao {
 	}
 
 	@Override
-	public Member selectMember(SqlSessionTemplate session, String nick) throws Exception {
+	public Member selectMember(SqlSessionTemplate session, String no) throws Exception {
 		// TODO Auto-generated method stub
-		return session.selectOne("expert.selectMember", nick);
+		return session.selectOne("expert.selectMember", no);
 	}
 
 	@Override
@@ -93,6 +94,30 @@ public class ExboardDaoImpl implements ExboardDao {
 		map.put("extext", extext);
 		map.put("bno", "" + bno);
 		return session.insert("expert.updateCounselResult", map);
+	}
+
+	@Override
+	public String selectMemExboard(SqlSessionTemplate session, Map<String, String> map) throws Exception {
+		// TODO Auto-generated method stub
+		return session.selectOne("expert.selectMemExboard", map);
+	}
+
+	@Override
+	public String selectExpertExboard(SqlSessionTemplate session, Map<String, String> map) throws Exception {
+		// TODO Auto-generated method stub
+		return session.selectOne("expert.selectExpertExboard", map);
+	}
+
+	@Override
+	public String selectExBoardNumUsid(SqlSessionTemplate session, Map<String, String> bomap) throws Exception {
+		// TODO Auto-generated method stub
+		return session.selectOne("expert.selectExBoardNumUsid", bomap);
+	}
+
+	@Override
+	public void updateCounselMemberEnd(SqlSessionTemplate session, String bno) throws Exception {
+		// TODO Auto-generated method stub
+		session.update("expert.updateCounselMemberEnd", bno);
 	}
 
 }
