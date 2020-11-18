@@ -1,6 +1,7 @@
 package com.kh.john.member.model.service;
 
 import java.sql.Date;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -69,6 +70,11 @@ public class MemberServiceImpl implements MemberService {
 		return dao.selectMemberById(session, param);
 	}
 	
+	@Override
+	public Member selectMemberByUsid(Member member) {
+		return dao.selectMemberByUsid(session, member);
+	}
+
 	@Override
 	public Member nickDuplicate(Member member) {
 		return dao.nickDuplicate(session, member);
@@ -210,9 +216,11 @@ public class MemberServiceImpl implements MemberService {
 	}
 
 	@Override
-	public MemberMessage loadLatestMessage(int otherUsid) {
-		return dao.loadLatestMessage(session,otherUsid);
+	public MemberMessage loadLatestMessage(HashMap<String, Integer> usidMap) {
+		return dao.loadLatestMessage(session, usidMap);
 	}
+
+	
 
 
 

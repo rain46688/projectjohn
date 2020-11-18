@@ -1,5 +1,6 @@
 package com.kh.john.member.model.dao;
 
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -20,6 +21,8 @@ public interface MemberDao {
 
 	Member selectMemberById(SqlSessionTemplate session, Member member);
 	Member selectMemberById(SqlSessionTemplate session, Map param);
+	
+	Member selectMemberByUsid(SqlSessionTemplate session, Member member);
 
 	Member nickDuplicate(SqlSessionTemplate session, Member member);
 
@@ -72,7 +75,8 @@ public interface MemberDao {
 
 	List<Integer> secondUsid(SqlSessionTemplate session, int myUsid);
 
-	MemberMessage loadLatestMessage(SqlSessionTemplate session, int otherUsid);
+	MemberMessage loadLatestMessage(SqlSessionTemplate session, HashMap<String, Integer> usidMap);
+
 
 
 }
