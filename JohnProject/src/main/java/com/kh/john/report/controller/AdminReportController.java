@@ -45,7 +45,7 @@ public class AdminReportController {
 		mv.addObject("report",service.selectOneReport(reportId));
 		mv.addObject("reportFile",service.selectReportFile(reportId));
 		mv.setViewName("report/adminReportView");
-	
+			
 		return mv;
 	}
 	
@@ -91,6 +91,23 @@ public class AdminReportController {
 		mv.addObject("msg",msg);
 		mv.addObject("loc","/report/adminReport");
 		mv.setViewName("common/msg");
+		
+		return mv;
+	}
+	
+	//신고 게시글 답글달기
+	@RequestMapping("/report/reportAnswer")
+	public ModelAndView reportAnswer(Report r, ModelAndView mv) {
+		int result = service.insertReportAnswer(r);
+		
+		if(result>0) {
+			mv.addObject("msg","등록 완료!");
+			mv.addObject("loc", "/report/adminReport");
+			mv.setViewName("common/msg");
+		}else {
+			mv.addObject("msg", "등록 실패ㅠㅠ");
+			mv.addObject("loc", "/report/adminReport");
+		}
 		
 		return mv;
 	}

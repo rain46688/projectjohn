@@ -126,5 +126,4 @@ function updateMemberToExpert(usid){
 }
 </script>
 
-<jsp:include page="/WEB-INF/views/common/footer.jsp" />
 

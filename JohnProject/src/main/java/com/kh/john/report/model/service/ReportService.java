@@ -26,4 +26,6 @@ public interface ReportService {
 	
 	int reportWarnOut(Member m);
 	
+	int insertReportAnswer(Report r);
+	
 }

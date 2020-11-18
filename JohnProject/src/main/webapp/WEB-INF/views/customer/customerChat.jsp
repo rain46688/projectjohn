@@ -124,16 +124,17 @@
 	const adminsocket = new WebSocket("wss://localhost${path}/adminsocket");
 
 	adminsocket.onopen = function() {
+
 		console.log("onopen => signaling server 연결");
 		console.log("닉 : " + "${loginMember.memNickname}");
 		var date = new Date();
 
 		if ('${loginMember.memClass}' != '관리자') {
-			sendChat(31, '${loginMember.usid}', '안녕하세요 1:1문의입니다.', date, "",
+			sendChat(31, '${loginMember.usid}',"관리자ㄴ", date, "",
 					'${loginMember.memNickname}');
 			console.log("로긴멤버관리자ㄴ:" + '${loginMember.memClass}');
 		} else {
-			sendChat('${loginMember.usid}', 31, '답변해주세요', date, "",
+			sendChat('${loginMember.usid}', 31,"관리자ㅇ", date, "",
 					'${loginMember.memNickname}');
 			console.log("로긴멤버관리자:" + '${loginMember.memClass}');
 		}
@@ -163,18 +164,26 @@
 			});
 
 	adminsocket.onmessage = function(e) {
-		const chatMsg = JSON.parse(e.data);
+ 		const chatMsg = JSON.parse(e.data);
 
+		/* var arr = JSON.stringify(chatMsg);
+		console.log(arr); */
+		
+/* 		sendChat(31, '${loginMember.usid}',arr, date, "",
+		'${loginMember.memNickname}'); */
+		
 		var date = new Date();
 		var dateInfo = date.getHours() + ":" + date.getMinutes() + ":"
 				+ date.getSeconds();
 
-		/* if(chatMsg['adminChatContent']=='SYS1'){
+		 /* if(chatMsg['adminChatContent']=='SYS1'){
 			
 			$('#chat-container').html("<div class='chat notice'>"
-					+chatMsg['adminChatSenderNickname']+"님이 입장하였습니다</div>");
+					+chatMsg['관리자']+"님이 입장하였습니다</div>");
 			
-			console.log("chatMsg['adminChatMemUsid']"+chatMsg['adminChatMemUsid']);
+		}else{
+			$('#chat-container').html("<div class='chat notice'>"
+					+chatMsg['${loginMember.usid}']+"님이 입장하였습니다</div>");
 		} */
 
 		/*발신인 : 관리자*/
@@ -337,5 +346,5 @@
 
 
 
-<jsp:include page="/WEB-INF/views/common/footer.jsp" />
+
 

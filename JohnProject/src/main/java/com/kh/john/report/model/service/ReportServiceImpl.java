@@ -77,6 +77,11 @@ public class ReportServiceImpl implements ReportService {
 	public int reportWarnOut(Member m) {
 		return dao.reportWarnOut(session, m);
 	}
+
+	@Override
+	public int insertReportAnswer(Report r) {
+		return dao.insertReportAnswer(session, r);
+	}
 	
 	
 	
