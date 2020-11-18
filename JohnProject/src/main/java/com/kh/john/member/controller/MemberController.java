@@ -14,6 +14,7 @@ import java.util.Map;
 
 import javax.mail.MessagingException;
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -31,6 +32,8 @@ import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import com.google.gson.Gson;
+import com.google.gson.JsonIOException;
 import com.kh.john.board.model.service.BoardService;
 import com.kh.john.board.model.vo.Board;
 import com.kh.john.board.model.vo.Subscribe;
@@ -163,16 +166,18 @@ public class MemberController {
 		String msg = "";
 		String loc = "";
 		String path = "";
-		
-		
-
-		if (loginMember != null) {
-			
+		if(loginMember==null) {
+			msg = "아이디나 비밀번호를 확인해주세요.";
+			loc = "/memberLogin";
+			path = "common/msg";			
+		}else {
 			List<Subscribe> list = bService.boardSubList(loginMember.getUsid());
-			
 			m.addAttribute("subList", list);
-			
-			if (encoder.matches((String) param.get("memPwd"), loginMember.getMemPwd())) {
+			if (!encoder.matches((String) param.get("memPwd"), loginMember.getMemPwd())) {
+				msg = "아이디나 비밀번호를 확인해주세요.";
+				loc = "/memberLogin";
+				path = "common/msg";
+			} else {
 				if (session.getAttribute("bnum") != null) {
 					String bo = (String) session.getAttribute("bnum");
 					log.debug("bo : " + bo);
@@ -192,16 +197,8 @@ public class MemberController {
 						path = "/board/boardList";
 						m.addAttribute("loginMember", loginMember);						
 					}
-				}
-			} else {
-				msg = "아이디나 비밀번호를 확인해주세요.";
-				loc = "/memberLogin";
-				path = "common/msg";
+				}	
 			}
-		} else {
-			msg = "아이디나 비밀번호를 확인해주세요.";
-			loc = "/memberLogin";
-			path = "common/msg";
 		}
 		m.addAttribute("msg", msg);
 		m.addAttribute("loc", loc);
@@ -737,5 +734,21 @@ public class MemberController {
 		return mv;
 	}
 	
-	
+//	닉네임으로 멤버 여러 명 찾기(에이젝스)
+	@RequestMapping("/member/searchMemberByNick")
+	public void memberListByNick(@RequestParam("nick") String nick, HttpServletResponse response) throws JsonIOException, IOException {
+		List<Member> memberList=service.memberListByNick(nick);
+		response.setContentType("application/json;charset=UTF-8");
+		new Gson().toJson(memberList,response.getWriter());
+	}
+
+//	쪽지보낼 멤버 선택..!
+	@RequestMapping("/member/selectMessageMember")
+	public String selectMessageMember(@RequestParam("otherNick") String nick) {
+		Member member=new Member();
+		member.setMemNickname(nick);
+		member=service.nickDuplicate(member);
+		
+		return "/member/myPage/message";
+	}
 }

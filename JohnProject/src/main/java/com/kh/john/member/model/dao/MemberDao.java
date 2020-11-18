@@ -77,6 +77,8 @@ public interface MemberDao {
 
 	MemberMessage loadLatestMessage(SqlSessionTemplate session, HashMap<String, Integer> usidMap);
 
+	List<Member> memberListByNick(SqlSessionTemplate session, String nick);
+
 
 
 }

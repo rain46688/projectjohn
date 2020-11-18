@@ -11,13 +11,13 @@
 <section id="content">
 		
 </section>
-<script>
-	const memberSocket=new WebSocket("wss://localhost${path}/memberSocket");
-	memberSocket.onopen=function(){
-		console.log("memberSocket.onopen");
-		console.log("myUsid: "+"${loginMember.usid}"+" otherUsid: "+"${otherInfo.otherUsid}");
-	}
-</script>
+<!-- <script> -->
+// 	const memberSocket=new WebSocket("wss://localhost${path}/memberSocket");
+// 	memberSocket.onopen=function(){
+// 		console.log("memberSocket.onopen");
+// 		console.log("myUsid: "+"${loginMember.usid}"+" otherUsid: "+"${otherInfo.otherUsid}");
+// 	}
+<!-- </script> -->
 <jsp:include page="/WEB-INF/views/common/footer.jsp"/>
 
 

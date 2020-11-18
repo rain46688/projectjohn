@@ -220,6 +220,11 @@ public class MemberServiceImpl implements MemberService {
 		return dao.loadLatestMessage(session, usidMap);
 	}
 
+	@Override
+	public List<Member> memberListByNick(String nick) {
+		return dao.memberListByNick(session, nick);
+	}
+
 	
 
 

@@ -35,7 +35,7 @@
 					<div id="searchResult"></div>
 				</div>
 				<div class="modal-footer">
-					<button type="button" class="btn btn-primary">확인</button>
+					<button type="button" class="btn btn-primary" onclick="fn_selectMember()">확인</button>
 					<button type="button" class="btn btn-secondary" data-dismiss="modal">닫기</button>
 				</div>
 			</div>
@@ -44,7 +44,7 @@
 	<div>
 		<!--상대방 프로필 사진, 가장 최근 메세지, 상대방 닉네임, 날짜-->
 		<c:forEach var="otherInfo" items="${otherInfo}">
-		<div class="messageBox" ondblclick="location.href='${path}/member/myPage/message?myUsid=${loginMember.usid}&otherUsid=${otherInfo.otherUsid}'">
+		<div class="messageBox" onclick="location.href='${path}/member/myPage/message?usid=${loginMember.usid}&otherUsid=${otherInfo.otherUsid}'">
 				<div>
 					<img src="<c:out value="${path}/resources/profile_images/${otherInfo.otherProfilePic}"/>" alt="">
 				</div>
@@ -62,26 +62,37 @@
 	</div>
 </section>
 <script>
-// 	$("#newNick").keyup(e=>{
-// 		$.ajax({
-// 			url:"${path}/member/searchMemberByNick",
-// 			data:{"nick":$(e.target).val()},
-// 			type:"post",
-// 			dataType:"json",
-// 			success:function(data){
-// 				if(data.length>0){
-// 					let container=$("<div/>");
-// 					$.each(data,function(i,v){
-// 						let div=$("<div/>");
-// 						let otherProfilePic=$("<img>").attr("src","${path}/resources/profile_images/"+v['profilePic']);
-// 						div.append(otherProfilePic);
-// 						container.append(div);
-// 					})
-// 					$("#searchResult").html(container);
-// 				}
-// 			}
-// 		})
-// 	})
+	$("#newNick").keyup(e=>{
+		$.ajax({
+			url:"${path}/member/searchMemberByNick",
+			data:{"nick":$(e.target).val()},
+			type:"post",
+			dataType:"json",
+			success:function(data){
+				if(data.length>0){
+					let container=$("<div/>")
+					$.each(data,function(i,v){
+						let div=$("<div/>").attr("class","result");;
+						let otherProfilePic=$("<img/>").attr("src","${path}/resources/profile_images/"+v['profilePic']);
+						let otherNick=$("<div/>").html(v['memNickname']);
+						let radioBtn=$("<input/>").attr({"type":"radio","name":"selectMember","value":v['profilePic']});
+						div.append(otherProfilePic).append(otherNick);
+						container.append(div);
+					})
+					$("#searchResult").html(container);
+				}else{
+					$("#searchResult").html('');
+				}
+			}
+		})
+	})
+	function fn_selectMember(){
+		$.ajax({
+			url:"{path}/member/selectMessageMember",
+			type:"post",
+			data:{"otherNick":$("input[name='selectMember']:checked").val()},
+		})
+	};
 </script>
 <jsp:include page="/WEB-INF/views/common/footer.jsp"/>
 

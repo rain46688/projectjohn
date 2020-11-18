@@ -175,5 +175,10 @@ public class MemberDaoImpl implements MemberDao {
 		return session.selectOne("member.loadLatestMessage", usidMap);
 	}
 
+	@Override
+	public List<Member> memberListByNick(SqlSessionTemplate session, String nick) {
+		return session.selectList("member.memberListByNick", nick);
+	}
+
 
 }
