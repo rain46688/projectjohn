@@ -8,174 +8,116 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 
+
+
+
 <jsp:include page="/WEB-INF/views/common/header.jsp">
 	<jsp:param name="title" value=" " />
 </jsp:include>
 
+<script src="https://cdn.jsdelivr.net/npm/@splidejs/splide@latest/dist/js/splide.min.js"></script>
+<link rel="stylesheet" href="${path }/resources/css/splide.min.css">
+<%-- <link rel="stylesheet" href="${path }/resources/css/splide-core.min.css"> --%>
+<%-- <link rel="stylesheet" href="${path }/resources/css/splide-default.min.css"> --%>
+<%--  <link rel="stylesheet" href="${path }/resources/css/splide-sea-green.min.css">
+<%-- <link rel="stylesheet" href="${path }/resources/css/splide-skyblue.min.css"> --%>
+
 <style>
-
-/* 카드  */
-
-#expertimg {
-	width: 40%;
-	height: 50%;
+html, body, div, span, applet, object, iframe, h1, h2, h3, h4, h5, h6, p, blockquote, pre, a, abbr, acronym, address, big, cite, code, del, dfn, em,
+	ins, kbd, q, s, samp, small, strike, strong, sub, sup, tt, var, b, u, i, center, dl, dt, dd, ol, ul, li, fieldset, form, label, legend, table,
+	caption, tbody, tfoot, thead, tr, th, td, article, aside, canvas, details, embed, figure, figcaption, footer, header, hgroup, menu, nav, output, ruby,
+	section, summary, time, mark, audio, video {
+	margin: 0;
+	padding: 0;
+	border: 0;
+	font-size: 100%;
+	font: inherit;
+	vertical-align: baseline;
 }
 
-.layout-margin-8 {
-	margin: 0% 20%;
+#upDiv {
+	border: 1px solid black;
+	width: 100%;
+	height: 60%;
+	/* 	background-color:black; */
 }
 
-.card-img-top-custom {
-	width: 50%;
-	margin: 0 auto;
-}
-
-.card-title {
-	text-align: center;
-}
-
-.card-shadow {
-	-webkit-box-shadow: 0px 0px 28px 14px rgba(232, 232, 232, 1);
-	-moz-box-shadow: 0px 0px 28px 14px rgba(232, 232, 232, 1);
-	box-shadow: 0px 0px 28px 14px rgba(232, 232, 232, 1);
-}
-
-.card-deck {
+#downDiv {
+	border: 1px solid brown;
+	width: 100%;
+	height: 40%;
+	background-color: brown;
 	display: flex;
-	justify-content: space-around;
-	flex-flow: row wrap;
-	align-items: stretch;
 }
 
-.card {
-	padding: 2% 1%;
-	border: none;
-	max-width: 30%;
-	height: 450px;
-	flex-grow: 1;
+#reviewDiv {
+	background-color: red;
+	height: 100%;
+	width: 50%;
 }
 
-/* 슬라이드  */
-
-@media ( max-width : 300px) {
-	.carosel-item {
-		width: 100%;
-	}
+#categoryDiv {
+	background-color: blue;
+	height: 100%;
+	width: 50%;
 }
 
-@media ( min-width : 300px) {
-	.carosel-item {
-		width: 50%;
-	}
+/* 캐러셀 */
+
+.splide__slide>div{
+	width:500px;
+	height:400px;
+	font-size:20px;
+	border:1px solid black;
 }
 
-@media ( min-width : 500px) {
-	.carosel-item {
-		width: 33.333%;
-	}
-}
 
-@media ( min-width : 768px) {
-	.carosel-item {
-		width: 25%;
-	}
-}
-
-.carosel {
-	position: relative;
-	background-color: #000;
-}
-
-.carosel-inner {
-	white-space: nowrap;
-	overflow: hidden;
-	font-size: 0;
-}
-
-.carosel-item {
-	display: inline-block;
-}
-
-.carosel-control {
-	text-align:center;
-	position: absolute;
-	top: 50%;
-	padding: 10px;
-	box-shadow: 0 0 10px 0px rgba(0, 0, 0, 0.5);
-	transform: translateY(-50%);
-	border-radius: 20%;
-	color: rgba(180, 180, 180, 0.5);
-	font-size: 25px;
-}
-
-.carosel-control-left {
-	left: 15px;
-}
-
-.carosel-control-right {
-	right: 15px;
-}
-
-.carosel-control:active, .carosel-control:hover {
-	text-decoration: none;
-	color: rgba(0, 0, 0, 0.8);
-}
-
-.cal {
-	display: inline-block;
-}
 </style>
 
 <section id="content">
-	<br>
-	<p>임시테스트용 사이트</p>
-	<div class="carosel" id="carosel1">
-		<a class="carosel-control carosel-control-left glyphicon glyphicon-chevron-left" href="#"></a>
 
-		<div class="carosel-inner">
+	<div id="upDiv">
 	
-			<c:choose>
-				<c:when test="${fn:length(list) > 0}">
-					<c:forEach items="${list }" var="e">
-							<div class="card card-shadow text-center carosel-item">
-							<div class="card-body">
-								<img id="expertimg" alt="전문가" src="${path }/resources/images/expert.png">
-								<h4 class="card-title">${e.memName}</h4>
-								<p class="card-text">${e.memClass}</p>
-								<div class="dropdown-divider"></div>
-								<p class="card-text">
-									<small class="text-muted">평점 : 넣어야됨!</small>
-								</p>
-								<a href="${path}/expert/expertApply?no=${e.usid}&nic=${e.memNickname}">
-									<button type="button" class="btn btn-outline-primary">상담 신청</button>
-								</a>
-							</div>
-						</div>
-					</c:forEach>
-				</c:when>
-				<c:otherwise>
-					<div class="empty">등록된 전문가가 없습니다.</div>
-				</c:otherwise>
-			</c:choose>
+	<div class="splide">
+	<div class="splide__track">
+		<ul class="splide__list">
+			<li class="splide__slide"><div>Slide 01</div></li>
+			<li class="splide__slide"><div>Slide 02</div></li>
+			<li class="splide__slide"><div>Slide 03</div></li>
+		</ul>
+	</div>
+	
+	<div class="splide__progress">
+		<div class="splide__progress__bar">
 		</div>
-		<a class="carosel-control carosel-control-left glyphicon glyphicon-chevron-left" href="#">◁</a>
-		<a class="carosel-control carosel-control-right glyphicon glyphicon-chevron-right" href="#">▷</a> 
+	</div>
+</div>
+		
+		
 	</div>
 
 
+	<div id="downDiv">
+		<div id="reviewDiv"></div>
+		<div id="categoryDiv"></div>
+	</div>
+
 </section>
 
+
+
+
 <script>
-	$('.carosel-control-right').click(
-			function() {
-				$(this).blur();
-				$(this).parent().find('.carosel-item').first().insertAfter(
-						$(this).parent().find('.carosel-item').last());
-			});
-	$('.carosel-control-left').click(
-			function() {
-				$(this).blur();
-				$(this).parent().find('.carosel-item').last().insertBefore(
-						$(this).parent().find('.carosel-item').first());
-			});
+
+
+
+var splide = new Splide( '.splide' );
+let rate = 1;
+splide.on( 'autoplay:playing', function ( rate ) {
+	console.log( rate ); // 0-1
+} );
+
+splide.mount();
+
+
 </script>
