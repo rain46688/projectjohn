@@ -12,9 +12,20 @@
 		<div>
 			<div>
 				<!--상대방 프로필 사진, 가장 최근 메세지, 상대방 닉네임, 날짜-->
-				<div>
-
-				</div>
+				<c:forEach var="otherInfo" items="${otherInfo}">
+					<div>
+						<c:out value="${otherInfo.otherProfilePic}"/>
+					</div>
+					<div>
+						<c:out value="${otherInfo.otherNick}"/>
+					</div>
+					<div>
+						<c:out value="${otherInfo.latestDate}"/>
+					</div>
+					<div>
+						<c:out value="${otherInfo.latestMessage}"/>
+					</div>
+				</c:forEach>
 			</div>
 		</div>
 	</section>

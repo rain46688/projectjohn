@@ -1,5 +1,6 @@
 package com.kh.john.member.model.dao;
 
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -31,6 +32,11 @@ public class MemberDaoImpl implements MemberDao {
 	@Override
 	public Member selectMemberById(SqlSessionTemplate session, Map param) {
 		return session.selectOne("member.selectMemberById",param);
+	}
+
+	@Override
+	public Member selectMemberByUsid(SqlSessionTemplate session, Member member) {
+		return session.selectOne("member.selectMemberByUsid", member);
 	}
 
 	@Override
@@ -163,9 +169,10 @@ public class MemberDaoImpl implements MemberDao {
 		return session.selectList("member.secondUsid",usid);
 	}
 
+
 	@Override
-	public MemberMessage loadLatestMessage(SqlSessionTemplate session, int otherUsid) {
-		return session.selectOne("member.loadLatestMessage",otherUsid);
+	public MemberMessage loadLatestMessage(SqlSessionTemplate session, HashMap<String, Integer> usidMap) {
+		return session.selectOne("member.loadLatestMessage", usidMap);
 	}
 
 

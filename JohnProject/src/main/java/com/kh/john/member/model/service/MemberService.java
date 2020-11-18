@@ -1,5 +1,6 @@
 package com.kh.john.member.model.service;
 
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -25,6 +26,9 @@ public interface MemberService {
 
 	//닉네임으로 멤버 찾기
 	Member nickDuplicate(Member member);
+	
+	//usid로 멤버 찾기
+	Member selectMemberByUsid(Member member);
 
 	//폰번 중복 검사(번호로 멤버 찾기)
 	Member phoneDuplicate(Member member);
@@ -95,7 +99,7 @@ public interface MemberService {
 	List<Integer> secondUsid(int myUsid);
 
 	//최근 메세지 내역 불러오기
-	MemberMessage loadLatestMessage(int otherUsid);
+	MemberMessage loadLatestMessage(HashMap<String, Integer> usidMap);
 
 
 
