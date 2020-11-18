@@ -35,7 +35,7 @@
 					<div id="searchResult"></div>
 				</div>
 				<div class="modal-footer">
-					<button type="button" class="btn btn-primary">확인</button>
+					<button type="button" class="btn btn-primary" onclick="fn_selectMember()">확인</button>
 					<button type="button" class="btn btn-secondary" data-dismiss="modal">닫기</button>
 				</div>
 			</div>
@@ -62,26 +62,35 @@
 	</div>
 </section>
 <script>
-// 	$("#newNick").keyup(e=>{
-// 		$.ajax({
-// 			url:"${path}/member/searchMemberByNick",
-// 			data:{"nick":$(e.target).val()},
-// 			type:"post",
-// 			dataType:"json",
-// 			success:function(data){
-// 				if(data.length>0){
-// 					let container=$("<div/>");
-// 					$.each(data,function(i,v){
-// 						let div=$("<div/>");
-// 						let otherProfilePic=$("<img>").attr("src","${path}/resources/profile_images/"+v['profilePic']);
-// 						div.append(otherProfilePic);
-// 						container.append(div);
-// 					})
-// 					$("#searchResult").html(container);
-// 				}
-// 			}
-// 		})
-// 	})
+	$("#newNick").keyup(e=>{
+		$.ajax({
+			url:"${path}/member/searchMemberByNick",
+			data:{"nick":$(e.target).val()},
+			type:"post",
+			dataType:"json",
+			success:function(data){
+				if(data.length>0){
+					let container=$("<div/>")
+					$.each(data,function(i,v){
+						let div=$("<div/>").attr("class","result");;
+						let otherProfilePic=$("<img/>").attr("src","${path}/resources/profile_images/"+v['profilePic']);
+						let otherNick=$("<div/>").html(v['memNickname']);
+						let radioBtn=$("<input/>").attr({"type":"radio","name":"selectMember","value":v['profilePic']});
+						div.append(otherProfilePic).append(otherNick);
+						container.append(div);
+					})
+					$("#searchResult").html(container);
+				}
+			}
+		})
+	})
+	function fn_selectMember(){
+		$.ajax({
+			url:"{path}/member/myPage/message",
+			type:"post",
+			data:{"otherNick":$("input[name='selectMember']:checked").val()},
+		})
+	};
 </script>
 <jsp:include page="/WEB-INF/views/common/footer.jsp"/>
 
