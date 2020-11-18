@@ -45,9 +45,14 @@ public class BoardController {
 	
 	
 	@RequestMapping("/board/boardList")
-	public ModelAndView boardList(ModelAndView mv) {
+	public ModelAndView boardList(ModelAndView mv, HttpServletRequest request) {
 		//list페이지에서 subList 보내줘야함
 		
+		Member m = (Member) request.getSession().getAttribute("loginMember");
+		
+		List<Subscribe> list = service.boardSubList(m.getUsid());
+		
+		mv.addObject("subList", list);
 		
 		mv.setViewName("board/boardList");
 		return mv;
@@ -145,8 +150,8 @@ public class BoardController {
 		
 		List<Subscribe> list = service.boardSubList(m.getUsid());
 		
-		mv.addObject("loginMember", m);
 		mv.addObject("subList", list);
+		mv.addObject("loginMember", m);
 		mv.setViewName("/board/boardList");
 		
 		return mv;

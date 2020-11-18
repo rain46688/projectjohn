@@ -16,35 +16,28 @@ import javax.mail.MessagingException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
-import org.apache.tomcat.util.http.fileupload.servlet.ServletFileUpload;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.cglib.core.DefaultNamingPolicy;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RequestPart;
 import org.springframework.web.bind.annotation.SessionAttribute;
 import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.bind.support.SessionStatus;
 import org.springframework.web.multipart.MultipartFile;
-import org.springframework.web.multipart.MultipartHttpServletRequest;
-import org.springframework.web.multipart.MultipartRequest;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import com.kh.john.board.model.service.BoardService;
 import com.kh.john.board.model.vo.Board;
-import com.kh.john.common.page.PageBarFactory;
+import com.kh.john.board.model.vo.Subscribe;
 import com.kh.john.exboard.model.vo.ExpertBoard;
 import com.kh.john.member.model.service.MemberService;
 import com.kh.john.member.model.vo.License;
-import com.kh.john.member.model.vo.LikeDislike;
 import com.kh.john.member.model.vo.Member;
-import com.kh.john.member.model.vo.MemberChat;
 import com.kh.john.member.model.vo.MemberMessage;
 import com.kh.john.report.model.vo.Report;
 
@@ -57,6 +50,9 @@ public class MemberController {
 
 	@Autowired
 	private MemberService service;
+	
+	@Autowired
+	private BoardService bService;
 
 	@Autowired
 	private AES256Util aes;
@@ -167,15 +163,22 @@ public class MemberController {
 		String msg = "";
 		String loc = "";
 		String path = "";
+		
+		
 
 		if (loginMember != null) {
+			
+			List<Subscribe> list = bService.boardSubList(loginMember.getUsid());
+			
+			m.addAttribute("subList", list);
+			
 			if (encoder.matches((String) param.get("memPwd"), loginMember.getMemPwd())) {
 				if (session.getAttribute("bnum") != null) {
 					String bo = (String) session.getAttribute("bnum");
 					log.debug("bo : " + bo);
 					session.removeAttribute("bnum");
-					m.addAttribute("loginMember", loginMember);
 					
+					m.addAttribute("loginMember", loginMember);
 					redirectAttributes.addAttribute("bno", bo);
 					return "redirect:/expert/expertRoom"; 
 				} else {
