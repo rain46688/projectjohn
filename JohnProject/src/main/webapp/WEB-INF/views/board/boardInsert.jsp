@@ -1,6 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ include file="/WEB-INF/views/common/header.jsp"%>
-<script src="https://cdn.ckeditor.com/ckeditor5/23.1.0/classic/ckeditor.js"></script>
+<script src="https://cdn.ckeditor.com/4.15.1/standard-all/ckeditor.js"></script>
 <style>
 #wrapper {
     margin: 0 auto;
@@ -69,8 +69,8 @@
 	margin-top: 0.5em;
 }
 
-#textEditor {
-	height:100em;
+#maxMems {
+	display:none;
 }
 
 </style>
@@ -82,12 +82,23 @@
 		<form id="frm" action="${path }/board/boardInsertEnd" method="POST"
 			enctype="multipart/form-data">
 			<div class="input-group marginTop">
-			<select class="custom-select custom-select-sm" name="bigCategory" id="category">
+			<select class="custom-select custom-select-sm" name="bigCategory" id="boardType">
 				<option value="" >게시글 타입을 선택하세요</option>
 				<option value="일반게시판">일반게시판</option>
 				<option value="음성게시판">음성게시판</option>
 			</select>
-			<select class="custom-select custom-select-sm" name="smallCategory" id="category">
+			<select class="custom-select custom-select-sm" name="maxMems" id="maxMems">
+				<option value="" >최대 수용인원을 선택하세요</option>
+				<option value="1">1</option>
+				<option value="2">2</option>
+				<option value="3">3</option>
+				<option value="4">4</option>
+				<option value="5">5</option>
+				<option value="6">6</option>
+				<option value="7">7</option>
+				<option value="8">8</option>
+			</select>
+			<select class="custom-select custom-select-sm" name="smallCategory" id="">
 				<option value="" >큰 카테고리를 선택하세요</option>
 				<option value="연애상담">연애상담</option>
 				<option value="가족문제">가족문제</option>
@@ -96,8 +107,8 @@
 				<option value="반려견문제">반려견문제</option>
 			</select>
 			</div>
-			<select class="custom-select custom-select-sm marginTop" name="" id="category">
-				<option value="" >게시판을 선택하세요 (수정예정)</option>
+			<select class="custom-select custom-select-sm marginTop" name="" id="">
+				<option value="" >채널을 선택하세요 (수정예정)</option>
 				<option value="1">1</option>
 				<option value="2">2</option>
 				<option value="3">3</option>
@@ -128,14 +139,15 @@
 			</select> -->
 			</div>
 			<div id="textEditor" class="marginTop">
+				<textarea cols="80" id="editor1" name="editor1" rows="10" data-sample-short placeholder='내용을 입력해주세요'></textarea>
 			</div>
-			<div id="imageUpload" class="marginTop">
+			<!-- <div id="imageUpload" class="marginTop">
 				<label id="uploadBtn" class="btn btn-lg btn-outline-secondary" for="file"><p>이미지</p>업로드</label>
 				<input style="display: none;" type="file" name="upFiles" id="file" multiple="true">
 				<div id="image-prev">
-					<!-- 이미지 미리보기 -->
+					이미지 미리보기
 				</div>
-			</div>
+			</div> -->
 			<div class="input-group marginTop">	
 			<input class="form-control" type="text" name="agreeName" id="agreeName" placeholder="찬성 이름">
 			<input class="form-control" type="text" name="disagreeName" id="disagreeName" placeholder="반대 이름">
@@ -151,19 +163,27 @@
 </div>
 </div>
 <script>
+	
+	document.getElementById('boardType').addEventListener('change', function(){
+		let value = document.getElementById('boardType').value;
+		if(value=='일반게시판') {
+			document.getElementById('maxMems').style.display = 'none';
+			document.getElementById('textEditor').style.display = 'block';
+		}
+		else {
+			document.getElementById('maxMems').style.display = 'block';
+			document.getElementById('textEditor').style.display = 'none';	
+		}
+	})
+
 	function fn_submit(){
 		document.getElementById('frm').submit();
 	}
 	
-	ClassicEditor
-    .create( document.querySelector( '#textEditor' ) )
-    .catch( error => {
-        console.error( error );
-    } );
-	
-	ClassicEditor.editorConfig = function(config) {
-		config.height = '600px';
-	}
+	CKEDITOR.replace('editor1', {
+	      width: '100%',
+	      height: 400
+	});
 	
 </script>
 </body>

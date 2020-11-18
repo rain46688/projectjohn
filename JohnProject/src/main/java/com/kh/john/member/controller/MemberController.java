@@ -8,6 +8,7 @@ import java.security.NoSuchAlgorithmException;
 import java.sql.Date;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -15,35 +16,28 @@ import javax.mail.MessagingException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
-import org.apache.tomcat.util.http.fileupload.servlet.ServletFileUpload;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.cglib.core.DefaultNamingPolicy;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RequestPart;
 import org.springframework.web.bind.annotation.SessionAttribute;
 import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.bind.support.SessionStatus;
 import org.springframework.web.multipart.MultipartFile;
-import org.springframework.web.multipart.MultipartHttpServletRequest;
-import org.springframework.web.multipart.MultipartRequest;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import com.kh.john.board.model.service.BoardService;
 import com.kh.john.board.model.vo.Board;
-import com.kh.john.common.page.PageBarFactory;
+import com.kh.john.board.model.vo.Subscribe;
 import com.kh.john.exboard.model.vo.ExpertBoard;
 import com.kh.john.member.model.service.MemberService;
 import com.kh.john.member.model.vo.License;
-import com.kh.john.member.model.vo.LikeDislike;
 import com.kh.john.member.model.vo.Member;
-import com.kh.john.member.model.vo.MemberChat;
 import com.kh.john.member.model.vo.MemberMessage;
 import com.kh.john.report.model.vo.Report;
 
@@ -56,6 +50,9 @@ public class MemberController {
 
 	@Autowired
 	private MemberService service;
+	
+	@Autowired
+	private BoardService bService;
 
 	@Autowired
 	private AES256Util aes;
@@ -166,15 +163,22 @@ public class MemberController {
 		String msg = "";
 		String loc = "";
 		String path = "";
+		
+		
 
 		if (loginMember != null) {
+			
+			List<Subscribe> list = bService.boardSubList(loginMember.getUsid());
+			
+			m.addAttribute("subList", list);
+			
 			if (encoder.matches((String) param.get("memPwd"), loginMember.getMemPwd())) {
 				if (session.getAttribute("bnum") != null) {
 					String bo = (String) session.getAttribute("bnum");
 					log.debug("bo : " + bo);
 					session.removeAttribute("bnum");
-					m.addAttribute("loginMember", loginMember);
 					
+					m.addAttribute("loginMember", loginMember);
 					redirectAttributes.addAttribute("bno", bo);
 					return "redirect:/expert/expertRoom"; 
 				} else {
@@ -369,7 +373,7 @@ public class MemberController {
 
 //	마이페이지^^
 	@RequestMapping("/member/myPage")
-	private ModelAndView myPage(ModelAndView mv,@SessionAttribute("loginMember") Member loginMember) {
+	public ModelAndView myPage(ModelAndView mv,@SessionAttribute("loginMember") Member loginMember) {
 		Member member=service.selectMemberById(loginMember);
 		mv.addObject("member",member);
 		mv.setViewName("member/myPage");
@@ -378,13 +382,13 @@ public class MemberController {
 	
 //	회원정보 수정하기
 	@RequestMapping("/member/myPage/updateMemberInfo")
-	private String updateMemberInfo() {
+	public String updateMemberInfo() {
 		return "member/updateMemberInfo";
 	}
 
 //	비밀번호 변경하기
 	@RequestMapping(value="/member/myPage/updatePw", method=RequestMethod.POST)
-	private ModelAndView updatePw(ModelAndView mv, @RequestParam("crtPw") String crtPw,@RequestParam("newPw") String newPw, Member member, @SessionAttribute("loginMember") Member loginMember) {
+	public ModelAndView updatePw(ModelAndView mv, @RequestParam("crtPw") String crtPw,@RequestParam("newPw") String newPw, Member member, @SessionAttribute("loginMember") Member loginMember) {
 
 		String msg="";
 		String loc="";
@@ -419,7 +423,7 @@ public class MemberController {
 	
 //	닉네임 변경
 	@RequestMapping("/member/myPage/updateNick")
-	private ModelAndView updateNick(ModelAndView mv, Member member, @SessionAttribute("loginMember") Member loginMember) {
+	public ModelAndView updateNick(ModelAndView mv, Member member, @SessionAttribute("loginMember") Member loginMember) {
 		String msg="";
 		String loc="";
 		
@@ -516,7 +520,7 @@ public class MemberController {
 	
 //	나의 게시물 리스트
 	@RequestMapping("/member/myPage/myBoard")
-	private ModelAndView myBoard(ModelAndView mv,@SessionAttribute("loginMember") Member loginMember,
+	public ModelAndView myBoard(ModelAndView mv,@SessionAttribute("loginMember") Member loginMember,
 			@RequestParam(value ="cPage", required = false, defaultValue = "1") int cPage,
 			@RequestParam(value ="numPerPage", required = false, defaultValue = "10") int numPerPage) {
 		int usid=loginMember.getUsid();
@@ -532,7 +536,7 @@ public class MemberController {
 	
 //	내 게시물 상세
 	@RequestMapping("/member/myPage/myBoardDetail")
-	private ModelAndView myBoardDetail(ModelAndView mv, @SessionAttribute("loginMember") Member loginMember,
+	public ModelAndView myBoardDetail(ModelAndView mv, @SessionAttribute("loginMember") Member loginMember,
 			@RequestParam("boardId") int boardId, Board board) {
 		board.setWriterUsid(loginMember.getUsid());
 		board.setBoardId(boardId);
@@ -682,9 +686,9 @@ public class MemberController {
 	public ModelAndView messageList(ModelAndView mv,@SessionAttribute("loginMember") Member loginMember) {
 		int myUsid=loginMember.getUsid();
 
-		List<Integer> usidList=new ArrayList<Integer>();
-		List<Integer> firstUsid=new ArrayList<Integer>();
-		List<Integer> secondUsid=new ArrayList<Integer>();
+		List<Integer> usidList=new ArrayList<Integer>();//전체 상대방 usid
+		List<Integer> firstUsid=new ArrayList<Integer>();//발신 상대방 usid
+		List<Integer> secondUsid=new ArrayList<Integer>();//수신 상대방 usid
 		
 		firstUsid=service.firstUsid(myUsid);
 		for(int i=0; i<firstUsid.size(); i++) {
@@ -696,28 +700,40 @@ public class MemberController {
 				usidList.add(secondUsid.get(i));
 			}
 		}
+		System.out.println("usidList"+usidList);
 		
-		List<MemberMessage> otherInfo=new ArrayList<>();
-		MemberMessage mM=new MemberMessage();
-		Member member=new Member();
-		MemberChat mCfirst=new MemberChat();
-		MemberChat mCsecond=new MemberChat();
+		List<MemberMessage> otherInfo=new ArrayList<MemberMessage>();//mM들어갈 리스트
+		
 		for(int i=0; i<usidList.size(); i++) {
+			MemberMessage mM=new MemberMessage();
+			Member member=new Member();
+			HashMap<String, Integer> usidMap=new HashMap<>();//내 usid, 상대 usid 저장용
+	
 			int otherUsid=usidList.get(i);
 			mM.setOtherUsid(otherUsid);
 			
 			member.setUsid(otherUsid);
-			member=service.selectMemberById(member);
-			mM.setOtherProfilPic(member.getProfilePic());
-			mM.setFromNick(member.getMemNickname());
+			member=service.selectMemberByUsid(member);
+			mM.setOtherProfilePic(member.getProfilePic());
+			mM.setOtherNick(member.getMemNickname());
 			
-			mM=service.loadLatestMessage(otherUsid);
-			
+			usidMap.put("myUsid", myUsid);
+			usidMap.put("otherUsid", otherUsid);
+			MemberMessage mM2=service.loadLatestMessage(usidMap);
+			mM.setLatestMessage(mM2.getLatestMessage());
+			mM.setLatestDate(mM2.getLatestDate());
+			otherInfo.add(mM);
 		}
-		
-		
-		
+		mv.addObject("otherInfo",otherInfo);
 		mv.setViewName("member/messageList");
+		return mv;
+	}
+	
+//	메세지 상세
+	@RequestMapping("/member/myPage/message")
+	public ModelAndView message(ModelAndView mv,@SessionAttribute("loginMember") Member loginMember,
+			@RequestParam("otherUsid") int otherUsid) {
+		mv.setViewName("member/message");
 		return mv;
 	}
 	

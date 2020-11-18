@@ -14,6 +14,10 @@
 	SELECT * FROM MEMBER WHERE MEM_NICKNAME=#{memNickname}
 </select>
 
+<select id="selectMemberByUsid" resultMap="memberMap" parameterType="member">
+	SELECT * FROM MEMBER WHERE USID=#{usid}
+</select>
+
 <select id="selectMemberByPhone" resultMap="memberMap" parameterType="member">
 	SELECT * FROM MEMBER WHERE TEL=#{tel}
 </select>
@@ -118,19 +122,29 @@
 	SELECT MCHAT_SECOND_USID FROM MEMBER_CHAT WHERE MCHAT_FIRST_USID=#{usid} GROUP BY MCHAT_SECOND_USID
 </select>
 
-<select id="loadLatestMessage" parameterType="_int">
-	
+<select id="loadLatestMessage" parameterType="map" resultMap="mMMap">
+	SELECT ROWNUM, X.* FROM 
+		(SELECT Y.* FROM MEMBER_CHAT Y WHERE (MCHAT_FIRST_USID=#{myUsid} AND MCHAT_SECOND_USID=#{otherUsid}) 
+		OR (MCHAT_FIRST_USID=#{otherUsid} AND MCHAT_SECOND_USID=#{myUsid}) ORDER BY MCHAT_DATE DESC) X WHERE ROWNUM=1
 </select>
 
 
 
-
+<resultMap type="memberMessage" id="mMMap">
+	<id property="latestMessage" column="MCHAT_CONTENT"/>
+	<id property="latestDate" column="MCHAT_DATE"/>
+</resultMap>
 <resultMap type="exboard" id="expertBoardMap">
 	<id column="EXPERT_BOARD_ID" property="expertBoardId" />
 	<id column="EXPERT_BOARD_USID" property="expertBoardUsid" />
 	<id column="EXPERT_BOARD_MEM_USID" property="expertBoardMemUsid" />
 	<id column="EXPERT_BOARD_ADVICE_RESULT" property="expertBoardAdviceResult" />
 	<id column="EXPERT_BOARD_RATING" property="expertBoardRating" />
+	<id column="EXPERT_BOARD_REVIEW" property="expertBoardReview" />
+	<id column="EXPERT_BOARD_DATE" property="expertBoardDate" />
+	<id column="EXPERT_BOARD_EX_NICK" property="expertBoardExNick" />
+	<id column="EXPERT_BOARD_MEMBEREND" property="expertBoardMemberend" />
+	<id column="EXPERT_BOARD_EXPERTEND" property="expertBoardExpertend" />
 </resultMap>
 <resultMap type="com.kh.john.report.model.vo.Report" id="reportMap">
 	<result property="reportId" column="report_id"/>
