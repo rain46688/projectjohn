@@ -15,6 +15,8 @@
 	<jsp:param name="title" value=" " />
 </jsp:include>
 
+<!-- Add icon library -->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 <script src="https://cdn.jsdelivr.net/npm/@splidejs/splide@latest/dist/js/splide.min.js"></script>
 <link rel="stylesheet" href="${path }/resources/css/splide.min.css">
 <%-- <link rel="stylesheet" href="${path }/resources/css/splide-core.min.css"> --%>
@@ -35,15 +37,24 @@ html, body, div, span, applet, object, iframe, h1, h2, h3, h4, h5, h6, p, blockq
 	vertical-align: baseline;
 }
 
+#upDiv *{
+	/* border: 1px solid red; */
+}
+
+#downDiv *{
+	/* border: 1px solid red; */
+}
+
+
 #upDiv {
-	border: 1px solid black;
+	/* border: 1px solid black; */
 	width: 100%;
 	height: 60%;
 	/* 	background-color:black; */
 }
 
 #downDiv {
-	border: 1px solid brown;
+/* 	border: 1px solid brown; */
 	width: 100%;
 	height: 40%;
 	/* background-color: brown; */
@@ -68,7 +79,6 @@ html, body, div, span, applet, object, iframe, h1, h2, h3, h4, h5, h6, p, blockq
 }
 
 .splide__track * {
-	border: 1px solid red;
 	height: 100%;
 }
 
@@ -77,7 +87,7 @@ html, body, div, span, applet, object, iframe, h1, h2, h3, h4, h5, h6, p, blockq
 	height: 100%;
 	font-size: 20px;
 	margin: 10px;
-	border: 1px solid black;
+/* 	border: 1px solid black; */
 	display: inline-block;
 }
 
@@ -137,23 +147,25 @@ h2 {
 }
 
 /* hover styles */
-.location-listing {
+.counsel-listing {
 	position: relative;
 }
 
-.location-image {
+.counsel-image {
 	line-height: 0;
 	overflow: hidden;
+	
 }
 
-.location-image img {
+.counsel-image img {
 	filter: blur(0px);
 	transition: filter 0.3s ease-in;
 	transform: scale(1.1);
 }
 
-.location-title {
-	font-size: 1.5em;
+.counsel-title {
+	cursor: pointer;
+	font-size: 2.5em;
 	font-weight: bold;
 	text-decoration: none;
 	z-index: 1;
@@ -165,29 +177,37 @@ h2 {
 	opacity: 0;
 	transition: opacity .5s;
 	/* background: rgba(90, 0, 10, 0.4); */
-	color: white;
+	color: black;
 	/* position the text in t’ middle*/
 	display: flex;
 	align-items: center;
 	justify-content: center;
+		text-shadow: -1px 0 #BFBFBF, 0 0.5px #BFBFBF, 0.5px 0 #BFBFBF, 0 -1px #BFBFBF;
 }
 
-.location-listing:hover .location-title {
+.counsel-listing:hover .counsel-title {
 	opacity: 1;
 }
 
-.location-listing:hover .location-image img {
+.counsel-listing:hover .counsel-image img {
 	filter: blur(2px);
 }
 
 /* for touch screen devices */
 @media ( hover : none) {
-	.location-title {
+	.counsel-title {
 		opacity: 1;
 	}
-	.location-image img {
+	.counsel-image img {
 		filter: blur(2px);
 	}
+}
+
+.cImgages{
+	/* border:1px solid black; */
+	width:100%;
+	height:180px;
+
 }
 
 /* 카드  */
@@ -215,13 +235,82 @@ h2 {
 }
 
 .exBottm{
+	padding-top:6px;
 	height:50%;
+	 /* 줄 넘치면 ..으로 처리 */
+	display: -webkit-box;
+	-webkit-line-clamp: 9;
+	text-overflow: ellipsis;
+	overflow: hidden;
+	-webkit-box-orient: vertical;
 }
 
 .exRating{
 	height:30%;
 	font-size:18px;
 }
+
+/* 별 */
+
+.checked {
+  color: orange;
+}
+
+
+/* 리뷰 부분 */
+
+.reviewDiv{
+	padding:2%;
+	width:100%;
+	height:100%;
+	/* background-color: skyblue;  */
+}
+
+.reviewInnerUpDiv{
+	height:10%;
+	width:100%;
+	display:flex;
+}
+
+.userNickName{
+	height:100%;
+	width:20%;
+}
+
+.counselDate{
+	height:100%;
+	width:80%;
+}
+
+.userRating{
+	height:10%;
+}
+
+#reviewDivTitle{
+		height:20%;
+	width:100%;
+}
+
+#reviewTitleH1{
+	font-size:40px;
+	font-weight:bold;
+}
+
+.userReview{
+	height:80%;
+	width:100%;
+	font-style:italic;
+	color:gray;
+	font-size:30px;
+	 /* 줄 넘치면 ..으로 처리 */
+	display: -webkit-box;
+	-webkit-line-clamp: 6;
+	text-overflow: ellipsis;
+	overflow: hidden;
+	-webkit-box-orient: vertical;
+}
+
+
 
 
 </style>
@@ -231,17 +320,25 @@ h2 {
 		<div class="splide">
 			<div class="splide__track">
 				<ul class="splide__list">
-					
+				
+						<!-- =========== -->
 					<li class="splide__slide">
-					
 							<div class="card-body">
 								<img class="expertimg" alt="전문가" src="${path }/resources/images/expert.png">
-								<div class="exRight"><div class="exName">최민수</div><div class="exRating">신뢰도 : 우수</div><button type="button" class="btn btn-outline-primary">상담 신청</button></div>
-								<div class="exBottm">분야~~~</div>
+								<div class="exRight"><div class="exName">최민수</div><div class="exRating">
+								평점 : 
+								<span class="fa fa-star checked"></span>
+								<span class="fa fa-star checked"></span>
+								<span class="fa fa-star checked"></span>
+								<span class="fa fa-star"></span>
+								<span class="fa fa-star"></span>
+								</div><button type="button" class="btn btn-outline-primary">상담 신청</button></div>
+								<div class="exBottm">분야~~~분야~~~분야~~~분야~~~분야~~~분야~~~분야~~~분야~~~분야~~~분야~~~분야~~~분야~~~분야~~~분야~~~분야~~~분야~~~분야~~~분야~~~분야~~~분야~~~분야~~~분야~~~분야~~~분야~~~분야~~~분야~~~분야~~~분야~~~분야~~~분야~~~분야~~~분야~~~분야~~~분야~~~분야~~~분야~~~분야~~~분야~~~분야~~~분야~~~분야~~~분야~~~분야~~~분야~~~분야~~~분야~~~분야~~~분야~~~분야~~~분야~~~</div>
 							</div>
-						
 					</li>
-		
+						<!-- =========== -->
+						
+						
 					
 				</ul>
 			</div>
@@ -253,9 +350,31 @@ h2 {
 			<div class="splide2">
 				<div class="splide__track">
 					<ul class="splide__list">
-						<li class="splide__slide"><img src="${path }/resources/images/expert.png"></li>
-						<li class="splide__slide"><img src="${path }/resources/images/expert.png"></li>
-						<li class="splide__slide"><img src="${path }/resources/images/expert.png"></li>
+						
+						<!-- =========== -->
+						<li class="splide__slide">
+						<div class="reviewDiv">
+						<div id="reviewDivTitle"><h1 id="reviewTitleH1">베스트 상담 후기</h1></div>
+						<div class="reviewInnerUpDiv">
+							<div class="userNickName">닉네임 : 최민수</div>
+							<div class="counselDate">날짜 : 2018-08-24</div>
+						</div>	
+							<div class="userRating">
+							평점 : 
+								<span class="fa fa-star checked"></span>
+								<span class="fa fa-star checked"></span>
+								<span class="fa fa-star checked"></span>
+								<span class="fa fa-star"></span>
+								<span class="fa fa-star"></span>
+							</div>
+							<div class="userReview">증말 좋습니다.증말 좋습니다.증말 좋습니다.증말 좋습니다.증말 좋습니다.증말 좋습니다.증말 좋습니다.증말 좋습니다.증말 좋습니다.증말 좋습니다.증말 좋습니다.증말 좋습니다.증말 좋습니다.증말 좋습니다.증말 좋습니다.증말 좋습니다.증말 좋습니다.증말 좋습니다.증말 좋습니다.
+							증말 좋습니다.증말 좋습니다.증말 좋습니다.증말 좋습니다.증말 좋습니다.증말 좋습니다.증말 좋습니다.증말 좋습니다.증말 좋습니다.증말 좋습니다.증말 좋습니다.</div>
+						</div>
+						</li>
+						<!-- =========== -->
+						
+						
+						
 					</ul>
 				</div>
 			</div>
@@ -264,41 +383,41 @@ h2 {
 
 			<div class="child-page-listing">
 				<div class="grid-container">
-					<article id="3685" class="location-listing">
-						<a class="location-title" href="#"> San Francisco</a>
-						<div class="location-image">
-							<a href="#"> <img width="300" height="169" src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/210284/san-fransisco-768x432.jpg"
-								alt="san francisco"></a>
+					<article id="3685" class="counsel-listing">
+						<h3 class="counsel-title">직장 상담</h3>
+						<div class="counsel-image">
+							<a href="#"> <img  class="cImgages" src="${path }/resources/images/직장 상담.jpg"
+								alt="직장" ></a>
 						</div>
 					</article>
-					<article id="3688" class="location-listing">
-						<a class="location-title" href="#"> London</a>
-						<div class="location-image">
-							<a href="#"> <img width="300" height="169" src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/210284/london-768x432.jpg" alt="london"></a>
+					<article id="3688" class="counsel-listing">
+							<h3 class="counsel-title">부부 상담</h3>
+						<div class="counsel-image">
+							<a href="#"> <img class="cImgages" src="${path }/resources/images/부부 상담.jpg" alt="부부"></a>
 						</div>
 					</article>
-					<article id="3691" class="location-listing">
-						<a class="location-title" href="#"> New York</a>
-						<div class="location-image">
-							<a href="#"> <img width="300" height="169" src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/210284/new-york-768x432.jpg" alt="new york"></a>
+					<article id="3691" class="counsel-listing">
+					<h3 class="counsel-title">진로 상담</h3>
+						<div class="counsel-image">
+							<a href="#"> <img class="cImgages" src="${path }/resources/images/취업 상담.png" alt="취업"></a>
 						</div>
 					</article>
-					<article id="3694" class="location-listing">
-						<a class="location-title" href="#"> Cape Town</a>
-						<div class="location-image">
-							<a href="#"> <img width="300" height="169" src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/210284/cape-town-768x432.jpg" alt="cape town"></a>
+					<article id="3694" class="counsel-listing">
+					<h3 class="counsel-title">심리 상담</h3>
+						<div class="counsel-image">
+							<a href="#"> <img class="cImgages" src="${path }/resources/images/심리 상담.jpg" alt="심리"></a>
 						</div>
 					</article>
-					<article id="3697" class="location-listing">
-						<a class="location-title" href="#"> Beijing</a>
-						<div class="location-image">
-							<a href="#"> <img width="300" height="169" src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/210284/beijing-768x432.jpg" alt="beijing"></a>
+					<article id="3697" class="counsel-listing">
+						<h3 class="counsel-title">자녀 상담</h3>
+						<div class="counsel-image">
+							<a href="#"> <img class="cImgages" src="${path }/resources/images/자녀 갈등.png" alt="자녀"></a>
 						</div>
 					</article>
-					<article id="3700" class="location-listing">
-						<a class="location-title" href="#"> Paris</a>
-						<div class="location-image">
-							<a href="#"> <img width="300" height="169" src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/210284/paris-768x432.jpg" alt="paris">
+					<article id="3700" class="counsel-listing">
+						<h3 class="counsel-title">연애 상담</h3>
+						<div class="counsel-image">
+							<a href="#"> <img  class="cImgages" src="${path }/resources/images/연애 상담.jpg" alt="연애">
 							</a>
 						</div>
 					</article>
@@ -311,12 +430,13 @@ h2 {
 
 
 <script>
+
 	'use strict';
 
-	//MDB Lightbox Init
+/* 	//MDB Lightbox Init
 	$(function() {
 		$("#mdb-lightbox-ui").load("mdb-addons/mdb-lightbox-ui.html");
-	});
+	}); */
 
 	// 가로 슬라이드
 	new Splide('.splide', {
@@ -334,4 +454,5 @@ h2 {
 		autoplay : true,
 		type : 'loop'
 	}).mount();
+	
 </script>
