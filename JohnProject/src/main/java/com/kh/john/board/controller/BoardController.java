@@ -132,6 +132,7 @@ public class BoardController {
 		}
 		return result;
 	}
+	
 	//세션 만들기
 	@RequestMapping("board/boardSession")
 	public ModelAndView boardSession(ModelAndView mv, HttpServletRequest request) {

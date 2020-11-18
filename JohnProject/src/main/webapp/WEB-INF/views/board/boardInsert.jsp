@@ -1,15 +1,16 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ include file="/WEB-INF/views/common/header.jsp"%>
+<script src="https://cdn.ckeditor.com/ckeditor5/23.1.0/classic/ckeditor.js"></script>
 <style>
 #wrapper {
     margin: 0 auto;
-    margin-top: 3em;
+    margin-top: 2em;
     padding: 1em;
-    width: 45em;
+    width: 52.5em;
     text-align: center;
     align-items: center;
     margin-bottom: 3em;
-    border: 0.5px solid rgb(224, 224, 224);
+/*     border: 0.5px solid rgb(224, 224, 224); */
     border-radius: 1em;
     overflow: auto;
   }
@@ -68,6 +69,10 @@
 	margin-top: 0.5em;
 }
 
+#textEditor {
+	height:100em;
+}
+
 </style>
 <div id="content">
   <div id="wrapper">
@@ -123,7 +128,6 @@
 			</select> -->
 			</div>
 			<div id="textEditor" class="marginTop">
-				<textarea name="content" id="content" rows="20" cols="80" placeholder=" 내용을 입력해주세요."></textarea>
 			</div>
 			<div id="imageUpload" class="marginTop">
 				<label id="uploadBtn" class="btn btn-lg btn-outline-secondary" for="file"><p>이미지</p>업로드</label>
@@ -150,6 +154,17 @@
 	function fn_submit(){
 		document.getElementById('frm').submit();
 	}
+	
+	ClassicEditor
+    .create( document.querySelector( '#textEditor' ) )
+    .catch( error => {
+        console.error( error );
+    } );
+	
+	ClassicEditor.editorConfig = function(config) {
+		config.height = '600px';
+	}
+	
 </script>
 </body>
 </html>
