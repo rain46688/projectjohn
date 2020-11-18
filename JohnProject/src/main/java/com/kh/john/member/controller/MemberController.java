@@ -728,8 +728,14 @@ public class MemberController {
 	
 //	메세지 상세
 	@RequestMapping("/member/myPage/message")
-	public ModelAndView message(ModelAndView mv,@SessionAttribute("loginMember") Member loginMember,
+	public ModelAndView message(ModelAndView mv, @SessionAttribute("loginMember") Member loginMember,
 			@RequestParam("otherUsid") int otherUsid) {
+		Member myInfo=service.selectMemberByUsid(loginMember);
+		Member otherInfo=new Member();
+		otherInfo.setUsid(otherUsid);
+		otherInfo=service.selectMemberByUsid(otherInfo);
+		mv.addObject("myInfo",myInfo);
+		mv.addObject("otherInfo",otherInfo);
 		mv.setViewName("member/message");
 		return mv;
 	}
@@ -744,11 +750,11 @@ public class MemberController {
 
 //	쪽지보낼 멤버 선택..!
 	@RequestMapping("/member/selectMessageMember")
-	public String selectMessageMember(@RequestParam("otherNick") String nick) {
-		Member member=new Member();
-		member.setMemNickname(nick);
-		member=service.nickDuplicate(member);
-		
-		return "/member/myPage/message";
+	public void selectMessageMember(@SessionAttribute("loginMember") Member loginMember, @RequestParam("otherNick") String nick, HttpServletResponse response) throws JsonIOException, IOException {
+		Member selectedMember=new Member();
+		selectedMember.setMemNickname(nick);
+		selectedMember=service.nickDuplicate(selectedMember);
+		response.setContentType("application/json;charset=UTF-8");
+		new Gson().toJson(selectedMember,response.getWriter());
 	}
 }

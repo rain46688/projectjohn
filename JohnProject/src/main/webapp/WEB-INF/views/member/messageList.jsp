@@ -72,11 +72,11 @@
 				if(data.length>0){
 					let container=$("<div/>")
 					$.each(data,function(i,v){
-						let div=$("<div/>").attr("class","result");;
-						let otherProfilePic=$("<img/>").attr("src","${path}/resources/profile_images/"+v['profilePic']);
+						let div=$("<div/>").attr("class","result");
+						let otherProfilePic=$("<div/>").html($("<img/>").attr("src","${path}/resources/profile_images/"+v['profilePic']));
 						let otherNick=$("<div/>").html(v['memNickname']);
-						let radioBtn=$("<input/>").attr({"type":"radio","name":"selectMember","value":v['profilePic']});
-						div.append(otherProfilePic).append(otherNick);
+						let radioBtn=$("<div/>").html($("<input/>").attr({"type":"radio","name":"selectMember","value":v['memNickname']}));
+						div.append(otherProfilePic).append(otherNick).append(radioBtn);
 						container.append(div);
 					})
 					$("#searchResult").html(container);
@@ -88,9 +88,13 @@
 	})
 	function fn_selectMember(){
 		$.ajax({
-			url:"{path}/member/selectMessageMember",
+			url:"${path}/member/selectMessageMember",
 			type:"post",
-			data:{"otherNick":$("input[name='selectMember']:checked").val()},
+			data:{"otherNick":$("input[name=selectMember]").val()},
+			dataType:"json",
+			success:function(data){
+				location.href="${path}/member/myPage/message?usid=${loginMember.usid}&otherUsid="+data.usid;
+			}
 		})
 	};
 </script>
