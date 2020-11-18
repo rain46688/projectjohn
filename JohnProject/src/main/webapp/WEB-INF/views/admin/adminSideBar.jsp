@@ -70,13 +70,13 @@
 	</div>
 	<div id="menu">
 		<div>
-			<a href="${path}/admin/adminBeforeExpert">회원관리</a>
+			<a href="${path}/admin/adminMember">회원관리</a>
 		</div>
 		<div>
 			<a href="${path}/admin/adminBeforeExpert">전문가관리</a>
 		</div>
 		<div>
-			<a href="${path}/admin/adminExpertCounsel">전문가 상담관리</a>
+			<a href="${path}/admin/adminExpertCounsel0">전문가 상담관리</a>
 		</div>
 		<div>
 			<a href="${path}/admin/adminBoard">게시판관리</a>

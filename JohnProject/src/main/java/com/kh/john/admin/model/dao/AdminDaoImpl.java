@@ -122,13 +122,19 @@ public class AdminDaoImpl implements AdminDao {
 
 	@Override
 	public int updateMemberToExpertEnd(SqlSession session, Member m) {
-		return session.insert("admin.updateMemberToExpertEnd",m);
+		return session.update("admin.updateMemberToExpertEnd",m);
 	}
 
 	@Override
 	public List<ExpertRequest> selectAdminExpertCounsel(SqlSessionTemplate session,int cPage,
 			int numPerPage) {
 		return session.selectList("admin.selectAdminExpertCounsel",new RowBounds((cPage-1)*numPerPage, numPerPage));
+	}
+	
+	@Override
+	public List<ExpertRequest> selectAdminExpertCounsel2(SqlSessionTemplate session,int cPage,
+			int numPerPage) {
+		return session.selectList("admin.selectAdminExpertCounsel2",new RowBounds((cPage-1)*numPerPage, numPerPage));
 	}
 
 	@Override
@@ -176,13 +182,20 @@ public class AdminDaoImpl implements AdminDao {
 
 	@Override
 	public int noticeModifyEnd(SqlSessionTemplate session, Notice n) {
-		return session.insert("admin.noticeModifyEnd",n);
+		return session.update("admin.noticeModifyEnd",n);
 	}
+	
+	@Override
+	public int noticeModifyFile(SqlSession session, NoticeFile file) {
+		return session.update("admin.noticeModifyFile",file);
+	}
+
 
 	@Override
 	public int deleteNotice(SqlSessionTemplate session, Notice n) {
 		return session.delete("admin.deleteNotice",n);
 	}
+	
 	
 	
 	//1:1 문의관련
@@ -206,6 +219,8 @@ public class AdminDaoImpl implements AdminDao {
 	public List<AdminChat> selectAdminInChat(SqlSessionTemplate session, int AdminUsid) {
 		return session.selectList("admin.selectAdminInChat",AdminUsid);
 	}
+
+
 
 	
 	

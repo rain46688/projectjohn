@@ -12,6 +12,42 @@
 </jsp:include>
 	
 	<section id="content">
+	      	
+	<div id="search-container">
+		<form action="${path }/admin/adminMemberSearch" method="post">
+		
+			<select name="searchType" required>
+				<option value=" " disabled selected>검색타입</option> 
+				
+				<option value="mem_name" <c:if test="${param.searchType eq 'mem_name'}">selected</c:if>>이름</option>
+				<option value="mem_email" <c:if test="${param.searchType eq 'mem_email'}">selected</c:if>>이메일</option>
+				<option value="mem_nickname" ${param.searchType eq 'mem_nickname'?"selected":"" }>닉네임</option>	
+										
+			</select>
+			
+			<input type="search" name="keyword"
+			value="${param.keyword }"/> 
+			
+			<br>
+			
+			<label>성별</label>
+			<label><input type="radio" name="gender" value='M'>남</label>
+			<label><input type="radio" name="gender" value='F'>여</label>
+			
+			<br>
+			
+			<input type="checkbox" name="leaveMem" value="0">현재 회원
+			<input type="checkbox" name="leaveMem" value="1">탈퇴한 회원
+
+			<br>
+			
+			<input type="checkbox" name="memClass" value="일반유저">일반유저
+			<input type="checkbox" name="memClass" value="전문가">전문가
+						
+			<input type="submit" value="검색">
+		</form>
+	</div>
+	
 	
 	<table class="table">
 			<tr>
@@ -59,5 +95,4 @@
 	
 	</section>
 	
-<jsp:include page="/WEB-INF/views/common/footer.jsp"/>
-	
+

@@ -139,6 +139,11 @@ public class AdminServiceImpl implements AdminService{
 	public List<ExpertRequest> selectAdminExpertCounsel(int cPage, int numPerPage) {
 		return dao.selectAdminExpertCounsel(session, cPage, numPerPage);
 	}
+	
+	@Override
+	public List<ExpertRequest> selectAdminExpertCounsel2(int cPage, int numPerPage) {
+		return dao.selectAdminExpertCounsel2(session, cPage, numPerPage);
+	}
 
 	@Override
 	public int selectAdminExpertCounselCount() {
@@ -188,8 +193,19 @@ public class AdminServiceImpl implements AdminService{
 	}
 
 	@Override
-	public int noticeModifyEnd(Notice n) {
-		return dao.noticeModifyEnd(session,n);
+	public int noticeModifyEnd(Notice n,List<NoticeFile> files) throws RuntimeException {
+		int result = dao.noticeModifyEnd(session,n);
+		System.out.println("서비스"+files);
+		if(result>0) {
+//			if(!files.isEmpty()) {
+				for(NoticeFile f:files) {
+					dao.noticeModifyFile(session, f);
+					
+				}
+			//}
+		}
+		
+		return result;
 	}
 
 	@Override
@@ -220,6 +236,8 @@ public class AdminServiceImpl implements AdminService{
 	public List<AdminChat> selectAdminInChat(int adminUsid) {
 		return dao.selectAdminInChat(session, adminUsid);
 	}
+
+
 	
 	
 

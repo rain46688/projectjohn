@@ -33,7 +33,10 @@
 	    <result property="profilePic" column="profile_pic"/>
 	    <result property="tel" column="tel"/>
 	</resultMap>
-
+	<resultMap type="com.kh.john.report.model.vo.ReportFile" id="reportFileMap">
+		<result property="reportId" column="report_id"/>
+		<result property="reportFileName" column="report_file_name"/>
+	</resultMap>
 	<!-- customer -->
 	<insert id="insertReport" parameterType="report" >
 		INSERT INTO REPORT VALUES(SEQ_REPORT_NO.NEXTVAL,#{reportBoardId},#{reportWriterUsid},#{reportTargetUsid},
@@ -60,7 +63,7 @@
 		SELECT * FROM REPORT WHERE REPORT_ID=#{reportId}
 	</select>
 	
-	<select id="selectReportFile" parameterType="_int" resultType="reportFile" resultMap="reportMap">
+	<select id="selectReportFile" parameterType="_int" resultType="reportFile" resultMap="reportFileMap">
 		SELECT * FROM REPORT_FILE WHERE REPORT_ID=#{reportId}
 	</select>
 	
@@ -83,6 +86,10 @@
 		UPDATE MEMBER M SET LEAVE_MEM=1 WHERE EXISTS 
 		(SELECT REPORT_ TRATGET_USID FROM REPORT R WHERE M.USID=R.REPORT_TARGET_USID
 		AND REPORT_ISWARNING='3')
+	</update>
+	
+	<update id="insertReportAnswer" parameterType="report">
+		UPDATE REPORT SET REPORT_ANSWER=#{reportAnswer} WHERE REPORT_ID=#{reportId}
 	</update>
 	
 </mapper>
