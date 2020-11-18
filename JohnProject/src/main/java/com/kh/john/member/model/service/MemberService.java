@@ -101,6 +101,9 @@ public interface MemberService {
 	//최근 메세지 내역 불러오기
 	MemberMessage loadLatestMessage(HashMap<String, Integer> usidMap);
 
+	//닉네임으로 멤버 여러 명 찾기
+	List<Member> memberListByNick(String nick);
+
 
 
 

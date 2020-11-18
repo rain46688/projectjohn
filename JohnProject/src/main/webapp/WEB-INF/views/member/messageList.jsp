@@ -44,7 +44,7 @@
 	<div>
 		<!--상대방 프로필 사진, 가장 최근 메세지, 상대방 닉네임, 날짜-->
 		<c:forEach var="otherInfo" items="${otherInfo}">
-		<div class="messageBox" ondblclick="location.href='${path}/member/myPage/message?myUsid=${loginMember.usid}&otherUsid=${otherInfo.otherUsid}'">
+		<div class="messageBox" onclick="location.href='${path}/member/myPage/message?usid=${loginMember.usid}&otherUsid=${otherInfo.otherUsid}'">
 				<div>
 					<img src="<c:out value="${path}/resources/profile_images/${otherInfo.otherProfilePic}"/>" alt="">
 				</div>
@@ -80,13 +80,15 @@
 						container.append(div);
 					})
 					$("#searchResult").html(container);
+				}else{
+					$("#searchResult").html('');
 				}
 			}
 		})
 	})
 	function fn_selectMember(){
 		$.ajax({
-			url:"{path}/member/myPage/message",
+			url:"{path}/member/selectMessageMember",
 			type:"post",
 			data:{"otherNick":$("input[name='selectMember']:checked").val()},
 		})
