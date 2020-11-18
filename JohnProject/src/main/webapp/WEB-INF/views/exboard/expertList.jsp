@@ -81,6 +81,11 @@ html, body, div, span, applet, object, iframe, h1, h2, h3, h4, h5, h6, p, blockq
 	display: inline-block;
 }
 
+#upDiv .splide__list .splide__slide{
+	margin:1px;
+}
+
+
 /* 세로 슬라이드  */
 .splide2 {
 	width: 100%;
@@ -101,12 +106,20 @@ html, body, div, span, applet, object, iframe, h1, h2, h3, h4, h5, h6, p, blockq
 	display: none;
 }
 
-/*  */
+/* 카테고리 부분 */
 #categoryDiv {
 	padding: 20px;
 	font-family: sans-serif;
-	background: #f2f2f2;
+	/* background: #f2f2f2; */
+	overflow-x: hidden;
+	-ms-overflow-style: none;
 }
+
+/* 스크롤 바 투명하게 만들기 */
+::-webkit-scrollbar {
+	display: none;
+}
+
 
 img {
 	width: 100%; /* need to overwrite inline dimensions */
@@ -151,7 +164,7 @@ h2 {
 	left: 0;
 	opacity: 0;
 	transition: opacity .5s;
-	background: rgba(90, 0, 10, 0.4);
+	/* background: rgba(90, 0, 10, 0.4); */
 	color: white;
 	/* position the text in t’ middle*/
 	display: flex;
@@ -176,6 +189,41 @@ h2 {
 		filter: blur(2px);
 	}
 }
+
+/* 카드  */
+
+.expertimg {
+	width: 40%;
+	height: 50%;
+}
+
+
+.card-body button{
+	width:100%;
+	height:40%;
+	font-size:25px;
+}
+
+.exRight{
+	display:inline-block;
+	height:50%;
+	width:50%;
+}
+
+.exName{
+	height:30%;
+}
+
+.exBottm{
+	height:50%;
+}
+
+.exRating{
+	height:30%;
+	font-size:18px;
+}
+
+
 </style>
 
 <section id="content">
@@ -183,30 +231,18 @@ h2 {
 		<div class="splide">
 			<div class="splide__track">
 				<ul class="splide__list">
+					
 					<li class="splide__slide">
-						<div>Slide 01</div>
+					
+							<div class="card-body">
+								<img class="expertimg" alt="전문가" src="${path }/resources/images/expert.png">
+								<div class="exRight"><div class="exName">최민수</div><div class="exRating">신뢰도 : 우수</div><button type="button" class="btn btn-outline-primary">상담 신청</button></div>
+								<div class="exBottm">분야~~~</div>
+							</div>
+						
 					</li>
-					<li class="splide__slide">
-						<div>Slide 02</div>
-					</li>
-					<li class="splide__slide">
-						<div>Slide 03</div>
-					</li>
-					<li class="splide__slide">
-						<div>Slide 04</div>
-					</li>
-					<li class="splide__slide">
-						<div>Slide 05</div>
-					</li>
-					<li class="splide__slide">
-						<div>Slide 06</div>
-					</li>
-					<li class="splide__slide">
-						<div>Slide 07</div>
-					</li>
-					<li class="splide__slide">
-						<div>Slide 08</div>
-					</li>
+		
+					
 				</ul>
 			</div>
 		</div>
