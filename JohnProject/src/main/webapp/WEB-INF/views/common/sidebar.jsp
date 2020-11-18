@@ -116,34 +116,5 @@
 			<img class="menuImages" src="${path}/resources/images/cate.png">
 			큰 카테고리들
 		</div>
-		<div id="cates" class="menusOnSide">
-			<img class="menuImages" src="${path}/resources/images/cate.png">
-			큰 카테고리들
-		</div>
-		<div id="cates" class="menusOnSide">
-			<img class="menuImages" src="${path}/resources/images/cate.png">
-			큰 카테고리들
-		</div>
-		<div id="cates" class="menusOnSide">
-			<img class="menuImages" src="${path}/resources/images/cate.png">
-			큰 카테고리들
-		</div>
-		<div id="cates" class="menusOnSide">
-			<img class="menuImages" src="${path}/resources/images/cate.png">
-			큰 카테고리들
-		</div>
-		<div id="cates" class="menusOnSide">
-			<img class="menuImages" src="${path}/resources/images/cate.png">
-			큰 카테고리들
-		</div>
-		<div id="cates" class="menusOnSide">
-			<img class="menuImages" src="${path}/resources/images/cate.png">
-			큰 카테고리들
-		</div>
-		<div id="cates" class="menusOnSide">
-			<img class="menuImages" src="${path}/resources/images/cate.png">
-			큰 카테고리들
-		</div>
-		
 	</div>
 </div>
