@@ -27,7 +27,7 @@ label, input {
 	<p>USID : ${loginMember.usid}</p>
 	<p>패스 : ${pageContext.request.requestURI}</p>
 	<br>
-	<button class="btn btn-outline-success" onclick="location.href='${path}/expert/expertPrintList'">유저가 전문가 리스트 보기</button>
+	<button class="btn btn-outline-success" onclick="location.href='${path}/expert/expertPrintList?ca=직장 상담'">유저가 전문가 리스트 보기</button>
 	<c:if test="${loginMember.memClass == '전문가'}">
 		<button class="btn btn-outline-success" onclick="location.href='${path}/expert/expertRequestPrintList'">전문가가 상담할 유저 리스트 보기</button>
 	</c:if>

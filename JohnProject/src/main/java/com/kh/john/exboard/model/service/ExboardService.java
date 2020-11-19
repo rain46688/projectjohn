@@ -6,6 +6,7 @@ import java.util.Map;
 import com.kh.john.exboard.model.vo.ExpertBoard;
 import com.kh.john.exboard.model.vo.ExpertRequest;
 import com.kh.john.member.model.vo.Expert;
+import com.kh.john.member.model.vo.License;
 import com.kh.john.member.model.vo.Member;
 
 public interface ExboardService {
@@ -43,5 +44,7 @@ public interface ExboardService {
 	void updateCounselMemberEnd(String bno) throws Exception;
 
 	List<ExpertBoard> selectExboardListCategory(String ca) throws Exception;
+
+	List<License> selectExpertLicense(String no) throws Exception;
 
 }

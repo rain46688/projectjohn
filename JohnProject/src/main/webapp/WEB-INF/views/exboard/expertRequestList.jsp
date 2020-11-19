@@ -115,11 +115,10 @@ h2 {
 				<div class="divCell">정보 보기</div>
 			</div>
 
-
 			<c:choose>
 				<c:when test="${fn:length(list) > 0}">
 					<c:forEach items="${list }" var="n">
-						<div class="divRow shadow p-3 mb-5 bg-white rounded" ><!-- style="cursor: pointer"  -->
+						<div class="divRow shadow p-3 mb-5 bg-white rounded" >
 							<div class="divCell">${n.expertRequestMemNick}</div>
 							<div class="divCell">${n.expertDate}</div>
 								<div class="divCell">${n.expertCounselTime}</div>

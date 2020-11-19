@@ -134,7 +134,12 @@ public class ExboardController {
 			Map<String, String> map = new HashMap<String, String>();
 			map.put("exusid", "" + expert.getUsid());
 			map.put("memusid", "" + mem.getUsid());
-			mv.addObject("expert", service.selectMember(no));
+			Member mm = service.selectMember(no);
+			mm.setMemEmail(aes.decrypt(mm.getMemEmail()));
+			mm.setTel(aes.decrypt(mm.getTel()));
+			mv.addObject("mem", mm);
+			mv.addObject("expert", service.selectExpertMem(no));
+			mv.addObject("license", service.selectExpertLicense(no));
 			mv.addObject("requestIsDuplicate", service.selectIsDuplicateReq(map));
 		} catch (Exception e) {
 			// TODO Auto-generated catch block

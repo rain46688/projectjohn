@@ -8,174 +8,210 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 
-<jsp:include page="/WEB-INF/views/common/header.jsp">
-	<jsp:param name="title" value=" " />
-</jsp:include>
 
 <style>
-
-/* 카드  */
-
-#expertimg {
-	width: 40%;
-	height: 50%;
+html, body, div, span, applet, object, iframe, h1, h2, h3, h4, h5, h6, p, blockquote, pre, a, abbr, acronym, address, big, cite, code, del, dfn, em,
+	ins, kbd, q, s, samp, small, strike, strong, sub, sup, tt, var, b, u, i, center, dl, dt, dd, ol, ul, li, fieldset, form, label, legend, table,
+	caption, tbody, tfoot, thead, tr, th, td, article, aside, canvas, details, embed, figure, figcaption, footer, header, hgroup, menu, nav, output, ruby,
+	section, summary, time, mark, audio, video {
+	margin: 0;
+	padding: 0;
+	border: 0;
+	font-size: 100%;
+	font: inherit;
+	vertical-align: baseline;
 }
 
-.layout-margin-8 {
-	margin: 0% 20%;
+body * {
+	border: 1px solid red;
 }
 
-.card-img-top-custom {
-	width: 50%;
-	margin: 0 auto;
+#exapplyTextArea {
+	width:100%;
+	height:20vh;
 }
 
-.card-title {
-	text-align: center;
+/* 위 텍스트 영역 눌르면 옆에 테두리 생기는거 지우는 용도 */
+textarea:focus {
+	outline: none;
 }
 
-.card-shadow {
-	-webkit-box-shadow: 0px 0px 28px 14px rgba(232, 232, 232, 1);
-	-moz-box-shadow: 0px 0px 28px 14px rgba(232, 232, 232, 1);
-	box-shadow: 0px 0px 28px 14px rgba(232, 232, 232, 1);
+textarea {
+    resize: none;
 }
 
-.card-deck {
-	display: flex;
-	justify-content: space-around;
-	flex-flow: row wrap;
-	align-items: stretch;
+#exbtn{
+	display:flex;
+	justify-content:center;
 }
 
-.card {
-	padding: 2% 1%;
-	border: none;
-	max-width: 30%;
-	height: 450px;
-	flex-grow: 1;
-}
-
-/* 슬라이드  */
-
-@media ( max-width : 300px) {
-	.carosel-item {
-		width: 100%;
-	}
-}
-
-@media ( min-width : 300px) {
-	.carosel-item {
-		width: 50%;
-	}
-}
-
-@media ( min-width : 500px) {
-	.carosel-item {
-		width: 33.333%;
-	}
-}
-
-@media ( min-width : 768px) {
-	.carosel-item {
-		width: 25%;
-	}
-}
-
-.carosel {
-	position: relative;
-	background-color: #000;
-}
-
-.carosel-inner {
-	white-space: nowrap;
-	overflow: hidden;
-	font-size: 0;
-}
-
-.carosel-item {
-	display: inline-block;
-}
-
-.carosel-control {
-	text-align:center;
-	position: absolute;
-	top: 50%;
-	padding: 10px;
-	box-shadow: 0 0 10px 0px rgba(0, 0, 0, 0.5);
-	transform: translateY(-50%);
-	border-radius: 20%;
-	color: rgba(180, 180, 180, 0.5);
-	font-size: 25px;
-}
-
-.carosel-control-left {
-	left: 15px;
-}
-
-.carosel-control-right {
-	right: 15px;
-}
-
-.carosel-control:active, .carosel-control:hover {
-	text-decoration: none;
-	color: rgba(0, 0, 0, 0.8);
-}
-
-.cal {
-	display: inline-block;
-}
 </style>
 
-<section id="content">
-	<br>
-	<p>임시테스트용 사이트</p>
-	<div class="carosel" id="carosel1">
-		<a class="carosel-control carosel-control-left glyphicon glyphicon-chevron-left" href="#"></a>
-
-		<div class="carosel-inner">
-	
-			<c:choose>
-				<c:when test="${fn:length(list) > 0}">
-					<c:forEach items="${list }" var="e">
-							<div class="card card-shadow text-center carosel-item">
-							<div class="card-body">
-								<img id="expertimg" alt="전문가" src="${path }/resources/images/expert.png">
-								<h4 class="card-title">${e.memName}</h4>
-								<p class="card-text">${e.memClass}</p>
-								<div class="dropdown-divider"></div>
-								<p class="card-text">
-									<small class="text-muted">평점 : 넣어야됨!</small>
-								</p>
-								<a href="${path}/expert/expertApply?no=${e.usid}&nic=${e.memNickname}">
-									<button type="button" class="btn btn-outline-primary">상담 신청</button>
-								</a>
+<div class="container">
+	<div class="row">
+		<div class="col-12">
+			<div class="card">
+				<div class="card-body">
+					<div class="card-title mb-4">
+						<div class="d-flex justify-content-start">
+							<div class="image-container">
+								<img src="${path }/resources/images/expert.png" id="imgProfile" style="width: 150px; height: 150px" class="img-thumbnail" />
+							</div>
+							<div class="userData ml-3">
+								<h2 class="d-block" style="font-size: 1.5rem; font-weight: bold">최민수 상담사님</h2>
+								<h6 class="d-block">평점 :</h6>
+								<h6 class="d-block">분야 :</h6>
+								<h6 class="d-block">가입 날짜 :</h6>
+								<h6 class="d-block">이메일 :</h6>
+								<h6 class="d-block">전화번호 :</h6>
+							</div>
+							<div class="ml-auto">
+								<input type="button" class="btn btn-primary d-none" id="btnDiscard" value="Discard Changes" />
 							</div>
 						</div>
-					</c:forEach>
-				</c:when>
-				<c:otherwise>
-					<div class="empty">등록된 전문가가 없습니다.</div>
-				</c:otherwise>
-			</c:choose>
+					</div>
+
+					<div class="row">
+						<div class="col-12">
+							<ul class="nav nav-tabs mb-4" id="myTab" role="tablist">
+								<li class="nav-item"><a class="nav-link active" id="basicInfo-tab" data-toggle="tab" href="#basicInfo" role="tab"
+									aria-controls="basicInfo" aria-selected="true">상담사 정보</a></li>
+								<li class="nav-item"><a class="nav-link" id="connectedServices-tab" data-toggle="tab" href="#connectedServices" role="tab"
+									aria-controls="connectedServices" aria-selected="false">보유 자격증</a></li>
+							</ul>
+							<div class="tab-content ml-1" id="myTabContent">
+								<div class="tab-pane fade show active" id="basicInfo" role="tabpanel" aria-labelledby="basicInfo-tab">
+									<div class="row">
+										<div class="col-sm-3 col-md-3 col-5">
+											<label style="font-weight: bold;">인사말</label>
+										</div>
+										<div class="col-md-7 col-6">안녕하세요 ~~ㅋㅋㅋ안녕하세요 ~~ㅋㅋㅋ안녕하세요 ~~ㅋㅋㅋ안녕하세요 ~~ㅋㅋㅋ안녕하세요 ~~ㅋㅋㅋ안녕하세요 ~~ㅋㅋㅋ안녕하세요 ~~ㅋㅋㅋ안녕하세요 ~~ㅋㅋㅋ안녕하세요 ~~ㅋㅋㅋ 안녕하세요
+											~~ㅋㅋㅋ안녕하세요 ~~ㅋㅋㅋ안녕하세요 ~~ㅋㅋㅋ안녕하세요 ~~ㅋㅋㅋ안녕하세요 ~~ㅋㅋㅋ안녕하세요 ~~ㅋㅋㅋ안녕하세요 ~~ㅋㅋㅋ안녕하세요 ~~ㅋㅋㅋ안녕하세요 ~~ㅋㅋㅋ</div>
+									</div>
+									<hr />
+									<div class="row">
+										<div class="col-sm-3 col-md-3 col-5">
+											<label style="font-weight: bold;">상담 경력</label>
+										</div>
+										<div class="col-md-7 col-6">3년</div>
+									</div>
+									<hr />
+
+									<div class="row">
+										<div class="col-sm-3 col-md-3 col-5">
+											<label style="font-weight: bold;">상담 가능 시간</label>
+										</div>
+										<div class="col-md-7 col-6">19:00 ~ 22:00</div>
+									</div>
+									<hr />
+
+									<div class="row">
+										<div class="col-sm-3 col-md-3 col-5">
+											<label style="font-weight: bold;">희망 상담 시간</label>
+										</div>
+										<div class="col-md-7 col-6">
+											<input type="time" name="time">
+										</div>
+									</div>
+									<hr />
+
+									<div class="row">
+										<div class="col-sm-3 col-md-3 col-5">
+											<label style="font-weight: bold;">추가 전달 사항</label>
+										</div>
+										<div class="col-md-7 col-6">
+											<textarea id="exapplyTextArea" name="applyText"></textarea>
+										</div>
+									</div>
+									<hr />
+									<div id="exbtn">
+										<c:if test="${requestIsDuplicate != true}">
+											<button class="btn btn-outline-success" onclick="expertRequest();">상담 신청하기</button>
+										</c:if>
+										<c:if test="${requestIsDuplicate == true}">
+											<button class="btn btn-outline-success" onclick="expertRequestCancel();">상담 취소하기</button>
+										</c:if>
+									</div>
+
+								</div>
+								<div class="tab-pane fade" id="connectedServices" role="tabpanel" aria-labelledby="ConnectedServices-tab">자잡</div>
+							</div>
+						</div>
+					</div>
+
+
+				</div>
+
+			</div>
 		</div>
-		<a class="carosel-control carosel-control-left glyphicon glyphicon-chevron-left" href="#">◁</a>
-		<a class="carosel-control carosel-control-right glyphicon glyphicon-chevron-right" href="#">▷</a> 
 	</div>
+</div>
 
-
-</section>
 
 <script>
-	$('.carosel-control-right').click(
-			function() {
-				$(this).blur();
-				$(this).parent().find('.carosel-item').first().insertAfter(
-						$(this).parent().find('.carosel-item').last());
-			});
-	$('.carosel-control-left').click(
-			function() {
-				$(this).blur();
-				$(this).parent().find('.carosel-item').last().insertBefore(
-						$(this).parent().find('.carosel-item').first());
-			});
+	$(this).resize(fixedSize);
+	function fixedSize() {
+		this.resizeTo(800, 800);
+	}
+
+	function expertRequest() {
+		console.log("상담 신청, ${expert.usid}");
+
+		$
+				.ajax({
+					type : "GET",
+					data : {
+						"no" : "${expert.usid}",
+						"nic" : "${expert.memNickname}",
+						"time" : $("input[name=time]").val(),
+						"applyText" : $("textarea[name=applyText]").val()
+					},
+					url : "${path}/expert/expertRequest",
+					success : function(data) {
+						if (data == 1) {
+							console.log("상담 신청 성공");
+							alert("상담 신청 성공");
+							$("input[name=time]").val("");
+							$("textarea[name=applyText]").val("");
+							$("#exbtn").html("");
+							$("#exbtn")
+									.html(
+											$("#exbtn").html()
+													+ "<button class='btn btn-outline-success' onclick='expertRequestCancel();''>상담 취소하기</button>");
+						} else if (data == 2) {
+							console.log("이미 상담 신청을 하셨습니다");
+							alert("이미 상담 신청을 하셨습니다");
+						} else {
+							console.log("상담 신청 실패");
+							alert("상담 신청 실패");
+						}
+					}
+				});
+	};
+
+	function expertRequestCancel() {
+		console.log("상담 취소, ${expert.usid}");
+		$
+				.ajax({
+					type : "GET",
+					data : {
+						"no" : "${expert.usid}",
+						"nic" : "${expert.memNickname}"
+					},
+					url : "${path}/expert/expertRequestCancel",
+					success : function(data) {
+						if (data == 1) {
+							console.log("상담 취소 성공");
+							alert("상담 취소 성공");
+							$("#exbtn").html("");
+							$("#exbtn")
+									.html(
+											"<button class='btn btn-outline-success' onclick='expertRequest();''>상담 신청하기</button>");
+						} else {
+							console.log("상담 취소 실패");
+							alert("상담 취소 실패");
+						}
+					}
+				});
+	}
 </script>

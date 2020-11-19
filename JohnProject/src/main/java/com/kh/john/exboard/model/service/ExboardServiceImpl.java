@@ -14,6 +14,7 @@ import com.kh.john.exboard.model.dao.ExboardDao;
 import com.kh.john.exboard.model.vo.ExpertBoard;
 import com.kh.john.exboard.model.vo.ExpertRequest;
 import com.kh.john.member.model.vo.Expert;
+import com.kh.john.member.model.vo.License;
 import com.kh.john.member.model.vo.Member;
 
 import lombok.extern.slf4j.Slf4j;
@@ -187,6 +188,12 @@ public class ExboardServiceImpl implements ExboardService {
 			eb.setExpertBoardMemNick(dao.selectMember(session, "" + eb.getExpertBoardMemUsid()).getMemNickname());
 		}
 		return list;
+	}
+
+	@Override
+	public List<License> selectExpertLicense(String exusid) throws Exception {
+		// TODO Auto-generated method stub
+		return dao.selectExpertLicense(session, exusid);
 	}
 
 }
