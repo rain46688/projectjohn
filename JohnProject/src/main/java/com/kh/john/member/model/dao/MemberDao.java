@@ -79,6 +79,10 @@ public interface MemberDao {
 
 	List<Member> memberListByNick(SqlSessionTemplate session, String nick);
 
+	List<MemberChat> loadMemberChat(SqlSessionTemplate session, int usid);
+
+	List<MemberChat> loadAllChatList(SqlSessionTemplate session);
+
 
 
 }

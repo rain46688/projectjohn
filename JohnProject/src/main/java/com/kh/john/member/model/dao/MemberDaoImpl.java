@@ -180,5 +180,15 @@ public class MemberDaoImpl implements MemberDao {
 		return session.selectList("member.memberListByNick", nick);
 	}
 
+	@Override
+	public List<MemberChat> loadMemberChat(SqlSessionTemplate session, int usid) {
+		return session.selectList("member.loadMemberChat",usid);
+	}
+
+	@Override
+	public List<MemberChat> loadAllChatList(SqlSessionTemplate session) {
+		return session.selectList("member.loadAllChatList");
+	}
+
 
 }

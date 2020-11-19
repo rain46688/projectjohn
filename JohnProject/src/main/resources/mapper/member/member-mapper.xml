@@ -132,9 +132,21 @@
 	SELECT * FROM MEMBER WHERE MEM_NICKNAME LIKE '%' || #{nick} || '%'
 </select>
 
+<select id="loadMemberChat" parameterType="_int" resultMap="mCMap">
+	SELECT * FROM MEMBER_CHAT WHERE MCHAT_FIRST_USID=#{usid} OR MCHAT_SECOND_USID==#{usid} ORDER BY MCHAT_DATE ASC
+</select>
 
+<select id="loadAllChatList" resultMap="mCMap">
+	SELECT * FROM MEMBER_CHAT ORDER BY MCHAT_DATE ASC
+</select>
 
-
+<resultMap type="memberChat" id="mCMap">
+	<result property="mchatFirstUsid" column="mchat_first_usid"/>
+	<result property="mchatSecondUsid" column="mchat_second_usid"/>
+	<result property="mchatContent" column="mchat_content"/>
+	<result property="mchatDate" column="mchat_date"/>
+	<result property="mchatFile" column="mchat_file"/>
+</resultMap>
 <resultMap type="expertObjects" id="eOMap">
 	<result property="usid" column="usid"/>
     <result property="memEmail" column="mem_email"/>
