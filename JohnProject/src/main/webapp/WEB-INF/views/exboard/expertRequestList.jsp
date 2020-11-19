@@ -141,8 +141,8 @@ h1 {
 	<hr/>
 	<div id="middelDiv">
 		<div id="searchDiv">
-				<div id="innerSearchDiv">
-				<select name="searchSelect" required>
+					<div id="innerSearchDiv">
+					<select id="searchSelect" name="searchSelect" required>
 						<option value="EXPERT_REQUEST_MEM_NICK"  selected>상담 신청자</option> 
 						<option value="EXPERT_DATE" >신청 날짜</option>
 						<option value="EXPERT_COUNSEL_TIME" >원하는 상담 시간</option>
@@ -153,15 +153,15 @@ h1 {
 				</div>
 		</div>
 		<div id="sortDiv">
-					<select name="sortSelect" required>
+					<select id="sortSelect" name="sortSelect" required>
 						<option value="EXPERT_DATE"  selected>신청 날짜 순</option> 
 						<option value="EXPERT_COUNSEL_TIME" >상담 시간순</option>
 						<option value="EXPERT_REQUEST_MEM_NICK" >신청자 이름순</option>
 					</select>
-				<select name="pageSelect" required>
+					<select id="pageSelect" name="pageSelect" required>
 						<option value="10"  selected>10개씩 보기</option> 
-						<option value="20" 20개씩 보기</option>
-						<option value="50" 50개씩 보기</option>
+						<option value="20" >20개씩 보기</option>
+						<option value="50" >50개씩 보기</option>
 					</select>
 		</div>
 	</div>
@@ -218,6 +218,39 @@ h1 {
 	
 	<script>
 	
+	$("#sortSelect").on('change', e => {
+		console.log("sort : "+$(e.target).val());
+		listPrint($(e.target).val(),$("#pageSelect").val(),$("#searchSelect").val(),$("#searchInput").val());
+	});
+	
+	$("#searchSelect").on('change', e => {
+		console.log("search : "+$(e.target).val());
+		listPrint($("#sortSelect").val(),$("#pageSelect").val(),$(e.target).val(),$("#searchInput").val());
+	});
+	
+	$("#pageSelect").on('change', e => {
+		console.log("page : "+$(e.target).val());
+		listPrint($("#sortSelect").val(),$(e.target).val(),$("#searchSelect").val(),$("#searchInput").val());
+	});
+	
+	function listPrint(sort, page, searchType, searchInput){
+		console.log(sort+" "+page+" "+searchType+" "+searchInput);
+		/*   $.ajax({
+		 	   type:"GET",
+		 	   data:{
+		 		 	  "sort" : sort,
+		 		 	  "page" : page,
+		 			  "searchType" : searchType,
+		 			 "searchInput" : searchInput
+		 	   },
+		 	   dataType : "json",
+		 	   url:"${path}/expert/selectExpertListAjax",
+		 	   success:function (data){
+		 		   console.log("data : "+data);
+		 		   
+		 	   }
+		    });  */
+	}
 	
 	function searchkey(){
 		if(window.event.keyCode == 13) {
@@ -226,11 +259,14 @@ h1 {
 		return false;
 	}
 	
+	function search(){
+		listPrint("","",$(e.target).val(),$("#searchInput").val());
+	}
+	
 	//부모창이 종료되면 자식창도 종료
 	let pop;
 	window.onunload = function() { 
 		pop.close(); 
-	  
 	}
 	
 	let bno = "";

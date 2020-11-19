@@ -77,6 +77,11 @@
 	SELECT EX.* FROM (EXPERT_BOARD EX JOIN (SELECT * FROM EXPERT_INFO WHERE EXPERT_COUNSEL_AREA LIKE #{ca} ) ON (EXPERT_BOARD_USID = EXPERT_USID))WHERE EXPERT_BOARD_REVIEW IS NOT NULL
 </select>
 
+
+
+
+
+
 	<resultMap type="exboard" id="exboardMap">
 		<id column="EXPERT_BOARD_ID" property="expertBoardId" />
 		<id column="EXPERT_BOARD_USID" property="expertBoardUsid" />

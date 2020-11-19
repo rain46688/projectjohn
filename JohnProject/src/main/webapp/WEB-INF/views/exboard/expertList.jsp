@@ -545,4 +545,5 @@ img {
 		autoplay : true,
 		type : 'loop'
 	}).mount();
+	
 </script>

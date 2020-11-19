@@ -49,4 +49,6 @@ public interface ExboardDao {
 
 	List<ExpertBoard> selectExboardListCategory(SqlSessionTemplate session, String ca) throws Exception;
 
+	List<ExpertRequest> selectExpertRequestAjax(SqlSessionTemplate session, Map<String, String> map) throws Exception;
+
 }

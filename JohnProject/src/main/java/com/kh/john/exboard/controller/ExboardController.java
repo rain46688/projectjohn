@@ -1,6 +1,7 @@
 package com.kh.john.exboard.controller;
 
 import java.io.File;
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
@@ -135,8 +136,12 @@ public class ExboardController {
 			map.put("exusid", "" + expert.getUsid());
 			map.put("memusid", "" + mem.getUsid());
 			Member mm = service.selectMember(no);
-			mm.setMemEmail(aes.decrypt(mm.getMemEmail()));
-			mm.setTel(aes.decrypt(mm.getTel()));
+			try {
+				mm.setMemEmail(aes.decrypt(mm.getMemEmail()));
+				mm.setTel(aes.decrypt(mm.getTel()));
+			} catch (Exception e) {
+
+			}
 			mv.addObject("mem", mm);
 			mv.addObject("expert", service.selectExpertMem(no));
 			mv.addObject("license", service.selectExpertLicense(no));
@@ -159,6 +164,22 @@ public class ExboardController {
 		Member expert = new Member();
 		expert.setUsid(Integer.parseInt(no));
 		expert.setMemNickname(nic);
+		time = time.replace("T", " ");
+
+		SimpleDateFormat format1 = new SimpleDateFormat("yyyy-MM-dd HH:mm");
+		Date time_ = null;
+		try {
+			time_ = format1.parse(time);
+		} catch (ParseException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		}
+		Date now = new Date();
+		int compare = now.compareTo(time_);
+		if (compare > 0) {
+			log.debug("현재 시간보다 과거를 선택했음");
+			return "9999";
+		}
 
 		Map<String, String> map = new HashMap<String, String>();
 		map.put("exusid", "" + expert.getUsid());
@@ -469,6 +490,55 @@ public class ExboardController {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 			result = "0";
+		}
+		return result;
+	}
+
+//	Member mem = (Member) session.getAttribute("loginMember");
+//	try {
+//
+//		List<ExpertRequest> rlist = service.selectExpertRequest(mem);
+//		List<ExpertBoard> blist = service.selectExpertBoard(mem);
+//
+//		for (ExpertRequest er : rlist) {
+//
+//			if (blist.size() == 0) {
+//				er.setStartCounsel(false);
+//			} else {
+//				for (ExpertBoard eb : blist) {
+//					if (er.getExpertRequestMemUsid() == eb.getExpertBoardMemUsid()) {
+//						// 이미 상담 게시판이 만들어진 유저
+//						er.setStartCounsel(true);
+//						if (eb.getExpertBoardAdviceResult() != null) {
+//							er.setEndCounsel(true);
+//						}
+//						break;
+//					} else {
+//						er.setStartCounsel(false);
+//					}
+//				}
+//			}
+//		}
+
+	/// expert/selectExpertListAjax
+	@ResponseBody
+	@RequestMapping("/expert/selectExpertListAjax")
+	public String selectExpertListAjax(String sort, String page, String searchType, String searchInput,
+			HttpSession session) {
+		String result = "";
+		Member mem = (Member) session.getAttribute("loginMember");
+		try {
+			Map<String, String> map = new HashMap<String, String>();
+			map.put("mem", "" + mem.getUsid());
+			map.put("sort", sort);
+			map.put("page", page);
+			map.put("searchType", searchType);
+			map.put("searchInput", searchInput);
+			List<ExpertRequest> list = service.selectExpertRequestAjax(map);
+			result = new ObjectMapper().writeValueAsString(list);
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
 		}
 		return result;
 	}

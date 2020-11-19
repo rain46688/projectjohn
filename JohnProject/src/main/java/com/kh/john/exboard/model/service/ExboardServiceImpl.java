@@ -196,4 +196,10 @@ public class ExboardServiceImpl implements ExboardService {
 		return dao.selectExpertLicense(session, exusid);
 	}
 
+	@Override
+	public List<ExpertRequest> selectExpertRequestAjax(Map<String, String> map) throws Exception {
+		// TODO Auto-generated method stub
+		return dao.selectExpertRequestAjax(session, map);
+	}
+
 }

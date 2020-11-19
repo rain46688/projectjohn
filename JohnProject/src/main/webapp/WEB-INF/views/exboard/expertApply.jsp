@@ -120,7 +120,8 @@ textarea {
 											<label style="font-weight: bold;">희망 상담 시간</label>
 										</div>
 										<div class="col-md-7 col-6">
-											<input type="time" name="time">
+											<!-- <input type="time" name="time"> -->
+											<input name="time" type="datetime-local" value="xxx" min="mm" max="zzz">
 										</div>
 									</div>
 									<hr />
@@ -224,7 +225,11 @@ textarea {
 						} else if (data == 2) {
 							console.log("이미 상담 신청을 하셨습니다");
 							alert("이미 상담 신청을 하셨습니다");
-						} else {
+						} else if(data == 9999){
+							console.log("현재 시간보다 과거를 선택했음");
+							alert("선택하신 날짜가 맞지 않습니다.");
+						}
+						else {
 							console.log("상담 신청 실패");
 							alert("상담 신청 실패");
 						}

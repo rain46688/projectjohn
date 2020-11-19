@@ -133,4 +133,11 @@ public class ExboardDaoImpl implements ExboardDao {
 		return session.selectList("expert.selectExboardListCategory", ca);
 	}
 
+	@Override
+	public List<ExpertRequest> selectExpertRequestAjax(SqlSessionTemplate session, Map<String, String> map)
+			throws Exception {
+		// TODO Auto-generated method stub
+		return session.selectList("expert.selectExpertRequestAjax", map);
+	}
+
 }
