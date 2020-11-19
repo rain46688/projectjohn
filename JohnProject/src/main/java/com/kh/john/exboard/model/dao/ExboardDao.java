@@ -51,4 +51,6 @@ public interface ExboardDao {
 
 	List<ExpertRequest> selectExpertRequestAjax(SqlSessionTemplate session, Map<String, String> map) throws Exception;
 
+	int selectExpertRequestAjaxCount(SqlSessionTemplate session, Member mem) throws Exception;
+
 }

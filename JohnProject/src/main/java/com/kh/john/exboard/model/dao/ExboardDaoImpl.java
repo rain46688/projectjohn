@@ -4,6 +4,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import org.apache.ibatis.session.RowBounds;
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.stereotype.Repository;
 
@@ -58,7 +59,8 @@ public class ExboardDaoImpl implements ExboardDao {
 	@Override
 	public List<ExpertRequest> selectExpertRequest(SqlSessionTemplate session, Member mem) throws Exception {
 		// TODO Auto-generated method stub
-		return session.selectList("expert.selectExpertRequest", mem);
+		RowBounds r = new RowBounds((1 - 1) * 10, 10);
+		return session.selectList("expert.selectExpertRequest", mem, r);
 	}
 
 	@Override
@@ -138,6 +140,12 @@ public class ExboardDaoImpl implements ExboardDao {
 			throws Exception {
 		// TODO Auto-generated method stub
 		return session.selectList("expert.selectExpertRequestAjax", map);
+	}
+
+	@Override
+	public int selectExpertRequestAjaxCount(SqlSessionTemplate session, Member mem) throws Exception {
+		// TODO Auto-generated method stub
+		return session.selectOne("expert.selectExpertRequestAjaxCount", mem);
 	}
 
 }

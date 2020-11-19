@@ -201,8 +201,7 @@ textarea {
 	function expertRequest() {
 		console.log("상담 신청, ${mem.usid}");
 
-		$
-				.ajax({
+		$.ajax({
 					type : "GET",
 					data : {
 						"no" : "${mem.usid}",

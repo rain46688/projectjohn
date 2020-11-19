@@ -10,6 +10,7 @@ import java.util.List;
 import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -84,9 +85,11 @@ public class ExboardController {
 		log.debug("expertRequestPrintList 실행");
 		ModelAndView mv = new ModelAndView("/exboard/expertRequestList");
 		Member mem = (Member) session.getAttribute("loginMember");
+		int rlistCount = 0;
 		try {
 
 			List<ExpertRequest> rlist = service.selectExpertRequest(mem);
+			rlistCount = service.selectExpertRequestAjaxCount(mem);
 			List<ExpertBoard> blist = service.selectExpertBoard(mem);
 
 			for (ExpertRequest er : rlist) {
@@ -109,6 +112,7 @@ public class ExboardController {
 				}
 			}
 			mv.addObject("list", rlist);
+			mv.addObject("totalData", rlistCount);
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -522,9 +526,12 @@ public class ExboardController {
 
 	/// expert/selectExpertListAjax
 	@ResponseBody
-	@RequestMapping("/expert/selectExpertListAjax")
-	public String selectExpertListAjax(String sort, String page, String searchType, String searchInput,
-			HttpSession session) {
+	@RequestMapping(value = "/expert/selectExpertListAjax", produces = "application/json; charset=utf8")
+	public String selectExpertListAjax(HttpServletResponse response, String sort, String page, String searchType,
+			String searchInput, String cpage, HttpSession session) {
+
+		log.debug("sort : " + sort + " page : " + page + " st : " + searchType + " si : " + searchInput + " cpage : "
+				+ cpage);
 		String result = "";
 		Member mem = (Member) session.getAttribute("loginMember");
 		try {
@@ -535,6 +542,28 @@ public class ExboardController {
 			map.put("searchType", searchType);
 			map.put("searchInput", searchInput);
 			List<ExpertRequest> list = service.selectExpertRequestAjax(map);
+			List<ExpertBoard> blist = service.selectExpertBoard(mem);
+
+			for (ExpertRequest er : list) {
+
+				if (blist.size() == 0) {
+					er.setStartCounsel(false);
+				} else {
+					for (ExpertBoard eb : blist) {
+						if (er.getExpertRequestMemUsid() == eb.getExpertBoardMemUsid()) {
+							// 이미 상담 게시판이 만들어진 유저
+							er.setStartCounsel(true);
+							if (eb.getExpertBoardAdviceResult() != null) {
+								er.setEndCounsel(true);
+							}
+							break;
+						} else {
+							er.setStartCounsel(false);
+						}
+					}
+				}
+			}
+			/* response.setCharacterEncoding("utf-8"); */
 			result = new ObjectMapper().writeValueAsString(list);
 		} catch (Exception e) {
 			// TODO Auto-generated catch block

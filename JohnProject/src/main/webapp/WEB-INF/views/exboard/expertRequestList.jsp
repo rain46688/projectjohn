@@ -164,6 +164,8 @@ h1 {
 						<option value="50" >50개씩 보기</option>
 					</select>
 		</div>
+		<!-- 현재 페이지 -->
+		<input id="cPageInput" type="hidden" value="1">
 	</div>
 		<hr/>
 	<div class="divList">
@@ -215,52 +217,109 @@ h1 {
 			<br>
 		</div>
 	</div>
+	<!--  -->
+	<div id="pagingDiv">
 	
+	</div>
+	<!--  -->
 	<script>
+	
+	$(function(){
+		pageBar();
+	});
+	
+	
+	function pageBar(){
+			let totalData = "${totalData}";
+			console.log("토탈 : "+totalData);
+			let cPage = $("#cPageInput").val();
+			console.log($("#cPageInput").val());
+			let pageNo = (cPage - (cPage - 1)%5);
+			let pageEnd = Math.ceil(totalData/$("#pageSelect").val());
+			let numPerPage = $("#pageSelect").val();
+			console.log($("#pageSelect").val());
+			console.log(cPage+" "+pageNo+" "+pageEnd);
+			
+			let ph = "<nav aria-lable='Page navigation' id='pagebar'><ul class='pagination justify-content-center'>";
+			if(pageNo > 1){
+				ph+="<li class='page-item'><a class='page-link' tabindex='-1' aria-disabled='true'>이전</a></li>";
+			}else if(pageNo <= 1){
+				ph += "<li class='page-item disabled'><a class='page-link' tabindex='-1' aria-disabled='true'>이전</a></li>";
+			}
+			
+			for(let i = 0; i < (numPerPage - 1); i++){
+				if(pageNo + i == cPage){
+					ph += "<li class='page-item disabled'><a class='page-link' style='cursor:pointer;'>"+(pageNo + i) +"</a></li>";
+				}else if((pageNo + i) <= pageEnd){	
+					ph += "<li class='page-item'><a class='page-link' style='cursor:pointer;' onclick='cpaging(event);'>"+(pageNo + i) +"</a></li>";
+				}
+			}
+			
+			if(pageNo < (pageEnd - 4)){
+				ph += "<li class='page-item'><a class='page-link' tabindex='-1' aria-disabled='true'>다음</a></li>";
+			}else if(pageNo >= (pageEnd - 4)){
+				ph += "<li class='page-item disabled'><a class='page-link' tabindex='-1' aria-disabled='true'>다음</a></li>";
+			}
+			ph += "</ul></nav>";
+			$("#pagingDiv").html(ph);
+	}
+	
+	
+	function cpaging(e){
+		console.log($(e.target).html());
+		$("#cPageInput").val($(e.target).html());
+		pageBar();
+		listPrint($(e.target).val(),$("#pageSelect").val(),$("#searchSelect").val(),$("#searchInput").val(),$("#cPageInput").val());
+	}
 	
 	$("#sortSelect").on('change', e => {
 		console.log("sort : "+$(e.target).val());
-		listPrint($(e.target).val(),$("#pageSelect").val(),$("#searchSelect").val(),$("#searchInput").val());
+		listPrint($(e.target).val(),$("#pageSelect").val(),$("#searchSelect").val(),$("#searchInput").val(),$("#cPageInput").val());
 	});
 	
 	$("#searchSelect").on('change', e => {
 		console.log("search : "+$(e.target).val());
-		listPrint($("#sortSelect").val(),$("#pageSelect").val(),$(e.target).val(),$("#searchInput").val());
+		listPrint($("#sortSelect").val(),$("#pageSelect").val(),$(e.target).val(),$("#searchInput").val(),$("#cPageInput").val());
 	});
 	
 	$("#pageSelect").on('change', e => {
 		console.log("page : "+$(e.target).val());
-		listPrint($("#sortSelect").val(),$(e.target).val(),$("#searchSelect").val(),$("#searchInput").val());
+		listPrint($("#sortSelect").val(),$(e.target).val(),$("#searchSelect").val(),$("#searchInput").val(),$("#cPageInput").val());
 	});
 	
-	function listPrint(sort, page, searchType, searchInput){
-		console.log(sort+" "+page+" "+searchType+" "+searchInput);
-		/*   $.ajax({
+	function listPrint(sort, page, searchType, searchInput, cpage){
+		console.log(sort+" "+page+" "+searchType+" "+searchInput+" "+cpage);
+		   $.ajax({
 		 	   type:"GET",
 		 	   data:{
 		 		 	  "sort" : sort,
 		 		 	  "page" : page,
 		 			  "searchType" : searchType,
-		 			 "searchInput" : searchInput
+		 			 "searchInput" : searchInput,
+		 			 "cpage" : cpage
 		 	   },
 		 	   dataType : "json",
 		 	   url:"${path}/expert/selectExpertListAjax",
 		 	   success:function (data){
 		 		   console.log("data : "+data);
-		 		   
+		 			$.each(data, function(i, item) {
+						console.log("item : " + item['expertRequestMemNick']);
+		 			});
 		 	   }
-		    });  */
+		    }); 
 	}
 	
 	function searchkey(){
 		if(window.event.keyCode == 13) {
+			console.log("search 엔터 버튼 클릭");
 			search();
 		}
 		return false;
 	}
 	
 	function search(){
-		listPrint("","",$(e.target).val(),$("#searchInput").val());
+		console.log("search 버튼 클릭");
+		listPrint($("#sortSelect").val(),$("#pageSelect").val(),$("#searchSelect").val(),$("#searchInput").val(),$("#cPageInput").val());
 	}
 	
 	//부모창이 종료되면 자식창도 종료

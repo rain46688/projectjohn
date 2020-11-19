@@ -49,4 +49,6 @@ public interface ExboardService {
 
 	List<ExpertRequest> selectExpertRequestAjax(Map<String, String> map) throws Exception;
 
+	int selectExpertRequestAjaxCount(Member mem) throws Exception;
+
 }
