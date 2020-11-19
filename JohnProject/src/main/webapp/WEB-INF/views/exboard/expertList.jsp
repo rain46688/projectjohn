@@ -33,18 +33,25 @@ html, body, div, span, applet, object, iframe, h1, h2, h3, h4, h5, h6, p, blockq
 	font-size: 100%;
 	font: inherit;
 	vertical-align: baseline;
+	
 }
 
+/* 위 div 미테 */
 #upDiv * {
-	border: 1px solid red;
+/* 	border: 1px solid red; */
+	/* text-shadow: -1px 0 #BFBFBF, 0 0.5px #BFBFBF, 0.5px 0 #BFBFBF, 0 -1px #BFBFBF; */
 }
 
+/* 아래 div */
 #downDiv * {
-	border: 1px solid red;
+	/* border: 1px solid red; */
+	/* text-shadow: -1px 0 #BFBFBF, 0 0.5px #BFBFBF, 0.5px 0 #BFBFBF, 0 -1px #BFBFBF; */
 }
 
 #upDiv {
-	/* border: 1px solid black; */
+/* 	border: 1px solid gray;
+	margin:0.5% 0 0.5% 0;
+	border-radius:0.5em; */
 	width: 100%;
 	height: 60%;
 	/* 	background-color:black; */
@@ -56,12 +63,14 @@ html, body, div, span, applet, object, iframe, h1, h2, h3, h4, h5, h6, p, blockq
 	height: 40%;
 	/* background-color: brown; */
 	display: flex;
+	border-top: 1px solid #C6C5C5;
 }
 
 #reviewDiv {
 	/*  background-color: red;  */
 	height: 100%;
 	width: 50%;
+	border-right: 1px solid #C6C5C5;
 }
 
 #categoryDiv {
@@ -101,6 +110,7 @@ html, body, div, span, applet, object, iframe, h1, h2, h3, h4, h5, h6, p, blockq
 .splide__slide {
 	width: 100%;
 	height: 100%;
+	border-left: 1px solid gray;
 }
 
 .splide__slide>img {
@@ -184,7 +194,7 @@ h2 {
 }
 
 .counsel-listing:hover .counsel-image img {
-	filter: blur(2px);
+	filter: blur(0.5em);
 }
 
 /* for touch screen devices */
@@ -227,21 +237,24 @@ h2 {
 
 .exRating {
 	height: 20%;
-	font-size: 18px;
+	font-size: 1.6vh;
+	overflow:hidden;
 }
 
 .exCounselArea{
-	height:20%
+	height:20%;
+	font-size: 2vh;
+	overflow:hidden;
 }
 
 .card-body button {
 	width: 100%;
 	height: 40%;
-	font-size: 25px;
+	font-size: 2vh;
 }
 
 .exBottm {
-	padding-top: 6px;
+	padding-top: 2vh;
 	height: 50%;
 	/* 줄 넘치면 ..으로 처리 */
 	display: -webkit-box;
@@ -249,6 +262,7 @@ h2 {
 	text-overflow: ellipsis;
 	overflow: hidden;
 	-webkit-box-orient: vertical;
+	font-size: 2vh;
 }
 
 /* 리뷰 부분 */
@@ -268,11 +282,15 @@ h2 {
 .userNickName {
 	height: 100%;
 	width: 20%;
+	border-right: 1px solid #C6C5C5;
+	margin-right: 2vh;
 }
 
 .counselDate {
 	height: 100%;
 	width: 30%;
+	border-right: 1px solid #C6C5C5;
+	margin-right: 2vh;
 }
 
 .counselAreaReview {
@@ -282,6 +300,7 @@ h2 {
 
 .userRating {
 	height: 10%;
+	border-bottom: 1px solid #C6C5C5;
 }
 
 #reviewDivTitle {
@@ -299,7 +318,7 @@ h2 {
 	width: 100%;
 	font-style: italic;
 	color: gray;
-	font-size: 30px;
+	font-size: 2vh;
 	/* 줄 넘치면 ..으로 처리 */
 	display: -webkit-box;
 	-webkit-line-clamp: 6;
@@ -314,6 +333,7 @@ h2 {
 	width:100%;
 	font-size:4vh;
 	padding-top:15vh;
+	text-shadow: -1px 0 #BFBFBF, 0 0.5px #BFBFBF, 0.5px 0 #BFBFBF, 0 -1px #BFBFBF;
 }
 
 .emptyReview{
@@ -322,6 +342,7 @@ h2 {
 	font-size:5vh;
 	padding-top:15vh;
 	text-align:center;
+	text-shadow: -1px 0 #BFBFBF, 0 0.5px #BFBFBF, 0.5px 0 #BFBFBF, 0 -1px #BFBFBF;
 }
 </style>
 
@@ -350,7 +371,7 @@ h2 {
 											</c:forEach>
 											</div>
 											<div class="exCounselArea">분야 : ${expert['ex'].expertCounselArea}</div>
-											<button type="button" class="btn btn-outline-primary">상담 신청</button>
+											<button type="button" class="btn btn-outline-primary" onclick="counsel('${expert['mem'].usid}','${expert['mem'].memNickname}');">상담 신청</button>
 										</div>
 										<div class="exBottm">
 										<c:if test="${empty (expert['ex'].expertGreetings)}">
@@ -399,8 +420,13 @@ h2 {
 									<div class="counselAreaReview">분야 : ${param.ca }</div>
 								</div>
 								<div class="userRating">
-									평점 : <span class="fa fa-star checked"></span> <span class="fa fa-star checked"></span> <span class="fa fa-star checked"></span> <span
-										class="fa fa-star"></span> <span class="fa fa-star"></span>
+									평점 : 
+									<c:forEach var="i" begin="1" end="${review.expertBoardRating}">
+												<span class="fa fa-star checked"></span>
+											</c:forEach>
+											<c:forEach var="i" begin="1" end="${5 - (review.expertBoardRating)}">
+												<span class="fa fa-star"></span>
+											</c:forEach>
 								</div>
 								<div class="userReview">${review.expertBoardReview}</div>
 							</div>
@@ -468,11 +494,11 @@ h2 {
 
 <script>
 	'use strict';
-
-	/* 	//MDB Lightbox Init
-	 $(function() {
-	 $("#mdb-lightbox-ui").load("mdb-addons/mdb-lightbox-ui.html");
-	 }); */
+	 
+	 function counsel(no,nic){
+		 console.log("no : "+no+" nic : "+nic);
+		 location.href="${path}/expert/expertApply?no="+no+"&nic="+nic;
+	 }
 	 
 	 $(".counsel-title").click(e => {
 			console.log($(e.target).html());
