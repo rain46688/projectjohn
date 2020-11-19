@@ -104,6 +104,12 @@ public interface MemberService {
 	//닉네임으로 멤버 여러 명 찾기
 	List<Member> memberListByNick(String nick);
 
+	//usid로 채팅 내역 가져오기
+	List<MemberChat> loadMemberChat(int usid);
+
+	//전체 채팅 내역 가져오기
+	List<MemberChat> loadAllChatList();
+
 
 
 

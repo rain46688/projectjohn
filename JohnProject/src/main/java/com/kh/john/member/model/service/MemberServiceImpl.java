@@ -225,6 +225,16 @@ public class MemberServiceImpl implements MemberService {
 		return dao.memberListByNick(session, nick);
 	}
 
+	@Override
+	public List<MemberChat> loadMemberChat(int usid) {
+		return dao.loadMemberChat(session, usid);
+	}
+
+	@Override
+	public List<MemberChat> loadAllChatList() {
+		return dao.loadAllChatList(session);
+	}
+
 	
 
 

@@ -12,6 +12,6 @@ public class Expert {
 	private String expertGreetings;
 	private String expertProfile;
 	private String expertCounselArea;
-	private Date expertCounselStartTime;
-	private Date expertCounselEndTime;
+	private String expertCounselStartTime;
+	private String expertCounselEndTime;
 }
