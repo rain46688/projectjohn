@@ -54,8 +54,8 @@
 		<result property="licenseCompany" column="license_company"/>
 	</resultMap>
 	<resultMap type="com.kh.john.admin.model.vo.AdminChat" id="adminChatMap">
-		<result property="adminUsid" column="admin_usid"/>
-		<result property="adminChatMemUsid" column="admin_chat_mem_usid"/>
+		<result property="adminFirstUsid" column="admin_first_usid"/>
+		<result property="adminSecondUsid" column="admin_second_usid"/>
 		<result property="adminChatContent" column="admin_chat_content"/>
 		<result property="adminChatDate" column="admin_chat_date"/>
 		<result property="adminChatFile" column="admin_chat_file"/>
@@ -69,6 +69,10 @@
 		<id column="EXPERT_DATE" property="expertDate" />
 		<id column="EXPERT_COUNSEL_TIME" property="expertCounselTime" />
 		<id column="EXPERT_COUNSEL_REQUIRE" property="expertCounselRequire" />
+	</resultMap>
+	<resultMap type="com.kh.john.admin.model.vo.AdminMessage" id="adminMessageMap">
+		<id column="admin_chat_content" property="latestMsg"/>
+		<id column="admin_chat_date" property="time"/>
 	</resultMap>
 
 	<!-- 멤버관련 -->
@@ -323,11 +327,11 @@
 	<!-- 1:1 문의 관련 -->
  
  	<insert id="insertAdminChat" parameterType="adminChat">
- 		INSERT INTO ADMIN_CHAT VALUES(#{adminUsid},#{adminChatMemUsid},#{adminChatContent},#{adminChatDate},#{adminChatFile})
+ 		INSERT INTO ADMIN_CHAT VALUES(#{adminFirstUsid},#{adminSecondUsid},#{adminChatContent},#{adminChatDate},#{adminChatFile})
  	</insert>
 
  	<select id="selectAdminChat" resultType="List" resultMap="adminChatMap">
-		SELECT ADMIN_USID FROM ADMIN_CHAT WHERE ADMIN_USID!=31 GROUP BY ADMIN_USID
+		SELECT ADMIN_FIRST_USID FROM ADMIN_CHAT WHERE ADMIN_FIRST_USID!=31 GROUP BY ADMIN_FIRST_USID
  	</select>
  		
  	<select id="selectAdminChatCount" resultType="_int">
@@ -338,5 +342,17 @@
  		SELECT * FROM ADMIN_CHAT ORDER BY ADMIN_CHAT_DATE ASC
  	</select> 	
  	
-
+ 	<select id="firstUsidList" resultType="integer">
+ 		SELECT ADMIN_FIRST_USID FROM ADMIN_CHAT WHERE ADMIN_SECOND_USID=31 GROUP BY ADMIN_FIRST_USID
+ 	</select>
+ 	
+	<select id="secondUsidList" resultType="integer">
+ 		SELECT ADMIN_SECOND_USID FROM ADMIN_CHAT WHERE ADMIN_FIRST_USID=31 GROUP BY ADMIN_SECOND_USID
+ 	</select>
+ 	
+ 	<select id="loadAdminMessage" resultMap="adminMessageMap">
+ 		SELECT ROWNUM, X.* FROM 
+      (SELECT Y.* FROM ADMIN_CHAT Y WHERE (ADMIN_FIRST_USID=#{adminUsid} AND ADMIN_SECOND_USID=#{memberUsid}) 
+      OR (ADMIN_FIRST_USID=#{memberUsid} AND ADMIN_SECOND_USID=#{adminUsid}) ORDER BY ADMIN_CHAT_DATE DESC) X WHERE ROWNUM=1
+ 	</select>
 </mapper>

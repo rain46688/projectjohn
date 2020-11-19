@@ -256,18 +256,24 @@ public class CustomerController {
 //		mv.addObejct("adminChat", service.selectOneAdminChat);
 //	}
 	
-	@RequestMapping("/customer/customerChat")
-	public ModelAndView adminChat(ModelAndView mv, @SessionAttribute("loginMember") Member loginMember,
-			@RequestParam("adminUsid") int adminUsid) {
-		Member myInfo=memberService.selectMemberByUsid(loginMember);
-		Member otherInfo=new Member();
-		otherInfo.setUsid(adminUsid);
-		otherInfo=memberService.selectMemberByUsid(otherInfo);
-		mv.addObject("myInfo",myInfo);
-		mv.addObject("otherInfo",otherInfo);
-		mv.setViewName("customer/customerChat");
-		return mv;
+	@RequestMapping("/customer/customerChat") //1
+	public ModelAndView adminChat(@RequestParam(value="adminUsid") int adminUsid, @RequestParam(value="myUsid") int myUsid, ModelAndView mv) {
 		
+		//member와 admin의 정보 가져오기
+		Member myInfo = new Member();
+		myInfo.setUsid(myUsid);
+		memberService.selectMemberByUsid(myInfo);
+		
+		Member adminInfo = new Member();
+		adminInfo.setUsid(adminUsid);
+		memberService.selectMemberByUsid(adminInfo);
+		
+		mv.addObject("myInfo",myInfo);
+		mv.addObject("adminInfo",adminInfo);
+		
+		mv.setViewName("customer/customerChat");
+		
+		return mv;
 	}
 	
 
