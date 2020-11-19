@@ -143,6 +143,7 @@
 			AND ${type} LIKE '%'||#{keyword, jdbcType=VARCHAR}||'%'
 		</if>
 		
+		
 		<if test="isclose!=null " >
 			AND B.ISCLOSE IN
 			<foreach collection="isclose" item="v" index="i" open="("
@@ -150,11 +151,11 @@
 			</foreach>
 		</if>
 		
-		<if test="bigCategory!=null" >
+		<if test='bigCategory!=null and (bigCategory neq "대분류")' >
 			AND B.BIG_CATEGORY LIKE '%'||#{bigCategory, jdbcType=VARCHAR}||'%'
 		</if>
 		
-		<if test="smallCategory!=null" >
+		<if test='smallCategory!=null and (smallCategory neq "소분류")' >
 			AND B.SMALL_CATEGORY LIKE '%'||#{smallCategory, jdbcType=VARCHAR}||'%'
 		</if>
 		
@@ -247,7 +248,7 @@
 
 	<select id="searchExpertListCount" resultType="_int"
 		parameterType="map" >
-		SELECT COUNT(*) FROM MEMBER WHERE '${type2}' LIKE '%'||#{keyword, jdbcType=VARCHAR}||'%'
+		SELECT COUNT(*) FROM MEMBER WHERE ${type2} LIKE '%'||#{keyword, jdbcType=VARCHAR}||'%'
 		AND MEM_CLASS LIKE('전문가')
 	</select>
 	
@@ -257,7 +258,11 @@
 	</update>
 	
 	<select id="selectAdminExpertCounsel" resultMap="expertRequestMap">
-		SELECT * FROM EXPERT_REQUEST
+		SELECT * FROM EXPERT_REQUEST WHERE EXPERT_ISCOUNSEL=0
+	</select>
+	
+	<select id="selectAdminExpertCounsel2" resultMap="expertRequestMap">
+		SELECT * FROM EXPERT_REQUEST WHERE EXPERT_ISCOUNSEL=1
 	</select>
 	
 	<select id="selectAdminExpertCounselCount" resultType="_int">
@@ -304,12 +309,18 @@
 										NOTICE_ADMIN_NICKNAME=#{noticeAdminNickname}
 		WHERE NOTICE_ID=#{noticeId}
 	</update>
+
+	<update id="noticeModifyFile" parameterType="noticeFile">
+		UPDATE NOTICE_FILE SET NOTICE_FILE_NAME=#{noticeFileName} WHERE NOTICE_ID=#{noticeId}	
+	</update>
+	
 	
 	<delete id="deleteNotice" parameterType="notice">
 		DELETE FROM NOTICE WHERE NOTICE_ID=#{noticeId}
 	</delete>
  
- <!-- 1:1 문의 관련 -->
+ 
+	<!-- 1:1 문의 관련 -->
  
  	<insert id="insertAdminChat" parameterType="adminChat">
  		INSERT INTO ADMIN_CHAT VALUES(#{adminUsid},#{adminChatMemUsid},#{adminChatContent},#{adminChatDate},#{adminChatFile})
@@ -320,10 +331,12 @@
  	</select>
  		
  	<select id="selectAdminChatCount" resultType="_int">
- 		SELECT COUNT(*) FROM ADMIN_cHAT
+ 		SELECT COUNT(*) FROM ADMIN_CHAT
  	</select>
  	
  	<select id="selectAdminInChat" resultType="List" resultMap ="adminChatMap">
- 		SELECT * FROM ADMIN_CHAT WHERE ADMIN_USID=56
+ 		SELECT ADMIN_CHAT_CONTENT FROM ADMIN_CHAT WHERE ADMIN_USID=56
  	</select> 	
+ 	
+
 </mapper>

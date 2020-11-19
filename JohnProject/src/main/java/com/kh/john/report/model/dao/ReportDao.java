@@ -30,4 +30,6 @@ public interface ReportDao {
 	int reportWarn(SqlSessionTemplate session, Report r);
 	
 	int reportWarnOut(SqlSessionTemplate session, Member m);
+	
+	int insertReportAnswer(SqlSessionTemplate session, Report r);
 }

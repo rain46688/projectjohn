@@ -19,7 +19,7 @@
     
 	<section id="content">
 		<div id="board-container">
-		<h1>게시판상세화면gg</h1>
+		<h1>신고상세내역</h1>
 		<input type="text" class="form-control" name="reportId" id="reportId" value="${report.reportId }" readonly> 
 		<input type="text" class="form-control" name="reportBoardId" id="reportBoardId" value="${report.reportBoardId }" > 
         <input type="text" class="form-control" name="reportWriterUsid" value="${report.reportWriterUsid }" readonly required>
@@ -34,12 +34,68 @@
         <input type="text" class="form-control" name="reportAnswer" id="reportAnswer"  value="${report.reportAnswer }" placeholder="제목"  required>
         <input type="text" class="form-control" name="reportIswarning" id="reportIswarning" value="${report.reportIswarning }" readonly> 
        
-		<c:forEach items="${reportFile}" var="a" varStatus="vs">
-             <img src="${path }/resources/upload/report/${a.reportFileName }">
+		<c:forEach items="${reportFile}" var="r" varStatus="vs">
+             <img src="${path }/resources/upload/report/${r.reportFileName }">
         </c:forEach> 
 
         <textarea class="form-control" name="reportContent" placeholder="내용" required><c:out value="${report.reportContent }"/></textarea>
         <br>
+   
+   
+				<!-- 신고답글내역 -->
+	<div class="comments-area">
+		<h4>신고답글</h4>
+			<div class="user justify-content-between d-flex">
+					<form>
+						<div class="d-flex align-items-center">
+							<h3>관리자 답변</h3>
+							<br>
+							<p>${report.reportAnswer }</p>
+							<br>
+						</div>
+					</form>
+			</div>
+	</div>
+			<!-- 신고답글 -->
+		<div class="comment-form">
+		<h4>답글달기</h4>
+
+		<form class="form-contact comment_form" action="${path}/report/reportAnswer?reportId=${report.reportId}"
+			id="commentForm" method="post">
+
+				<!-- 작성자 -->
+			
+				<input class="form-control" name="reportId"
+							id="reportId" type="text"
+							value="관리자" readonly>
+		
+				<!-- 내용 -->
+				<div class="form-group">
+					<textarea class="form-control w-100" name="reportAnswer"
+							id="reportAnswer" cols="30" rows="9"
+							placeholder="답글을 적어주세요"></textarea>
+				</div>
+				
+			<div class="form-group">
+				<button type="submit"
+					class="button button-contactForm btn_1 boxed-btn"
+					onclick="function validate();">답글달기</button>
+			</div>
+
+		</form>
+
+		<script>
+			function validate(){
+				if ('${loginMember.memClass}' != '관리자') {
+					alert("관리자만 등록할 수 있습니다!");
+					return false;
+				}
+			};
+		</script>
+
+
+	</div>  
+
    
         <button class="btn btn-outline-info" onclick="reportWarn('${report.reportTargetUsid}');">경고주기</button>
         <button class="btn btn-outline-info" onclick="reportViewDelete('${report.reportId}');">삭제하기</button>
@@ -70,5 +126,5 @@
 	</script>
 	
 	
-<jsp:include page="/WEB-INF/views/common/footer.jsp"/>
+
 	

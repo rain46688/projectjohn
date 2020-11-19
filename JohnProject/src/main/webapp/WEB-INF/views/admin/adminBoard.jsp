@@ -47,6 +47,17 @@
 	<div id="search-container">
 		<form  id="myForm" action="${path }/admin/adminBoardSearch" method="post">
 		
+		
+<%-- 		<input type="hidden" id="type" name="type" value="${param.type }" readonly="readonly"/>
+		<input type="hidden" id="keyword" name="keyword" value="${param.keyword }" readonly="readonly"/>
+		<input type="hidden" id="keyword2" name="keyword2" value="${param.keyword2 }" readonly="readonly"/>
+		<input type="hidden" id="type2" name="type2" value="${param.type2 }" readonly="readonly"/>
+		<input type="hidden" id="bigCategory" name="bigCategory" value="${param.big_category }" readonly="readonly"/>
+		<input type="hidden" id="smallCategory" name="smallCategory" value="${param.small_category }" readonly="readonly"/>
+		<input type="hidden" id="isclose" name="isclose" value="${param.isclose }" readonly="readonly"/>
+		<input type="hidden" id="order" name="order" value="${param.order }" readonly="readonly"/> --%>
+		
+		
 		 <select class="s0" name="bigCategory" required>
 		 		<option>대분류</option>
 				<option value="연애상담" <c:if test="${param.big_category eq '연애상담'}">selected</c:if>>연애상담</option> 
@@ -104,7 +115,7 @@
 			
 			
 
-			<input type="submit" value="검색" >
+			<input type="submit" value="검색">
 		</form>
 	</div>
 	
@@ -137,13 +148,10 @@
 	</table>
 
 
-
 	<div id="pageBar">${pageBar }</div>
 
  </section>
 
-		
 
 
-<jsp:include page="/WEB-INF/views/common/footer.jsp" />
 

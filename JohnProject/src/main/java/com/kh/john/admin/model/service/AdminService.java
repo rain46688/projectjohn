@@ -56,6 +56,8 @@ public interface AdminService {
 	
 	List<ExpertRequest> selectAdminExpertCounsel(int cPage, int numPerPage);
 	
+	List<ExpertRequest> selectAdminExpertCounsel2(int cPage, int numPerPage);
+
 	int selectAdminExpertCounselCount();
 	
 	//공지관련
@@ -71,7 +73,7 @@ public interface AdminService {
 	
 	Notice noticeModify(Map param);
 	
-	int noticeModifyEnd(Notice n);
+	int noticeModifyEnd(Notice n,List<NoticeFile> files);
 	
 	int deleteNotice(Notice n);
 	
@@ -84,5 +86,8 @@ public interface AdminService {
 	int selectAdminChatCount();
 	
 	List<AdminChat> selectAdminInChat(int adminUsid);
+	
+	
+	
 
 }
