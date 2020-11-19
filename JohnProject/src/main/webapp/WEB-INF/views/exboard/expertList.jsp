@@ -36,18 +36,19 @@ html, body, div, span, applet, object, iframe, h1, h2, h3, h4, h5, h6, p, blockq
 	
 }
 
-/* 위 div 미테 */
+/* 위 div */
 #upDiv * {
-/* 	border: 1px solid red; */
+ 	border: 1px solid red; 
 	/* text-shadow: -1px 0 #BFBFBF, 0 0.5px #BFBFBF, 0.5px 0 #BFBFBF, 0 -1px #BFBFBF; */
 }
 
 /* 아래 div */
 #downDiv * {
-	/* border: 1px solid red; */
+	 border: 1px solid red; 
 	/* text-shadow: -1px 0 #BFBFBF, 0 0.5px #BFBFBF, 0.5px 0 #BFBFBF, 0 -1px #BFBFBF; */
 }
 
+/* 위 div */
 #upDiv {
 /* 	border: 1px solid gray;
 	margin:0.5% 0 0.5% 0;
@@ -57,6 +58,7 @@ html, body, div, span, applet, object, iframe, h1, h2, h3, h4, h5, h6, p, blockq
 	/* 	background-color:black; */
 }
 
+/* 아래 div */
 #downDiv {
 	/* 	border: 1px solid brown; */
 	width: 100%;
@@ -66,6 +68,7 @@ html, body, div, span, applet, object, iframe, h1, h2, h3, h4, h5, h6, p, blockq
 	border-top: 1px solid #C6C5C5;
 }
 
+/* 리뷰 div */
 #reviewDiv {
 	/*  background-color: red;  */
 	height: 100%;
@@ -73,6 +76,7 @@ html, body, div, span, applet, object, iframe, h1, h2, h3, h4, h5, h6, p, blockq
 	border-right: 1px solid #C6C5C5;
 }
 
+/* 카테고리 div */
 #categoryDiv {
 	/* background-color: blue; */
 	height: 100%;
@@ -99,6 +103,12 @@ html, body, div, span, applet, object, iframe, h1, h2, h3, h4, h5, h6, p, blockq
 
 #upDiv .splide__list .splide__slide {
 	margin: 1px;
+}
+
+/* 슬라이드 이미지 */
+img {
+	width: 100%; 
+	height: auto;
 }
 
 /* 세로 슬라이드  */
@@ -136,26 +146,19 @@ html, body, div, span, applet, object, iframe, h1, h2, h3, h4, h5, h6, p, blockq
 	display: none;
 }
 
-img {
-	width: 100%; /* need to overwrite inline dimensions */
-	height: auto;
-}
-
-h2 {
-	margin-bottom: .5em;
-}
-
+/* 카테고리 그리드 */
 .grid-container {
 	display: grid;
 	grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
 	grid-gap: 1em;
 }
 
-/* hover styles */
+/* 카테고리 그리드 */
 .counsel-listing {
 	position: relative;
 }
 
+/* 카테고리 그리드 이미지 */
 .counsel-image {
 	line-height: 0;
 	overflow: hidden;
@@ -167,6 +170,7 @@ h2 {
 	transform: scale(1.1);
 }
 
+/* 카테고리 제목 */
 .counsel-title {
 	cursor: pointer;
 	font-size: 2.5em;
@@ -197,7 +201,6 @@ h2 {
 	filter: blur(0.5em);
 }
 
-/* for touch screen devices */
 @media ( hover : none) {
 	.counsel-title {
 		opacity: 1;
@@ -213,7 +216,6 @@ h2 {
 	height: 180px;
 }
 
-
 /* 별 */
 .checked {
 	color: orange;
@@ -225,34 +227,40 @@ h2 {
 	height: 50%;
 }
 
+/* 카드 오른쪽 div  */
 .exRight {
 	display: inline-block;
 	height: 50%;
 	width: 50%;
 }
 
+/* 카드 오른쪽 이름  */
 .exName {
 	height: 20%;
 }
 
+/* 카드 오른쪽 점수  */
 .exRating {
 	height: 20%;
 	font-size: 1.6vh;
 	overflow:hidden;
 }
 
+/* 카드 오른쪽 전문 분야  */
 .exCounselArea{
 	height:20%;
 	font-size: 2vh;
 	overflow:hidden;
 }
 
+/* 카드 오른쪽 버튼  */
 .card-body button {
 	width: 100%;
 	height: 40%;
 	font-size: 2vh;
 }
 
+/* 카드 자기소개  */
 .exBottm {
 	padding-top: 2vh;
 	height: 50%;
@@ -273,12 +281,14 @@ h2 {
 	/* background-color: skyblue;  */
 }
 
+/* 리뷰 위 div  */
 .reviewInnerUpDiv {
 	height: 10%;
 	width: 100%;
 	display: flex;
 }
 
+/* 리뷰한사람 닉네임  */
 .userNickName {
 	height: 100%;
 	width: 20%;
@@ -286,6 +296,7 @@ h2 {
 	margin-right: 2vh;
 }
 
+/* 리뷰한 날짜 */
 .counselDate {
 	height: 100%;
 	width: 30%;
@@ -293,26 +304,31 @@ h2 {
 	margin-right: 2vh;
 }
 
+/* 리뷰 카테고리 */
 .counselAreaReview {
 	height: 100%;
 	width: 50%;
 }
 
+/* 리뷰 점수 */
 .userRating {
 	height: 10%;
 	border-bottom: 1px solid #C6C5C5;
 }
 
+/* 리뷰 제목 */
 #reviewDivTitle {
 	height: 20%;
 	width: 100%;
 }
 
+/* 리뷰 제목 */
 #reviewTitleH1 {
 	font-size: 40px;
 	font-weight: bold;
 }
 
+/* 리뷰 내용 */
 .userReview {
 	height: 80%;
 	width: 100%;

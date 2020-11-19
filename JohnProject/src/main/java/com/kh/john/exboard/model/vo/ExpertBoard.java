@@ -6,7 +6,6 @@ import lombok.Data;
 
 @Data
 public class ExpertBoard {
-
 	private int expertBoardId;
 	private int expertBoardUsid;
 	private int expertBoardMemUsid;
