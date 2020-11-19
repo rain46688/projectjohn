@@ -14,6 +14,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.SessionAttribute;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
@@ -21,15 +22,21 @@ import com.kh.john.admin.model.service.AdminService;
 import com.kh.john.admin.model.vo.Notice;
 import com.kh.john.admin.model.vo.NoticeFile;
 import com.kh.john.common.page.PageBarFactory;
+import com.kh.john.member.model.service.MemberService;
+import com.kh.john.member.model.vo.Member;
 
 import lombok.extern.slf4j.Slf4j;
 
 @Slf4j
 @Controller
+
 public class CustomerController {
 
 	@Autowired
 	private AdminService service;
+	
+	@Autowired
+	private MemberService memberService;
 
 	// 고객센터 메뉴화면 이동(임시)
 	@RequestMapping("/customer/customerPage")
@@ -248,9 +255,21 @@ public class CustomerController {
 //	public ModelAndView adminChat(ModelAndView mv, int adminUsid) {
 //		mv.addObejct("adminChat", service.selectOneAdminChat);
 //	}
+	
 	@RequestMapping("/customer/customerChat")
-	public String adminChat() {
-		return "/customer/customerChat";
+	public ModelAndView adminChat(ModelAndView mv, @SessionAttribute("loginMember") Member loginMember,
+			@RequestParam("adminUsid") int adminUsid) {
+		Member myInfo=memberService.selectMemberByUsid(loginMember);
+		Member otherInfo=new Member();
+		otherInfo.setUsid(adminUsid);
+		otherInfo=memberService.selectMemberByUsid(otherInfo);
+		mv.addObject("myInfo",myInfo);
+		mv.addObject("otherInfo",otherInfo);
+		mv.setViewName("customer/customerChat");
+		return mv;
+		
 	}
+	
+
 
 }

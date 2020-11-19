@@ -96,7 +96,11 @@
 
 <section id="content">
 	<div id="main-container">
-		<div id="chat-container"></div>
+		
+		<div id="chat-container">
+		<div id="savedContainer"></div>
+		</div>
+		
 		<div id="bottom-container">
 
 			<input id="inputMessage" type="text"> <input id="btn-submit"
@@ -111,184 +115,146 @@
 <script>
 	const adminsocket = new WebSocket("wss://localhost${path}/adminsocket");
 	adminsocket.onopen = function() {
+		adminsocket.send("connect");
 		
-	
-		console.log("onopen => signaling server 연결");
-		console.log("닉 : " + "${loginMember.memNickname}");
+
 		var date = new Date();
-		if ('${loginMember.memClass}' != '관리자') {
-			sendChat(31, '${loginMember.usid}',"1:1 문의 채팅입니다. 질문을 남겨주세요", date, "",
-					'${loginMember.memNickname}');
-			console.log("로긴멤버관리자ㄴ:" + '${loginMember.memClass}');
-		} else {
-			sendChat('${loginMember.usid}', 31,"관리자가 입장했습니다", date, "",
-					'${loginMember.memNickname}');
-			console.log("로긴멤버관리자:" + '${loginMember.memClass}');
-		}
 		
+		var date = new Date();
+		var dateInfo = date.getHours() + ":" + date.getMinutes() + ":"
+				+ date.getSeconds();
+		
+		if('${loginMember.usid}'==31){
+			
+			$('#chat-container').html("<div class='chat notice'>"
+					+"관리자님이 입장하였습니다</div>");
+			
+		}else{
+			$('#chat-container').html("<div class='chat notice'>"
+					+'${loginMember.memNickname}'+"님이 입장하였습니다</div>");
+		}  
+		
+		
+		
+
  		
 	};
 	$('#inputMessage').keydown(
 			function(key) {
 				if (key.keyCode == 13) {
 					let txt = $("#inputMessage").val();
-					console.log("텍스트:" + txt);
 					var date = new Date();
-					if ('${loginMember.memClass}' != '관리자') {
-						sendChat('${loginMember.usid}', 31, txt, date, "",
+					
+						sendChat('${loginMember.usid}', '${otherInfo.usid}', txt, date, "",
 								'${loginMember.memNickname}');
 						$('#inputMessage').val("");
-						console.log("관리자아님");
-					} else {
-						sendChat(31, '${loginMember.usid}', txt, date, "",
-								'${loginMember.memNickname}');
-						$('#inputMessage').val("");
-						console.log("관리자임");
-					}
+						
+				
 				}
 			});
 	
 	
 	adminsocket.onmessage = function(e) {
- 		const chatMsg = JSON.parse(e.data);
+ 		let chatMsg = JSON.parse(e.data);
  		
- 	
  	      let allChatList=new Array;
  	  
  	      $.each(chatMsg, function(i,v){
  	         allChatList[i]=v;
  	      });
  	      
- 	      console.log(allChatList);
- 	      $("#inputMessage").append(allChatList.adminChatContent);
+ 	      $("#chat-container").append(allChatList.adminChatContent);
  	      
  	   
  	     $.each(allChatList,function(i,v){
- 	         let msgLeft=$("<div/>").attr({"class":"msgLeft"});
- 	          let msgRight=$("<div/>").attr({"class":"msgRight"});
- 	         if(v['adminUsid']=='${loginMember.usid}'){ //발신인==나
- 	            let msgR=msgRight.html(v['mchatContent']);
- 	             $("#inputMessage").append(msgR);
+ 	       
+ 	          if(v['adminUsid']!='${loginMember.usid}'){ //발신인==나
+
+ 	 
+ 	         
+  	        	let msgR=$('#chat-container').html(
+						$('#chat-container').html()
+								+ "<div class='chat-box'><div class='chat'>"
+								+ v['adminChatContent']
+								+ "</div><div class='chat-info chat-box'>"
+								+ dateInfo + "</div></div>"); 
+						
+ 	         
+	  	            			$("#savedContainer").html('');
+ 	            
+
  	         }
+ 	         
  	         if(v['adminUsid']!='${loginMember.usid}' || v['adminChatMemUsid']=='${loginMember.usid}'){
- 	            let msgL=msgLeft.html(v['adminChatContent']);
- 	             $("#adminChatContent").append(msgL);
+ 	         
+ 	          
+	 	        	let msgL=$('#chat-container').html(
+							$('#chat-container').html()
+									+ "<div class='chat-box'><div class='chat'>"
+									+ v['adminChatContent']
+									+ "</div><div class='chat-info chat-box'>"
+									+ dateInfo + "</div></div>"); 
+										
+							
+          							$("#savedContainer").html('');
+
+	 	    
  	         }
+ 	    
  	      });
      
 
- 		
-		/* var arr = JSON.stringify(chatMsg);
-		console.log(arr); */
-		
-/* 		sendChat(31, '${loginMember.usid}',arr, date, "",
-		'${loginMember.memNickname}'); */
+
 		
 		var date = new Date();
 		var dateInfo = date.getHours() + ":" + date.getMinutes() + ":"
 				+ date.getSeconds();
-		 /* if(chatMsg['adminChatContent']=='SYS1'){
+		
+// 	/* if ('${loginMember.memClass}' != '관리자') { /*관리자가 아닌사람*/
+// 			if ('${loginMember.usid}' != chatMsg['adminUsid']) { /*현재 로그인한사람 != 메세지의 발신인*/
+				
+// 				$('#chat-container').html(
+// 						$('#chat-container').html()
+// 								+ "<div class='chat-box'><div class='chat'>"
+// 								+ chatMsg['adminChatContent']
+// 								+ "</div><div class='chat-info chat-box'>"
+// 								+ dateInfo + "</div></div>");
+				
+// 			} else {/*현재 로그인한사람 == 메세지의 발신인*/
+				
+// 				$('#chat-container')
+// 						.html(
+// 								$('#chat-container').html()
+// 										+ "<div class='my-chat-box'><div class='chat my-chat'>"
+// 										+ chatMsg['adminChatContent']
+// 										+ "</div><div class='chat-info'>"
+// 										+ dateInfo + "</div></div>");
 			
-			$('#chat-container').html("<div class='chat notice'>"
-					+chatMsg['관리자']+"님이 입장하였습니다</div>");
+// 			}
+// 		} else {/*관리자인사람*/
+// 			if ('${loginMember.usid}' != chatMsg['adminUsid']) { /*현재 로그인한사람 != 메세지의 발신인*/
 			
-		}else{
-			$('#chat-container').html("<div class='chat notice'>"
-					+chatMsg['${loginMember.usid}']+"님이 입장하였습니다</div>");
-		} */
-		/*발신인 : 관리자*/
-		/*  if(chatMsg['adminUsid']==31&&chatMsg['adminChatMemUsid']==31){ */
-		if ('${loginMember.memClass}' != '관리자') { /*관리자가 아닌사람*/
-			if ('${loginMember.usid}' != chatMsg['adminUsid']) { /*현재 로그인한사람 != 메세지의 발신인*/
-				console.log("1첫번째" + chatMsg['adminChatMemUsid']);
-				console.log("1첫번째" + chatMsg['adminUsid']);
-				$('#chat-container').html(
-						$('#chat-container').html()
-								+ "<div class='chat-box'><div class='chat'>"
-								+ chatMsg['adminChatContent']
-								+ "</div><div class='chat-info chat-box'>"
-								+ dateInfo + "</div></div>");
-				console.log("1첫번째" + chatMsg);
-				console.log("1첫번째컨첸츠" + chatMsg['adminChatContent']);
-			} else {/*현재 로그인한사람 == 메세지의 발신인*/
-				console.log("2두번째" + chatMsg['adminChatMemUsid']);
-				console.log("2두번째" + chatMsg['adminUsid']);
-				$('#chat-container')
-						.html(
-								$('#chat-container').html()
-										+ "<div class='my-chat-box'><div class='chat my-chat'>"
-										+ chatMsg['adminChatContent']
-										+ "</div><div class='chat-info'>"
-										+ dateInfo + "</div></div>");
-				console.log("2두번째" + chatMsg);
-				console.log("2두번째컨텐츠" + chatMsg['adminChatContent']);
-			}
-		} else {/*관리자인사람*/
-			if ('${loginMember.usid}' != chatMsg['adminUsid']) { /*현재 로그인한사람 != 메세지의 발신인*/
-				console.log("3첫번째" + chatMsg['adminChatMemUsid']);
-				console.log("3첫번째" + chatMsg['adminUsid']);
-				$('#chat-container').html(
-						$('#chat-container').html()
-								+ "<div class='chat-box'><div class='chat'>"
-								+ chatMsg['adminChatContent']
-								+ "</div><div class='chat-info chat-box'>"
-								+ dateInfo + "</div></div>");
-				console.log("3첫번째" + chatMsg);
-				console.log("3첫번째컨첸츠" + chatMsg['adminChatContent']);
-				/* 					var js = JSON.stringify([undefined,function(){},Symbol('')]);
-				 console.log("js"+js); */
-			} else { /*현재 로그인한사람 == 메세지의 발신인*/
-				console.log("4두번째" + chatMsg['adminChatMemUsid']);
-				console.log("4두번째" + chatMsg['adminUsid']);
-				$('#chat-container')
-						.html(
-								$('#chat-container').html()
-										+ "<div class='my-chat-box'><div class='chat my-chat'>"
-										+ chatMsg['adminChatContent']
-										+ "</div><div class='chat-info'>"
-										+ dateInfo + "</div></div>");
-				console.log("4두번째" + chatMsg);
-				console.log("4두번째컨텐츠" + chatMsg['adminChatContent']);
-			}
-		}
+// 				$('#chat-container').html(
+// 						$('#chat-container').html()
+// 								+ "<div class='chat-box'><div class='chat'>"
+// 								+ chatMsg['adminChatContent']
+// 								+ "</div><div class='chat-info chat-box'>"
+// 								+ dateInfo + "</div></div>");
+			
+// 			} else { /*현재 로그인한사람 == 메세지의 발신인*/
+				
+// 				$('#chat-container')
+// 						.html(
+// 								$('#chat-container').html()
+// 										+ "<div class='my-chat-box'><div class='chat my-chat'>"
+// 										+ chatMsg['adminChatContent']
+// 										+ "</div><div class='chat-info'>"
+// 										+ dateInfo + "</div></div>");
+				
+// 			}
+// 		} */
 	}
-	/* 	console.log("onmessage => 메세지 출력 : " + adminChatContent);
-	let chatMsg = JSON.stringify(adminChatContent.data);
-	console.log("inputMessage.type : " + inputMessage.type);
 	
-		console.log(" ====== ");
-		 var i = $("#inputMessage").val();
-		 
-			var date = new Date();
-			var dateInfo = date.getHours() + ":" + date.getMinutes() + ":" + date.getSeconds(); */
-	/* 	let getMemId = $('adminChatMemUsid').val();
-	 console.log("getMemId:"+getMemId); */
-	/* 	if(getMemId !== '${loginMember.usid}'){
-			var $chat = $("<div class='my-chat-box'><div class='chat my-chat'>" + i + "</div><div class='chat-info'>"+ dateInfo +"</div></div>");
-			$('#chat-container').append($chat); 
-		}else{
-			var $chat = $("<div class='chat-box'><div class='chat'>" + i + "</div><div class='chat-info chat-box'>"+ dateInfo +"</div></div>");
-			$('#chat-container').append($chat);
-		}
-		$('#chat-container').scrollTop($('#chat-container')[0].scrollHeight+20); 
-	console.log("채팅내용 : "+i);
-	 */
-	/*  console.log("onmessage실행");
-	 const chatMsg = JSON.parse(e){
-		 console.log("발신인:"+["adminChatMemUsid"]);
-		 console.log("수신인:"+["adminUsid"]);
-		 
-		 if(msg["adminChatContent"]")
-	 } */
-	/* 
-	 }; */
-	/* 	function sendMessage(message) {
-	 adminsocket.send(JSON.stringify(message));
-	 console.log("메세지 보내는 함수 sendMessage");
-	 console.log("메세지내용:::"+JSON.stringify(message));
-	
-	
-	 }; */
 	function sendChat(adminUsid, adminChatMemUsid, adminChatContent,
 			adminChatDate, adminChatFile, adminChatSenderNickname) {
 		adminsocket.send(JSON.stringify(new AdminChat(adminUsid,
@@ -305,31 +271,7 @@
 		this.adminChatFile = adminChatFile;
 		this.adminChatSenderNickname = adminChatSenderNickname;
 	};
-	/* 	function counselEnd() {
 	
-	 let result = confirm("1:1 문의를 종료 하시겠습니까?");
-	 if(result){
-	 let form = document.createElement("form");
-	 form.setAttribute("charset", "UTF-8");
-	 form.setAttribute("method", "Post");
-	 form.setAttribute("action", "${path}/customerPage");
-	 let hiddenField = document.createElement("input");
-	 hiddenField.setAttribute("type", "hidden");
-	 hiddenField.setAttribute("name", "inputMessage");
-	 hiddenField.setAttribute("value", $("#inputMessage").val());
-	 form.appendChild(hiddenField);
-	 let hiddenField2 = document.createElement("input");
-	 hiddenField2.setAttribute("type", "hidden");
-	 hiddenField2.setAttribute("name", "bno");
-	 hiddenField2.setAttribute("value", "${bno}");
-	 form.appendChild(hiddenField2);
-	 document.body.appendChild(form);
-	 form.submit();
-	 exit();
-	 sendMessage(new ExboardMsg("END",
-	 "${loginMember.memClass}", "종료"));
-	 }
-	 } */
 	adminsocket.onclose = function() {
 		console.log('onclose 실행');
 	};

@@ -26,7 +26,7 @@
 				 <c:if test="${not empty list }">
 					<c:forEach var="ac" items="${list }">
 						<tr>
-							<td><a href="${path }/customer/customerChat?adminUsid=56"><c:out value="${ac['adminUsid']}" /></a></td>
+							<td><a href="${path }/customer/customerChat?adminUsid=${ac['adminUsid']}"><c:out value="${ac['adminUsid']}" /></a></td>
 							<td><c:out value="${ac['adminChatDate']}" /></td>
 						</tr>
 					</c:forEach>
