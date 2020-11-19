@@ -1,8 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ include file="/WEB-INF/views/common/header.jsp"%>
+	
 	<!-- 
 		추후 업데이트 할 것
-		첫번째에서는 화살표 없도록
 		화살표가 아이디 기준으로 움직이므로 기준점 이름을 바꿔줄 것
 	 -->
 
@@ -85,8 +85,6 @@
                     <!-- 내용 -->
                     <button onclick="location.href = '${path}/board/boardInsert'">글쓰기</button>
                		<button onclick="location.href = '${path}/board/boardPage?boardNo=10'">글보기</button>
-               		<button onclick="location.href = '${path }/board/boardSession'">세션만들기</button>
-               		${loginMember }<br>
                		<%-- <c:forEach var="sub" items="${subList}">
                			<br>
 						${sub.subCategory}
@@ -115,8 +113,27 @@
 		let div = parent.document.createElement('div');
 		/* div.className = "subList"; */
 		/* div.id = "subList"+(index+1); */
-		div.innerHTML += "<h1 class='subListTitle'>"+element+'</h1>';
-		div.innerHTML += "<div id='subList" + (index+1) + "' class='subListBigCon'></div>";
+		let subTitle = "";
+		switch(element){
+		case "love" : subTitle = "연애문제";break;
+		case "family" : subTitle = "가족문제";break;
+		case "work" : subTitle = "직장문제";break;
+		case "friend" : subTitle = "친구문제";break;
+		case "pet" : subTitle = "반려동물문제";break;
+		}
+		// div.innerHTML += "<h1 class='subListTitle'>"+subTitle+'</h1>';
+		let subTitleCon = parent.document.createElement('h1');
+		subTitleCon.className = 'subListTitle';
+		subTitleCon.innerHTML = subTitle;
+		
+		// div.innerHTML += "<div id='subList" + (index+1) + "' class='subListBigCon'></div>";
+		let subListCon = parent.document.createElement('div');
+		subListCon.id = 'subList' + (index+1);
+		subListCon.className = 'subListBigCon';
+
+		div.appendChild(subTitleCon);
+		div.appendChild(subListCon);
+
 		document.getElementById('result').appendChild(div);
 	})
 	
@@ -131,7 +148,7 @@
     socket.onmessage = function(e){
     	let allList = JSON.parse(e.data);
 		let eachList = [];
-
+		
 		for(let j = 0; j < subList.length; j++){
 			eachList[j] = [];
 		}
@@ -151,10 +168,16 @@
 			let idx = 1;
 			let html = "";
 			let name = 'subList' + (i+1);
+			document.getElementById(name).innerHTML = "";
 			for(let j = 0; j < 15; j++) {
 				if(eachList[i][j]!=null){
 					if(j%5==0){
-						html += "<div id='sector"+idx+"' class='sector'><a href='#sector"+(idx-1)+"' class='arrow__btn'><</a>";
+						html += "<div id='sector"+idx+eachList[i][j].smallCategory
+						+"' class='sector'><a href='#sector"+(idx-1)+eachList[i][j].smallCategory+"' class='arrow__btn'";
+						if(j==0){
+							html += " style='display:none '"
+						}
+						html += "><</a>";
 						idx++;
 					}
 					
@@ -164,7 +187,11 @@
 						+ eachList[i][j].title + eachList[i][j].writerNickname + "</a></div>";
 					
 					if(j%5==4){
-						html += "<a href='#sector"+idx+"' class='arrow__btn'>></a></div>";
+						html += "<a href='#sector"+idx+eachList[i][j].smallCategory+"' class='arrow__btn'";
+						if(j==14){
+							html += " style='display:none '"
+						}
+						html += ">></a></div>";
 					}
 				}
 			}

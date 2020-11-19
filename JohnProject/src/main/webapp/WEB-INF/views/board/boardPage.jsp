@@ -16,7 +16,7 @@
 <script>
 	const ROOM_ID = ${currBoard.boardId}
 </script>
-<script defer src="http://localhost:82/socket.io/socket.io.js"></script>
+<!-- <script defer src="http://localhost:82/socket.io/socket.io.js"></script> -->
 <div id="content">
                     <!-- 내용 -->
                     ${currBoard }
