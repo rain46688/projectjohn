@@ -1,9 +1,11 @@
 package com.kh.john.admin.model.service;
 
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
 import com.kh.john.admin.model.vo.AdminChat;
+import com.kh.john.admin.model.vo.AdminMessage;
 import com.kh.john.admin.model.vo.Notice;
 import com.kh.john.admin.model.vo.NoticeFile;
 import com.kh.john.board.model.vo.Board;
@@ -85,8 +87,13 @@ public interface AdminService {
 	
 	int selectAdminChatCount();
 	
-	List<AdminChat> selectAdminInChat(int adminUsid);
+	List<AdminChat> selectAdminInChat();
+
+	List<Integer> firstUsidList();
 	
+	List<Integer> secondUsidList();
+
+	AdminMessage loadAdminMessage(HashMap<String, Integer> usidMap);
 	
 	
 

@@ -8,6 +8,7 @@ import java.util.Map;
 
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.SessionAttribute;
 import org.springframework.web.socket.CloseStatus;
 import org.springframework.web.socket.TextMessage;
 import org.springframework.web.socket.WebSocketMessage;
@@ -41,43 +42,39 @@ public class AdminSocketHandler extends TextWebSocketHandler {
 
 		log.debug("핸들러실행됨");
 		Map<String, Object> map1 = session.getAttributes();
-		Member m = (Member) map1.get("loginMember");
-		users.put(m, session);
+		Member member = (Member) map1.get("loginMember");
+		users.put(member, session);
 		
 		
 	}
 
 	@Override
 	protected void handleTextMessage(WebSocketSession session, TextMessage message) throws Exception {
-
-
-		Map<String, Object> map1 = session.getAttributes();
-		Member m = (Member) map1.get("loginMember");
-		users.put(m, session);
-
-		List<AdminChat> allChatList=service.selectAdminInChat(m.getUsid()); //db에서 채팅내역 불러옴
-		if(message.getPayload().equals("connect")) {
+		
+		List<AdminChat> allChatList = new ArrayList<AdminChat>();
+		
+		allChatList=service.selectAdminInChat();
+		System.out.println("allchatlist:"+allChatList.get(1));
+		
+		if(message.getPayload().equals("memberConnected")) {
 			session.sendMessage(new TextMessage(objectMapper.writeValueAsString(allChatList)));
 			return;
 		}
 		
-		//받아온 메세지를 받아오는 것 
-		AdminChat acmsg = objectMapper.readValue(message.getPayload(), AdminChat.class);
+		AdminChat ac = new AdminChat();
+		ac=objectMapper.readValue(message.getPayload(), AdminChat.class);//읽어온걸 insert
+		service.insertAdminChat(ac);
+		allChatList=service.selectAdminInChat();
+		
+		Iterator<Member> it=users.keySet().iterator();//users라는 map 전체를 돌릴 것이다
+	      while(it.hasNext()) {
+	         Member key=it.next();//user에 있는 Member객체로 하나씩 뽑아와서 key변수로 지정
+	         users.get(key).sendMessage(new TextMessage(objectMapper.writeValueAsString(allChatList)));
+	      }
+		
+	  
 		
 		
-		System.out.println(session.getId() + "로부터 메시지 수신:" + message.getPayload());
-		
-		Iterator<Member> it = users.keySet().iterator();
-		
-		while(it.hasNext()) {
-			Member key = it.next();
-			
-		}
-			for(WebSocketSession s : users.values()) {
-				s.sendMessage(message);
-			}
-
-		service.insertAdminChat(acmsg);
 
 	
 	}
