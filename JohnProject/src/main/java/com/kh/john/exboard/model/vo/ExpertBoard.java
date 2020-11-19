@@ -6,7 +6,6 @@ import lombok.Data;
 
 @Data
 public class ExpertBoard {
-
 	private int expertBoardId;
 	private int expertBoardUsid;
 	private int expertBoardMemUsid;
@@ -17,5 +16,5 @@ public class ExpertBoard {
 	private String expertBoardExNick;
 	private int expertBoardMemberend;
 	private int expertBoardExpertend;
-
+	private String expertBoardMemNick;
 }

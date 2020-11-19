@@ -69,7 +69,13 @@
 	UPDATE EXPERT_BOARD SET EXPERT_BOARD_MEMBEREND = 1 WHERE EXPERT_BOARD_ID=#{bno}
 </update>
 
+<select id="selectExpertLicense" resultMap="licenseMap" parameterType="string">
+	SELECT * FROM LICENSE WHERE LICENSE_MEM_USID = #{exusid}
+</select>
 
+<select id="selectExboardListCategory" resultMap="exboardMap" parameterType="string">
+	SELECT EX.* FROM (EXPERT_BOARD EX JOIN (SELECT * FROM EXPERT_INFO WHERE EXPERT_COUNSEL_AREA LIKE #{ca} ) ON (EXPERT_BOARD_USID = EXPERT_USID))WHERE EXPERT_BOARD_REVIEW IS NOT NULL
+</select>
 
 	<resultMap type="exboard" id="exboardMap">
 		<id column="EXPERT_BOARD_ID" property="expertBoardId" />
@@ -122,7 +128,13 @@
  	<result property="expertCounselEndTime" column="expert_counsel_end_time"/>
 </resultMap>
 
-
+<resultMap id="licenseMap" type="license">
+    <result property="licenseMemUsid" column="license_mem_usid"/>
+    <result property="licenseFileName" column="license_file_name"/>
+    <result property="licenseDate" column="license_date"/>
+    <result property="licenseType" column="license_type"/>
+    <result property="licenseCompany" column="license_company"/>
+</resultMap>
 
 
 </mapper>

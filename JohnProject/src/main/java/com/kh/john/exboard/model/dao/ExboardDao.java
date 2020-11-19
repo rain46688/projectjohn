@@ -8,6 +8,7 @@ import org.mybatis.spring.SqlSessionTemplate;
 import com.kh.john.exboard.model.vo.ExpertBoard;
 import com.kh.john.exboard.model.vo.ExpertRequest;
 import com.kh.john.member.model.vo.Expert;
+import com.kh.john.member.model.vo.License;
 import com.kh.john.member.model.vo.Member;
 
 public interface ExboardDao {
@@ -43,5 +44,9 @@ public interface ExboardDao {
 	String selectExBoardNumUsid(SqlSessionTemplate session, Map<String, String> bomap) throws Exception;
 
 	void updateCounselMemberEnd(SqlSessionTemplate session, String bno) throws Exception;
+
+	List<License> selectExpertLicense(SqlSessionTemplate session, String string) throws Exception;
+
+	List<ExpertBoard> selectExboardListCategory(SqlSessionTemplate session, String ca) throws Exception;
 
 }

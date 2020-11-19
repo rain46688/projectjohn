@@ -6,7 +6,7 @@ import lombok.Data;
 
 @Data
 public class Expert {
-	
+
 	private int expertUsid;
 	private int expertRating;
 	private String expertGreetings;
