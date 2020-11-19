@@ -110,8 +110,7 @@
 	//서브 목록만 쏴주기
 	subList.forEach(function(element, index){
 		let div = parent.document.createElement('div');
-		/* div.className = "subList"; */
-		/* div.id = "subList"+(index+1); */
+		div.className = "SUB";
 		let subTitle = "";
 		switch(element){
 		case "love" : subTitle = "연애문제";break;
@@ -163,6 +162,7 @@
 		})
 		console.log(eachList);
 		//15개만 출력하기 위해 종류별로 어레이에 넣어주기
+		//
 		const boardLength = 15;
 		for(let i = 0; i < eachList.length; i++){
 			let idx = 1;
