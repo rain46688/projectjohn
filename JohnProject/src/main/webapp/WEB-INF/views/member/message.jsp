@@ -54,6 +54,7 @@
 		if(data!=null){
 			let otherProfile="${otherInfo.profilePic}";
 			let otherNick="${otherInfo.memNickname}";
+			let otherUsid="${otherInfo.usid}";
 			let allChatList=new Array;
 			$.each(data, function(i,v){
 				allChatList[i]=v;
@@ -65,15 +66,16 @@
 		 		let picDiv=$("<div/>").html($("<img/>").attr("src","${path}/resources/profile_images/"+otherProfile));
 		 		let nickDiv=$("<div/>").html(otherNick);
 		 		let dateDiv=$("<div/>").attr({"class":"msgDate"});
-				console.log(allChatList[i].mchatDate);
-				if(v['mchatFirstUsid']=='${loginMember.usid}'){ //발신인==나
+				console.log("date"+allChatList[i].mchatDateString);
+				
+				if(v['mchatFirstUsid']=='${loginMember.usid}' && v['mchatSecondUsid']==otherUsid){ //발신인==나
 					let msgR=msgRight.html(v['mchatContent']);
-					let msgDate=dateDiv.html(v['mchatDate']);
+					let msgDate=dateDiv.html(v['mchatDateString']);
 			 		$("#savedContainer").append(msgR).append(msgDate);
 				}
-				if(v['mchatFirstUsid']!='${loginMember.usid}' || v['mchatSecondUsid']=='${loginMember.usid}'){
+				if(v['mchatFirstUsid']==otherUsid && v['mchatSecondUsid']=='${loginMember.usid}'){
 					let msgL=msgLeft.html(v['mchatContent']);
-					let msgDate=dateDiv.html(v['mchatDate']);
+					let msgDate=dateDiv.html(v['mchatDateString']);
 			 		$("#savedContainer").append(picDiv).append(nickDiv).append(msgL);
 					$("#savedContainer").append(msgL).append(msgDate);
 				}

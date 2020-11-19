@@ -12,7 +12,7 @@ public class MemberChat {
 	private int mchatFirstUsid;
 	private int mchatSecondUsid;
 	private String mchatContent;
-	@JsonFormat(shape=JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd HH:mm", timezone = "Asia/Seoul")
 	private Date mchatDate;
+	private String mchatDateString;
 	private String mchatFile;
 }
