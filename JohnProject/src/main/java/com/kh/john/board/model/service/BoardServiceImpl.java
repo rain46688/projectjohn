@@ -31,18 +31,18 @@ public class BoardServiceImpl implements BoardService {
 	
 	@Override
 	@Transactional
-	public int boardInsert(List<BoardFile> files, Board b) {
+	public int boardInsert(Board b) {
 		// TODO Auto-generated method stub
 		
 		int result = dao.boardInsert(session, b);
 		
-		if(result > 0) {
-			if(!files.isEmpty()) {
-				for(BoardFile f : files) {
-					dao.boardInsertFiles(session, f);
-				}
-			}
-		}
+//		if(result > 0) {
+//			if(!files.isEmpty()) {
+//				for(BoardFile f : files) {
+//					dao.boardInsertFiles(session, f);
+//				}
+//			}
+//		}
 		
 		return result;
 	}
