@@ -85,7 +85,7 @@ public interface AdminService {
 	
 	int selectAdminChatCount();
 	
-	List<AdminChat> selectAdminInChat(int adminUsid);
+	List<AdminChat> selectAdminInChat();
 	
 	
 	

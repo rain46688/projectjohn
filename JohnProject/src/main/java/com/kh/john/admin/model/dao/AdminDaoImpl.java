@@ -216,8 +216,8 @@ public class AdminDaoImpl implements AdminDao {
 	}
 
 	@Override
-	public List<AdminChat> selectAdminInChat(SqlSessionTemplate session, int AdminUsid) {
-		return session.selectList("admin.selectAdminInChat",AdminUsid);
+	public List<AdminChat> selectAdminInChat(SqlSessionTemplate session) {
+		return session.selectList("admin.selectAdminInChat");
 	}
 
 
