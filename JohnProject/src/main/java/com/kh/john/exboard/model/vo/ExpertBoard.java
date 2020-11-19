@@ -17,5 +17,5 @@ public class ExpertBoard {
 	private String expertBoardExNick;
 	private int expertBoardMemberend;
 	private int expertBoardExpertend;
-
+	private String expertBoardMemNick;
 }

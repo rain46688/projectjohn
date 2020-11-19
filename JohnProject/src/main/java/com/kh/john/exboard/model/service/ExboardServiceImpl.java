@@ -30,17 +30,24 @@ public class ExboardServiceImpl implements ExboardService {
 
 	// 전문가인 멤버 리스트 가져오기
 	@Override
-	public List<Map<String, Object>> selectExpert() throws Exception {
+	public List<Map<String, Object>> selectExpert(String ca) throws Exception {
 		// TODO Auto-generated method stub
 		List<Map<String, Object>> maplist = new ArrayList<Map<String, Object>>();
 
+		// 전문가 리스트를 가져옴
 		List<Member> list = dao.selectExpert(session);
 		for (Member m : list) {
+			// 전문가 리스트로 전문가 정보를 가져옴
 			Map<String, Object> temp = new HashMap<String, Object>();
-			temp.put("mem", m);
-			temp.put("ex", dao.selectExpertMem(session, "" + m.getUsid()));
+			// 리스트 안에 넣을 맵을 선언하고 전문가 정보 객체를 가져옴
+			Expert exx = dao.selectExpertMem(session, "" + m.getUsid());
+			// 카테고리랑 맞는지 비교후 맞는 사람들만 맵에 넣음
+			if (exx != null && exx.getExpertCounselArea().equals(ca)) {
+				temp.put("mem", m);
+				temp.put("ex", exx);
+				maplist.add(temp);
+			}
 			// temp.put("exLicense", dao.selectExpertLicense(session, "" + m.getUsid()));
-			maplist.add(temp);
 		}
 		return maplist;
 	}
@@ -169,6 +176,17 @@ public class ExboardServiceImpl implements ExboardService {
 	public void updateCounselMemberEnd(String bno) throws Exception {
 		// TODO Auto-generated method stub
 		dao.updateCounselMemberEnd(session, bno);
+	}
+
+	@Override
+	public List<ExpertBoard> selectExboardListCategory(String ca) throws Exception {
+		// TODO Auto-generated method stub
+
+		List<ExpertBoard> list = dao.selectExboardListCategory(session, ca);
+		for (ExpertBoard eb : list) {
+			eb.setExpertBoardMemNick(dao.selectMember(session, "" + eb.getExpertBoardMemUsid()).getMemNickname());
+		}
+		return list;
 	}
 
 }

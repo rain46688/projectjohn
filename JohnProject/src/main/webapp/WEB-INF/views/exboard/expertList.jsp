@@ -307,6 +307,22 @@ h2 {
 	overflow: hidden;
 	-webkit-box-orient: vertical;
 }
+
+/* 빈값 */
+
+.empty{
+	width:100%;
+	font-size:4vh;
+	padding-top:15vh;
+}
+
+.emptyReview{
+	width:100%;
+	height:100%;
+	font-size:5vh;
+	padding-top:15vh;
+	text-align:center;
+}
 </style>
 
 <section id="content">
@@ -351,7 +367,7 @@ h2 {
 							</c:forEach>
 						</c:when>
 						<c:otherwise>
-							<div class="empty">등록된 전문가가 없습니다.</div>
+							<div class="empty"><h1>등록된 상담사가 없습니다.</h1></div>
 						</c:otherwise>
 					</c:choose>
 
@@ -362,9 +378,14 @@ h2 {
 
 	<div id="downDiv">
 		<div id="reviewDiv">
-			<div class="splide2">
+		
+						<c:choose>
+						<c:when test="${fn:length(exbolist) > 0}">
+							<div class="splide2">
 				<div class="splide__track">
 					<ul class="splide__list">
+							<c:forEach items="${exbolist }" var="review">
+
 
 						<!-- =========== -->
 						<li class="splide__slide">
@@ -373,24 +394,29 @@ h2 {
 									<h1 id="reviewTitleH1">베스트 상담 후기</h1>
 								</div>
 								<div class="reviewInnerUpDiv">
-									<div class="userNickName">닉네임 : 최민수</div>
-									<div class="counselDate">날짜 : 2018-08-24</div>
-									<div class="counselAreaReview">분야 : </div>
+									<div class="userNickName">닉네임 : ${review.expertBoardMemNick }</div>
+									<div class="counselDate">날짜 : ${review.expertBoardDate }</div>
+									<div class="counselAreaReview">분야 : ${param.ca }</div>
 								</div>
 								<div class="userRating">
 									평점 : <span class="fa fa-star checked"></span> <span class="fa fa-star checked"></span> <span class="fa fa-star checked"></span> <span
 										class="fa fa-star"></span> <span class="fa fa-star"></span>
 								</div>
-								<div class="userReview">증말 좋습니다.증말 좋습니다.증말 좋습니다.증말 좋습니다.증말 좋습니다.증말 좋습니다.증말 좋습니다.증말 좋습니다.증말 좋습니다.증말 좋습니다.증말 좋습니다.증말 좋습니다.증말 좋습니다.증말
-									좋습니다.증말 좋습니다.증말 좋습니다.증말 좋습니다.증말 좋습니다.증말 좋습니다. 증말 좋습니다.증말 좋습니다.증말 좋습니다.증말 좋습니다.증말 좋습니다.증말 좋습니다.증말 좋습니다.증말 좋습니다.증말 좋습니다.증말 좋습니다.증말 좋습니다.</div>
+								<div class="userReview">${review.expertBoardReview}</div>
 							</div>
 						</li>	
 						<!-- =========== -->
-
-
-					</ul>
+					</c:forEach>
+						</ul>
 				</div>
 			</div>
+						</c:when>
+						<c:otherwise>
+							<div class="emptyReview"><h1>등록된 리뷰가 없습니다.</h1></div>
+						</c:otherwise>
+					</c:choose>
+
+				
 		</div>
 		<div id="categoryDiv">
 
@@ -399,38 +425,37 @@ h2 {
 					<article id="3685" class="counsel-listing">
 						<h3 class="counsel-title">직장 상담</h3>
 						<div class="counsel-image">
-							<a href="#"> <img class="cImgages" src="${path }/resources/images/직장 상담.jpg" alt="직장"></a>
+							<img class="cImgages" src="${path }/resources/images/직장 상담.jpg" alt="직장">
 						</div>
 					</article>
 					<article id="3688" class="counsel-listing">
 						<h3 class="counsel-title">부부 상담</h3>
 						<div class="counsel-image">
-							<a href="#"> <img class="cImgages" src="${path }/resources/images/부부 상담.jpg" alt="부부"></a>
+							<img class="cImgages" src="${path }/resources/images/부부 상담.jpg" alt="부부">
 						</div>
 					</article>
 					<article id="3691" class="counsel-listing">
 						<h3 class="counsel-title">진로 상담</h3>
 						<div class="counsel-image">
-							<a href="#"> <img class="cImgages" src="${path }/resources/images/취업 상담.png" alt="취업"></a>
+							<img class="cImgages" src="${path }/resources/images/취업 상담.png" alt="취업">
 						</div>
 					</article>
 					<article id="3694" class="counsel-listing">
 						<h3 class="counsel-title">심리 상담</h3>
 						<div class="counsel-image">
-							<a href="#"> <img class="cImgages" src="${path }/resources/images/심리 상담.jpg" alt="심리"></a>
+							<img class="cImgages" src="${path }/resources/images/심리 상담.jpg" alt="심리">
 						</div>
 					</article>
 					<article id="3697" class="counsel-listing">
 						<h3 class="counsel-title">자녀 상담</h3>
 						<div class="counsel-image">
-							<a href="#"> <img class="cImgages" src="${path }/resources/images/자녀 갈등.png" alt="자녀"></a>
+							<img class="cImgages" src="${path }/resources/images/자녀 갈등.png" alt="자녀">
 						</div>
 					</article>
 					<article id="3700" class="counsel-listing">
 						<h3 class="counsel-title">연애 상담</h3>
 						<div class="counsel-image">
-							<a href="#"> <img class="cImgages" src="${path }/resources/images/연애 상담.jpg" alt="연애">
-							</a>
+							<img class="cImgages" src="${path }/resources/images/연애 상담.jpg" alt="연애">
 						</div>
 					</article>
 				</div>
@@ -450,7 +475,8 @@ h2 {
 	 }); */
 	 
 	 $(".counsel-title").click(e => {
-			console.log($(e.target).html()); 
+			console.log($(e.target).html());
+			location.href="${path}/expert/expertPrintList?ca="+$(e.target).html();
 	 });
 
 	// 가로 슬라이드

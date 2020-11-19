@@ -73,8 +73,9 @@
 	SELECT * FROM LICENSE WHERE LICENSE_MEM_USID = #{exusid}
 </select>
 
-
-
+<select id="selectExboardListCategory" resultMap="exboardMap" parameterType="string">
+	SELECT EX.* FROM (EXPERT_BOARD EX JOIN (SELECT * FROM EXPERT_INFO WHERE EXPERT_COUNSEL_AREA LIKE #{ca} ) ON (EXPERT_BOARD_USID = EXPERT_USID))WHERE EXPERT_BOARD_REVIEW IS NOT NULL
+</select>
 
 	<resultMap type="exboard" id="exboardMap">
 		<id column="EXPERT_BOARD_ID" property="expertBoardId" />

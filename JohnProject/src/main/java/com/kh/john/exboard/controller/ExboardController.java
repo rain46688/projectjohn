@@ -58,16 +58,17 @@ public class ExboardController {
 
 	// 전문가 리스트들 불러오기
 	@RequestMapping("/expert/expertPrintList")
-	public ModelAndView expertPrintList() {
+	public ModelAndView expertPrintList(@RequestParam(required = false) String ca) {
 		log.debug("expertPrintList 실행");
+		log.debug("ca : " + ca);
 		ModelAndView mv = new ModelAndView("/exboard/expertList");
 		try {
-			List<Map<String, Object>> list = service.selectExpert();
+			List<Map<String, Object>> list = service.selectExpert(ca);
 			for (Map<String, Object> mm : list) {
 				log.debug(mm.get("mem").toString());
 			}
-
 			mv.addObject("list", list);
+			mv.addObject("exbolist", service.selectExboardListCategory(ca));
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
