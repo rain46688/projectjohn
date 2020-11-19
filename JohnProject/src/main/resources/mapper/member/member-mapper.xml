@@ -111,7 +111,7 @@
 </select>
 
 <insert id="insertMemberChat" parameterType="memberChat">
-	INSERT INTO MEMBER_CHAT VALUES(#{mchatFirstUsid},#{mchatSecondUsid},#{mchatContent},SYSDATE,#{mchatFile})
+	INSERT INTO MEMBER_CHAT VALUES(#{mchatFirstUsid},#{mchatSecondUsid},#{mchatContent},SYSTIMESTAMP,#{mchatFile})
 </insert>
 
 <select id="firstUsid" parameterType="_int" resultType="integer">
