@@ -60,6 +60,11 @@ public class ReportDaoImpl implements ReportDao {
 	public int reportWarnOut(SqlSessionTemplate session, Member m) {
 		return session.insert("report.reportWarnOut",m);
 	}
+
+	@Override
+	public int insertReportAnswer(SqlSessionTemplate session, Report r) {
+		return session.insert("report.insertReportAnswer",r);
+	}
 	
 	
 

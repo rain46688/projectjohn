@@ -148,20 +148,62 @@ public class CustomerController {
 
 	// 공지사항 수정 완료
 	@RequestMapping("/customer/customerNoticeModifyEnd")
-	public ModelAndView noticeModifyEnd(Notice n, ModelAndView mv) {
-		int result = service.noticeModifyEnd(n);
+	public ModelAndView noticeModifyEnd(MultipartFile[] upFile, Notice n, ModelAndView mv, HttpServletRequest request) {
+		
+		System.out.println("업파일" + upFile);
+		System.out.println("파라미터노티스" + n);
+		String saveDir = request.getServletContext().getRealPath("resources/upload/notice");
+		File dir = new File(saveDir);
+		if (!dir.exists()) {
+			dir.mkdirs();
+		}
 
+		List<NoticeFile> files = new ArrayList();
+
+		for (MultipartFile f : upFile) {
+			System.out.println("멀티파트파일:" + f);
+//			if(!f.isEmpty()) { 
+			String originalFilename = f.getOriginalFilename();
+			System.out.println("오리지널파일네임" + f.getOriginalFilename());
+
+			String ext = originalFilename.substring(originalFilename.lastIndexOf('.') + 1);
+			System.out.println("ext:" + ext);
+
+			SimpleDateFormat sdf = new SimpleDateFormat("yyyy_MM_ddHHmmssSSS");
+			int rndNum = (int) (Math.random() * 1000);
+			String renamedFilename = sdf.format(new Date(System.currentTimeMillis())) + "_" + rndNum + "." + ext;
+
+			try {
+				f.transferTo(new File(saveDir + "/" + renamedFilename));
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+
+			NoticeFile noticeFile = new NoticeFile();
+			noticeFile.setNoticeFileName(renamedFilename);
+			files.add(noticeFile);
+			System.out.println("노티스파일" + noticeFile);
+			System.out.println("파일스" + files);
+			// }
+		}
+
+		int result = service.noticeModifyEnd(n,files);
+		System.out.println("파일파일파일" + files);
+		System.out.println("공지공지" + n);
+		System.out.println("result::::::" + result);
+		
 		String msg = "";
 
 		if (result > 0) {
-			msg = "수정 성공!";
+			mv.addObject("msg", "수정성공!");
+			mv.addObject("loc", "/customer/customerNotice");
+			mv.setViewName("common/msg");
 		} else {
-			msg = "수정 실패ㅠㅠ";
+			mv.addObject("msg", "수정실패");
+			mv.addObject("loc", "/customer/customerNotice");
 		}
 
-		mv.addObject("msg", msg);
-		mv.addObject("loc", "/customer/customerNotice");
-		mv.setViewName("common/msg");
+
 
 		return mv;
 	}

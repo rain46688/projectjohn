@@ -200,6 +200,18 @@ public class AdminController {
 		System.out.println("토탈데이터:"+totalData);
 		mv.addObject("list", list);
 		System.out.println("리스트:"+list);
+		
+		//
+//		mv.addObject("type",type);
+//		mv.addObject("keyword",keyword);
+//		mv.addObject("keyword2",keyword2);
+//		mv.addObject("type2",type2);
+//		mv.addObject("bigCategory",bigCategory);
+//		mv.addObject("smallCategory",smallCategory);
+//		mv.addObject("isclose",isclose);
+//		mv.addObject("order",order);
+		//
+		
 		mv.setViewName("admin/adminBoardSearch");
 		return mv;
 	}
@@ -342,8 +354,8 @@ public class AdminController {
 		return mv;
 	}
 
-	//전문가 상담진행상황 불러오기
-	@RequestMapping("/admin/adminExpertCounsel")
+	//전문가 상담진행상황 불러오기(진행중)
+	@RequestMapping("/admin/adminExpertCounsel0")
 	public ModelAndView adminExpertCounsel(ModelAndView mv, 
 			@RequestParam(value = "cPage", required = false, defaultValue = "1") int cPage,
 			@RequestParam(value = "numPerPage", required = false, defaultValue = "10") int numPerPage) {
@@ -356,7 +368,25 @@ public class AdminController {
 		mv.addObject("totalData", totalData);
 		
 		mv.addObject("list", list);
-		mv.setViewName("admin/adminExpertCounsel");
+		mv.setViewName("admin/adminExpertCounsel0");
+		return mv;
+	}
+	
+	//전문가 상담진행상황 불러오기(종료)
+	@RequestMapping("/admin/adminExpertCounsel1")
+	public ModelAndView adminExpertCounsel2(ModelAndView mv, 
+			@RequestParam(value = "cPage", required = false, defaultValue = "1") int cPage,
+			@RequestParam(value = "numPerPage", required = false, defaultValue = "10") int numPerPage) {
+		
+		List<ExpertRequest> list = service.selectAdminExpertCounsel2(cPage,numPerPage);
+		int totalData = service.selectAdminExpertCounselCount();
+		
+		mv.addObject("pageBar", PageBarFactory.getPageBar(totalData, cPage, numPerPage, "adminExpert"));
+
+		mv.addObject("totalData", totalData);
+		
+		mv.addObject("list", list);
+		mv.setViewName("admin/adminExpertCounsel1");
 		return mv;
 	}
 	

@@ -59,6 +59,8 @@ public interface AdminDao {
 	
 	List<ExpertRequest> selectAdminExpertCounsel(SqlSessionTemplate session, int cPage, int numPerPage);
 	
+	List<ExpertRequest> selectAdminExpertCounsel2(SqlSessionTemplate session, int cPage, int numPerPage);
+
 	int selectAdminExpertCounselCount(SqlSession session);
 	
 	//공지관련
@@ -78,7 +80,11 @@ public interface AdminDao {
 	
 	int noticeModifyEnd(SqlSessionTemplate session, Notice n);
 	
+	int noticeModifyFile(SqlSession session, NoticeFile file);
+	
 	int deleteNotice(SqlSessionTemplate session, Notice n);
+	
+	
 	
 	//1:1문의관련
 	
@@ -88,5 +94,6 @@ public interface AdminDao {
 	
 	int selectAdminChatCount(SqlSessionTemplate session);
 	
-	List<AdminChat> selectAdminInChat(SqlSessionTemplate session, int AdminUsid);
+	List<AdminChat> selectAdminInChat(SqlSessionTemplate session);
+	
 } 

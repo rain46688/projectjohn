@@ -11,7 +11,104 @@
 
 </jsp:include>
 
+<script type=text/javascript>
+        $(document).ready(function(){
+            var ko=['헤어질까요?'];
+            var ja=['가족문제','회사문제','연애상담'];
+            var su=['가족문제','연애상담'];
+
+            $('.s0').change(function(){
+                var sel=$(this).val();
+                if(sel=='연애상담'){
+                    $('.op').remove();
+                    $.each(ko,function(i,item){
+                        $('.s1').append('<option class="op" value="'+item+'" <c:if test="${param.smallCategory eq '+item+'}">selected</c:if>>'+item+'</option>');
+                    });
+                }
+                if(sel=='일반게시판'){
+                    $('.op').remove();
+                    $.each(ja,function(i,item){
+                        $('.s1').append('<option class="op" value="'+item+'" <c:if test="${param.smallCategory eq '+item+'}">selected</c:if>>'+item+'</option>');
+                    });
+                }
+                if(sel=='음성게시판'){
+                    $('.op').remove();
+                    $.each(su,function(i,item){
+                        $('.s1').append('<option class="op" value="'+item+'" <c:if test="${param.smallCategory eq '+item+'}">selected</c:if>>'+item+'</option>');
+                    });
+                }
+            });
+
+        });
+    </script>
+    
 <section id="content">
+
+	<div id="search-container">
+		<form  id="myForm" action="${path }/admin/adminBoardSearch" method="post">
+		
+		 <select class="s0" name="bigCategory" required>
+		 		<option>대분류</option>
+				<option value="연애상담" <c:if test="${param.big_category eq '연애상담'}">selected</c:if>>연애상담</option> 
+				<option value="일반게시판" <c:if test="${param.big_category eq '일반게시판'}">selected</c:if>>일반게시판</option> 
+				<option value="음성게시판" <c:if test="${param.big_category eq '음성게시판'}">selected</c:if>>음성게시판</option> 
+	    </select>
+	
+	    <select class="s1" name="smallCategory">
+	        <option>소분류</option>
+	    </select>
+			
+			
+		<%-- 	<select name="big_category"  required>
+		
+				<option value="연애상담" <c:if test="${param.big_category eq '연애상담'}">selected</c:if>>연애상담</option> 
+				<option value="일반게시판" <c:if test="${param.big_category eq '일반게시판'}">selected</c:if>>일반게시판</option> 
+				<option value="음성게시판" <c:if test="${param.big_category eq '음성게시판'}">selected</c:if>>음성게시판</option> 
+				
+				
+			</select>	 --%>
+		    
+		    
+			<select name="searchType" required>
+				<option value=" " disabled selected>검색타입</option> 
+				
+				<option value="mem_name" <c:if test="${param.searchType eq 'mem_name'}">selected</c:if>>이름</option>
+				<option value="mem_email" <c:if test="${param.searchType eq 'mem_email'}">selected</c:if>>이메일</option>
+				<option value="title" ${param.searchType eq 'title'?"selected":"" }>제목</option>	
+																							
+			
+			</select>
+			
+			<input type="search" name="keyword"
+			value="${param.keyword }"/> 
+			
+			<br>
+			
+			
+ 			<label><input type="radio" name="order" value='ascend'>오름차순</label>
+			<label><input type="radio" name="order" value='descend'>내림차순</label> 
+			
+			<select name="searchType2" required>
+				<option value=" " disabled selected>선택</option> 
+				<option value="enroll_date" <c:if test="${param.searchType eq 'enroll_date'}">selected</c:if>>날짜</option>
+				<option value="board_id" <c:if test="${param.searchType eq 'board_id'}">selected</c:if>>글번호</option>
+				<option value="hit" ${param.searchType eq 'hit'?"selected":"" }>조회수</option>	
+			</select>
+			
+
+			<br>
+			
+			<input type="checkbox" name="isclose" value="0">진행중인 게시글
+			<input type="checkbox" name="isclose" value="1">종료된 게시글
+
+			
+			
+
+			<input type="submit" value="검색" >
+		</form>
+	</div>
+	
+
 
 	<table id="tbl-board" class="table table-striped table-hover">
 		<tr>
@@ -51,5 +148,4 @@
 
 </section>
 
-<jsp:include page="/WEB-INF/views/common/footer.jsp" />
 

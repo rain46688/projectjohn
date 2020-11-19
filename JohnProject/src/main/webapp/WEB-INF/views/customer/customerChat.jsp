@@ -15,17 +15,14 @@
 * {
 	font-family: 나눔고딕;
 }
-
 #messageWindow {
 	background: black;
 	color: greenyellow;
 }
-
 #inputMessage {
 	width: 500px;
 	height: 20px
 }
-
 #btn-submit {
 	background: white;
 	background: #F7E600;
@@ -34,7 +31,6 @@
 	color: #607080;
 	border: none;
 }
-
 #main-container {
 	width: 600px;
 	height: 680px;
@@ -42,7 +38,6 @@
 	margin: 10px;
 	display: inline-block;
 }
-
 #chat-container {
 	vertical-align: bottom;
 	border: 1px solid black;
@@ -53,7 +48,6 @@
 	overflow-x: hidden;
 	background: #9bbbd4;
 }
-
 .chat {
 	font-size: 20px;
 	color: black;
@@ -69,7 +63,6 @@
 	display: inline-block;
 	border-radius: 10px 10px 10px 10px;
 }
-
 .notice {
 	color: #607080;
 	font-weight: bold;
@@ -78,17 +71,14 @@
 	background-color: #9bbbd4;
 	display: block;
 }
-
 .my-chat {
 	text-align: right;
 	background: #F7E600;
 	border-radius: 10px 10px 10px 10px;
 }
-
 #bottom-container {
 	margin: 10px;
 }
-
 .chat-info {
 	color: #556677;
 	font-size: 10px;
@@ -96,11 +86,9 @@
 	padding: 5px;
 	padding-top: 0px;
 }
-
 .chat-box {
 	text-align: left;
 }
-
 .my-chat-box {
 	text-align: right;
 }
@@ -122,30 +110,30 @@
 
 <script>
 	const adminsocket = new WebSocket("wss://localhost${path}/adminsocket");
-
 	adminsocket.onopen = function() {
+		
+	
 		console.log("onopen => signaling server 연결");
 		console.log("닉 : " + "${loginMember.memNickname}");
 		var date = new Date();
-
 		if ('${loginMember.memClass}' != '관리자') {
-			sendChat(31, '${loginMember.usid}', '안녕하세요 1:1문의입니다.', date, "",
+			sendChat(31, '${loginMember.usid}',"1:1 문의 채팅입니다. 질문을 남겨주세요", date, "",
 					'${loginMember.memNickname}');
 			console.log("로긴멤버관리자ㄴ:" + '${loginMember.memClass}');
 		} else {
-			sendChat('${loginMember.usid}', 31, '답변해주세요', date, "",
+			sendChat('${loginMember.usid}', 31,"관리자가 입장했습니다", date, "",
 					'${loginMember.memNickname}');
 			console.log("로긴멤버관리자:" + '${loginMember.memClass}');
 		}
+		
+ 		
 	};
-
 	$('#inputMessage').keydown(
 			function(key) {
 				if (key.keyCode == 13) {
 					let txt = $("#inputMessage").val();
 					console.log("텍스트:" + txt);
 					var date = new Date();
-
 					if ('${loginMember.memClass}' != '관리자') {
 						sendChat('${loginMember.usid}', 31, txt, date, "",
 								'${loginMember.memNickname}');
@@ -157,30 +145,60 @@
 						$('#inputMessage').val("");
 						console.log("관리자임");
 					}
-
 				}
-
 			});
-
+	
+	
 	adminsocket.onmessage = function(e) {
-		const chatMsg = JSON.parse(e.data);
+ 		const chatMsg = JSON.parse(e.data);
+ 		
+ 	
+ 	      let allChatList=new Array;
+ 	  
+ 	      $.each(chatMsg, function(i,v){
+ 	         allChatList[i]=v;
+ 	      });
+ 	      
+ 	      console.log(allChatList);
+ 	      $("#inputMessage").append(allChatList.adminChatContent);
+ 	      
+ 	   
+ 	     $.each(allChatList,function(i,v){
+ 	         let msgLeft=$("<div/>").attr({"class":"msgLeft"});
+ 	          let msgRight=$("<div/>").attr({"class":"msgRight"});
+ 	         if(v['adminUsid']=='${loginMember.usid}'){ //발신인==나
+ 	            let msgR=msgRight.html(v['mchatContent']);
+ 	             $("#inputMessage").append(msgR);
+ 	         }
+ 	         if(v['adminUsid']!='${loginMember.usid}' || v['adminChatMemUsid']=='${loginMember.usid}'){
+ 	            let msgL=msgLeft.html(v['adminChatContent']);
+ 	             $("#adminChatContent").append(msgL);
+ 	         }
+ 	      });
+     
 
+ 		
+		/* var arr = JSON.stringify(chatMsg);
+		console.log(arr); */
+		
+/* 		sendChat(31, '${loginMember.usid}',arr, date, "",
+		'${loginMember.memNickname}'); */
+		
 		var date = new Date();
 		var dateInfo = date.getHours() + ":" + date.getMinutes() + ":"
 				+ date.getSeconds();
-
-		/* if(chatMsg['adminChatContent']=='SYS1'){
+		 /* if(chatMsg['adminChatContent']=='SYS1'){
 			
 			$('#chat-container').html("<div class='chat notice'>"
-					+chatMsg['adminChatSenderNickname']+"님이 입장하였습니다</div>");
+					+chatMsg['관리자']+"님이 입장하였습니다</div>");
 			
-			console.log("chatMsg['adminChatMemUsid']"+chatMsg['adminChatMemUsid']);
+		}else{
+			$('#chat-container').html("<div class='chat notice'>"
+					+chatMsg['${loginMember.usid}']+"님이 입장하였습니다</div>");
 		} */
-
 		/*발신인 : 관리자*/
 		/*  if(chatMsg['adminUsid']==31&&chatMsg['adminChatMemUsid']==31){ */
 		if ('${loginMember.memClass}' != '관리자') { /*관리자가 아닌사람*/
-
 			if ('${loginMember.usid}' != chatMsg['adminUsid']) { /*현재 로그인한사람 != 메세지의 발신인*/
 				console.log("1첫번째" + chatMsg['adminChatMemUsid']);
 				console.log("1첫번째" + chatMsg['adminUsid']);
@@ -193,7 +211,6 @@
 				console.log("1첫번째" + chatMsg);
 				console.log("1첫번째컨첸츠" + chatMsg['adminChatContent']);
 			} else {/*현재 로그인한사람 == 메세지의 발신인*/
-
 				console.log("2두번째" + chatMsg['adminChatMemUsid']);
 				console.log("2두번째" + chatMsg['adminUsid']);
 				$('#chat-container')
@@ -207,9 +224,7 @@
 				console.log("2두번째컨텐츠" + chatMsg['adminChatContent']);
 			}
 		} else {/*관리자인사람*/
-
 			if ('${loginMember.usid}' != chatMsg['adminUsid']) { /*현재 로그인한사람 != 메세지의 발신인*/
-
 				console.log("3첫번째" + chatMsg['adminChatMemUsid']);
 				console.log("3첫번째" + chatMsg['adminUsid']);
 				$('#chat-container').html(
@@ -220,12 +235,9 @@
 								+ dateInfo + "</div></div>");
 				console.log("3첫번째" + chatMsg);
 				console.log("3첫번째컨첸츠" + chatMsg['adminChatContent']);
-
 				/* 					var js = JSON.stringify([undefined,function(){},Symbol('')]);
 				 console.log("js"+js); */
-
 			} else { /*현재 로그인한사람 == 메세지의 발신인*/
-
 				console.log("4두번째" + chatMsg['adminChatMemUsid']);
 				console.log("4두번째" + chatMsg['adminUsid']);
 				$('#chat-container')
@@ -240,7 +252,6 @@
 			}
 		}
 	}
-
 	/* 	console.log("onmessage => 메세지 출력 : " + adminChatContent);
 	let chatMsg = JSON.stringify(adminChatContent.data);
 	console.log("inputMessage.type : " + inputMessage.type);
@@ -250,10 +261,8 @@
 		 
 			var date = new Date();
 			var dateInfo = date.getHours() + ":" + date.getMinutes() + ":" + date.getSeconds(); */
-
 	/* 	let getMemId = $('adminChatMemUsid').val();
 	 console.log("getMemId:"+getMemId); */
-
 	/* 	if(getMemId !== '${loginMember.usid}'){
 			var $chat = $("<div class='my-chat-box'><div class='chat my-chat'>" + i + "</div><div class='chat-info'>"+ dateInfo +"</div></div>");
 			$('#chat-container').append($chat); 
@@ -262,11 +271,8 @@
 			$('#chat-container').append($chat);
 		}
 		$('#chat-container').scrollTop($('#chat-container')[0].scrollHeight+20); 
-
-
 	console.log("채팅내용 : "+i);
 	 */
-
 	/*  console.log("onmessage실행");
 	 const chatMsg = JSON.parse(e){
 		 console.log("발신인:"+["adminChatMemUsid"]);
@@ -276,7 +282,6 @@
 	 } */
 	/* 
 	 }; */
-
 	/* 	function sendMessage(message) {
 	 adminsocket.send(JSON.stringify(message));
 	 console.log("메세지 보내는 함수 sendMessage");
@@ -284,14 +289,12 @@
 	
 	
 	 }; */
-
 	function sendChat(adminUsid, adminChatMemUsid, adminChatContent,
 			adminChatDate, adminChatFile, adminChatSenderNickname) {
 		adminsocket.send(JSON.stringify(new AdminChat(adminUsid,
 				adminChatMemUsid, adminChatContent, adminChatDate,
 				adminChatFile, adminChatSenderNickname)));
 	};
-
 	//----------------------------------------
 	function AdminChat(adminUsid, adminChatMemUsid, adminChatContent,
 			adminChatDate, adminChatFile, adminChatSenderNickname) {
@@ -301,9 +304,7 @@
 		this.adminChatDate = adminChatDate;
 		this.adminChatFile = adminChatFile;
 		this.adminChatSenderNickname = adminChatSenderNickname;
-
 	};
-
 	/* 	function counselEnd() {
 	
 	 let result = confirm("1:1 문의를 종료 하시겠습니까?");
@@ -329,13 +330,8 @@
 	 "${loginMember.memClass}", "종료"));
 	 }
 	 } */
-
 	adminsocket.onclose = function() {
 		console.log('onclose 실행');
 	};
 </script>
-
-
-
-<jsp:include page="/WEB-INF/views/common/footer.jsp" />
 
