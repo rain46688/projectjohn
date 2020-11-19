@@ -94,6 +94,6 @@ public interface AdminDao {
 	
 	int selectAdminChatCount(SqlSessionTemplate session);
 	
-	List<AdminChat> selectAdminInChat(SqlSessionTemplate session);
+	List<AdminChat> selectAdminInChat(SqlSessionTemplate session,int adminUsid);
 	
 } 
