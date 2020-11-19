@@ -142,26 +142,26 @@ h1 {
 	<div id="middelDiv">
 		<div id="searchDiv">
 				<div id="innerSearchDiv">
-				<select name="searchType" required>
-						<option value=" "  selected>상담 신청자</option> 
-						<option value="mem_name" <c:if test="${param.searchType eq 'mem_name'}">selected</c:if>>신청 날짜</option>
-						<option value="mem_email" <c:if test="${param.searchType eq 'mem_email'}">selected</c:if>>원하는 상담 시간</option>
+				<select name="searchSelect" required>
+						<option value="EXPERT_REQUEST_MEM_NICK"  selected>상담 신청자</option> 
+						<option value="EXPERT_DATE" >신청 날짜</option>
+						<option value="EXPERT_COUNSEL_TIME" >원하는 상담 시간</option>
 					</select>
 					<img src="${path}/resources/images/search.png" alt="" width="30px" height="30px">
-					<input type="text" name="searchKeyword" id="searchInput" onkeypress="searchkey();">
-					<button class="btn btn-outline-success" onclick="exmemInfo(this.form);">검색</button>
+					<input type="text" name="search" id="searchInput" onkeypress="searchkey();">
+					<button class="btn btn-outline-success" onclick="search();">검색</button>
 				</div>
 		</div>
 		<div id="sortDiv">
-					<select name="searchType" required>
-						<option value=" "  selected>신청 날짜 순</option> 
-						<option value="mem_name" <c:if test="${param.searchType eq 'mem_name'}">selected</c:if>>상담 시간순</option>
-						<option value="mem_email" <c:if test="${param.searchType eq 'mem_email'}">selected</c:if>>신청자 이름순</option>
+					<select name="sortSelect" required>
+						<option value="EXPERT_DATE"  selected>신청 날짜 순</option> 
+						<option value="EXPERT_COUNSEL_TIME" >상담 시간순</option>
+						<option value="EXPERT_REQUEST_MEM_NICK" >신청자 이름순</option>
 					</select>
-				<select name="searchType" required>
-						<option value=" "  selected>10개씩 보기</option> 
-						<option value="mem_name" <c:if test="${param.searchType eq 'mem_name'}">selected</c:if>>20개씩 보기</option>
-						<option value="mem_email" <c:if test="${param.searchType eq 'mem_email'}">selected</c:if>>50개씩 보기</option>
+				<select name="pageSelect" required>
+						<option value="10"  selected>10개씩 보기</option> 
+						<option value="20" 20개씩 보기</option>
+						<option value="50" 50개씩 보기</option>
 					</select>
 		</div>
 	</div>
