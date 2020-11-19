@@ -392,12 +392,15 @@ public class AdminController {
 	
 	// 1:1 채팅답변 불러오기
 	@RequestMapping("/admin/adminChatRoom")
-	public ModelAndView adminChat(ModelAndView mv,
+	public ModelAndView adminChat(ModelAndView mv, Member m,
 			@RequestParam(value = "adminUsid", required=false) int[] adminUsid,
 			@RequestParam(value = "cPage", required = false, defaultValue = "1") int cPage,
 			@RequestParam(value = "numPerPage", required = false, defaultValue = "10") int numPerPage)  {
+		
 		Map<String,Object> param = new HashMap(); 
+		param.put("member", m);
 		param.put("adminUsid", adminUsid);
+		System.out.println("adminUsid:"+adminUsid);
 		
 		List<AdminChat> list = service.selectAdminChat(param,cPage,numPerPage);
 		int totalData = service.selectAdminChatCount();

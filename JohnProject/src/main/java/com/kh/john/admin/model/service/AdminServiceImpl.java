@@ -233,8 +233,8 @@ public class AdminServiceImpl implements AdminService{
 	}
 
 	@Override
-	public List<AdminChat> selectAdminInChat() {
-		return dao.selectAdminInChat(session);
+	public List<AdminChat> selectAdminInChat(int adminUsid) {
+		return dao.selectAdminInChat(session,adminUsid);
 	}
 
 
