@@ -327,7 +327,7 @@
  	</insert>
 
  	<select id="selectAdminChat" resultType="List" resultMap="adminChatMap">
- 		SELECT * FROM ADMIN_CHAT WHERE ADMIN_USID=56
+ 		SELECT * FROM ADMIN_CHAT WHERE ADMIN_USID=#{adminUsid}
  	</select>
  		
  	<select id="selectAdminChatCount" resultType="_int">
@@ -335,7 +335,7 @@
  	</select>
  	
  	<select id="selectAdminInChat" resultType="List" resultMap ="adminChatMap">
- 		SELECT ADMIN_CHAT_CONTENT FROM ADMIN_CHAT WHERE ADMIN_USID=56
+ 		SELECT * FROM ADMIN_CHAT ORDER BY ADMIN_CHAT_DATE ASC
  	</select> 	
  	
 

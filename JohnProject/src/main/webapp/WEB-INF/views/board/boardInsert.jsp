@@ -1,6 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ include file="/WEB-INF/views/common/header.jsp"%>
-<script src="https://cdn.ckeditor.com/4.15.1/standard-all/ckeditor.js"></script>
+<script type="text/javascript" src="${pageContext.request.contextPath }/resources/js/ckeditor/ckeditor.js"></script>
 <style>
 #wrapper {
     margin: 0 auto;
@@ -100,11 +100,11 @@
 			</select>
 			<select class="custom-select custom-select-sm" name="smallCategory" id="">
 				<option value="" >큰 카테고리를 선택하세요</option>
-				<option value="연애상담">연애상담</option>
-				<option value="가족문제">가족문제</option>
-				<option value="회사문제">회사문제</option>
-				<option value="친구문제">친구문제</option>
-				<option value="반려견문제">반려견문제</option>
+				<option value="love">연애상담</option>
+				<option value="family">가족문제</option>
+				<option value="work">회사문제</option>
+				<option value="friend">친구문제</option>
+				<option value="pet">반려견문제</option>
 			</select>
 			</div>
 			<select class="custom-select custom-select-sm marginTop" name="" id="">
@@ -164,6 +164,23 @@
 </div>
 <script>
 	
+	$(function(){
+		CKEDITOR.replace('editor1',{
+			filebrowserUploadUrl: '${path}/board/boardFileUpload',
+			width: '100%',
+		    height: 400
+		})
+
+		/* let oEditors = [];
+
+		nhn.husky.EZCreator.createInIFrame({
+			oAppRef : oEditors,
+			elPlaceHolder : "editor1",
+			sSkinURI : "${path}/resources/js/smarteditor2/SmartEditor2Skin.html",
+			fCreator : "createSEditor2"
+		}) */
+	})
+	
 	document.getElementById('boardType').addEventListener('change', function(){
 		let value = document.getElementById('boardType').value;
 		if(value=='일반게시판') {
@@ -177,13 +194,9 @@
 	})
 
 	function fn_submit(){
+		oEditors.getById["editor1"].exec("UPDATE_CONTENT_FIELED",[]);
 		document.getElementById('frm').submit();
 	}
-	
-	CKEDITOR.replace('editor1', {
-	      width: '100%',
-	      height: 400
-	});
 	
 </script>
 </body>
