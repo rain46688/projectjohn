@@ -135,7 +135,32 @@
 
 
 
-
+<resultMap type="expertObjects" id="eOMap">
+	<result property="usid" column="usid"/>
+    <result property="memEmail" column="mem_email"/>
+    <result property="memPwd" column="mem_pwd"/>
+    <result property="memName" column="mem_name"/>
+    <result property="memNickname" column="mem_nickname"/>
+    <result property="gender" column="gender"/>
+    <result property="birthday" column="birthday"/>
+    <result property="enrollDate" column="enroll_date"/>
+    <result property="point" column="point"/>
+    <result property="leaveMem" column="leave_mem"/>
+    <result property="pwIsUuid" column="pw_is_uuid"/>
+    <result property="memClass" column="mem_class"/>
+    <result property="profilePic" column="profile_pic"/>
+    <result property="tel" column="tel"/>
+    <result property="expertRating" column="expert_rating"/>
+    <result property="expertGreetings" column="expert_greetings"/>
+    <result property="expertProfile" column="expert_profile"/>
+    <result property="expertCounselArea" column="expert_counsel_area"/>
+    <result property="expertCounselStartTime" column="expert_counsel_start_time"/>
+ 	<result property="expertCounselEndTime" column="expert_counsel_end_time"/>
+ 	<result property="licenseFileName" column="license_file_name"/>
+ 	<result property="licenseDate" column="license_date"/>
+ 	<result property="licenseType" column="license_type"/>
+ 	<result property="licenseCompany" column="license_company"/>
+</resultMap>
 <resultMap type="memberMessage" id="mMMap">
 	<id property="latestMessage" column="MCHAT_CONTENT"/>
 	<id property="latestDate" column="MCHAT_DATE"/>

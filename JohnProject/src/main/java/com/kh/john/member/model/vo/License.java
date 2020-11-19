@@ -8,8 +8,8 @@ import lombok.Data;
 public class License {
 	
 	private int licenseMemUsid;
-	private String licenseFileName="";
-	private Date licenseDate=null;
-	private String licenseType="";
-	private String licenseCompany="";
+	private String licenseFileName;
+	private Date licenseDate;
+	private String licenseType;
+	private String licenseCompany;
 }
