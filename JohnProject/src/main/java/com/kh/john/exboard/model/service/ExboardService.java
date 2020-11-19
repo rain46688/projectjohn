@@ -10,7 +10,7 @@ import com.kh.john.member.model.vo.Member;
 
 public interface ExboardService {
 
-	List<Member> selectExpert() throws Exception;
+	List<Map<String, Object>> selectExpert() throws Exception;
 
 	Expert selectExpertMem(String no) throws Exception;
 

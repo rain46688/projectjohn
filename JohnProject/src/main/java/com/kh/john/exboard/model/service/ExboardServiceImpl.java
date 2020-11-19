@@ -1,5 +1,7 @@
 package com.kh.john.exboard.model.service;
 
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -28,9 +30,19 @@ public class ExboardServiceImpl implements ExboardService {
 
 	// 전문가인 멤버 리스트 가져오기
 	@Override
-	public List<Member> selectExpert() throws Exception {
+	public List<Map<String, Object>> selectExpert() throws Exception {
 		// TODO Auto-generated method stub
-		return dao.selectExpert(session);
+		List<Map<String, Object>> maplist = new ArrayList<Map<String, Object>>();
+
+		List<Member> list = dao.selectExpert(session);
+		for (Member m : list) {
+			Map<String, Object> temp = new HashMap<String, Object>();
+			temp.put("mem", m);
+			temp.put("ex", dao.selectExpertMem(session, "" + m.getUsid()));
+			// temp.put("exLicense", dao.selectExpertLicense(session, "" + m.getUsid()));
+			maplist.add(temp);
+		}
+		return maplist;
 	}
 
 	// 전문가 한명 정보 가져오기

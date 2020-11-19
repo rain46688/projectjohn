@@ -37,14 +37,13 @@ html, body, div, span, applet, object, iframe, h1, h2, h3, h4, h5, h6, p, blockq
 	vertical-align: baseline;
 }
 
-#upDiv *{
-	border: 1px solid red; 
-}
-
-#downDiv *{
+#upDiv * {
 	border: 1px solid red;
 }
 
+#downDiv * {
+	border: 1px solid red;
+}
 
 #upDiv {
 	/* border: 1px solid black; */
@@ -54,7 +53,7 @@ html, body, div, span, applet, object, iframe, h1, h2, h3, h4, h5, h6, p, blockq
 }
 
 #downDiv {
-/* 	border: 1px solid brown; */
+	/* 	border: 1px solid brown; */
 	width: 100%;
 	height: 40%;
 	/* background-color: brown; */
@@ -87,14 +86,13 @@ html, body, div, span, applet, object, iframe, h1, h2, h3, h4, h5, h6, p, blockq
 	height: 100%;
 	font-size: 20px;
 	margin: 10px;
-/* 	border: 1px solid black; */
+	/* 	border: 1px solid black; */
 	display: inline-block;
 }
 
-#upDiv .splide__list .splide__slide{
-	margin:1px;
+#upDiv .splide__list .splide__slide {
+	margin: 1px;
 }
-
 
 /* 세로 슬라이드  */
 .splide2 {
@@ -130,7 +128,6 @@ html, body, div, span, applet, object, iframe, h1, h2, h3, h4, h5, h6, p, blockq
 	display: none;
 }
 
-
 img {
 	width: 100%; /* need to overwrite inline dimensions */
 	height: auto;
@@ -154,7 +151,6 @@ h2 {
 .counsel-image {
 	line-height: 0;
 	overflow: hidden;
-	
 }
 
 .counsel-image img {
@@ -182,7 +178,7 @@ h2 {
 	display: flex;
 	align-items: center;
 	justify-content: center;
-		text-shadow: -1px 0 #BFBFBF, 0 0.5px #BFBFBF, 0.5px 0 #BFBFBF, 0 -1px #BFBFBF;
+	text-shadow: -1px 0 #BFBFBF, 0 0.5px #BFBFBF, 0.5px 0 #BFBFBF, 0 -1px #BFBFBF;
 }
 
 .counsel-listing:hover .counsel-title {
@@ -203,41 +199,38 @@ h2 {
 	}
 }
 
-.cImgages{
+.cImgages {
 	/* border:1px solid black; */
-	width:100%;
-	height:180px;
-
+	width: 100%;
+	height: 180px;
 }
 
 /* 카드  */
-
 .expertimg {
 	width: 40%;
 	height: 50%;
 }
 
-
-.card-body button{
-	width:100%;
-	height:40%;
-	font-size:25px;
+.card-body button {
+	width: 100%;
+	height: 40%;
+	font-size: 25px;
 }
 
-.exRight{
-	display:inline-block;
-	height:50%;
-	width:50%;
+.exRight {
+	display: inline-block;
+	height: 50%;
+	width: 50%;
 }
 
-.exName{
-	height:30%;
+.exName {
+	height: 30%;
 }
 
-.exBottm{
-	padding-top:6px;
-	height:50%;
-	 /* 줄 넘치면 ..으로 처리 */
+.exBottm {
+	padding-top: 6px;
+	height: 50%;
+	/* 줄 넘치면 ..으로 처리 */
 	display: -webkit-box;
 	-webkit-line-clamp: 9;
 	text-overflow: ellipsis;
@@ -245,74 +238,67 @@ h2 {
 	-webkit-box-orient: vertical;
 }
 
-.exRating{
-	height:30%;
-	font-size:18px;
+.exRating {
+	height: 30%;
+	font-size: 18px;
 }
 
 /* 별 */
-
 .checked {
-  color: orange;
+	color: orange;
 }
 
-
 /* 리뷰 부분 */
-
-.reviewDiv{
-	padding:2%;
-	width:100%;
-	height:100%;
+.reviewDiv {
+	padding: 2%;
+	width: 100%;
+	height: 100%;
 	/* background-color: skyblue;  */
 }
 
-.reviewInnerUpDiv{
-	height:10%;
-	width:100%;
-	display:flex;
+.reviewInnerUpDiv {
+	height: 10%;
+	width: 100%;
+	display: flex;
 }
 
-.userNickName{
-	height:100%;
-	width:20%;
+.userNickName {
+	height: 100%;
+	width: 20%;
 }
 
-.counselDate{
-	height:100%;
-	width:80%;
+.counselDate {
+	height: 100%;
+	width: 80%;
 }
 
-.userRating{
-	height:10%;
+.userRating {
+	height: 10%;
 }
 
-#reviewDivTitle{
-		height:20%;
-	width:100%;
+#reviewDivTitle {
+	height: 20%;
+	width: 100%;
 }
 
-#reviewTitleH1{
-	font-size:40px;
-	font-weight:bold;
+#reviewTitleH1 {
+	font-size: 40px;
+	font-weight: bold;
 }
 
-.userReview{
-	height:80%;
-	width:100%;
-	font-style:italic;
-	color:gray;
-	font-size:30px;
-	 /* 줄 넘치면 ..으로 처리 */
+.userReview {
+	height: 80%;
+	width: 100%;
+	font-style: italic;
+	color: gray;
+	font-size: 30px;
+	/* 줄 넘치면 ..으로 처리 */
 	display: -webkit-box;
 	-webkit-line-clamp: 6;
 	text-overflow: ellipsis;
 	overflow: hidden;
 	-webkit-box-orient: vertical;
 }
-
-
-
-
 </style>
 
 <section id="content">
@@ -320,138 +306,35 @@ h2 {
 		<div class="splide">
 			<div class="splide__track">
 				<ul class="splide__list">
-				
-						<!-- =========== -->
-					<li class="splide__slide">
-							<div class="card-body">
-								<img class="expertimg" alt="전문가" src="${path }/resources/images/expert.png">
-								<div class="exRight"><div class="exName">최민수</div><div class="exRating">
-								평점 : 
-								<span class="fa fa-star checked"></span>
-								<span class="fa fa-star checked"></span>
-								<span class="fa fa-star checked"></span>
-								<span class="fa fa-star"></span>
-								<span class="fa fa-star"></span>
-								</div><button type="button" class="btn btn-outline-primary">상담 신청</button></div>
-								<div class="exBottm">분야~~~분야~~~분야~~~분야~~~분야~~~분야~~~분야~~~분야~~~분야~~~분야~~~분야~~~분야~~~분야~~~분야~~~분야~~~분야~~~분야~~~분야~~~분야~~~분야~~~분야~~~분야~~~분야~~~분야~~~분야~~~분야~~~분야~~~분야~~~분야~~~분야~~~분야~~~분야~~~분야~~~분야~~~분야~~~분야~~~분야~~~분야~~~분야~~~분야~~~분야~~~분야~~~분야~~~분야~~~분야~~~분야~~~분야~~~분야~~~분야~~~분야~~~</div>
-							</div>
-					</li>
-						<!-- =========== -->
+
+					<c:choose>
+						<c:when test="${fn:length(list) > 0}">
+							<c:forEach items="${list }" var="expert">
+
 								<!-- =========== -->
-					<li class="splide__slide">
-							<div class="card-body">
-								<img class="expertimg" alt="전문가" src="${path }/resources/images/expert.png">
-								<div class="exRight"><div class="exName">최민수</div><div class="exRating">
-								평점 : 
-								<span class="fa fa-star checked"></span>
-								<span class="fa fa-star checked"></span>
-								<span class="fa fa-star checked"></span>
-								<span class="fa fa-star"></span>
-								<span class="fa fa-star"></span>
-								</div><button type="button" class="btn btn-outline-primary">상담 신청</button></div>
-								<div class="exBottm">분야~~~분야~~~분야~~~분야~~~분야~~~분야~~~분야~~~분야~~~분야~~~분야~~~분야~~~분야~~~분야~~~분야~~~분야~~~분야~~~분야~~~분야~~~분야~~~분야~~~분야~~~분야~~~분야~~~분야~~~분야~~~분야~~~분야~~~분야~~~분야~~~분야~~~분야~~~분야~~~분야~~~분야~~~분야~~~분야~~~분야~~~분야~~~분야~~~분야~~~분야~~~분야~~~분야~~~분야~~~분야~~~분야~~~분야~~~분야~~~분야~~~분야~~~</div>
-							</div>
-					</li>
-						<!-- =========== -->
+								<li class="splide__slide">
+									<div class="card-body">
+										<img class="expertimg" alt="전문가" src="${path }/resources/images/expert.png">
+										<div class="exRight">
+											<div class="exName">${expert['mem'].memName}</div>
+											<div class="exRating">
+												평점 : <span class="fa fa-star checked"></span> <span class="fa fa-star checked"></span> <span class="fa fa-star checked"></span> <span
+													class="fa fa-star"></span> <span class="fa fa-star"></span>
+											</div>
+											<button type="button" class="btn btn-outline-primary">상담 신청</button>
+										</div>
+										<div class="exBottm">분야~~~분야~~~분야~~~분야~~~분야~~~분야~~~분야~~~분야~~~분야~~~분야~~~분야~~~분야~~~분야~~~분야~~~분야~~~분야~~~분야~~~분야~~~분야~~~분야~~~분야~~~분야~~~분야~~~분야~~~분야~~~분야~~~분야~~~분야~~~분야~~~분야~~~분야~~~분야~~~분야~~~분야~~~분야~~~분야~~~분야~~~분야~~~분야~~~분야~~~분야~~~분야~~~분야~~~분야~~~분야~~~분야~~~분야~~~분야~~~분야~~~분야~~~</div>
+									</div>
+								</li>
 								<!-- =========== -->
-					<li class="splide__slide">
-							<div class="card-body">
-								<img class="expertimg" alt="전문가" src="${path }/resources/images/expert.png">
-								<div class="exRight"><div class="exName">최민수</div><div class="exRating">
-								평점 : 
-								<span class="fa fa-star checked"></span>
-								<span class="fa fa-star checked"></span>
-								<span class="fa fa-star checked"></span>
-								<span class="fa fa-star"></span>
-								<span class="fa fa-star"></span>
-								</div><button type="button" class="btn btn-outline-primary">상담 신청</button></div>
-								<div class="exBottm">분야~~~분야~~~분야~~~분야~~~분야~~~분야~~~분야~~~분야~~~분야~~~분야~~~분야~~~분야~~~분야~~~분야~~~분야~~~분야~~~분야~~~분야~~~분야~~~분야~~~분야~~~분야~~~분야~~~분야~~~분야~~~분야~~~분야~~~분야~~~분야~~~분야~~~분야~~~분야~~~분야~~~분야~~~분야~~~분야~~~분야~~~분야~~~분야~~~분야~~~분야~~~분야~~~분야~~~분야~~~분야~~~분야~~~분야~~~분야~~~분야~~~분야~~~</div>
-							</div>
-					</li>
-						<!-- =========== -->
-								<!-- =========== -->
-					<li class="splide__slide">
-							<div class="card-body">
-								<img class="expertimg" alt="전문가" src="${path }/resources/images/expert.png">
-								<div class="exRight"><div class="exName">최민수</div><div class="exRating">
-								평점 : 
-								<span class="fa fa-star checked"></span>
-								<span class="fa fa-star checked"></span>
-								<span class="fa fa-star checked"></span>
-								<span class="fa fa-star"></span>
-								<span class="fa fa-star"></span>
-								</div><button type="button" class="btn btn-outline-primary">상담 신청</button></div>
-								<div class="exBottm">분야~~~분야~~~분야~~~분야~~~분야~~~분야~~~분야~~~분야~~~분야~~~분야~~~분야~~~분야~~~분야~~~분야~~~분야~~~분야~~~분야~~~분야~~~분야~~~분야~~~분야~~~분야~~~분야~~~분야~~~분야~~~분야~~~분야~~~분야~~~분야~~~분야~~~분야~~~분야~~~분야~~~분야~~~분야~~~분야~~~분야~~~분야~~~분야~~~분야~~~분야~~~분야~~~분야~~~분야~~~분야~~~분야~~~분야~~~분야~~~분야~~~분야~~~</div>
-							</div>
-					</li>
-						<!-- =========== -->
-								<!-- =========== -->
-					<li class="splide__slide">
-							<div class="card-body">
-								<img class="expertimg" alt="전문가" src="${path }/resources/images/expert.png">
-								<div class="exRight"><div class="exName">최민수</div><div class="exRating">
-								평점 : 
-								<span class="fa fa-star checked"></span>
-								<span class="fa fa-star checked"></span>
-								<span class="fa fa-star checked"></span>
-								<span class="fa fa-star"></span>
-								<span class="fa fa-star"></span>
-								</div><button type="button" class="btn btn-outline-primary">상담 신청</button></div>
-								<div class="exBottm">분야~~~분야~~~분야~~~분야~~~분야~~~분야~~~분야~~~분야~~~분야~~~분야~~~분야~~~분야~~~분야~~~분야~~~분야~~~분야~~~분야~~~분야~~~분야~~~분야~~~분야~~~분야~~~분야~~~분야~~~분야~~~분야~~~분야~~~분야~~~분야~~~분야~~~분야~~~분야~~~분야~~~분야~~~분야~~~분야~~~분야~~~분야~~~분야~~~분야~~~분야~~~분야~~~분야~~~분야~~~분야~~~분야~~~분야~~~분야~~~분야~~~분야~~~</div>
-							</div>
-					</li>
-						<!-- =========== -->
-								<!-- =========== -->
-					<li class="splide__slide">
-							<div class="card-body">
-								<img class="expertimg" alt="전문가" src="${path }/resources/images/expert.png">
-								<div class="exRight"><div class="exName">최민수</div><div class="exRating">
-								평점 : 
-								<span class="fa fa-star checked"></span>
-								<span class="fa fa-star checked"></span>
-								<span class="fa fa-star checked"></span>
-								<span class="fa fa-star"></span>
-								<span class="fa fa-star"></span>
-								</div><button type="button" class="btn btn-outline-primary">상담 신청</button></div>
-								<div class="exBottm">분야~~~분야~~~분야~~~분야~~~분야~~~분야~~~분야~~~분야~~~분야~~~분야~~~분야~~~분야~~~분야~~~분야~~~분야~~~분야~~~분야~~~분야~~~분야~~~분야~~~분야~~~분야~~~분야~~~분야~~~분야~~~분야~~~분야~~~분야~~~분야~~~분야~~~분야~~~분야~~~분야~~~분야~~~분야~~~분야~~~분야~~~분야~~~분야~~~분야~~~분야~~~분야~~~분야~~~분야~~~분야~~~분야~~~분야~~~분야~~~분야~~~분야~~~</div>
-							</div>
-					</li>
-						<!-- =========== -->
-								<!-- =========== -->
-					<li class="splide__slide">
-							<div class="card-body">
-								<img class="expertimg" alt="전문가" src="${path }/resources/images/expert.png">
-								<div class="exRight"><div class="exName">최민수</div><div class="exRating">
-								평점 : 
-								<span class="fa fa-star checked"></span>
-								<span class="fa fa-star checked"></span>
-								<span class="fa fa-star checked"></span>
-								<span class="fa fa-star"></span>
-								<span class="fa fa-star"></span>
-								</div><button type="button" class="btn btn-outline-primary">상담 신청</button></div>
-								<div class="exBottm">분야~~~분야~~~분야~~~분야~~~분야~~~분야~~~분야~~~분야~~~분야~~~분야~~~분야~~~분야~~~분야~~~분야~~~분야~~~분야~~~분야~~~분야~~~분야~~~분야~~~분야~~~분야~~~분야~~~분야~~~분야~~~분야~~~분야~~~분야~~~분야~~~분야~~~분야~~~분야~~~분야~~~분야~~~분야~~~분야~~~분야~~~분야~~~분야~~~분야~~~분야~~~분야~~~분야~~~분야~~~분야~~~분야~~~분야~~~분야~~~분야~~~분야~~~</div>
-							</div>
-					</li>
-						<!-- =========== -->
-								<!-- =========== -->
-					<li class="splide__slide">
-							<div class="card-body">
-								<img class="expertimg" alt="전문가" src="${path }/resources/images/expert.png">
-								<div class="exRight"><div class="exName">최민수</div><div class="exRating">
-								평점 : 
-								<span class="fa fa-star checked"></span>
-								<span class="fa fa-star checked"></span>
-								<span class="fa fa-star checked"></span>
-								<span class="fa fa-star"></span>
-								<span class="fa fa-star"></span>
-								</div><button type="button" class="btn btn-outline-primary">상담 신청</button></div>
-								<div class="exBottm">분야~~~분야~~~분야~~~분야~~~분야~~~분야~~~분야~~~분야~~~분야~~~분야~~~분야~~~분야~~~분야~~~분야~~~분야~~~분야~~~분야~~~분야~~~분야~~~분야~~~분야~~~분야~~~분야~~~분야~~~분야~~~분야~~~분야~~~분야~~~분야~~~분야~~~분야~~~분야~~~분야~~~분야~~~분야~~~분야~~~분야~~~분야~~~분야~~~분야~~~분야~~~분야~~~분야~~~분야~~~분야~~~분야~~~분야~~~분야~~~분야~~~분야~~~</div>
-							</div>
-					</li>
-						<!-- =========== -->
-						
-						
-					
+
+							</c:forEach>
+						</c:when>
+						<c:otherwise>
+							<div class="empty">등록된 전문가가 없습니다.</div>
+						</c:otherwise>
+					</c:choose>
+
 				</ul>
 			</div>
 		</div>
@@ -462,72 +345,66 @@ h2 {
 			<div class="splide2">
 				<div class="splide__track">
 					<ul class="splide__list">
-						
+
 						<!-- =========== -->
 						<li class="splide__slide">
-						<div class="reviewDiv">
-						<div id="reviewDivTitle"><h1 id="reviewTitleH1">베스트 상담 후기</h1></div>
-						<div class="reviewInnerUpDiv">
-							<div class="userNickName">닉네임 : 최민수</div>
-							<div class="counselDate">날짜 : 2018-08-24</div>
-						</div>	
-							<div class="userRating">
-							평점 : 
-								<span class="fa fa-star checked"></span>
-								<span class="fa fa-star checked"></span>
-								<span class="fa fa-star checked"></span>
-								<span class="fa fa-star"></span>
-								<span class="fa fa-star"></span>
+							<div class="reviewDiv">
+								<div id="reviewDivTitle">
+									<h1 id="reviewTitleH1">베스트 상담 후기</h1>
+								</div>
+								<div class="reviewInnerUpDiv">
+									<div class="userNickName">닉네임 : 최민수</div>
+									<div class="counselDate">날짜 : 2018-08-24</div>
+								</div>
+								<div class="userRating">
+									평점 : <span class="fa fa-star checked"></span> <span class="fa fa-star checked"></span> <span class="fa fa-star checked"></span> <span
+										class="fa fa-star"></span> <span class="fa fa-star"></span>
+								</div>
+								<div class="userReview">증말 좋습니다.증말 좋습니다.증말 좋습니다.증말 좋습니다.증말 좋습니다.증말 좋습니다.증말 좋습니다.증말 좋습니다.증말 좋습니다.증말 좋습니다.증말 좋습니다.증말 좋습니다.증말 좋습니다.증말
+									좋습니다.증말 좋습니다.증말 좋습니다.증말 좋습니다.증말 좋습니다.증말 좋습니다. 증말 좋습니다.증말 좋습니다.증말 좋습니다.증말 좋습니다.증말 좋습니다.증말 좋습니다.증말 좋습니다.증말 좋습니다.증말 좋습니다.증말 좋습니다.증말 좋습니다.</div>
 							</div>
-							<div class="userReview">증말 좋습니다.증말 좋습니다.증말 좋습니다.증말 좋습니다.증말 좋습니다.증말 좋습니다.증말 좋습니다.증말 좋습니다.증말 좋습니다.증말 좋습니다.증말 좋습니다.증말 좋습니다.증말 좋습니다.증말 좋습니다.증말 좋습니다.증말 좋습니다.증말 좋습니다.증말 좋습니다.증말 좋습니다.
-							증말 좋습니다.증말 좋습니다.증말 좋습니다.증말 좋습니다.증말 좋습니다.증말 좋습니다.증말 좋습니다.증말 좋습니다.증말 좋습니다.증말 좋습니다.증말 좋습니다.</div>
-						</div>
 						</li>
 						<!-- =========== -->
-							<!-- =========== -->
+						<!-- =========== -->
 						<li class="splide__slide">
-						<div class="reviewDiv">
-						<div id="reviewDivTitle"><h1 id="reviewTitleH1">베스트 상담 후기</h1></div>
-						<div class="reviewInnerUpDiv">
-							<div class="userNickName">닉네임 : 최민수</div>
-							<div class="counselDate">날짜 : 2018-08-24</div>
-						</div>	
-							<div class="userRating">
-							평점 : 
-								<span class="fa fa-star checked"></span>
-								<span class="fa fa-star checked"></span>
-								<span class="fa fa-star checked"></span>
-								<span class="fa fa-star"></span>
-								<span class="fa fa-star"></span>
+							<div class="reviewDiv">
+								<div id="reviewDivTitle">
+									<h1 id="reviewTitleH1">베스트 상담 후기</h1>
+								</div>
+								<div class="reviewInnerUpDiv">
+									<div class="userNickName">닉네임 : 최민수</div>
+									<div class="counselDate">날짜 : 2018-08-24</div>
+								</div>
+								<div class="userRating">
+									평점 : <span class="fa fa-star checked"></span> <span class="fa fa-star checked"></span> <span class="fa fa-star checked"></span> <span
+										class="fa fa-star"></span> <span class="fa fa-star"></span>
+								</div>
+								<div class="userReview">증말 좋습니다.증말 좋습니다.증말 좋습니다.증말 좋습니다.증말 좋습니다.증말 좋습니다.증말 좋습니다.증말 좋습니다.증말 좋습니다.증말 좋습니다.증말 좋습니다.증말 좋습니다.증말 좋습니다.증말
+									좋습니다.증말 좋습니다.증말 좋습니다.증말 좋습니다.증말 좋습니다.증말 좋습니다. 증말 좋습니다.증말 좋습니다.증말 좋습니다.증말 좋습니다.증말 좋습니다.증말 좋습니다.증말 좋습니다.증말 좋습니다.증말 좋습니다.증말 좋습니다.증말 좋습니다.</div>
 							</div>
-							<div class="userReview">증말 좋습니다.증말 좋습니다.증말 좋습니다.증말 좋습니다.증말 좋습니다.증말 좋습니다.증말 좋습니다.증말 좋습니다.증말 좋습니다.증말 좋습니다.증말 좋습니다.증말 좋습니다.증말 좋습니다.증말 좋습니다.증말 좋습니다.증말 좋습니다.증말 좋습니다.증말 좋습니다.증말 좋습니다.
-							증말 좋습니다.증말 좋습니다.증말 좋습니다.증말 좋습니다.증말 좋습니다.증말 좋습니다.증말 좋습니다.증말 좋습니다.증말 좋습니다.증말 좋습니다.증말 좋습니다.</div>
-						</div>
 						</li>
 						<!-- =========== -->
-							<!-- =========== -->
+						<!-- =========== -->
 						<li class="splide__slide">
-						<div class="reviewDiv">
-						<div id="reviewDivTitle"><h1 id="reviewTitleH1">베스트 상담 후기</h1></div>
-						<div class="reviewInnerUpDiv">
-							<div class="userNickName">닉네임 : 최민수</div>
-							<div class="counselDate">날짜 : 2018-08-24</div>
-						</div>	
-							<div class="userRating">
-							평점 : 
-								<span class="fa fa-star checked"></span>
-								<span class="fa fa-star checked"></span>
-								<span class="fa fa-star checked"></span>
-								<span class="fa fa-star"></span>
-								<span class="fa fa-star"></span>
+							<div class="reviewDiv">
+								<div id="reviewDivTitle">
+									<h1 id="reviewTitleH1">베스트 상담 후기</h1>
+								</div>
+								<div class="reviewInnerUpDiv">
+									<div class="userNickName">닉네임 : 최민수</div>
+									<div class="counselDate">날짜 : 2018-08-24</div>
+								</div>
+								<div class="userRating">
+									평점 : <span class="fa fa-star checked"></span> <span class="fa fa-star checked"></span> <span class="fa fa-star checked"></span> <span
+										class="fa fa-star"></span> <span class="fa fa-star"></span>
+								</div>
+								<div class="userReview">증말 좋습니다.증말 좋습니다.증말 좋습니다.증말 좋습니다.증말 좋습니다.증말 좋습니다.증말 좋습니다.증말 좋습니다.증말 좋습니다.증말 좋습니다.증말 좋습니다.증말 좋습니다.증말 좋습니다.증말
+									좋습니다.증말 좋습니다.증말 좋습니다.증말 좋습니다.증말 좋습니다.증말 좋습니다. 증말 좋습니다.증말 좋습니다.증말 좋습니다.증말 좋습니다.증말 좋습니다.증말 좋습니다.증말 좋습니다.증말 좋습니다.증말 좋습니다.증말 좋습니다.증말 좋습니다.</div>
 							</div>
-							<div class="userReview">증말 좋습니다.증말 좋습니다.증말 좋습니다.증말 좋습니다.증말 좋습니다.증말 좋습니다.증말 좋습니다.증말 좋습니다.증말 좋습니다.증말 좋습니다.증말 좋습니다.증말 좋습니다.증말 좋습니다.증말 좋습니다.증말 좋습니다.증말 좋습니다.증말 좋습니다.증말 좋습니다.증말 좋습니다.
-							증말 좋습니다.증말 좋습니다.증말 좋습니다.증말 좋습니다.증말 좋습니다.증말 좋습니다.증말 좋습니다.증말 좋습니다.증말 좋습니다.증말 좋습니다.증말 좋습니다.</div>
-						</div>
 						</li>
 						<!-- =========== -->
-						
-						
+
+
 					</ul>
 				</div>
 			</div>
@@ -539,24 +416,23 @@ h2 {
 					<article id="3685" class="counsel-listing">
 						<h3 class="counsel-title">직장 상담</h3>
 						<div class="counsel-image">
-							<a href="#"> <img  class="cImgages" src="${path }/resources/images/직장 상담.jpg"
-								alt="직장" ></a>
+							<a href="#"> <img class="cImgages" src="${path }/resources/images/직장 상담.jpg" alt="직장"></a>
 						</div>
 					</article>
 					<article id="3688" class="counsel-listing">
-							<h3 class="counsel-title">부부 상담</h3>
+						<h3 class="counsel-title">부부 상담</h3>
 						<div class="counsel-image">
 							<a href="#"> <img class="cImgages" src="${path }/resources/images/부부 상담.jpg" alt="부부"></a>
 						</div>
 					</article>
 					<article id="3691" class="counsel-listing">
-					<h3 class="counsel-title">진로 상담</h3>
+						<h3 class="counsel-title">진로 상담</h3>
 						<div class="counsel-image">
 							<a href="#"> <img class="cImgages" src="${path }/resources/images/취업 상담.png" alt="취업"></a>
 						</div>
 					</article>
 					<article id="3694" class="counsel-listing">
-					<h3 class="counsel-title">심리 상담</h3>
+						<h3 class="counsel-title">심리 상담</h3>
 						<div class="counsel-image">
 							<a href="#"> <img class="cImgages" src="${path }/resources/images/심리 상담.jpg" alt="심리"></a>
 						</div>
@@ -570,7 +446,7 @@ h2 {
 					<article id="3700" class="counsel-listing">
 						<h3 class="counsel-title">연애 상담</h3>
 						<div class="counsel-image">
-							<a href="#"> <img  class="cImgages" src="${path }/resources/images/연애 상담.jpg" alt="연애">
+							<a href="#"> <img class="cImgages" src="${path }/resources/images/연애 상담.jpg" alt="연애">
 							</a>
 						</div>
 					</article>
@@ -583,13 +459,12 @@ h2 {
 
 
 <script>
-
 	'use strict';
 
-/* 	//MDB Lightbox Init
-	$(function() {
-		$("#mdb-lightbox-ui").load("mdb-addons/mdb-lightbox-ui.html");
-	}); */
+	/* 	//MDB Lightbox Init
+	 $(function() {
+	 $("#mdb-lightbox-ui").load("mdb-addons/mdb-lightbox-ui.html");
+	 }); */
 
 	// 가로 슬라이드
 	new Splide('.splide', {
@@ -607,5 +482,4 @@ h2 {
 		autoplay : true,
 		type : 'loop'
 	}).mount();
-	
 </script>

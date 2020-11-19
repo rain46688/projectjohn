@@ -10,6 +10,7 @@ import org.springframework.stereotype.Repository;
 import com.kh.john.exboard.model.vo.ExpertBoard;
 import com.kh.john.exboard.model.vo.ExpertRequest;
 import com.kh.john.member.model.vo.Expert;
+import com.kh.john.member.model.vo.License;
 import com.kh.john.member.model.vo.Member;
 
 @Repository
@@ -118,6 +119,12 @@ public class ExboardDaoImpl implements ExboardDao {
 	public void updateCounselMemberEnd(SqlSessionTemplate session, String bno) throws Exception {
 		// TODO Auto-generated method stub
 		session.update("expert.updateCounselMemberEnd", bno);
+	}
+
+	@Override
+	public List<License> selectExpertLicense(SqlSessionTemplate session, String exusid) throws Exception {
+		// TODO Auto-generated method stub
+		return session.selectList("expert.selectExpertLicense", exusid);
 	}
 
 }
