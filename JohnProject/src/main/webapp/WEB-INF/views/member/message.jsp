@@ -11,6 +11,7 @@
 <section id="content">
 	<div>
 		<div id="savedContainer"></div>
+		<div>${allChatList }</div>
 		<div id="textingContainer">
 			<input type="text" id="message">
 			<button type="button" id="sendMessage" onclick="fn_sendMessage()">전송</button>
@@ -18,6 +19,7 @@
 	</div>
 </section>
 <script>
+	
 	//소켓 시작
 	const memberSocket=new WebSocket("wss://localhost${path}/memberSocket");
 	//소켓이 열림
@@ -31,8 +33,7 @@
 	function fn_sendMessage(){
 		let message=$("#message").val();
 		if(message!=null){
-			var date=new Date();
-			sendChat(${loginMember.usid},${otherInfo.usid},message,date,"");
+			sendChat(${loginMember.usid},${otherInfo.usid},message,"","");
 			$("#message").val('');			
 		}
 	};
@@ -46,8 +47,14 @@
 	
 	//메세지 불러오기
 	memberSocket.onmessage=function(e){
-		console.log("json."+JSON.parse(e.data));
-		console.log("data"+data);
+		let allChatList=new Array;
+		let data=JSON.parse(e.data);
+		$.each(data, function(i,v){
+			allChatList[i]=v;
+		})
+		console.log(allChatList);
+		$("#savedContainer").append(allChatList.mchatContent);
+		
 // 		console.log("e.da"+e.data);
 // 		function(JSON.parse(e.data)){
 // 			$.each(e.data,function(i,v){
@@ -99,12 +106,3 @@
 	}
 </script>
 <jsp:include page="/WEB-INF/views/common/footer.jsp"/>
-
-
-
-
-
-
-
-
-
