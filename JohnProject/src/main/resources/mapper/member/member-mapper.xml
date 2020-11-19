@@ -135,7 +135,9 @@
 
 
 
+<resultMap type="" id="">
 
+</resultMap>
 <resultMap type="memberMessage" id="mMMap">
 	<id property="latestMessage" column="MCHAT_CONTENT"/>
 	<id property="latestDate" column="MCHAT_DATE"/>

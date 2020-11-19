@@ -35,7 +35,7 @@
 			sendChat(${loginMember.usid},${otherInfo.usid},message,date,"");
 			$("#message").val('');			
 		}
-	}
+	};
 	
 	//엔터로 보냄
 	$("#message").on('keypress', function(e){
@@ -46,23 +46,40 @@
 	
 	//메세지 불러오기
 	memberSocket.onmessage=function(e){
-		const savedMessage=JSON.parse(e.data);
-		console.log(savedMessage);
-		var date=new Date();
-		var timeStamp=date.getHours+":"+date.getMinutes();
-		let msgLeft=$("<div/>").attr({"class":"msgLeft"});
-		let msgRight=$("<div/>").attr({"class":"msgRight"});
-		let picDiv=$("<div/>").html($("<img/>").attr("src","${path}/resources/profile_images/${otherInfo.profilePic}"));
-		let nickDiv=$("<div/>").html(${otherInfo.memNickname});
-		let contentDiv;
-		//발신인==나(오른쪽)
-		if(savedMessage['mchatFirstUsid']=='${loginMember.usid}'){
-			let msgR=msgRight.html(savedMessage['mchatContent']);
-			$("$savedContainer").append(msgR);
-		}else{ //수신인==나(왼쪽)
-			let msgL=msgLeft.html(savedMessage['mchatContent']);
-			$("$savedContainer").append(msgL);
-		}
+		console.log("json."+JSON.parse(e.data));
+		console.log("data"+data);
+// 		console.log("e.da"+e.data);
+// 		function(JSON.parse(e.data)){
+// 			$.each(e.data,function(i,v){
+// 				let msgLeft=$("<div/>").attr({"class":"msgLeft"});
+// 		 		let msgRight=$("<div/>").attr({"class":"msgRight"});
+// 		 		if(v['mchatFirstUsid']=='${loginMember.usid}'){
+// 		 			let msgR=msgRight.html(v['mchatContent']);
+// 		 			$("$savedContainer").append(msgR);
+// 		 		}else{ //수신인==나(왼쪽)
+// 		 			let msgL=msgLeft.html(v['mchatContent']);
+// 		 			$("$savedContainer").append(msgL);
+// 		 		}
+// 			})
+// 		}
+///////////////////////
+// 		const savedMessage=JSON.parse(e.data);
+// 		console.log(savedMessage);
+// 		var date=new Date();
+// 		var timeStamp=date.getHours+":"+date.getMinutes();
+// 		let msgLeft=$("<div/>").attr({"class":"msgLeft"});
+// 		let msgRight=$("<div/>").attr({"class":"msgRight"});
+// 		let picDiv=$("<div/>").html($("<img/>").attr("src","${path}/resources/profile_images/${otherInfo.profilePic}"));
+// 		let nickDiv=$("<div/>").html(${otherInfo.memNickname});
+// 		let contentDiv;
+// 		//발신인==나(오른쪽)
+// 		if(savedMessage['mchatFirstUsid']=='${loginMember.usid}'){
+// 			let msgR=msgRight.html(savedMessage['mchatContent']);
+// 			$("$savedContainer").append(msgR);
+// 		}else{ //수신인==나(왼쪽)
+// 			let msgL=msgLeft.html(savedMessage['mchatContent']);
+// 			$("$savedContainer").append(msgL);
+// 		}
 	}
 	
 	function sendChat(mchatFirstUsid, mchatSecondUsid, mchatContent, mchatDate, mchatFile){
