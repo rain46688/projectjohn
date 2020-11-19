@@ -190,6 +190,7 @@
 		else {
 			document.getElementById('maxMems').style.display = 'block';
 			document.getElementById('textEditor').style.display = 'none';	
+			document.getElementById('editor1').value = '';
 		}
 	})
 
