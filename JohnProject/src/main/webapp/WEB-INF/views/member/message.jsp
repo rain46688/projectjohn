@@ -4,14 +4,17 @@
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
 <c:set var="path" value="${pageContext.request.contextPath }"/>
-
 <jsp:include page="/WEB-INF/views/common/header.jsp">
 	<jsp:param name="title" value=""/>
 </jsp:include>
+<style>
+	div.msgRight{
+		background-color: aqua;
+	}
+</style>
 <section id="content">
 	<div>
 		<div id="savedContainer"></div>
-		<div>${allChatList }</div>
 		<div id="textingContainer">
 			<input type="text" id="message">
 			<button type="button" id="sendMessage" onclick="fn_sendMessage()">전송</button>
@@ -53,8 +56,19 @@
 			allChatList[i]=v;
 		})
 		console.log(allChatList);
-		$("#savedContainer").append(allChatList.mchatContent);
 		
+		$.each(allChatList,function(i,v){
+			let msgLeft=$("<div/>").attr({"class":"msgLeft"});
+	 		let msgRight=$("<div/>").attr({"class":"msgRight"});
+			if(v['mchatFirstUsid']=='${loginMember.usid}'){ //발신인==나
+				let msgR=msgRight.html(v['mchatContent']);
+		 		$("#savedContainer").append(msgR);
+			}
+			if(v['mchatFirstUsid']!='${loginMember.usid}' || v['mchatSecondUsid']=='${loginMember.usid}'){
+				let msgL=msgLeft.html(v['mchatContent']);
+		 		$("#savedContainer").append(msgL);
+			}
+		});
 // 		console.log("e.da"+e.data);
 // 		function(JSON.parse(e.data)){
 // 			$.each(e.data,function(i,v){
