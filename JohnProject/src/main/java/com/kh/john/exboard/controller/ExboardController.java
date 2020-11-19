@@ -62,7 +62,12 @@ public class ExboardController {
 		log.debug("expertPrintList 실행");
 		ModelAndView mv = new ModelAndView("/exboard/expertList");
 		try {
-			mv.addObject("list", service.selectExpert());
+			List<Map<String, Object>> list = service.selectExpert();
+			for (Map<String, Object> mm : list) {
+				log.debug(mm.get("mem").toString());
+			}
+
+			mv.addObject("list", list);
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

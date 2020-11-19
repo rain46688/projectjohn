@@ -8,15 +8,13 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 
-
-
-
 <jsp:include page="/WEB-INF/views/common/header.jsp">
 	<jsp:param name="title" value=" " />
 </jsp:include>
 
 <!-- Add icon library -->
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+<!-- Splide library -->
 <script src="https://cdn.jsdelivr.net/npm/@splidejs/splide@latest/dist/js/splide.min.js"></script>
 <link rel="stylesheet" href="${path }/resources/css/splide.min.css">
 <%-- <link rel="stylesheet" href="${path }/resources/css/splide-core.min.css"> --%>
@@ -205,16 +203,16 @@ h2 {
 	height: 180px;
 }
 
+
+/* 별 */
+.checked {
+	color: orange;
+}
+
 /* 카드  */
 .expertimg {
 	width: 40%;
 	height: 50%;
-}
-
-.card-body button {
-	width: 100%;
-	height: 40%;
-	font-size: 25px;
 }
 
 .exRight {
@@ -224,7 +222,22 @@ h2 {
 }
 
 .exName {
-	height: 30%;
+	height: 20%;
+}
+
+.exRating {
+	height: 20%;
+	font-size: 18px;
+}
+
+.exCounselArea{
+	height:20%
+}
+
+.card-body button {
+	width: 100%;
+	height: 40%;
+	font-size: 25px;
 }
 
 .exBottm {
@@ -236,16 +249,6 @@ h2 {
 	text-overflow: ellipsis;
 	overflow: hidden;
 	-webkit-box-orient: vertical;
-}
-
-.exRating {
-	height: 30%;
-	font-size: 18px;
-}
-
-/* 별 */
-.checked {
-	color: orange;
 }
 
 /* 리뷰 부분 */
@@ -269,7 +272,12 @@ h2 {
 
 .counselDate {
 	height: 100%;
-	width: 80%;
+	width: 30%;
+}
+
+.counselAreaReview {
+	height: 100%;
+	width: 50%;
 }
 
 .userRating {
@@ -306,7 +314,6 @@ h2 {
 		<div class="splide">
 			<div class="splide__track">
 				<ul class="splide__list">
-
 					<c:choose>
 						<c:when test="${fn:length(list) > 0}">
 							<c:forEach items="${list }" var="expert">
@@ -318,12 +325,25 @@ h2 {
 										<div class="exRight">
 											<div class="exName">${expert['mem'].memName}</div>
 											<div class="exRating">
-												평점 : <span class="fa fa-star checked"></span> <span class="fa fa-star checked"></span> <span class="fa fa-star checked"></span> <span
-													class="fa fa-star"></span> <span class="fa fa-star"></span>
+											평점 : 
+											<c:forEach var="i" begin="1" end="${expert['ex'].expertRating}">
+												<span class="fa fa-star checked"></span>
+											</c:forEach>
+											<c:forEach var="i" begin="1" end="${5 - (expert['ex'].expertRating)}">
+												<span class="fa fa-star"></span>
+											</c:forEach>
 											</div>
+											<div class="exCounselArea">분야 : ${expert['ex'].expertCounselArea}</div>
 											<button type="button" class="btn btn-outline-primary">상담 신청</button>
 										</div>
-										<div class="exBottm">분야~~~분야~~~분야~~~분야~~~분야~~~분야~~~분야~~~분야~~~분야~~~분야~~~분야~~~분야~~~분야~~~분야~~~분야~~~분야~~~분야~~~분야~~~분야~~~분야~~~분야~~~분야~~~분야~~~분야~~~분야~~~분야~~~분야~~~분야~~~분야~~~분야~~~분야~~~분야~~~분야~~~분야~~~분야~~~분야~~~분야~~~분야~~~분야~~~분야~~~분야~~~분야~~~분야~~~분야~~~분야~~~분야~~~분야~~~분야~~~분야~~~분야~~~</div>
+										<div class="exBottm">
+										<c:if test="${empty (expert['ex'].expertGreetings)}">
+										인사말 없음.
+										</c:if>
+										<c:if test="${not empty (expert['ex'].expertGreetings)}">
+										${expert['ex'].expertGreetings}
+										</c:if>
+										</div>
 									</div>
 								</li>
 								<!-- =========== -->
@@ -355,6 +375,7 @@ h2 {
 								<div class="reviewInnerUpDiv">
 									<div class="userNickName">닉네임 : 최민수</div>
 									<div class="counselDate">날짜 : 2018-08-24</div>
+									<div class="counselAreaReview">분야 : </div>
 								</div>
 								<div class="userRating">
 									평점 : <span class="fa fa-star checked"></span> <span class="fa fa-star checked"></span> <span class="fa fa-star checked"></span> <span
@@ -363,45 +384,7 @@ h2 {
 								<div class="userReview">증말 좋습니다.증말 좋습니다.증말 좋습니다.증말 좋습니다.증말 좋습니다.증말 좋습니다.증말 좋습니다.증말 좋습니다.증말 좋습니다.증말 좋습니다.증말 좋습니다.증말 좋습니다.증말 좋습니다.증말
 									좋습니다.증말 좋습니다.증말 좋습니다.증말 좋습니다.증말 좋습니다.증말 좋습니다. 증말 좋습니다.증말 좋습니다.증말 좋습니다.증말 좋습니다.증말 좋습니다.증말 좋습니다.증말 좋습니다.증말 좋습니다.증말 좋습니다.증말 좋습니다.증말 좋습니다.</div>
 							</div>
-						</li>
-						<!-- =========== -->
-						<!-- =========== -->
-						<li class="splide__slide">
-							<div class="reviewDiv">
-								<div id="reviewDivTitle">
-									<h1 id="reviewTitleH1">베스트 상담 후기</h1>
-								</div>
-								<div class="reviewInnerUpDiv">
-									<div class="userNickName">닉네임 : 최민수</div>
-									<div class="counselDate">날짜 : 2018-08-24</div>
-								</div>
-								<div class="userRating">
-									평점 : <span class="fa fa-star checked"></span> <span class="fa fa-star checked"></span> <span class="fa fa-star checked"></span> <span
-										class="fa fa-star"></span> <span class="fa fa-star"></span>
-								</div>
-								<div class="userReview">증말 좋습니다.증말 좋습니다.증말 좋습니다.증말 좋습니다.증말 좋습니다.증말 좋습니다.증말 좋습니다.증말 좋습니다.증말 좋습니다.증말 좋습니다.증말 좋습니다.증말 좋습니다.증말 좋습니다.증말
-									좋습니다.증말 좋습니다.증말 좋습니다.증말 좋습니다.증말 좋습니다.증말 좋습니다. 증말 좋습니다.증말 좋습니다.증말 좋습니다.증말 좋습니다.증말 좋습니다.증말 좋습니다.증말 좋습니다.증말 좋습니다.증말 좋습니다.증말 좋습니다.증말 좋습니다.</div>
-							</div>
-						</li>
-						<!-- =========== -->
-						<!-- =========== -->
-						<li class="splide__slide">
-							<div class="reviewDiv">
-								<div id="reviewDivTitle">
-									<h1 id="reviewTitleH1">베스트 상담 후기</h1>
-								</div>
-								<div class="reviewInnerUpDiv">
-									<div class="userNickName">닉네임 : 최민수</div>
-									<div class="counselDate">날짜 : 2018-08-24</div>
-								</div>
-								<div class="userRating">
-									평점 : <span class="fa fa-star checked"></span> <span class="fa fa-star checked"></span> <span class="fa fa-star checked"></span> <span
-										class="fa fa-star"></span> <span class="fa fa-star"></span>
-								</div>
-								<div class="userReview">증말 좋습니다.증말 좋습니다.증말 좋습니다.증말 좋습니다.증말 좋습니다.증말 좋습니다.증말 좋습니다.증말 좋습니다.증말 좋습니다.증말 좋습니다.증말 좋습니다.증말 좋습니다.증말 좋습니다.증말
-									좋습니다.증말 좋습니다.증말 좋습니다.증말 좋습니다.증말 좋습니다.증말 좋습니다. 증말 좋습니다.증말 좋습니다.증말 좋습니다.증말 좋습니다.증말 좋습니다.증말 좋습니다.증말 좋습니다.증말 좋습니다.증말 좋습니다.증말 좋습니다.증말 좋습니다.</div>
-							</div>
-						</li>
+						</li>	
 						<!-- =========== -->
 
 
@@ -465,6 +448,10 @@ h2 {
 	 $(function() {
 	 $("#mdb-lightbox-ui").load("mdb-addons/mdb-lightbox-ui.html");
 	 }); */
+	 
+	 $(".counsel-title").click(e => {
+			console.log($(e.target).html()); 
+	 });
 
 	// 가로 슬라이드
 	new Splide('.splide', {
