@@ -510,6 +510,13 @@ img {
 
 <script>
 	'use strict';
+	
+		//부모창이 종료되면 자식창도 종료
+		let pop;
+		window.onunload = function() { 
+			pop.close(); 
+		  
+		}
 	 
 	 function counsel(no,nic){
 		 console.log("no : "+no+" nic : "+nic);

@@ -8,210 +8,210 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 
+<jsp:include page="/WEB-INF/views/common/header.jsp" >
+<jsp:param name="title" value=" "/>
+</jsp:include>
 
 <style>
-html, body, div, span, applet, object, iframe, h1, h2, h3, h4, h5, h6, p, blockquote, pre, a, abbr, acronym, address, big, cite, code, del, dfn, em,
-	ins, kbd, q, s, samp, small, strike, strong, sub, sup, tt, var, b, u, i, center, dl, dt, dd, ol, ul, li, fieldset, form, label, legend, table,
-	caption, tbody, tfoot, thead, tr, th, td, article, aside, canvas, details, embed, figure, figcaption, footer, header, hgroup, menu, nav, output, ruby,
-	section, summary, time, mark, audio, video {
-	margin: 0;
-	padding: 0;
-	border: 0;
-	font-size: 100%;
-	font: inherit;
-	vertical-align: baseline;
+#writecontainer {
+	text-align: center;
+	border-radius: 5px;
+	margin: 5% atuo;
+	height: auto;
+	width: 100%;
+	border-radius: 5px;
+	height: auto;
 }
 
-body * {
-	border: 1px solid red;
+.divList {
+	display: table;
+	width: 100%;
+	height: 150px;
+	text-align: center;
 }
 
-#exapplyTextArea {
-	width:100%;
-	height:20vh;
+.divRow {
+	display: table-row;
 }
 
-/* 위 텍스트 영역 눌르면 옆에 테두리 생기는거 지우는 용도 */
-textarea:focus {
-	outline: none;
+.divRowTitle {
+	display: table-row;
+	font-size: 15px;
+	font-weight: bold;
+	text-shadow: -1px 0 #BFBFBF, 0 0.5px #BFBFBF, 0.5px 0 #BFBFBF, 0 -1px #BFBFBF;
+	width: 100%;
 }
 
-textarea {
-    resize: none;
+h2 {
+	font-weight: bold;
+	text-shadow: -1px 0 #BFBFBF, 0 0.5px #BFBFBF, 0.5px 0 #BFBFBF, 0 -1px #BFBFBF;
+	margin: 15px 0 10px 0;
 }
 
-#exbtn{
-	display:flex;
-	justify-content:center;
+.active {
+	font-weight: bold;
+	text-shadow: -1px 0 #BFBFBF, 0 0.5px #BFBFBF, 0.5px 0 #BFBFBF, 0 -1px #BFBFBF;
 }
 
+.divCell {
+	border-bottom: 1px #DEE2E6 solid;
+	display: table-cell;
+	padding: 25px 10px;
+	width: 16.67%;
+	font-size: 15px;
+}
+
+.divListBody {
+	display: table-row-group;
+}
+
+#n_btn {
+	float: right;
+	margin: 0 10px 10px 0;
+}
+
+.noti {
+	width: 133%;
+	margin: 0px;
+	height: 200px;
+	display: inline-block;
+}
+
+.noContent {
+	margin-top: 20px;
+	margin-bottom: 15px;
+	margin-left: 100%;
+	font-size: 15px;
+	font-weight: bold;
+	width: 100%;
+}
+
+.empty {
+	margin-top: 20px;
+	font-weight: bold;
+	margin-top: 15px;
+	margin-left: 200%;
+	width: 100%;
+	font-size: 15px;
+}
+
+#container {
+	margin-left: auto;
+	margin-right: auto;
+}
 </style>
 
-<div class="container">
-	<div class="row">
-		<div class="col-12">
-			<div class="card">
-				<div class="card-body">
-					<div class="card-title mb-4">
-						<div class="d-flex justify-content-start">
-							<div class="image-container">
-								<img src="${path }/resources/images/expert.png" id="imgProfile" style="width: 150px; height: 150px" class="img-thumbnail" />
-							</div>
-							<div class="userData ml-3">
-								<h2 class="d-block" style="font-size: 1.5rem; font-weight: bold">최민수 상담사님</h2>
-								<h6 class="d-block">평점 :</h6>
-								<h6 class="d-block">분야 :</h6>
-								<h6 class="d-block">가입 날짜 :</h6>
-								<h6 class="d-block">이메일 :</h6>
-								<h6 class="d-block">전화번호 :</h6>
-							</div>
-							<div class="ml-auto">
-								<input type="button" class="btn btn-primary d-none" id="btnDiscard" value="Discard Changes" />
-							</div>
-						</div>
-					</div>
+<section id="content">
+<br>
+	<p>임시 테스트용 사이트</p>
+	<div class="divList">
+		<div class="divListBody">
 
-					<div class="row">
-						<div class="col-12">
-							<ul class="nav nav-tabs mb-4" id="myTab" role="tablist">
-								<li class="nav-item"><a class="nav-link active" id="basicInfo-tab" data-toggle="tab" href="#basicInfo" role="tab"
-									aria-controls="basicInfo" aria-selected="true">상담사 정보</a></li>
-								<li class="nav-item"><a class="nav-link" id="connectedServices-tab" data-toggle="tab" href="#connectedServices" role="tab"
-									aria-controls="connectedServices" aria-selected="false">보유 자격증</a></li>
-							</ul>
-							<div class="tab-content ml-1" id="myTabContent">
-								<div class="tab-pane fade show active" id="basicInfo" role="tabpanel" aria-labelledby="basicInfo-tab">
-									<div class="row">
-										<div class="col-sm-3 col-md-3 col-5">
-											<label style="font-weight: bold;">인사말</label>
-										</div>
-										<div class="col-md-7 col-6">안녕하세요 ~~ㅋㅋㅋ안녕하세요 ~~ㅋㅋㅋ안녕하세요 ~~ㅋㅋㅋ안녕하세요 ~~ㅋㅋㅋ안녕하세요 ~~ㅋㅋㅋ안녕하세요 ~~ㅋㅋㅋ안녕하세요 ~~ㅋㅋㅋ안녕하세요 ~~ㅋㅋㅋ안녕하세요 ~~ㅋㅋㅋ 안녕하세요
-											~~ㅋㅋㅋ안녕하세요 ~~ㅋㅋㅋ안녕하세요 ~~ㅋㅋㅋ안녕하세요 ~~ㅋㅋㅋ안녕하세요 ~~ㅋㅋㅋ안녕하세요 ~~ㅋㅋㅋ안녕하세요 ~~ㅋㅋㅋ안녕하세요 ~~ㅋㅋㅋ안녕하세요 ~~ㅋㅋㅋ</div>
-									</div>
-									<hr />
-									<div class="row">
-										<div class="col-sm-3 col-md-3 col-5">
-											<label style="font-weight: bold;">상담 경력</label>
-										</div>
-										<div class="col-md-7 col-6">3년</div>
-									</div>
-									<hr />
-
-									<div class="row">
-										<div class="col-sm-3 col-md-3 col-5">
-											<label style="font-weight: bold;">상담 가능 시간</label>
-										</div>
-										<div class="col-md-7 col-6">19:00 ~ 22:00</div>
-									</div>
-									<hr />
-
-									<div class="row">
-										<div class="col-sm-3 col-md-3 col-5">
-											<label style="font-weight: bold;">희망 상담 시간</label>
-										</div>
-										<div class="col-md-7 col-6">
-											<input type="time" name="time">
-										</div>
-									</div>
-									<hr />
-
-									<div class="row">
-										<div class="col-sm-3 col-md-3 col-5">
-											<label style="font-weight: bold;">추가 전달 사항</label>
-										</div>
-										<div class="col-md-7 col-6">
-											<textarea id="exapplyTextArea" name="applyText"></textarea>
-										</div>
-									</div>
-									<hr />
-									<div id="exbtn">
-										<c:if test="${requestIsDuplicate != true}">
-											<button class="btn btn-outline-success" onclick="expertRequest();">상담 신청하기</button>
-										</c:if>
-										<c:if test="${requestIsDuplicate == true}">
-											<button class="btn btn-outline-success" onclick="expertRequestCancel();">상담 취소하기</button>
-										</c:if>
-									</div>
-
-								</div>
-								<div class="tab-pane fade" id="connectedServices" role="tabpanel" aria-labelledby="ConnectedServices-tab">자잡</div>
-							</div>
-						</div>
-					</div>
-
-
-				</div>
-
+			<div class="divRowTitle shadow p-3 mb-5 bg-white rounded">
+				<div class="divCell">상담 신청자</div>
+				<div class="divCell">상담 신청 날짜</div>
+					<div class="divCell">원하는 상담 시간</div>
+				<div class="divCell">상담 시작</div>
+				<div class="divCell">정보 보기</div>
 			</div>
+
+			<c:choose>
+				<c:when test="${fn:length(list) > 0}">
+					<c:forEach items="${list }" var="n">
+						<div class="divRow shadow p-3 mb-5 bg-white rounded" >
+							<div class="divCell">${n.expertRequestMemNick}</div>
+							<div class="divCell">${n.expertDate}</div>
+								<div class="divCell">${n.expertCounselTime}</div>
+								<div class="divCell">
+								
+							<c:if test="${n.endCounsel != true }">
+								
+							<c:if test="${n.startCounsel == false }">
+								<button class="btn btn-outline-success" onclick="counselStart('${n.expertRequestMemUsid}','${n.expertRequestMemNick}');">상담 시작</button>
+							</c:if>
+							<c:if test="${n.startCounsel == true }">
+									<button class="btn btn-outline-success" onclick="counselConn('${n.expertRequestMemUsid}','${n.expertRequestMemNick}');">채팅 접속</button>
+							</c:if>
+						</c:if> 
+							<c:if test="${n.endCounsel == true }">
+									상담 완료
+									<!-- <div class="divCell"><button class="btn btn-outline-success" onclick="">상담 완료</button></div> -->
+							</c:if>
+								</div>
+					<form  name="form">				
+						<input type="hidden" name="usid" value="${loginMember.usid}"> 
+							<input type="hidden" name="musid" value="${n.expertRequestMemUsid}"> 
+						<div class="divCell"><button class="btn btn-outline-success" onclick="exmemInfo(this.form);">회원 정보</button></div>
+					</form>
+						</div>
+					</c:forEach>
+				</c:when>
+				<c:otherwise>
+					<div class="empty">상담 신청이 없습니다.</div>
+				</c:otherwise>
+			</c:choose>
+			<br>
 		</div>
 	</div>
-</div>
-
-
-<script>
-	$(this).resize(fixedSize);
-	function fixedSize() {
-		this.resizeTo(800, 800);
+	
+	<script>
+	
+	//부모창이 종료되면 자식창도 종료
+	let pop;
+	window.onunload = function() { 
+		pop.close(); 
+	  
 	}
-
-	function expertRequest() {
-		console.log("상담 신청, ${expert.usid}");
-
-		$
-				.ajax({
-					type : "GET",
-					data : {
-						"no" : "${expert.usid}",
-						"nic" : "${expert.memNickname}",
-						"time" : $("input[name=time]").val(),
-						"applyText" : $("textarea[name=applyText]").val()
-					},
-					url : "${path}/expert/expertRequest",
-					success : function(data) {
-						if (data == 1) {
-							console.log("상담 신청 성공");
-							alert("상담 신청 성공");
-							$("input[name=time]").val("");
-							$("textarea[name=applyText]").val("");
-							$("#exbtn").html("");
-							$("#exbtn")
-									.html(
-											$("#exbtn").html()
-													+ "<button class='btn btn-outline-success' onclick='expertRequestCancel();''>상담 취소하기</button>");
-						} else if (data == 2) {
-							console.log("이미 상담 신청을 하셨습니다");
-							alert("이미 상담 신청을 하셨습니다");
-						} else {
-							console.log("상담 신청 실패");
-							alert("상담 신청 실패");
-						}
-					}
-				});
-	};
-
-	function expertRequestCancel() {
-		console.log("상담 취소, ${expert.usid}");
-		$
-				.ajax({
-					type : "GET",
-					data : {
-						"no" : "${expert.usid}",
-						"nic" : "${expert.memNickname}"
-					},
-					url : "${path}/expert/expertRequestCancel",
-					success : function(data) {
-						if (data == 1) {
-							console.log("상담 취소 성공");
-							alert("상담 취소 성공");
-							$("#exbtn").html("");
-							$("#exbtn")
-									.html(
-											"<button class='btn btn-outline-success' onclick='expertRequest();''>상담 신청하기</button>");
-						} else {
-							console.log("상담 취소 실패");
-							alert("상담 취소 실패");
-						}
-					}
-				});
+	
+	let bno = "";
+	function counselStart(num,nick){
+		console.log("num : "+num);
+		let result = confirm("해당 회원과 상담을 진행하시겠습니까?");
+		if(result){
+			  $.ajax({
+			 	   type:"GET",
+			 	   data:{
+			 		   "no" : num,
+			 		   "nic" : nick
+			 	   },
+			 	   url:"${path}/expert/selectExpertBno",
+			 	   success:function (data){
+			 		   console.log("data : "+data);
+			 		 bno = data;
+			 		 
+			 		sendAlarm("${loginMember.usid}",num,"expert",bno,"${loginMember.memNickname}");
+			 		
+			 		 console.log("bno : "+bno);
+					location.replace('${path}/expert/counselStart?no='+num+"&nic="+nick+"&bno="+bno);
+			 	   }
+			    }); 
+		}
+		
+		
 	}
-</script>
+	
+	function counselConn(num,nick){
+		console.log("num : "+num);
+		location.replace('${path}/expert/counselConn?no='+num+"&nick="+nick);
+	}
+	
+	function exmemInfo(f){
+			const x = 600;
+			const y = 800;
+			const cx = (window.screen.width / 2) - (x / 2);
+			const cy= (window.screen.height / 2) - (y / 2);
+
+			const url    ="${path}/expert/memInfo";
+			const title  = "chat";
+			const status = "toolbar=no,directories=no,scrollbars=no,resizable=no,status=no,menubar=no,width="+x+", height="+y+", top="+cy+",left="+cx;
+			pop =  window.open("", title,status);
+			f.target = title;
+			f.action = url;
+			f.method = "post";
+			f.submit();    
+	}
+	
+	
+	</script>
+
+</section>
