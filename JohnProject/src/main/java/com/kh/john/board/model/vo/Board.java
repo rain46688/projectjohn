@@ -17,7 +17,7 @@ public class Board {
 	private String bigCategory;
 	private String smallCategory;
 	private boolean isclose;
-	private int maxMems;
+	private String maxMems;
 	private String agreeName;
 	private String disagreeName;
 	

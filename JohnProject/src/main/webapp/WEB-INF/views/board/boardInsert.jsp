@@ -139,7 +139,7 @@
 			</select> -->
 			</div>
 			<div id="textEditor" class="marginTop">
-				<textarea cols="80" id="editor1" name="editor1" rows="10" data-sample-short placeholder='내용을 입력해주세요'></textarea>
+				<textarea cols="80" id="editor1" name="content" rows="10" data-sample-short placeholder='내용을 입력해주세요'></textarea>
 			</div>
 			<!-- <div id="imageUpload" class="marginTop">
 				<label id="uploadBtn" class="btn btn-lg btn-outline-secondary" for="file"><p>이미지</p>업로드</label>
@@ -194,7 +194,10 @@
 	})
 
 	function fn_submit(){
-		oEditors.getById["editor1"].exec("UPDATE_CONTENT_FIELED",[]);
+		let value = CKEDITOR.instances.editor1.getData();
+		
+		document.getElementById('editor1').value = value;
+		
 		document.getElementById('frm').submit();
 	}
 	

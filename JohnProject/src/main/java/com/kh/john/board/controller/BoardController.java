@@ -75,33 +75,34 @@ public class BoardController {
 	}
 	
 	@RequestMapping(value="/board/boardInsertEnd")
-	public ModelAndView boardInsertEnd(MultipartFile[] upFiles, Board b, ModelAndView mv, HttpServletRequest request) {
-		String saveDir = request.getServletContext().getRealPath("resources/upload_images/board");
-		File dir = new File(saveDir);
-		if(!dir.exists()) {
-			dir.mkdirs();
-		}
+	public ModelAndView boardInsertEnd(Board b, ModelAndView mv, HttpServletRequest request) {
 		
-		List<BoardFile> files = new ArrayList();
-		for(MultipartFile f : upFiles) {
-			if(!f.isEmpty()) {
-				String originalFilename = f.getOriginalFilename();
-				String ext = originalFilename.substring(originalFilename.lastIndexOf('.')+1);
-				
-				SimpleDateFormat sdf = new SimpleDateFormat("yyyy_MM_ddHHmmssSSS");
-				int rndNum = (int)(Math.random()*1000);
-				String renamedFilename = sdf.format(new Date(System.currentTimeMillis())) + "_" + rndNum + "_john." + ext;
-				try {
-					f.transferTo(new File(saveDir + "/" + renamedFilename));
-				}catch(IOException e) {
-					e.printStackTrace();
-				}
-				BoardFile boardFile = new BoardFile();
-				boardFile.setBoardFileName(renamedFilename);
-				files.add(boardFile);
-			}
-		}
-		int result = service.boardInsert(files, b);
+//		String saveDir = request.getServletContext().getRealPath("resources/upload_images/board");
+//		File dir = new File(saveDir);
+//		if(!dir.exists()) {
+//			dir.mkdirs();
+//		}
+//		
+//		List<BoardFile> files = new ArrayList();
+//		for(MultipartFile f : upFiles) {
+//			if(!f.isEmpty()) {
+//				String originalFilename = f.getOriginalFilename();
+//				String ext = originalFilename.substring(originalFilename.lastIndexOf('.')+1);
+//				
+//				SimpleDateFormat sdf = new SimpleDateFormat("yyyy_MM_ddHHmmssSSS");
+//				int rndNum = (int)(Math.random()*1000);
+//				String renamedFilename = sdf.format(new Date(System.currentTimeMillis())) + "_" + rndNum + "_john." + ext;
+//				try {
+//					f.transferTo(new File(saveDir + "/" + renamedFilename));
+//				}catch(IOException e) {
+//					e.printStackTrace();
+//				}
+//				BoardFile boardFile = new BoardFile();
+//				boardFile.setBoardFileName(renamedFilename);
+//				files.add(boardFile);
+//			}
+//		}
+		int result = service.boardInsert(b);
 		
 		if(result>0) {
 			mv.setViewName("/board/boardInsertSuccess");
