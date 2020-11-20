@@ -7,92 +7,258 @@
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+<!-- Add icon library -->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 
-<jsp:include page="/WEB-INF/views/common/header.jsp" >
-<jsp:param name="title" value=" "/>
-</jsp:include>
+<style>
+html, body, div, span, applet, object, iframe, h1, h2, h3, h4, h5, h6, p, blockquote, pre, a, abbr, acronym, address, big, cite, code, del, dfn, em,
+	ins, kbd, q, s, samp, small, strike, strong, sub, sup, tt, var, b, u, i, center, dl, dt, dd, ol, ul, li, fieldset, form, label, legend, table,
+	caption, tbody, tfoot, thead, tr, th, td, article, aside, canvas, details, embed, figure, figcaption, footer, header, hgroup, menu, nav, output, ruby,
+	section, summary, time, mark, audio, video {
+	margin: 0;
+	padding: 0;
+	border: 0;
+	font-size: 100%;
+	font: inherit;
+	vertical-align: baseline;
+}
 
-<section id="content">
-<br>
-상담 신청 페이지 임시 테스트용
-<br>
-<img id="expertimg" alt="ㅈ문가" src="${path }/resources/images/expert.png"><br>
-전문가 인사말 :<br>
-전문가 경력 : <br>
-전문 상담 분야 : <br>
-<br>
+body * {
+	border: 1px solid red;
+}
 
-원하는 시간 : <br><input type="time" name="time"><br>
-추가 전달 사항 : <br><textarea name="applyText" cols="20" rows="5"></textarea> 
+#exapplyTextArea {
+	width:100%;
+	height:20vh;
+}
 
-<div id="exbtn">
-<c:if test="${requestIsDuplicate != true}">
-<button class="btn btn-outline-success" onclick="expertRequest();">상담 신청하기</button>
-</c:if>
-<c:if test="${requestIsDuplicate == true}">
-<button class="btn btn-outline-success" onclick="expertRequestCancel();">상담 취소하기</button>
-</c:if>
-</div>
-</section>
+/* 위 텍스트 영역 눌르면 옆에 테두리 생기는거 지우는 용도 */
+textarea:focus {
+	outline: none;
+}
 
+textarea {
+    resize: none;
+}
 
-<script>
-
-function expertRequest(){
-	console.log("상담 신청, ${expert.usid}");
-
-    $.ajax({
- 	   type:"GET",
- 	   data:{
- 		   "no":"${expert.usid}",
- 		   "nic":"${expert.memNickname}",
- 		   "time":$("input[name=time]").val(),
- 		   "applyText":$("textarea[name=applyText]").val()
- 	   },
- 	   url:"${path}/expert/expertRequest",
- 	   success:function (data){
- 		   if(data == 1){
- 			   console.log("상담 신청 성공");
- 			   alert("상담 신청 성공");
- 			  $("input[name=time]").val("");
- 			 $("textarea[name=applyText]").val("");
- 			  $("#exbtn").html("");
- 			   $("#exbtn").html( $("#exbtn").html()+"<button class='btn btn-outline-success' onclick='expertRequestCancel();''>상담 취소하기</button>");
- 		   }else if(data == 2){
- 			  console.log("이미 상담 신청을 하셨습니다");
- 			 alert("이미 상담 신청을 하셨습니다");
- 		   }
- 		   else{
- 			   console.log("상담 신청 실패");
- 			  alert("상담 신청 실패");
- 		   }
- 	   }
-    }); 
-};
-
-function expertRequestCancel(){
-	console.log("상담 취소, ${expert.usid}");
-    $.ajax({
-  	   type:"GET",
-  	   data:{
-  		   "no":"${expert.usid}",
-  		   "nic":"${expert.memNickname}"
-  	   },
-  	   url:"${path}/expert/expertRequestCancel",
-  	   success:function (data){
-  		   if(data == 1){
-  			   console.log("상담 취소 성공");
-  			   alert("상담 취소 성공");
-  			 $("#exbtn").html("");
-  			   $("#exbtn").html("<button class='btn btn-outline-success' onclick='expertRequest();''>상담 신청하기</button>");
-  		   }
-  		   else{
-  			   console.log("상담 취소 실패");
-  			  alert("상담 취소 실패");
-  		   }
-  	   }
-     }); 
+#exbtn{
+	display:flex;
+	justify-content:center;
 }
 
 
+/* 별 */
+.checked {
+	color: orange;
+}
+
+</style>
+
+<div class="container">
+	<div class="row">
+		<div class="col-12">
+			<div class="card">
+				<div class="card-body">
+					<div class="card-title mb-4">
+						<div class="d-flex justify-content-start">
+							<div class="image-container">
+								<img src="${path }/resources/images/expert.png" id="imgProfile" style="width: 150px; height: 150px" class="img-thumbnail" />
+							</div>
+							<div class="userData ml-3">
+								<h2 class="d-block" style="font-size: 1.5rem; font-weight: bold">${mem.memName } 상담사님</h2>
+								<h6 class="d-block">평점 :
+									<c:forEach var="i" begin="1" end="${expert.expertRating}">
+												<span class="fa fa-star checked"></span>
+											</c:forEach>
+											<c:forEach var="i" begin="1" end="${5 - (expert.expertRating)}">
+												<span class="fa fa-star"></span>
+											</c:forEach>
+								</h6>
+								<h6 class="d-block">분야 :${expert.expertCounselArea}</h6>
+								<h6 class="d-block">가입 날짜 : ${mem.enrollDate }</h6>
+								<h6 class="d-block">이메일 : ${mem.memEmail }</h6>
+								<h6 class="d-block">전화번호 : ${mem.tel }</h6>
+							</div>
+						</div>
+					</div>
+
+					<div class="row">
+						<div class="col-12">
+							<ul class="nav nav-tabs mb-4" id="myTab" role="tablist">
+								<li class="nav-item"><a class="nav-link active" id="basicInfo-tab" data-toggle="tab" href="#basicInfo" role="tab"
+									aria-controls="basicInfo" aria-selected="true">상담사 정보</a></li>
+								<li class="nav-item"><a class="nav-link" id="connectedServices-tab" data-toggle="tab" href="#connectedServices" role="tab"
+									aria-controls="connectedServices" aria-selected="false">보유 자격증</a></li>
+							</ul>
+							<div class="tab-content ml-1" id="myTabContent">
+								<div class="tab-pane fade show active" id="basicInfo" role="tabpanel" aria-labelledby="basicInfo-tab">
+									<div class="row">
+										<div class="col-sm-3 col-md-3 col-5">
+											<label style="font-weight: bold;">인사말</label>
+										</div>
+										<div class="col-md-7 col-6">${expert.expertGreetings}</div>
+									</div>
+									<hr />
+									<div class="row">
+										<div class="col-sm-3 col-md-3 col-5">
+											<label style="font-weight: bold;">상담 경력</label>
+										</div>
+										<div class="col-md-7 col-6">${expert.expertProfile}</div>
+									</div>
+									<hr />
+
+									<div class="row">
+										<div class="col-sm-3 col-md-3 col-5">
+											<label style="font-weight: bold;">상담 가능 시간</label>
+										</div>
+										<div class="col-md-7 col-6">${expert.expertCounselStartTime} ~ ${expert.expertCounselEndTime}</div>
+									</div>
+									<hr />
+
+									<div class="row">
+										<div class="col-sm-3 col-md-3 col-5">
+											<label style="font-weight: bold;">희망 상담 시간</label>
+										</div>
+										<div class="col-md-7 col-6">
+											<!-- <input type="time" name="time"> -->
+											<input name="time" type="datetime-local" value="xxx" min="mm" max="zzz">
+										</div>
+									</div>
+									<hr />
+
+									<div class="row">
+										<div class="col-sm-3 col-md-3 col-5">
+											<label style="font-weight: bold;">추가 전달 사항</label>
+										</div>
+										<div class="col-md-7 col-6">
+											<textarea id="exapplyTextArea" name="applyText"></textarea>
+										</div>
+									</div>
+									<hr />
+									<div id="exbtn">
+										<c:if test="${requestIsDuplicate != true}">
+											<button class="btn btn-outline-success" onclick="expertRequest();">상담 신청하기</button>
+										</c:if>
+										<c:if test="${requestIsDuplicate == true}">
+											<button class="btn btn-outline-success" onclick="expertRequestCancel();">상담 취소하기</button>
+										</c:if>
+									</div>
+
+								</div>
+								<div class="tab-pane fade" id="connectedServices" role="tabpanel" aria-labelledby="ConnectedServices-tab">
+								
+										<c:choose>
+										<c:when test="${fn:length(license) > 0}">
+										<c:forEach items="${license }" var="license">
+								
+									<!--  -->
+									<div class="row">
+										<div class="col-sm-3 col-md-3 col-5">
+											<label style="font-weight: bold;">자격증</label>
+										</div>
+										<div class="col-md-7 col-6">
+										<!-- 자격증 이미지 넣어야됨! -->
+												<div class="image-container">
+													<img src="${path }/resources/images/expert.png" id="imgProfile" style="width: 150px; height: 150px" class="img-thumbnail" />
+												</div>
+												<h6 class="d-block">자격증 종류 : ${license.licenseType }</h6>
+												<h6 class="d-block">자격증 발급일 : ${license.licenseDate }</h6>
+												<h6 class="d-block">자격증 인증 기관 : ${license.licenseCompany }</h6>
+												<h6 class="d-block"></h6>
+										</div>
+									</div>
+									<hr />
+									<!--  -->
+									
+										</c:forEach>
+										</c:when>
+										<c:otherwise>
+											<div class="empty"><h1>등록된 자격증이 없습니다.</h1></div>
+										</c:otherwise>
+									</c:choose>
+									
+									
+								</div>
+							</div>
+						</div>
+					</div>
+
+
+				</div>
+
+			</div>
+		</div>
+	</div>
+</div>
+
+
+<script>
+	$(this).resize(fixedSize);
+	function fixedSize() {
+		this.resizeTo(800, 800);
+	}
+
+	function expertRequest() {
+		console.log("상담 신청, ${mem.usid}");
+
+		$.ajax({
+					type : "GET",
+					data : {
+						"no" : "${mem.usid}",
+						"nic" : "${mem.memNickname}",
+						"time" : $("input[name=time]").val(),
+						"applyText" : $("textarea[name=applyText]").val()
+					},
+					url : "${path}/expert/expertRequest",
+					success : function(data) {
+						if (data == 1) {
+							console.log("상담 신청 성공");
+							alert("상담 신청 성공");
+							$("input[name=time]").val("");
+							$("textarea[name=applyText]").val("");
+							$("#exbtn").html("");
+							$("#exbtn")
+									.html(
+											$("#exbtn").html()
+													+ "<button class='btn btn-outline-success' onclick='expertRequestCancel();''>상담 취소하기</button>");
+						} else if (data == 2) {
+							console.log("이미 상담 신청을 하셨습니다");
+							alert("이미 상담 신청을 하셨습니다");
+						} else if(data == 9999){
+							console.log("현재 시간보다 과거를 선택했음");
+							alert("선택하신 날짜가 맞지 않습니다.");
+						}
+						else {
+							console.log("상담 신청 실패");
+							alert("상담 신청 실패");
+						}
+					}
+				});
+	};
+
+	function expertRequestCancel() {
+		console.log("상담 취소, ${mem.usid}");
+		$
+				.ajax({
+					type : "GET",
+					data : {
+						"no" : "${mem.usid}",
+						"nic" : "${mem.memNickname}"
+					},
+					url : "${path}/expert/expertRequestCancel",
+					success : function(data) {
+						if (data == 1) {
+							console.log("상담 취소 성공");
+							alert("상담 취소 성공");
+							$("#exbtn").html("");
+							$("#exbtn")
+									.html(
+											"<button class='btn btn-outline-success' onclick='expertRequest();''>상담 신청하기</button>");
+						} else {
+							console.log("상담 취소 실패");
+							alert("상담 취소 실패");
+						}
+					}
+				});
+	}
 </script>

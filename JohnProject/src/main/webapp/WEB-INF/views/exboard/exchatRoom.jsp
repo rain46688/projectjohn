@@ -269,7 +269,7 @@ textarea {
 	</div>
 </div>
 
-<script>
+<script defer>
 
 	'use strict';
 	
@@ -362,8 +362,6 @@ textarea {
 				uploadFiles = [];
 			}
 		});
-	 	
-	 	
 	});
 	
 	function imgDivPrint(msg){
@@ -718,16 +716,19 @@ textarea {
 					form.setAttribute("charset", "UTF-8");
 					form.setAttribute("method", "Post");
 					form.setAttribute("action", "${path}/expert/counselEnd");
+					//
 					let hiddenField = document.createElement("input");
 					hiddenField.setAttribute("type", "hidden");
 					hiddenField.setAttribute("name", "extext");
 					hiddenField.setAttribute("value", counselText);
 					form.appendChild(hiddenField);
+					//
 					let hiddenField2 = document.createElement("input");
 					hiddenField2.setAttribute("type", "hidden");
 					hiddenField2.setAttribute("name", "bno");
 					hiddenField2.setAttribute("value", "${bno}");
 					form.appendChild(hiddenField2);
+					//
 					document.body.appendChild(form);
 					form.submit();
 					exit();

@@ -12,10 +12,15 @@
 		margin-top:2em;
 	 	scroll-behavior:smooth;
 	}
+	
+	#content > button {
+		float:right;
+	}
 
 	.subListTitle {
+		margin-left:1em;
 		font-weight: 800;
-		font-size: large;
+		font-size: 1.75em;
 	}
 	
 	.subListBigCon {
@@ -38,10 +43,12 @@
 	.subListBigCon .sector .subListContent {
 	  margin:0;
 	  padding: 0 2px;
-	  border: 1px solid black;
 	  cursor: pointer;
 	  transition: 250ms all;
-	  z-index: 2;
+	  width:14em;
+	  height:5em;
+	  border-radius: 5px;
+	  background-color:#FFD02F;
 	}
 	
 	.subListBigCon .sector .subListContent:hover {
@@ -193,10 +200,6 @@
 			popularList.push(allList[i]);
 			if(i>=boardLength-1)break;
 		}
-		
-		
-		console.log(newList);
-		console.log(popularList);
 
 		//최신 목록 만들기
 		makeList(newList, 'newList');
@@ -272,7 +275,6 @@
 	}
 	
 	function makeList(list, name){
-		console.log(document.getElementById(name));
 		let idx = 1;
 		list.forEach(function(element, index) {
 			if(index%5==0){

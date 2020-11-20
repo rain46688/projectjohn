@@ -8,16 +8,31 @@
 		스크롤시 로고 fixed
 	 */
 	#side {
-	    border-bottom-left-radius: 7.5px;
-	    border-top-left-radius: 7.5px;
+	    border-bottom-left-radius: 30px;
+	    border-top-left-radius: 30px;
 	    overflow: auto;
 	    width: 18%;
 	    height: 100%;
-	    background-color:#05135C;
+	    background-color:#00316D;
 	    display: flex;
 	    flex-direction: column;
 	    align-items: center;
+	    /* background-image: url('${path}/resources/images/logo_dot.png');
+	    background-repeat: repeated; */
+	    opcaity:0.5;
 	}
+	
+	/* #side::before {
+		content:"";
+		background-image:url('${path}/resources/images/logo_dot.png');
+		background-repeat: repeated;
+		position: absolute;
+		top: 0px;
+		right: 0px;
+		bottom: 0px;
+		left: 0px;
+		opacity: 0.75;
+	} */
 	
 	#side ::-webkit-scrollbar {
 		background-color: #05135C;
@@ -28,8 +43,11 @@
 		background-color: #05135C;
 	}
 	
-	#container_logo {
-		/* border:1px solid red; */
+	#container_logo{
+	    margin-top: 0;
+	    display: flex;
+	    justify-content: center;
+	    background-color:#00316D;
 	}
 	
 	#menu {
@@ -49,17 +67,21 @@
 	}
 	
 	.menusOnSide:hover {
-		background-color: #384F9C;
+		background-color: #0054BA;
 	}
 	
 	.menuImages {
 		width:1.5em;
 		height:1.5em;
 		margin-right:2em;
-		margin-left:1em;
+		margin-left:2em;
 		margin-top:0;
 		padding-bottom:0.1em;
 		/* border:1px solid red; */
+	}
+	
+	#sidebar_logo{
+    	width: 80%;
 	}
 </style>
 <div id="side">
@@ -86,12 +108,12 @@
 			<img class="menuImages" src="${path}/resources/images/history.png">
 			내 기록
 		</div>
-		<hr style="border-top:1px solid gray">
+		<hr style="border-top:1px solid black">
 		<div id="subList" class="menusOnSide">
 			<img class="menuImages" src="${path}/resources/images/sub.png">
 			구독한 채널
 		</div>
-		<hr style="border-top:1px solid gray">
+		<hr style="border-top:1px solid black">
 		<div id="cates" class="menusOnSide">
 			<img class="menuImages" src="${path}/resources/images/cate.png">
 			큰 카테고리들

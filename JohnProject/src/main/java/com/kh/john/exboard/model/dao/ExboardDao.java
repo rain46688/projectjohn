@@ -49,4 +49,12 @@ public interface ExboardDao {
 
 	List<ExpertBoard> selectExboardListCategory(SqlSessionTemplate session, String ca) throws Exception;
 
+	List<ExpertRequest> selectExpertRequestAjax(SqlSessionTemplate session, Map<String, String> map) throws Exception;
+
+	int selectExpertRequestAjaxCount(SqlSessionTemplate session, Member mem) throws Exception;
+
+	int updateReuestCounselEnd(SqlSessionTemplate session, Map<String, String> map) throws Exception;
+
+	List<ExpertRequest> selectExRequestList(SqlSessionTemplate session) throws Exception;
+
 }
