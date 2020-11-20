@@ -7,6 +7,7 @@ import java.util.List;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.SessionAttribute;
 import org.springframework.web.socket.CloseStatus;
 import org.springframework.web.socket.TextMessage;
 import org.springframework.web.socket.WebSocketSession;
@@ -30,36 +31,37 @@ public class MemberSocketHandler extends TextWebSocketHandler {
 	
 	@Override
 	public void afterConnectionEstablished(WebSocketSession session) throws Exception {
-		log.debug("멤버 소켓 핸들러 실행");
+		log.debug("********멤버 소켓 핸들러 실행********");
 		Map<String, Object> map=session.getAttributes();
 		Member member=(Member)map.get("loginMember");
 		users.put(member, session);
-		log.debug("member: "+member);
-		log.debug("닉네임: "+member.getMemNickname());
+		
 	}
 	
 	@Override
-	protected void handleTextMessage(WebSocketSession session, TextMessage message) throws Exception {
-		System.out.println(session.getId()+"로부터 메세지 수신: "+message.getPayload());//client로부터 받은 메세지
-		log.debug("메세지 받음");
+	protected void handleTextMessage(WebSocketSession session, TextMessage message) throws Exception {		
+		List<MemberChat> allChatList=service.loadAllChatList();
+		if(message.getPayload().equals("connect")) {
+			session.sendMessage(new TextMessage(objectMapper.writeValueAsString(allChatList)));
+			return;
+		}
 		MemberChat memberChat=objectMapper.readValue(message.getPayload(), MemberChat.class);//JSON으로 받은 메세지를 해석해서 memberChat 객체에 저장
 		log.debug("memberChat"+ memberChat);
 		service.insertMemberChat(memberChat);//저장
-		
-		List<MemberChat> allChatList=service.loadAllChatList();
-		session.sendMessage(new TextMessage(objectMapper.writeValueAsString(allChatList)));
-//		//map을 반복문 돌릴 수 있도록 해주는 것
-//		Iterator<Member> it=users.keySet().iterator();//users라는 map 전체를 돌릴 것이다
-//		while(it.hasNext()) {
-//			Member key=it.next();//user에 있는 Member객체로 하나씩 뽑아와서 key변수로 지정
-//			List<MemberChat> chatList=service.loadMemberChat(key.getUsid());
-//			
-//		}
+		allChatList=service.loadAllChatList();
+		//map을 반복문 돌릴 수 있도록 해주는 것
+		Iterator<Member> it=users.keySet().iterator();//users라는 map 전체를 돌릴 것이다
+		while(it.hasNext()) {
+			Member key=it.next();//user에 있는 Member객체로 하나씩 뽑아와서 key변수로 지정
+			if(users.get(key).equals(session)) {
+				users.get(key).sendMessage(new TextMessage(objectMapper.writeValueAsString(allChatList)));				
+			}
+		}
 	}
 
 	@Override
 	public void afterConnectionClosed(WebSocketSession session, CloseStatus status) throws Exception {
-		log.debug("멤버 소켓 핸들러 종료");
+		log.debug("********멤버 소켓 핸들러 종료********");
 		List<Member> keyList=new ArrayList<Member>();
 		Iterator<Member> it=users.keySet().iterator();
 		while(it.hasNext()) {

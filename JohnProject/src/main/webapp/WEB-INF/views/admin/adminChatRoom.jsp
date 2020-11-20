@@ -18,16 +18,16 @@
 					<th>번호</th>
 					<th>날짜</th>
 				</tr>
-				 <c:if test="${empty list}">
+				 <c:if test="${empty memberInfoList}">
 					<tr>
 						<td colspan="9">조회 결과가 없습니다.</td>
 					</tr>
 				</c:if>
-				 <c:if test="${not empty list }">
-					<c:forEach var="ac" items="${list }">
+				 <c:if test="${not empty memberInfoList }">
+					<c:forEach var="memberInfoList" items="${memberInfoList }">
 						<tr>
-							<td><a href="${path }/customer/customerChat?adminUsid=${ac['adminUsid']}"><c:out value="${ac['adminUsid']}" /></a></td>
-							<td><c:out value="${ac['adminChatDate']}" /></td>
+							<td><a href="${path }/admin/adminChat?adminUsid=31&memberUsid=${memberInfoList.memberUsid}"><c:out value="${memberInfoList.memberUsid}"/></a></td>
+							<td><c:out value="${memberInfoList.memberUsid}"/></td>
 						</tr>
 					</c:forEach>
 				</c:if>

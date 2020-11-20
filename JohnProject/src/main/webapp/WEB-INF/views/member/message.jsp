@@ -4,14 +4,17 @@
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
 <c:set var="path" value="${pageContext.request.contextPath }"/>
-
 <jsp:include page="/WEB-INF/views/common/header.jsp">
 	<jsp:param name="title" value=""/>
 </jsp:include>
+<style>
+	div.msgRight{
+		background-color: aqua;
+	}
+</style>
 <section id="content">
 	<div>
 		<div id="savedContainer"></div>
-		<div>${allChatList }</div>
 		<div id="textingContainer">
 			<input type="text" id="message">
 			<button type="button" id="sendMessage" onclick="fn_sendMessage()">전송</button>
@@ -22,11 +25,10 @@
 	
 	//소켓 시작
 	const memberSocket=new WebSocket("wss://localhost${path}/memberSocket");
+	
 	//소켓이 열림
 	memberSocket.onopen=function(){
-		console.log("onopen => signaling server 연결");
-		console.log("닉 : "+"${loginMember.memNickname}");
-		var date = new Date();
+		memberSocket.send("connect");
 	};
 	
 	//메세지 보냄
@@ -45,48 +47,40 @@
         }
     });  
 	
-	//메세지 불러오기
+	//메세지 받기
 	memberSocket.onmessage=function(e){
-		let allChatList=new Array;
+		$("#savedContainer").html('');
 		let data=JSON.parse(e.data);
-		$.each(data, function(i,v){
-			allChatList[i]=v;
-		})
-		console.log(allChatList);
-		$("#savedContainer").append(allChatList.mchatContent);
-		
-// 		console.log("e.da"+e.data);
-// 		function(JSON.parse(e.data)){
-// 			$.each(e.data,function(i,v){
-// 				let msgLeft=$("<div/>").attr({"class":"msgLeft"});
-// 		 		let msgRight=$("<div/>").attr({"class":"msgRight"});
-// 		 		if(v['mchatFirstUsid']=='${loginMember.usid}'){
-// 		 			let msgR=msgRight.html(v['mchatContent']);
-// 		 			$("$savedContainer").append(msgR);
-// 		 		}else{ //수신인==나(왼쪽)
-// 		 			let msgL=msgLeft.html(v['mchatContent']);
-// 		 			$("$savedContainer").append(msgL);
-// 		 		}
-// 			})
-// 		}
-///////////////////////
-// 		const savedMessage=JSON.parse(e.data);
-// 		console.log(savedMessage);
-// 		var date=new Date();
-// 		var timeStamp=date.getHours+":"+date.getMinutes();
-// 		let msgLeft=$("<div/>").attr({"class":"msgLeft"});
-// 		let msgRight=$("<div/>").attr({"class":"msgRight"});
-// 		let picDiv=$("<div/>").html($("<img/>").attr("src","${path}/resources/profile_images/${otherInfo.profilePic}"));
-// 		let nickDiv=$("<div/>").html(${otherInfo.memNickname});
-// 		let contentDiv;
-// 		//발신인==나(오른쪽)
-// 		if(savedMessage['mchatFirstUsid']=='${loginMember.usid}'){
-// 			let msgR=msgRight.html(savedMessage['mchatContent']);
-// 			$("$savedContainer").append(msgR);
-// 		}else{ //수신인==나(왼쪽)
-// 			let msgL=msgLeft.html(savedMessage['mchatContent']);
-// 			$("$savedContainer").append(msgL);
-// 		}
+		if(data!=null){
+			let otherProfile="${otherInfo.profilePic}";
+			let otherNick="${otherInfo.memNickname}";
+			let otherUsid="${otherInfo.usid}";
+			let allChatList=new Array;
+			$.each(data, function(i,v){
+				allChatList[i]=v;
+			})
+			
+			$.each(allChatList,function(i,v){
+				let msgLeft=$("<div/>").attr({"class":"msgLeft"});
+		 		let msgRight=$("<div/>").attr({"class":"msgRight"});
+		 		let picDiv=$("<div/>").html($("<img/>").attr("src","${path}/resources/profile_images/"+otherProfile));
+		 		let nickDiv=$("<div/>").html(otherNick);
+		 		let dateDiv=$("<div/>").attr({"class":"msgDate"});
+				console.log("date"+allChatList[i].mchatDateString);
+				
+				if(v['mchatFirstUsid']=='${loginMember.usid}' && v['mchatSecondUsid']==otherUsid){ //발신인==나
+					let msgR=msgRight.html(v['mchatContent']);
+					let msgDate=dateDiv.html(v['mchatDateString']);
+			 		$("#savedContainer").append(msgR).append(msgDate);
+				}
+				if(v['mchatFirstUsid']==otherUsid && v['mchatSecondUsid']=='${loginMember.usid}'){
+					let msgL=msgLeft.html(v['mchatContent']);
+					let msgDate=dateDiv.html(v['mchatDateString']);
+			 		$("#savedContainer").append(picDiv).append(nickDiv).append(msgL);
+					$("#savedContainer").append(msgL).append(msgDate);
+				}
+			});			
+		}
 	}
 	
 	function sendChat(mchatFirstUsid, mchatSecondUsid, mchatContent, mchatDate, mchatFile){

@@ -1,5 +1,6 @@
 package com.kh.john.admin.model.dao;
 
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -7,6 +8,7 @@ import org.apache.ibatis.session.SqlSession;
 import org.mybatis.spring.SqlSessionTemplate;
 
 import com.kh.john.admin.model.vo.AdminChat;
+import com.kh.john.admin.model.vo.AdminMessage;
 import com.kh.john.admin.model.vo.Notice;
 import com.kh.john.admin.model.vo.NoticeFile;
 import com.kh.john.board.model.vo.Board;
@@ -94,6 +96,13 @@ public interface AdminDao {
 	
 	int selectAdminChatCount(SqlSessionTemplate session);
 	
-	List<AdminChat> selectAdminInChat(SqlSessionTemplate session,int adminUsid);
+	List<AdminChat> selectAdminInChat(SqlSessionTemplate session);
+
+	
+	List<Integer> firstUsidList(SqlSessionTemplate session);
+
+	List<Integer> secondUsidList(SqlSessionTemplate session);
+
+	AdminMessage loadAdminMessage(SqlSessionTemplate session, HashMap<String, Integer> usidMap);
 	
 } 
