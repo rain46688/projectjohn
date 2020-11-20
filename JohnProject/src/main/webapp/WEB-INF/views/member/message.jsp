@@ -36,8 +36,8 @@
 		let message=$("#message").val();
 		if(message!=null){
 			sendChat(${loginMember.usid},${otherInfo.usid},message,"","");
-			msgListSocket.send("messageInserted");
-			$("#message").val('');			
+			sendMsgList(${loginMember.usid},${otherInfo.usid},message,"","");
+			$("#message").val('');
 		}
 	};
 	
@@ -87,7 +87,9 @@
 	function sendChat(mchatFirstUsid, mchatSecondUsid, mchatContent, mchatDate, mchatFile){
 		memberSocket.send(JSON.stringify(new MemberChat(mchatFirstUsid, mchatSecondUsid, mchatContent, mchatDate, mchatFile)))
 	};
-	
+	function sendMsgList(mchatFirstUsid, mchatSecondUsid, mchatContent, mchatDate, mchatFile){
+		msgListSocket.send(JSON.stringify(new MemberChat(mchatFirstUsid, mchatSecondUsid, mchatContent, mchatDate, mchatFile)))
+	};
 	function MemberChat(mchatFirstUsid, mchatSecondUsid, mchatContent, mchatDate, mchatFile){
 		this.mchatFirstUsid=mchatFirstUsid;
 		this.mchatSecondUsid=mchatSecondUsid;

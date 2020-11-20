@@ -9,8 +9,9 @@
 	<jsp:param name="title" value=""/>
 </jsp:include>
 <style>
-	.messageBox:hover{
+	.msgBox:hover{
 		background-color: #D3D3D3;
+		cursor:pointer;
 	}
 </style>
 <section id="content">
@@ -115,22 +116,24 @@
 			$.each(data, function(i,v){
 				msgList[i]=v;
 			})
-
+		console.log(msgList);
 			$.each(msgList,function(i,v){
 				let otherUsid=v['otherUsid'];
 				let otherProfilePic=v['otherProfilePic'];
 				let otherNick=v['otherNick'];
 				let latestMsg=v['latestMessage'];
 				let latestDate=v['latestDateStr'];
-
-				let msgBox=$("<div/>").attr({"class":"msgBox","onclick":"location.href=${path}/member/myPage/message?usid=${loginMember.usid}&otherUsid="+otherUsid});
-				let picDiv=$("<div/>").html($("<img/>").attr("src","${path}/resources/profile_images/"+otherProfilePic));
-				let nickDiv=$("<div/>").html(otherNick);
-				let dateDiv=$("<div/>").html(latestDate);
-				let msgDiv=$("<div/>").html(latestMsg);
-				msgBox.append(picDiv).append(nickDiv).append(dateDiv).append(msgDiv);
-				$("#savedContainer").append(msgBox);
-			})
+				let myUsid=v['myUsid'];
+				if(myUsid=='${loginMember.usid}' || otherUsid=='${loginMember.usid}'){
+					let msgBox=$("<div/>").attr({"class":"msgBox","onclick":"location.href='${path}/member/myPage/message?usid=${loginMember.usid}&otherUsid="+otherUsid+"'"});
+					let picDiv=$("<div/>").html($("<img/>").attr("src","${path}/resources/profile_images/"+otherProfilePic));
+					let nickDiv=$("<div/>").html(otherNick);
+					let dateDiv=$("<div/>").html(latestDate);
+					let msgDiv=$("<div/>").html(latestMsg);
+					msgBox.append(picDiv).append(nickDiv).append(dateDiv).append(msgDiv);
+					$("#savedContainer").append(msgBox);					
+				}
+			});
 		}
 	}
 </script>

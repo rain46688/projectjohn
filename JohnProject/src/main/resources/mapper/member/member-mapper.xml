@@ -122,18 +122,18 @@
 	SELECT MCHAT_SECOND_USID FROM MEMBER_CHAT WHERE MCHAT_FIRST_USID=#{usid} GROUP BY MCHAT_SECOND_USID
 </select>
 
-<select id="firstUsidList" parameterType="_int" resultMap="integer">
+<select id="firstUsidList" parameterType="_int" resultType="integer">
 	SELECT MCHAT_FIRST_USID FROM MEMBER_CHAT WHERE MCHAT_FIRST_USID!=#{myUsid} AND MCHAT_SECOND_USID=#{myUsid} GROUP BY MCHAT_FIRST_USID
 </select>
 
-<select id="secondUsidList" parameterType="_int" resultMap="integer">
+<select id="secondUsidList" parameterType="_int" resultType="integer">
 	SELECT MCHAT_SECOND_USID FROM MEMBER_CHAT WHERE MCHAT_FIRST_USID=#{myUsid} AND MCHAT_SECOND_USID!=#{myUsid} GROUP BY MCHAT_SECOND_USID
 </select>
 
 <select id="loadLatestMessage" parameterType="map" resultMap="mMMap">
 	SELECT ROWNUM, X.* FROM 
-		(SELECT Y.* FROM MEMBER_CHAT Y WHERE (MCHAT_FIRST_USID=#{myUsid} AND MCHAT_SECOND_USID=#{otherUsid}) 
-		OR (MCHAT_FIRST_USID=#{otherUsid} AND MCHAT_SECOND_USID=#{myUsid}) ORDER BY MCHAT_DATE DESC) X WHERE ROWNUM=1
+		(SELECT Y.*,TO_CHAR(Y.MCHAT_DATE,'YYYY-mm-DD HH24:mi') FROM MEMBER_CHAT Y WHERE (MCHAT_FIRST_USID=#{myUsid} AND MCHAT_SECOND_USID=#{otherUsid}) 
+		OR (MCHAT_FIRST_USID=#{otherUsid} AND MCHAT_SECOND_USID=#{myUsid}) ORDER BY Y.MCHAT_DATE DESC) X WHERE ROWNUM=1
 </select>
 
 <select id="memberListByNick" parameterType="string" resultMap="memberMap">
@@ -145,7 +145,7 @@
 </select>
 
 <select id="loadAllChatList" resultMap="mCMap">
-	SELECT MEMBER_CHAT.*,TO_CHAR(MCHAT_DATE,'YYYY/mm/DD HH24:Mi') FROM MEMBER_CHAT ORDER BY MCHAT_DATE ASC
+	SELECT MEMBER_CHAT.*,TO_CHAR(MCHAT_DATE,'YYYY-mm-DD HH24:Mi') FROM MEMBER_CHAT ORDER BY MCHAT_DATE ASC
 </select>
 
 
@@ -157,7 +157,7 @@
 	<result property="mchatContent" column="mchat_content"/>
 	<result property="mchatDate" column="mchat_date"/>
 	<result property="mchatFile" column="mchat_file"/>
-	<result property="mchatDateString" column="TO_CHAR(MCHAT_DATE,'YYYY/mm/DDHH24:Mi')"/>
+	<result property="mchatDateString" column="TO_CHAR(MCHAT_DATE,'YYYY-mm-DDHH24:Mi')"/>
 </resultMap>
 <resultMap type="expertObjects" id="eOMap">
 	<result property="usid" column="usid"/>
@@ -186,9 +186,9 @@
  	<result property="licenseCompany" column="license_company"/>
 </resultMap>
 <resultMap type="memberMessage" id="mMMap">
-	<id property="latestMessage" column="MCHAT_CONTENT"/>
-	<id property="latestDate" column="MCHAT_DATE"/>
-	<id property="latestDateStr" column="TO_CHAR(MCHAT_DATE,'YYYY/mm/DDHH24:Mi')"/>
+	<result property="latestMessage" column="MCHAT_CONTENT"/>
+	<result property="latestDate" column="MCHAT_DATE"/>
+	<result property="latestDateStr" column="TO_CHAR(Y.MCHAT_DATE,'YYYY-MM-DDHH24:MI')"/>
 </resultMap>
 <resultMap type="exboard" id="expertBoardMap">
 	<id column="EXPERT_BOARD_ID" property="expertBoardId" />

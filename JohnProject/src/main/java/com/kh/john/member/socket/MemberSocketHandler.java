@@ -41,20 +41,24 @@ public class MemberSocketHandler extends TextWebSocketHandler {
 	@Override
 	protected void handleTextMessage(WebSocketSession session, TextMessage message) throws Exception {		
 		List<MemberChat> allChatList=service.loadAllChatList();
+		
 		if(message.getPayload().equals("message")) {
 			session.sendMessage(new TextMessage(objectMapper.writeValueAsString(allChatList)));
 			return;
 		}
+		
 		MemberChat memberChat=objectMapper.readValue(message.getPayload(), MemberChat.class);//JSON으로 받은 메세지를 해석해서 memberChat 객체에 저장
 		log.debug("memberChat"+ memberChat);
 		service.insertMemberChat(memberChat);//저장
+		
 		allChatList=service.loadAllChatList();
 		//map을 반복문 돌릴 수 있도록 해주는 것
 		Iterator<Member> it=users.keySet().iterator();//users라는 map 전체를 돌릴 것이다
 		while(it.hasNext()) {
 			Member key=it.next();//user에 있는 Member객체로 하나씩 뽑아와서 key변수로 지정
-			users.get(key).sendMessage(new TextMessage(objectMapper.writeValueAsString(allChatList)));
+			users.get(key).sendMessage(new TextMessage(objectMapper.writeValueAsString(allChatList)));			
 		}
+	
 	}
 
 	@Override

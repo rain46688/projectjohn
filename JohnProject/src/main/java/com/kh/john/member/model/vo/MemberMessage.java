@@ -7,9 +7,10 @@ import lombok.Data;
 public class MemberMessage {
 	
 	private int otherUsid;
+	private int myUsid;
 	private String otherProfilePic;
-	private String latestMessage;
 	private String otherNick;
+	private String latestMessage;
 	private Date latestDate;
 	private String latestDateStr;
 	
