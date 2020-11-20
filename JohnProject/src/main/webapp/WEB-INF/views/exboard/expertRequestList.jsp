@@ -187,205 +187,22 @@ h1 {
 	
 	<script>
 	
-	//시작시 온로드로 페이지바랑 리스트를 프린트 해옴
-	$(function(){
-		pageBar();
-		listPrint($("#sortSelect").val(),$("#pageSelect").val(),$("#searchSelect").val(),$("#searchInput").val(),$("#cPageInput").val());
-	});
+	const exlistconn = new WebSocket('wss://192.168.219.105${path}/exlistSocket');
 	
-	// 액션 취할시 리스트 가져옴
-	$("#sortSelect").on('change', e => {
-		console.log("sort : "+$(e.target).val());
-		listPrint($(e.target).val(),$("#pageSelect").val(),$("#searchSelect").val(),$("#searchInput").val(),$("#cPageInput").val());
-	});
-	
-	$("#searchSelect").on('change', e => {
-		console.log("search : "+$(e.target).val());
-		listPrint($("#sortSelect").val(),$("#pageSelect").val(),$(e.target).val(),$("#searchInput").val(),$("#cPageInput").val());
-	});
-	
-	$("#pageSelect").on('change', e => {
-		console.log("page : "+$(e.target).val());
-		listPrint($("#sortSelect").val(),$(e.target).val(),$("#searchSelect").val(),$("#searchInput").val(),$("#cPageInput").val());
-	});
-	
-	function cpaging(e){
-		console.log($(e.target).html());
-		$("#cPageInput").val($(e.target).html());
-		pageBar();
-		listPrint($(e.target).val(),$("#pageSelect").val(),$("#searchSelect").val(),$("#searchInput").val(),$("#cPageInput").val());
+	exlistconn.onopen = function() {
+		console.log("onopen");
+		sendMessage("1");
+	}
+
+	exlistconn.onmessage = function(msg) {
+		console.log("onmessage");
+		
 	}
 	
-	//페이지 바 클릭
-	function barClick(n){
-		console.log(n);
-	}
-	
-	//리스트 프린트
-	function listPrint(sort, page, searchType, searchInput, cpage){
-		console.log(sort+" "+page+" "+searchType+" "+searchInput+" "+cpage);
-		let pbhtml = "";
-		   $.ajax({
-		 	   type:"GET",
-		 	   data:{
-		 		 	  "sort" : sort,
-		 		 	  "page" : page,
-		 			  "searchType" : searchType,
-		 			 "searchInput" : searchInput,
-		 			 "cpage" : cpage
-		 	   },
-		 	   dataType : "json",
-		 	   url:"${path}/expert/selectExpertListAjax",
-		 	   success:function (data){
-		 		   console.log("data : "+data);
-		 		   
-		 		   if(data != ""){
-		 			$.each(data, function(i, item) {
-		 				console.log("i : "+i+" data : "+data.length);
-						console.log("endCounsel : " + item['endCounsel']);
-							pbhtml += printBoard(item['expertDateTmp'],item['expertCounselTime'],item['startCounsel'],item['endCounsel'],item['expertRequestMemUsid'],item['expertRequestMemNick'],i, data.length);
-						$(".divListBody").html(pbhtml);
-		 			});
-		 		}else{
-					console.log("빈값");
-					pbhtml = "<div class='divRow ' ><div class='divCell'><div class='empty'>상담 신청이 없습니다.</div></div></div>";
-					pageBar();
-					$(".divListBody").html(pbhtml);
-				}
-		 			
-		 	   }
-		    }); 
+	function sendMessage(message) {
+		exlistconn.send(message);
+		console.log("sendMessage");
 	};
-	
-	//페이지바 프린트
-	function pageBar(){
-		let totalData = "${totalData}";
-		let cPage = $("#cPageInput").val();
-		let pageNo = (cPage - ((cPage - 1)%5));
-		let numPerPage = $("#pageSelect").val();
-		let pageEnd = Math.ceil(totalData/numPerPage);
-		console.log("토탈 : "+totalData+" cPage : "+cPage+" pageNo : "+pageNo+" pageEnd : "+pageEnd+" numPerPage : "+numPerPage);
-		
-		let ph = "<br><nav aria-lable='Page navigation' id='pagebar'><ul class='pagination justify-content-center'>";
-		if(pageNo > 1){
-			ph+="<li class='page-item'><a class='page-link' tabindex='-1' onclick='barClick(1);' aria-disabled='true'>이전</a></li>";
-		}else if(pageNo <= 1){
-			ph += "<li class='page-item disabled'><a class='page-link' tabindex='-1' aria-disabled='true'>이전</a></li>";
-		}
-		
-		for(let i = 0; i < (numPerPage - 1); i++){
-			if(pageNo + i == cPage){
-				ph += "<li class='page-item disabled'><a class='page-link' style='cursor:pointer;'>"+(pageNo + i) +"</a></li>";
-			}else if((pageNo + i) <= pageEnd){	
-				ph += "<li class='page-item'><a class='page-link' style='cursor:pointer;' onclick='cpaging(event);'>"+(pageNo + i) +"</a></li>";
-			}
-		}
-		
-		if(pageNo < (pageEnd - 4)){
-			ph += "<li class='page-item'><a class='page-link' onclick='barClick(2);' tabindex='-1' aria-disabled='true'>다음</a></li>";
-		}else if(pageNo >= (pageEnd - 4)){
-			ph += "<li class='page-item disabled'><a class='page-link' tabindex='-1' aria-disabled='true'>다음</a></li>";
-		}
-		ph += "</ul></nav>";
-		$("#pagingDiv").html(ph);
-}
-	
-	//리스트 출력하기
-	function printBoard(date, time, start, end, rememusid, rememnick,i, max){
-		console.log("end : "+end+" start : "+start);
-		let pb = "";
-		if(i == 0){
-			pb += "<div class='divRowTitle '><div class='divCell'>상담 신청자</div><div class='divCell'>상담 신청 날짜</div><div class='divCell'>원하는 상담 시간</div><div class='divCell'>상담 시작</div><div class='divCell'>정보 보기</div></div>"; 
-		}
-		if(end != null){
-			pb +="<div class='divRow ' ><div class='divCell'>"+rememnick+"</div><div class='divCell'>"+date+"</div><div class='divCell'>"+time+"</div><div class='divCell'>";
-			if(end == false){
-					if(start== false){
-						pb += "<button class='btn btn-outline-success' onclick='counselStart('"+rememusid+"','"+rememnick+"');'>상담 시작</button>";
-					}else{
-						pb += "<button class='btn btn-outline-success' onclick='counselConn('"+rememusid+"','"+rememnick+"');'>채팅 접속</button>";
-					}
-			}else{
-				pb +="상담 완료";
-			}
-				pb += "</div><div class='divCell'><form  name='form' ><input type='hidden' name='usid' value='${loginMember.usid}'><input type='hidden' name='musid' value='"+rememusid+"'><button class='btn btn-outline-success' onclick='exmemInfo(this.form);'>회원 정보</button></form></div></div>";
-		}
-		pageBar();
-		return pb;
-	}
-	
-	//검색 키보드
-	function searchkey(){
-		if(window.event.keyCode == 13) {
-			console.log("search 엔터 버튼 클릭");
-			search();
-		}
-		return false;
-	}
-
-	//검색 함수
-	function search(){
-		console.log("search 버튼 클릭");
-		listPrint($("#sortSelect").val(),$("#pageSelect").val(),$("#searchSelect").val(),$("#searchInput").val(),$("#cPageInput").val());
-		printBoard();
-	}
-	
-
-	
-	//부모창이 종료되면 자식창도 종료
-	let pop;
-	window.onunload = function() { 
-		pop.close(); 
-	}
-	
-	// 상담 시작
-	let bno = "";
-	function counselStart(num,nick){
-		console.log("num : "+num);
-		let result = confirm("해당 회원과 상담을 진행하시겠습니까?");
-		if(result){
-			  $.ajax({
-			 	   type:"GET",
-			 	   data:{
-			 		   "no" : num,
-			 		   "nic" : nick
-			 	   },
-			 	   url:"${path}/expert/selectExpertBno",
-			 	   success:function (data){
-			 		   console.log("data : "+data);
-			 		 bno = data;
-			 		 
-			 		sendAlarm("${loginMember.usid}",num,"expert",bno,"${loginMember.memNickname}");
-			 		
-			 		 console.log("bno : "+bno);
-					location.replace('${path}/expert/counselStart?no='+num+"&nic="+nick+"&bno="+bno);
-			 	   }
-			    }); 
-		}
-	}
-	
-	//상담 재연결 -> 채팅방 입장 , 이미 방은 생성되있는 상태
-	function counselConn(num,nick){
-		console.log("num : "+num);
-		location.replace('${path}/expert/counselConn?no='+num+"&nick="+nick);
-	}
-	
-	//회원 상세보기
-	function exmemInfo(f){
-			const x = 600;
-			const y = 800;
-			const cx = (window.screen.width / 2) - (x / 2);
-			const cy= (window.screen.height / 2) - (y / 2);
-
-			const url    ="${path}/expert/memInfo";
-			const title  = "chat";
-			const status = "toolbar=no,directories=no,scrollbars=no,resizable=no,status=no,menubar=no,width="+x+", height="+y+", top="+cy+",left="+cx;
-			pop =  window.open("", title,status);
-			f.target = title;
-			f.action = url;
-			f.method = "post";
-			f.submit();    
-	}
 	
 	
 	</script>

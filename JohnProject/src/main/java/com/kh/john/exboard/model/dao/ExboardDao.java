@@ -55,4 +55,6 @@ public interface ExboardDao {
 
 	int updateReuestCounselEnd(SqlSessionTemplate session, Map<String, String> map) throws Exception;
 
+	List<ExpertRequest> selectExRequestList(SqlSessionTemplate session) throws Exception;
+
 }

@@ -51,4 +51,6 @@ public interface ExboardService {
 
 	int selectExpertRequestAjaxCount(Member mem) throws Exception;
 
+	List<ExpertRequest> selectExRequestList() throws Exception;
+
 }

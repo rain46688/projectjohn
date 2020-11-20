@@ -96,6 +96,13 @@
 	UPDATE EXPERT_REQUEST SET EXPERT_ISCOUNSEL = 1 WHERE EXPERT_REQUET_EX_USID=#{eusid} AND EXPERT_REQUEST_MEM_USID=#{musid}
 </update>
 
+<select id="selectExRequestList" resultType="exrequestMap" >
+	SELECT * FROM EXPERT_REQUEST
+</select>
+
+
+
+
 	<resultMap type="exboard" id="exboardMap">
 		<id column="EXPERT_BOARD_ID" property="expertBoardId" />
 		<id column="EXPERT_BOARD_USID" property="expertBoardUsid" />

@@ -37,6 +37,7 @@ public class ExpertHandler extends TextWebSocketHandler {
 	@Override
 	public void handleTextMessage(WebSocketSession session, TextMessage message)
 			throws InterruptedException, IOException {
+
 		log.info("handleTextMessage 실행 시그널링 서버");
 		ExboardMsg msg = objectMapper.readValue(message.getPayload(), ExboardMsg.class);
 		Map<String, Object> map = session.getAttributes();

@@ -156,4 +156,10 @@ public class ExboardDaoImpl implements ExboardDao {
 		return session.update("expert.updateReuestCounselEnd", map);
 	}
 
+	@Override
+	public List<ExpertRequest> selectExRequestList(SqlSessionTemplate session) throws Exception {
+		// TODO Auto-generated method stub
+		return session.selectList("expert.selectExRequestList");
+	}
+
 }

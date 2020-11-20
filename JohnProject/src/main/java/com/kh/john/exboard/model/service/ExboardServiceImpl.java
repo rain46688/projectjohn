@@ -223,4 +223,10 @@ public class ExboardServiceImpl implements ExboardService {
 		return dao.selectExpertRequestAjaxCount(session, mem);
 	}
 
+	@Override
+	public List<ExpertRequest> selectExRequestList() throws Exception {
+		// TODO Auto-generated method stub
+		return dao.selectExRequestList(session);
+	}
+
 }
