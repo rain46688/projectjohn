@@ -40,6 +40,7 @@
 		<websocket:mapping handler="alarmHandler" path="/alsocket"/>
 		<websocket:mapping handler="adminHandler" path="/adminsocket"/>
 		<websocket:mapping handler="memberHandler" path="/memberSocket"/>
+		<websocket:mapping handler="msgListHandler" path="/msgListSocket"/>
 		<websocket:handshake-interceptors>
 			<beans:bean class="org.springframework.web.socket.server.support.HttpSessionHandshakeInterceptor" />
 		</websocket:handshake-interceptors>	
@@ -49,6 +50,7 @@
 	<beans:bean id="alarmHandler" class="com.kh.john.alarm.socket.AlarmSocketHandler"></beans:bean>
 	<beans:bean id="adminHandler" class="com.kh.john.admin.socket.AdminSocketHandler"></beans:bean>	
 	<beans:bean id="memberHandler" class="com.kh.john.member.socket.MemberSocketHandler"></beans:bean>
+	<beans:bean id="msgListHandler" class="com.kh.john.member.socket.MsgListSocketHandler"></beans:bean>
 	
 	<!-- 게시판 업로드용 멀티파트 리졸버 등록 -->
 	<beans:bean id="multipartResolver" class="org.springframework.web.multipart.commons.CommonsMultipartResolver">

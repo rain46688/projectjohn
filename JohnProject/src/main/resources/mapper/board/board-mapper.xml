@@ -34,7 +34,7 @@
 	</resultMap>
 	
 	<select id="boardList" resultMap="boardMap">
-		SELECT * FROM BOARD ORDER BY ENROLL_DATE
+		SELECT * FROM BOARD ORDER BY ENROLL_DATE DESC
 	</select>
 	
 	

@@ -43,22 +43,22 @@
 	</div>
 	<div>
 		<!--상대방 프로필 사진, 가장 최근 메세지, 상대방 닉네임, 날짜-->
-		<c:forEach var="otherInfo" items="${otherInfo}">
-		<div class="messageBox" onclick="location.href='${path}/member/myPage/message?usid=${loginMember.usid}&otherUsid=${otherInfo.otherUsid}'">
-				<div>
-					<img src="<c:out value="${path}/resources/profile_images/${otherInfo.otherProfilePic}"/>" alt="">
-				</div>
-				<div>
-					<c:out value="${otherInfo.otherNick}"/>
-				</div>
-				<div>
-					<c:out value="${otherInfo.latestDate}"/>
-				</div>
-				<div>
-					<c:out value="${otherInfo.latestMessage}"/>
-				</div>
-			</div>
-		</c:forEach>
+<%-- 		<c:forEach var="otherInfo" items="${otherInfo}"> --%>
+<%-- 		<div class="messageBox" onclick="location.href='${path}/member/myPage/message?usid=${loginMember.usid}&otherUsid=${otherInfo.otherUsid}'"> --%>
+<!-- 				<div> -->
+<%-- 					<img src="<c:out value="${path}/resources/profile_images/${otherInfo.otherProfilePic}"/>" alt=""> --%>
+<!-- 				</div> -->
+<!-- 				<div> -->
+<%-- 					<c:out value="${otherInfo.otherNick}"/> --%>
+<!-- 				</div> -->
+<!-- 				<div> -->
+<%-- 					<c:out value="${otherInfo.latestDate}"/> --%>
+<!-- 				</div> -->
+<!-- 				<div> -->
+<%-- 					<c:out value="${otherInfo.latestMessage}"/> --%>
+<!-- 				</div> -->
+<!-- 			</div> -->
+<%-- 		</c:forEach> --%>
 	</div>
 </section>
 <script>
@@ -97,6 +97,16 @@
 			}
 		})
 	};
+
+// 	const memberSocket=new WebSocket("wss://localhost${path}/memberSocket");
+	
+// 	memberSocket.onopen=function(){
+// 		memberSocket.send("messageList");
+// 	};
+	
+// 	memberSocket.onmessage=function(e){
+		
+// 	}
 </script>
 <jsp:include page="/WEB-INF/views/common/footer.jsp"/>
 
