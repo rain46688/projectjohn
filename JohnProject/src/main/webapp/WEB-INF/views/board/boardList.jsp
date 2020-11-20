@@ -89,7 +89,18 @@
 						${sub.subCategory}
 					</c:forEach> --%>
 					<div id="result">
-						
+						<div class="popular">
+							<h1 class='subListTitle'>인기</h1>
+							<div id='popularList' class='subListBigCon'>
+
+							</div>
+						</div>
+						<div class="new">
+							<h1 class='subListTitle'>최신</h1>
+							<div id='newList' class='subListBigCon'>
+
+							</div>
+						</div>
 					</div>
                 </div>
             </div>
@@ -104,7 +115,7 @@
 	<c:forEach var="sub" items="${subList}">
 	   subList.push('${sub.subCategory}')
 	</c:forEach>
-	   
+	
     let userUsid = '${loginMember.usid}';
 	
 	//서브 목록만 쏴주기
@@ -142,11 +153,22 @@
 		socket.send('boardList');
 	}
 	
+	//리스트 크기
+	const boardLength = 15;
+	
 	//메세지가 왔을 때 액션
     socket.onmessage = function(e){
-    	let allList = JSON.parse(e.data);
+		//모든 게시글
+		let allList = JSON.parse(e.data);
+		//인기 게시글 목록
+		let popularList = [];
+		//최신 게시글 목록
+		let newList = [];
+		//구독한 채널에 맞춤 목록
 		let eachList = [];
 		
+
+		//구독 목록 갯수에 맞게 eachList 크기 조정
 		for(let j = 0; j < subList.length; j++){
 			eachList[j] = [];
 		}
@@ -159,11 +181,31 @@
 					eachList[i].push(element);
 				}
 			}
+        	//최신목록 넣어주기
+			if(index < 15)newList.push(element);
 		})
-		console.log(eachList);
+
+		//hit 순서에 맞춰서 리스트 재 배열
+		allList = allList.sort((a,b) => (a.hit > b.hit) ? -1 : 1);
+		
+		//인기 목록 넣어주기
+		for(let i = 0; i < allList.length; i++){
+			popularList.push(allList[i]);
+			if(i>=boardLength-1)break;
+		}
+		
+		
+		console.log(newList);
+		console.log(popularList);
+
+		//최신 목록 만들기
+		makeList(newList, 'newList');
+
+		//인기 목록 만들기
+		makeList(popularList, 'popularList');
+        
+
 		//15개만 출력하기 위해 종류별로 어레이에 넣어주기
-		//
-		const boardLength = 15;
 		for(let i = 0; i < eachList.length; i++){
 			let idx = 1;
 			let html = "";
@@ -199,6 +241,7 @@
 					// 	"<div class='subListContent'>" +
 					// 	"<br><a href='${path}/board/boardPage?boardNo="+eachList[i][j].boardId+"'>"
 					// 	+ eachList[i][j].title + eachList[i][j].writerNickname + "</a></div>";
+					
 					let subListContent = document.createElement('div');
 					subListContent.className = 'subListContent';
 					subListContent.onclick = function(){
@@ -226,7 +269,49 @@
 			}
 			// document.getElementById(name).innerHTML += html;
 		}
-    }
+	}
+	
+	function makeList(list, name){
+		console.log(document.getElementById(name));
+		let idx = 1;
+		list.forEach(function(element, index) {
+			if(index%5==0){
+			let sector = document.createElement('div');
+			sector.id = 'sector' + idx + name;
+			sector.className = 'sector';
+
+			let anchor = document.createElement('a');
+			anchor.href = '#sector' + (idx-1)+name;
+			anchor.innerHTML = '<';
+			anchor.className = 'arrow__btn';
+			if(index==0)anchor.style.display = 'none';
+			
+			sector.appendChild(anchor);
+			document.getElementById(name).appendChild(sector);
+			}
+
+			let subListContent = document.createElement('div');
+			subListContent.className = 'subListContent';
+			subListContent.onclick = function(){
+				location.assign('${path}/board/boardPage?boardNo='+element.boardId);
+			}
+			subListContent.innerHTML = element.title + ":" + element.writerNickname;
+			let sector = document.getElementById('sector' + idx + name);
+			sector.appendChild(subListContent);
+			
+			if(index%5==4){
+				idx++;
+				let anchor2 = document.createElement('a');
+				anchor2.href = '#sector'+idx+name;
+				anchor2.className = 'arrow__btn';
+				anchor2.innerHTML = '>';
+				if(index==(boardLength-1)){
+					anchor2.style.display = 'none';
+				}
+				sector.appendChild(anchor2);
+			}
+		})	
+	}
 </script>
 </body>
 </html>
