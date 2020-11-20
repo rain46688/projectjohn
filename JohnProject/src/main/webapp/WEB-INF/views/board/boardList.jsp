@@ -89,7 +89,18 @@
 						${sub.subCategory}
 					</c:forEach> --%>
 					<div id="result">
-						
+						<div class="popular">
+							<h1 class='subListTitle'>인기</h1>
+							<div id='popularList' class='subListBigCon'>
+
+							</div>
+						</div>
+						<div class="new">
+							<h1 class='subListTitle'>최신</h1>
+							<div id='newList' class='subListBigCon'>
+
+							</div>
+						</div>
 					</div>
                 </div>
             </div>
@@ -104,7 +115,7 @@
 	<c:forEach var="sub" items="${subList}">
 	   subList.push('${sub.subCategory}')
 	</c:forEach>
-	   
+	
     let userUsid = '${loginMember.usid}';
 	
 	//서브 목록만 쏴주기
@@ -144,9 +155,17 @@
 	
 	//메세지가 왔을 때 액션
     socket.onmessage = function(e){
-    	let allList = JSON.parse(e.data);
+		//모든 게시글
+		let allList = JSON.parse(e.data);
+		//인기 게시글 목록
+		let popularList = [];
+		//최신 게시글 목록
+		let newList = [];
+		//구독한 채널에 맞춤 목록
 		let eachList = [];
-		
+		const boardLength = 15;
+
+		//구독 목록 갯수에 맞게 eachList 크기 조정
 		for(let j = 0; j < subList.length; j++){
 			eachList[j] = [];
 		}
@@ -159,11 +178,13 @@
 					eachList[i].push(element);
 				}
 			}
+			if(index < 15)newList.push(element);
 		})
-		console.log(eachList);
+		console.log(allList);
+		allList.sort((a,b) => (a.hit > b.hit) ? 1 : -1);
+		console.log(allList);
+
 		//15개만 출력하기 위해 종류별로 어레이에 넣어주기
-		//
-		const boardLength = 15;
 		for(let i = 0; i < eachList.length; i++){
 			let idx = 1;
 			let html = "";
@@ -199,6 +220,7 @@
 					// 	"<div class='subListContent'>" +
 					// 	"<br><a href='${path}/board/boardPage?boardNo="+eachList[i][j].boardId+"'>"
 					// 	+ eachList[i][j].title + eachList[i][j].writerNickname + "</a></div>";
+					
 					let subListContent = document.createElement('div');
 					subListContent.className = 'subListContent';
 					subListContent.onclick = function(){
