@@ -14,7 +14,7 @@
 
 <style>
 #content *{
-	border:1px solid red; 
+	 border:1px solid red;
 }
 
 .divList {
@@ -57,11 +57,18 @@ h1 {
 	font-size:  2vh;
 }
 
+.divRowTitle{
+	border-radius:1em;
+	background-color: #0054BA;
+	color: white;
+}
+
 .divRowTitle .divCell{
 	height:30%;
 	padding: 2vh 3vh;
 	display: table-cell;
-		border-bottom: 1px #AEAEAE solid;
+	border-bottom: 1px #AEAEAE solid;
+
 }
 
 .divListBody {
@@ -132,6 +139,7 @@ h1 {
 	width:10%;
 	height:30%;
 	margin-left:1%;
+	font-size:100%;
 }
 
 /* 빈값 */
@@ -164,7 +172,7 @@ hr{
 <section id="content">
 <br>
 	<h1>상담 신청 확인 게시판</h1>
-	<hr/>
+	<!-- <hr/> -->
 	
 	<!-- 검색 및 정렬 할수있는 Div -->
 	<div id="middelDiv">
@@ -194,7 +202,7 @@ hr{
 	<!-- 현재 페이지 -->
 		<input id="cPageInput" type="hidden" value="1">
 	</div>
-	<hr/>
+	<!-- <hr/> -->
 	<!-- 리스트를 쏴줄 Div -->
 	<div class="divList">
 		<div class="divListBody"></div>
