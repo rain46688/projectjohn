@@ -15,7 +15,7 @@
 </select>
 
 <select id="selectIsDuplicateReq" resultMap="exrequestMap" parameterType="map">
-	SELECT * FROM EXPERT_REQUEST WHERE EXPERT_REQUET_EX_USID = #{exusid} AND EXPERT_REQUEST_MEM_USID = #{memusid}
+	SELECT * FROM EXPERT_REQUEST WHERE EXPERT_REQUET_EX_USID = #{exusid} AND EXPERT_REQUEST_MEM_USID = #{memusid} AND EXPERT_ISCOUNSEL = 0
 </select>
 
 <insert id="insertExpertMemRequest" parameterType="map">
@@ -45,6 +45,7 @@
 	SELECT EXPERT_BOARD_ID FROM EXPERT_BOARD WHERE EXPERT_BOARD_USID = #{exusid} AND EXPERT_BOARD_MEM_USID = #{memusid}
 </select>
 
+<!-- 이미 같은게 있어서 이름바꿈 ㅋㅋ; selectExpertBoard -->
 <select id="selectExpertBoardbnum" resultMap="exboardMap" parameterType="string">
 	SELECT * FROM EXPERT_BOARD WHERE EXPERT_BOARD_ID = #{bnum}
 </select>
@@ -90,6 +91,10 @@
 <select id="selectExpertRequestAjaxCount" resultType="_int" parameterType="member">
 	SELECT COUNT(*) FROM EXPERT_REQUEST WHERE EXPERT_REQUET_EX_USID = #{usid} ORDER BY EXPERT_DATE DESC
 </select>
+
+<update id="updateReuestCounselEnd" parameterType="map">
+	UPDATE EXPERT_REQUEST SET EXPERT_ISCOUNSEL = 1 WHERE EXPERT_REQUET_EX_USID=#{eusid} AND EXPERT_REQUEST_MEM_USID=#{musid}
+</update>
 
 	<resultMap type="exboard" id="exboardMap">
 		<id column="EXPERT_BOARD_ID" property="expertBoardId" />

@@ -53,4 +53,6 @@ public interface ExboardDao {
 
 	int selectExpertRequestAjaxCount(SqlSessionTemplate session, Member mem) throws Exception;
 
+	int updateReuestCounselEnd(SqlSessionTemplate session, Map<String, String> map) throws Exception;
+
 }

@@ -133,12 +133,22 @@ h1 {
 	margin-left:1%;
 }
 
+/* 빈값 */
+
+.empty{
+	font-size:4vh;
+	margin:0;
+	width:100%;
+}
+
 </style>
 
 <section id="content">
 <br>
 	<h1>상담 신청 확인 게시판</h1>
 	<hr/>
+	
+	<!-- 검색 및 정렬 할수있는 Div -->
 	<div id="middelDiv">
 		<div id="searchDiv">
 					<div id="innerSearchDiv">
@@ -164,114 +174,26 @@ h1 {
 						<option value="50" >50개씩 보기</option>
 					</select>
 		</div>
-		<!-- 현재 페이지 -->
+	<!-- 현재 페이지 -->
 		<input id="cPageInput" type="hidden" value="1">
 	</div>
-		<hr/>
+	<hr/>
+	<!-- 리스트를 쏴줄 Div -->
 	<div class="divList">
-		<div class="divListBody">
-
-			<div class="divRowTitle ">
-				<div class="divCell">상담 신청자</div>
-				<div class="divCell">상담 신청 날짜</div>
-					<div class="divCell">원하는 상담 시간</div>
-				<div class="divCell">상담 시작</div>
-				<div class="divCell">정보 보기</div>
-			</div>
-			<c:choose>
-				<c:when test="${fn:length(list) > 0}">
-					<c:forEach items="${list }" var="n">
-						<div class="divRow " >
-							<div class="divCell">${n.expertRequestMemNick}</div>
-							<div class="divCell">${n.expertDate}</div>
-								<div class="divCell">${n.expertCounselTime}</div>
-								<div class="divCell">
-							<c:if test="${n.endCounsel != true }">
-								<c:if test="${n.startCounsel == false }">
-									<button class="btn btn-outline-success" onclick="counselStart('${n.expertRequestMemUsid}','${n.expertRequestMemNick}');">상담 시작</button>
-								</c:if>
-								<c:if test="${n.startCounsel == true }">
-										<button class="btn btn-outline-success" onclick="counselConn('${n.expertRequestMemUsid}','${n.expertRequestMemNick}');">채팅 접속</button>
-								</c:if>
-							</c:if> 
-						
-							<c:if test="${n.endCounsel == true }">
-									상담 완료
-							</c:if>
-								</div>
-								<div class="divCell">
-								<form  name="form" >				
-									<input type="hidden" name="usid" value="${loginMember.usid}"> 
-									<input type="hidden" name="musid" value="${n.expertRequestMemUsid}">
-								<button class="btn btn-outline-success" onclick="exmemInfo(this.form);">회원 정보</button>
-								</form>
-								</div>
-					
-						</div>
-					</c:forEach>
-				</c:when>
-				<c:otherwise>
-					<div class="empty">상담 신청이 없습니다.</div>
-				</c:otherwise>
-			</c:choose>
-			<br>
-		</div>
+		<div class="divListBody"></div>
 	</div>
-	<!--  -->
-	<div id="pagingDiv">
+	<!-- 페이징 처리 Div -->
+	<div id="pagingDiv"></div>
 	
-	</div>
-	<!--  -->
 	<script>
 	
+	//시작시 온로드로 페이지바랑 리스트를 프린트 해옴
 	$(function(){
 		pageBar();
+		listPrint($("#sortSelect").val(),$("#pageSelect").val(),$("#searchSelect").val(),$("#searchInput").val(),$("#cPageInput").val());
 	});
 	
-	
-	function pageBar(){
-			let totalData = "${totalData}";
-			console.log("토탈 : "+totalData);
-			let cPage = $("#cPageInput").val();
-			console.log($("#cPageInput").val());
-			let pageNo = (cPage - (cPage - 1)%5);
-			let pageEnd = Math.ceil(totalData/$("#pageSelect").val());
-			let numPerPage = $("#pageSelect").val();
-			console.log($("#pageSelect").val());
-			console.log(cPage+" "+pageNo+" "+pageEnd);
-			
-			let ph = "<nav aria-lable='Page navigation' id='pagebar'><ul class='pagination justify-content-center'>";
-			if(pageNo > 1){
-				ph+="<li class='page-item'><a class='page-link' tabindex='-1' aria-disabled='true'>이전</a></li>";
-			}else if(pageNo <= 1){
-				ph += "<li class='page-item disabled'><a class='page-link' tabindex='-1' aria-disabled='true'>이전</a></li>";
-			}
-			
-			for(let i = 0; i < (numPerPage - 1); i++){
-				if(pageNo + i == cPage){
-					ph += "<li class='page-item disabled'><a class='page-link' style='cursor:pointer;'>"+(pageNo + i) +"</a></li>";
-				}else if((pageNo + i) <= pageEnd){	
-					ph += "<li class='page-item'><a class='page-link' style='cursor:pointer;' onclick='cpaging(event);'>"+(pageNo + i) +"</a></li>";
-				}
-			}
-			
-			if(pageNo < (pageEnd - 4)){
-				ph += "<li class='page-item'><a class='page-link' tabindex='-1' aria-disabled='true'>다음</a></li>";
-			}else if(pageNo >= (pageEnd - 4)){
-				ph += "<li class='page-item disabled'><a class='page-link' tabindex='-1' aria-disabled='true'>다음</a></li>";
-			}
-			ph += "</ul></nav>";
-			$("#pagingDiv").html(ph);
-	}
-	
-	
-	function cpaging(e){
-		console.log($(e.target).html());
-		$("#cPageInput").val($(e.target).html());
-		pageBar();
-		listPrint($(e.target).val(),$("#pageSelect").val(),$("#searchSelect").val(),$("#searchInput").val(),$("#cPageInput").val());
-	}
-	
+	// 액션 취할시 리스트 가져옴
 	$("#sortSelect").on('change', e => {
 		console.log("sort : "+$(e.target).val());
 		listPrint($(e.target).val(),$("#pageSelect").val(),$("#searchSelect").val(),$("#searchInput").val(),$("#cPageInput").val());
@@ -287,8 +209,22 @@ h1 {
 		listPrint($("#sortSelect").val(),$(e.target).val(),$("#searchSelect").val(),$("#searchInput").val(),$("#cPageInput").val());
 	});
 	
+	function cpaging(e){
+		console.log($(e.target).html());
+		$("#cPageInput").val($(e.target).html());
+		pageBar();
+		listPrint($(e.target).val(),$("#pageSelect").val(),$("#searchSelect").val(),$("#searchInput").val(),$("#cPageInput").val());
+	}
+	
+	//페이지 바 클릭
+	function barClick(n){
+		console.log(n);
+	}
+	
+	//리스트 프린트
 	function listPrint(sort, page, searchType, searchInput, cpage){
 		console.log(sort+" "+page+" "+searchType+" "+searchInput+" "+cpage);
+		let pbhtml = "";
 		   $.ajax({
 		 	   type:"GET",
 		 	   data:{
@@ -302,13 +238,83 @@ h1 {
 		 	   url:"${path}/expert/selectExpertListAjax",
 		 	   success:function (data){
 		 		   console.log("data : "+data);
+		 		   
+		 		   if(data != ""){
 		 			$.each(data, function(i, item) {
-						console.log("item : " + item['expertRequestMemNick']);
+		 				console.log("i : "+i+" data : "+data.length);
+						console.log("endCounsel : " + item['endCounsel']);
+							pbhtml += printBoard(item['expertDateTmp'],item['expertCounselTime'],item['startCounsel'],item['endCounsel'],item['expertRequestMemUsid'],item['expertRequestMemNick'],i, data.length);
+						$(".divListBody").html(pbhtml);
 		 			});
+		 		}else{
+					console.log("빈값");
+					pbhtml = "<div class='divRow ' ><div class='divCell'><div class='empty'>상담 신청이 없습니다.</div></div></div>";
+					pageBar();
+					$(".divListBody").html(pbhtml);
+				}
+		 			
 		 	   }
 		    }); 
+	};
+	
+	//페이지바 프린트
+	function pageBar(){
+		let totalData = "${totalData}";
+		let cPage = $("#cPageInput").val();
+		let pageNo = (cPage - ((cPage - 1)%5));
+		let numPerPage = $("#pageSelect").val();
+		let pageEnd = Math.ceil(totalData/numPerPage);
+		console.log("토탈 : "+totalData+" cPage : "+cPage+" pageNo : "+pageNo+" pageEnd : "+pageEnd+" numPerPage : "+numPerPage);
+		
+		let ph = "<br><nav aria-lable='Page navigation' id='pagebar'><ul class='pagination justify-content-center'>";
+		if(pageNo > 1){
+			ph+="<li class='page-item'><a class='page-link' tabindex='-1' onclick='barClick(1);' aria-disabled='true'>이전</a></li>";
+		}else if(pageNo <= 1){
+			ph += "<li class='page-item disabled'><a class='page-link' tabindex='-1' aria-disabled='true'>이전</a></li>";
+		}
+		
+		for(let i = 0; i < (numPerPage - 1); i++){
+			if(pageNo + i == cPage){
+				ph += "<li class='page-item disabled'><a class='page-link' style='cursor:pointer;'>"+(pageNo + i) +"</a></li>";
+			}else if((pageNo + i) <= pageEnd){	
+				ph += "<li class='page-item'><a class='page-link' style='cursor:pointer;' onclick='cpaging(event);'>"+(pageNo + i) +"</a></li>";
+			}
+		}
+		
+		if(pageNo < (pageEnd - 4)){
+			ph += "<li class='page-item'><a class='page-link' onclick='barClick(2);' tabindex='-1' aria-disabled='true'>다음</a></li>";
+		}else if(pageNo >= (pageEnd - 4)){
+			ph += "<li class='page-item disabled'><a class='page-link' tabindex='-1' aria-disabled='true'>다음</a></li>";
+		}
+		ph += "</ul></nav>";
+		$("#pagingDiv").html(ph);
+}
+	
+	//리스트 출력하기
+	function printBoard(date, time, start, end, rememusid, rememnick,i, max){
+		console.log("end : "+end+" start : "+start);
+		let pb = "";
+		if(i == 0){
+			pb += "<div class='divRowTitle '><div class='divCell'>상담 신청자</div><div class='divCell'>상담 신청 날짜</div><div class='divCell'>원하는 상담 시간</div><div class='divCell'>상담 시작</div><div class='divCell'>정보 보기</div></div>"; 
+		}
+		if(end != null){
+			pb +="<div class='divRow ' ><div class='divCell'>"+rememnick+"</div><div class='divCell'>"+date+"</div><div class='divCell'>"+time+"</div><div class='divCell'>";
+			if(end == false){
+					if(start== false){
+						pb += "<button class='btn btn-outline-success' onclick='counselStart('"+rememusid+"','"+rememnick+"');'>상담 시작</button>";
+					}else{
+						pb += "<button class='btn btn-outline-success' onclick='counselConn('"+rememusid+"','"+rememnick+"');'>채팅 접속</button>";
+					}
+			}else{
+				pb +="상담 완료";
+			}
+				pb += "</div><div class='divCell'><form  name='form' ><input type='hidden' name='usid' value='${loginMember.usid}'><input type='hidden' name='musid' value='"+rememusid+"'><button class='btn btn-outline-success' onclick='exmemInfo(this.form);'>회원 정보</button></form></div></div>";
+		}
+		pageBar();
+		return pb;
 	}
 	
+	//검색 키보드
 	function searchkey(){
 		if(window.event.keyCode == 13) {
 			console.log("search 엔터 버튼 클릭");
@@ -316,11 +322,15 @@ h1 {
 		}
 		return false;
 	}
-	
+
+	//검색 함수
 	function search(){
 		console.log("search 버튼 클릭");
 		listPrint($("#sortSelect").val(),$("#pageSelect").val(),$("#searchSelect").val(),$("#searchInput").val(),$("#cPageInput").val());
+		printBoard();
 	}
+	
+
 	
 	//부모창이 종료되면 자식창도 종료
 	let pop;
@@ -328,6 +338,7 @@ h1 {
 		pop.close(); 
 	}
 	
+	// 상담 시작
 	let bno = "";
 	function counselStart(num,nick){
 		console.log("num : "+num);
@@ -351,15 +362,15 @@ h1 {
 			 	   }
 			    }); 
 		}
-		
-		
 	}
 	
+	//상담 재연결 -> 채팅방 입장 , 이미 방은 생성되있는 상태
 	function counselConn(num,nick){
 		console.log("num : "+num);
 		location.replace('${path}/expert/counselConn?no='+num+"&nick="+nick);
 	}
 	
+	//회원 상세보기
 	function exmemInfo(f){
 			const x = 600;
 			const y = 800;

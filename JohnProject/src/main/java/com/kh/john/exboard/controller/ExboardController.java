@@ -88,30 +88,38 @@ public class ExboardController {
 		int rlistCount = 0;
 		try {
 
-			List<ExpertRequest> rlist = service.selectExpertRequest(mem);
 			rlistCount = service.selectExpertRequestAjaxCount(mem);
-			List<ExpertBoard> blist = service.selectExpertBoard(mem);
+//			List<ExpertRequest> rlist = service.selectExpertRequest(mem);
+//			List<ExpertBoard> blist = service.selectExpertBoard(mem);
+//
+//			for (ExpertRequest er : rlist) {
+//				log.debug("확인용5");
+//				if (blist.size() == 0) {
+//					er.setStartCounsel(false);
+//					log.debug("확인용4");
+//				} else {
+//					for (ExpertBoard eb : blist) {
+//						if (er.getExpertRequestMemUsid() == eb.getExpertBoardMemUsid()) {
+//							// 이미 상담 게시판이 만들어진 유저
+//							log.debug("확인용1");
+//							er.setStartCounsel(true);
+//							if (eb.getExpertBoardExpertend() == 1) {
+//								log.debug("확인용2");
+//								er.setEndCounsel(true);
+//							} else {
+//								er.setEndCounsel(false);
+//							}
+//							break;
+//						} else {
+//							log.debug("확인용3");
+//							er.setStartCounsel(false);
+//						}
+//					}
+//				}
+//			}
+//
+//			mv.addObject("list", rlist);
 
-			for (ExpertRequest er : rlist) {
-
-				if (blist.size() == 0) {
-					er.setStartCounsel(false);
-				} else {
-					for (ExpertBoard eb : blist) {
-						if (er.getExpertRequestMemUsid() == eb.getExpertBoardMemUsid()) {
-							// 이미 상담 게시판이 만들어진 유저
-							er.setStartCounsel(true);
-							if (eb.getExpertBoardAdviceResult() != null) {
-								er.setEndCounsel(true);
-							}
-							break;
-						} else {
-							er.setStartCounsel(false);
-						}
-					}
-				}
-			}
-			mv.addObject("list", rlist);
 			mv.addObject("totalData", rlistCount);
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
@@ -380,12 +388,21 @@ public class ExboardController {
 
 	// 상담 종료
 	@RequestMapping(value = "/expert/counselEnd")
-	public String counselEnd(String extext, String bno) throws Exception {
+	public String counselEnd(String extext, String bno, RedirectAttributes redirectAttributes) throws Exception {
 		log.info(" ===== counselEnd 실행 ===== ");
 
 		log.debug("extext : " + extext);
-		service.updateCounselResult(extext, bno);
-		return "redirect:/expert/expertRequestPrintList";
+
+		int result = service.updateCounselResult(extext, bno);
+
+		if (result == 1) {// 1이면 정상 종료
+			return "redirect:/expert/expertRequestPrintList";
+		}
+		// 아니면 비정상 종료
+		redirectAttributes.addAttribute("loc", "/expert/expertRequestPrintList");
+		redirectAttributes.addAttribute("msg", "잘못된 종료 관리자에게 문의하세요");
+		return "redirect:/msg";
+
 	}
 
 	// 파일 업로드용 전문가 상담
@@ -541,29 +558,83 @@ public class ExboardController {
 			map.put("page", page);
 			map.put("searchType", searchType);
 			map.put("searchInput", searchInput);
+			map.put("cpage", cpage);
 			List<ExpertRequest> list = service.selectExpertRequestAjax(map);
 			List<ExpertBoard> blist = service.selectExpertBoard(mem);
 
 			for (ExpertRequest er : list) {
 
+				SimpleDateFormat format1 = new SimpleDateFormat("yyyy-MM-dd");
+				String extime_ = format1.format(er.getExpertDate());
+				er.setExpertDateTmp(extime_);
+
 				if (blist.size() == 0) {
-					er.setStartCounsel(false);
+					er.setStartCounsel(false);// 신청 내역이 없는 상태 전부 false로 만들어줌
+					er.setEndCounsel(false);
 				} else {
 					for (ExpertBoard eb : blist) {
 						if (er.getExpertRequestMemUsid() == eb.getExpertBoardMemUsid()) {
-							// 이미 상담 게시판이 만들어진 유저
+							// expert_board가 있는 상태
 							er.setStartCounsel(true);
-							if (eb.getExpertBoardAdviceResult() != null) {
+
+							if (er.getExpertIscounsel() == 1 && eb.getExpertBoardExpertend() == 1) {
+								// 상담 끝난 상태
 								er.setEndCounsel(true);
+							} else {
+								er.setEndCounsel(false);
 							}
-							break;
+
 						} else {
-							er.setStartCounsel(false);
+							// 상담 시작 안했다는것 expert_board가 없는 상태
+							er.setEndCounsel(false);
 						}
+
 					}
+
 				}
+
 			}
-			/* response.setCharacterEncoding("utf-8"); */
+
+//			for (ExpertRequest er : list) {
+//
+//				SimpleDateFormat format1 = new SimpleDateFormat("yyyy-MM-dd");
+//				String extime_ = format1.format(er.getExpertDate());
+//				er.setExpertDateTmp(extime_);
+//
+//				log.debug("확인용5");
+//				if (blist.size() == 0) {
+//					er.setStartCounsel(false);
+//					log.debug("확인용4");
+//				} else {
+//					for (ExpertBoard eb : blist) {
+//						if (eb.getExpertBoardUsid() == mem.getUsid()) {
+//							if (er.getExpertRequestMemUsid() == eb.getExpertBoardMemUsid()) {
+//								// 이미 상담 게시판이 만들어진 유저
+//								log.debug("확인용1");
+//								er.setStartCounsel(true);
+//								if (eb.getExpertBoardExpertend() == 1) {
+//									log.debug("확인용2");
+//									er.setEndCounsel(true);
+//								} else {
+//									er.setEndCounsel(false);
+//								}
+//								break;
+//							} else {
+//								log.debug("확인용3");
+//								er.setStartCounsel(false);
+//							}
+//						} else {
+//							er.setStartCounsel(false);
+//						}
+//					}
+//				}
+//			}
+
+			for (ExpertRequest er : list) {
+				log.debug("er : " + er.getEndCounsel() + " name : " + er.getExpertRequestMemNick() + " start : "
+						+ er.getStartCounsel());
+			}
+
 			result = new ObjectMapper().writeValueAsString(list);
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
