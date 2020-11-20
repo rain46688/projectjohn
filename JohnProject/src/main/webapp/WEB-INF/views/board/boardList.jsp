@@ -84,7 +84,6 @@
 	<div id="content">
                     <!-- 내용 -->
                     <button onclick="location.href = '${path}/board/boardInsert'">글쓰기</button>
-               		<button onclick="location.href = '${path}/board/boardPage?boardNo=10'">글보기</button>
                		<%-- <c:forEach var="sub" items="${subList}">
                			<br>
 						${sub.subCategory}
@@ -111,8 +110,7 @@
 	//서브 목록만 쏴주기
 	subList.forEach(function(element, index){
 		let div = parent.document.createElement('div');
-		/* div.className = "subList"; */
-		/* div.id = "subList"+(index+1); */
+		div.className = "SUB";
 		let subTitle = "";
 		switch(element){
 		case "love" : subTitle = "연애문제";break;
@@ -164,38 +162,69 @@
 		})
 		console.log(eachList);
 		//15개만 출력하기 위해 종류별로 어레이에 넣어주기
+		//
+		const boardLength = 15;
 		for(let i = 0; i < eachList.length; i++){
 			let idx = 1;
 			let html = "";
 			let name = 'subList' + (i+1);
 			document.getElementById(name).innerHTML = "";
-			for(let j = 0; j < 15; j++) {
+			for(let j = 0; j < boardLength; j++) {
 				if(eachList[i][j]!=null){
 					if(j%5==0){
-						html += "<div id='sector"+idx+eachList[i][j].smallCategory
-						+"' class='sector'><a href='#sector"+(idx-1)+eachList[i][j].smallCategory+"' class='arrow__btn'";
-						if(j==0){
-							html += " style='display:none '"
-						}
-						html += "><</a>";
-						idx++;
-					}
+					let sector = document.createElement('div');
+					sector.id = 'sector' + idx + eachList[i][j].smallCategory;
+					sector.className = 'sector';
+
+					let anchor = document.createElement('a');
+					anchor.href = '#sector' + (idx-1)+eachList[i][j].smallCategory;
+					anchor.innerHTML = '<';
+					anchor.className = 'arrow__btn';
+					if(j==0)anchor.style.display = 'none';
 					
-					html += 
-						"<div class='subListContent'>" +
-						"<br><a href='${path}/board/boardPage?boardNo="+eachList[i][j].boardId+"'>"
-						+ eachList[i][j].title + eachList[i][j].writerNickname + "</a></div>";
+					sector.appendChild(anchor);
+					document.getElementById(name).appendChild(sector);
+					}
+
+					// if(j%5==0){
+					// 	html += "<div id='sector"+idx+eachList[i][j].smallCategory
+					// 	+"' class='sector'><a href='#sector"+(idx-1)+eachList[i][j].smallCategory+"' class='arrow__btn'";
+					// 	if(j==0){
+					// 		html += " style='display:none '"
+					// 	}
+					// 	html += "><</a>";
+					// 	idx++;
+					// }
+					// html += 
+					// 	"<div class='subListContent'>" +
+					// 	"<br><a href='${path}/board/boardPage?boardNo="+eachList[i][j].boardId+"'>"
+					// 	+ eachList[i][j].title + eachList[i][j].writerNickname + "</a></div>";
+					let subListContent = document.createElement('div');
+					subListContent.className = 'subListContent';
+					subListContent.onclick = function(){
+						location.assign('${path}/board/boardPage?boardNo='+eachList[i][j].boardId);
+					}
+					subListContent.innerHTML = eachList[i][j].title + ":" + eachList[i][j].writerNickname;
+					let sector = document.getElementById('sector' + idx + eachList[i][j].smallCategory);
+					sector.appendChild(subListContent);
 					
 					if(j%5==4){
-						html += "<a href='#sector"+idx+eachList[i][j].smallCategory+"' class='arrow__btn'";
-						if(j==14){
-							html += " style='display:none '"
+						idx++;
+						let anchor2 = document.createElement('a');
+						anchor2.href = '#sector'+idx+eachList[i][j].smallCategory;
+						anchor2.className = 'arrow__btn';
+						anchor2.innerHTML = '>';
+						// html += "<a href='#sector"+idx+eachList[i][j].smallCategory+"' class='arrow__btn'";
+						if(j==(boardLength-1)){
+							// html += " style='display:none '"
+							anchor2.style.display = 'none';
 						}
-						html += ">></a></div>";
+						// html += ">></a></div>";
+						sector.appendChild(anchor2);
 					}
 				}
 			}
-			document.getElementById(name).innerHTML += html;
+			// document.getElementById(name).innerHTML += html;
 		}
     }
 </script>

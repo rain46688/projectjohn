@@ -137,8 +137,10 @@
 </select>
 
 <select id="loadAllChatList" resultMap="mCMap">
-	SELECT * FROM MEMBER_CHAT ORDER BY MCHAT_DATE ASC
+	SELECT MEMBER_CHAT.*,TO_CHAR(MCHAT_DATE,'YYYY/mm/DD HH24:Mi') FROM MEMBER_CHAT ORDER BY MCHAT_DATE ASC
 </select>
+
+
 
 <resultMap type="memberChat" id="mCMap">
 	<result property="mchatFirstUsid" column="mchat_first_usid"/>
@@ -146,6 +148,7 @@
 	<result property="mchatContent" column="mchat_content"/>
 	<result property="mchatDate" column="mchat_date"/>
 	<result property="mchatFile" column="mchat_file"/>
+	<result property="mchatDateString" column="TO_CHAR(MCHAT_DATE,'YYYY/mm/DDHH24:Mi')"/>
 </resultMap>
 <resultMap type="expertObjects" id="eOMap">
 	<result property="usid" column="usid"/>

@@ -1,5 +1,6 @@
 package com.kh.john.admin.model.service;
 
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -9,6 +10,7 @@ import org.springframework.stereotype.Service;
 
 import com.kh.john.admin.model.dao.AdminDao;
 import com.kh.john.admin.model.vo.AdminChat;
+import com.kh.john.admin.model.vo.AdminMessage;
 import com.kh.john.admin.model.vo.Notice;
 import com.kh.john.admin.model.vo.NoticeFile;
 import com.kh.john.board.model.vo.Board;
@@ -235,6 +237,21 @@ public class AdminServiceImpl implements AdminService{
 	@Override
 	public List<AdminChat> selectAdminInChat() {
 		return dao.selectAdminInChat(session);
+	}
+
+	@Override
+	public List<Integer> firstUsidList() {
+		return dao.firstUsidList(session);
+	}
+
+	@Override
+	public List<Integer> secondUsidList() {
+		return dao.secondUsidList(session);
+	}
+
+	@Override
+	public AdminMessage loadAdminMessage(HashMap<String, Integer> usidMap) {
+		return dao.loadAdminMessage(session,usidMap);
 	}
 
 

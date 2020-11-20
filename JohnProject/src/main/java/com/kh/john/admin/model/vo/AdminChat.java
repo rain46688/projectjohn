@@ -7,8 +7,8 @@ import lombok.Data;
 @Data
 public class AdminChat {
 
-	private int adminUsid;
-	private int adminChatMemUsid;
+	private int adminFirstUsid;
+	private int adminSecondUsid;
 	private String adminChatContent;
 	private Date adminChatDate;
 	private String adminChatFile;

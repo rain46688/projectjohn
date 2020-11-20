@@ -1,14 +1,14 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-	pageEncoding="UTF-8"%>
+    pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
-<c:set var="path" value="${pageContext.request.contextPath }" />
+<c:set var="path" value="${pageContext.request.contextPath }"/>
 
 <jsp:include page="/WEB-INF/views/common/header.jsp">
-
-	<jsp:param name="title" value=" " />
-
+	
+	<jsp:param name="title" value=" "/>
+	
 </jsp:include>
 
 <style type="text/css">
@@ -121,10 +121,10 @@
 		console.log("data:"+data);
 		
 		if(data!=null){
-			let profilePic = "${adminInfo.profilePic}"; //멤버 객체에 있는 변수	
-			let adminNick = "${adminInfo.memNickname}";
+			let profilePic = "${memberInfo.profilePic}"; //멤버 객체에 있는 변수	
+			let adminNick = "${memberInfo.memNickname}";
 			let allChatList = new Array();
-			let otherUsid="${adminInfo.usid}";
+			let otherUsid="${memberInfo.usid}";
 
 			
 			$.each(data,function(i,v){
@@ -140,7 +140,7 @@
 
 				
  				if(v['adminFirstUsid']=='${loginMember.usid}'&&
- 						 v['adminSecondUsid']== otherUsid){ //발신인==나
+ 						 v['adminSecondUsid']== otherUsid){//발신인==나
 					
 					
   	        	let msgR=$('#chat-container').html( 
@@ -152,7 +152,7 @@
 						
 		 	         } 
 		 	         
- 	         	if(v['adminFirstUsid']== otherUsid && 
+ 				if(v['adminFirstUsid']== otherUsid && 
  	         			v['adminSecondUsid']=='${loginMember.usid}'){
  	         
 	 	        	let msgL=$('#chat-container').html(
@@ -177,7 +177,7 @@
 							let txt = $("#inputMessage").val();
 							var date = new Date();
 							
-								sendChat('${loginMember.usid}', '${adminInfo.usid}', txt, date, "");
+								sendChat('${loginMember.usid}', '${memberInfo.usid}', txt, date, "");
 								$('#inputMessage').val("");
 								
 						}
@@ -213,4 +213,3 @@
 	};
 	
 </script>
-

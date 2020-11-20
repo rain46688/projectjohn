@@ -3,6 +3,7 @@ package com.kh.john.admin.controller;
 import java.io.UnsupportedEncodingException;
 import java.security.GeneralSecurityException;
 import java.security.NoSuchAlgorithmException;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -11,14 +12,16 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.SessionAttribute;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.kh.john.admin.model.service.AdminService;
-import com.kh.john.admin.model.vo.AdminChat;
+import com.kh.john.admin.model.vo.AdminMessage;
 import com.kh.john.board.model.vo.Board;
 import com.kh.john.common.page.PageBarFactory;
 import com.kh.john.exboard.model.vo.ExpertRequest;
 import com.kh.john.member.controller.AES256Util;
+import com.kh.john.member.model.service.MemberService;
 import com.kh.john.member.model.vo.License;
 import com.kh.john.member.model.vo.Member;
 
@@ -30,6 +33,9 @@ public class AdminController {
 
 	@Autowired
 	private AdminService service;
+	
+	@Autowired
+	private MemberService memberService;
 	
 	@Autowired
 	   private AES256Util aes;
@@ -392,25 +398,87 @@ public class AdminController {
 	
 	// 1:1 채팅답변 불러오기
 	@RequestMapping("/admin/adminChatRoom")
-	public ModelAndView adminChat(ModelAndView mv,
-			@RequestParam(value = "adminUsid", required=false) int[] adminUsid,
-			@RequestParam(value = "cPage", required = false, defaultValue = "1") int cPage,
-			@RequestParam(value = "numPerPage", required = false, defaultValue = "10") int numPerPage)  {
-		Map<String,Object> param = new HashMap(); 
-		param.put("adminUsid", adminUsid);
+	public ModelAndView adminChat(ModelAndView mv, @SessionAttribute("loginMember") Member loginMember) {
 		
-		List<AdminChat> list = service.selectAdminChat(param,cPage,numPerPage);
-		int totalData = service.selectAdminChatCount();
+		int adminUsid=loginMember.getUsid();
 		
-		mv.addObject("pageBar", PageBarFactory.getPageBar(totalData, cPage, numPerPage, "adminExpert"));
+		List<Integer> totalUsidList = new ArrayList<Integer>();
+		List<Integer> firstUsidList = new ArrayList<Integer>();
+		List<Integer> secondUsidList = new ArrayList<Integer>();
 
-		mv.addObject("totalData", totalData);
 		
-		mv.addObject("list", list);
+		firstUsidList = service.firstUsidList();
+		secondUsidList = service.secondUsidList();
+		
+		for(int i=0; i<firstUsidList.size(); i++) {
+			totalUsidList.add(firstUsidList.get(i));
+		}
+		for(int i=0; i<secondUsidList.size(); i++) {
+			if(!totalUsidList.contains(secondUsidList.get(i))) {
+			totalUsidList.add(secondUsidList.get(i));
+			}
+		}
+		
+		//닉네임 최근메세지 프로필사진 날짜시간 
+		//멤버 adminchat 멤버 adminchat
+		
+		List<AdminMessage> memberInfoList = new ArrayList<AdminMessage>();
+		
+		for (int i=0; i<totalUsidList.size(); i++) {
+			
+			AdminMessage am = new AdminMessage();
+			Member member = new Member();
+			HashMap<String, Integer> usidMap = new HashMap<String,Integer>();
+			
+			int memberUsid = totalUsidList.get(i);
+			am.setMemberUsid(memberUsid);
+			member.setUsid(memberUsid);
+			
+			member=memberService.selectMemberByUsid(member);
+			
+			am.setProfilePic(member.getProfilePic());
+			am.setNickname(member.getMemNickname());
+			
+			usidMap.put("adminUsid", adminUsid);
+			usidMap.put("memberUsid", memberUsid);
+			
+			AdminMessage am2 = service.loadAdminMessage(usidMap);
+			
+			am.setLatestMsg(am2.getLatestMsg());
+			am.setTime(am2.getTime());
+			
+			
+			memberInfoList.add(am);
+			
+		}
+		
+		mv.addObject("memberInfoList",memberInfoList);
 		mv.setViewName("admin/adminChatRoom");
+		
 		return mv;
+		
 	}
 	
+	
+	@RequestMapping("/admin/adminChat") //1
+	public ModelAndView adminChat(@RequestParam(value="memberUsid") int memberUsid, @RequestParam(value="adminUsid") int adminUsid, ModelAndView mv) {
+		
+		//member와 admin의 정보 가져오기
+		Member adminInfo = new Member();
+		adminInfo.setUsid(adminUsid);
+		memberService.selectMemberByUsid(adminInfo);
+		
+		Member memberInfo = new Member();
+		memberInfo.setUsid(memberUsid);
+		memberService.selectMemberByUsid(memberInfo);
+		
+		mv.addObject("adminInfo",adminInfo);
+		mv.addObject("memberInfo",memberInfo);
+		
+		mv.setViewName("admin/adminChat");
+		
+		return mv;
+	}
 
 	
 

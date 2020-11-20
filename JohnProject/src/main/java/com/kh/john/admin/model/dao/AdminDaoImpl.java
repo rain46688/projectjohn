@@ -1,5 +1,6 @@
 package com.kh.john.admin.model.dao;
 
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -9,6 +10,7 @@ import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.stereotype.Repository;
 
 import com.kh.john.admin.model.vo.AdminChat;
+import com.kh.john.admin.model.vo.AdminMessage;
 import com.kh.john.admin.model.vo.Notice;
 import com.kh.john.admin.model.vo.NoticeFile;
 import com.kh.john.board.model.vo.Board;
@@ -218,6 +220,21 @@ public class AdminDaoImpl implements AdminDao {
 	@Override
 	public List<AdminChat> selectAdminInChat(SqlSessionTemplate session) {
 		return session.selectList("admin.selectAdminInChat");
+	}
+
+	@Override
+	public List<Integer> firstUsidList(SqlSessionTemplate session) {
+		return session.selectList("admin.firstUsidList");
+	}
+
+	@Override
+	public List<Integer> secondUsidList(SqlSessionTemplate session) {
+		return session.selectList("admin.secondUsidList");
+	}
+
+	@Override
+	public AdminMessage loadAdminMessage(SqlSessionTemplate session, HashMap<String, Integer> usidMap) {
+		return session.selectOne("admin.loadAdminMessage",usidMap);
 	}
 
 

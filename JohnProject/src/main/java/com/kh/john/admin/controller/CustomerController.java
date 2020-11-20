@@ -14,6 +14,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.SessionAttribute;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
@@ -21,15 +22,21 @@ import com.kh.john.admin.model.service.AdminService;
 import com.kh.john.admin.model.vo.Notice;
 import com.kh.john.admin.model.vo.NoticeFile;
 import com.kh.john.common.page.PageBarFactory;
+import com.kh.john.member.model.service.MemberService;
+import com.kh.john.member.model.vo.Member;
 
 import lombok.extern.slf4j.Slf4j;
 
 @Slf4j
 @Controller
+
 public class CustomerController {
 
 	@Autowired
 	private AdminService service;
+	
+	@Autowired
+	private MemberService memberService;
 
 	// 고객센터 메뉴화면 이동(임시)
 	@RequestMapping("/customer/customerPage")
@@ -248,9 +255,27 @@ public class CustomerController {
 //	public ModelAndView adminChat(ModelAndView mv, int adminUsid) {
 //		mv.addObejct("adminChat", service.selectOneAdminChat);
 //	}
-	@RequestMapping("/customer/customerChat")
-	public String adminChat() {
-		return "/customer/customerChat";
+	
+	@RequestMapping("/customer/customerChat") //1
+	public ModelAndView adminChat(@RequestParam(value="adminUsid") int adminUsid, @RequestParam(value="myUsid") int myUsid, ModelAndView mv) {
+		
+		//member와 admin의 정보 가져오기
+		Member myInfo = new Member();
+		myInfo.setUsid(myUsid);
+		memberService.selectMemberByUsid(myInfo);
+		
+		Member adminInfo = new Member();
+		adminInfo.setUsid(adminUsid);
+		memberService.selectMemberByUsid(adminInfo);
+		
+		mv.addObject("myInfo",myInfo);
+		mv.addObject("adminInfo",adminInfo);
+		
+		mv.setViewName("customer/customerChat");
+		
+		return mv;
 	}
+	
+
 
 }
