@@ -14,7 +14,7 @@
 
 <style>
 #content *{
-	/* border:1px solid red; */
+	border:1px solid red; 
 }
 
 .divList {
@@ -22,7 +22,7 @@
 	width: 100%;
 	height: 20%;
 	text-align: center;
-	padding:0 2% 0 2%;
+	padding:0 5% 0 5%;
 }
 
 .divRow {
@@ -41,6 +41,7 @@ h1 {
 	font-weight: bold;
 	/* text-shadow: -1px 0 #BFBFBF, 0 0.5px #BFBFBF, 0.5px 0 #BFBFBF, 0 -1px #BFBFBF; */
 	margin: 2% 0 3% 3%;
+	font-size:5vh;
 }
 
 .active {
@@ -49,7 +50,7 @@ h1 {
 }
 
 .divRow .divCell {
-	border-bottom: 1px #DEE2E6 solid;
+	border-bottom: 1px #AEAEAE solid;
 	display: table-cell;
 	padding: 2vh 3vh;
 	width: 16.67%;
@@ -60,7 +61,7 @@ h1 {
 	height:30%;
 	padding: 2vh 3vh;
 	display: table-cell;
-		border-bottom: 1px #DEE2E6 solid;
+		border-bottom: 1px #AEAEAE solid;
 }
 
 .divListBody {
@@ -106,7 +107,7 @@ h1 {
 	display:flex;
 	justify-content:center;
 	align-items:center;
-	border:1px solid #C6C5C5;
+	border:1px solid #AEAEAE;
 }
 
 #innerSearchDiv select{
@@ -140,6 +141,23 @@ h1 {
 	margin:0;
 	width:100%;
 }
+
+hr{
+	border-top:1px solid #AEAEAE; 
+}
+
+.divCell form{
+	width:100%;
+	height:100%;
+}
+
+.divCell button{
+	width:70%;
+	height:100%;
+	font-size:2vh;
+	font-weight:bold;
+}
+
 
 </style>
 
@@ -243,6 +261,7 @@ h1 {
 	$("#sortSelect").on('change', e => {
 		let keyword = $(e.target).val();
 		console.log("sort : "+keyword);
+		console.log("type : "+$("#sortType").val());
 		if (keyword == 'nic'){
 			exboardList = excompare(exboardList, 'expertRequestMemNick',$("#sortType").val());
 			listTestConsolelog(exboardList);
@@ -317,25 +336,44 @@ h1 {
 	//검색 함수
 	function search(keyword, inputval){
 		console.log("search 버튼 클릭");
-		if (keyword == 'nic'){
-		exboardList = findKeyword(exboardList,inputval);
-		listPrint(exboardList);
-		}else if (keyword == 'date'){
-		}else if (keyword == 'time'){
-		}
 		
+		if(inputval == ""){
+			console.log("값 비어있음");
+			exboardList = backupList;
+			listPrint(exboardList);
+		}else{
+			console.log("값 비어있지않음");
+			exboardList = backupList;
+			if (keyword == 'nic'){
+				console.log("닉");
+				exboardList = findKeyword(exboardList,'expertRequestMemNick',inputval);
+				listPrint(exboardList);
+			}else if (keyword == 'date'){
+				console.log("날짜");
+				exboardList = findKeyword(exboardList,'expertDateTmp',inputval);
+				listPrint(exboardList);
+			}else if (keyword == 'time'){
+				console.log("시간");
+				exboardList = findKeyword(exboardList,'expertCounselTime',inputval);
+				listPrint(exboardList);
+			}
+		}		
 	}
 	
-	function findKeyword(list,val){
+	//검색검색!
+	function findKeyword(list, keyword,val){
+		console.log("keyword : "+keyword+" val : "+val);
+		let tmpList = [];
 		list.forEach((e,i) => {
-			
+			//console.log("비교 : "+e[keyword].includes(val));
+			if(e[keyword].includes(val)){
+				//console.log("닉 : "+e[keyword]);
+				//console.log("값 : "+val);
+				tmpList.push(e);				
+			}
 		});
-		return list;
+		return tmpList;
 	}
-	
-
-	
-	
 	
 	</script>
 </section>
