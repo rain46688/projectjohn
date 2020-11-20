@@ -153,9 +153,9 @@ h1 {
 		<div id="searchDiv">
 					<div id="innerSearchDiv">
 					<select id="searchSelect" name="searchSelect" required>
-						<option value="EXPERT_REQUEST_MEM_NICK"  selected>상담 신청자</option> 
-						<option value="EXPERT_DATE" >신청 날짜</option>
-						<option value="EXPERT_COUNSEL_TIME" >원하는 상담 시간</option>
+						<option value="nic"  selected>상담 신청자</option> 
+						<option value="date" >신청 날짜</option>
+						<option value="time" >원하는 상담 시간</option>
 					</select>
 					<img src="${path}/resources/images/search.png" alt="" width="30px" height="30px">
 					<input type="text" name="search" id="searchInput" onkeypress="searchkey();">
@@ -164,9 +164,9 @@ h1 {
 		</div>
 		<div id="sortDiv">
 					<select id="sortSelect" name="sortSelect" required>
-						<option value="EXPERT_DATE"  selected>신청 날짜 순</option> 
-						<option value="EXPERT_COUNSEL_TIME" >상담 시간순</option>
-						<option value="EXPERT_REQUEST_MEM_NICK" >신청자 이름순</option>
+						<option value="date"  selected>신청 날짜 순</option> 
+						<option value="time" >상담 시간순</option>
+						<option value="nic" >신청자 이름순</option>
 					</select>
 					<select id="pageSelect" name="pageSelect" required>
 						<option value="10"  selected>10개씩 보기</option> 
@@ -186,8 +186,11 @@ h1 {
 	<div id="pagingDiv"></div>
 	
 	<script>
+	'use strict'
 	
 	const exlistconn = new WebSocket('wss://192.168.219.105${path}/exlistSocket');
+	let exboardList = [];
+	
 	
 	exlistconn.onopen = function() {
 		console.log("onopen");
@@ -196,6 +199,8 @@ h1 {
 
 	exlistconn.onmessage = function(msg) {
 		console.log("onmessage");
+		exboardList = JSON.parse(msg.data);
+		listPrint(exboardList);
 		
 	}
 	
@@ -204,7 +209,77 @@ h1 {
 		console.log("sendMessage");
 	};
 	
+	//리스트 출력
+	function listPrint(list){
+		console.log("리스트 길이 : "+list.length);
+		let pbhtml = "";
+		
+		if(list.length > 0){
+			list.forEach((e, i)=>{
+				if(i == 0){
+					pbhtml += "<div class='divRowTitle '><div class='divCell'>상담 신청자</div><div class='divCell'>상담 신청 날짜</div><div class='divCell'>원하는 상담 시간</div><div class='divCell'>상담 시작</div><div class='divCell'>정보 보기</div></div>";
+				}
+				if(e['endCounsel'] != null){
+					pbhtml +="<div class='divRow ' ><div class='divCell'>"+e['expertRequestMemNick']+"</div><div class='divCell'>"+e['expertDateTmp']+"</div><div class='divCell'>"+e['expertCounselTime']+"</div><div class='divCell'>";
+					if(e['endCounsel'] == false){
+							if(e['startCounsel']== false){
+								pbhtml += "<button class='btn btn-outline-success' onclick='counselStart('"+e['expertRequestMemUsid']+"','"+e['expertRequestMemNick']+"');'>상담 시작</button>";
+							}else{
+								pbhtml += "<button class='btn btn-outline-success' onclick='counselConn('"+e['expertRequestMemUsid']+"','"+e['expertRequestMemNick']+"');'>채팅 접속</button>";
+							}
+					}else{
+						pbhtml +="상담 완료";
+					}
+					pbhtml += "</div><div class='divCell'><form  name='form' ><input type='hidden' name='usid' value='${loginMember.usid}'><input type='hidden' name='musid' value='"+e['expertRequestMemUsid']+"'><button class='btn btn-outline-success' onclick='exmemInfo(this.form);'>회원 정보</button></form></div></div>";
+				}
+			});
+		}else{
+			pbhtml = "<div class='divRow '><div class='divCell'><div class='empty'>상담 신청이 없습니다.</div></div></div>";
+		}
+		$(".divListBody").html(pbhtml);
+	}
+	
+	// 액션 취할시 리스트 가져옴
+	$("#sortSelect").on('change', e => {
+		let sortList = [];
+		let keyword = $(e.target).val();
+		console.log("sort : "+keyword);
+		if (keyword == 'nic'){
+			sortList = excompare(exboardList, 'expertRequestMemNick');	
+			listTestConsolelog(sortList);
+			listPrint(sortList);
+		}else if (keyword == 'date'){
+			sortList = excompare(exboardList, 'expertDate');	
+			listTestConsolelog(sortList);
+			listPrint(sortList);
+		}else if (keyword == 'time'){
+			sortList = excompare(exboardList, 'expertCounselTime');	
+			listTestConsolelog(sortList);
+			listPrint(sortList);
+		}
+	});
+	
+	//정렬
+	let excompare = function(list, field){
+		list.sort((a,b) => {
+			return a[field] < b[field] ? -1 : a[field] > b[field] ? 1 : 0;
+		});
+		return list;
+	}
+	
+	//시험용 출력
+	function listTestConsolelog(list){
+		list.forEach((e, i)=>{
+			console.log(e['expertRequestMemNick']);	
+			//console.log(e['expertCounselTime']);
+			//console.log(e['expertDate']);	
+		});
+	}
+	
+	
+
+	
+	
 	
 	</script>
-
 </section>
