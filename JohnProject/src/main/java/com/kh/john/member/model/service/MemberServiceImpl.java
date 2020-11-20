@@ -235,6 +235,16 @@ public class MemberServiceImpl implements MemberService {
 		return dao.loadAllChatList(session);
 	}
 
+	@Override
+	public List<Integer> firstUsidList(int myUsid) {
+		return dao.firstUsidList(session, myUsid);
+	}
+
+	@Override
+	public List<Integer> secondUsidList(int myUsid) {
+		return dao.secondUsidList(session, myUsid);
+	}
+
 	
 
 

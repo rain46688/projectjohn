@@ -97,6 +97,8 @@ public interface MemberService {
 	//채팅 상대방 usid가져오기
 	List<Integer> firstUsid(int myUsid);
 	List<Integer> secondUsid(int myUsid);
+	List<Integer> firstUsidList(int myUsid);
+	List<Integer> secondUsidList(int myUsid);
 
 	//최근 메세지 내역 불러오기
 	MemberMessage loadLatestMessage(HashMap<String, Integer> usidMap);
@@ -109,6 +111,9 @@ public interface MemberService {
 
 	//전체 채팅 내역 가져오기
 	List<MemberChat> loadAllChatList();
+
+
+	
 
 
 

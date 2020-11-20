@@ -25,7 +25,7 @@
 	
 	//소켓 시작
 	const memberSocket=new WebSocket("wss://localhost${path}/memberSocket");
-	
+	const msgListSocket=new WebSocket("wss://localhost${path}/msgListSocket");
 	//소켓이 열림
 	memberSocket.onopen=function(){
 		memberSocket.send("message");
@@ -36,6 +36,7 @@
 		let message=$("#message").val();
 		if(message!=null){
 			sendChat(${loginMember.usid},${otherInfo.usid},message,"","");
+			msgListSocket.send("messageInserted");
 			$("#message").val('');			
 		}
 	};

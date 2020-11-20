@@ -11,5 +11,6 @@ public class MemberMessage {
 	private String latestMessage;
 	private String otherNick;
 	private Date latestDate;
-
+	private String latestDateStr;
+	
 }

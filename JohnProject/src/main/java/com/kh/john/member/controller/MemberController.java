@@ -682,46 +682,46 @@ public class MemberController {
 	@RequestMapping("/member/myPage/messageList")
 	public ModelAndView messageList(ModelAndView mv,@SessionAttribute("loginMember") Member loginMember) {
 		int myUsid=loginMember.getUsid();
-
-		List<Integer> usidList=new ArrayList<Integer>();//전체 상대방 usid
-		List<Integer> firstUsid=new ArrayList<Integer>();//발신 상대방 usid
-		List<Integer> secondUsid=new ArrayList<Integer>();//수신 상대방 usid
-		
-		firstUsid=service.firstUsid(myUsid);
-		for(int i=0; i<firstUsid.size(); i++) {
-			usidList.add(firstUsid.get(i));
-		}
-		secondUsid=service.secondUsid(myUsid);
-		for(int i=0; i<secondUsid.size(); i++) {
-			if(!usidList.contains(secondUsid.get(i))) {
-				usidList.add(secondUsid.get(i));
-			}
-		}
-		System.out.println("usidList"+usidList);
-		
-		List<MemberMessage> otherInfo=new ArrayList<MemberMessage>();//mM들어갈 리스트
-		
-		for(int i=0; i<usidList.size(); i++) {
-			MemberMessage mM=new MemberMessage();
-			Member member=new Member();
-			HashMap<String, Integer> usidMap=new HashMap<>();//내 usid, 상대 usid 저장용
-	
-			int otherUsid=usidList.get(i);
-			mM.setOtherUsid(otherUsid);
-			
-			member.setUsid(otherUsid);
-			member=service.selectMemberByUsid(member);
-			mM.setOtherProfilePic(member.getProfilePic());
-			mM.setOtherNick(member.getMemNickname());
-			
-			usidMap.put("myUsid", myUsid);
-			usidMap.put("otherUsid", otherUsid);
-			MemberMessage mM2=service.loadLatestMessage(usidMap);
-			mM.setLatestMessage(mM2.getLatestMessage());
-			mM.setLatestDate(mM2.getLatestDate());
-			otherInfo.add(mM);
-		}
-		mv.addObject("otherInfo",otherInfo);
+//
+//		List<Integer> usidList=new ArrayList<Integer>();//전체 상대방 usid
+//		List<Integer> firstUsid=new ArrayList<Integer>();//발신 상대방 usid
+//		List<Integer> secondUsid=new ArrayList<Integer>();//수신 상대방 usid
+//		
+//		firstUsid=service.firstUsid(myUsid);
+//		for(int i=0; i<firstUsid.size(); i++) {
+//			usidList.add(firstUsid.get(i));
+//		}
+//		secondUsid=service.secondUsid(myUsid);
+//		for(int i=0; i<secondUsid.size(); i++) {
+//			if(!usidList.contains(secondUsid.get(i))) {
+//				usidList.add(secondUsid.get(i));
+//			}
+//		}
+//		System.out.println("usidList"+usidList);
+//		
+//		List<MemberMessage> otherInfo=new ArrayList<MemberMessage>();//mM들어갈 리스트
+//		
+//		for(int i=0; i<usidList.size(); i++) {
+//			MemberMessage mM=new MemberMessage();
+//			Member member=new Member();
+//			HashMap<String, Integer> usidMap=new HashMap<>();//내 usid, 상대 usid 저장용
+//	
+//			int otherUsid=usidList.get(i);
+//			mM.setOtherUsid(otherUsid);
+//			
+//			member.setUsid(otherUsid);
+//			member=service.selectMemberByUsid(member);
+//			mM.setOtherProfilePic(member.getProfilePic());
+//			mM.setOtherNick(member.getMemNickname());
+//			
+//			usidMap.put("myUsid", myUsid);
+//			usidMap.put("otherUsid", otherUsid);
+//			MemberMessage mM2=service.loadLatestMessage(usidMap);
+//			mM.setLatestMessage(mM2.getLatestMessage());
+//			mM.setLatestDate(mM2.getLatestDate());
+//			otherInfo.add(mM);
+//		}
+//		mv.addObject("otherInfo",otherInfo);
 		mv.setViewName("member/messageList");
 		return mv;
 	}
