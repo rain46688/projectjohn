@@ -24,6 +24,23 @@
 .containerJohn {
 	background-image: url("${path}/resources/images/background_pattern.png");
 	background-repeated: repeated;
+	/* background-color: rgb(201, 193, 181); */
+}
+
+#headerAndContent {
+    width: 82%;
+}
+#header {
+    border-top-right-radius: 30px;
+    width: 100%;
+    height: 7%; 
+    background-color: #0054BA;
+/*     border-left: 1px solid rgb(98, 98, 98); */
+    padding-right:3em;
+}
+
+#header > button {
+	float:right;
 }
 
 #alarmdiv {
@@ -56,6 +73,13 @@
 	box-shadow: 1px 1px 1px 1px gray;
 	font-weight: bold;
 }
+
+#bell {
+	margin-left:0.4em;
+	margin-top:0.4em;
+	width:1em;
+	height:2em;
+}
 </style>
 <body>
 	<div class="containerJohn">
@@ -87,7 +111,7 @@
 					<!-- 알람 임시 위치 & 이미지 나중에 수정해야됨 -->
 					<div id="alarmdiv">
 						<c:if test="${loginMember.usid != null}">
-							<a id="bell" class="bell2" href="${path }/alarm/alarmList?usid=${loginMember.usid }"><img src="${path }/resources/images/bell.png"></a>
+							<a id="bell" class="bell2" href="${path }/alarm/alarmList?usid=${loginMember.usid }"><img id="bell" src="${path }/resources/images/bell.png"></a>
 							<c:if test="${loginMember.usid != null}">
 								<a id="number" href="${path }/alarm/alarmList?usid=${loginMember.usid }"></a>
 							</c:if>
