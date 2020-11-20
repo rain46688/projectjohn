@@ -28,7 +28,7 @@
 	
 	//소켓이 열림
 	memberSocket.onopen=function(){
-		memberSocket.send("connect");
+		memberSocket.send("message");
 	};
 	
 	//메세지 보냄
