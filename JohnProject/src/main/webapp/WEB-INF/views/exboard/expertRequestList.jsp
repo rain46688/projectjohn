@@ -159,7 +159,7 @@ h1 {
 					</select>
 					<img src="${path}/resources/images/search.png" alt="" width="30px" height="30px">
 					<input type="text" name="search" id="searchInput" onkeypress="searchkey();">
-					<button class="btn btn-outline-success" onclick="search();">검색</button>
+					<button id="searchBtn"class="btn btn-outline-success" >검색</button>
 				</div>
 		</div>
 		<div id="sortDiv">
@@ -168,10 +168,9 @@ h1 {
 						<option value="time" >상담 시간순</option>
 						<option value="nic" >신청자 이름순</option>
 					</select>
-					<select id="pageSelect" name="pageSelect" required>
-						<option value="10"  selected>10개씩 보기</option> 
-						<option value="20" >20개씩 보기</option>
-						<option value="50" >50개씩 보기</option>
+					<select id="sortType" name="sortType" required>
+						<option value="desc" selected>내림차순</option>
+						<option value="asc"  >오름차순</option> 
 					</select>
 		</div>
 	<!-- 현재 페이지 -->
@@ -190,7 +189,7 @@ h1 {
 	
 	const exlistconn = new WebSocket('wss://192.168.219.105${path}/exlistSocket');
 	let exboardList = [];
-	
+	let backupList = [];
 	
 	exlistconn.onopen = function() {
 		console.log("onopen");
@@ -200,8 +199,9 @@ h1 {
 	exlistconn.onmessage = function(msg) {
 		console.log("onmessage");
 		exboardList = JSON.parse(msg.data);
+		backupList = JSON.parse(msg.data);
+		exboardList = excompare(exboardList, 'expertDate',$("#sortType").val());	
 		listPrint(exboardList);
-		
 	}
 	
 	function sendMessage(message) {
@@ -241,34 +241,59 @@ h1 {
 	
 	// 액션 취할시 리스트 가져옴
 	$("#sortSelect").on('change', e => {
-		let sortList = [];
 		let keyword = $(e.target).val();
 		console.log("sort : "+keyword);
 		if (keyword == 'nic'){
-			sortList = excompare(exboardList, 'expertRequestMemNick');	
-			listTestConsolelog(sortList);
-			listPrint(sortList);
+			exboardList = excompare(exboardList, 'expertRequestMemNick',$("#sortType").val());
+			listTestConsolelog(exboardList);
+			listPrint(exboardList);
 		}else if (keyword == 'date'){
-			sortList = excompare(exboardList, 'expertDate');	
-			listTestConsolelog(sortList);
-			listPrint(sortList);
+			exboardList = excompare(exboardList, 'expertDate',$("#sortType").val());	
+			listTestConsolelog(exboardList);
+			listPrint(exboardList);
 		}else if (keyword == 'time'){
-			sortList = excompare(exboardList, 'expertCounselTime');	
-			listTestConsolelog(sortList);
-			listPrint(sortList);
+			exboardList = excompare(exboardList, 'expertCounselTime',$("#sortType").val());
+			listTestConsolelog(exboardList);
+			listPrint(exboardList);
 		}
 	});
 	
-	//정렬
-	let excompare = function(list, field){
-		list.sort((a,b) => {
-			return a[field] < b[field] ? -1 : a[field] > b[field] ? 1 : 0;
-		});
-		return list;
-	}
+	$("#sortType").on('change', e => {
+		let keyword = $(e.target).val();
+		console.log("type : "+keyword);
+		let field;
+		if($("#sortSelect").val() =='date'){
+			field = 'expertDate';
+		}else if($("#sortSelect").val() == 'nic'){
+			field = 'expertRequestMemNick';
+		}else{
+			field = 'expertCounselTime';
+		}
+		exboardList = excompare(exboardList,field,keyword);
+		listTestConsolelog(exboardList);
+		listPrint(exboardList);
+	});
 	
+	//정렬
+	let excompare = function(list, field, type){
+		console.log(" field : "+field+" type : "+type);
+		if(type == 'desc'){
+			console.log("내림!");
+			list.sort((a,b) => {
+				return a[field] > b[field] ? -1 : a[field] > b[field] ? 1 : 0;
+			});
+			return list;
+		}else{
+			console.log("오름!");
+			list.sort((a,b) => {
+				return a[field] < b[field] ? -1 : a[field] > b[field] ? 1 : 0;
+			});
+			return list;
+		}
+	}
+
 	//시험용 출력
-	function listTestConsolelog(list){
+	function listTestConsolelog(list,type){
 		list.forEach((e, i)=>{
 			console.log(e['expertRequestMemNick']);	
 			//console.log(e['expertCounselTime']);
@@ -276,6 +301,37 @@ h1 {
 		});
 	}
 	
+	//검색 키보드
+	function searchkey(){
+		if(window.event.keyCode == 13) {
+			console.log("search 엔터 버튼 클릭");
+			search($("#searchSelect").val(),$("#searchInput").val());
+		}
+		return false;
+	}
+	
+	$("#searchBtn").click(e => {
+		search($("#searchSelect").val(),$("#searchInput").val());
+	});
+
+	//검색 함수
+	function search(keyword, inputval){
+		console.log("search 버튼 클릭");
+		if (keyword == 'nic'){
+		exboardList = findKeyword(exboardList,inputval);
+		listPrint(exboardList);
+		}else if (keyword == 'date'){
+		}else if (keyword == 'time'){
+		}
+		
+	}
+	
+	function findKeyword(list,val){
+		list.forEach((e,i) => {
+			
+		});
+		return list;
+	}
 	
 
 	
