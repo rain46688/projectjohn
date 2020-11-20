@@ -83,6 +83,10 @@ public interface MemberDao {
 
 	List<MemberChat> loadAllChatList(SqlSessionTemplate session);
 
+	List<Integer> firstUsidList(SqlSessionTemplate session, int myUsid);
+
+	List<Integer> secondUsidList(SqlSessionTemplate session, int myUsid);
+
 
 
 }

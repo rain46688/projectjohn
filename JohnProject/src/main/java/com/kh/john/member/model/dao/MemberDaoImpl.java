@@ -190,5 +190,15 @@ public class MemberDaoImpl implements MemberDao {
 		return session.selectList("member.loadAllChatList");
 	}
 
+	@Override
+	public List<Integer> firstUsidList(SqlSessionTemplate session, int myUsid) {
+		return session.selectList("member.firstUsidList",myUsid);
+	}
+
+	@Override
+	public List<Integer> secondUsidList(SqlSessionTemplate session, int myUsid) {
+		return session.selectList("member.secondUsidList",myUsid);
+	}
+
 
 }
