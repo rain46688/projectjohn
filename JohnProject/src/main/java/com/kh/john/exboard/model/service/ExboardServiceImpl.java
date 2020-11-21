@@ -14,6 +14,7 @@ import com.kh.john.exboard.model.dao.ExboardDao;
 import com.kh.john.exboard.model.vo.ExpertBoard;
 import com.kh.john.exboard.model.vo.ExpertRequest;
 import com.kh.john.member.model.vo.Expert;
+import com.kh.john.member.model.vo.License;
 import com.kh.john.member.model.vo.Member;
 
 import lombok.extern.slf4j.Slf4j;
@@ -65,6 +66,7 @@ public class ExboardServiceImpl implements ExboardService {
 		// TODO Auto-generated method stub
 		// 이미 등록됬는지 확인
 		ExpertRequest result = dao.selectIsDuplicateReq(session, map);
+		// 종료되지 않은 상담중에 중복해서 신청한 내역이있나 확인하고 안되게 막음!
 
 		if (result == null) {
 			log.debug("result 널 아님");
@@ -151,7 +153,21 @@ public class ExboardServiceImpl implements ExboardService {
 	@Override
 	public int updateCounselResult(String extext, String bno) throws Exception {
 		// TODO Auto-generated method stub
-		return dao.updateCounselResult(session, extext, bno);
+		int result = 1;
+
+		try {
+			ExpertBoard eb = dao.selectExpertBoard(session, bno);
+			dao.updateCounselResult(session, extext, bno);
+			Map<String, String> map = new HashMap<String, String>();
+			map.put("musid", "" + eb.getExpertBoardMemUsid());
+			map.put("eusid", "" + eb.getExpertBoardUsid());
+			dao.updateReuestCounselEnd(session, map);
+		} catch (Exception e) {
+			// TODO: handle exception
+			result = 0;
+		}
+
+		return result;
 	}
 
 	@Override
@@ -187,6 +203,30 @@ public class ExboardServiceImpl implements ExboardService {
 			eb.setExpertBoardMemNick(dao.selectMember(session, "" + eb.getExpertBoardMemUsid()).getMemNickname());
 		}
 		return list;
+	}
+
+	@Override
+	public List<License> selectExpertLicense(String exusid) throws Exception {
+		// TODO Auto-generated method stub
+		return dao.selectExpertLicense(session, exusid);
+	}
+
+	@Override
+	public List<ExpertRequest> selectExpertRequestAjax(Map<String, String> map) throws Exception {
+		// TODO Auto-generated method stub
+		return dao.selectExpertRequestAjax(session, map);
+	}
+
+	@Override
+	public int selectExpertRequestAjaxCount(Member mem) throws Exception {
+		// TODO Auto-generated method stub
+		return dao.selectExpertRequestAjaxCount(session, mem);
+	}
+
+	@Override
+	public List<ExpertRequest> selectExRequestList() throws Exception {
+		// TODO Auto-generated method stub
+		return dao.selectExRequestList(session);
 	}
 
 }

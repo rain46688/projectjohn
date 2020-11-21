@@ -13,21 +13,16 @@
 </jsp:include>
 
 <style>
-#writecontainer {
-	text-align: center;
-	border-radius: 5px;
-	margin: 5% atuo;
-	height: auto;
-	width: 100%;
-	border-radius: 5px;
-	height: auto;
+#content *{
+	/* border:1px solid red; */
 }
 
 .divList {
 	display: table;
 	width: 100%;
-	height: 150px;
+	height: 20%;
 	text-align: center;
+	padding:0 2% 0 2%;
 }
 
 .divRow {
@@ -36,183 +31,311 @@
 
 .divRowTitle {
 	display: table-row;
-	font-size: 15px;
+	font-size: 2vh;
 	font-weight: bold;
-	text-shadow: -1px 0 #BFBFBF, 0 0.5px #BFBFBF, 0.5px 0 #BFBFBF, 0 -1px #BFBFBF;
+	/* text-shadow: -1px 0 #BFBFBF, 0 0.5px #BFBFBF, 0.5px 0 #BFBFBF, 0 -1px #BFBFBF; */
 	width: 100%;
 }
 
-h2 {
+h1 {
 	font-weight: bold;
-	text-shadow: -1px 0 #BFBFBF, 0 0.5px #BFBFBF, 0.5px 0 #BFBFBF, 0 -1px #BFBFBF;
-	margin: 15px 0 10px 0;
+	/* text-shadow: -1px 0 #BFBFBF, 0 0.5px #BFBFBF, 0.5px 0 #BFBFBF, 0 -1px #BFBFBF; */
+	margin: 2% 0 3% 3%;
 }
 
 .active {
 	font-weight: bold;
-	text-shadow: -1px 0 #BFBFBF, 0 0.5px #BFBFBF, 0.5px 0 #BFBFBF, 0 -1px #BFBFBF;
+		/* text-shadow: -1px 0 #BFBFBF, 0 0.5px #BFBFBF, 0.5px 0 #BFBFBF, 0 -1px #BFBFBF; */
 }
 
-.divCell {
+.divRow .divCell {
 	border-bottom: 1px #DEE2E6 solid;
 	display: table-cell;
-	padding: 25px 10px;
+	padding: 2vh 3vh;
 	width: 16.67%;
-	font-size: 15px;
+	font-size:  2vh;
+}
+
+.divRowTitle .divCell{
+	height:30%;
+	padding: 2vh 3vh;
+	display: table-cell;
+		border-bottom: 1px #DEE2E6 solid;
 }
 
 .divListBody {
 	display: table-row-group;
 }
 
-#n_btn {
-	float: right;
-	margin: 0 10px 10px 0;
-}
-
-.noti {
-	width: 133%;
-	margin: 0px;
-	height: 200px;
-	display: inline-block;
-}
-
-.noContent {
-	margin-top: 20px;
-	margin-bottom: 15px;
-	margin-left: 100%;
-	font-size: 15px;
-	font-weight: bold;
-	width: 100%;
-}
-
 .empty {
-	margin-top: 20px;
+	margin-top: 3vh;
 	font-weight: bold;
-	margin-top: 15px;
+	margin-top: 3vh;
 	margin-left: 200%;
 	width: 100%;
-	font-size: 15px;
+	font-size: 3vh;
 }
 
-#container {
-	margin-left: auto;
-	margin-right: auto;
+#middelDiv{
+	width:100%;
+	height:20%;
+	margin-bottom:2%;
 }
+
+#searchDiv{
+	width:100%;
+	height:80%;
+	display:flex;
+	justify-content:center;
+}
+
+#sortDiv{
+	width:100%;
+	height:20%;
+	display:flex;
+	justify-content:flex-end;
+}
+
+#sortDiv *{
+	margin-right:1%;
+}
+
+#innerSearchDiv{
+	width:50%;
+	height:100%;
+	display:flex;
+	justify-content:center;
+	align-items:center;
+	border:1px solid #C6C5C5;
+}
+
+#innerSearchDiv select{
+	width:18%;
+	height:30%;
+	margin-right:2%;
+}
+
+#innerSearchDiv img{
+	width:6%;
+	height:30%;
+	margin-right:1%;
+}
+
+#innerSearchDiv input{
+	width:40%;
+	height:30%;
+	
+}
+
+#innerSearchDiv button{
+	width:10%;
+	height:30%;
+	margin-left:1%;
+}
+
+/* 빈값 */
+
+.empty{
+	font-size:4vh;
+	margin:0;
+	width:100%;
+}
+
 </style>
 
 <section id="content">
 <br>
-	<p>임시 테스트용 사이트</p>
-	<div class="divList">
-		<div class="divListBody">
-
-			<div class="divRowTitle shadow p-3 mb-5 bg-white rounded">
-				<div class="divCell">상담 신청자</div>
-				<div class="divCell">상담 신청 날짜</div>
-					<div class="divCell">원하는 상담 시간</div>
-				<div class="divCell">상담 시작</div>
-				<div class="divCell">정보 보기</div>
-			</div>
-
-
-			<c:choose>
-				<c:when test="${fn:length(list) > 0}">
-					<c:forEach items="${list }" var="n">
-						<div class="divRow shadow p-3 mb-5 bg-white rounded" ><!-- style="cursor: pointer"  -->
-							<div class="divCell">${n.expertRequestMemNick}</div>
-							<div class="divCell">${n.expertDate}</div>
-								<div class="divCell">${n.expertCounselTime}</div>
-								<div class="divCell">
-								
-							<c:if test="${n.endCounsel != true }">
-								
-							<c:if test="${n.startCounsel == false }">
-								<button class="btn btn-outline-success" onclick="counselStart('${n.expertRequestMemUsid}','${n.expertRequestMemNick}');">상담 시작</button>
-							</c:if>
-							<c:if test="${n.startCounsel == true }">
-									<button class="btn btn-outline-success" onclick="counselConn('${n.expertRequestMemUsid}','${n.expertRequestMemNick}');">채팅 접속</button>
-							</c:if>
-						</c:if> 
-							<c:if test="${n.endCounsel == true }">
-									상담 완료
-									<!-- <div class="divCell"><button class="btn btn-outline-success" onclick="">상담 완료</button></div> -->
-							</c:if>
-								</div>
-					<form  name="form">				
-						<input type="hidden" name="usid" value="${loginMember.usid}"> 
-							<input type="hidden" name="musid" value="${n.expertRequestMemUsid}"> 
-						<div class="divCell"><button class="btn btn-outline-success" onclick="exmemInfo(this.form);">회원 정보</button></div>
-					</form>
-						</div>
-					</c:forEach>
-				</c:when>
-				<c:otherwise>
-					<div class="empty">상담 신청이 없습니다.</div>
-				</c:otherwise>
-			</c:choose>
-			<br>
+	<h1>상담 신청 확인 게시판</h1>
+	<hr/>
+	
+	<!-- 검색 및 정렬 할수있는 Div -->
+	<div id="middelDiv">
+		<div id="searchDiv">
+					<div id="innerSearchDiv">
+					<select id="searchSelect" name="searchSelect" required>
+						<option value="nic"  selected>상담 신청자</option> 
+						<option value="date" >신청 날짜</option>
+						<option value="time" >원하는 상담 시간</option>
+					</select>
+					<img src="${path}/resources/images/search.png" alt="" width="30px" height="30px">
+					<input type="text" name="search" id="searchInput" onkeypress="searchkey();">
+					<button id="searchBtn"class="btn btn-outline-success" >검색</button>
+				</div>
 		</div>
+		<div id="sortDiv">
+					<select id="sortSelect" name="sortSelect" required>
+						<option value="date"  selected>신청 날짜 순</option> 
+						<option value="time" >상담 시간순</option>
+						<option value="nic" >신청자 이름순</option>
+					</select>
+					<select id="sortType" name="sortType" required>
+						<option value="desc" selected>내림차순</option>
+						<option value="asc"  >오름차순</option> 
+					</select>
+		</div>
+	<!-- 현재 페이지 -->
+		<input id="cPageInput" type="hidden" value="1">
 	</div>
+	<hr/>
+	<!-- 리스트를 쏴줄 Div -->
+	<div class="divList">
+		<div class="divListBody"></div>
+	</div>
+	<!-- 페이징 처리 Div -->
+	<div id="pagingDiv"></div>
 	
 	<script>
+	'use strict'
 	
-	//부모창이 종료되면 자식창도 종료
-	let pop;
-	window.onunload = function() { 
-		pop.close(); 
-	  
+	const exlistconn = new WebSocket('wss://192.168.219.105${path}/exlistSocket');
+	let exboardList = [];
+	let backupList = [];
+	
+	exlistconn.onopen = function() {
+		console.log("onopen");
+		sendMessage("1");
+	}
+
+	exlistconn.onmessage = function(msg) {
+		console.log("onmessage");
+		exboardList = JSON.parse(msg.data);
+		backupList = JSON.parse(msg.data);
+		exboardList = excompare(exboardList, 'expertDate',$("#sortType").val());	
+		listPrint(exboardList);
 	}
 	
-	let bno = "";
-	function counselStart(num,nick){
-		console.log("num : "+num);
-		let result = confirm("해당 회원과 상담을 진행하시겠습니까?");
-		if(result){
-			  $.ajax({
-			 	   type:"GET",
-			 	   data:{
-			 		   "no" : num,
-			 		   "nic" : nick
-			 	   },
-			 	   url:"${path}/expert/selectExpertBno",
-			 	   success:function (data){
-			 		   console.log("data : "+data);
-			 		 bno = data;
-			 		 
-			 		sendAlarm("${loginMember.usid}",num,"expert",bno,"${loginMember.memNickname}");
-			 		
-			 		 console.log("bno : "+bno);
-					location.replace('${path}/expert/counselStart?no='+num+"&nic="+nick+"&bno="+bno);
-			 	   }
-			    }); 
+	function sendMessage(message) {
+		exlistconn.send(message);
+		console.log("sendMessage");
+	};
+	
+	//리스트 출력
+	function listPrint(list){
+		console.log("리스트 길이 : "+list.length);
+		let pbhtml = "";
+		
+		if(list.length > 0){
+			list.forEach((e, i)=>{
+				if(i == 0){
+					pbhtml += "<div class='divRowTitle '><div class='divCell'>상담 신청자</div><div class='divCell'>상담 신청 날짜</div><div class='divCell'>원하는 상담 시간</div><div class='divCell'>상담 시작</div><div class='divCell'>정보 보기</div></div>";
+				}
+				if(e['endCounsel'] != null){
+					pbhtml +="<div class='divRow ' ><div class='divCell'>"+e['expertRequestMemNick']+"</div><div class='divCell'>"+e['expertDateTmp']+"</div><div class='divCell'>"+e['expertCounselTime']+"</div><div class='divCell'>";
+					if(e['endCounsel'] == false){
+							if(e['startCounsel']== false){
+								pbhtml += "<button class='btn btn-outline-success' onclick='counselStart('"+e['expertRequestMemUsid']+"','"+e['expertRequestMemNick']+"');'>상담 시작</button>";
+							}else{
+								pbhtml += "<button class='btn btn-outline-success' onclick='counselConn('"+e['expertRequestMemUsid']+"','"+e['expertRequestMemNick']+"');'>채팅 접속</button>";
+							}
+					}else{
+						pbhtml +="상담 완료";
+					}
+					pbhtml += "</div><div class='divCell'><form  name='form' ><input type='hidden' name='usid' value='${loginMember.usid}'><input type='hidden' name='musid' value='"+e['expertRequestMemUsid']+"'><button class='btn btn-outline-success' onclick='exmemInfo(this.form);'>회원 정보</button></form></div></div>";
+				}
+			});
+		}else{
+			pbhtml = "<div class='divRow '><div class='divCell'><div class='empty'>상담 신청이 없습니다.</div></div></div>";
+		}
+		$(".divListBody").html(pbhtml);
+	}
+	
+	// 액션 취할시 리스트 가져옴
+	$("#sortSelect").on('change', e => {
+		let keyword = $(e.target).val();
+		console.log("sort : "+keyword);
+		if (keyword == 'nic'){
+			exboardList = excompare(exboardList, 'expertRequestMemNick',$("#sortType").val());
+			listTestConsolelog(exboardList);
+			listPrint(exboardList);
+		}else if (keyword == 'date'){
+			exboardList = excompare(exboardList, 'expertDate',$("#sortType").val());	
+			listTestConsolelog(exboardList);
+			listPrint(exboardList);
+		}else if (keyword == 'time'){
+			exboardList = excompare(exboardList, 'expertCounselTime',$("#sortType").val());
+			listTestConsolelog(exboardList);
+			listPrint(exboardList);
+		}
+	});
+	
+	$("#sortType").on('change', e => {
+		let keyword = $(e.target).val();
+		console.log("type : "+keyword);
+		let field;
+		if($("#sortSelect").val() =='date'){
+			field = 'expertDate';
+		}else if($("#sortSelect").val() == 'nic'){
+			field = 'expertRequestMemNick';
+		}else{
+			field = 'expertCounselTime';
+		}
+		exboardList = excompare(exboardList,field,keyword);
+		listTestConsolelog(exboardList);
+		listPrint(exboardList);
+	});
+	
+	//정렬
+	let excompare = function(list, field, type){
+		console.log(" field : "+field+" type : "+type);
+		if(type == 'desc'){
+			console.log("내림!");
+			list.sort((a,b) => {
+				return a[field] > b[field] ? -1 : a[field] > b[field] ? 1 : 0;
+			});
+			return list;
+		}else{
+			console.log("오름!");
+			list.sort((a,b) => {
+				return a[field] < b[field] ? -1 : a[field] > b[field] ? 1 : 0;
+			});
+			return list;
+		}
+	}
+
+	//시험용 출력
+	function listTestConsolelog(list,type){
+		list.forEach((e, i)=>{
+			console.log(e['expertRequestMemNick']);	
+			//console.log(e['expertCounselTime']);
+			//console.log(e['expertDate']);	
+		});
+	}
+	
+	//검색 키보드
+	function searchkey(){
+		if(window.event.keyCode == 13) {
+			console.log("search 엔터 버튼 클릭");
+			search($("#searchSelect").val(),$("#searchInput").val());
+		}
+		return false;
+	}
+	
+	$("#searchBtn").click(e => {
+		search($("#searchSelect").val(),$("#searchInput").val());
+	});
+
+	//검색 함수
+	function search(keyword, inputval){
+		console.log("search 버튼 클릭");
+		if (keyword == 'nic'){
+		exboardList = findKeyword(exboardList,inputval);
+		listPrint(exboardList);
+		}else if (keyword == 'date'){
+		}else if (keyword == 'time'){
 		}
 		
-		
 	}
 	
-	function counselConn(num,nick){
-		console.log("num : "+num);
-		location.replace('${path}/expert/counselConn?no='+num+"&nick="+nick);
+	function findKeyword(list,val){
+		list.forEach((e,i) => {
+			
+		});
+		return list;
 	}
 	
-	function exmemInfo(f){
-			const x = 600;
-			const y = 800;
-			const cx = (window.screen.width / 2) - (x / 2);
-			const cy= (window.screen.height / 2) - (y / 2);
 
-			const url    ="${path}/expert/memInfo";
-			const title  = "chat";
-			const status = "toolbar=no,directories=no,scrollbars=no,resizable=no,status=no,menubar=no,width="+x+", height="+y+", top="+cy+",left="+cx;
-			pop =  window.open("", title,status);
-			f.target = title;
-			f.action = url;
-			f.method = "post";
-			f.submit();    
-	}
+	
 	
 	
 	</script>
-
 </section>

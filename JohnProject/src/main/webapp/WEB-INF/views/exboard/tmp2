@@ -1,224 +1,35 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
-<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
-<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
-<c:set var="path" value="${pageContext.request.contextPath}" />
-<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
-<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+ <c:set var="cPage" value="${(empty param.cPage)?1:param.cPage}" />
+	<c:set var="pageNo" value="${cPage - (cPage - 1)%5}" />
+	<fmt:parseNumber var="pageEnd" value="${Math.ceil(totalData/numPerPage)}" integerOnly="true" />
+	<nav aria-lable="Page navigation" id="pagebar">
+		<ul class="pagination justify-content-center">
 
-<jsp:include page="/WEB-INF/views/common/header.jsp">
-	<jsp:param name="title" value=" " />
-</jsp:include>
-
-<style>
-html, body, div, span, applet, object, iframe,
-h1, h2, h3, h4, h5, h6, p, blockquote, pre,
-a, abbr, acronym, address, big, cite, code,
-del, dfn, em, ins, kbd, q, s, samp,
-small, strike, strong, sub, sup, tt, var,
-b, u, i, center,
-dl, dt, dd, ol, ul, li,
-fieldset, form, label, legend,
-table, caption, tbody, tfoot, thead, tr, th, td,
-article, aside, canvas, details, embed, 
-figure, figcaption, footer, header, hgroup, 
-menu, nav, output, ruby, section, summary,
-time, mark, audio, video {
-    margin: 0;
-    padding: 0;
-    border: 0;
-    font-size: 100%;
-    font: inherit;
-    vertical-align: baseline;
-}
+			<c:if test="${pageNo > 1}">
+				<li class="page-item"><a class="page-link" href="?cPage=${pageNo-1}" tabindex="-1" aria-disabled="true">이전</a></li>
+			</c:if>
+			<c:if test="${pageNo <= 1}">
+				<li class="page-item disabled"><a class="page-link" href="#" tabindex="-1" aria-disabled="true">이전</a></li>
+			</c:if>
 
 
-#upDiv{
-	border:1px solid black;
-	width:100%;
-	height:60%;
-	background-color:black;
-}
+			<c:forEach var="i" begin="0" end="${numPerPage - 1 }">
+				<c:choose>
+					<c:when test="${pageNo+i eq cPage}">
+						<li class="page-item disabled"><a href="?cPage=${pageNo+i}" class="page-link">${pageNo+i}</a></li>
+					</c:when>
+					<c:otherwise>
+						<c:if test="${(pageNo+i) <= pageEnd}">
+							<li class="page-item"><a href="?cPage=${pageNo+i}" class="page-link">${pageNo+i}</a></li>
+						</c:if>
+					</c:otherwise>
+				</c:choose>
+			</c:forEach>
 
-
-#downDiv{
-	border:1px solid brown;
-	width:100%;
-	height:40%;
-	background-color:brown;
-	display:flex;
-}
-
-#reviewDiv{
-	background-color:red;
-	height:100%;
-	width:50%;
-}
-
-#categoryDiv{
-	background-color:blue;
-	height:100%;
-	width:50%;
-}
-
-
-/* 캐러셀 */
-
-html {
-  scroll-behavior: smooth;
-}
-
-body {
-  margin: 0;
-  background-color: #000;
-}
-
-h1 {
-  font-family: Arial;
-  color: red;
-  text-align: center;
-}
-
-.wrapper {
-  display: grid;
-  grid-template-columns: repeat(3, 100%);
-  overflow: hidden;
-  scroll-behavior: smooth;
-}
-.wrapper section {
-  width: 100%;
-  position: relative;
-  display: grid;
-  grid-template-columns: repeat(5, auto);
-  margin: 20px 0;
-}
-.wrapper section .item {
-  padding: 0 2px;
-  transition: 250ms all;
-}
-.wrapper section .item:hover {
-  margin: 0 40px;
-  transform: scale(1.2);
-}
-.wrapper section a {
-  position: absolute;
-  color: #fff;
-  text-decoration: none;
-  font-size: 6em;
-  background: black;
-  width: 80px;
-  padding: 20px;
-  text-align: center;
-  z-index: 1;
-}
-.wrapper section a:nth-of-type(1) {
-  top: 0;
-  bottom: 0;
-  left: 0;
-  background: linear-gradient(-90deg, rgba(0, 0, 0, 0) 0%, black 100%);
-}
-.wrapper section a:nth-of-type(2) {
-  top: 0;
-  bottom: 0;
-  right: 0;
-  background: linear-gradient(90deg, rgba(0, 0, 0, 0) 0%, black 100%);
-}
-
-@media only screen and (max-width: 600px) {
-  a.arrow__btn {
-    display: none;
-  }
-}
-
-#upDiv p,a{
-	color:white;
-	font-size:20px;
-
-}
-
-
-</style>
-
-<section id="content">
-
-<div id="upDiv">
-	
-<div class="wrapper">
-
-  <section id="section1">
-    <a href="#section3" class="arrow__btn">‹</a>
-    <div class="item">
-	<p>section1</p>
-  </div>
-    <div class="item">
-    <p>section1</p>
-  </div>
-    <div class="item">
-    <p>section1</p>
-  </div>
-    <div class="item">
-    <p>section1</p>
-  </div>
-    <div class="item">
-    <p>section1</p>
-  </div>
-    <a href="#section2" class="arrow__btn">›</a>
-  </section>
-  
-  <section id="section2">
-    <a href="#section1" class="arrow__btn">‹</a>
-    <div class="item">
-    <p>section2</p>
-  </div>
-    <div class="item">
-    <p>section2</p>
-  </div>
-    <div class="item">
-    <p>section2</p>
-  </div>
-    <div class="item">
-    <p>section2</p>
-  </div>
-    <div class="item">
-    <p>section2</p>
-  </div>
-    <a href="#section3" class="arrow__btn">›</a>
-  </section>
-  
-  <section id="section3">
-    <a href="#section2" class="arrow__btn">‹</a>
-    <div class="item">
-    <p>section3</p>
-  </div>
-    <div class="item">
-    <p>section3</p>
-  </div>
-    <div class="item">
-    <p>section3</p>
-  </div>
-    <div class="item">
-    <p>section3</p>
-  </div>
-    <div class="item">
-    <p>section3</p>
-  </div>
-    <a href="#section1" class="arrow__btn">›</a>
-  </section>
-  
-</div>
-	
-	
-	</div>
-	<div id="downDiv">
-	<div id="reviewDiv"></div>
-	<div id="categoryDiv"></div>
-	</div>
-
-</section>
-
-<script>
-
-
-</script>
+			<c:if test="${pageNo < pageEnd-4}">
+				<li class="page-item"><a class="page-link" href="?cPage=${pageNo+5}" tabindex="-1" aria-disabled="true">다음</a></li>
+			</c:if>
+			<c:if test="${pageNo >= pageEnd-4}">
+				<li class="page-item disabled"><a class="page-link" href="#" tabindex="-1" aria-disabled="true">다음</a></li>
+			</c:if>
+		</ul>
+	</nav> 

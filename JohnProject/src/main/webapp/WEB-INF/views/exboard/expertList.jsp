@@ -510,10 +510,18 @@ img {
 
 <script>
 	'use strict';
+	
+		//부모창이 종료되면 자식창도 종료
+		let pop;
+		window.onunload = function() { 
+			pop.close(); 
+		  
+		}
 	 
 	 function counsel(no,nic){
 		 console.log("no : "+no+" nic : "+nic);
-		 location.href="${path}/expert/expertApply?no="+no+"&nic="+nic;
+		 //location.href="${path}/expert/expertApply?no="+no+"&nic="+nic;
+		 window.open("${path}/expert/expertApply?no="+no+"&nic="+nic,'회원','width=800, height=800, toolbar=no, menubar=no, scrollbars=no, resizable=yes');
 	 }
 	 
 	 $(".counsel-title").click(e => {
@@ -537,4 +545,5 @@ img {
 		autoplay : true,
 		type : 'loop'
 	}).mount();
+	
 </script>

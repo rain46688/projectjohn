@@ -4,6 +4,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import org.apache.ibatis.session.RowBounds;
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.stereotype.Repository;
 
@@ -58,7 +59,8 @@ public class ExboardDaoImpl implements ExboardDao {
 	@Override
 	public List<ExpertRequest> selectExpertRequest(SqlSessionTemplate session, Member mem) throws Exception {
 		// TODO Auto-generated method stub
-		return session.selectList("expert.selectExpertRequest", mem);
+		RowBounds r = new RowBounds((1 - 1) * 10, 10);
+		return session.selectList("expert.selectExpertRequest", mem, r);
 	}
 
 	@Override
@@ -131,6 +133,33 @@ public class ExboardDaoImpl implements ExboardDao {
 	public List<ExpertBoard> selectExboardListCategory(SqlSessionTemplate session, String ca) throws Exception {
 		// TODO Auto-generated method stub
 		return session.selectList("expert.selectExboardListCategory", ca);
+	}
+
+	@Override
+	public List<ExpertRequest> selectExpertRequestAjax(SqlSessionTemplate session, Map<String, String> map)
+			throws Exception {
+		// TODO Auto-generated method stub
+		RowBounds r = new RowBounds(((Integer.parseInt((map.get("cpage"))) - 1) * Integer.parseInt(map.get("page"))),
+				(Integer.parseInt(map.get("page"))));
+		return session.selectList("expert.selectExpertRequestAjax", map, r);
+	}
+
+	@Override
+	public int selectExpertRequestAjaxCount(SqlSessionTemplate session, Member mem) throws Exception {
+		// TODO Auto-generated method stub
+		return session.selectOne("expert.selectExpertRequestAjaxCount", mem);
+	}
+
+	@Override
+	public int updateReuestCounselEnd(SqlSessionTemplate session, Map<String, String> map) throws Exception {
+		// TODO Auto-generated method stub
+		return session.update("expert.updateReuestCounselEnd", map);
+	}
+
+	@Override
+	public List<ExpertRequest> selectExRequestList(SqlSessionTemplate session) throws Exception {
+		// TODO Auto-generated method stub
+		return session.selectList("expert.selectExRequestList");
 	}
 
 }

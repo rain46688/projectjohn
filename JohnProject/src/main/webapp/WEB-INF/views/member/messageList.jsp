@@ -9,8 +9,9 @@
 	<jsp:param name="title" value=""/>
 </jsp:include>
 <style>
-	.messageBox:hover{
+	.msgBox:hover{
 		background-color: #D3D3D3;
+		cursor:pointer;
 	}
 </style>
 <section id="content">
@@ -42,23 +43,26 @@
 		</div>
 	</div>
 	<div>
+		<div id="savedContainer"></div>
 		<!--상대방 프로필 사진, 가장 최근 메세지, 상대방 닉네임, 날짜-->
-<%-- 		<c:forEach var="otherInfo" items="${otherInfo}"> --%>
-<%-- 		<div class="messageBox" onclick="location.href='${path}/member/myPage/message?usid=${loginMember.usid}&otherUsid=${otherInfo.otherUsid}'"> --%>
-<!-- 				<div> -->
-<%-- 					<img src="<c:out value="${path}/resources/profile_images/${otherInfo.otherProfilePic}"/>" alt=""> --%>
-<!-- 				</div> -->
-<!-- 				<div> -->
-<%-- 					<c:out value="${otherInfo.otherNick}"/> --%>
-<!-- 				</div> -->
-<!-- 				<div> -->
-<%-- 					<c:out value="${otherInfo.latestDate}"/> --%>
-<!-- 				</div> -->
-<!-- 				<div> -->
-<%-- 					<c:out value="${otherInfo.latestMessage}"/> --%>
-<!-- 				</div> -->
-<!-- 			</div> -->
-<%-- 		</c:forEach> --%>
+<!--
+		<c:forEach var="otherInfo" items="${otherInfo}">
+		<div class="messageBox" onclick="location.href='${path}/member/myPage/message?usid=${loginMember.usid}&otherUsid=${otherInfo.otherUsid}'">
+				<div>
+					<img src="<c:out value="${path}/resources/profile_images/${otherInfo.otherProfilePic}"/>" alt="">
+				</div>
+				<div>
+					<c:out value="${otherInfo.otherNick}"/>
+				</div>
+				<div>
+					<c:out value="${otherInfo.latestDate}"/>
+				</div>
+				<div>
+					<c:out value="${otherInfo.latestMessage}"/>
+				</div>
+			</div>
+		</c:forEach>
+-->
 	</div>
 </section>
 <script>
@@ -98,15 +102,40 @@
 		})
 	};
 
-// 	const memberSocket=new WebSocket("wss://localhost${path}/memberSocket");
+	const msgListSocket=new WebSocket("wss://localhost${path}/msgListSocket");
 	
-// 	memberSocket.onopen=function(){
-// 		memberSocket.send("messageList");
-// 	};
+	msgListSocket.onopen=function(){
+		msgListSocket.send("messageListOpen");
+	};
 	
-// 	memberSocket.onmessage=function(e){
-		
-// 	}
+	msgListSocket.onmessage=function(e){
+		$("#savedContainer").html('');
+		let data=JSON.parse(e.data);
+		if(data!=null){
+			let msgList=new Array;
+			$.each(data, function(i,v){
+				msgList[i]=v;
+			})
+		console.log(msgList);
+			$.each(msgList,function(i,v){
+				let otherUsid=v['otherUsid'];
+				let otherProfilePic=v['otherProfilePic'];
+				let otherNick=v['otherNick'];
+				let latestMsg=v['latestMessage'];
+				let latestDate=v['latestDateStr'];
+				let myUsid=v['myUsid'];
+				if(myUsid=='${loginMember.usid}' || otherUsid=='${loginMember.usid}'){
+					let msgBox=$("<div/>").attr({"class":"msgBox","onclick":"location.href='${path}/member/myPage/message?usid=${loginMember.usid}&otherUsid="+otherUsid+"'"});
+					let picDiv=$("<div/>").html($("<img/>").attr("src","${path}/resources/profile_images/"+otherProfilePic));
+					let nickDiv=$("<div/>").html(otherNick);
+					let dateDiv=$("<div/>").html(latestDate);
+					let msgDiv=$("<div/>").html(latestMsg);
+					msgBox.append(picDiv).append(nickDiv).append(dateDiv).append(msgDiv);
+					$("#savedContainer").append(msgBox);					
+				}
+			});
+		}
+	}
 </script>
 <jsp:include page="/WEB-INF/views/common/footer.jsp"/>
 
