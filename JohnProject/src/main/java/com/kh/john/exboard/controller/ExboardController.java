@@ -265,7 +265,7 @@ public class ExboardController {
 		// 해당 게시판 넘버에 맞는 유저를 판별하기 위해서 가져옴
 		try {
 			eb = service.selectExpertBoard(bnum);
-			log.debug("eb : " + eb);
+			log.debug("eb : " + eb);// 없으면 아예 없는 방이라는뜻
 
 			// 쿼리스트링에 방넘버가 없거나 있지도 않는 방에 접근할때
 			if (eb == null || bnum.equals("") || bnum == null) {
@@ -274,28 +274,22 @@ public class ExboardController {
 				return mv;
 			}
 
-			// log.debug(" 상담 결과 : " + eb.getExpertBoardAdviceResult());
+			// 만료된 상담에 접근할때
+			if (eb.getExpertBoardExpertend() == 1 && eb.getExpertBoardMemberend() == 1) {
+				mv = gotoMsg(mv, "/", "만료된 상담입니다.");
+				return mv;
+			}
+
+			// 해당 방의 유저 이외에 사람들이 접근할때 에러
 			if (m.getMemClass().equals("전문가")) {
-				// log.debug("전문가");
 				if (m.getUsid() != eb.getExpertBoardUsid()) {
-					// log.debug("잘못된 접근");
 					mv = gotoMsg(mv, "/", "잘못된 접근입니다.");
-					return mv;
-				} else if (eb.getExpertBoardAdviceResult() != null) {
-					// log.debug("이미 만료된 상담입니다.");
-					mv = gotoMsg(mv, "/", "만료된 상담입니다.");
 					return mv;
 				}
 				s.setExpert(true);
 			} else {
-				// log.debug("전문가 아님");
 				if (m.getUsid() != eb.getExpertBoardMemUsid()) {
-					// log.debug("잘못된 접근2");
 					mv = gotoMsg(mv, "/", "잘못된 접근입니다.");
-					return mv;
-				} else if (eb.getExpertBoardAdviceResult() != null) {
-					// log.debug("이미 만료된 상담입니다.");
-					mv = gotoMsg(mv, "/", "만료된 상담입니다.");
 					return mv;
 				}
 				s.setExpert(false);
@@ -434,22 +428,16 @@ public class ExboardController {
 		if (enterMem.getMemClass().equals("전문가")) {
 			// 일반 유저 아이디
 			// 이 부분 이렇게 안해도될꺼같은데 나중에 보고 지우기
-//			if (bno != null) {
-//				map.put("expertusid", "" + enterMem.getUsid());
-//				map.put("bno", bno);
-//				log.debug("expertusid : " + map.get("expertusid") + " bno : " + map.get("bno"));
-//				searchMemUsid = service.selectMemExboard(map);
-//				log.debug("searchMemUsid : " + searchMemUsid);
-//				searchMem = service.selectMember(searchMemUsid);
-//				log.debug("searchMem : " + searchMem);
-//				searchMem.setMemEmail(aes.decrypt(searchMem.getMemEmail()));
-//				mv.addObject("m", searchMem);
-//			} else if (bno == null) {
+			if (musid == null) {
+				map.put("expertusid", "" + enterMem.getUsid());
+				map.put("bno", bno);
+				musid = service.selectMemExboard(map);
+			}
+			log.debug("musid" + musid);
 			Member noboard = service.selectMember(musid);
+			log.debug("noboard" + noboard);
 			noboard.setMemEmail(aes.decrypt(noboard.getMemEmail()));
-			mv.addObject("m", noboard);
-			// }
-
+			mv.addObject("mem", noboard);
 		} else if (enterMem.getMemClass().equals("일반유저")) {
 			map.put("memusid", "" + enterMem.getUsid());
 			map.put("bno", bno);
@@ -457,8 +445,9 @@ public class ExboardController {
 			searchMem = service.selectMember(searchMemUsid);
 			ex = service.selectExpertMem("" + searchMem.getUsid());
 			searchMem.setMemEmail(aes.decrypt(searchMem.getMemEmail()));
-			mv.addObject("m", searchMem);
-			mv.addObject("ex", ex);
+			mv.addObject("mem", searchMem);
+			mv.addObject("expert", ex);
+			mv.addObject("license", service.selectExpertLicense("" + searchMem.getUsid()));
 		}
 		return mv;
 	}

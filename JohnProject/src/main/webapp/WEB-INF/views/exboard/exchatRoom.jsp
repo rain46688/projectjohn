@@ -754,7 +754,7 @@ textarea {
 			//---------------------------- 회원 정보 보기 -------------------------------------
 			
 			function memInfoView(e){
-				window.open('${path}/expert/memInfo?bno=${bno}&usid=${loginMember.usid}','회원','width=800, height=700, toolbar=no, menubar=no, scrollbars=no, resizable=yes');
+				window.open('${path}/expert/memInfo?bno=${bno}&usid=${loginMember.usid}&musid='+user_usid,'회원','width=800, height=700, toolbar=no, menubar=no, scrollbars=no, resizable=yes');
 			};
 	
 			
