@@ -48,7 +48,7 @@ public class CustomerController {
 	@RequestMapping("/customer/customerNotice")
 	public ModelAndView customerNotice(ModelAndView mv,
 			@RequestParam(value = "cPage", required = false, defaultValue = "1") int cPage,
-			@RequestParam(value = "numPerPage", required = false, defaultValue = "10") int numPerPage) {
+			@RequestParam(value = "numPerPage", required = false, defaultValue = "5") int numPerPage) {
 
 		List<Notice> list = service.selectNoticeList(cPage, numPerPage);
 		int totalData = service.selectNoticeCount();

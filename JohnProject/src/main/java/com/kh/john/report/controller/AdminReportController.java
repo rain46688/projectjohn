@@ -23,7 +23,7 @@ public class AdminReportController {
 	@RequestMapping("/report/adminReport")
 	public ModelAndView adminReport(ModelAndView mv,
 			@RequestParam (value="cPage", required=false, defaultValue="1") int cPage, 
-			@RequestParam (value="numPerPage", required=false, defaultValue="10") int numPerPage) {
+			@RequestParam (value="numPerPage", required=false, defaultValue="5") int numPerPage) {
 		
 		List<Report> list = service.selectReportList(cPage,numPerPage);
 		int totalData = service.selectReportCount();
