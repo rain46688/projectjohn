@@ -344,18 +344,19 @@ public class ExboardController {
 	public String counselEnd(String extext, String bno, RedirectAttributes redirectAttributes) throws Exception {
 		log.info(" ===== counselEnd 실행 ===== ");
 
-		log.debug("extext : " + extext);
+		log.debug("extext : " + extext + "bno : " + bno);
 
 		int result = service.updateCounselResult(extext, bno);
 
 		if (result == 1) {// 1이면 정상 종료
+			log.debug("extext : 정상종료");
 			return "redirect:/expert/expertRequestPrintList";
 		}
 		// 아니면 비정상 종료
 		redirectAttributes.addAttribute("loc", "/expert/expertRequestPrintList");
 		redirectAttributes.addAttribute("msg", "잘못된 종료 관리자에게 문의하세요");
+		log.debug("extext : 비정상종료");
 		return "redirect:/msg";
-
 	}
 
 	// 파일 업로드용 전문가 상담

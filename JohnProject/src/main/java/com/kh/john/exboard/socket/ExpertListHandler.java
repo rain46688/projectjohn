@@ -80,9 +80,14 @@ public class ExpertListHandler extends TextWebSocketHandler {
 							} else {
 								// 상담 시작 안했다는것 expert_board가 없는 상태
 								er.setEndCounsel(false);
+								er.setStartCounsel(false);
 							}
 						}
 					}
+				}
+
+				for (ExpertRequest er : list) {
+					log.debug("확인용 : " + er);
 				}
 
 				Iterator<Member> it = users.keySet().iterator();

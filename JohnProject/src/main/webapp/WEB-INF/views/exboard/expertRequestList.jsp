@@ -259,7 +259,7 @@ hr{
 	function listPrint(list){
 		console.log("리스트 길이 : "+list.length);
 		let pbhtml = "";
-		
+		let num = 3;
 		if(list.length > 0){
 			list.forEach((e, i)=>{
 				if(i == 0){
@@ -270,10 +270,10 @@ hr{
 					if(e['endCounsel'] == false){
 							if(e['startCounsel']== false){
 								//end start 둘다 false이면 요청 온 상태
-								pbhtml += "<button class='btn btn-outline-success' onclick='counselStart('"+e['expertRequestMemUsid']+"','"+e['expertRequestMemNick']+"');'>상담 시작</button>";
+								pbhtml += "<button class='btn btn-outline-success' onclick='counselStart(\""+e['expertRequestMemUsid']+"\",\""+e['expertRequestMemNick']+"\");'>상담 시작</button>";
 							}else{
 								//end false에서 start true면 진행중인 상태
-								pbhtml += "<button class='btn btn-outline-success' onclick='counselConn('"+e['expertRequestMemUsid']+"','"+e['expertRequestMemNick']+"');'>채팅 접속</button>";
+								pbhtml += "<button class='btn btn-outline-success' onclick='counselConn(\""+e['expertRequestMemUsid']+"\",\""+e['expertRequestMemNick']+"\");'>채팅 접속</button>";
 							}
 					}else{
 						pbhtml +="상담 완료";
@@ -449,7 +449,7 @@ hr{
 			 	   }
 			    }); 
 		}
-	}
+	};
 	
 	//상담 재연결 -> 채팅방 입장 , 이미 방은 생성되있는 상태
 	function counselConn(num,nick){

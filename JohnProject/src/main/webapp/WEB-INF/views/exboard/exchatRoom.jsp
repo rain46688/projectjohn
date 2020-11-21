@@ -244,7 +244,7 @@ textarea {
 	</div>
 <!--  -->
 	<div id="bottomDiv">
-	<div id="imgDiv"><p>왼쪽 상단 박스에 드래그하여 이미지를 전송 후  이 박스에 표시되며 클릭하여 이미지를 확대할수있습니다.</p></div>
+	<div id="imgDiv"><p> "${bno}"왼쪽 상단 박스에 드래그하여 이미지를 전송 후  이 박스에 표시되며 클릭하여 이미지를 확대할수있습니다.</p></div>
 		<div id="buttonDiv">
 			<c:if test="${loginMember.memClass == '전문가'}">
 				<c:if test="${eb.expertBoardMemberend == 1}">
@@ -500,8 +500,8 @@ textarea {
 					imgDivPrint(content.msg);
 				} else if (content.type == 'END') {
 					console.log(" === 분기 END === ");
-					exit();
-					location.replace('${path}/');
+					/* 	exit(); */
+					location.replace('${path}/board/boardList');
 				}else if(content.type == 'MEMEND'){
 					console.log(" === 분기 MEMEND === ");
 					let experthtml = "";
@@ -731,11 +731,11 @@ textarea {
 					//
 					document.body.appendChild(form);
 					form.submit();
-					exit();
-					sendMessage(new ExboardMsg("END",
-							"${loginMember.memClass}", "종료"));
+			 		//exit(); 
+					sendMessage(new ExboardMsg("END","${loginMember.memClass}", "종료"));
 					//알람 발송 - 상담이 완료됬다는 알람 - 페이지가 넘어가기때문에 바로 변경해줄 사항 없음
-					sendAlarm("${loginMember.usid}",user_usid,"expertend",bno,"${loginMember.memNickname}");
+					sendAlarm("${loginMember.usid}",user_usid,"expertend","${bno}","${loginMember.memNickname}");
+					result = false;
 				}
 			}
 

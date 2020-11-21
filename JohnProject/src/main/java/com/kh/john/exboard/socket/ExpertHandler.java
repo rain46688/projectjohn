@@ -26,24 +26,24 @@ public class ExpertHandler extends TextWebSocketHandler {
 
 	@Override
 	public void afterConnectionEstablished(WebSocketSession session) throws Exception {
-		log.info("SocketHandler 실행 시그널링 서버");
+		// log.info("SocketHandler 실행 시그널링 서버");
 		Map<String, Object> map = session.getAttributes();
 		SessionVo sv = (SessionVo) map.get("loginnedMember");
 		users.put(sv, session);
-		log.debug("sv : " + sv);
-		log.info("닉네임 : " + sv.getNickname());
+		// log.debug("sv : " + sv);
+		// log.info("닉네임 : " + sv.getNickname());
 	}
 
 	@Override
 	public void handleTextMessage(WebSocketSession session, TextMessage message)
 			throws InterruptedException, IOException {
 
-		log.info("handleTextMessage 실행 시그널링 서버");
+		// log.info("handleTextMessage 실행 시그널링 서버");
 		ExboardMsg msg = objectMapper.readValue(message.getPayload(), ExboardMsg.class);
 		Map<String, Object> map = session.getAttributes();
 		SessionVo sv = (SessionVo) map.get("loginnedMember");
 
-		log.debug("msg : " + msg);
+		// log.debug("msg : " + msg);
 
 		Iterator<SessionVo> it = users.keySet().iterator();
 		while (it.hasNext()) {
@@ -52,16 +52,16 @@ public class ExpertHandler extends TextWebSocketHandler {
 			if (key.getCurRoomBid().equals(sv.getCurRoomBid())) {
 				if (sv.isExpert()) {
 					// 호스트인 경우
-					log.debug("현재 세션 호스트");
+					// log.debug("현재 세션 호스트");
 					if (!key.isExpert()) {
-						log.debug("현재 세션 호스트 이니깐 참여자한테 메세지 보냄");
+						// log.debug("현재 세션 호스트 이니깐 참여자한테 메세지 보냄");
 						users.get(key).sendMessage(new TextMessage(objectMapper.writeValueAsString(msg)));
 					}
 				} else {
 					// 호스트가 아닌경우
-					log.debug("현재 세션 참여자");
+					// log.debug("현재 세션 참여자");
 					if (key.isExpert()) {
-						log.debug("현재 세션 호스트 아니니깐 호스트한테 메세지 보냄");
+						// log.debug("현재 세션 호스트 아니니깐 호스트한테 메세지 보냄");
 						users.get(key).sendMessage(new TextMessage(objectMapper.writeValueAsString(msg)));
 					}
 				}
@@ -72,7 +72,7 @@ public class ExpertHandler extends TextWebSocketHandler {
 
 	@Override
 	public void afterConnectionClosed(WebSocketSession session, CloseStatus status) throws Exception {
-		log.info(" === afterConnectionClosed 실행 === ");
+		// log.info(" === afterConnectionClosed 실행 === ");
 		List<SessionVo> keyList = new ArrayList<SessionVo>();
 		Iterator<SessionVo> it = users.keySet().iterator();
 		while (it.hasNext()) {

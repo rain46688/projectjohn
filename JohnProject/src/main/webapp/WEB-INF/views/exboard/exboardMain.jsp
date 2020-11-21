@@ -65,30 +65,21 @@ label, input {
 	3, 상담 종료될때 유저한테도 메세지를 보내서 그 메세지를 받으면 유저가 다른 페이지로 리다이렉트 되게 만들기
 	
 	
+	-------------------------------------------------------
 	
-	 -->
+	유저가 apply에서 상담 신청을 하면 EXPERT_REQUEST 디비에 값이 들어감
+	
+	상담사가 expertRequestList에서 상담 시작을 누르면 EXPERT_BOARD에 상담사랑 상담받는 사람이랑 가상의 방이 만들어짐 
+	
+	EXPERT_BOARD가 생성됬으면 상담중인 상태
+	
+	EXPERT_BOARD의 컬럼중에 EXPERT_BOARD_MEMBEREND가 있는데 이는 상담 진행할때 사용자가 고민 해결이 끝나고 종료하고자할때 누름 디비에 값이 1로 변경됨
+	
+	 컬럼중에 EXPERT_BOARD_EXPERTEND는 위에서 사용자가 먼저 승인을 하면 상담사가 누르는 버튼으로 1로 변경됨
+	 
+	EXPERT_BOARD_MEMBEREND와 EXPERT_BOARD_EXPERTEND 값이 둘다 1이면 상담이 정상적으로 종료된것임. 
+	
 
-	<!-- 	
-<label class="input-group-text" >닉네임 </label><input type="input" name="nick" class="form-control short" /><br>
-	<label class="input-group-text" >방 번호 </label><input type="input" name="num" class="form-control short" /><br>
-	임시 로그인 : 
-	<button class="btn btn-outline-success" onclick="expertChat();">로그인</button>
-	<br>
-	<br> 
- 	<hr>
-	<form action="/expertsms" method="post">
-		<label class="input-group-text" > 문자내용 </label><input type="input" name="msg" class="form-control short" /><br>
-		<label class="input-group-text" > 전화번호 </label><input type="input" name="phone" class="form-control short" /><br>
-		<input type="submit" vale="발송"/>
-		</form> 
 -->
 
 </section>
-
-<script>
-	/* function expertChat(){
-
-	 location.replace('${path}/expertLogin?nick='+$("input[name=nick]").val());
-	
-	 }  */
-</script>
