@@ -195,9 +195,9 @@ hr{
 						<option value="off" >종료된 상담</option>
 					</select>
 					<select id="sortSelect" name="sortSelect" required>
-						<option value="date"  selected>신청 날짜 순</option> 
-						<option value="time" >상담 시간순</option>
-						<option value="nic" >신청자 이름순</option>
+						<option value="expertDate"  selected>신청 날짜 순</option> 
+						<option value="expertCounselTime" >상담 시간순</option>
+						<option value="expertRequestMemNick" >신청자 이름순</option>
 					</select>
 					<select id="sortType" name="sortType" required>
 						<option value="desc" selected>내림차순</option>
@@ -229,7 +229,7 @@ hr{
 	exlistconn.onopen = function() {
 		console.log("onopen");
 		//아무거나 보내서 식별함
-		sendMessage("1");
+		exListsendMessage("start");
 		
 		let newURL = window.location.pathname;
 		console.log(newURL);
@@ -239,15 +239,20 @@ hr{
 		console.log("onmessage");
 		exboardList = JSON.parse(msg.data);
 		backupList = JSON.parse(msg.data);
+		setting();
+	}
+	
+	function setting(){
 		// 기본 속성으로 리스트 정렬
-		exboardList = excompare(exboardList, 'expertDate',$("#sortType").val());
+		search($("#searchSelect").val(),$("#searchInput").val());
+		exboardList = excompare(exboardList, $("#sortSelect").val(),$("#sortType").val());
 		// 뿌려줌
 		listPrint(exboardList);
 	}
 	
-	function sendMessage(message) {
+	function exListsendMessage(message) {
 		exlistconn.send(message);
-		console.log("sendMessage");
+		console.log("exListsendMessage");
 	};
 	
 	//리스트 출력
@@ -287,33 +292,16 @@ hr{
 		let keyword = $(e.target).val();
 		console.log("sort : "+keyword);
 		console.log("type : "+$("#sortType").val());
-		if (keyword == 'nic'){
-			exboardList = excompare(exboardList, 'expertRequestMemNick',$("#sortType").val());
-			listTestConsolelog(exboardList);
-			listPrint(exboardList);
-		}else if (keyword == 'date'){
-			exboardList = excompare(exboardList, 'expertDate',$("#sortType").val());	
-			listTestConsolelog(exboardList);
-			listPrint(exboardList);
-		}else if (keyword == 'time'){
-			exboardList = excompare(exboardList, 'expertCounselTime',$("#sortType").val());
-			listTestConsolelog(exboardList);
-			listPrint(exboardList);
-		}
+		exboardList = excompare(exboardList, $("#sortSelect").val(),$("#sortType").val());
+		listTestConsolelog(exboardList);
+		listPrint(exboardList);
 	});
 	
 	//정렬
 	$("#sortType").on('change', e => {
 		let keyword = $(e.target).val();
 		console.log("type : "+keyword);
-		let field;
-		if($("#sortSelect").val() =='date'){
-			field = 'expertDate';
-		}else if($("#sortSelect").val() == 'nic'){
-			field = 'expertRequestMemNick';
-		}else{
-			field = 'expertCounselTime';
-		}
+		let field = $("#sortSelect").val();
 		exboardList = excompare(exboardList,field,keyword);
 		listTestConsolelog(exboardList);
 		listPrint(exboardList);
@@ -454,9 +442,8 @@ hr{
 			 	   success:function (data){
 			 		   console.log("data : "+data);
 			 		 bno = data;
-			 		 
-			 		sendAlarm("${loginMember.usid}",num,"expert",bno,"${loginMember.memNickname}");
-			 		
+			 		 //알람 발송 - 상담이 진행됬다는 알람 - 페이지가 넘어가기때문에 바로 변경해줄 사항 없음
+			 		 sendAlarm("${loginMember.usid}",num,"expert",bno,"${loginMember.memNickname}");
 			 		 console.log("bno : "+bno);
 					location.replace('${path}/expert/counselStart?no='+num+"&nic="+nick+"&bno="+bno);
 			 	   }

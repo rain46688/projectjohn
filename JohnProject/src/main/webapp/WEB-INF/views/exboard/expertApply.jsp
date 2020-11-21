@@ -221,6 +221,7 @@ textarea {
 									.html(
 											$("#exbtn").html()
 													+ "<button class='btn btn-outline-success' onclick='expertRequestCancel();''>상담 취소하기</button>");
+							//알람 발송 - 상담이 추가됬다는 알람 - 해당 전문가가 보는 상담 내역을 갱신해줘야됨
 						sendAlarm("${loginMember.usid}","${mem.usid}","expertApply"," ","${loginMember.memNickname}");
 						} else if (data == 2) {
 							console.log("이미 상담 신청을 하셨습니다");
@@ -255,6 +256,7 @@ textarea {
 						if (data == 1) {
 							console.log("상담 취소 성공");
 							alert("상담 취소 성공");
+							//알람 발송 - 상담이 삭제됬다는 알람 - 해당 전문가가 보는 상담 내역을 갱신해줘야됨
 							sendAlarm("${loginMember.usid}","${mem.usid}","expertApplyCancel"," ","${loginMember.memNickname}");
 							$("#exbtn").html("");
 							$("#exbtn")
