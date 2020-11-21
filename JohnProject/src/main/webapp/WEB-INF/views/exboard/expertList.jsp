@@ -517,10 +517,9 @@ img {
 			pop.close(); 
 		  
 		}
-	 
+		
 	 function counsel(no,nic){
 		 console.log("no : "+no+" nic : "+nic);
-		 //location.href="${path}/expert/expertApply?no="+no+"&nic="+nic;
 		 window.open("${path}/expert/expertApply?no="+no+"&nic="+nic,'회원','width=800, height=800, toolbar=no, menubar=no, scrollbars=no, resizable=yes');
 	 }
 	 
@@ -528,7 +527,7 @@ img {
 			console.log($(e.target).html());
 			location.href="${path}/expert/expertPrintList?ca="+$(e.target).html();
 	 });
-
+	 
 	// 가로 슬라이드
 	new Splide('.splide', {
 		perPage : 4,
@@ -545,5 +544,5 @@ img {
 		autoplay : true,
 		type : 'loop'
 	}).mount();
-	
+	 
 </script>
