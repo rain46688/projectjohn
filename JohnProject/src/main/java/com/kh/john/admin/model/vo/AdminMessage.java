@@ -12,5 +12,6 @@ public class AdminMessage {
 	private String profilePic;
 	private Date time;
 	private String latestMsg;
+	private String latestDateStr;
 	
 }

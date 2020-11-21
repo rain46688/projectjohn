@@ -47,11 +47,14 @@
 	<div id="search-container">
 		<form  id="myForm" action="${path }/admin/adminBoardSearch" method="post">
 		
-		 <select class="s0" name="bigCategory" required>
+		 <select class="s0" name="bigCategory" id="bigCategory" required>
 		 		<option>대분류</option>
-				<option value="연애상담" <c:if test="${param.big_category eq '연애상담'}">selected</c:if>>연애상담</option> 
-				<option value="일반게시판" <c:if test="${param.big_category eq '일반게시판'}">selected</c:if>>일반게시판</option> 
-				<option value="음성게시판" <c:if test="${param.big_category eq '음성게시판'}">selected</c:if>>음성게시판</option> 
+				<option value="연애상담" <c:if test="${param.bigCategory eq '연애상담'? 'selected':'' }"/>>연애상담</option> 
+				<option value="일반게시판" <c:if test="${param.bigCategory eq '일반게시판'? 'selected':'' }"/>>일반게시판</option> 
+				<option value="음성게시판"<c:if test="${param.bigCategory eq '음성게시판'? 'selected':'' }"/>>음성게시판</option> 
+				
+			<%-- 	<option value="일반게시판" <c:if test="${param.big_category eq '일반게시판'}">selected</c:if>>일반게시판</option> 
+				<option value="음성게시판" <c:if test="${param.big_category eq '음성게시판'}">selected</c:if>>음성게시판</option>  --%>
 	    </select>
 	
 	    <select class="s1" name="smallCategory">
