@@ -3,9 +3,10 @@
  */
  
  	'use strict';
+ 	//세션 스토리지
 	let usid = sessionStorage.getItem('lousid');
 	let path = sessionStorage.getItem('path');
-	console.log("usid : "+usid+" path : "+path);	 		
+	console.log("세션 스토리지 => usid : "+usid+" path : "+path);	 		
 
 				function alarmPrint() {
 					if (usid != "") {
@@ -36,26 +37,24 @@
 				const alsocket = new WebSocket("wss://192.168.219.105"+path+"/alsocket");
 
 				alsocket.onopen = function() {
-				
-					sessionStorage.clear();
 					alarmPrint();
 				};
 
 				alsocket.onmessage = function(msg) {
 					/* 기본적으로 실행되는 로직 알람이 왔다는 표시를 해줌 */
 					console.log("msg 콘솔 : " + msg);
-					let aldata = msg.data;
+					let aldata = JSON.parse(msg.data);
 					$("#number").html("");
 					$("#number").append("<div id='al'>!</div>");
 					$("#bell").addClass('bell2');
 					/*  */
 					if(window.location.pathname == '/john/expert/expertRequestPrintList'){
 						console.log("신청");
-						if(aldata['type'] == 'expertApply'){
-							console.log("신청1");
+						if(aldata['alarmType'] == 'expertApply'){
+							console.log("유저로 부터 상담 신청 들어옴");
 							exListsendMessage("start");
-						}else if(aldata['type'] == 'expertApplyCancel'){
-							console.log("신청2");
+						}else if(aldata['alarmType'] == 'expertApplyCancel'){
+							console.log("유저로 부터 상담 신청 삭제됨");
 							exListsendMessage("start");
 						}
 					}

@@ -12,12 +12,13 @@
 <!-- Latest compiled and minified CSS -->
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
 <!-- jQuery library -->
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script defer  src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 <!-- Popper JS -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+<script defer src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
 <!-- Latest compiled JavaScript -->
-<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/sockjs-client/1.5.0/sockjs.min.js"></script>
+<script defer src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+<script defer src="https://cdnjs.cloudflare.com/ajax/libs/sockjs-client/1.5.0/sockjs.min.js"></script>
+<script defer src="${path}/resources/js/header.js"></script>
 <link rel="stylesheet" href="${path}/resources/css/layout.css">
 </head>
 <style>
@@ -152,84 +153,8 @@
                  -->
 
 				<script>
-					'use strict';
-
-					let num = 1;
-
-					function alarmPrint() {
-						if ("${loginMember.usid}" != "") {
-							$.ajax({
-								type : "GET",
-								data : {
-									"usid" : "${loginMember.usid}"
-								},
-								dataType : "json",
-								url : "${path}/alarm/alarmCount",
-								success : function(data) {
-									console.log("data : " + data);
-									num = data;
-									if (num > 0) {
-										//console.log("0보다 큼")
-										$("#number").append(
-												"<div id='al'>" + num
-														+ "</div>");
-									} else {
-										//console.log("0보다 안큼")
-										$("#bell").removeClass('bell2');
-									}
-								}
-							});
-						} else {
-							console.log("로그인이 안되있습니다.");
-						}
-					};
-					alarmPrint();
-
-					//const alsocket = new WebSocket("wss://localhost${path}/alsocket");
-					//const alsocket = new WebSocket("wss://192.168.120.31${path}/alsocket");
-					const alsocket = new WebSocket("wss://192.168.219.105${path}/alsocket");
-
-					alsocket.onopen = function() {
-
-					};
-
-					alsocket.onmessage = function(msg) {
-						console.log("msg 콘솔 : " + msg);
-						num++;
-						console.log("num : " + num);
-						$("#number").html("");
-						$("#number").append("<div id='al'>" + num + "</div>");
-						$("#bell").addClass('bell2');
-					};
-
-					function sendAlarm(send_usid, receive_usid, type, msg,
-							send_nick) {
-						alsocket.send(JSON.stringify(new Alarm(send_usid,
-								receive_usid, type, msg, send_nick)));
-					};
-
-					function Alarm(alarmSendMemUsid, alarmReceiveMemUsid,
-							alarmType, alarmMsgContent,
-							alarmSendMemNickname, alarmDate,
-							alarmIscheked) {
-						this.alarmSendMemUsid = alarmSendMemUsid;
-						this.alarmReceiveMemUsid = alarmReceiveMemUsid;
-						this.alarmType = alarmType;
-						this.alarmMsgContent = alarmMsgContent;
-						this.alarmSendMemNickname = alarmSendMemNickname;
-						this.alarmDate = alarmDate;
-						this.alarmIscheked = alarmIscheked;
-					};
-
-					$('#alarmdiv').hover(function() {
-						$(this).css({
-							"height" : "110%",
-							"width" : "62px"
-						});
-					}, function() {
-						$(this).css({
-							"height" : "100%",
-							"width" : "60px"
-						});
-					});
+		 		'use strict';
+				sessionStorage.clear();
+		 		sessionStorage.setItem('lousid', "${loginMember.usid}");
+		 		sessionStorage.setItem('path', "${path}");
 				</script>
