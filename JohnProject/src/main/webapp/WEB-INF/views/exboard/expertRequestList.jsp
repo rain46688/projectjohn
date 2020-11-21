@@ -273,7 +273,7 @@ hr{
 								pbhtml += "<button class='btn btn-outline-success' onclick='counselStart(\""+e['expertRequestMemUsid']+"\",\""+e['expertRequestMemNick']+"\");'>상담 시작</button>";
 							}else{
 								//end false에서 start true면 진행중인 상태
-								pbhtml += "<button class='btn btn-outline-success' onclick='counselConn(\""+e['expertRequestMemUsid']+"\",\""+e['expertRequestMemNick']+"\");'>채팅 접속</button>";
+								pbhtml += "<button class='btn btn-outline-danger' onclick='counselConn(\""+e['expertRequestMemUsid']+"\",\""+e['expertRequestMemNick']+"\");'>채팅 접속</button>";
 							}
 					}else{
 						pbhtml +="상담 완료";

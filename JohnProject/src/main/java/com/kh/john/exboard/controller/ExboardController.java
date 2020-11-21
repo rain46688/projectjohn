@@ -469,4 +469,13 @@ public class ExboardController {
 		return result;
 	}
 
+	// 에러 메세지 매핑용
+	@RequestMapping(value = "/expert/expertInfoModify")
+	public ModelAndView expertInfoModify() throws Exception {
+		log.info(" ===== expertInfoModify 실행 ===== ");
+		ModelAndView mv = new ModelAndView("/exboard/expertInfoModify");
+
+		return mv;
+	}
+
 }

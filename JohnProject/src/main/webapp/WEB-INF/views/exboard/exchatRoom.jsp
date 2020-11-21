@@ -244,7 +244,7 @@ textarea {
 	</div>
 <!--  -->
 	<div id="bottomDiv">
-	<div id="imgDiv"><p> "${bno}"왼쪽 상단 박스에 드래그하여 이미지를 전송 후  이 박스에 표시되며 클릭하여 이미지를 확대할수있습니다.</p></div>
+	<div id="imgDiv"><p> 왼쪽 상단 박스에 드래그하여 이미지를 전송 후  이 박스에 표시되며 클릭하여 이미지를 확대할수있습니다.</p></div>
 		<div id="buttonDiv">
 			<c:if test="${loginMember.memClass == '전문가'}">
 				<c:if test="${eb.expertBoardMemberend == 1}">
