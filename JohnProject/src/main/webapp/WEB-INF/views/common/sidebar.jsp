@@ -108,12 +108,12 @@
 			<img class="menuImages" src="${path}/resources/images/history.png">
 			내 기록
 		</div>
-		<hr style="border-top:1px solid black">
+		<hr>
 		<div id="subList" class="menusOnSide">
 			<img class="menuImages" src="${path}/resources/images/sub.png">
 			구독한 채널
 		</div>
-		<hr style="border-top:1px solid black">
+		<hr>
 		<div id="cates" class="menusOnSide">
 			<img class="menuImages" src="${path}/resources/images/cate.png">
 			큰 카테고리들

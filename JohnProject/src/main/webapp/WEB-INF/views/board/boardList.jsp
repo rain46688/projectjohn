@@ -101,12 +101,14 @@
 							<div id='popularList' class='subListBigCon'>
 
 							</div>
+							<hr>
 						</div>
 						<div class="new">
 							<h1 class='subListTitle'>최신</h1>
 							<div id='newList' class='subListBigCon'>
 
 							</div>
+							<hr style="border-top:1px solid rgba(0,0,0,.1)">
 						</div>
 					</div>
                 </div>
@@ -213,6 +215,10 @@
 			let idx = 1;
 			let html = "";
 			let name = 'subList' + (i+1);
+
+			let hr = document.createElement('hr');
+			hr.setAttribute('width','100%');
+			hr.style.borderTop = '1px solid rgba(0,0,0,.1)';
 			document.getElementById(name).innerHTML = "";
 			for(let j = 0; j < boardLength; j++) {
 				if(eachList[i][j]!=null){
@@ -270,7 +276,7 @@
 					}
 				}
 			}
-			// document.getElementById(name).innerHTML += html;
+			document.getElementById(name).append(hr);
 		}
 	}
 	
