@@ -86,7 +86,7 @@ public class ExboardController {
 	}
 
 //상담 희망시간, 요구사항 받아서 넘기기
-	// 상담 종료후에도 평점이랑 후기 적기
+// 상담 종료후에도 평점이랑 후기 적기
 //https://www.cssscript.com/accessible-star-rating-system-pure-css/
 
 	// 전문가 상세 프로필 보는곳 여기서 상담 신청 가능
