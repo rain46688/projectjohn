@@ -221,6 +221,7 @@ textarea {
 									.html(
 											$("#exbtn").html()
 													+ "<button class='btn btn-outline-success' onclick='expertRequestCancel();''>상담 취소하기</button>");
+						sendAlarm("${loginMember.usid}","${mem.usid}","expertApply"," ","${loginMember.memNickname}");
 						} else if (data == 2) {
 							console.log("이미 상담 신청을 하셨습니다");
 							alert("이미 상담 신청을 하셨습니다");
@@ -228,6 +229,10 @@ textarea {
 							console.log("현재 시간보다 과거를 선택했음");
 							alert("선택하신 날짜가 맞지 않습니다.");
 						}
+						 else if(data == 9998){
+								console.log("희망 시간을 선택해주세요.");
+								alert("희망 시간을 선택해주세요.");
+							}
 						else {
 							console.log("상담 신청 실패");
 							alert("상담 신청 실패");
@@ -250,6 +255,7 @@ textarea {
 						if (data == 1) {
 							console.log("상담 취소 성공");
 							alert("상담 취소 성공");
+							sendAlarm("${loginMember.usid}","${mem.usid}","expertApplyCancel"," ","${loginMember.memNickname}");
 							$("#exbtn").html("");
 							$("#exbtn")
 									.html(
