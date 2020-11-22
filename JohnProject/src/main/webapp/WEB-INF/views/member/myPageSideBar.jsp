@@ -9,16 +9,26 @@
 		스크롤바 커스터마이징
 		스크롤시 로고 fixed
 	 */
+	#container_logo{
+	    margin-top: 0;
+	    display: flex;
+	    justify-content: center;
+	    background-color:#00316D;
+	}
+	
 	#side {
-	    border-bottom-left-radius: 7.5px;
-	    border-top-left-radius: 7.5px;
+	    border-bottom-left-radius: 30px;
+	    border-top-left-radius: 30px;
 	    overflow: auto;
 	    width: 18%;
 	    height: 100%;
-	    background-color:#05135C;
+	    background-color:#00316D;
 	    display: flex;
 	    flex-direction: column;
 	    align-items: center;
+	    /* background-image: url('${path}/resources/images/logo_dot.png');
+	    background-repeat: repeated; */
+	    opcaity:0.5;
 	}
 	
 	#side ::-webkit-scrollbar {
@@ -30,8 +40,8 @@
 		background-color: #05135C;
 	}
 	
-	#container_logo {
-		border:1px solid red;
+	#sidebar_logo{
+    	width: 80%;
 	}
 	
 	#menu {
@@ -42,27 +52,6 @@
 		width:100%;
 	}
 	
-	.menusOnSide {
-		cursor:pointer;
-		padding-bottom: 0.5em;
-		padding-top: 0.5em;
-		width:100%;
-		/* border:1px solid red; */
-	}
-	
-	.menusOnSide:hover {
-		background-color: #384F9C;
-	}
-	
-	.menuImages {
-		width:1.5em;
-		height:1.5em;
-		margin-right:2em;
-		margin-left:1em;
-		margin-top:0;
-		padding-bottom:0.1em;
-		/* border:1px solid red; */
-	}
 </style>
 <div id="side">
 	<div id="container_logo">
@@ -70,28 +59,28 @@
 		</a>
 	</div>
 	<div id="menu">
-		<div>
+		<div class="menuLink nav-link">
 			<a href="${path}/member/myPage?usid=${loginMember.usid}">마이페이지 홈</a>
 		</div>
-		<div>
+		<div class="menuLink nav-link">
 			<a href="${path}/member/myPage/updateMemberInfo?usid=${loginMember.usid}">회원정보 수정하기</a>
 		</div>
-		<div>
+		<div class="menuLink nav-link">
 			<a href="${path}/member/myPage/myBoard?usid=${loginMember.usid}">나의 게시물 내역</a>
 		</div>
-		<div>
+		<div class="menuLink nav-link">
 			<a href="${path}/member/myPage/expertCounsel?usid=${loginMember.usid}">전문가 상담 내역</a>
 		</div>
-		<div>
+		<div class="menuLink nav-link">
 			<a href="${path}/member/myPage/liked?usid=${loginMember.usid}">좋아요 한 게시물</a>
 		</div>
-		<div>
+		<div class="menuLink nav-link">
 			<a href="${path}/member/myPage/myReport?usid=${loginMember.usid}">내 신고 내역</a>
 		</div>
-		<div>
+		<div class="menuLink nav-link">
 			<a href="${path}/member/myPage/applyExpertPage?usid=${loginMember.usid}">전문가 신청하기</a>
 		</div>
-		<div>
+		<div class="menuLink nav-link">
 			<a href="${path}/member/myPage/messageList?usid=${loginMember.usid}">서신함</a>
 		</div>
 	</div>
