@@ -15,15 +15,14 @@
 
 /*a링크*/
   a:link { text-decoration: none; color: black;} 
-  a:visited { text-decoration: none; color: black;} 
+ .alink:visited { text-decoration: none; color: black;}
   a:active { text-decoration: none; color: black;}
   a:hover {text-decoration:underline; color: black;}
 
 /*표*/
 .board_list_wrap {
-    padding: 50px;
+    padding: 85px;
     font-family: 'Noto Sans KR', sans-serif;
- 	
 }
 
 .board_list_head,
@@ -85,18 +84,24 @@
     
 /*써치컨체이너*/
 #one,#two,#three,#four,#five,#six,#seven,#eight{
-	width:23%;
-	float:left;
-	 margin-right: 10px;
+	width: 40%;
+    margin: 1em auto;
+    display: inline-block; 
+    color:white;
+    font-family: 'Noto Sans KR', sans-serif;
+    margin-right:10px;
 }
 
 #one>.form-control{
 	width:100%;
 	
+
 }
 
 #two>.form-control{
 	width:100%;
+
+
 }
 
 #three>.form-control{
@@ -125,40 +130,156 @@
 
 #seven>.form-control{
 	width:100%;
+
 }
 
+#checkbox{
+	width:20%;
+
+}
 .radio-inline{
-	width:23px;
-	height:23px;
+	height:100%;
+	width:100%;	
 }
-
-#eight>.form-control{
-	width:100%;
-}
-
 
 
 #search-container{
-	display:flex;
+	display:flex; 
+	justify-content:center;
+	background-color:white;
+	margin-top:3%;
+	margin-bottom:3%;
+	border-radius:20px;
+	width: 90%; 
+	text-align: center;
+ 	margin-left:4.5%; 
+	background-color:#003478;
+	padding: 50px;
+/* 	background-image: url("${path}/resources/images/admin/logo.png"); 
+ */	
+}
+
+#myForm{
+	display: table;
+    width: 100%;
+    height: 100%;
+    margin: 0 auto;
+/* 	margin-top:-21%;
+	margin-left:-6%; */
+	background-color:#003478;
+	border-radius:20px;
+
+}
+
+/* #totalone, #totaltwo, #totalthree,#totalfour{
 	justify-content:center;
 	background-color:white;
 	margin-top:3%;
 	border-radius:20px;
-	width: 90%;
+	width: 100%; 
+	height:10%;
 	text-align: center;
  	margin-left:4.5%; 
-	background-color:#ffcc66;
+	background-color:#003478;
 	padding: 50px;
+	color:white;
+	float: left; 
+	
+	padding-top:1%;
+	padding-left:0%;
+
+} */
+
+	
+#eight{
+
+	float:left;
+	width:100%;
+		
 }
 
 
+#searchImg{
 
-#myForm{
-	width:90%;
-	height:10%;
+    color: #f0f2fc;
+  
+    
+    transform:scale(1); transition:transform 0.3s linear;
+}
+
+#searchImg:hover,
+#searchImg:focus {
+    background-color: #f0f2fc;
+    border-color: #f0f2fc;
+    color: black; 
+    
+    -webkit-transform:scale(1.3);
+
+}
+    
+#searchImgBtn{
+    height:20px; 
+    width:100px; 
+    margin: -20px -50px; 
+    position:relative; 
+    top:3%;
+    left:50%; 
+
+}
+    
+#bbtn{
+	border-color: #ffcc66;
+    color: white; 
+    background-color: #003478;
+
+}
+
+#bbtn:hover,
+#bbtn:focus {
+    background-color: #ffcc66;
+    border-color: #003478;
+    color: #003478; 
+
+}
+
+/*셀렉트박스*/
+
+select::-ms-expand { display: none; }
+
+select { 
+width: 200px; /* 원하는 너비설정 */ 
+padding: .8em .5em; /* 여백으로 높이 설정 */ 
+font-family: inherit; /* 폰트 상속 */ 
+background: url(https://farm1.staticflickr.com/379/19928272501_4ef877c265_t.jpg) no-repeat 95% 50%;/* 네이티브 화살표 대체 */ 
+border: 1px solid #999; border-radius: 0px; /* iOS 둥근모서리 제거 */ 
+-webkit-appearance: none; /* 네이티브 외형 감추기 */ 
+-moz-appearance: none; 
+appearance: none; 
+
 }
 
 
+/*모달전체*/
+.modal-content{
+	 background-color:#ffcc66;
+	 font-family: 'Noto Sans KR', sans-serif;
+	 
+}
+/*페이지바*/
+
+.page-item.active .page-link { /*현재피이지*/
+  background-color: #003478;
+  color: white;
+  border:none;
+}
+
+.pagination-sm .page-link { /*한칸한칸크기*/
+	padding:10px 20px ;
+}
+
+.pagination a:hover:not(.active) { /*호버*/
+	background-color: #ffcc66;
+}
 
 
 </style>
@@ -196,19 +317,28 @@
     
 <section id="content">
 
-	<div id="search-container">
+
+
+<button class="btn btn-default my-2 my-sm-0"
+						type="button" data-toggle="modal" data-target="#loginModal" id="searchImgBtn">
+						<img src="${path}/resources/images/admin/search.png" width="50px" 
+						height="50px" id="searchImg"></button>
+
+	<div class="modal fade" id="loginModal" tabindex="-1" role="dialog"
+						aria-labelledby="exampleModalLabel" aria-hidden="true">
+							<div class="modal-dialog modal-lg" role="document">
+								<div class="modal-content">
+									<div class="modal-header">
+										<h5 class="modal-title" id="exampleModalLabel">게시판관리</h5>
+										<button type="button" class="close"
+											data-dismiss="modal" aria-label="Close">
+												<span aria-hidden="true">&times;</span>
+										</button>
+									</div>
+		<div id="search-container">
 		<form  id="myForm" action="${path }/admin/adminBoardSearch" method="post">
 		
-		
-<%-- 		<input type="hidden" id="type" name="type" value="${param.type }" readonly="readonly"/>
-		<input type="hidden" id="keyword" name="keyword" value="${param.keyword }" readonly="readonly"/>
-		<input type="hidden" id="keyword2" name="keyword2" value="${param.keyword2 }" readonly="readonly"/>
-		<input type="hidden" id="type2" name="type2" value="${param.type2 }" readonly="readonly"/>
-		<input type="hidden" id="bigCategory" name="bigCategory" value="${param.big_category }" readonly="readonly"/>
-		<input type="hidden" id="smallCategory" name="smallCategory" value="${param.small_category }" readonly="readonly"/>
-		<input type="hidden" id="isclose" name="isclose" value="${param.isclose }" readonly="readonly"/>
-		<input type="hidden" id="order" name="order" value="${param.order }" readonly="readonly"/> --%>
-		
+		<div id="totalone">
 		<div id="one">
 		 <select class="form-control" name="bigCategory" id="s0" required>
 		 		<option>대분류</option>
@@ -217,13 +347,13 @@
 				<option value="음성게시판" <c:if test="${param.big_category eq '음성게시판'}">selected</c:if>>음성게시판</option> 
 	    </select>
 		</div>
-		
+
 		<div id="two">
 	    <select class="form-control" id="s1" name="smallCategory">
 	        <option>소분류</option>
 	    </select>
 		</div>	
-			
+		</div>	
 		<%-- 	<select name="big_category"  required>
 		
 				<option value="연애상담" <c:if test="${param.big_category eq '연애상담'}">selected</c:if>>연애상담</option> 
@@ -231,7 +361,7 @@
 				<option value="음성게시판" <c:if test="${param.big_category eq '음성게시판'}">selected</c:if>>음성게시판</option> 
 				
 			</select>	 --%>
-			
+		<div id="totaltwo">
 		<div id="three"> 
 			<select name="searchType" class="form-control" required>
 				<option value=" " disabled selected>검색타입</option> 
@@ -247,11 +377,11 @@
 			<input type="search" name="keyword" class="form-control" placeholder="Search"
 			value="${param.keyword }"/> 
 			</div>	
-			
-			
+		</div>	
+		<div id="totalthree">
 			<div id="five">
- 			<label id="five-1"><input type="radio" name="order" value='ascend' class="form-control">오름차순</label>
-			<label id="five-1"><input type="radio" name="order" value='descend' class="form-control">내림차순</label> 
+ 			<label id="five-1"><input type="radio" name="order" value='ascend' >오름차순</label>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+			<label id="five-1"><input type="radio" name="order" value='descend' >내림차순</label> 
 			</div>
 			
 			<div id="six">
@@ -262,18 +392,138 @@
 				<option value="hit" ${param.searchType eq 'hit'?"selected":"" }>조회수</option>	
 			</select>
 			</div>
-
+		</div>
+		<div id="totalfour">	
 			<div id="seven">
-			<label class="radio-inline"><input type="checkbox" name="isclose" value="0" class="form-control">진행중인 게시글</label>
-			<label class="radio-inline"><input type="checkbox" name="isclose" value="1" class="form-control">종료된 게시글</label>
+			
+			<label>
+			<input type="checkbox" name="isclose" value="0" >
+			진행중인 게시글<br></label><br>
+			
+			<label>
+			<input type="checkbox" name="isclose" value="1">
+			종료된 게시글</label>
+			
+			</div>
+		</div>	
+			
+			<div id="eight">
+			<button type="submit" class="btn btn-default" id="bbtn">검색</button>
+			<button type="button" class="btn btn-default"
+											data-dismiss="modal" id="bbtn">
+											취소</button>
 			</div>
 			
+		</form>
+	</div>
+								</div>						
+							</div>
+						</div>
+
+
+<%-- 
+									<form action="${path }/member/memberLogin.do" method="post">
+										<div class="modal-body">
+											<input type="text" class="form-control" name="userId"
+											placeholder="아이디" required/><br/>
+											<input type="password" class="form-control" name="password"
+											placeholder="비밀번호" required/>
+										</div>
+										<div class="modal-footer">
+											<button type="submit" class="btn btn-outline-success">
+											검색</button>
+											<button type="button" class="btn btn-outline-success"
+											data-dismiss="modal">
+											취소</button>
+										</div>
+									</form>
+ --%>
+
+
+
+
+
+<%-- 	<div id="search-container">
+		<form  id="myForm" action="${path }/admin/adminBoardSearch" method="post">
+		
+		
+		<input type="hidden" id="type" name="type" value="${param.type }" readonly="readonly"/>
+		<input type="hidden" id="keyword" name="keyword" value="${param.keyword }" readonly="readonly"/>
+		<input type="hidden" id="keyword2" name="keyword2" value="${param.keyword2 }" readonly="readonly"/>
+		<input type="hidden" id="type2" name="type2" value="${param.type2 }" readonly="readonly"/>
+		<input type="hidden" id="bigCategory" name="bigCategory" value="${param.big_category }" readonly="readonly"/>
+		<input type="hidden" id="smallCategory" name="smallCategory" value="${param.small_category }" readonly="readonly"/>
+		<input type="hidden" id="isclose" name="isclose" value="${param.isclose }" readonly="readonly"/>
+		<input type="hidden" id="order" name="order" value="${param.order }" readonly="readonly"/>
+		<div id="totalone">
+		<div id="one">
+		 <select class="form-control" name="bigCategory" id="s0" required>
+		 		<option>대분류</option>
+				<option value="연애상담" <c:if test="${param.big_category eq '연애상담'}">selected</c:if>>연애상담</option> 
+				<option value="일반게시판" <c:if test="${param.big_category eq '일반게시판'}">selected</c:if>>일반게시판</option> 
+				<option value="음성게시판" <c:if test="${param.big_category eq '음성게시판'}">selected</c:if>>음성게시판</option> 
+	    </select>
+		</div>
+
+		<div id="two">
+	    <select class="form-control" id="s1" name="smallCategory">
+	        <option>소분류</option>
+	    </select>
+		</div>	
+		</div>	
+			<select name="big_category"  required>
+		
+				<option value="연애상담" <c:if test="${param.big_category eq '연애상담'}">selected</c:if>>연애상담</option> 
+				<option value="일반게시판" <c:if test="${param.big_category eq '일반게시판'}">selected</c:if>>일반게시판</option> 
+				<option value="음성게시판" <c:if test="${param.big_category eq '음성게시판'}">selected</c:if>>음성게시판</option> 
+				
+			</select>	
+		<div id="totaltwo">
+		<div id="three"> 
+			<select name="searchType" class="form-control" required>
+				<option value=" " disabled selected>검색타입</option> 
+				
+				<option value="mem_name" <c:if test="${param.searchType eq 'mem_name'}">selected</c:if>>이름</option>
+				<option value="mem_email" <c:if test="${param.searchType eq 'mem_email'}">selected</c:if>>이메일</option>
+				<option value="title" ${param.searchType eq 'title'?"selected":"" }>제목</option>	
+					
+			</select>
+		</div>
+			
+			<div id="four">
+			<input type="search" name="keyword" class="form-control" placeholder="Search"
+			value="${param.keyword }"/> 
+			</div>	
+		</div>	
+		<div id="totalthree">
+			<div id="five">
+ 			<label id="five-1"><input type="radio" name="order" value='ascend'>오름차순</label>
+			<label id="five-1"><input type="radio" name="order" value='descend'>내림차순</label> 
+			</div>
+			
+			<div id="six">
+			<select name="searchType2" class="form-control" required>
+				<option value=" " disabled selected>선택하세요</option> 
+				<option value="enroll_date" <c:if test="${param.searchType eq 'enroll_date'}">selected</c:if>>날짜</option>
+				<option value="board_id" <c:if test="${param.searchType eq 'board_id'}">selected</c:if>>글번호</option>
+				<option value="hit" ${param.searchType eq 'hit'?"selected":"" }>조회수</option>	
+			</select>
+			</div>
+		</div>
+		<div id="totalfour">	
+			<div id="seven">
+			<label class="radio-inline"><input type="checkbox" name="isclose" value="0" id="checkbox">
+			진행중인 게시글<br></label><br>
+			<label class="radio-inline"><input type="checkbox" name="isclose" value="1" id="checkbox">
+			종료된 게시글</label>
+			</div>
+		</div>	
 			
 			<div id="eight">
 			<input type="submit" value="검색">
 			</div>
 		</form>
-	</div>
+	</div> --%>
 	
 
 	<div class="board_list_wrap">
@@ -292,7 +542,7 @@
 		</div>
 		<c:forEach items="${list }" var="b">
 			<div class="board_list_body">
-			<a href="#">
+			<a href="#" class="alink">
 			<div class="item">
 				<div class="col"><c:out value="${b.boardId }" /></div>
 				<div class="col"><c:out value="${b.writerUsid }" /></div>
@@ -309,8 +559,6 @@
 		</c:forEach>
 	</div>
 	</div>
-
-	
 
 	<div id="pageBar">${pageBar }</div>
 

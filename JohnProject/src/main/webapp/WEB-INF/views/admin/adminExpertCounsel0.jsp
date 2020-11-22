@@ -10,89 +10,248 @@
 	<jsp:param name="title" value=" "/>
 	
 </jsp:include>
-		<style type="text/css">
-ul li {
-	list-style-type: none;
-}
+<style type="text/css">
+@import
+	url('https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@500&display=swap')
+	;
+	
+/*탭*/
 
-.tab-box {
-	/* 	margin: 50px auto 0 auto;
-	width: 520px; */
+.tabs{
+	font-family: 'Noto Sans KR', sans-serif;
 	
 }
 
-.tab-box ul {
-	height: 30px;
+.alinkEx1:visited{
+	color:#003478;
+	
 }
 
-.tab-box li {
-	float: left;
-	width: 100px;
-	height: 30px;
-	line-height: 30px;
-	margin-right: 2px;
-	text-align: center;
-	background-color: #ccc;
-	border-radius: 3px 3px 0 0;
-	cursor: pointer;
+.alinkEx2:visited{
+	color:#ffcc66;
 }
 
-/* .tab-box li.selected {
-	background-color: #ffcc66
-} */
+ul.tabs {
+    margin: 0;
+    padding: 0;
+    float: left;
+    list-style: none;
+    height: 32px;
+    border-bottom: 1px solid #eee;
+    border-left: 1px solid #eee;
+    width: 100%;
+
+}
+ul.tabs li { /*승인탭*/
+    float: left;
+    text-align:center;
+    cursor: pointer;
+    width:82px;
+    height: 31px;
+    line-height: 31px;
+    border: 1px solid #eee;
+    border-left: none;
+    font-weight: bold;
+    background: #fafafa;
+    overflow: hidden;
+    position: relative;
+    margin-top:7%;
+}
+ul.tabs li.active { /*미승인탭*/
+    background:  #f8f8ff ;
+    border-bottom: 1px solid  #f8f8ff  ;
+	border: 3px solid #f8f8ff  ;
+    margin-top:7%;
+}
+.tab_container {
+    border: none;
+    border-top: none;
+    clear: both;
+    float: left;
+    width: 100%;
+    background:  #f8f8ff  ;
+    margin-top:7%;
 
 
-.tab-view {
-	/* 	width: 506px;
-	height: 100px;
-	line-height: 100px;
-	border: 1px solid gray;
+}
+.tab_content {
+    padding: 5px;
+/*     font-size: 12px; */
+    display: none;
+}
+
+tab_content2{
+    padding: 5px;
+/*     font-size: 12px; */
+  display: none;
+}
+.tab_container .tab_content ul {
+    width:100%;
+    margin:0px;
+    padding:0px;
+}
+.tab_container .tab_content ul li {
+    padding:5px;
+    list-style:none;
+}
+
+ #container {
+    width: 249px;
+    margin: 0 auto;
+}
+
+
+
+
+
+/*a링크*/
+a:link {
+	text-decoration: none;
+	color: black;
+}
+
+.alink:visited {
+	text-decoration: none;
+	color: black;
+}
+
+a:active {
+	text-decoration: none;
+	color: black;
+}
+
+a:hover {
+	text-decoration: underline;
+	color: black;
+}
+
+/*표*/
+.board_list_wrap {
+	padding: 60px;
+	font-family: 'Noto Sans KR', sans-serif;
+
+}
+
+.board_list_head, .board_list_body .item {
+	padding: 10px 0;
+	font-size: 0;
+}
+
+.board_list_head {
+	border-top: 3px solid #003478;
+	border-bottom: 2px solid #003478;
+	background-color: #003478;
+	color: #ffcc66;
+	border-radius: 10px;
+}
+
+.board_list_body .item {
+	border-bottom: 2px solid #eeeeee;
+	background-color: white;
+	border-radius: 10px;
+	font-family: 'Noto Sans KR', sans-serif;
+	opacity: 0.7;
+}
+
+.board_list_head>div, .board_list_body .item>div {
+	display: inline-block;
 	text-align: center;
-	margin-top: -1px; */
-	border: 1px solid gray;
+	font-size: 14px; /*본문글자크기*/
+}
+
+.board_list_head>div {
+	font-weight: 600;
+}
+
+.board_list .col {
+	width: 12%; 
+	padding-top: 1%; 
+	padding-bottom: 1%;
+	font-size: 15px; /*헤드글자크기*/
+	/*바꾸지마셈*/
+}
+
+.item:hover {
+	opacity: 2.5;
+	border-bottom: 2px solid #ffcc66;
+}
+
+/*페이지바*/
+.page-item.active .page-link { /*현재피이지*/
+	background-color: #003478;
+	color: white;
+	border: none;
+}
+
+.pagination-sm .page-link { /*한칸한칸크기*/
+	padding: 10px 20px;
+}
+
+.pagination a:hover:not(.active) { /*호버*/
+	background-color: #ffcc66;
 }
 </style>
 	<section id="content">
-		<div class="tab-box">
+		<div class="tabs">
 
-		<ul>
+		<ul class="tabs">
 
-			<li><a href="${path}/admin/adminExpertCounsel0">진행중</a></li>
 
-			<li><a href="${path}/admin/adminExpertCounsel1">종료</a></li>
+			<li class="active" id="tab1"><a href="${path}/admin/adminExpertCounsel0" class="alinkEx2">진행중</a></li>
+
+			<li id="tab2"><a href="${path}/admin/adminExpertCounsel1" class="alinkEx1">종료</a></li>
 
 		</ul>
-	<table id="tbl-board" class="table table-striped table-hover">
-		<tr>
-			<th>전문가번호</th>
-			<th>상담신청유저번호</th>
-			<th>전문가닉네임</th>
-			<th>상담신청유저닉네임</th>
-			<th>상담완료유무</th>
-			<th>상담신청날짜</th>
-			<th>상담신청시간</th>
-			<th>상담요구사항</th>
 		
-		</tr>
+	<div class="tab_container">
+		 <div id="tab2" class="tab_content2">
+			<div class="board_list_wrap">
+				<div class="board_list">
+					<div class="board_list_head">
+					
+			<div class="col">전문가번호</div>
+			<div class="col">상담신청유저번호</div>
+			<div class="col">전문가닉네임</div>
+			<div class="col">상담신청유저닉네임</div>
+			<div class="col">상담완료유무</div>
+			<div class="col">상담신청날짜</div>
+			<div class="col">상담신청시간</div>
+			<div class="col">상담요구사항</div>
+		</div>
+	
+
 		<c:forEach items="${list }" var="ex">
-			<tr>
-				<td><c:out value="${ex.expertRequetExUsid }" /></td>
-				<td><c:out value="${ex.expertRequestMemUsid }" /></td>
-				<td><c:out value="${ex.expertRequetExNick }" /></td>
-				<td><c:out value="${ex.expertRequestMemNick }" /></td>
-				<td><c:out value="${ex.expertIscounsel}"/></td>
-				<td><c:out value="${ex.expertDate}" /></td>
-				<td><c:out value="${ex.expertCounselTime }" /></td>
-				<td><c:out value="${ex.expertCounselRequire }" /></td>
-			</tr>
+			<div class="board_list_body">
+			<div class="item">
+
+				<div class="col"><c:out value="${ex.expertRequetExUsid }" /></div>
+				<div class="col"><c:out value="${ex.expertRequestMemUsid }" /></div>
+				<div class="col"><c:out value="${ex.expertRequetExNick }" /></div>
+				<div class="col"><c:out value="${ex.expertRequestMemNick }" /></div>
+				<div class="col"><c:out value="${ex.expertIscounsel}"/></div>
+				<div class="col"><c:out value="${ex.expertDate}" /></div>
+				<div class="col"><c:out value="${ex.expertCounselTime }" /></div>
+				<div class="col"><c:out value="${ex.expertCounselRequire }" /></div>
+			</div>
+			</div>
+
 		</c:forEach>
-	</table>
+	
 
 
 
-	<div id="pageBar">${pageBar }</div>
-</div>	
+
+	</div>
+			</div>
+</div>
+			<div id="pageBar">${pageBar }</div>
+			
+		</div>
+
+	</div>
 	</section>
 	
 
-	
+	<script>
+	console.log(${pageBar});
+	</script>

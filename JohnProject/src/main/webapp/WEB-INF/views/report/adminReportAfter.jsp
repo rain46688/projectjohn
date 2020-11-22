@@ -25,6 +25,7 @@
 .alinkEx1:visited{
 	color:#003478;
 	
+	
 }
 
 .alinkEx2:visited{
@@ -198,14 +199,14 @@ a:hover {
 		<ul class="tabs">
 
 
-			<li class="active" id="tab1"><a href="${path}/report/adminReport" class="alinkEx1">처리전</a></li>
+			<li id="tab1"><a href="${path}/report/adminReport" class="alinkEx2">처리전</a></li>
 
-			<li id="tab2"><a href="${path}/report/adminReportAfter" class="alinkEx2">처리완료</a></li>
+			<li class="active" id="tab2"><a href="${path}/report/adminReportAfter" class="alinkEx1">처리완료</a></li>
 
 		</ul>
 		
 	<div class="tab_container">
-		 <div id="tab1" class="tab_content2">
+		 <div id="tab2" class="tab_content2">
 			<div class="board_list_wrap">
 				<div class="board_list">
 					<div class="board_list_head">

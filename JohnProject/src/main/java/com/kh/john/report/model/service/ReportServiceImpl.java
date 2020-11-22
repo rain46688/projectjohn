@@ -51,6 +51,16 @@ public class ReportServiceImpl implements ReportService {
 	public int selectReportCount() {
 		return dao.selectReportCount(session);
 	}
+	
+	@Override
+	public List<Report> selectReportListAfter(int cPage, int numPerPage) {
+		return dao.selectReportListAfter(session, cPage, numPerPage);
+	}
+
+	@Override
+	public int selectReportCountAfter() {
+		return dao.selectReportCountAfter(session);
+	}
 
 	@Override
 	public Report selectOneReport(int report_id) {

@@ -130,6 +130,8 @@ public class AdminDaoImpl implements AdminDao {
 	@Override
 	public List<ExpertRequest> selectAdminExpertCounsel(SqlSessionTemplate session,int cPage,
 			int numPerPage) {
+		System.out.println("dao numperpage"+numPerPage);
+
 		return session.selectList("admin.selectAdminExpertCounsel",new RowBounds((cPage-1)*numPerPage, numPerPage));
 	}
 	
@@ -142,6 +144,11 @@ public class AdminDaoImpl implements AdminDao {
 	@Override
 	public int selectAdminExpertCounselCount(SqlSession session) {
 		return session.selectOne("admin.selectAdminExpertCounselCount");
+	}
+	
+	@Override
+	public int selectAdminExpertCounselCount2(SqlSession session) {
+		return session.selectOne("admin.selectAdminExpertCounselCount2");
 	}
 
 	//공지관련

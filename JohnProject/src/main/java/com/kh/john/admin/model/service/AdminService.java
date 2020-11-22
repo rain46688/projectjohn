@@ -57,10 +57,12 @@ public interface AdminService {
 	int updateMemberToExpertEnd(Member m);
 	
 	List<ExpertRequest> selectAdminExpertCounsel(int cPage, int numPerPage);
-	
+
 	List<ExpertRequest> selectAdminExpertCounsel2(int cPage, int numPerPage);
 
 	int selectAdminExpertCounselCount();
+	
+	int selectAdminExpertCounselCount2();
 	
 	//공지관련
 	List<Notice> selectNoticeList(int cPage, int numPerPage);
