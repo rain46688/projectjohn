@@ -10,89 +10,379 @@
 	<jsp:param name="title" value=" "/>
 	
 </jsp:include>
-	
-	<section id="content">
-	      	
-	<div id="search-container">
-		<form action="${path }/admin/adminMemberSearch" method="post">
-		
-			<select name="searchType" required>
-				<option value=" " disabled selected>검색타입</option> 
-				
-				<option value="mem_name" <c:if test="${param.searchType eq 'mem_name'}">selected</c:if>>이름</option>
-				<option value="mem_email" <c:if test="${param.searchType eq 'mem_email'}">selected</c:if>>이메일</option>
-				<option value="mem_nickname" ${param.searchType eq 'mem_nickname'?"selected":"" }>닉네임</option>	
-										
-			</select>
-			
-			<input type="search" name="keyword"
-			value="${param.keyword }"/> 
-			
-			<br>
-			
-			<label>성별</label>
-			<label><input type="radio" name="gender" value='M'>남</label>
-			<label><input type="radio" name="gender" value='F'>여</label>
-			
-			<br>
-			
-			<input type="checkbox" name="leaveMem" value="0">현재 회원
-			<input type="checkbox" name="leaveMem" value="1">탈퇴한 회원
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@500&display=swap');
 
-			<br>
+
+  a:link { text-decoration: none; color: black;} 
+ .alink:visited { text-decoration: none; color: black;}
+  a:active { text-decoration: none; color: black;}
+  a:hover {text-decoration:underline; color: black;}
+
+
+.board_list_wrap {
+    padding: 85px;
+    font-family: 'Noto Sans KR', sans-serif;
+    
+ 	
+}
+
+.board_list_head,
+.board_list_body .item {
+    padding: 10px 0;
+    font-size: 0;
+}
+
+.board_list_head {
+    border-top: 3px solid #003478;
+    border-bottom: 2px solid #003478;
+    background-color:#003478;
+    color:#ffcc66;
+    border-radius:10px;
+    font-family: 'Noto Sans KR', sans-serif;
+}
+
+.board_list_body .item {
+    border-bottom: 2px solid #eeeeee;
+    background-color:white;
+    border-radius:10px;
+    font-family: 'Noto Sans KR', sans-serif;
+    opacity: 0.7;
+}
+
+.board_list_head > div,
+.board_list_body .item > div {
+    display: inline-block;
+    text-align: center;
+    font-size: 15px; /*본문글자크기*/
+}
+
+.board_list_head > div {
+    font-weight: 600;
+}
+
+.board_list .col {
+    width: 7.7%; 
+    padding-top:1%;
+    padding-bottom:1%;
+    font-size:16px; /*헤드글자크기*/
+    /*바꾸지마셈*/
+    
+   
+}
+
+.item:hover { 
+	opacity: 2.5; 
+	border-bottom: 2px solid #ffcc66;
+}
+
+.colE {
+    width: 14.3%; 
+    padding-top:1%;
+    padding-bottom:1%;
+    font-size:15px; /*헤드글자크기*/
+    /*바꾸지마셈*/
+     
+}
+
+/*써치컨체이너*/
+#three,#four,#five,#eight{
+	width: 40%;
+    margin: 1em auto;
+    display: inline-block; 
+    color:white;
+    font-family: 'Noto Sans KR', sans-serif;
+    margin-right:10px;
+}
+
+#three>.form-control{
+	width:100%;
+
+}
+
+#four>.form-control{
+	width:100%;
+	height:100%;
+	color:black;
+	float:left;
+	margin-top:-3%; /*이유모름 그냥 안맞아서*/
+}
+
+#five>.form-control{
+	width:100%;
+	margin-top:10%;
+}
+
+#eight{
+
+	float:left;
+	width:100%;
+		
+}
+
+
+#checkbox{
+	width:20%;
+
+}
+.radio-inline{
+	height:100%;
+	width:100%;	
+}
+
+
+#search-container{
+	display:flex; 
+	justify-content:center;
+	background-color:white;
+	margin-top:3%;
+	margin-bottom:3%;
+	border-radius:20px;
+	width: 90%; 
+	text-align: center;
+ 	margin-left:4.5%; 
+	background-color:#003478;
+	padding: 50px;
+/* 	background-image: url("${path}/resources/images/admin/logo.png"); 
+ */	
+}
+
+#myForm{
+	display: table;
+    width: 100%;
+    height: 100%;
+    margin: 0 auto;
+/* 	margin-top:-21%;
+	margin-left:-6%; */
+	background-color:#003478;
+	border-radius:20px;
+
+}
+
+
+#searchImg{
+
+    color: #f0f2fc;
+  
+    /*이미지커지는거*/
+    transform:scale(1); transition:transform 0.3s linear;
+}
+
+#searchImg:hover,
+#searchImg:focus {
+    background-color: #f0f2fc;
+    border-color: #f0f2fc;
+    color: black; 
+    
+    -webkit-transform:scale(1.3);
+
+}
+    
+#searchImgBtn{
+    height:20px; 
+    width:100px; 
+    margin: -20px -50px; 
+    position:relative; 
+    top:3%;
+    left:50%; 
+
+}
+    
+#bbtn{
+	border-color: #ffcc66;
+    color: white; 
+    background-color: #003478;
+
+}
+
+#bbtn:hover,
+#bbtn:focus {
+    background-color: #ffcc66;
+    border-color: #003478;
+    color: #003478; 
+
+}
+
+/*셀렉트박스*/
+
+select::-ms-expand { display: none; }
+
+select { 
+width: 200px; /* 원하는 너비설정 */ 
+padding: .8em .5em; /* 여백으로 높이 설정 */ 
+font-family: inherit; /* 폰트 상속 */ 
+background: url(https://farm1.staticflickr.com/379/19928272501_4ef877c265_t.jpg) no-repeat 95% 50%;/* 네이티브 화살표 대체 */ 
+border: 1px solid #999; border-radius: 0px; /* iOS 둥근모서리 제거 */ 
+-webkit-appearance: none; /* 네이티브 외형 감추기 */ 
+-moz-appearance: none; 
+appearance: none; 
+
+}
+
+
+/*모달전체*/
+.modal-content{
+	 background-color:#ffcc66;
+	 font-family: 'Noto Sans KR', sans-serif;
+	 
+}
+/*페이지바*/
+
+.page-item.active .page-link { /*현재피이지*/
+  background-color: #003478;
+  color: white;
+  border:none;
+}
+
+.pagination-sm .page-link { /*한칸한칸크기*/
+	padding:10px 20px ;
+}
+
+.pagination a:hover:not(.active) { /*호버*/
+	background-color: #ffcc66;
+}
+
+
+</style>
+
+<section id="content">
+
+<button class="btn btn-default my-2 my-sm-0"
+						type="button" data-toggle="modal" data-target="#loginModal" id="searchImgBtn">
+						<img src="${path}/resources/images/admin/search.png" width="50px" 
+						height="50px" id="searchImg"></button>
+
+	<div class="modal fade" id="loginModal" tabindex="-1" role="dialog"
+						aria-labelledby="exampleModalLabel" aria-hidden="true">
+							<div class="modal-dialog modal-lg" role="document">
+								<div class="modal-content">
+									<div class="modal-header">
+										<h5 class="modal-title" id="exampleModalLabel">회원관리</h5>
+										<button type="button" class="close"
+											data-dismiss="modal" aria-label="Close">
+												<span aria-hidden="true">&times;</span>
+										</button>
+									</div>
+		<div id="search-container">
+		<form id="myForm" action="${path }/admin/adminMemberSearch" method="post">
 			
-			<input type="checkbox" name="memClass" value="일반유저">일반유저
-			<input type="checkbox" name="memClass" value="전문가">전문가
-						
-			<input type="submit" value="검색">
+			<div id="totalone">
+			
+			<div id="three">
+			<select name="searchType" class="form-control" required>
+				<option value=" " disabled selected>검색타입</option>
+
+				<option value="mem_name"
+					<c:if test="${param.searchType eq 'mem_name'}">selected</c:if>>이름</option>
+				<option value="mem_email"
+					<c:if test="${param.searchType eq 'mem_email'}">selected</c:if>>이메일</option>
+				<option value="mem_nickname"
+					${param.searchType eq 'mem_nickname'?"selected":"" }>닉네임</option>
+			</select> 
+			</div>
+			
+			<div id="four">
+			<input type="search" name="keyword" value="${param.keyword }" placeholder="Search" class="form-control"/> <br>
+			</div>
+
+			<div id="five">
+			
+			<label><input type="radio" name="gender"
+				value='M'>남</label> &nbsp;&nbsp;&nbsp;&nbsp;
+				
+				<label><input type="radio" name="gender"
+				value='F'>여</label> <br> 
+				
+				<label>
+				<input type="checkbox" name="leaveMem"
+				value="0">현재 회원 
+				</label>&nbsp;&nbsp;&nbsp;&nbsp;
+				
+				<label>
+				<input type="checkbox" name="leaveMem"
+				value="1">탈퇴한 회원 <br> 
+				</label>
+				
+				<br>
+				
+				<label>
+				<input type="checkbox"
+				name="memClass" value="일반유저">일반유저 
+				</label>&nbsp;&nbsp;&nbsp;&nbsp;
+				
+				<label>
+				<input type="checkbox"
+				name="memClass" value="전문가">전문가 
+				</label>
+			</div>
+			
+			<div id="eight">			
+			<button type="submit" class="btn btn-default" id="bbtn">검색</button>
+			<button type="button" class="btn btn-default"
+											data-dismiss="modal" id="bbtn">
+											취소</button>
+			</div>	
+			
+			</div>
+			
 		</form>
 	</div>
+								</div>						
+							</div>
+						</div>
+
 	
 	
-	<table class="table">
-			<tr>
-				<th scope="col">번호</th>
-				<th scope="col">이메일</th>
-				<th scope="col">이름</th>
-				<th scope="col">닉네임</th>
-				<th scope="col">성별</th>
-				<th scope="col">생일</th>
-				<th scope="col">가입날짜</th>
-				<th scope="col">포인트</th>
-				<th scope="col">탈퇴여부</th>
-				<th scope="col">구분</th>
-				<th scope="col">전화번호</th>
-			</tr>
+<div class="board_list_wrap">
+			<div class="board_list">
+				<div class="board_list_head">
+				<div class="col">번호</div>
+				<div class="col">이메일</div>
+				<div class="col">이름</div>
+				<div class="col">닉네임</div>
+				<div class="col">성별</div>
+				<div class="col">생일</div>
+				<div class="col">가입날짜</div>
+				<div class="col">포인트</div>
+				<div class="col">탈퇴여부</div>
+				<div class="col">구분</div>
+				<div class="col">전화번호</div>
+			</div>
 			<c:if test="${empty list}">
-			<tr>
-				<td colspan="11">조회 결과가 없습니다.</td>
-			</tr>
+			
+				<div class="col">조회 결과가 없습니다.</div>
+			
 		</c:if>
 		<c:if test="${not empty list }">
 			<c:forEach var="m" items="${list }">
-				<tr>
-					<td><c:out value="${m['usid']}"/></td>
-					<td><c:out value="${m['memEmail']}"/></td>
-					<td><c:out value="${m['memName']}"/></td>
-					<td><c:out value="${m['memNickname']}"/></td>
-					<td><c:out value="${m['gender'] eq 'M' ? 'M' : 'F' }"/></td>
-					<td><c:out value="${m['birthday']}"/></td>
-					<td><c:out value="${m['enrollDate']}"/></td>
-					<td><c:out value="${m['point']}"/></td>
-					<td><c:out value="${m['leaveMem']}"/></td>
-					<td><c:out value="${m['memClass']}"/></td>
-					<%-- <td><c:out value="${m['tel']}"/></td> --%>
-				</tr>
+				<div class="board_list_body">
+						<a href="javascript:deleteMember(${m.usid});">
+						<div class="item">
+					<div class="col"><c:out value="${m['usid']}"/></div>
+					<div class="col"><c:out value="${m['memEmail']}"/></div>
+					<div class="col"><c:out value="${m['memName']}"/></div>
+					<div class="col"><c:out value="${m['memNickname']}"/></div>
+					<div class="col"><c:out value="${m['gender'] eq 'M' ? 'M' : 'F' }"/></div>
+					<div class="col"><c:out value="${m['birthday']}"/></div>
+					<div class="col"><c:out value="${m['enrollDate']}"/></div>
+					<div class="col"><c:out value="${m['point']}"/></div>
+					<div class="col"><c:out value="${m['leaveMem']}"/></div>
+					<div class="col"><c:out value="${m['memClass']}"/></div>
+					<%-- <div class="col"><c:out value="${m['tel']}"/></div> --%>
+				</div>
+						</a>
+					</div>
 			</c:forEach>
 		</c:if>
-		
-		</table>
-		
-		     <div id="pageBar">
-		        ${pageBar } 
-		      </div>
-		       
 	
-	</section>
+		</div>
+		</div>
+
+
+		<div id="pageBar" class="paging">${pageBar }</div>
+
+
+
+</section>
 	
 

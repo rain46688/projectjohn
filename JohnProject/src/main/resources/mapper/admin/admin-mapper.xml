@@ -270,7 +270,11 @@
 	</select>
 	
 	<select id="selectAdminExpertCounselCount" resultType="_int">
-		SELECT COUNT(*) FROM EXPERT_REQUEST
+		SELECT COUNT(*) FROM EXPERT_REQUEST WHERE EXPERT_ISCOUNSEL=0
+	</select> 
+	
+	<select id="selectAdminExpertCounselCount2" resultType="_int">
+		SELECT COUNT(*) FROM EXPERT_REQUEST WHERE EXPERT_ISCOUNSEL=1
 	</select> 
 	
 	<!-- 공지관련 -->

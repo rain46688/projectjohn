@@ -139,6 +139,8 @@ public class AdminServiceImpl implements AdminService{
 	
 	@Override
 	public List<ExpertRequest> selectAdminExpertCounsel(int cPage, int numPerPage) {
+		System.out.println("서비스 numperpage"+numPerPage);
+
 		return dao.selectAdminExpertCounsel(session, cPage, numPerPage);
 	}
 	
@@ -150,6 +152,11 @@ public class AdminServiceImpl implements AdminService{
 	@Override
 	public int selectAdminExpertCounselCount() {
 		return dao.selectAdminExpertCounselCount(session);
+	}
+	
+	@Override
+	public int selectAdminExpertCounselCount2() {
+		return dao.selectAdminExpertCounselCount2(session);
 	}
 
 	//공지관련
