@@ -84,7 +84,6 @@
 
                 <!--폼 오른쪽 로그인폼-->
                 <div id="form_right">
-                    
                     <form id="loginForm" action="${path}/memberLoginEnd" method="POST">
                         <div class="input_container">
                             <!-- <i class="fas fa-envelope"></i> -->
@@ -94,7 +93,9 @@
                             <!-- <i class="fas fa-lock"></i> -->
                             <input  placeholder="Password" type="password" name="memPwd" id="memPwd" class="input_field">
                         </div>
-
+                        <div id="saveIdContainer">
+                            <input type="checkbox" id="saveId" name="saveId">&nbsp;아이디 저장
+                        </div>
                         <button type="button" id="input_submit" class="input_field" onclick="fn_login()">Login</button>
                     </form>
 
@@ -117,6 +118,61 @@
     
         </div>
         <script>
+            //아이디 저장
+            $(document).ready(function(){
+                //쿠키에 저장된 아이디를 불러와서 넣기
+                var savedId=getCookie("savedId");
+                if(savedId!=null){
+                    $("#mem_email").val(savedId);
+                }
+                
+                if($("#mem_email").val()!=""){
+                    $("#saveId").attr("checked",true);
+                }
+
+                $("#saveId").change(function(){
+                    if($("#saveId").is(":checked")){
+                        setCookie("savedId",$("#mem_email").val(),7);
+                    }else{
+                        deleteCookie("savedId");
+                    }
+                });
+
+                $("#mem_email").keyup(function(){
+                    if($("#saveId").is(":checked")){
+                        setCookie("savedId",$("#mem_email").val(),7);
+                    }
+                })
+            });
+
+            //쿠키 관련 세팅들
+            function setCookie(cookieName, value, exdays){
+                var exdate = new Date();
+                exdate.setDate(exdate.getDate() + exdays);
+                var cookieValue = escape(value) + ((exdays==null) ? "" : "; expires=" + exdate.toGMTString());
+                document.cookie = cookieName + "=" + cookieValue;
+            }
+            
+            function deleteCookie(cookieName){
+                var expireDate = new Date();
+                expireDate.setDate(expireDate.getDate() - 1);
+                document.cookie = cookieName + "= " + "; expires=" + expireDate.toGMTString();
+            }
+            
+            function getCookie(cookieName) {
+                cookieName = cookieName + '=';
+                var cookieData = document.cookie;
+                var start = cookieData.indexOf(cookieName);
+                var cookieValue = '';
+                if(start != -1){
+                    start += cookieName.length;
+                    var end = cookieData.indexOf(';', start);
+                    if(end == -1)end = cookieData.length;
+                    cookieValue = cookieData.substring(start, end);
+                }
+                return unescape(cookieValue);
+            }
+
             //로그인 버튼 클릭시
             function fn_login(){
                 $("#loginForm").submit();

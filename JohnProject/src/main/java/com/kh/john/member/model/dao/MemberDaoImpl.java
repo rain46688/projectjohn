@@ -10,6 +10,7 @@ import org.springframework.stereotype.Repository;
 
 import com.kh.john.board.model.vo.Board;
 import com.kh.john.exboard.model.vo.ExpertBoard;
+import com.kh.john.exboard.model.vo.ExpertRequest;
 import com.kh.john.member.model.vo.License;
 import com.kh.john.member.model.vo.LikeDislike;
 import com.kh.john.member.model.vo.Member;
@@ -169,7 +170,6 @@ public class MemberDaoImpl implements MemberDao {
 		return session.selectList("member.secondUsid",usid);
 	}
 
-
 	@Override
 	public MemberMessage loadLatestMessage(SqlSessionTemplate session, HashMap<String, Integer> usidMap) {
 		return session.selectOne("member.loadLatestMessage", usidMap);
@@ -198,6 +198,26 @@ public class MemberDaoImpl implements MemberDao {
 	@Override
 	public List<Integer> secondUsidList(SqlSessionTemplate session, int myUsid) {
 		return session.selectList("member.secondUsidList",myUsid);
+	}
+
+	@Override
+	public List<ExpertBoard> expertCounselingHistory(SqlSessionTemplate session, int cPage, int numPerPage, int usid) {
+		return session.selectList("member.expertCounselingHistory", usid, new RowBounds((cPage-1)*numPerPage,numPerPage));
+	}
+
+	@Override
+	public int expertCounselingHistoryCount(SqlSessionTemplate session, int usid) {
+		return session.selectOne("member.expertCounselingHistoryCount",usid);
+	}
+
+	@Override
+	public List<ExpertRequest> counselingRequest(SqlSessionTemplate session, int cPage, int numPerPage, int usid) {
+		return session.selectList("member.counselingRequest", usid, new RowBounds((cPage-1)*numPerPage,numPerPage));
+	}
+
+	@Override
+	public int requestListCount(SqlSessionTemplate session, int usid) {
+		return session.selectOne("member.requestListCount",usid);
 	}
 
 

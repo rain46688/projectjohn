@@ -86,13 +86,27 @@
 			회원정보 수정하기
 			<button type="button" onclick="location.href='${path}/member/myPage/updateMemberInfo?usid=${loginMember.usid}'">이동하기</button>
 		</div>
+		<c:if test="${loginMember.getMemClass() eq '전문가'}">
+			<div>
+				전문가 정보 수정하기
+				<button type="button">이동하기</button>
+			</div>
+			<div>
+				상담한 내역
+				<button type="button" onclick="location.href='${path}/member/expertPage/counselingHistory?usid=${loginMember.usid}'">이동하기</button>
+			</div>
+		</c:if>
 		<div>
 			나의 게시물 내역
 			<button type="button" onclick="location.href='${path}/member/myPage/myBoard?usid=${loginMember.usid}'">이동하기</button>
 		</div>
 		<div>
+			상담 신청 내역
+			<button type="button" onclick="location.href='${path}/member/myPage/counselingRequest?usid=${loginMember.usid}'">이동하기</button>
+		</div>
+		<div>
 			전문가 상담 내역
-			<button type="button" onclick="location.href='${path}/member/myPage/expertCounsel?usid=${loginMember.usid}'">이동하기</button>
+			<button type="button" onclick="location.href='${path}/member/myPage/counselingHistory?usid=${loginMember.usid}'">이동하기</button>
 		</div>
 		<div>
 			좋아요 한 게시물

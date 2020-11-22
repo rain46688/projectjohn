@@ -6,6 +6,7 @@ import java.util.Map;
 
 import com.kh.john.board.model.vo.Board;
 import com.kh.john.exboard.model.vo.ExpertBoard;
+import com.kh.john.exboard.model.vo.ExpertRequest;
 import com.kh.john.member.model.vo.License;
 import com.kh.john.member.model.vo.LikeDislike;
 import com.kh.john.member.model.vo.Member;
@@ -111,6 +112,18 @@ public interface MemberService {
 
 	//전체 채팅 내역 가져오기
 	List<MemberChat> loadAllChatList();
+
+	//전문가가 상담한 내역
+	List<ExpertBoard> expertCounselingHistory(int cPage, int numPerPage, int usid);
+
+	//전문가가 상담한 내역 개수
+	int expertCounselingHistoryCount(int usid);
+
+	//상담 신청 내역
+	List<ExpertRequest> counselingRequest(int cPage, int numPerPage, int usid);
+
+	//의 개순
+	int requestListCount(int usid);
 
 
 	
