@@ -38,6 +38,7 @@ import com.kh.john.board.model.service.BoardService;
 import com.kh.john.board.model.vo.Board;
 import com.kh.john.board.model.vo.Subscribe;
 import com.kh.john.exboard.model.vo.ExpertBoard;
+import com.kh.john.exboard.model.vo.ExpertRequest;
 import com.kh.john.member.model.service.MemberService;
 import com.kh.john.member.model.vo.License;
 import com.kh.john.member.model.vo.Member;
@@ -68,17 +69,25 @@ public class MemberController {
 
 //	메인 페이지로 가기
 	@RequestMapping("/")
-	public ModelAndView mainPage() {
-		log.debug("mainPage 실행");
-		ModelAndView mv = new ModelAndView("index");
-		mv.addObject("list", service.selectMember());
-		return mv;
+	public ModelAndView mainPage(@SessionAttribute(value="loginMember", required = false ) Member loginMember) {
+		ModelAndView mv=new ModelAndView();
+		if(loginMember!=null) {
+			mv.setViewName("redirect:/board/boardList");
+		}else {
+			mv = new ModelAndView("index");
+			mv.addObject("list", service.selectMember());
+		}
+		return mv;			
 	}
 
 //	로그인 페이지로 가기
 	@RequestMapping("/memberLogin")
-	public String enterPage() {
-		return "member/memberLogin";
+	public String enterPage(@SessionAttribute(value="loginMember", required = false ) Member loginMember) {
+		if(loginMember!=null) {
+			return "redirect:/board/boardList";
+		}else{
+			return "member/memberLogin";
+		}
 	}
 
 //	아이디 찾기
@@ -212,7 +221,7 @@ public class MemberController {
 			status.setComplete();
 		}
 
-		return "redirect:/";
+		return "redirect:/memberLogin";
 	}
 
 //	회원가입 페이지로 가기
@@ -662,7 +671,7 @@ public class MemberController {
 	}
 	
 //	전문가 상담내역 페이지로
-	@RequestMapping("/member/myPage/expertCounsel")
+	@RequestMapping("/member/myPage/counselingHistory")
 	public ModelAndView expertCounsel(ModelAndView mv,@SessionAttribute("loginMember") Member loginMember,
 			@RequestParam(value ="cPage", required = false, defaultValue = "1") int cPage,
 			@RequestParam(value ="numPerPage", required = false, defaultValue = "10") int numPerPage) {
@@ -671,10 +680,10 @@ public class MemberController {
 		List<ExpertBoard> expertBoardList=service.expertBoardList(cPage,numPerPage,usid);
 		int totalData=service.expertBoardCount(usid);
 		
-		mv.addObject("pageBar",myPagePageBar.getPageBar(totalData, cPage, numPerPage, "expertCounsel", loginMember.getUsid()));
+		mv.addObject("pageBar",myPagePageBar.getPageBar(totalData, cPage, numPerPage, "counselingHistory", loginMember.getUsid()));
 		mv.addObject("totalData", totalData);
 		mv.addObject("expertBoardList", expertBoardList);
-		mv.setViewName("member/expertCounsel");
+		mv.setViewName("member/counselingHistory");
 		return mv;
 	}
 	
@@ -682,46 +691,6 @@ public class MemberController {
 	@RequestMapping("/member/myPage/messageList")
 	public ModelAndView messageList(ModelAndView mv,@SessionAttribute("loginMember") Member loginMember) {
 		int myUsid=loginMember.getUsid();
-//
-//		List<Integer> usidList=new ArrayList<Integer>();//전체 상대방 usid
-//		List<Integer> firstUsid=new ArrayList<Integer>();//발신 상대방 usid
-//		List<Integer> secondUsid=new ArrayList<Integer>();//수신 상대방 usid
-//		
-//		firstUsid=service.firstUsid(myUsid);
-//		for(int i=0; i<firstUsid.size(); i++) {
-//			usidList.add(firstUsid.get(i));
-//		}
-//		secondUsid=service.secondUsid(myUsid);
-//		for(int i=0; i<secondUsid.size(); i++) {
-//			if(!usidList.contains(secondUsid.get(i))) {
-//				usidList.add(secondUsid.get(i));
-//			}
-//		}
-//		System.out.println("usidList"+usidList);
-//		
-//		List<MemberMessage> otherInfo=new ArrayList<MemberMessage>();//mM들어갈 리스트
-//		
-//		for(int i=0; i<usidList.size(); i++) {
-//			MemberMessage mM=new MemberMessage();
-//			Member member=new Member();
-//			HashMap<String, Integer> usidMap=new HashMap<>();//내 usid, 상대 usid 저장용
-//	
-//			int otherUsid=usidList.get(i);
-//			mM.setOtherUsid(otherUsid);
-//			
-//			member.setUsid(otherUsid);
-//			member=service.selectMemberByUsid(member);
-//			mM.setOtherProfilePic(member.getProfilePic());
-//			mM.setOtherNick(member.getMemNickname());
-//			
-//			usidMap.put("myUsid", myUsid);
-//			usidMap.put("otherUsid", otherUsid);
-//			MemberMessage mM2=service.loadLatestMessage(usidMap);
-//			mM.setLatestMessage(mM2.getLatestMessage());
-//			mM.setLatestDate(mM2.getLatestDate());
-//			otherInfo.add(mM);
-//		}
-//		mv.addObject("otherInfo",otherInfo);
 		mv.setViewName("member/messageList");
 		return mv;
 	}
@@ -756,5 +725,37 @@ public class MemberController {
 		selectedMember=service.nickDuplicate(selectedMember);
 		response.setContentType("application/json;charset=UTF-8");
 		new Gson().toJson(selectedMember,response.getWriter());
+	}
+	
+//	전문가가 상담한 내역
+	@RequestMapping("/member/expertPage/counselingHistory")
+	public ModelAndView expertHistory(ModelAndView mv,@SessionAttribute("loginMember") Member loginMember,
+			@RequestParam(value ="cPage", required = false, defaultValue = "1") int cPage,
+			@RequestParam(value ="numPerPage", required = false, defaultValue = "10") int numPerPage) {
+		int usid=loginMember.getUsid();
+		List<ExpertBoard> expertBoardList=service.expertCounselingHistory(cPage,numPerPage,usid);
+		int totalData=service.expertCounselingHistoryCount(usid);
+		
+		mv.addObject("pageBar",myPagePageBar.getPageBar(totalData, cPage, numPerPage, "expertHistory", loginMember.getUsid()));
+		mv.addObject("totalData", totalData);
+		mv.addObject("expertBoardList", expertBoardList);
+		mv.setViewName("member/expertHistory");
+		return mv;
+	}
+	
+//	상담 신청 내역
+	@RequestMapping("/member/myPage/counselingRequest")
+	public ModelAndView counselingRequest(ModelAndView mv,@SessionAttribute("loginMember") Member loginMember,
+			@RequestParam(value ="cPage", required = false, defaultValue = "1") int cPage,
+			@RequestParam(value ="numPerPage", required = false, defaultValue = "10") int numPerPage) {
+		int usid=loginMember.getUsid();
+		List<ExpertRequest> requestList=service.counselingRequest(cPage,numPerPage,usid);
+		int totalData=service.requestListCount(usid);
+		
+		mv.addObject("pageBar",myPagePageBar.getPageBar(totalData, cPage, numPerPage, "expertHistory", loginMember.getUsid()));
+		mv.addObject("totalData", totalData);
+		mv.addObject("requestList", requestList);
+		mv.setViewName("member/counselingRequest");
+		return mv;
 	}
 }

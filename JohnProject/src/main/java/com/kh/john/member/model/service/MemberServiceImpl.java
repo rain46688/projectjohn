@@ -15,6 +15,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.kh.john.board.model.vo.Board;
 import com.kh.john.exboard.model.vo.ExpertBoard;
+import com.kh.john.exboard.model.vo.ExpertRequest;
 import com.kh.john.member.controller.MailHandler;
 import com.kh.john.member.controller.UuidGenerator;
 import com.kh.john.member.model.dao.MemberDao;
@@ -243,6 +244,26 @@ public class MemberServiceImpl implements MemberService {
 	@Override
 	public List<MemberChat> loadAllChatList() {
 		return dao.loadAllChatList(session);
+	}
+
+	@Override
+	public List<ExpertBoard> expertCounselingHistory(int cPage, int numPerPage, int usid) {
+		return dao.expertCounselingHistory(session, cPage, numPerPage, usid);
+	}
+
+	@Override
+	public int expertCounselingHistoryCount(int usid) {
+		return dao.expertCounselingHistoryCount(session,usid);
+	}
+
+	@Override
+	public List<ExpertRequest> counselingRequest(int cPage, int numPerPage, int usid) {
+		return dao.counselingRequest(session, cPage, numPerPage, usid);
+	}
+
+	@Override
+	public int requestListCount(int usid) {
+		return dao.requestListCount(session, usid);
 	}
 
 

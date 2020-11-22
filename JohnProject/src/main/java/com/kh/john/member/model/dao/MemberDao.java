@@ -8,6 +8,7 @@ import org.mybatis.spring.SqlSessionTemplate;
 
 import com.kh.john.board.model.vo.Board;
 import com.kh.john.exboard.model.vo.ExpertBoard;
+import com.kh.john.exboard.model.vo.ExpertRequest;
 import com.kh.john.member.model.vo.License;
 import com.kh.john.member.model.vo.LikeDislike;
 import com.kh.john.member.model.vo.Member;
@@ -86,6 +87,14 @@ public interface MemberDao {
 	List<Integer> firstUsidList(SqlSessionTemplate session, int myUsid);
 
 	List<Integer> secondUsidList(SqlSessionTemplate session, int myUsid);
+
+	List<ExpertBoard> expertCounselingHistory(SqlSessionTemplate session, int cPage, int numPerPage, int usid);
+
+	int expertCounselingHistoryCount(SqlSessionTemplate session, int usid);
+
+	List<ExpertRequest> counselingRequest(SqlSessionTemplate session, int cPage, int numPerPage, int usid);
+
+	int requestListCount(SqlSessionTemplate session, int usid);
 
 
 

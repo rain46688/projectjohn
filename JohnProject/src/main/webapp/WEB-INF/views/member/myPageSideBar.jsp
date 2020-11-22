@@ -65,14 +65,25 @@
 		<div class="menuLink nav-link">
 			<a href="${path}/member/myPage/updateMemberInfo?usid=${loginMember.usid}">회원정보 수정하기</a>
 		</div>
+		<c:if test="${loginMember.getMemClass() eq '전문가'}">
+			<div class="menuLink nav-link">
+				<a href="#">민수의 무언가가 들어갈 곳(전문가 info)</a>
+			</div>
+			<div class="menuLink nav-link">
+				<a href="${path}/member/expertPage/counselingHistory?usid=${loginMember.usid}">상담한 내역</a>
+			</div>
+		</c:if>
 		<div class="menuLink nav-link">
 			<a href="${path}/member/myPage/myBoard?usid=${loginMember.usid}">나의 게시물 내역</a>
 		</div>
 		<div class="menuLink nav-link">
-			<a href="${path}/member/myPage/expertCounsel?usid=${loginMember.usid}">전문가 상담 내역</a>
+			<a href="${path}/member/myPage/liked?usid=${loginMember.usid}">좋아요 한 게시물</a>
 		</div>
 		<div class="menuLink nav-link">
-			<a href="${path}/member/myPage/liked?usid=${loginMember.usid}">좋아요 한 게시물</a>
+			<a href="${path}/member/myPage/counselingRequest?usid=${loginMember.usid}">상담 신청 내역</a>
+		</div>
+		<div class="menuLink nav-link">
+			<a href="${path}/member/myPage/counselingHistory?usid=${loginMember.usid}">전문가 상담 내역</a>
 		</div>
 		<div class="menuLink nav-link">
 			<a href="${path}/member/myPage/myReport?usid=${loginMember.usid}">내 신고 내역</a>
