@@ -375,8 +375,8 @@ public class AdminController {
 		List<ExpertRequest> list = service.selectAdminExpertCounsel(cPage,numPerPage);
 		int totalData = service.selectAdminExpertCounselCount();
 		
-		mv.addObject("pageBar", PageBarFactory.getPageBar(totalData, cPage, numPerPage, "adminExpert"));
-
+		mv.addObject("pageBar", PageBarFactory.getPageBar(totalData, cPage, numPerPage, "adminExpertCounsel0"));
+		System.out.println("컨트롤러 numperpage"+numPerPage);
 		mv.addObject("totalData", totalData);
 		
 		mv.addObject("list", list);
@@ -391,9 +391,9 @@ public class AdminController {
 			@RequestParam(value = "numPerPage", required = false, defaultValue = "5") int numPerPage) {
 		
 		List<ExpertRequest> list = service.selectAdminExpertCounsel2(cPage,numPerPage);
-		int totalData = service.selectAdminExpertCounselCount();
+		int totalData = service.selectAdminExpertCounselCount2();
 		
-		mv.addObject("pageBar", PageBarFactory.getPageBar(totalData, cPage, numPerPage, "adminExpert"));
+		mv.addObject("pageBar", PageBarFactory.getPageBar(totalData, cPage, numPerPage, "adminExpertCounsel1"));
 
 		mv.addObject("totalData", totalData);
 		

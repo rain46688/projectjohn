@@ -52,11 +52,19 @@
 	
 	<!-- admin -->
 	<select id="selectReportList" resultMap="reportMap">
-		SELECT * FROM REPORT
+		SELECT * FROM REPORT WHERE REPORT_ISCHECK=0
 	</select>
 	
 	<select id="selectReportCount" resultType="_int">
-		SELECT COUNT(*) FROM REPORT
+		SELECT COUNT(*) FROM REPORT WHERE REPORT_ISCHECK=0
+	</select>
+	
+	<select id="selectReportListAfter" resultMap="reportMap">
+		SELECT * FROM REPORT WHERE REPORT_ISCHECK=1
+	</select>
+	
+	<select id="selectReportCountAfter" resultType="_int">
+		SELECT COUNT(*) FROM REPORT WHERE REPORT_ISCHECK=1
 	</select>
 	
 	<select id="selectOneReport" parameterType="_int" resultType="report" resultMap="reportMap">

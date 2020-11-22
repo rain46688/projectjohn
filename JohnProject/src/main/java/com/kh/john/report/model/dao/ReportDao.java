@@ -21,6 +21,10 @@ public interface ReportDao {
 	
 	int selectReportCount(SqlSession session);
 	
+	List<Report> selectReportListAfter(SqlSessionTemplate session, int cPage, int numPerPage);
+	
+	int selectReportCountAfter(SqlSession session);
+	
 	Report selectOneReport(SqlSessionTemplate session, int report_id);
 	
 	List<ReportFile> selectReportFile(SqlSession session, int report_id);
