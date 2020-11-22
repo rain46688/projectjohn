@@ -7,6 +7,7 @@
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+<script async src="${path}/resources/js/header.js"></script>
 <!-- Add icon library -->
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 
@@ -193,6 +194,12 @@ textarea {
 
 
 <script>
+
+	'use strict';
+	sessionStorage.clear();
+		sessionStorage.setItem('lousid', "${loginMember.usid}");
+		sessionStorage.setItem('path', "${path}");
+
 	$(this).resize(fixedSize);
 	function fixedSize() {
 		this.resizeTo(800, 800);
@@ -221,6 +228,8 @@ textarea {
 									.html(
 											$("#exbtn").html()
 													+ "<button class='btn btn-outline-success' onclick='expertRequestCancel();''>상담 취소하기</button>");
+							//알람 발송 - 상담이 추가됬다는 알람 - 해당 전문가가 보는 상담 내역을 갱신해줘야됨
+						sendAlarm("${loginMember.usid}","${mem.usid}","expertApply"," ","${loginMember.memNickname}");
 						} else if (data == 2) {
 							console.log("이미 상담 신청을 하셨습니다");
 							alert("이미 상담 신청을 하셨습니다");
@@ -228,6 +237,10 @@ textarea {
 							console.log("현재 시간보다 과거를 선택했음");
 							alert("선택하신 날짜가 맞지 않습니다.");
 						}
+						 else if(data == 9998){
+								console.log("희망 시간을 선택해주세요.");
+								alert("희망 시간을 선택해주세요.");
+							}
 						else {
 							console.log("상담 신청 실패");
 							alert("상담 신청 실패");
@@ -250,6 +263,8 @@ textarea {
 						if (data == 1) {
 							console.log("상담 취소 성공");
 							alert("상담 취소 성공");
+							//알람 발송 - 상담이 삭제됬다는 알람 - 해당 전문가가 보는 상담 내역을 갱신해줘야됨
+							sendAlarm("${loginMember.usid}","${mem.usid}","expertApplyCancel"," ","${loginMember.memNickname}");
 							$("#exbtn").html("");
 							$("#exbtn")
 									.html(

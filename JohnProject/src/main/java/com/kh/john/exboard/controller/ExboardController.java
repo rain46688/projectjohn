@@ -10,7 +10,6 @@ import java.util.List;
 import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -28,7 +27,6 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.kh.john.common.exception.RequestDuplicateException;
 import com.kh.john.exboard.model.service.ExboardService;
 import com.kh.john.exboard.model.vo.ExpertBoard;
-import com.kh.john.exboard.model.vo.ExpertRequest;
 import com.kh.john.exboard.model.vo.SessionVo;
 import com.kh.john.member.controller.AES256Util;
 import com.kh.john.member.controller.MailHandler;
@@ -84,48 +82,6 @@ public class ExboardController {
 	public ModelAndView expertRequestPrintList(HttpSession session) {
 		log.debug("expertRequestPrintList 실행");
 		ModelAndView mv = new ModelAndView("/exboard/expertRequestList");
-		Member mem = (Member) session.getAttribute("loginMember");
-		int rlistCount = 0;
-		try {
-
-			rlistCount = service.selectExpertRequestAjaxCount(mem);
-//			List<ExpertRequest> rlist = service.selectExpertRequest(mem);
-//			List<ExpertBoard> blist = service.selectExpertBoard(mem);
-//
-//			for (ExpertRequest er : rlist) {
-//				log.debug("확인용5");
-//				if (blist.size() == 0) {
-//					er.setStartCounsel(false);
-//					log.debug("확인용4");
-//				} else {
-//					for (ExpertBoard eb : blist) {
-//						if (er.getExpertRequestMemUsid() == eb.getExpertBoardMemUsid()) {
-//							// 이미 상담 게시판이 만들어진 유저
-//							log.debug("확인용1");
-//							er.setStartCounsel(true);
-//							if (eb.getExpertBoardExpertend() == 1) {
-//								log.debug("확인용2");
-//								er.setEndCounsel(true);
-//							} else {
-//								er.setEndCounsel(false);
-//							}
-//							break;
-//						} else {
-//							log.debug("확인용3");
-//							er.setStartCounsel(false);
-//						}
-//					}
-//				}
-//			}
-//
-//			mv.addObject("list", rlist);
-
-			mv.addObject("totalData", rlistCount);
-		} catch (Exception e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-			log.error("상담 유저 리스트 불러오기 실패");
-		}
 		return mv;
 	}
 
@@ -177,6 +133,11 @@ public class ExboardController {
 		expert.setUsid(Integer.parseInt(no));
 		expert.setMemNickname(nic);
 		time = time.replace("T", " ");
+
+		if (time.equals("") || time == null) {
+			log.debug("시간을 선택해주세요");
+			return "9998";
+		}
 
 		SimpleDateFormat format1 = new SimpleDateFormat("yyyy-MM-dd HH:mm");
 		Date time_ = null;
@@ -281,10 +242,6 @@ public class ExboardController {
 		}
 		log.debug("result : " + result);
 		redirectAttributes.addAttribute("bno", result);
-		/*
-		 * redirectAttributes.addAttribute("no", no);
-		 * redirectAttributes.addAttribute("nic", nic);
-		 */
 		return "redirect:/expert/expertRoom";
 	}
 
@@ -371,10 +328,6 @@ public class ExboardController {
 		}
 
 		redirectAttributes.addAttribute("bno", bno);
-		/*
-		 * redirectAttributes.addAttribute("no", no);
-		 * redirectAttributes.addAttribute("nic", nick);
-		 */
 		return "redirect:/expert/expertRoom";
 	}
 
@@ -479,12 +432,23 @@ public class ExboardController {
 		Map<String, String> map = new HashMap<String, String>();
 		if (enterMem.getMemClass().equals("전문가")) {
 			// 일반 유저 아이디
-			map.put("expertusid", "" + enterMem.getUsid());
-			map.put("bno", bno);
-			searchMemUsid = service.selectMemExboard(map);
-			searchMem = service.selectMember(searchMemUsid);
-			searchMem.setMemEmail(aes.decrypt(searchMem.getMemEmail()));
-			mv.addObject("m", searchMem);
+			// 이 부분 이렇게 안해도될꺼같은데 나중에 보고 지우기
+//			if (bno != null) {
+//				map.put("expertusid", "" + enterMem.getUsid());
+//				map.put("bno", bno);
+//				log.debug("expertusid : " + map.get("expertusid") + " bno : " + map.get("bno"));
+//				searchMemUsid = service.selectMemExboard(map);
+//				log.debug("searchMemUsid : " + searchMemUsid);
+//				searchMem = service.selectMember(searchMemUsid);
+//				log.debug("searchMem : " + searchMem);
+//				searchMem.setMemEmail(aes.decrypt(searchMem.getMemEmail()));
+//				mv.addObject("m", searchMem);
+//			} else if (bno == null) {
+			Member noboard = service.selectMember(musid);
+			noboard.setMemEmail(aes.decrypt(noboard.getMemEmail()));
+			mv.addObject("m", noboard);
+			// }
+
 		} else if (enterMem.getMemClass().equals("일반유저")) {
 			map.put("memusid", "" + enterMem.getUsid());
 			map.put("bno", bno);
@@ -511,134 +475,6 @@ public class ExboardController {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 			result = "0";
-		}
-		return result;
-	}
-
-//	Member mem = (Member) session.getAttribute("loginMember");
-//	try {
-//
-//		List<ExpertRequest> rlist = service.selectExpertRequest(mem);
-//		List<ExpertBoard> blist = service.selectExpertBoard(mem);
-//
-//		for (ExpertRequest er : rlist) {
-//
-//			if (blist.size() == 0) {
-//				er.setStartCounsel(false);
-//			} else {
-//				for (ExpertBoard eb : blist) {
-//					if (er.getExpertRequestMemUsid() == eb.getExpertBoardMemUsid()) {
-//						// 이미 상담 게시판이 만들어진 유저
-//						er.setStartCounsel(true);
-//						if (eb.getExpertBoardAdviceResult() != null) {
-//							er.setEndCounsel(true);
-//						}
-//						break;
-//					} else {
-//						er.setStartCounsel(false);
-//					}
-//				}
-//			}
-//		}
-
-	/// expert/selectExpertListAjax
-	@ResponseBody
-	@RequestMapping(value = "/expert/selectExpertListAjax", produces = "application/json; charset=utf8")
-	public String selectExpertListAjax(HttpServletResponse response, String sort, String page, String searchType,
-			String searchInput, String cpage, HttpSession session) {
-
-		log.debug("sort : " + sort + " page : " + page + " st : " + searchType + " si : " + searchInput + " cpage : "
-				+ cpage);
-		String result = "";
-		Member mem = (Member) session.getAttribute("loginMember");
-		try {
-			Map<String, String> map = new HashMap<String, String>();
-			map.put("mem", "" + mem.getUsid());
-			map.put("sort", sort);
-			map.put("page", page);
-			map.put("searchType", searchType);
-			map.put("searchInput", searchInput);
-			map.put("cpage", cpage);
-			List<ExpertRequest> list = service.selectExpertRequestAjax(map);
-			List<ExpertBoard> blist = service.selectExpertBoard(mem);
-
-			for (ExpertRequest er : list) {
-
-				SimpleDateFormat format1 = new SimpleDateFormat("yyyy-MM-dd");
-				String extime_ = format1.format(er.getExpertDate());
-				er.setExpertDateTmp(extime_);
-
-				if (blist.size() == 0) {
-					er.setStartCounsel(false);// 신청 내역이 없는 상태 전부 false로 만들어줌
-					er.setEndCounsel(false);
-				} else {
-					for (ExpertBoard eb : blist) {
-						if (er.getExpertRequestMemUsid() == eb.getExpertBoardMemUsid()) {
-							// expert_board가 있는 상태
-							er.setStartCounsel(true);
-
-							if (er.getExpertIscounsel() == 1 && eb.getExpertBoardExpertend() == 1) {
-								// 상담 끝난 상태
-								er.setEndCounsel(true);
-							} else {
-								er.setEndCounsel(false);
-							}
-
-						} else {
-							// 상담 시작 안했다는것 expert_board가 없는 상태
-							er.setEndCounsel(false);
-						}
-
-					}
-
-				}
-
-			}
-
-//			for (ExpertRequest er : list) {
-//
-//				SimpleDateFormat format1 = new SimpleDateFormat("yyyy-MM-dd");
-//				String extime_ = format1.format(er.getExpertDate());
-//				er.setExpertDateTmp(extime_);
-//
-//				log.debug("확인용5");
-//				if (blist.size() == 0) {
-//					er.setStartCounsel(false);
-//					log.debug("확인용4");
-//				} else {
-//					for (ExpertBoard eb : blist) {
-//						if (eb.getExpertBoardUsid() == mem.getUsid()) {
-//							if (er.getExpertRequestMemUsid() == eb.getExpertBoardMemUsid()) {
-//								// 이미 상담 게시판이 만들어진 유저
-//								log.debug("확인용1");
-//								er.setStartCounsel(true);
-//								if (eb.getExpertBoardExpertend() == 1) {
-//									log.debug("확인용2");
-//									er.setEndCounsel(true);
-//								} else {
-//									er.setEndCounsel(false);
-//								}
-//								break;
-//							} else {
-//								log.debug("확인용3");
-//								er.setStartCounsel(false);
-//							}
-//						} else {
-//							er.setStartCounsel(false);
-//						}
-//					}
-//				}
-//			}
-
-			for (ExpertRequest er : list) {
-				log.debug("er : " + er.getEndCounsel() + " name : " + er.getExpertRequestMemNick() + " start : "
-						+ er.getStartCounsel());
-			}
-
-			result = new ObjectMapper().writeValueAsString(list);
-		} catch (Exception e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
 		}
 		return result;
 	}

@@ -734,8 +734,8 @@ textarea {
 					exit();
 					sendMessage(new ExboardMsg("END",
 							"${loginMember.memClass}", "종료"));
-					//header가 없어서 알람을 못보냄 나중에 여기에 헤더를 넣을지 말지 상의해서 추가하기
-					//sendAlarm("${loginMember.usid}",user_usid,"expertend",bno,"${loginMember.memNickname}");
+					//알람 발송 - 상담이 완료됬다는 알람 - 페이지가 넘어가기때문에 바로 변경해줄 사항 없음
+					sendAlarm("${loginMember.usid}",user_usid,"expertend",bno,"${loginMember.memNickname}");
 				}
 			}
 

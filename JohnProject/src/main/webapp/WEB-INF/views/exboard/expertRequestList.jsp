@@ -14,7 +14,7 @@
 
 <style>
 #content *{
-	/* border:1px solid red; */
+	 border:1px solid red;
 }
 
 .divList {
@@ -22,7 +22,7 @@
 	width: 100%;
 	height: 20%;
 	text-align: center;
-	padding:0 2% 0 2%;
+	padding:0 5% 0 5%;
 }
 
 .divRow {
@@ -41,6 +41,7 @@ h1 {
 	font-weight: bold;
 	/* text-shadow: -1px 0 #BFBFBF, 0 0.5px #BFBFBF, 0.5px 0 #BFBFBF, 0 -1px #BFBFBF; */
 	margin: 2% 0 3% 3%;
+	font-size:5vh;
 }
 
 .active {
@@ -49,18 +50,25 @@ h1 {
 }
 
 .divRow .divCell {
-	border-bottom: 1px #DEE2E6 solid;
+	border-bottom: 1px #AEAEAE solid;
 	display: table-cell;
 	padding: 2vh 3vh;
 	width: 16.67%;
 	font-size:  2vh;
 }
 
+.divRowTitle{
+	border-radius:1em;
+	background-color: #0054BA;
+	color: white;
+}
+
 .divRowTitle .divCell{
 	height:30%;
 	padding: 2vh 3vh;
 	display: table-cell;
-		border-bottom: 1px #DEE2E6 solid;
+	border-bottom: 1px #AEAEAE solid;
+
 }
 
 .divListBody {
@@ -106,7 +114,7 @@ h1 {
 	display:flex;
 	justify-content:center;
 	align-items:center;
-	border:1px solid #C6C5C5;
+	border:1px solid #AEAEAE;
 }
 
 #innerSearchDiv select{
@@ -131,6 +139,7 @@ h1 {
 	width:10%;
 	height:30%;
 	margin-left:1%;
+	font-size:100%;
 }
 
 /* 빈값 */
@@ -141,12 +150,29 @@ h1 {
 	width:100%;
 }
 
+hr{
+	border-top:1px solid #AEAEAE; 
+}
+
+.divCell form{
+	width:100%;
+	height:100%;
+}
+
+.divCell button{
+	width:70%;
+	height:100%;
+	font-size:2vh;
+	font-weight:bold;
+}
+
+
 </style>
 
 <section id="content">
 <br>
 	<h1>상담 신청 확인 게시판</h1>
-	<hr/>
+	<!-- <hr/> -->
 	
 	<!-- 검색 및 정렬 할수있는 Div -->
 	<div id="middelDiv">
@@ -163,10 +189,15 @@ h1 {
 				</div>
 		</div>
 		<div id="sortDiv">
+			<select id="counselSelect" name="counselSelect" required>
+						<option value="req"  selected>요청 상담</option> 
+						<option value="on" >진행중 상담</option>
+						<option value="off" >종료된 상담</option>
+					</select>
 					<select id="sortSelect" name="sortSelect" required>
-						<option value="date"  selected>신청 날짜 순</option> 
-						<option value="time" >상담 시간순</option>
-						<option value="nic" >신청자 이름순</option>
+						<option value="expertDate"  selected>신청 날짜 순</option> 
+						<option value="expertCounselTime" >상담 시간순</option>
+						<option value="expertRequestMemNick" >신청자 이름순</option>
 					</select>
 					<select id="sortType" name="sortType" required>
 						<option value="desc" selected>내림차순</option>
@@ -176,37 +207,52 @@ h1 {
 	<!-- 현재 페이지 -->
 		<input id="cPageInput" type="hidden" value="1">
 	</div>
-	<hr/>
+	<!-- <hr/> -->
 	<!-- 리스트를 쏴줄 Div -->
 	<div class="divList">
 		<div class="divListBody"></div>
 	</div>
 	<!-- 페이징 처리 Div -->
 	<div id="pagingDiv"></div>
-	
+	<br>
+	<br>
+	<br>
 	<script>
 	'use strict'
 	
 	const exlistconn = new WebSocket('wss://192.168.219.105${path}/exlistSocket');
+	// 전체 배열
 	let exboardList = [];
+	// 백업용 배열
 	let backupList = [];
 	
 	exlistconn.onopen = function() {
 		console.log("onopen");
-		sendMessage("1");
+		//아무거나 보내서 식별함
+		exListsendMessage("start");
+		
+		let newURL = window.location.pathname;
+		console.log(newURL);
 	}
 
 	exlistconn.onmessage = function(msg) {
 		console.log("onmessage");
 		exboardList = JSON.parse(msg.data);
 		backupList = JSON.parse(msg.data);
-		exboardList = excompare(exboardList, 'expertDate',$("#sortType").val());	
+		setting();
+	}
+	
+	function setting(){
+		// 기본 속성으로 리스트 정렬
+		search($("#searchSelect").val(),$("#searchInput").val());
+		exboardList = excompare(exboardList, $("#sortSelect").val(),$("#sortType").val());
+		// 뿌려줌
 		listPrint(exboardList);
 	}
 	
-	function sendMessage(message) {
+	function exListsendMessage(message) {
 		exlistconn.send(message);
-		console.log("sendMessage");
+		console.log("exListsendMessage");
 	};
 	
 	//리스트 출력
@@ -223,8 +269,10 @@ h1 {
 					pbhtml +="<div class='divRow ' ><div class='divCell'>"+e['expertRequestMemNick']+"</div><div class='divCell'>"+e['expertDateTmp']+"</div><div class='divCell'>"+e['expertCounselTime']+"</div><div class='divCell'>";
 					if(e['endCounsel'] == false){
 							if(e['startCounsel']== false){
+								//end start 둘다 false이면 요청 온 상태
 								pbhtml += "<button class='btn btn-outline-success' onclick='counselStart('"+e['expertRequestMemUsid']+"','"+e['expertRequestMemNick']+"');'>상담 시작</button>";
 							}else{
+								//end false에서 start true면 진행중인 상태
 								pbhtml += "<button class='btn btn-outline-success' onclick='counselConn('"+e['expertRequestMemUsid']+"','"+e['expertRequestMemNick']+"');'>채팅 접속</button>";
 							}
 					}else{
@@ -243,36 +291,23 @@ h1 {
 	$("#sortSelect").on('change', e => {
 		let keyword = $(e.target).val();
 		console.log("sort : "+keyword);
-		if (keyword == 'nic'){
-			exboardList = excompare(exboardList, 'expertRequestMemNick',$("#sortType").val());
-			listTestConsolelog(exboardList);
-			listPrint(exboardList);
-		}else if (keyword == 'date'){
-			exboardList = excompare(exboardList, 'expertDate',$("#sortType").val());	
-			listTestConsolelog(exboardList);
-			listPrint(exboardList);
-		}else if (keyword == 'time'){
-			exboardList = excompare(exboardList, 'expertCounselTime',$("#sortType").val());
-			listTestConsolelog(exboardList);
-			listPrint(exboardList);
-		}
+		console.log("type : "+$("#sortType").val());
+		exboardList = excompare(exboardList, $("#sortSelect").val(),$("#sortType").val());
+		listTestConsolelog(exboardList);
+		listPrint(exboardList);
 	});
 	
+	//정렬
 	$("#sortType").on('change', e => {
 		let keyword = $(e.target).val();
 		console.log("type : "+keyword);
-		let field;
-		if($("#sortSelect").val() =='date'){
-			field = 'expertDate';
-		}else if($("#sortSelect").val() == 'nic'){
-			field = 'expertRequestMemNick';
-		}else{
-			field = 'expertCounselTime';
-		}
+		let field = $("#sortSelect").val();
 		exboardList = excompare(exboardList,field,keyword);
 		listTestConsolelog(exboardList);
 		listPrint(exboardList);
 	});
+	
+
 	
 	//정렬
 	let excompare = function(list, field, type){
@@ -317,25 +352,127 @@ h1 {
 	//검색 함수
 	function search(keyword, inputval){
 		console.log("search 버튼 클릭");
-		if (keyword == 'nic'){
-		exboardList = findKeyword(exboardList,inputval);
-		listPrint(exboardList);
-		}else if (keyword == 'date'){
-		}else if (keyword == 'time'){
-		}
 		
+		if(inputval == ""){
+			console.log("값 비어있음");
+			exboardList = backupList;
+			listPrint(exboardList);
+		}else{
+			console.log("값 비어있지않음");
+			exboardList = backupList;
+			if (keyword == 'nic'){
+				console.log("닉");
+				exboardList = findKeyword(exboardList,'expertRequestMemNick',inputval);
+				listPrint(exboardList);
+			}else if (keyword == 'date'){
+				console.log("날짜");
+				exboardList = findKeyword(exboardList,'expertDateTmp',inputval);
+				listPrint(exboardList);
+			}else if (keyword == 'time'){
+				console.log("시간");
+				exboardList = findKeyword(exboardList,'expertCounselTime',inputval);
+				listPrint(exboardList);
+			}
+		}		
 	}
 	
-	function findKeyword(list,val){
+	//검색검색!
+	function findKeyword(list, keyword,val){
+		console.log("keyword : "+keyword+" val : "+val);
+		let tmpList = [];
 		list.forEach((e,i) => {
-			
+			//console.log("비교 : "+e[keyword].includes(val));
+			if(e[keyword].includes(val)){
+				//console.log("닉 : "+e[keyword]);
+				//console.log("값 : "+val);
+				tmpList.push(e);				
+			}
 		});
-		return list;
+		return tmpList;
 	}
 	
+	$("#counselSelect").on('change', e => {
+		let key = $(e.target).val();
+		console.log("counselSelect : "+key);
+		exboardList = backupList;
+		exboardList = findKeywordCounsel(exboardList, key);
+		listPrint(exboardList);
+	});
+	
+	function findKeywordCounsel(list, keyword){
+		let tmpListCounsel = [];
+		list.forEach((e,i) => {
+			 if(keyword == 'req'){
+					if(e['startCounsel'] == false && e['endCounsel'] == false){
+						tmpListCounsel.push(e);
+					}
+			 }else if(keyword == 'on'){
+				 if(e['startCounsel'] == true && e['endCounsel'] == false){
+					 tmpListCounsel.push(e);
+					}
+				 
+			 }else if(keyword == 'off'){
+				 if(e['endCounsel'] == true){
+					 tmpListCounsel.push(e);
+				 }
+			 }
+		});
+		return tmpListCounsel;
+	}
+	
+	//부모창이 종료되면 자식창도 종료
+	let pop;
+	window.onunload = function() { 
+		pop.close(); 
+	}
+	
+	// 상담 시작
+	let bno = "";
+	function counselStart(num,nick){
+		console.log("num : "+num);
+		let result = confirm("해당 회원과 상담을 진행하시겠습니까?");
+		if(result){
+			  $.ajax({
+			 	   type:"GET",
+			 	   data:{
+			 		   "no" : num,
+			 		   "nic" : nick
+			 	   },
+			 	   url:"${path}/expert/selectExpertBno",
+			 	   success:function (data){
+			 		   console.log("data : "+data);
+			 		 bno = data;
+			 		 //알람 발송 - 상담이 진행됬다는 알람 - 페이지가 넘어가기때문에 바로 변경해줄 사항 없음
+			 		 sendAlarm("${loginMember.usid}",num,"expert",bno,"${loginMember.memNickname}");
+			 		 console.log("bno : "+bno);
+					location.replace('${path}/expert/counselStart?no='+num+"&nic="+nick+"&bno="+bno);
+			 	   }
+			    }); 
+		}
+	}
+	
+	//상담 재연결 -> 채팅방 입장 , 이미 방은 생성되있는 상태
+	function counselConn(num,nick){
+		console.log("num : "+num);
+		location.replace('${path}/expert/counselConn?no='+num+"&nick="+nick);
+	}
+	
+	//회원 상세보기
+	function exmemInfo(f){
+			const x = 600;
+			const y = 800;
+			const cx = (window.screen.width / 2) - (x / 2);
+			const cy= (window.screen.height / 2) - (y / 2);
 
-	
-	
+			const url    ="${path}/expert/memInfo";
+			const title  = "chat";
+			const status = "toolbar=no,directories=no,scrollbars=no,resizable=no,status=no,menubar=no,width="+x+", height="+y+", top="+cy+",left="+cx;
+			pop =  window.open("", title,status);
+			f.target = title;
+			f.action = url;
+			f.method = "post";
+			f.submit();    
+	}
 	
 	</script>
 </section>

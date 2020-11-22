@@ -3,7 +3,12 @@ package com.kh.john.admin.controller;
 import java.io.UnsupportedEncodingException;
 import java.security.GeneralSecurityException;
 import java.security.NoSuchAlgorithmException;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -14,6 +19,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.SessionAttribute;
 import org.springframework.web.servlet.ModelAndView;
+import org.springframework.web.socket.WebSocketSession;
 
 import com.kh.john.admin.model.service.AdminService;
 import com.kh.john.admin.model.vo.AdminMessage;
@@ -51,7 +57,7 @@ public class AdminController {
 	public ModelAndView adminMember(ModelAndView mv,
 			@RequestParam(value="memEmail",required=false) String memEmail, 
 			@RequestParam(value ="cPage", required = false, defaultValue = "1") int cPage,
-			@RequestParam(value ="numPerPage", required = false, defaultValue = "10") int numPerPage) 
+			@RequestParam(value ="numPerPage", required = false, defaultValue = "5") int numPerPage) 
 					throws NoSuchAlgorithmException, UnsupportedEncodingException, GeneralSecurityException {
 		List<Member> list = service.selectMemberList(cPage, numPerPage);
 		
@@ -113,7 +119,7 @@ public class AdminController {
 			@RequestParam(value="memClass", required=false) String[] memClass,
 			@RequestParam(value="leaveMem", required=false) String[] leaveMem,
 			@RequestParam(value="cPage", required = false, defaultValue = "1") int cPage,
-			@RequestParam(value="numPerPage", required = false, defaultValue = "10") int numPerPage) {
+			@RequestParam(value="numPerPage", required = false, defaultValue = "5") int numPerPage) {
 
 		Map<String,Object> param = new HashMap(); 
 		
@@ -152,7 +158,7 @@ public class AdminController {
 	@RequestMapping("/admin/adminBoard")
 	public ModelAndView adminBoard(ModelAndView mv,
 			@RequestParam(value = "cPage", required = false, defaultValue = "1") int cPage,
-			@RequestParam(value = "numPerPage", required = false, defaultValue = "10") int numPerPage) {
+			@RequestParam(value = "numPerPage", required = false, defaultValue = "5") int numPerPage) {
 
 		List<Board> list = service.selectBoardList(cPage, numPerPage);
 		int totalData = service.selectBoardCount();
@@ -181,7 +187,7 @@ public class AdminController {
 			@RequestParam(value="order", required=false) String order,
 			@RequestParam(value="isclose", required=false) String[] isclose,
 			@RequestParam(value="cPage", required = false, defaultValue = "1") int cPage,
-			@RequestParam(value="numPerPage", required = false, defaultValue = "10") int numPerPage) {
+			@RequestParam(value="numPerPage", required = false, defaultValue = "5") int numPerPage) {
 
 		Map<String,Object> param = new HashMap(); 
 		
@@ -208,14 +214,14 @@ public class AdminController {
 		System.out.println("리스트:"+list);
 		
 		//
-//		mv.addObject("type",type);
-//		mv.addObject("keyword",keyword);
-//		mv.addObject("keyword2",keyword2);
-//		mv.addObject("type2",type2);
-//		mv.addObject("bigCategory",bigCategory);
-//		mv.addObject("smallCategory",smallCategory);
-//		mv.addObject("isclose",isclose);
-//		mv.addObject("order",order);
+		mv.addObject("type",type);
+		mv.addObject("keyword",keyword);
+		mv.addObject("keyword2",keyword2);
+		mv.addObject("type2",type2);
+		mv.addObject("bigCategory",bigCategory);
+		mv.addObject("smallCategory",smallCategory);
+		mv.addObject("isclose",isclose);
+		mv.addObject("order",order);
 		//
 		
 		mv.setViewName("admin/adminBoardSearch");
@@ -226,7 +232,7 @@ public class AdminController {
 	@RequestMapping("/admin/adminExpert")
 	public ModelAndView adminExpert(ModelAndView mv,
 			@RequestParam(value = "cPage", required = false, defaultValue = "1") int cPage,
-			@RequestParam(value = "numPerPage", required = false, defaultValue = "10") int numPerPage) {
+			@RequestParam(value = "numPerPage", required = false, defaultValue = "5") int numPerPage) {
 		List<Member> list = service.selectExpertList(cPage, numPerPage);
 		int totalData = service.selectExpertCount();
 
@@ -253,7 +259,7 @@ public class AdminController {
 	@RequestMapping("/admin/adminBeforeExpert")
 	public ModelAndView adminBeforeExpert(ModelAndView mv,
 			@RequestParam(value = "cPage", required = false, defaultValue = "1") int cPage,
-			@RequestParam(value = "numPerPage", required = false, defaultValue = "10") int numPerPage) {
+			@RequestParam(value = "numPerPage", required = false, defaultValue = "5") int numPerPage) {
 		List<Member> list = service.selectBeforeExpertList(cPage, numPerPage);
 		int totalData = service.selectBeforeExpertCount();
 
@@ -323,7 +329,7 @@ public class AdminController {
 			@RequestParam(value="searchType2", required=false) String type2,
 			@RequestParam(value="order", required=false) String order,
 			@RequestParam(value="cPage", required = false, defaultValue = "1") int cPage,
-			@RequestParam(value="numPerPage", required = false, defaultValue = "10") int numPerPage) {
+			@RequestParam(value="numPerPage", required = false, defaultValue = "5") int numPerPage) {
 
 		Map<String,Object> param = new HashMap(); 
 		
@@ -364,7 +370,7 @@ public class AdminController {
 	@RequestMapping("/admin/adminExpertCounsel0")
 	public ModelAndView adminExpertCounsel(ModelAndView mv, 
 			@RequestParam(value = "cPage", required = false, defaultValue = "1") int cPage,
-			@RequestParam(value = "numPerPage", required = false, defaultValue = "10") int numPerPage) {
+			@RequestParam(value = "numPerPage", required = false, defaultValue = "5") int numPerPage) {
 		
 		List<ExpertRequest> list = service.selectAdminExpertCounsel(cPage,numPerPage);
 		int totalData = service.selectAdminExpertCounselCount();
@@ -382,7 +388,7 @@ public class AdminController {
 	@RequestMapping("/admin/adminExpertCounsel1")
 	public ModelAndView adminExpertCounsel2(ModelAndView mv, 
 			@RequestParam(value = "cPage", required = false, defaultValue = "1") int cPage,
-			@RequestParam(value = "numPerPage", required = false, defaultValue = "10") int numPerPage) {
+			@RequestParam(value = "numPerPage", required = false, defaultValue = "5") int numPerPage) {
 		
 		List<ExpertRequest> list = service.selectAdminExpertCounsel2(cPage,numPerPage);
 		int totalData = service.selectAdminExpertCounselCount();
