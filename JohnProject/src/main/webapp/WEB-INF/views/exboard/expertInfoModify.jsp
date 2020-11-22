@@ -31,30 +31,62 @@ html, body, div, span, applet, object, iframe, h1, h2, h3, h4, h5, h6, p, blockq
 }
 
 #content * {
-	border: 1px solid red;
+	  border: 1px solid red;
 }
 
+/* 기본 배경 */
 #content {
 	display: flex;
 	justify-content: center;
-	padding-top: 3vh;
+	padding-top: 1vh;
 }
+
+/*  */
+/*  */
+/*  */
+/* 전문가 정보 영역 */
+/*  */
+/*  */
+/*  */
 
 #mainDiv {
 	width: 60%;
-	height: auto;
+	height: 98%;
 	border: 1px solid #C6C5C5;
+	border-radius:1em;
 	background-color: #BACADE;
 }
 
+/* 위 영역 제목 부분*/
 #upDiv {
 	height: 15%;
 	width: 100%;
 	background-color: #0054BA;
 	padding: 1.5%;
 	display: flex;
+	border: 1px solid #C6C5C5;
+	border-radius:1em 1em 0 0;
 }
 
+/* 프로필 영역 중간부분 */
+#profileDiv {
+	margin-top: 1%;
+	width: 100%;
+	height: 30%;
+	display: flex;
+	padding: 0 0 0 3%; 
+	margin: 3% 0 0 0;
+}
+
+/* 아래부분 인사말 */
+#downDiv {
+	width: 100%;
+	height: 45%;
+	margin: 1% 1% 0 1%;
+	padding: 3% 3% 0 1%;
+}
+
+/* 제목 */
 #upDiv>h2 {
 	font-size: 5vh;
 	height: 100%;
@@ -63,6 +95,7 @@ html, body, div, span, applet, object, iframe, h1, h2, h3, h4, h5, h6, p, blockq
 	color: white;
 }
 
+/* 누르면 자격증으로 넘어가는거 */
 #upFlag {
 	width: 50%;
 	height: 100%;
@@ -76,34 +109,27 @@ html, body, div, span, applet, object, iframe, h1, h2, h3, h4, h5, h6, p, blockq
 	cursor: pointer;
 }
 
-#basicInfo-tab {
-	color: black;
-}
-
-#profileDiv {
-	margin-top: 3%;
-	width: 100%;
-	height: 30%;
-	display: flex;
-	padding: 1%;
-}
-
+/* 프로필 이미지 영역 */
 #imgDiv {
 	z-index: 0;
-	width: 30%;
+	width: 40%;
 	height: 100%;
+	background-color:rgba(255,255,255,1);
 }
 
 #mirrorimgDiv {
 	z-index: 1;
-	width: 30%;
+	width: 40%;
 	height: 100%;
 	display: none;
 	justify-content: center;
 	align-items: center;
-	background-color: rgba(200, 200, 200, 0.6);
+ 	/* background-image: url(${path }/resources/profile_images/${loginMember.profilePic});  */
+ /* 	background-image: url(${path }/resources/images/expert.png);
+	background-repeat: no-repeat;
+	background-size: 100% 100%;  */
+	background-color:rgba(255,255,255,1);
 	position: relative;
-	left: -30%;
 	cursor: pointer;
 }
 
@@ -117,16 +143,16 @@ html, body, div, span, applet, object, iframe, h1, h2, h3, h4, h5, h6, p, blockq
 	height: 100%;
 }
 
-#downDiv {
-	width: 100%;
-	height: 55%;
-	margin: 1% 1% 0 1%;
-	padding: 1%;
+/* 중간 오른쪽 영역  */
+#upRightDiv{
+	width:60%;
+	height:100%;
+	margin:0 2% 2% 2%;
 }
 
 .rowDiv {
 	width: 100%;
-	height: 25%;
+	height: 50%;
 	display: flex;
 }
 
@@ -135,33 +161,98 @@ html, body, div, span, applet, object, iframe, h1, h2, h3, h4, h5, h6, p, blockq
 }
 
 .leftDiv {
-	width: 50%;
+	width: 44%;
 	height: 100%;
 }
+
+.timeleftDiv{
+	width: 100%;
+	height: 100%;
+}
+
+#time{
+	display:flex;
+}
+
+#time input{
+	margin:0 1% 0 1%;
+	width:40%;
+}
+
+.timeleftDiv input{
+	width:50%;
+	height:100%;
+}
+
+/* 시간 주의사항 */
+/* #timeWarning {
+	text-align:center;
+	font-size:1.5vh;
+	color:black;
+	font-weight:bold;
+	font-style:italic;
+} */
 
 .rightDiv {
 	width: 50%;
 	height: 100%;
+	padding-right:4%;
 }
 
-#buttonDiv {
+#careerleftDiv {
+	width: 100%;
+	height: 50%;
 	display: flex;
-	justify-content: center;
 }
 
-p {
+/* 년 */
+h6 {
 	font-size: 3vh;
 	font-weight: bold;
 }
 
+#exinput {
+	width: 40%;
+	height: 100%;
+}
+
+#exinput2 {
+	width: 60%;
+	height: 100%;
+}
+
+/* 각 소제목들 p태그 */
+p {
+	font-size: 3vh;
+	font-weight: bold;
+	padding:1% 0 1% 0;
+}
+
+/* 인풋 태그 */
 input {
 	height: 40%;
 	width: 40%;
 }
 
+/* 셀렉트 태그 */
 select {
 	width: 100%;
 	height: 40%;
+}
+
+/* 텍스트 에어리어 태그 */
+
+#exTextArea{
+	width: 100%;
+	height: 100%;
+	font-size:2vh;
+	font-weight:bold;
+	padding:1%;
+}
+
+#textArearowDiv{
+	width:100%;
+	height:60%
 }
 
 /* 위 텍스트 영역 눌르면 옆에 테두리 생기는거 지우는 용도 */
@@ -173,31 +264,23 @@ textarea {
 	resize: none;
 }
 
-#exTextArea {
-	width: 100%;
-	height: 100%;
-}
-
-#careerleftDiv {
-	width: 100%;
-	height: 50%;
+/* 버튼 */
+#buttonDiv {
 	display: flex;
+	justify-content: center;
+	align-items:flex-end;
+	width:100%;
+	height:40%;
 }
 
-#exinput {
-	width: 30%;
-	height: 100%;
-}
 
-#exinput2 {
-	width: 70%;
-	height: 100%;
-}
-
-h6 {
-	font-size: 3vh;
-	font-weight: bold;
-}
+/*  */
+/*  */
+/*  */
+/* 라이센스 영역 */
+/*  */
+/*  */
+/*  */
 
 #licenseModifyDiv{
 	width: 60%;
@@ -206,40 +289,8 @@ h6 {
 	background-color: #BACADE;
 	display:none;
 	opacity: 0;
+
 }
-
-.appear {
-  animation: fade-in 1s;
-  animation-fill-mode: forwards;
-  display: flex;
-}
-
-.disappear {
-  animation: fade-out 1s;
-  animation-fill-mode: forwards;
-}
-
-@keyframes fade-in {
-  from {
-    opacity: 0;
-  }
-  to {
-    opacity: 1;
-  }
-}
-
-@keyframes fade-out {
-  from {
-    opacity: 1;
-
-  }
-  to {
-    opacity: 0;
-  }
-}
-
-
-/*  */
 
 #licenseupDiv {
 	height: 15%;
@@ -247,6 +298,8 @@ h6 {
 	background-color: #0054BA;
 	padding: 1.5%;
 	display: flex;
+	border: 1px solid #C6C5C5;
+	border-radius:1em 1em 0 0;
 }
 
 #licenseupDiv>h2 {
@@ -270,9 +323,8 @@ h6 {
 	cursor: pointer;
 }
 
+
 </style>
-<!-- https://unordinarydays.tistory.com/99 참고 -->
-<!-- 멀티파트 폼 넣어야됨 -->
 <section id="content">
 	<div id="mainDiv">
 		<!-- up -->
@@ -291,16 +343,15 @@ h6 {
 			<div id="mirrorimgDiv">
 				<p>+</p>
 			</div>
-		</div>
-		<!-- downDiv -->
-		<div id="downDiv">
-			<!--  -->
+			<!-- <div id="mirrorimgDiv2"></div> -->
+			<div id="upRightDiv">
+			
 			<div class="rowDiv">
 				<div class="leftDiv">
 					<p>경력</p>
 					<div id="careerleftDiv">
 						<div id="exinput">
-							<input type="number" name="career" class="form-control short" />
+							<input type="number" name="career" class="form-control short" min="1" max="99"/>
 						</div>
 						<div id="exinput2">
 							<h6>년</h6>
@@ -309,7 +360,7 @@ h6 {
 				</div>
 				<div class="rightDiv">
 					<p>전문 분야</p>
-					<select id="counselSelect" name="counselSelect" required>
+					<select id="counselSelect" name="counselSelect" required class="form-control short" >
 						<option value="부부 상담" selected>부부 상담</option>
 						<option value="연애 상담">연애 상담</option>
 						<option value="직장 상담">직장 상담</option>
@@ -318,28 +369,33 @@ h6 {
 						<option value="진로 상담">진로 상담</option>
 					</select>
 				</div>
-			</div>
+			</div> 
+			
 			<div class="rowDiv">
-				<div class="leftDiv">
+			<div class="timeleftDiv">
 					<p>상담 가능 시간</p>
-					<input name="fistTime" type="time"> ~ <input name="seTime" type="time">
+					<div id="time">
+					<input name="fistTime" type="time" class="form-control times"><p>~</p><input name="seTime" type="time" class="form-control times" >
+					</div>
 				</div>
-				<div class="rightDiv">
+			</div>
+				<!-- 	<div id="timeWarning">주말 공휴일 제외</div> -->
+			</div>
+		</div>
+		<!-- downDiv -->
+		<div id="downDiv">
+			<div id="textArearowDiv">
+				<div id="textAreaDiv">
 					<p>인사말</p>
 					<textarea id="exTextArea" name="modiText"></textarea>
 				</div>
 			</div>
-			<div class="rowDiv">
-				<div class="leftDiv"></div>
-				<div class="rightDiv"></div>
-			</div>
-			<!--  -->
 			<div id="buttonDiv">
-				<button class="btn btn-outline-success" onclick="modify();">수정완료</button>
+			<button class="btn btn-outline-success" onclick="modify();">수정완료</button>
+			<input id="profileUpload" type="file" style="display:none;">
 			</div>
-			<input type="file" id="profileUpload" style="display: none;">
+			</div>
 		</div>
-	</div>
 	
 	<div id="licenseModifyDiv">
 			<div id="licenseupDiv">
@@ -349,7 +405,6 @@ h6 {
 			</div>
 		</div>
 	
-	
 	</div>
 </section>
 
@@ -357,6 +412,9 @@ h6 {
 <script>
 
 'use strict;'
+
+let proWith;
+let proHeight;
 
 $("#upFlag").click(e=>{
 	$("#mainDiv").stop(true).animate({'opacity': 0}, 300, function() {
@@ -432,19 +490,25 @@ $("#profileUpload").change(function(e){
 	alert('이미지 파일만 업로드 가능합니다.');
 	return false;
 	}else{
-		
-		
 	let file = this.files[0];
     reader = new FileReader();
     reader.onload = function (event) {
         let img = new Image();
         img.src = event.target.result;
-        console.log($("#imgProfile").width()+" "+$("#imgProfile").height());
+     /*    console.log($("#imgProfile").width()+" "+$("#imgProfile").height());
           img.width = $("#imgProfile").width();
-          img.height = $("#imgProfile").height();
+          img.height = $("#imgProfile").height(); */
+          
+          console.log(proWith+" "+proHeight);
+          img.width = proWith;
+          img.height = proHeight;
+          
         $('#imgDiv').empty();
         $('#imgDiv').append(img);
+      /*   $('#mirrorimgDiv').css('background-image',' ');
+        $('#mirrorimgDiv').css('background-image','url(C:\fakepath\search.png)'); */
     };
+    
     reader.readAsDataURL(file);
     return false;
 	}
@@ -452,16 +516,22 @@ $("#profileUpload").change(function(e){
 
 
 
-$('#imgDiv').hover(function(){
+ $('#imgDiv').hover(function(){
+	proWith =  $("#imgProfile").width();
+	proHeight =  $("#imgProfile").height();
     $('#mirrorimgDiv').css('display','flex');
+   $("#imgDiv").css('display','none');
 }, function() {
 	$('#mirrorimgDiv').css('display','none');
+	   $("#imgDiv").css('display','flex');
 });
 
 $('#mirrorimgDiv').hover(function(){
     $('#mirrorimgDiv').css('display','flex');
+    $("#imgDiv").css('display','none');
 }, function() {
 	$('#mirrorimgDiv').css('display','none');
+	    $("#imgDiv").css('display','flex');
 });
 
 

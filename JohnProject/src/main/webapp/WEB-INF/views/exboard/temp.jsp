@@ -12,16 +12,6 @@
 	<jsp:param name="title" value=" " />
 </jsp:include>
 
-<!-- Add icon library -->
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-<!-- Splide library -->
-<script src="https://cdn.jsdelivr.net/npm/@splidejs/splide@latest/dist/js/splide.min.js"></script>
-<link rel="stylesheet" href="${path }/resources/css/splide.min.css">
-<%-- <link rel="stylesheet" href="${path }/resources/css/splide-core.min.css"> --%>
-<%-- <link rel="stylesheet" href="${path }/resources/css/splide-default.min.css"> --%>
-<link rel="stylesheet" href="${path }/resources/css/splide-sea-green.min.css">
-<%-- <link rel="stylesheet" href="${path }/resources/css/splide-skyblue.min.css"> --%>
-
 <style>
 html, body, div, span, applet, object, iframe, h1, h2, h3, h4, h5, h6, p, blockquote, pre, a, abbr, acronym, address, big, cite, code, del, dfn, em,
 	ins, kbd, q, s, samp, small, strike, strong, sub, sup, tt, var, b, u, i, center, dl, dt, dd, ol, ul, li, fieldset, form, label, legend, table,
@@ -33,516 +23,452 @@ html, body, div, span, applet, object, iframe, h1, h2, h3, h4, h5, h6, p, blockq
 	font-size: 100%;
 	font: inherit;
 	vertical-align: baseline;
-	
+	-ms-user-select: none;
+	-moz-user-select: -moz-none;
+	-webkit-user-select: none;
+	-khtml-user-select: none;
+	user-select: none;
 }
 
-/* 위 div */
-#upDiv * {
- 	border: 1px solid red; 
-	/* text-shadow: -1px 0 #BFBFBF, 0 0.5px #BFBFBF, 0.5px 0 #BFBFBF, 0 -1px #BFBFBF; */
+#content * {
+	/* border: 1px solid red; */
 }
 
-/* 아래 div */
-#downDiv * {
-	 border: 1px solid red; 
-	/* text-shadow: -1px 0 #BFBFBF, 0 0.5px #BFBFBF, 0.5px 0 #BFBFBF, 0 -1px #BFBFBF; */
-}
-
-/* 위 div */
-#upDiv {
-/* 	border: 1px solid gray;
-	margin:0.5% 0 0.5% 0;
-	border-radius:0.5em; */
-	width: 100%;
-	height: 60%;
-	/* 	background-color:black; */
-}
-
-/* 아래 div */
-#downDiv {
-	/* 	border: 1px solid brown; */
-	width: 100%;
-	height: 40%;
-	/* background-color: brown; */
+#content {
 	display: flex;
-	border-top: 1px solid #C6C5C5;
-}
-
-/* 리뷰 div */
-#reviewDiv {
-	/*  background-color: red;  */
-	height: 100%;
-	width: 50%;
-	border-right: 1px solid #C6C5C5;
-}
-
-/* 카테고리 div */
-#categoryDiv {
-	/* background-color: blue; */
-	height: 100%;
-	width: 50%;
-}
-
-/* 가로 슬라이드 */
-.splide {
-	height: 100%;
-}
-
-.splide__track * {
-	height: 100%;
-}
-
-.splide__slide>div {
-	width: 100%;
-	height: 100%;
-	font-size: 20px;
-	margin: 10px;
-	/* 	border: 1px solid black; */
-	display: inline-block;
-}
-
-#upDiv .splide__list .splide__slide {
-	margin: 1px;
-}
-
-/* 슬라이드 이미지 */
-img {
-	width: 100%; 
-	height: auto;
-}
-
-/* 세로 슬라이드  */
-.splide2 {
-	width: 100%;
-	height: 100%;
-}
-
-.splide__slide {
-	width: 100%;
-	height: 100%;
-	border-left: 1px solid gray;
-}
-
-.splide__slide>img {
-	width: 100%;
-	height: 100%;
-}
-
-#downDiv .splide__arrow, #downDiv .splide__pagination {
-	display: none;
-}
-
-/* 카테고리 부분 */
-#categoryDiv {
-	padding: 20px;
-	font-family: sans-serif;
-	/* background: #f2f2f2; */
-	overflow-x: hidden;
-	-ms-overflow-style: none;
-}
-
-/* 스크롤 바 투명하게 만들기 */
-::-webkit-scrollbar {
-	display: none;
-}
-
-/* 카테고리 그리드 */
-.grid-container {
-	display: grid;
-	grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
-	grid-gap: 1em;
-}
-
-/* 카테고리 그리드 이미지 */
-.counsel-image {
-	line-height: 0;
-	overflow: hidden;
-}
-
-.counsel-image img {
-	filter: blur(0px);
-	transition: filter 0.3s ease-in;
-	transform: scale(1.1);
-}
-
-/* 카테고리 제목 */
-.counsel-title {
-	cursor: pointer;
-	font-size: 2.5em;
-	font-weight: bold;
-	text-decoration: none;
-	z-index: 1;
-	position: absolute;
-	height: 100%;
-	width: 100%;
-	top: 0;
-	left: 0;
-	opacity: 0;
-	transition: opacity .5s;
-	/* background: rgba(90, 0, 10, 0.4); */
-	color: black;
-	/* position the text in t’ middle*/
-	display: flex;
-	align-items: center;
 	justify-content: center;
-	text-shadow: -1px 0 #BFBFBF, 0 0.5px #BFBFBF, 0.5px 0 #BFBFBF, 0 -1px #BFBFBF;
+	padding-top: 3vh;
 }
 
-.counsel-listing:hover .counsel-title {
-	opacity: 1;
+#mainDiv {
+	width: 60%;
+	height: 100%;
+	border: 1px solid #C6C5C5;
+	border-radius:1em;
+	background-color: #BACADE;
 }
 
-.counsel-listing:hover .counsel-image img {
-	filter: blur(0.5em);
-}
-
-@media ( hover : none) {
-	.counsel-title {
-		opacity: 1;
-	}
-	.counsel-image img {
-		filter: blur(2px);
-	}
-}
-
-/* 카테고리 그리드 */
-.counsel-listing {
- 	position: relative;
-}
-
-.cImgages {
-	/* border:1px solid black; */
+#upDiv {
+	height: 15%;
 	width: 100%;
-	height: 180px; 
+	background-color: #0054BA;
+	padding: 1.5%;
+	display: flex;
+	border: 1px solid #C6C5C5;
+	border-radius:1em 1em 0 0;
 }
 
-/* 별 */
-.checked {
-	color: orange;
-}
-
-/* 카드  */
-.expertimg {
-	width: 40%;
-	height: 50%;
-}
-
-/* 카드 오른쪽 div  */
-.exRight {
-	display: inline-block;
-	height: 50%;
+#upDiv>h2 {
+	font-size: 5vh;
+	height: 100%;
 	width: 50%;
+	font-weight: bold;
+	color: white;
 }
 
-/* 카드 오른쪽 이름  */
-.exName {
-	height: 20%;
+#upFlag {
+	width: 50%;
+	height: 100%;
+	display: flex;
+	justify-content: flex-end;
+	align-items: flex-end;
+	color: white;
 }
 
-/* 카드 오른쪽 점수  */
-.exRating {
-	height: 20%;
-	font-size: 1.6vh;
-	overflow:hidden;
+#upFlag>p {
+	cursor: pointer;
 }
 
-/* 카드 오른쪽 전문 분야  */
-.exCounselArea{
-	height:20%;
-	font-size: 2vh;
-	overflow:hidden;
+#basicInfo-tab {
+	color: black;
 }
 
-/* 카드 오른쪽 버튼  */
-.card-body button {
+#profileDiv {
+	margin-top: 3%;
 	width: 100%;
-	height: 40%;
-	font-size: 2vh;
+	height: 30%;
+	display: flex;
+	padding: 1%;
 }
 
-/* 카드 자기소개  */
-.exBottm {
-	padding-top: 2vh;
-	height: 50%;
-	/* 줄 넘치면 ..으로 처리 */
-	display: -webkit-box;
-	-webkit-line-clamp: 9;
-	text-overflow: ellipsis;
-	overflow: hidden;
-	-webkit-box-orient: vertical;
-	font-size: 2vh;
+#imgDiv {
+	z-index: 0;
+	width: 30%;
+	height: 100%;
 }
 
-/* 리뷰 부분 */
-.reviewDiv {
-	padding: 2%;
+#mirrorimgDiv {
+	z-index: 1;
+	width: 30%;
+	height: 100%;
+	display: none;
+	justify-content: center;
+	align-items: center;
+	background-color: rgba(200, 200, 200, 0.6);
+	position: relative;
+	left: -30%;
+	cursor: pointer;
+}
+
+#mirrorimgDiv>p {
+	font-size: 10vh;
+	color: black;
+}
+
+#imgProfile {
 	width: 100%;
 	height: 100%;
-	/* background-color: skyblue;  */
 }
 
-/* 리뷰 위 div  */
-.reviewInnerUpDiv {
-	height: 10%;
+#downDiv {
 	width: 100%;
+	height: 55%;
+	margin: 1% 1% 0 1%;
+	padding: 1%;
+}
+
+.rowDiv {
+	width: 100%;
+	height: 25%;
 	display: flex;
 }
 
-/* 리뷰한사람 닉네임  */
-.userNickName {
-	height: 100%;
-	width: 20%;
-	border-right: 1px solid #C6C5C5;
-	margin-right: 2vh;
+.rowDiv div {
+	margin: 0 1% 0 1%;
 }
 
-/* 리뷰한 날짜 */
-.counselDate {
-	height: 100%;
-	width: 30%;
-	border-right: 1px solid #C6C5C5;
-	margin-right: 2vh;
-}
-
-/* 리뷰 카테고리 */
-.counselAreaReview {
-	height: 100%;
+.leftDiv {
 	width: 50%;
+	height: 100%;
 }
 
-/* 리뷰 점수 */
-.userRating {
-	height: 10%;
-	border-bottom: 1px solid #C6C5C5;
+.rightDiv {
+	width: 50%;
+	height: 100%;
 }
 
-/* 리뷰 제목 */
-#reviewDivTitle {
-	height: 20%;
-	width: 100%;
+#buttonDiv {
+	display: flex;
+	justify-content: center;
 }
 
-/* 리뷰 제목 */
-#reviewTitleH1 {
-	font-size: 40px;
+p {
+	font-size: 3vh;
 	font-weight: bold;
 }
 
-/* 리뷰 내용 */
-.userReview {
-	height: 80%;
+input {
+	height: 40%;
+	width: 40%;
+}
+
+select {
 	width: 100%;
-	font-style: italic;
-	color: gray;
-	font-size: 2vh;
-	/* 줄 넘치면 ..으로 처리 */
-	display: -webkit-box;
-	-webkit-line-clamp: 6;
-	text-overflow: ellipsis;
-	overflow: hidden;
-	-webkit-box-orient: vertical;
+	height: 40%;
 }
 
-/* 빈값 */
-
-.empty{
-	width:100%;
-	font-size:4vh;
-	padding-top:15vh;
-	text-shadow: -1px 0 #BFBFBF, 0 0.5px #BFBFBF, 0.5px 0 #BFBFBF, 0 -1px #BFBFBF;
+/* 위 텍스트 영역 눌르면 옆에 테두리 생기는거 지우는 용도 */
+textarea:focus {
+	outline: none;
 }
 
-.emptyReview{
-	width:100%;
-	height:100%;
-	font-size:5vh;
-	padding-top:15vh;
-	text-align:center;
-	text-shadow: -1px 0 #BFBFBF, 0 0.5px #BFBFBF, 0.5px 0 #BFBFBF, 0 -1px #BFBFBF;
+textarea {
+	resize: none;
 }
+
+#exTextArea {
+	width: 100%;
+	height: 100%;
+}
+
+#careerleftDiv {
+	width: 100%;
+	height: 50%;
+	display: flex;
+}
+
+#exinput {
+	width: 30%;
+	height: 100%;
+}
+
+#exinput2 {
+	width: 70%;
+	height: 100%;
+}
+
+h6 {
+	font-size: 3vh;
+	font-weight: bold;
+}
+
+#licenseModifyDiv{
+	width: 60%;
+	height: auto;
+	border: 1px solid #C6C5C5;
+	background-color: #BACADE;
+	display:none;
+	opacity: 0;
+}
+
+.appear {
+  animation: fade-in 1s;
+  animation-fill-mode: forwards;
+  display: flex;
+}
+
+.disappear {
+  animation: fade-out 1s;
+  animation-fill-mode: forwards;
+}
+
+@keyframes fade-in {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes fade-out {
+  from {
+    opacity: 1;
+
+  }
+  to {
+    opacity: 0;
+  }
+}
+
+
+/*  */
+
+#licenseupDiv {
+	height: 15%;
+	width: 100%;
+	background-color: #0054BA;
+	padding: 1.5%;
+	display: flex;
+}
+
+#licenseupDiv>h2 {
+	font-size: 5vh;
+	height: 100%;
+	width: 50%;
+	font-weight: bold;
+	color: white;
+}
+
+#licenseupFlag {
+	width: 50%;
+	height: 100%;
+	display: flex;
+	justify-content: flex-end;
+	align-items: flex-end;
+	color: white;
+}
+
+#licenseupFlag>p {
+	cursor: pointer;
+}
+
 </style>
-
+<!-- https://unordinarydays.tistory.com/99 참고 -->
+<!-- 멀티파트 폼 넣어야됨 -->
 <section id="content">
-	<div id="upDiv">
-		<div class="splide">
-			<div class="splide__track">
-				<ul class="splide__list">
-					<c:choose>
-						<c:when test="${fn:length(list) > 0}">
-							<c:forEach items="${list }" var="expert">
-
-								<!-- =========== -->
-								<li class="splide__slide">
-									<div class="card-body">
-										<img class="expertimg" alt="전문가" src="${path }/resources/images/expert.png">
-										<div class="exRight">
-											<div class="exName">${expert['mem'].memName}</div>
-											<div class="exRating">
-											평점 : 
-											<c:forEach var="i" begin="1" end="${expert['ex'].expertRating}">
-												<span class="fa fa-star checked"></span>
-											</c:forEach>
-											<c:forEach var="i" begin="1" end="${5 - (expert['ex'].expertRating)}">
-												<span class="fa fa-star"></span>
-											</c:forEach>
-											</div>
-											<div class="exCounselArea">분야 : ${expert['ex'].expertCounselArea}</div>
-											<button type="button" class="btn btn-outline-primary" onclick="counsel('${expert['mem'].usid}','${expert['mem'].memNickname}');">상담 신청</button>
-										</div>
-										<div class="exBottm">
-										<c:if test="${empty (expert['ex'].expertGreetings)}">
-										인사말 없음.
-										</c:if>
-										<c:if test="${not empty (expert['ex'].expertGreetings)}">
-										${expert['ex'].expertGreetings}
-										</c:if>
-										</div>
-									</div>
-								</li>
-								<!-- =========== -->
-
-							</c:forEach>
-						</c:when>
-						<c:otherwise>
-							<div class="empty"><h1>등록된 상담사가 없습니다.</h1></div>
-						</c:otherwise>
-					</c:choose>
-
-				</ul>
+	<div id="mainDiv">
+		<!-- up -->
+		<div id="upDiv">
+			<h2>전문가 정보 수정</h2>
+			<div id="upFlag">
+				<p>라이센스 수정</p>
 			</div>
+		</div>
+		<!-- <hr> -->
+		<!-- profile -->
+		<div id="profileDiv">
+			<div id="imgDiv">
+				<img src="${path }/resources/images/expert.png" id="imgProfile" class="img-thumbnail" />
+			</div>
+			<div id="mirrorimgDiv">
+				<p>+</p>
+			</div>
+		</div>
+		<!-- downDiv -->
+		<div id="downDiv">
+			<!--  -->
+			<div class="rowDiv">
+				<div class="leftDiv">
+					<p>경력</p>
+					<div id="careerleftDiv">
+						<div id="exinput">
+							<input type="number" name="career" class="form-control short" />
+						</div>
+						<div id="exinput2">
+							<h6>년</h6>
+						</div>
+					</div>
+				</div>
+				<div class="rightDiv">
+					<p>전문 분야</p>
+					<select id="counselSelect" name="counselSelect" required>
+						<option value="부부 상담" selected>부부 상담</option>
+						<option value="연애 상담">연애 상담</option>
+						<option value="직장 상담">직장 상담</option>
+						<option value="심리 상담">심리 상담</option>
+						<option value="자녀 상담">자녀 상담</option>
+						<option value="진로 상담">진로 상담</option>
+					</select>
+				</div>
+			</div>
+			<div class="rowDiv">
+				<div class="leftDiv">
+					<p>상담 가능 시간</p>
+					<input name="fistTime" type="time"> ~ <input name="seTime" type="time">
+				</div>
+				<div class="rightDiv">
+					<p>인사말</p>
+					<textarea id="exTextArea" name="modiText"></textarea>
+				</div>
+			</div>
+			<div class="rowDiv">
+				<div class="leftDiv"></div>
+				<div class="rightDiv"></div>
+			</div>
+			<!--  -->
+			<div id="buttonDiv">
+				<button class="btn btn-outline-success" onclick="modify();">수정완료</button>
+			</div>
+			<input type="file" id="profileUpload" style="display: none;">
 		</div>
 	</div>
-
-	<div id="downDiv">
-		<div id="reviewDiv">
+	
+	<div id="licenseModifyDiv">
+			<div id="licenseupDiv">
+			<h2>라이센스 수정</h2>
+			<div id="licenseupFlag">
+				<p>전문가 정보 수정</p>
+			</div>
+		</div>
+		<div id="licenseDownDiv">
 		
-						<c:choose>
-						<c:when test="${fn:length(exbolist) > 0}">
-							<div class="splide2">
-				<div class="splide__track">
-					<ul class="splide__list">
-							<c:forEach items="${exbolist }" var="review">
-
-
-						<!-- =========== -->
-						<li class="splide__slide">
-							<div class="reviewDiv">
-								<div id="reviewDivTitle">
-									<h1 id="reviewTitleH1">베스트 상담 후기</h1>
-								</div>
-								<div class="reviewInnerUpDiv">
-									<div class="userNickName">닉네임 : ${review.expertBoardMemNick }</div>
-									<div class="counselDate">날짜 : ${review.expertBoardDate }</div>
-									<div class="counselAreaReview">분야 : ${param.ca }</div>
-								</div>
-								<div class="userRating">
-									평점 : 
-									<c:forEach var="i" begin="1" end="${review.expertBoardRating}">
-												<span class="fa fa-star checked"></span>
-											</c:forEach>
-											<c:forEach var="i" begin="1" end="${5 - (review.expertBoardRating)}">
-												<span class="fa fa-star"></span>
-											</c:forEach>
-								</div>
-								<div class="userReview">${review.expertBoardReview}</div>
-							</div>
-						</li>	
-						<!-- =========== -->
-					</c:forEach>
-						</ul>
-				</div>
-			</div>
-						</c:when>
-						<c:otherwise>
-							<div class="emptyReview"><h1>등록된 리뷰가 없습니다.</h1></div>
-						</c:otherwise>
-					</c:choose>
-
-				
 		</div>
-		<div id="categoryDiv">
-
-			<div class="child-page-listing">
-				<div class="grid-container">
-					<article id="3685" class="counsel-listing">
-						<h3 class="counsel-title">직장 상담</h3>
-						<div class="counsel-image">
-							<img class="cImgages" src="${path }/resources/images/직장 상담.jpg" alt="직장">
-						</div>
-					</article>
-					<article id="3688" class="counsel-listing">
-						<h3 class="counsel-title">부부 상담</h3>
-						<div class="counsel-image">
-							<img class="cImgages" src="${path }/resources/images/부부 상담.jpg" alt="부부">
-						</div>
-					</article>
-					<article id="3691" class="counsel-listing">
-						<h3 class="counsel-title">진로 상담</h3>
-						<div class="counsel-image">
-							<img class="cImgages" src="${path }/resources/images/취업 상담.png" alt="취업">
-						</div>
-					</article>
-					<article id="3694" class="counsel-listing">
-						<h3 class="counsel-title">심리 상담</h3>
-						<div class="counsel-image">
-							<img class="cImgages" src="${path }/resources/images/심리 상담.jpg" alt="심리">
-						</div>
-					</article>
-					<article id="3697" class="counsel-listing">
-						<h3 class="counsel-title">자녀 상담</h3>
-						<div class="counsel-image">
-							<img class="cImgages" src="${path }/resources/images/자녀 갈등.png" alt="자녀">
-						</div>
-					</article>
-					<article id="3700" class="counsel-listing">
-						<h3 class="counsel-title">연애 상담</h3>
-						<div class="counsel-image">
-							<img class="cImgages" src="${path }/resources/images/연애 상담.jpg" alt="연애">
-						</div>
-					</article>
-				</div>
-			</div>
-
-		</div>
+	
+	
 	</div>
 </section>
 
 
 <script>
-	'use strict';
-	
-		//부모창이 종료되면 자식창도 종료
-		let pop;
-		window.onunload = function() { 
-			pop.close(); 
-		  
-		}
-		
-	 function counsel(no,nic){
-		 console.log("no : "+no+" nic : "+nic);
-		 window.open("${path}/expert/expertApply?no="+no+"&nic="+nic,'회원','width=800, height=800, toolbar=no, menubar=no, scrollbars=no, resizable=yes');
-	 }
-	 
-	 $(".counsel-title").click(e => {
-			console.log($(e.target).html());
-			location.href="${path}/expert/expertPrintList?ca="+$(e.target).html();
-	 });
-	 
-	// 가로 슬라이드
-	new Splide('.splide', {
-		perPage : 4,
-		rewind : true,
-		autoplay : true,
-		type : 'loop'
-	}).mount();
 
-	// 세로 슬라이드
-	new Splide('.splide2', {
-		direction : 'ttb',
-		height : "33vh",
-		rewind : true,
-		autoplay : true,
-		type : 'loop'
-	}).mount();
-	 
+'use strict;'
+
+$("#upFlag").click(e=>{
+	$("#mainDiv").stop(true).animate({'opacity': 0}, 300, function() {
+        $(this).css({'display': 'none'})
+        $('#licenseModifyDiv').stop(true).css({'display': 'block', 'opacity': 0}).animate({'opacity': 1}, 300)
+    });
+});
+
+
+$("#licenseupFlag").click(e=>{
+	$("#licenseModifyDiv").stop(true).animate({'opacity': 0}, 300, function() {
+        $(this).css({'display': 'none'})
+        $('#mainDiv').stop(true).css({'display': 'block', 'opacity': 0}).animate({'opacity': 1}, 300)
+    });
+});
+
+
+
+function modify(){
+	console.log("수정 완료");
+	let frm2 = $("#profileUpload")[0].files[0];
+	console.log("frm2 : "+frm2);
+	const career = $("input[name=career]").val();
+	const counselSelect = $("#counselSelect option:selected").val()
+	const fistTime = $("input[name=fistTime]").val()
+	const seTime = $("input[name=seTime]").val()
+	const modiText = $("#exTextArea").val()
+	console.log("career : "+career);
+	console.log("counselSelect : "+counselSelect);
+	console.log("fistTime : "+fistTime);
+	console.log("seTime : "+seTime);
+	console.log("modiText : "+modiText);
+	let formData = new FormData();
+	formData.append('upFile',frm2,frm2.name);
+	formData.append('career',career);
+	formData.append('counselSelect',counselSelect);
+	formData.append('fistTime',fistTime);
+	formData.append('seTime',seTime);
+	formData.append('modiText',modiText);
+ 	$.ajax({
+		url : '${path}/expert/modifyEx',
+		data : formData,
+		type : 'post',
+		contentType : false,
+		processData : false,
+		dataType : "json",
+		success : function(data) {
+			console.log("수정 data : " + data);
+			
+		}
+	});
+	
+}
+
+$("#mirrorimgDiv").click(e => {
+	console.log("이미지 눌릠");
+	 $("#profileUpload").click();
+
+	
+});
+
+$("#profileUpload").change(function(e){
+
+    e.preventDefault();
+	console.log("이미지 선택됨");
+	console.log("files : " + $("#profileUpload").val());
+	let file2 = $("#profileUpload").val();
+	
+	let f = (file2).substring((file2).lastIndexOf('.'),(file2).length);
+	console.log(f);
+	
+	if(f != '.png' && f != '.jpg' && f != '.jpeg' && f != '.gif'){
+	alert('이미지 파일만 업로드 가능합니다.');
+	return false;
+	}else{
+		
+		
+	let file = this.files[0];
+    reader = new FileReader();
+    reader.onload = function (event) {
+        let img = new Image();
+        img.src = event.target.result;
+        console.log($("#imgProfile").width()+" "+$("#imgProfile").height());
+          img.width = $("#imgProfile").width();
+          img.height = $("#imgProfile").height();
+        $('#imgDiv').empty();
+        $('#imgDiv').append(img);
+    };
+    reader.readAsDataURL(file);
+    return false;
+	}
+});
+
+
+
+$('#imgDiv').hover(function(){
+    $('#mirrorimgDiv').css('display','flex');
+}, function() {
+	$('#mirrorimgDiv').css('display','none');
+});
+
+$('#mirrorimgDiv').hover(function(){
+    $('#mirrorimgDiv').css('display','flex');
+}, function() {
+	$('#mirrorimgDiv').css('display','none');
+});
+
+
 </script>
