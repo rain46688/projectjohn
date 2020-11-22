@@ -478,4 +478,56 @@ public class ExboardController {
 		return mv;
 	}
 
+	// 전문가 수정
+	@ResponseBody
+	@RequestMapping("/expert/modifyEx")
+	public String expertModifyEx(MultipartFile[] upFile, HttpServletRequest request, String career,
+			String counselSelect, String fistTime, String seTime, String modiText) {
+		log.debug("expertModifyEx 실행");
+		log.debug("업 파일 : " + upFile + " 업파일 길이 : " + upFile.length);
+		log.debug("파람 : " + career + " " + counselSelect + " " + fistTime + " " + seTime + " " + modiText);
+
+		String result = "";
+		String path = request.getServletContext().getRealPath("/resources/profile_images");
+		List<String> list = new ArrayList<String>();
+		for (int i = 0; i < upFile.length; i++) {
+			log.debug(" ================================ ");
+			log.debug("파일명 : " + upFile[i].getOriginalFilename());
+			log.debug("파일크기 : " + upFile[i].getSize());
+		}
+		File dir = new File(path);
+		if (!dir.exists()) {
+			// 지정된 경로의 폴더가 없으면
+			dir.mkdirs();// s넣으면 중간 경로 없어도 알아서 만들어주는것!!
+		}
+
+		// 파일 업로드 로직 처리하기
+		for (MultipartFile f : upFile) {
+			if (!f.isEmpty()) {
+				// 전달된 파일이 있으면... 파일 업로드 처리
+				// 파일 리네임 처리 -> 중복방지를 위해!
+				String originalFileName = f.getOriginalFilename();
+				String ext = originalFileName.substring(originalFileName.lastIndexOf(".") + 1);
+				SimpleDateFormat sdf = new SimpleDateFormat("yyyy_MM_dd_HHmmssSSS");
+				int rndNum = (int) (Math.random() * 1000);
+				String renamedFileName = sdf.format(new Date(System.currentTimeMillis())) + "_" + rndNum + "." + ext;
+				try {
+					// renamedFileName 으로 파일을 저장하기 -> transferTo(파일)
+					f.transferTo(new File(path + "/" + renamedFileName));
+				} catch (Exception e) {
+					// TODO: handle exception
+					e.printStackTrace();
+				}
+				list.add(renamedFileName);
+			}
+		}
+		try {
+			result = new ObjectMapper().writeValueAsString(list);
+		} catch (JsonProcessingException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return result;
+	}
+
 }
