@@ -61,7 +61,8 @@ html, body, div, span, applet, object, iframe, h1, h2, h3, h4, h5, h6, p, blockq
 #upDiv {
 	height: 15%;
 	width: 100%;
-	background-color: #0054BA;
+	/* background-color: #0054BA; */
+	background-color: #003478;
 	padding: 1.5%;
 	display: flex;
 	border: 1px solid #C6C5C5;
@@ -115,6 +116,7 @@ html, body, div, span, applet, object, iframe, h1, h2, h3, h4, h5, h6, p, blockq
 	width: 40%;
 	height: 100%;
 	background-color: rgba(255, 255, 255, 1);
+	border-radius:2%;
 }
 
 #mirrorimgDiv {
@@ -253,13 +255,14 @@ select {
 	height: 60%
 }
 
+textarea {
+	resize: none;
+	border-radius:1%;
+}
+
 /* 위 텍스트 영역 눌르면 옆에 테두리 생기는거 지우는 용도 */
 textarea:focus {
 	outline: none;
-}
-
-textarea {
-	resize: none;
 }
 
 /* 버튼 */
@@ -456,6 +459,7 @@ textarea {
 	display: flex;
 	justify-content: center;
 	align-items: flex-end;
+	padding-bottom:2%;
 }
 
 .licenseImgView {
@@ -467,6 +471,7 @@ textarea {
 	align-items: center;
 	position: relative;
 	cursor: pointer;
+	background-color:white;
 }
 
 .licenseImgView>p {

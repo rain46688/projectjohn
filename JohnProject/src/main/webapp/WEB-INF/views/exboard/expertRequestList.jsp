@@ -76,8 +76,9 @@ h1 {
 }
 
 .divRowTitle{
-	border-radius:1em;
-	background-color: #0054BA;
+	border-radius:2%;
+	/* background-color: #0054BA; */
+	background-color: #003478;
 	color: white;
 }
 
@@ -120,6 +121,8 @@ h1 {
 	height:20%;
 	display:flex;
 	justify-content:flex-end;
+	margin-top:1%;
+	padding-right:4%;
 }
 
 #sortDiv *{
@@ -133,6 +136,7 @@ h1 {
 	justify-content:center;
 	align-items:center;
 	border:1px solid #AEAEAE;
+	background-color:white;
 }
 
 #innerSearchDiv select{
