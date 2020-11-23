@@ -159,7 +159,6 @@
 			$.each(data, function(i,v){
 				msgList[i]=v;
 			})
-		console.log(msgList);
 			$.each(msgList,function(i,v){
 				let otherUsid=v['otherUsid'];
 				let otherProfilePic=v['otherProfilePic'];

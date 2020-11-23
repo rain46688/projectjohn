@@ -24,12 +24,12 @@
 }
 
 .alinkEx1:visited{
-	color:#003478;
+	color:#ffcc66;
 	
 }
 
 .alinkEx2:visited{
-	color:#ffcc66;
+	color:#003478;
 }
 
 ul.tabs {
@@ -186,6 +186,7 @@ a:hover {
 
 .pagination-sm .page-link { /*한칸한칸크기*/
 	padding: 10px 20px;
+	margin: 0;
 }
 
 .pagination a:hover:not(.active) { /*호버*/

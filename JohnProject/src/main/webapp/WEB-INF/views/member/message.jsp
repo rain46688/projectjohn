@@ -107,12 +107,11 @@
 		<div id="savedContainer"></div>
 		<div id="textingContainer">
 			<input type="text" id="message" placeholder="메세지를 입력하세요.">
-			<button type="button" class="btn btn-outline-dark id="sendMessage" onclick="fn_sendMessage()">전송</button>
+			<button type="button" class="btn btn-outline-dark" id="sendMessage" onclick="fn_sendMessage()">전송</button>
 		</div>
 	</div>
 </section>
 <script>
-	
 	//소켓 시작
 	const memberSocket=new WebSocket("wss://localhost${path}/memberSocket");
 	const msgListSocket=new WebSocket("wss://localhost${path}/msgListSocket");

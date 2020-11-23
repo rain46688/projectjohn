@@ -361,6 +361,7 @@ a:hover {
 
 .pagination-sm .page-link { /*한칸한칸크기*/
 	padding: 10px 20px;
+	margin: 0;
 }
 
 .pagination a:hover:not(.active) { /*호버*/
@@ -370,20 +371,28 @@ a:hover {
 </style>
 
 	<section id="content">
-	<div class="tab-box">
+<button class="btn btn-default my-2 my-sm-0"
+						type="button" data-toggle="modal" data-target="#loginModal" id="searchImgBtn">
+						<img src="${path}/resources/images/admin/search.png" width="50px" 
+						height="50px" id="searchImg"></button>
 
-		<ul>
-
-			<li><a href="${path}/admin/adminBeforeExpert">미승인</a></li>
-
-			<li><a href="${path}/admin/adminExpert">승인완료</a></li>
-
-		</ul>
-
-	<div id="search-container">
-			<form action="${path }/admin/adminExpertSearch" method="post">
+	<div class="modal fade" id="loginModal" tabindex="-1" role="dialog"
+						aria-labelledby="exampleModalLabel" aria-hidden="true">
+							<div class="modal-dialog modal-lg" role="document">
+								<div class="modal-content">
+									<div class="modal-header">
+										<h5 class="modal-title" id="exampleModalLabel">전문가관리</h5>
+										<button type="button" class="close"
+											data-dismiss="modal" aria-label="Close">
+												<span aria-hidden="true">&times;</span>
+										</button>
+									</div>
+		
+			<div id="search-container">
+			<form id="myForm" action="${path }/admin/adminExpertSearch" method="post">
 			
-				<select name="searchType" required>
+			<div id="one">
+				<select name="searchType" class="form-control" required>
 					<option value=" " disabled selected>검색타입</option> 
 					
 					<option value="mem_name" <c:if test="${param.searchType eq 'mem_name'}">selected</c:if>>이름</option>
@@ -391,86 +400,130 @@ a:hover {
 					<option value="mem_nickname" ${param.searchType eq 'mem_nickname'?"selected":"" }>닉네임</option>	
 										
 				
-				</select>
+				</select>&nbsp;&nbsp;&nbsp;&nbsp;
+			</div>
 				
-				<input type="search" name="keyword"
+				<div id="four">
+				<input type="search" name="keyword" class="form-control" placeholder="Search"
 				value="${param.keyword }"/> 
+				</div>
 				
 				<br>
 				
-				<label>성별</label>
-				<label><input type="radio" name="gender" value='M'>남</label>
+				<div id="five">
+				
+				<label><input type="radio" name="gender" value='M'>남</label>&nbsp;&nbsp;&nbsp;&nbsp;
 				<label><input type="radio" name="gender" value='F'>여</label>
+				</div>
 				
 				<br>
 				
-				<input type="checkbox" name="leave_mem" value="0">현직 전문가
-				<input type="checkbox" name="leave_mem" value="1">퇴사 전문가
-	
+				<div id="seven">
+				<label><input type="checkbox" name="leave_mem" value="0">현직 전문가</label>&nbsp;&nbsp;&nbsp;&nbsp;
+				<label><input type="checkbox" name="leave_mem" value="1">퇴사 전문가</label>
+				</div>
+				
 				<br>
 				
-			<label><input type="radio" name="order" value='ascend'>오름차순</label>
+			<div id="five">	
+			<label><input type="radio" name="order" value='ascend'>오름차순</label>&nbsp;&nbsp;&nbsp;&nbsp;
 			<label><input type="radio" name="order" value='descend'>내림차순</label> 
+			</div>
 			
-			<select name="searchType2" required>
+			<div id="six">
+			<select name="searchType2" class="form-control" required>
 				<option value=" " disabled selected>선택</option> 
 				<option value="enroll_date" <c:if test="${param.searchType2 eq 'enroll_date'}">selected</c:if>>입사날짜</option>
 				<%-- <option value="expert_rating" <c:if test="${param.searchType eq 'expert_rating'}">selected</c:if>>등급순</option>
 				<option value="expert_counsel_start_time" ${param.searchType eq 'expert_counsel_start_time'?"selected":"" }>상담시간순</option>	 --%>
 			</select>
+			</div>
 							
-				<input type="submit" value="검색">
+					<div id="eight">
+			<button type="submit" class="btn btn-default" id="bbtn">검색</button>
+			<button type="button" class="btn btn-default"
+											data-dismiss="modal" id="bbtn">
+											취소</button>
+					</div>
 			</form>
 		</div>
 		
-	
-	<table class="table">
-			<tr>
-				<th scope="col">번호</th>
-				<th scope="col">이메일</th>
-				<th scope="col">이름</th>
-				<th scope="col">닉네임</th>
-				<th scope="col">성별</th>
-				<th scope="col">생일</th>
-				<th scope="col">가입날짜</th>
-				<th scope="col">퇴사여부</th>
-				<th scope="col">구분</th>
-				<th scope="col">전화번호</th>
-				<th scope="col">전문가 별점</th>
-				<th scope="col">전문가 분야</th>
-			</tr>
+		
+								</div>						
+							</div>
+						</div>
+
+		
+	<div class="tabs">
+
+				<ul class="tabs">
+		
+					<li class="active" id="tab1"><a href="${path}/admin/adminBeforeExpert" class="alinkEx1">미승인</a></li>
+		
+					<li id="tab2"><a href="${path}/admin/adminExpert" class="alinkEx2">승인완료</a></li>
+		
+				</ul>
+		
+		
+		
+		
+			<div class="tab_container">
+		 <div id="tab2" class="tab_content2">
+			<div class="board_list_wrap">
+				<div class="board_list">
+					<div class="board_list_head">
+					
+				<div class="col">번호</div>
+				<div class="col">이메일</div>
+				<div class="col">이름</div>
+				<div class="col">닉네임</div>
+				<div class="col">성별</div>
+				<div class="col">생일</div>
+				<div class="col">가입날짜</div>
+				<div class="col">퇴사여부</div>
+				<div class="col">구분</div>
+				<div class="col">전화번호</div>
+				<div class="col">전문가 별점</div>
+				<div class="col">전문가 분야</div>
+			</div>
 			<c:if test="${empty list}">
-			<tr>
-				<td colspan="12">조회 결과가 없습니다.</td>
-			</tr>
+			
+				<div class="col">조회 결과가 없습니다.</div>
+			
 		</c:if>
 		<c:if test="${not empty list }">
 			<c:forEach var="m" items="${list }">
-				<tr>
-					<td><c:out value="${m['usid']}"/></td>
-					<td><c:out value="${m['memEmail']}"/></td>
-					<td><c:out value="${m['memName']}"/></td>
-					<td><c:out value="${m['memNickname']}"/></td>
-					<td><c:out value="${m['gender'] eq 'M' ? 'M' : 'F' }"/></td>
-					<td><c:out value="${m['birthday']}"/></td>
-					<td><c:out value="${m['enrollDate']}"/></td>
-					<td><c:out value="${m['point']}"/></td>
-					<td><c:out value="${m['leaveMem']}"/></td>
-					<td><c:out value="${m['memClass']}"/></td>
-					<%-- <td><c:out value="${m['tel']}"/></td>
-					<td><c:out value="${m['expert_rating']}"/></td>
-					<td><c:out value="${m['expert_counsel_area']}"/></td> --%>
-				</tr>
+				<div class="board_list_body">
+							<div class="item">
+					<div class="col"><c:out value="${m['usid']}"/></div>
+					<div class="col"><c:out value="${m['memEmail']}"/></div>
+					<div class="col"><c:out value="${m['memName']}"/></div>
+					<div class="col"><c:out value="${m['memNickname']}"/></div>
+					<div class="col"><c:out value="${m['gender'] eq 'M' ? 'M' : 'F' }"/></div>
+					<div class="col"><c:out value="${m['birthday']}"/></div>
+					<div class="col"><c:out value="${m['enrollDate']}"/></div>
+					<div class="col"><c:out value="${m['point']}"/></div>
+					<div class="col"><c:out value="${m['leaveMem']}"/></div>
+					<div class="col"><c:out value="${m['memClass']}"/></div>
+					<%-- <div class="col"><c:out value="${m['tel']}"/></div>
+					<div class="col"><c:out value="${m['expert_rating']}"/></div>
+					<div class="col"><c:out value="${m['expert_counsel_area']}"/></div> --%>
+			</div>
+						</div>
 			</c:forEach>
 		</c:if>
 		
-		</table>
 		
-		     <div id="pageBar">
-		        ${pageBar } 
-		      </div>
-		       
+		
+		 
+				</div>
+			</div>
+</div>
+			<div id="pageBar">${pageBar }</div>
+
+
 	</div>
+</div>
 	</section>
 	
 

@@ -22,20 +22,24 @@ public class ReportServiceImpl implements ReportService {
 	private SqlSessionTemplate session;
 
 	//customer
+//	@Override
+//	public int insertReport(Report r, List<ReportFile> files) throws RuntimeException {
+//		int result = dao.insertReport(session,r);
+//		System.out.println("서비스"+files);
+//		if(result>0) {
+////			if(!files.isEmpty()) {
+//				for(ReportFile f: files) {
+//					dao.insertReportFile(session, f);
+//					
+//				}
+//			//}
+//		}
+//		
+//		return result;
+//	}
 	@Override
-	public int insertReport(Report r, List<ReportFile> files) throws RuntimeException {
-		int result = dao.insertReport(session,r);
-		System.out.println("서비스"+files);
-		if(result>0) {
-//			if(!files.isEmpty()) {
-				for(ReportFile f: files) {
-					dao.insertReportFile(session, f);
-					
-				}
-			//}
-		}
-		
-		return result;
+	public int insertReport(Report r) {
+		return dao.insertReport(session, r);
 	}
 
 
