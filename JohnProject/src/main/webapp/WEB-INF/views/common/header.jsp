@@ -19,6 +19,7 @@
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/sockjs-client/1.5.0/sockjs.min.js"></script>
 <script defer src="${path}/resources/js/header.js"></script>
+<script src="https://unpkg.com/ionicons@5.2.3/dist/ionicons.js"></script>
 <link rel="stylesheet" href="${path}/resources/css/layout.css">
 </head>
 <style>
@@ -80,10 +81,10 @@
 
 #headerList {
 	list-style-type: none;
-	margin: 0;
-	padding: 0;
 	display: flex;
+	align-items: center;
 	flex-direction: row-reverse;
+	height:100%;
 }
 
 #headerList>li {
@@ -101,7 +102,6 @@
 
 .dropdown-content {
   display: none;
-  width:100em;
   position: absolute;
   background-color: #f1f1f1;
   box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
@@ -123,21 +123,34 @@
 #search {
 	float:left;
 	margin:0.5em;
+	margin-top:0;
 	padding:0.5em;
 	display: flex;
+	align-items: center;
+	justify-content: center;
 	flex-direction: row;
+	height: 100%;
 }
 
 #search #searchText {
-	border:1px white solid;
 	width:12em;
+	height:2em;
+	border:1px white solid;
+	border-radius:8px;
+	border-top-right-radius: 0%;
+	border-bottom-right-radius: 0%;
 }
 
 #search #searchBtn {
+	display: flex;
+	align-items: center;
+	justify-content: center;
 	border:1px white solid;
-	margin-left:-2px;
-	width:2.5em;
-	
+}
+
+#search ion-icon{
+	font-size: 30px;
+	color: white;
 }
 </style>
 <body>
@@ -165,7 +178,7 @@
 					<div id="search">
 						<input type="text" id="searchText">
 						<div id="searchBtn">
-							
+							<ion-icon name="search-circle-outline"></ion-icon>
 						</div>
 					</div>
 					<ul id="headerList">

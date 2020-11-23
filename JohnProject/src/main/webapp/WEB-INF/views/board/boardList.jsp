@@ -9,6 +9,7 @@
 <style>
 	
 	#result {
+		font-family: 'Noto Serif KR', serif;
 		margin-top:2em;
 	 	scroll-behavior:smooth;
 	}
@@ -16,7 +17,7 @@
 	#content > button {
 		float:right;
 	}
-
+	
 	.subListTitle {
 		margin-left:1em;
 		font-weight: 800;

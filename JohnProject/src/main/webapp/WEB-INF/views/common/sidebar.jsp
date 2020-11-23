@@ -17,31 +17,8 @@
 	    display: flex;
 	    flex-direction: column;
 	    align-items: center;
-	    /* background-image: url('${path}/resources/images/logo_dot.png');
-	    background-repeat: repeated; */
-	    opcaity:0.5;
 	}
 	
-	/* #side::before {
-		content:"";
-		background-image:url('${path}/resources/images/logo_dot.png');
-		background-repeat: repeated;
-		position: absolute;
-		top: 0px;
-		right: 0px;
-		bottom: 0px;
-		left: 0px;
-		opacity: 0.75;
-	} */
-	
-	#side ::-webkit-scrollbar {
-		background-color: #05135C;
-		width: 4px;
-	}
-	
-	#side::-webkit-scrollbar-track {
-		background-color: #05135C;
-	}
 	
 	#container_logo{
 	    margin-top: 0;
@@ -56,14 +33,26 @@
 	}
 	
 	#menu {
+		font-family: 'Noto Serif KR', serif;
 		margin-top:1em;
 		color: white;
 		font-size: 1em;
 		/* border:1px solid red; */
 		width:100%;
+		overflow: auto;
+	}
+	#menu::-webkit-scrollbar {
+		background-color: #05135C;
+		width: 8px;
+	}
+	#menu::-webkit-scrollbar-thumb{
+		background-color:white;
+	}
+	#menu::-webkit-scrollbar-track {
+		background-color: #05135C;
 	}
 	
-	.menusOnSide {
+	/* .menusOnSide {
 		cursor:pointer;
 		padding-bottom: 0.5em;
 		padding-top: 0.5em;
@@ -71,7 +60,7 @@
 		/* border:1px solid red; */
 	}
 	
-	.menusOnSide:hover {
+	/* .menusOnSide:hover {
 		background-color: #0054BA;
 	}
 	
@@ -83,8 +72,35 @@
 		margin-top:0;
 		padding-bottom:0.1em;
 		/* border:1px solid red; */
+	} */
+	
+	ion-icon{
+		font-size: 2em;
+		color: white;
+		margin-left: 1.5em;
+		margin-right: 1.5em;
+	}
+	div.menuContainer{
+		display: flex;
+		flex-direction: row;
+		justify-content: flex-start;
+		align-items: center;
+		padding-bottom: 0.5em;
+ 	   	padding-top: 0.5em;
+ 	   	padding-right:2em;
+ 	   	padding-left:2em;
+		font-size: 1em;
+		font-weight: bold;
+		color: white;
+		font-family: 'Noto Serif KR', serif;
+	}
+	div.menuContainer:hover {
+		background-color: #0054BA;
 	}
 	
+	div.menuContainer a {
+		color:white;
+	}
 	
 </style>
 <div id="side">
@@ -95,11 +111,37 @@
 	</div>
 	
 	<div id="menu">
-		<div id="homeBtn" class="menusOnSide">
-			<img class="menuImages" src="${path}/resources/images/home.png">
-			HOME
+		<div class="menuContainer">
+			<ion-icon name="home-outline"></ion-icon>
+			<a class="menuLink nav-link" href="#">
+				HOME
+			</a>
 		</div>
-		<div id="popular" class="menusOnSide">
+		<div class="menuContainer">
+			<ion-icon name="flame-outline"></ion-icon>
+			<a class="menuLink nav-link" href="#">
+				인기
+			</a>
+		</div>
+		<div class="menuContainer">
+			<ion-icon name="heart-outline"></ion-icon>
+			<a class="menuLink nav-link" href="#">
+				좋아한 게시물
+			</a>
+		</div>
+		<div class="menuContainer">
+			<ion-icon name="folder-open-outline"></ion-icon>
+			<a class="menuLink nav-link" href="#">
+				내 기록
+			</a>
+		</div>
+		<div class="menuContainer">
+			<ion-icon name="people-outline"></ion-icon>
+			<a class="menuLink nav-link" href="#">
+				전문가와 상담하기
+			</a>
+		</div>
+		<%-- <div id="popular" class="menusOnSide">
 			<img class="menuImages" src="${path}/resources/images/popular.png">
 			인기
 		</div>
@@ -114,36 +156,28 @@
 		<div id="expert" class="menusOnSide" onclick="location.href='${path}/expert'">
 			<img class="menuImages" src="${path}/resources/images/expert_menu.png">
 			전문가와 상담하기
-		</div>
+		</div> --%>
 		<hr>
-		<div id="subList" class="menusOnSide">
+		<div class="menuContainer">
+			<ion-icon name="add-circle-outline"></ion-icon>
+			<a class="menuLink nav-link" href="#">
+				구독한 채널
+			</a>
+		</div>
+		<%-- <div id="subList" class="menusOnSide">
 			<img class="menuImages" src="${path}/resources/images/sub.png">
 			구독한 채널
-		</div>
+		</div> --%>
 		<hr>
-		<div id="cates" class="menusOnSide" >
+		<div class="menuContainer">
+			<ion-icon name="list-outline"></ion-icon>
+			<a class="menuLink nav-link" href="#">
+				큰 카테고리들
+			</a>
+		</div>
+		<%-- <div id="cates" class="menusOnSide">
 			<img class="menuImages" src="${path}/resources/images/cate.png">
 			큰 카테고리들
-		</div>
-		<div id="cates" class="menusOnSide">
-			<img class="menuImages" src="${path}/resources/images/cate.png">
-			큰 카테고리들
-		</div>
-		<div id="cates" class="menusOnSide">
-			<img class="menuImages" src="${path}/resources/images/cate.png">
-			큰 카테고리들
-		</div>
-		<div id="cates" class="menusOnSide">
-			<img class="menuImages" src="${path}/resources/images/cate.png">
-			큰 카테고리들
-		</div>
-		<div id="cates" class="menusOnSide">
-			<img class="menuImages" src="${path}/resources/images/cate.png">
-			큰 카테고리들
-		</div>
-		<div id="cates" class="menusOnSide">
-			<img class="menuImages" src="${path}/resources/images/cate.png">
-			큰 카테고리들
-		</div>
+		</div> --%>
 	</div>
 </div>
