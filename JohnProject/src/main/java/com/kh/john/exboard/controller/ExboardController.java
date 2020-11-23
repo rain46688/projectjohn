@@ -479,16 +479,9 @@ public class ExboardController {
 					service.selectExpertMem("" + ((Member) session.getAttribute("loginMember")).getUsid()));
 			mv.addObject("license",
 					service.selectExpertLicense("" + ((Member) session.getAttribute("loginMember")).getUsid()));
-
-			List<String> ls = service.selectLicenseKind();
-
-			for (String s : ls) {
-
-				log.debug("s : " + s);
-			}
-
-			mv.addObject("likindList", ls);
-
+			mv.addObject("likindList", service.selectLicenseKind());
+			mv.addObject("coukindList", service.selectCounselKind());
+			mv.addObject("comkindList", service.selectCompanyKind());
 		} catch (Exception e) {
 			// TODO: handle exception
 		}

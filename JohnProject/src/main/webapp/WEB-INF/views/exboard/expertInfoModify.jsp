@@ -309,12 +309,9 @@ textarea {
 					<div class="rightDiv">
 						<p>전문 분야</p>
 						<select id="counselSelect" name="counselSelect" required class="form-control short">
-							<option value="부부 상담" <c:if test="${expert.expertCounselArea eq '부부 상담'? 'selected':'' }"/>>부부 상담</option>
-							<option value="연애 상담" <c:if test="${expert.expertCounselArea eq '연애 상담'? 'selected':'' }"/>>연애 상담</option>
-							<option value="직장 상담" <c:if test="${expert.expertCounselArea eq '직장 상담'? 'selected':'' }"/>>직장 상담</option>
-							<option value="심리 상담" <c:if test="${expert.expertCounselArea eq '심리 상담'? 'selected':'' }"/>>심리 상담</option>
-							<option value="자녀 상담" <c:if test="${expert.expertCounselArea eq '자녀 상담'? 'selected':'' }"/>>자녀 상담</option>
-							<option value="진로 상담" <c:if test="${expert.expertCounselArea eq '진로 상담'? 'selected':'' }"/>>진로 상담</option>
+								<c:forEach items="${coukindList }" var="counselList"  varStatus="status">
+								 <option value="${counselList}" ${expert.expertCounselArea == counselList ? 'selected="selected"' : '' } >${counselList}</option>
+								</c:forEach>
 						</select>
 					</div>
 				</div>
@@ -342,7 +339,7 @@ textarea {
 			</div>
 			<div id="buttonDiv">
 				<button class="btn btn-outline-success" onclick="modify();">수정완료</button>
-				<input id="profileUpload" type="file" >
+				<input id="profileUpload" type="file" style="display: none;">
 				<!-- style="display: none;" -->
 			</div>
 		</div>
@@ -505,15 +502,10 @@ textarea {
 						<div class="licenseTitle">
 							<p>자격증 타입</p>
 						</div>
-						
-						<c:forEach items="${likindList }" var="litype"  varStatus="status">
-							<div>${litype}</div>
-						</c:forEach>
-						
 						<div class="licenseContent">
 							<select id="licenseTypeSelect${status.count}" name="licenseTypeSelect${status.count}" required class="form-control short licenseTypeSelect">
-							<c:forEach items="${likindList }" var="lity"  varStatus="status">
-								 <option value="${lity.LICENSE_KIND_NAME}"/>${lity.LICENSE_KIND_NAME}</option>
+							<c:forEach items="${likindList }" var="lity">
+								 <option value="${lity}" ${license.licenseType == lity ? 'selected="selected"' : '' } >${lity}</option>
 								</c:forEach>
 							</select>
 						</div>
@@ -523,7 +515,7 @@ textarea {
 							<p>자격증 발급 날짜</p>
 						</div>
 						<div class="licenseContent">
-							<input name="licenseTime1" id="licenseTime1" type="date" class="form-control times licenseTime">
+							<input name="licenseTime${status.count}" id="licenseTime${status.count}" type="date" class="form-control times licenseTime" value="${license.licenseDate}">
 						</div>
 					</div>
 					<div class="licenseCompany">
@@ -532,12 +524,9 @@ textarea {
 						</div>
 						<div class="licenseContent">
 							<select id="licenseCompanySelect${status.count}" name="licenseCompanySelect${status.count}" required class="form-control short licenseCompanySelect">
-								<option value="한국 청소년 상담 복지 개발원" selected>한국 청소년 상담 복지 개발원</option>
-								<option value="여성가족부">여성가족부</option>
-								<option value="삽업인력관리공단 큐넷">삽업인력관리공단 큐넷</option>
-								<option value="한국 상담 심리 학회">한국 상담 심리 학회</option>
-								<option value="한국 상담 학회">한국 상담 학회</option>
-								<option value="한국 임상 심리 학회">한국 임상 심리 학회</option>
+									<c:forEach items="${comkindList }" var="comli"  varStatus="status">
+								 <option value="${comli}" ${license.licenseCompany == comli ? 'selected="selected"' : '' } >${comli}</option>
+								</c:forEach>
 							</select>
 						</div>
 					</div>
@@ -545,11 +534,14 @@ textarea {
 			</div>
 			</c:forEach>
 
+	<c:set var="num" value="${fn:length(license) + 1}"/>
+	<c:forEach var ="i" begin="1" end="${3 - (fn:length(license))}">
+
 		<div class="licenseDiv">
-				<div class="licenseImg" id="licenseImg1">
-					<img src="${path }/resources/images/expert.png" id="imgLicense1" class="img-thumbnail licenseImgs" />
+				<div class="licenseImg" id="licenseImg${num}">
+					<img src="${path }/resources/images/expert.png" id="imgLicense${num}" class="img-thumbnail licenseImgs" />
 				</div>
-				<div class="licenseImgView" id="licenseImgView1">
+				<div class="licenseImgView" id="licenseImgView${num}">
 					<p>+</p>
 				</div>
 				<div class="licenseInfo">
@@ -558,27 +550,10 @@ textarea {
 							<p>자격증 타입</p>
 						</div>
 						<div class="licenseContent">
-							<select id="licenseTypeSelect1" name="licenseTypeSelect1" required class="form-control short licenseTypeSelect">
-								<option value="미술 심리 상담 지도사 1급" selected>미술 심리 상담 지도사 1급</option>
-								<option value="미술 심리 상담 지도사 2급">미술 심리 상담 지도사 2급</option>
-								<option value="노인 심리 상담 지도사">노인 심리 상담 지도사</option>
-								<option value="심리 상담 지도사 1급">심리 상담 지도사 1급</option>
-								<option value="음악 심리 상담 지도사 1급">음악 심리 상담 지도사 1급</option>
-								<option value="아동 심리 상담사">아동 심리 상담사</option>
-								<option value="부모 교육 심리 상담사">부모 교육 심리 상담사</option>
-								<option value="청소년 상담사 1급">청소년 상담사 1급</option>
-								<option value="청소년 상담사 2급">청소년 상담사 2급</option>
-								<option value="청소년 상담사 3급">청소년 상담사 3급</option>
-								<option value="직업 상담사 1급">직업 상담사 1급</option>
-								<option value="직업 상담사 2급">직업 상담사 2급</option>
-								<option value="직업 상담사 3급">직업 상담사 3급</option>
-								<option value="전문 상담사 1급">전문 상담사 1급</option>
-								<option value="전문 상담사 2급">전문 상담사 2급</option>
-								<option value="전문 상담사 3급">전문 상담사 3급</option>
-								<option value="임상 심리사 1급">임상 심리사 1급</option>
-								<option value="임상 심리사 2급">임상 심리사 2급</option>
-								<option value="전문 상담 교사">전문 상담 교사</option>
-								<option value="임상 심리 전문가">임상 심리 전문가</option>
+							<select id="licenseTypeSelect${num}" name="licenseTypeSelect${num}" required class="form-control short licenseTypeSelect">
+									<c:forEach items="${likindList }" var="lity"  varStatus="status">
+								 <option value="${lity}" >${lity}</option>
+								</c:forEach>
 							</select>
 						</div>
 					</div>
@@ -587,7 +562,7 @@ textarea {
 							<p>자격증 발급 날짜</p>
 						</div>
 						<div class="licenseContent">
-							<input name="licenseTime1" id="licenseTime1" type="date" class="form-control times licenseTime">
+							<input name="licenseTime${num}" id="licenseTime${num}" type="date" class="form-control times licenseTime">
 						</div>
 					</div>
 					<div class="licenseCompany">
@@ -595,24 +570,24 @@ textarea {
 							<p>자격증 발급 기관</p>
 						</div>
 						<div class="licenseContent">
-							<select id="licenseCompanySelect1" name="licenseCompanySelect1" required class="form-control short licenseCompanySelect">
-								<option value="한국 청소년 상담 복지 개발원" selected>한국 청소년 상담 복지 개발원</option>
-								<option value="여성가족부">여성가족부</option>
-								<option value="삽업인력관리공단 큐넷">삽업인력관리공단 큐넷</option>
-								<option value="한국 상담 심리 학회">한국 상담 심리 학회</option>
-								<option value="한국 상담 학회">한국 상담 학회</option>
-								<option value="한국 임상 심리 학회">한국 임상 심리 학회</option>
+							<select id="licenseCompanySelect${num}" name="licenseCompanySelect${num}" required class="form-control short licenseCompanySelect">
+							<c:forEach items="${comkindList }" var="comli"  varStatus="status">
+								 <option value="${comli}" >${comli}</option>
+								</c:forEach>
 							</select>
 						</div>
 					</div>
 				</div>
 			</div>
+			<c:set var="num" value="${num + 1}"/>
+			</c:forEach>
 
 			<div id="licenseButtonDiv">
 				<button class="btn btn-outline-success" onclick="modifyLicense();">수정완료</button>
-				<input id="licenseUpload1" type="file"  class="licenseUpload"> 
-				<input id="licenseUpload2" type="file"  class="licenseUpload"> 
-				<input id="licenseUpload3" type="file"  class="licenseUpload">
+				<!-- ${fn:length(license) + 1}/${3 - (fn:length(license))} -->
+				<input id="licenseUpload1" type="file"  class="licenseUpload" style="display: none;"> 
+				<input id="licenseUpload2" type="file"  class="licenseUpload" style="display: none;"> 
+				<input id="licenseUpload3" type="file"  class="licenseUpload" style="display: none;">
 				<!-- style="display: none;" -->
 			</div>
 		</div>

@@ -86,8 +86,16 @@
 	SELECT * FROM EXPERT_REQUEST
 </select>
 
-<select id="selectLicenseKind" resultType	="list" >
+<select id="selectLicenseKind" resultType	="string" >
 	SELECT * FROM LICENSE_KIND
+</select>
+
+<select id="selectCounselKind" resultType	="string" >
+	SELECT * FROM COUNSEL_KIND
+</select>
+
+<select id="selectCompanyKind" resultType	="string" >
+	SELECT * FROM COMPANY_KIND
 </select>
 
 	<resultMap type="exboard" id="exboardMap">

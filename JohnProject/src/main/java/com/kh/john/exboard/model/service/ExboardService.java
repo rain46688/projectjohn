@@ -51,4 +51,8 @@ public interface ExboardService {
 
 	List<String> selectLicenseKind() throws Exception;
 
+	List<String> selectCounselKind() throws Exception;
+
+	List<String> selectCompanyKind() throws Exception;
+
 }

@@ -223,4 +223,16 @@ public class ExboardServiceImpl implements ExboardService {
 		return dao.selectLicenseKind(session);
 	}
 
+	@Override
+	public List<String> selectCounselKind() throws Exception {
+		// TODO Auto-generated method stub
+		return dao.selectCounselKind(session);
+	}
+
+	@Override
+	public List<String> selectCompanyKind() throws Exception {
+		// TODO Auto-generated method stub
+		return dao.selectCompanyKind(session);
+	}
+
 }
