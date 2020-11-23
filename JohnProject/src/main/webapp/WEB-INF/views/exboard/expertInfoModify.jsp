@@ -31,7 +31,7 @@ html, body, div, span, applet, object, iframe, h1, h2, h3, h4, h5, h6, p, blockq
 }
 
 #content * {
-	  border: 1px solid red;
+	border: 1px solid red;
 }
 
 /* 기본 배경 */
@@ -48,12 +48,11 @@ html, body, div, span, applet, object, iframe, h1, h2, h3, h4, h5, h6, p, blockq
 /*  */
 /*  */
 /*  */
-
 #mainDiv {
 	width: 60%;
 	height: 98%;
 	border: 1px solid #C6C5C5;
-	border-radius:1em;
+	border-radius: 1em;
 	background-color: #BACADE;
 }
 
@@ -65,7 +64,7 @@ html, body, div, span, applet, object, iframe, h1, h2, h3, h4, h5, h6, p, blockq
 	padding: 1.5%;
 	display: flex;
 	border: 1px solid #C6C5C5;
-	border-radius:1em 1em 0 0;
+	border-radius: 1em 1em 0 0;
 }
 
 /* 프로필 영역 중간부분 */
@@ -74,7 +73,7 @@ html, body, div, span, applet, object, iframe, h1, h2, h3, h4, h5, h6, p, blockq
 	width: 100%;
 	height: 30%;
 	display: flex;
-	padding: 0 0 0 3%; 
+	padding: 0 0 0 3%;
 	margin: 3% 0 0 0;
 }
 
@@ -114,7 +113,7 @@ html, body, div, span, applet, object, iframe, h1, h2, h3, h4, h5, h6, p, blockq
 	z-index: 0;
 	width: 40%;
 	height: 100%;
-	background-color:rgba(255,255,255,1);
+	background-color: rgba(255, 255, 255, 1);
 }
 
 #mirrorimgDiv {
@@ -124,11 +123,11 @@ html, body, div, span, applet, object, iframe, h1, h2, h3, h4, h5, h6, p, blockq
 	display: none;
 	justify-content: center;
 	align-items: center;
- 	/* background-image: url(${path }/resources/profile_images/${loginMember.profilePic});  */
- /* 	background-image: url(${path }/resources/images/expert.png);
+	/* background-image: url(${path }/resources/profile_images/${loginMember.profilePic});  */
+	/* 	background-image: url(${path }/resources/images/expert.png);
 	background-repeat: no-repeat;
 	background-size: 100% 100%;  */
-	background-color:rgba(255,255,255,1);
+	background-color: rgba(255, 255, 255, 1);
 	position: relative;
 	cursor: pointer;
 }
@@ -144,10 +143,10 @@ html, body, div, span, applet, object, iframe, h1, h2, h3, h4, h5, h6, p, blockq
 }
 
 /* 중간 오른쪽 영역  */
-#upRightDiv{
-	width:60%;
-	height:100%;
-	margin:0 2% 2% 2%;
+#upRightDiv {
+	width: 60%;
+	height: 100%;
+	margin: 0 2% 2% 2%;
 }
 
 .rowDiv {
@@ -165,23 +164,23 @@ html, body, div, span, applet, object, iframe, h1, h2, h3, h4, h5, h6, p, blockq
 	height: 100%;
 }
 
-.timeleftDiv{
+.timeleftDiv {
 	width: 100%;
 	height: 100%;
 }
 
-#time{
-	display:flex;
+#time {
+	display: flex;
 }
 
-#time input{
-	margin:0 1% 0 1%;
-	width:40%;
+#time input {
+	margin: 0 1% 0 1%;
+	width: 40%;
 }
 
-.timeleftDiv input{
-	width:50%;
-	height:100%;
+.timeleftDiv input {
+	width: 50%;
+	height: 100%;
 }
 
 /* 시간 주의사항 */
@@ -192,11 +191,10 @@ html, body, div, span, applet, object, iframe, h1, h2, h3, h4, h5, h6, p, blockq
 	font-weight:bold;
 	font-style:italic;
 } */
-
 .rightDiv {
 	width: 50%;
 	height: 100%;
-	padding-right:4%;
+	padding-right: 4%;
 }
 
 #careerleftDiv {
@@ -225,7 +223,7 @@ h6 {
 p {
 	font-size: 3vh;
 	font-weight: bold;
-	padding:1% 0 1% 0;
+	padding: 1% 0 1% 0;
 }
 
 /* 인풋 태그 */
@@ -241,18 +239,17 @@ select {
 }
 
 /* 텍스트 에어리어 태그 */
-
-#exTextArea{
+#exTextArea {
 	width: 100%;
 	height: 100%;
-	font-size:2vh;
-	font-weight:bold;
-	padding:1%;
+	font-size: 2vh;
+	font-weight: bold;
+	padding: 1%;
 }
 
-#textArearowDiv{
-	width:100%;
-	height:60%
+#textArearowDiv {
+	width: 100%;
+	height: 60%
 }
 
 /* 위 텍스트 영역 눌르면 옆에 테두리 생기는거 지우는 용도 */
@@ -268,11 +265,89 @@ textarea {
 #buttonDiv {
 	display: flex;
 	justify-content: center;
-	align-items:flex-end;
-	width:100%;
-	height:40%;
+	align-items: flex-end;
+	width: 100%;
+	height: 40%;
+	width: 100%;
 }
 
+/*  */
+</style>
+<section id="content">
+	<div id="mainDiv">
+		<!-- up -->
+		<div id="upDiv">
+			<h2>전문가 정보 수정</h2>
+			<div id="upFlag">
+				<p>라이센스 수정</p>
+			</div>
+		</div>
+		<!-- <hr> -->
+		<!-- profile -->
+		<div id="profileDiv">
+			<div id="imgDiv">
+				<img src="${path }/resources/images/expert.png" id="imgProfile" class="img-thumbnail" />
+			</div>
+			<div id="mirrorimgDiv">
+				<p>+</p>
+			</div>
+			<!-- <div id="mirrorimgDiv2"></div> -->
+			<div id="upRightDiv">
+
+				<div class="rowDiv">
+					<div class="leftDiv">
+						<p>경력</p>
+						<div id="careerleftDiv">
+							<div id="exinput">
+								<input type="number" name="career" class="form-control short" min="1" max="99" />
+							</div>
+							<div id="exinput2">
+								<h6>년</h6>
+							</div>
+						</div>
+					</div>
+					<div class="rightDiv">
+						<p>전문 분야</p>
+						<select id="counselSelect" name="counselSelect" required class="form-control short">
+							<option value="부부 상담" selected>부부 상담</option>
+							<option value="연애 상담">연애 상담</option>
+							<option value="직장 상담">직장 상담</option>
+							<option value="심리 상담">심리 상담</option>
+							<option value="자녀 상담">자녀 상담</option>
+							<option value="진로 상담">진로 상담</option>
+						</select>
+					</div>
+				</div>
+
+				<div class="rowDiv">
+					<div class="timeleftDiv">
+						<p>상담 가능 시간</p>
+						<div id="time">
+							<input name="fistTime" type="time" class="form-control times">
+							<p>~</p>
+							<input name="seTime" type="time" class="form-control times">
+						</div>
+					</div>
+				</div>
+				<!-- 	<div id="timeWarning">주말 공휴일 제외</div> -->
+			</div>
+		</div>
+		<!-- downDiv -->
+		<div id="downDiv">
+			<div id="textArearowDiv">
+				<div id="textAreaDiv">
+					<p>인사말</p>
+					<textarea id="exTextArea" name="modiText"></textarea>
+				</div>
+			</div>
+			<div id="buttonDiv">
+				<button class="btn btn-outline-success" onclick="modify();">수정완료</button>
+				<input id="profileUpload" type="file" style="display: none;">
+			</div>
+		</div>
+	</div>
+
+	<style>
 
 /*  */
 /*  */
@@ -281,15 +356,15 @@ textarea {
 /*  */
 /*  */
 /*  */
-
-#licenseModifyDiv{
+#licenseModifyDiv {
 	width: 60%;
-	height: auto;
+	height: 98%;
 	border: 1px solid #C6C5C5;
+	border-radius: 1em;
 	background-color: #BACADE;
-	display:none;
+	/*  */
+	display: none;
 	opacity: 0;
-
 }
 
 #licenseupDiv {
@@ -299,7 +374,7 @@ textarea {
 	padding: 1.5%;
 	display: flex;
 	border: 1px solid #C6C5C5;
-	border-radius:1em 1em 0 0;
+	border-radius: 1em 1em 0 0;
 }
 
 #licenseupDiv>h2 {
@@ -323,88 +398,296 @@ textarea {
 	cursor: pointer;
 }
 
+#licenseDownDiv {
+	height: 85%;
+	width: 100%;
+}
 
+.licenseDiv {
+	width: 100%;
+	height: 30%;
+	display: flex;
+	padding: 1%;
+}
+
+.licenseImg {
+	z-index: 0;
+	width: 30%;
+	height: 100%;
+}
+
+.licenseInfo {
+	width: 70%;
+	height: 100%;
+	margin: 1%;
+}
+
+.licenseType {
+	width: 100%;
+	height: 35%;
+	display: flex;
+}
+
+.licenseDate {
+	width: 100%;
+	height: 35%;
+	display: flex;
+}
+
+.licenseCompany {
+	width: 100%;
+	height: 35%;
+	display: flex;
+}
+
+.licenseTitle {
+	height: 100%;
+	width: 40%;
+	text-align: center;
+}
+
+.licenseContent {
+	height: 100%;
+	width: 60%;
+}
+
+#licenseButtonDiv {
+	width: 100%;
+	height: 10%;
+	display: flex;
+	justify-content: center;
+	align-items: flex-end;
+}
+
+.licenseImgView {
+	z-index: 1;
+	width: 30%;
+	height: 100%;
+	display: none;
+	justify-content: center;
+	align-items: center;
+	position: relative;
+	cursor: pointer;
+}
+
+.licenseImgView>p {
+	font-size: 8vh;
+	color: black;
+}
+
+.licenseImgs {
+	width: 100%;
+	height: 100%;
+}
 </style>
-<section id="content">
-	<div id="mainDiv">
-		<!-- up -->
-		<div id="upDiv">
-			<h2>전문가 정보 수정</h2>
-			<div id="upFlag">
-				<p>라이센스 수정</p>
-			</div>
-		</div>
-		<!-- <hr> -->
-		<!-- profile -->
-		<div id="profileDiv">
-			<div id="imgDiv">
-				<img src="${path }/resources/images/expert.png" id="imgProfile" class="img-thumbnail" />
-			</div>
-			<div id="mirrorimgDiv">
-				<p>+</p>
-			</div>
-			<!-- <div id="mirrorimgDiv2"></div> -->
-			<div id="upRightDiv">
-			
-			<div class="rowDiv">
-				<div class="leftDiv">
-					<p>경력</p>
-					<div id="careerleftDiv">
-						<div id="exinput">
-							<input type="number" name="career" class="form-control short" min="1" max="99"/>
-						</div>
-						<div id="exinput2">
-							<h6>년</h6>
-						</div>
-					</div>
-				</div>
-				<div class="rightDiv">
-					<p>전문 분야</p>
-					<select id="counselSelect" name="counselSelect" required class="form-control short" >
-						<option value="부부 상담" selected>부부 상담</option>
-						<option value="연애 상담">연애 상담</option>
-						<option value="직장 상담">직장 상담</option>
-						<option value="심리 상담">심리 상담</option>
-						<option value="자녀 상담">자녀 상담</option>
-						<option value="진로 상담">진로 상담</option>
-					</select>
-				</div>
-			</div> 
-			
-			<div class="rowDiv">
-			<div class="timeleftDiv">
-					<p>상담 가능 시간</p>
-					<div id="time">
-					<input name="fistTime" type="time" class="form-control times"><p>~</p><input name="seTime" type="time" class="form-control times" >
-					</div>
-				</div>
-			</div>
-				<!-- 	<div id="timeWarning">주말 공휴일 제외</div> -->
-			</div>
-		</div>
-		<!-- downDiv -->
-		<div id="downDiv">
-			<div id="textArearowDiv">
-				<div id="textAreaDiv">
-					<p>인사말</p>
-					<textarea id="exTextArea" name="modiText"></textarea>
-				</div>
-			</div>
-			<div id="buttonDiv">
-			<button class="btn btn-outline-success" onclick="modify();">수정완료</button>
-			<input id="profileUpload" type="file" style="display:none;">
-			</div>
-			</div>
-		</div>
-	
+
 	<div id="licenseModifyDiv">
-			<div id="licenseupDiv">
+		<div id="licenseupDiv">
 			<h2>라이센스 수정</h2>
 			<div id="licenseupFlag">
 				<p>전문가 정보 수정</p>
 			</div>
 		</div>
-	
+		<div id="licenseDownDiv">
+
+			<div class="licenseDiv">
+				<div class="licenseImg" id="licenseImg1">
+					<img src="${path }/resources/images/expert.png" id="imgLicense1" class="img-thumbnail licenseImgs" />
+				</div>
+				<div class="licenseImgView" id="licenseImgView1">
+					<p>+</p>
+				</div>
+				<div class="licenseInfo">
+					<div class="licenseType">
+						<div class="licenseTitle">
+							<p>자격증 타입</p>
+						</div>
+						<div class="licenseContent">
+							<select id="licenseTypeSelect1" name="licenseTypeSelect1" required class="form-control short">
+								<option value="미술 심리 상담 지도사 1급" selected>미술 심리 상담 지도사 1급</option>
+								<option value="미술 심리 상담 지도사 2급">미술 심리 상담 지도사 2급</option>
+								<option value="노인 심리 상담 지도사">노인 심리 상담 지도사</option>
+								<option value="심리 상담 지도사 1급">심리 상담 지도사 1급</option>
+								<option value="음악 심리 상담 지도사 1급">음악 심리 상담 지도사 1급</option>
+								<option value="아동 심리 상담사">아동 심리 상담사</option>
+								<option value="부모 교육 심리 상담사">부모 교육 심리 상담사</option>
+								<option value="청소년 상담사 1급">청소년 상담사 1급</option>
+								<option value="청소년 상담사 2급">청소년 상담사 2급</option>
+								<option value="청소년 상담사 3급">청소년 상담사 3급</option>
+								<option value="직업 상담사 1급">직업 상담사 1급</option>
+								<option value="직업 상담사 2급">직업 상담사 2급</option>
+								<option value="직업 상담사 3급">직업 상담사 3급</option>
+								<option value="전문 상담사 1급">전문 상담사 1급</option>
+								<option value="전문 상담사 2급">전문 상담사 2급</option>
+								<option value="전문 상담사 3급">전문 상담사 3급</option>
+								<option value="임상 심리사 1급">임상 심리사 1급</option>
+								<option value="임상 심리사 2급">임상 심리사 2급</option>
+								<option value="전문 상담 교사">전문 상담 교사</option>
+								<option value="임상 심리 전문가">임상 심리 전문가</option>
+							</select>
+						</div>
+					</div>
+					<div class="licenseDate">
+						<div class="licenseTitle">
+							<p>자격증 발급 날짜</p>
+						</div>
+						<div class="licenseContent">
+							<input name="licenseTime1" id="licenseTime1" type="date" class="form-control times">
+						</div>
+					</div>
+					<div class="licenseCompany">
+						<div class="licenseTitle">
+							<p>자격증 발급 기관</p>
+						</div>
+						<div class="licenseContent">
+							<select id="licenseCompanySelect1" name="licenseCompanySelect1" required class="form-control short">
+								<option value="한국 청소년 상담 복지 개발원" selected>한국 청소년 상담 복지 개발원</option>
+								<option value="여성가족부">여성가족부</option>
+								<option value="삽업인력관리공단 큐넷">삽업인력관리공단 큐넷</option>
+								<option value="한국 상담 심리 학회">한국 상담 심리 학회</option>
+								<option value="한국 상담 학회">한국 상담 학회</option>
+								<option value="한국 임상 심리 학회">한국 임상 심리 학회</option>
+							</select>
+						</div>
+					</div>
+				</div>
+			</div>
+
+
+
+			<div class="licenseDiv">
+				<div class="licenseImg" id="licenseImg2">
+					<img src="${path }/resources/images/expert.png" id="imgLicense2" class="img-thumbnail licenseImgs" />
+				</div>
+				<div class="licenseImgView" id="licenseImgView2">
+					<p>+</p>
+				</div>
+					<div class="licenseInfo">
+					<div class="licenseType">
+						<div class="licenseTitle">
+							<p>자격증 타입</p>
+						</div>
+						<div class="licenseContent">
+							<select id="licenseTypeSelect2" name="licenseTypeSelect2" required class="form-control short">
+								<option value="미술 심리 상담 지도사 1급" selected>미술 심리 상담 지도사 1급</option>
+								<option value="미술 심리 상담 지도사 2급">미술 심리 상담 지도사 2급</option>
+								<option value="노인 심리 상담 지도사">노인 심리 상담 지도사</option>
+								<option value="심리 상담 지도사 1급">심리 상담 지도사 1급</option>
+								<option value="음악 심리 상담 지도사 1급">음악 심리 상담 지도사 1급</option>
+								<option value="아동 심리 상담사">아동 심리 상담사</option>
+								<option value="부모 교육 심리 상담사">부모 교육 심리 상담사</option>
+								<option value="청소년 상담사 1급">청소년 상담사 1급</option>
+								<option value="청소년 상담사 2급">청소년 상담사 2급</option>
+								<option value="청소년 상담사 3급">청소년 상담사 3급</option>
+								<option value="직업 상담사 1급">직업 상담사 1급</option>
+								<option value="직업 상담사 2급">직업 상담사 2급</option>
+								<option value="직업 상담사 3급">직업 상담사 3급</option>
+								<option value="전문 상담사 1급">전문 상담사 1급</option>
+								<option value="전문 상담사 2급">전문 상담사 2급</option>
+								<option value="전문 상담사 3급">전문 상담사 3급</option>
+								<option value="임상 심리사 1급">임상 심리사 1급</option>
+								<option value="임상 심리사 2급">임상 심리사 2급</option>
+								<option value="전문 상담 교사">전문 상담 교사</option>
+								<option value="임상 심리 전문가">임상 심리 전문가</option>
+							</select>
+						</div>
+					</div>
+					<div class="licenseDate">
+						<div class="licenseTitle">
+							<p>자격증 발급 날짜</p>
+						</div>
+						<div class="licenseContent">
+							<input name="licenseTime2" id="licenseTime2" type="date" class="form-control times" value="2020-09-11">
+						</div>
+					</div>
+					<div class="licenseCompany">
+						<div class="licenseTitle">
+							<p>자격증 발급 기관</p>
+						</div>
+						<div class="licenseContent">
+							<select id="licenseCompanySelect2" name="licenseCompanySelect2" required class="form-control short">
+								<option value="한국 청소년 상담 복지 개발원" selected>한국 청소년 상담 복지 개발원</option>
+								<option value="여성가족부">여성가족부</option>
+								<option value="삽업인력관리공단 큐넷">삽업인력관리공단 큐넷</option>
+								<option value="한국 상담 심리 학회">한국 상담 심리 학회</option>
+								<option value="한국 상담 학회">한국 상담 학회</option>
+								<option value="한국 임상 심리 학회">한국 임상 심리 학회</option>
+							</select>
+						</div>
+					</div>
+				</div>
+			</div>
+
+			<div class="licenseDiv">
+				<div class="licenseImg" id="licenseImg3">
+					<img src="${path }/resources/images/expert.png" id="imgLicense3" class="img-thumbnail licenseImgs" />
+				</div>
+				<div class="licenseImgView" id="licenseImgView3">
+					<p>+</p>
+				</div>
+				<div class="licenseInfo">
+					<div class="licenseType">
+						<div class="licenseTitle">
+							<p>자격증 타입</p>
+						</div>
+						<div class="licenseContent">
+							<select id="licenseTypeSelect3" name="licenseTypeSelect3" required class="form-control short">
+								<option value="미술 심리 상담 지도사 1급" selected>미술 심리 상담 지도사 1급</option>
+								<option value="미술 심리 상담 지도사 2급">미술 심리 상담 지도사 2급</option>
+								<option value="노인 심리 상담 지도사">노인 심리 상담 지도사</option>
+								<option value="심리 상담 지도사 1급">심리 상담 지도사 1급</option>
+								<option value="음악 심리 상담 지도사 1급">음악 심리 상담 지도사 1급</option>
+								<option value="아동 심리 상담사">아동 심리 상담사</option>
+								<option value="부모 교육 심리 상담사">부모 교육 심리 상담사</option>
+								<option value="청소년 상담사 1급">청소년 상담사 1급</option>
+								<option value="청소년 상담사 2급">청소년 상담사 2급</option>
+								<option value="청소년 상담사 3급">청소년 상담사 3급</option>
+								<option value="직업 상담사 1급">직업 상담사 1급</option>
+								<option value="직업 상담사 2급">직업 상담사 2급</option>
+								<option value="직업 상담사 3급">직업 상담사 3급</option>
+								<option value="전문 상담사 1급">전문 상담사 1급</option>
+								<option value="전문 상담사 2급">전문 상담사 2급</option>
+								<option value="전문 상담사 3급">전문 상담사 3급</option>
+								<option value="임상 심리사 1급">임상 심리사 1급</option>
+								<option value="임상 심리사 2급">임상 심리사 2급</option>
+								<option value="전문 상담 교사">전문 상담 교사</option>
+								<option value="임상 심리 전문가">임상 심리 전문가</option>
+							</select>
+						</div>
+					</div>
+					<div class="licenseDate">
+						<div class="licenseTitle">
+							<p>자격증 발급 날짜</p>
+						</div>
+						<div class="licenseContent">
+							<input name="licenseTime3" id="licenseTime3" type="date" class="form-control times">
+						</div>
+					</div>
+					<div class="licenseCompany">
+						<div class="licenseTitle">
+							<p>자격증 발급 기관</p>
+						</div>
+						<div class="licenseContent">
+							<select id="licenseCompanySelect3" name="licenseCompanySelect3" required class="form-control short" >
+								<option value="한국 청소년 상담 복지 개발원" selected>한국 청소년 상담 복지 개발원</option>
+								<option value="여성가족부">여성가족부</option>
+								<option value="삽업인력관리공단 큐넷">삽업인력관리공단 큐넷</option>
+								<option value="한국 상담 심리 학회">한국 상담 심리 학회</option>
+								<option value="한국 상담 학회">한국 상담 학회</option>
+								<option value="한국 임상 심리 학회">한국 임상 심리 학회</option>
+							</select>
+						</div>
+					</div>
+				</div>
+			</div>
+
+			<div id="licenseButtonDiv">
+				<button class="btn btn-outline-success" onclick="modifyLicense();">수정완료</button>
+				<input id="licenseUpload1" type="file" style="display: none;"> <input id="licenseUpload2" type="file" style="display: none;"> <input
+					id="licenseUpload3" type="file" style="display: none;">
+			</div>
+		</div>
+
 	</div>
 </section>
 
@@ -415,6 +698,12 @@ textarea {
 
 let proWith;
 let proHeight;
+let liWith1;
+let liHeight1;
+let liWith2;
+let liHeight2;
+let liWith3;
+let liHeight3;
 
 $("#upFlag").click(e=>{
 	$("#mainDiv").stop(true).animate({'opacity': 0}, 300, function() {
@@ -431,6 +720,44 @@ $("#licenseupFlag").click(e=>{
     });
 });
 
+
+
+function modifyLicense(){
+	console.log("자격증 수정 완료");
+	let frm1 = $("#licenseUpload1")[0].files[0];
+	let frm2 = $("#licenseUpload2")[0].files[0];
+	let frm3 = $("#licenseUpload3")[0].files[0];
+	console.log("frm1 : "+frm1);
+	console.log("frm2 : "+frm2);
+	console.log("frm3 : "+frm3);
+
+	
+	
+	
+	
+	
+	let formData = new FormData();
+	formData.append('upFile',frm1,frm1.name);
+	formData.append('upFile',frm2,frm2.name);
+	formData.append('upFile',frm3,frm3.name);
+	formData.append('career',career);
+	formData.append('counselSelect',counselSelect);
+	formData.append('fistTime',fistTime);
+	formData.append('seTime',seTime);
+	formData.append('modiText',modiText);
+ 	$.ajax({
+		url : '${path}/expert/modifyLicense',
+		data : formData,
+		type : 'post',
+		contentType : false,
+		processData : false,
+		dataType : "json",
+		success : function(data) {
+			console.log("수정 data : " + data);
+			
+		}
+	});
+}
 
 
 function modify(){
@@ -466,14 +793,11 @@ function modify(){
 			
 		}
 	});
-	
 }
 
 $("#mirrorimgDiv").click(e => {
 	console.log("이미지 눌릠");
 	 $("#profileUpload").click();
-
-	
 });
 
 $("#profileUpload").change(function(e){
@@ -533,6 +857,130 @@ $('#mirrorimgDiv').hover(function(){
 	$('#mirrorimgDiv').css('display','none');
 	    $("#imgDiv").css('display','flex');
 });
+
+$('#licenseImg1').hover(function(){
+	liWith1 =  $("#imgLicense1").width();
+	liHeight1 =  $("#imgLicense1").height();
+    $('#licenseImgView1').css('display','flex');
+   $("#licenseImg1").css('display','none');
+}, function() {
+	$('#licenseImgView1').css('display','none');
+	   $("#licenseImg1").css('display','flex');
+});
+
+$('#licenseImgView1').hover(function(){
+    $('#licenseImgView1').css('display','flex');
+   $("#licenseImg1").css('display','none');
+}, function() {
+	$('#licenseImgView1').css('display','none');
+	   $("#licenseImg1").css('display','flex');
+});
+
+$('#licenseImg2').hover(function(){
+	liWith2 =  $("#imgLicense2").width();
+	liHeight2 =  $("#imgLicense2").height();
+    $('#licenseImgView2').css('display','flex');
+   $("#licenseImg2").css('display','none');
+}, function() {
+	$('#licenseImgView2').css('display','none');
+	   $("#licenseImg2").css('display','flex');
+});
+
+$('#licenseImgView2').hover(function(){
+    $('#licenseImgView2').css('display','flex');
+   $("#licenseImg2").css('display','none');
+}, function() {
+	$('#licenseImgView2').css('display','none');
+	   $("#licenseImg2").css('display','flex');
+});
+
+$('#licenseImg3').hover(function(){
+	liWith3 =  $("#imgLicense3").width();
+	liHeight3 =  $("#imgLicense3").height();
+    $('#licenseImgView3').css('display','flex');
+   $("#licenseImg3").css('display','none');
+}, function() {
+	$('#licenseImgView3').css('display','none');
+	   $("#licenseImg3").css('display','flex');
+});
+
+$('#licenseImgView3').hover(function(){
+    $('#licenseImgView3').css('display','flex');
+   $("#licenseImg3").css('display','none');
+}, function() {
+	$('#licenseImgView3').css('display','none');
+	   $("#licenseImg3").css('display','flex');
+});
+
+
+
+$("#licenseImgView1").click(e => {
+	console.log("자격증1 눌릠");
+	 $("#licenseUpload1").click();
+});
+
+$("#licenseImgView2").click(e => {
+	console.log("자격증2 눌릠");
+	 $("#licenseUpload2").click();
+});
+
+$("#licenseImgView3").click(e => {
+	console.log("자격증3 눌릠");
+	 $("#licenseUpload3").click();
+});
+
+$("#licenseUpload1").change(function(e){
+    e.preventDefault();
+	console.log("이미지 선택됨");
+	console.log("files : " + $("#licenseUpload1").val());
+	let file2 = $("#licenseUpload1").val();
+	
+	let f = (file2).substring((file2).lastIndexOf('.'),(file2).length);
+	console.log(f);
+	fileViewUpload(f,liWith1,liHeight1,$('#licenseImg1'),this)
+});
+
+$("#licenseUpload2").change(function(e){
+    e.preventDefault();
+	console.log("이미지 선택됨");
+	console.log("files : " + $("#licenseUpload2").val());
+	let file2 = $("#licenseUpload2").val();
+	
+	let f = (file2).substring((file2).lastIndexOf('.'),(file2).length);
+	console.log(f);
+	fileViewUpload(f,liWith2,liHeight2,$('#licenseImg2'),this)
+});
+
+$("#licenseUpload3").change(function(e){
+    e.preventDefault();
+	console.log("이미지 선택됨");
+	console.log("files : " + $("#licenseUpload3").val());
+	let file2 = $("#licenseUpload3").val();
+	
+	let f = (file2).substring((file2).lastIndexOf('.'),(file2).length);
+	console.log(f);
+	fileViewUpload(f,liWith3,liHeight3,$('#licenseImg3'),this)
+});
+
+function fileViewUpload(f,w,h,im,up){
+	if(f != '.png' && f != '.jpg' && f != '.jpeg' && f != '.gif'){
+		alert('이미지 파일만 업로드 가능합니다.');
+		return false;
+		}else{
+		let file = up.files[0];
+	    reader = new FileReader();
+	    reader.onload = function (event) {
+	        let img = new Image();
+	        img.src = event.target.result;
+	        img.width = w;
+	        img.height = h;
+	        im.empty();
+	        im.append(img);
+	    };
+	    reader.readAsDataURL(file);
+	    return false;
+		}
+}
 
 
 </script>
