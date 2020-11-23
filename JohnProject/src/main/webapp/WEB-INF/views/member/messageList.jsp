@@ -240,29 +240,6 @@
 				msgBox.append(picDiv).append(rightDiv);
 				$("#savedContainer").append(msgBox);	
 			})
-
-
-				// }
-				// let otherUsid=v['otherUsid'];
-				// let otherProfilePic=v['otherProfilePic'];
-				// let otherNick=v['otherNick'];
-				// let latestMsg=v['latestMessage'];
-				// let latestDate=v['latestDateStr'];
-				// let myUsid=v['myUsid'];
-				// if(myUsid=='${loginMember.usid}' || otherUsid=='${loginMember.usid}'){
-				// 	let msgBox=$("<div/>").attr({"class":"msgBox","onclick":"location.href='${path}/member/myPage/message?usid=${loginMember.usid}&otherUsid="+otherUsid+"'"});
-				// 	let picDiv=$("<div/>").attr("class","picDiv").html($("<img/>").attr("src","${path}/resources/profile_images/"+otherProfilePic));
-				// 	let rightDiv=$("<div/>").attr("class","rightDiv");
-				// 	let rightTopDiv=$("<div/>").attr("class","rightTopDiv");
-				// 	let nickDiv=$("<div/>").attr("class","nickDiv").html(otherNick);
-				// 	let dateDiv=$("<div/>").attr("class","dateDiv").html(latestDate);
-				// 	let msgDiv=$("<div/>").attr("class","msgDiv").html(latestMsg);
-				// 	rightTopDiv.append(nickDiv).append(dateDiv);
-				// 	rightDiv.append(rightTopDiv).append(msgDiv);
-				// 	msgBox.append(picDiv).append(rightDiv);
-				// 	$("#savedContainer").append(msgBox);					
-				// }
-			// });
 		}
 	}
 	memberSocket.onclose=function(){
