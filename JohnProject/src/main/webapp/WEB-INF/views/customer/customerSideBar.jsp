@@ -96,23 +96,23 @@
 	</div>
 	<div id="menu">
 		<div class="menusOnSide">
-			<a href="${path}/report/customerReport"> <img class="menuImages"
-				src="${path}/resources/images/home.png"> 신고하기
+			<a href="${path}/report/customerReport"> <img src="${path }/resources/images/admin/siren (1).png"
+			class="menuImages"> 신고하기
 			</a>
 		</div>
 		<div class="menusOnSide">
-			<a href="${path}/customer/customerNotice"> <img class="menuImages" 
-			src="${path}/resources/images/home.png"> 공지사항
+			<a href="${path}/customer/customerNotice"> <img src="${path }/resources/images/admin/notice(1).png"
+			class="menuImages"> 공지사항
 			</a>
 		</div>
 		<div class="menusOnSide">
 			<a href="${path}/customer/customerFaq"> <img class="menuImages"
-				src="${path}/resources/images/home.png"> FAQ
+			src="${path }/resources/images/admin/faq(1).png"/> FAQ
 			</a>
 		</div>
 		<div class="menusOnSide">
 			<a href="${path}/customer/customerChat?adminUsid=31&myUsid=${loginMember.usid }"> <img class="menuImages"
-				src="${path}/resources/images/home.png"> 1:1문의하기
+			src="${path }/resources/images/admin/message.png"/> 1:1문의하기
 			</a>
 		</div>
 

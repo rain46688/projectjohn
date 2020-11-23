@@ -275,6 +275,7 @@ appearance: none;
 
 .pagination-sm .page-link { /*한칸한칸크기*/
 	padding:10px 20px ;
+	margin: 0;
 }
 
 .pagination a:hover:not(.active) { /*호버*/
@@ -565,12 +566,5 @@ appearance: none;
  </section>
  
  
- <script>
- 
-
- 
- </script>
-
-
 
 

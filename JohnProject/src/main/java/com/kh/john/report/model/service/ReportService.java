@@ -9,7 +9,8 @@ import com.kh.john.report.model.vo.ReportFile;
 public interface ReportService {
 
 	//customer
-	int insertReport(Report r, List<ReportFile> files);
+	//int insertReport(Report r, List<ReportFile> files);
+	int insertReport(Report r);
 	
 	//admin
 	List<Report> selectReportList(int cPage, int numPerPage);

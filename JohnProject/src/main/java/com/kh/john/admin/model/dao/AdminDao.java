@@ -73,7 +73,7 @@ public interface AdminDao {
 	int selectNoticeCount(SqlSession session);
 	
 	int insertNotice(SqlSession session, Notice n);
-	
+
 	int insertNoticeFile(SqlSession session, NoticeFile file);
 	
 	Notice selectOneNotice(SqlSessionTemplate session, int notice_id);

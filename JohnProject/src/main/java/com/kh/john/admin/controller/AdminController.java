@@ -460,7 +460,7 @@ public class AdminController {
 		
 		mv.addObject("memberInfoList",memberInfoList);
 		mv.setViewName("admin/adminChatRoom");
-		
+		System.out.println("멤버인포리스트:"+memberInfoList);
 		return mv;
 		
 	}

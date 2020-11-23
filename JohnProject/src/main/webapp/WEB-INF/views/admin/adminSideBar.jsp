@@ -93,33 +93,34 @@
 	</div>
 	<div id="menu">
 		<div class="menusOnSide">
-			<a href="${path}/admin/adminMember"> <img class="menuImages"
-				src="${path}/resources/images/home.png">회원관리
+			<a href="${path}/admin/adminMember"> <img src="${path }/resources/images/admin/personicon(1).png"
+			class="menuImages">회원관리
 			</a> 
 		</div>
 		<div class="menusOnSide">
-			<a href="${path}/admin/adminBeforeExpert"> <img class="menuImages"
-				src="${path}/resources/images/home.png">전문가관리
+			<a href="${path}/admin/adminBeforeExpert"><img src="${path }/resources/images/admin/expert(1).png"
+			class="menuImages">전문가관리
 			</a>
 		</div>
 		<div class="menusOnSide">
-			<a href="${path}/admin/adminExpertCounsel0"> <img class="menuImages"
-				src="${path}/resources/images/home.png">전문가 상담관리
+			<a href="${path}/admin/adminExpertCounsel0"> <img src="${path }/resources/images/admin/expertcounsel(1).png"
+			class="menuImages">전문가 상담관리
 			</a>
 		</div>
 		<div class="menusOnSide">
-			<a href="${path}/admin/adminBoard"> <img class="menuImages"
-				src="${path}/resources/images/home.png">게시판관리
+			<a href="${path}/admin/adminBoard"> <img src="${path }/resources/images/admin/board(1).png"
+			class="menuImages">게시판관리
 			</a>
 		</div>
 		<div class="menusOnSide">
-			<a href="${path}/report/adminReport"> <img class="menuImages"
-				src="${path}/resources/images/home.png">신고관리
+			<a href="${path}/report/adminReport"> <img src="${path }/resources/images/admin/siren (1).png"
+			class="menuImages">신고관리
 			</a>
 		</div>
 		<div class="menusOnSide">
 			<a href="${path}/admin/adminChatRoom"> <img class="menuImages"
-				src="${path}/resources/images/home.png">1:1 문의답변
+			src="${path }/resources/images/admin/message.png"/>
+			1:1 문의답변
 			</a>
 		</div>
 

@@ -4,6 +4,7 @@
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
 <c:set var="path" value="${pageContext.request.contextPath }"/>
+<script type="text/javascript" src="${pageContext.request.contextPath }/resources/js/ckeditor/ckeditor.js"></script>
 
 <jsp:include page="/WEB-INF/views/common/header.jsp">
 	
@@ -30,7 +31,9 @@
               <img src="${path }/resources/upload/notice/${a.noticeFileName }">      
         </c:forEach> 
         
-        <textarea class="form-control" name="noticeContent" placeholder="내용" required><c:out value="${notice.noticeContent }"/></textarea>
+        <textarea class="form-control" name="noticeContent" placeholder="내용" required id="editor1"><c:out value="${notice.noticeContent }"/>
+        
+        </textarea>
         <br>
         
         
@@ -60,6 +63,7 @@
 			 }
 		}
 		
+
 	</script>
 	
 	
