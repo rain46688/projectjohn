@@ -134,7 +134,7 @@ border-color: #ffcc66;
 			</div>
 
 
-			<div id="submitBtn">
+				<div id="submitBtn">
 				<button class="marginTop btn btn-outline-secondary" type="button" onclick="fn_submit();" id="bbtn">글 등록</button>
 				<input type="reset" class="marginTop btn btn-outline-secondary" value="취소" id="bbtn">
 				</div>
