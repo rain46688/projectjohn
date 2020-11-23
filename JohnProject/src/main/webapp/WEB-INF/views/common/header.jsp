@@ -93,12 +93,6 @@
 	padding-right:0;
 }
 
-#search {
-	float:left;
-	margin:0.5em;
-	padding:0.5em;
-}
-
 #myPageDrop {
   position: relative;
   display: inline-block;
@@ -125,6 +119,26 @@
 .dropdown-content a:hover {background-color: #ddd;}
 
 #myPageDrop:hover .dropdown-content {display: block;}
+
+#search {
+	float:left;
+	margin:0.5em;
+	padding:0.5em;
+	display: flex;
+	flex-direction: row;
+}
+
+#search #searchText {
+	border:1px white solid;
+	width:12em;
+}
+
+#search #searchBtn {
+	border:1px white solid;
+	margin-left:-2px;
+	width:2.5em;
+	
+}
 </style>
 <body>
 	<div class="containerJohn">
@@ -149,13 +163,17 @@
 					
 					<!-- 알람 및 마이페이지 버튼 -->
 					<div id="search">
-						<input type="text">
+						<input type="text" id="searchText">
+						<div id="searchBtn">
+							
+						</div>
 					</div>
 					<ul id="headerList">
 						<li>
 							<div id="myPageDrop" tabindex="1">
 								<img id="profileImage" src="${path}/resources/profile_images/${loginMember.profilePic}">
 								<div class="dropdown-content">
+								  <a href="${path }/member/myPage?usid=${loginMember.usid}">마이페이지</a>
 								  <a href="${path}/customer/customerNotice">고객센터</a>
 								  <a href="${path}/admin/adminMember">ADMIN</a>
 								  <a href="${path}/board/boardInsert">글쓰기</a>
