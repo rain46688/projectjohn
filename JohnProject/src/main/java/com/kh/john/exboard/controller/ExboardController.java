@@ -86,7 +86,7 @@ public class ExboardController {
 	}
 
 //상담 희망시간, 요구사항 받아서 넘기기
-	// 상담 종료후에도 평점이랑 후기 적기
+// 상담 종료후에도 평점이랑 후기 적기
 //https://www.cssscript.com/accessible-star-rating-system-pure-css/
 
 	// 전문가 상세 프로필 보는곳 여기서 상담 신청 가능
@@ -265,7 +265,7 @@ public class ExboardController {
 		// 해당 게시판 넘버에 맞는 유저를 판별하기 위해서 가져옴
 		try {
 			eb = service.selectExpertBoard(bnum);
-			log.debug("eb : " + eb);
+			log.debug("eb : " + eb);// 없으면 아예 없는 방이라는뜻
 
 			// 쿼리스트링에 방넘버가 없거나 있지도 않는 방에 접근할때
 			if (eb == null || bnum.equals("") || bnum == null) {
@@ -274,28 +274,22 @@ public class ExboardController {
 				return mv;
 			}
 
-			// log.debug(" 상담 결과 : " + eb.getExpertBoardAdviceResult());
+			// 만료된 상담에 접근할때
+			if (eb.getExpertBoardExpertend() == 1 && eb.getExpertBoardMemberend() == 1) {
+				mv = gotoMsg(mv, "/", "만료된 상담입니다.");
+				return mv;
+			}
+
+			// 해당 방의 유저 이외에 사람들이 접근할때 에러
 			if (m.getMemClass().equals("전문가")) {
-				// log.debug("전문가");
 				if (m.getUsid() != eb.getExpertBoardUsid()) {
-					// log.debug("잘못된 접근");
 					mv = gotoMsg(mv, "/", "잘못된 접근입니다.");
-					return mv;
-				} else if (eb.getExpertBoardAdviceResult() != null) {
-					// log.debug("이미 만료된 상담입니다.");
-					mv = gotoMsg(mv, "/", "만료된 상담입니다.");
 					return mv;
 				}
 				s.setExpert(true);
 			} else {
-				// log.debug("전문가 아님");
 				if (m.getUsid() != eb.getExpertBoardMemUsid()) {
-					// log.debug("잘못된 접근2");
 					mv = gotoMsg(mv, "/", "잘못된 접근입니다.");
-					return mv;
-				} else if (eb.getExpertBoardAdviceResult() != null) {
-					// log.debug("이미 만료된 상담입니다.");
-					mv = gotoMsg(mv, "/", "만료된 상담입니다.");
 					return mv;
 				}
 				s.setExpert(false);
@@ -344,18 +338,19 @@ public class ExboardController {
 	public String counselEnd(String extext, String bno, RedirectAttributes redirectAttributes) throws Exception {
 		log.info(" ===== counselEnd 실행 ===== ");
 
-		log.debug("extext : " + extext);
+		log.debug("extext : " + extext + "bno : " + bno);
 
 		int result = service.updateCounselResult(extext, bno);
 
 		if (result == 1) {// 1이면 정상 종료
+			log.debug("extext : 정상종료");
 			return "redirect:/expert/expertRequestPrintList";
 		}
 		// 아니면 비정상 종료
 		redirectAttributes.addAttribute("loc", "/expert/expertRequestPrintList");
 		redirectAttributes.addAttribute("msg", "잘못된 종료 관리자에게 문의하세요");
+		log.debug("extext : 비정상종료");
 		return "redirect:/msg";
-
 	}
 
 	// 파일 업로드용 전문가 상담
@@ -433,22 +428,16 @@ public class ExboardController {
 		if (enterMem.getMemClass().equals("전문가")) {
 			// 일반 유저 아이디
 			// 이 부분 이렇게 안해도될꺼같은데 나중에 보고 지우기
-//			if (bno != null) {
-//				map.put("expertusid", "" + enterMem.getUsid());
-//				map.put("bno", bno);
-//				log.debug("expertusid : " + map.get("expertusid") + " bno : " + map.get("bno"));
-//				searchMemUsid = service.selectMemExboard(map);
-//				log.debug("searchMemUsid : " + searchMemUsid);
-//				searchMem = service.selectMember(searchMemUsid);
-//				log.debug("searchMem : " + searchMem);
-//				searchMem.setMemEmail(aes.decrypt(searchMem.getMemEmail()));
-//				mv.addObject("m", searchMem);
-//			} else if (bno == null) {
+			if (musid == null) {
+				map.put("expertusid", "" + enterMem.getUsid());
+				map.put("bno", bno);
+				musid = service.selectMemExboard(map);
+			}
+			log.debug("musid" + musid);
 			Member noboard = service.selectMember(musid);
+			log.debug("noboard" + noboard);
 			noboard.setMemEmail(aes.decrypt(noboard.getMemEmail()));
-			mv.addObject("m", noboard);
-			// }
-
+			mv.addObject("mem", noboard);
 		} else if (enterMem.getMemClass().equals("일반유저")) {
 			map.put("memusid", "" + enterMem.getUsid());
 			map.put("bno", bno);
@@ -456,8 +445,9 @@ public class ExboardController {
 			searchMem = service.selectMember(searchMemUsid);
 			ex = service.selectExpertMem("" + searchMem.getUsid());
 			searchMem.setMemEmail(aes.decrypt(searchMem.getMemEmail()));
-			mv.addObject("m", searchMem);
-			mv.addObject("ex", ex);
+			mv.addObject("mem", searchMem);
+			mv.addObject("expert", ex);
+			mv.addObject("license", service.selectExpertLicense("" + searchMem.getUsid()));
 		}
 		return mv;
 	}
@@ -475,6 +465,148 @@ public class ExboardController {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 			result = "0";
+		}
+		return result;
+	}
+
+	// 전문가 수정
+	@RequestMapping(value = "/expert/expertInfoModify")
+	public ModelAndView expertInfoModify(HttpSession session) throws Exception {
+		log.info(" ===== expertInfoModify 실행 ===== ");
+		ModelAndView mv = new ModelAndView("/exboard/expertInfoModify");
+		try {
+			mv.addObject("expert",
+					service.selectExpertMem("" + ((Member) session.getAttribute("loginMember")).getUsid()));
+			mv.addObject("license",
+					service.selectExpertLicense("" + ((Member) session.getAttribute("loginMember")).getUsid()));
+
+			List<String> ls = service.selectLicenseKind();
+
+			for (String s : ls) {
+
+				log.debug("s : " + s);
+			}
+
+			mv.addObject("likindList", ls);
+
+		} catch (Exception e) {
+			// TODO: handle exception
+		}
+		return mv;
+	}
+
+	// 전문가 수정
+	@ResponseBody
+	@RequestMapping("/expert/modifyEx")
+	public String expertModifyEx(MultipartFile[] upFile, HttpServletRequest request, String career,
+			String counselSelect, String fistTime, String seTime, String modiText, String beforeProfile) {
+		log.debug("expertModifyEx 실행");
+		log.debug("업 파일 : " + upFile + " 업파일 길이 : " + upFile.length);
+		log.debug("파람 : " + career + " " + counselSelect + " " + fistTime + " " + seTime + " " + modiText);
+
+		if (upFile.length == 0) {
+			log.debug("기존 프로필 이름 ; " + beforeProfile);
+		}
+
+		String result = "";
+		String path = request.getServletContext().getRealPath("/resources/profile_images");
+		List<String> list = new ArrayList<String>();
+		for (int i = 0; i < upFile.length; i++) {
+			log.debug(" ================================ ");
+			log.debug("파일명 : " + upFile[i].getOriginalFilename());
+			log.debug("파일크기 : " + upFile[i].getSize());
+		}
+		File dir = new File(path);
+		if (!dir.exists()) {
+			// 지정된 경로의 폴더가 없으면
+			dir.mkdirs();// s넣으면 중간 경로 없어도 알아서 만들어주는것!!
+		}
+
+		// 파일 업로드 로직 처리하기
+		for (MultipartFile f : upFile) {
+			if (!f.isEmpty()) {
+				// 전달된 파일이 있으면... 파일 업로드 처리
+				// 파일 리네임 처리 -> 중복방지를 위해!
+				String originalFileName = f.getOriginalFilename();
+				String ext = originalFileName.substring(originalFileName.lastIndexOf(".") + 1);
+				SimpleDateFormat sdf = new SimpleDateFormat("yyyy_MM_dd_HHmmssSSS");
+				int rndNum = (int) (Math.random() * 1000);
+				String renamedFileName = sdf.format(new Date(System.currentTimeMillis())) + "_" + rndNum + "." + ext;
+				try {
+					// renamedFileName 으로 파일을 저장하기 -> transferTo(파일)
+					f.transferTo(new File(path + "/" + renamedFileName));
+				} catch (Exception e) {
+					// TODO: handle exception
+					e.printStackTrace();
+				}
+				list.add(renamedFileName);
+			}
+		}
+		try {
+			result = new ObjectMapper().writeValueAsString(list);
+		} catch (JsonProcessingException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return result;
+	}
+
+	// 전문가 자격증 수정
+	@ResponseBody
+	@RequestMapping("/expert/modifyLicense")
+	public String expertModifyLicense(MultipartFile[] upFile, HttpServletRequest request,
+			@RequestParam(required = false, defaultValue = "") String[] types,
+			@RequestParam(required = false, defaultValue = "") String[] dates,
+			@RequestParam(required = false, defaultValue = "") String[] companys,
+			@RequestParam(required = false, defaultValue = "") String[] linum) {
+		log.debug("expertModifyLicense 실행");
+		log.debug("업 파일 : " + upFile + " 업파일 길이 : " + upFile.length);
+		log.debug(" 파파 : " + types + " " + dates + " " + companys);
+
+		for (int i = 0; i < 3; i++) {
+			log.debug("배열 내용 " + linum + " " + upFile[i].getOriginalFilename() + " " + types[i] + " " + dates[i] + " "
+					+ companys[i]);
+		}
+
+		String result = "";
+		String path = request.getServletContext().getRealPath("/resources/upload/upload_license");
+		List<String> list = new ArrayList<String>();
+		for (int i = 0; i < upFile.length; i++) {
+			log.debug(" ================================ ");
+			log.debug("파일명 : " + upFile[i].getOriginalFilename());
+			log.debug("파일크기 : " + upFile[i].getSize());
+		}
+		File dir = new File(path);
+		if (!dir.exists()) {
+			// 지정된 경로의 폴더가 없으면
+			dir.mkdirs();// s넣으면 중간 경로 없어도 알아서 만들어주는것!!
+		}
+
+		// 파일 업로드 로직 처리하기
+		for (MultipartFile f : upFile) {
+			if (!f.isEmpty()) {
+				// 전달된 파일이 있으면... 파일 업로드 처리
+				// 파일 리네임 처리 -> 중복방지를 위해!
+				String originalFileName = f.getOriginalFilename();
+				String ext = originalFileName.substring(originalFileName.lastIndexOf(".") + 1);
+				SimpleDateFormat sdf = new SimpleDateFormat("yyyy_MM_dd_HHmmssSSS");
+				int rndNum = (int) (Math.random() * 1000);
+				String renamedFileName = sdf.format(new Date(System.currentTimeMillis())) + "_" + rndNum + "." + ext;
+				try {
+					// renamedFileName 으로 파일을 저장하기 -> transferTo(파일)
+					f.transferTo(new File(path + "/" + renamedFileName));
+				} catch (Exception e) {
+					// TODO: handle exception
+					e.printStackTrace();
+				}
+				list.add(renamedFileName);
+			}
+		}
+		try {
+			result = new ObjectMapper().writeValueAsString(list);
+		} catch (JsonProcessingException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
 		}
 		return result;
 	}

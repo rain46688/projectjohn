@@ -136,21 +136,6 @@ public class ExboardDaoImpl implements ExboardDao {
 	}
 
 	@Override
-	public List<ExpertRequest> selectExpertRequestAjax(SqlSessionTemplate session, Map<String, String> map)
-			throws Exception {
-		// TODO Auto-generated method stub
-		RowBounds r = new RowBounds(((Integer.parseInt((map.get("cpage"))) - 1) * Integer.parseInt(map.get("page"))),
-				(Integer.parseInt(map.get("page"))));
-		return session.selectList("expert.selectExpertRequestAjax", map, r);
-	}
-
-	@Override
-	public int selectExpertRequestAjaxCount(SqlSessionTemplate session, Member mem) throws Exception {
-		// TODO Auto-generated method stub
-		return session.selectOne("expert.selectExpertRequestAjaxCount", mem);
-	}
-
-	@Override
 	public int updateReuestCounselEnd(SqlSessionTemplate session, Map<String, String> map) throws Exception {
 		// TODO Auto-generated method stub
 		return session.update("expert.updateReuestCounselEnd", map);
@@ -160,6 +145,12 @@ public class ExboardDaoImpl implements ExboardDao {
 	public List<ExpertRequest> selectExRequestList(SqlSessionTemplate session) throws Exception {
 		// TODO Auto-generated method stub
 		return session.selectList("expert.selectExRequestList");
+	}
+
+	@Override
+	public List<String> selectLicenseKind(SqlSessionTemplate session) throws Exception {
+		// TODO Auto-generated method stub
+		return session.selectList("expert.selectLicenseKind");
 	}
 
 }

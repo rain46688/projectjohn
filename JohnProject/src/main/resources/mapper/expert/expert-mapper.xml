@@ -78,20 +78,6 @@
 	SELECT EX.* FROM (EXPERT_BOARD EX JOIN (SELECT * FROM EXPERT_INFO WHERE EXPERT_COUNSEL_AREA LIKE #{ca} ) ON (EXPERT_BOARD_USID = EXPERT_USID))WHERE EXPERT_BOARD_REVIEW IS NOT NULL
 </select>
 
-<select id="selectExpertRequestAjax" resultMap="exrequestMap" parameterType="map">
-	SELECT * FROM EXPERT_REQUEST WHERE EXPERT_REQUET_EX_USID = #{mem} 
-	<if test='searchType != null and searchType !=""'>
-	AND ${searchType} LIKE '%'||#{searchInput}||'%' 
-	</if>
-	<if test='sort != null and sort != ""'>
-	 ORDER BY ${sort} DESC
-	</if>
-</select>
-
-<select id="selectExpertRequestAjaxCount" resultType="_int" parameterType="member">
-	SELECT COUNT(*) FROM EXPERT_REQUEST WHERE EXPERT_REQUET_EX_USID = #{usid} ORDER BY EXPERT_DATE DESC
-</select>
-
 <update id="updateReuestCounselEnd" parameterType="map">
 	UPDATE EXPERT_REQUEST SET EXPERT_ISCOUNSEL = 1 WHERE EXPERT_REQUET_EX_USID=#{eusid} AND EXPERT_REQUEST_MEM_USID=#{musid}
 </update>
@@ -100,8 +86,9 @@
 	SELECT * FROM EXPERT_REQUEST
 </select>
 
-
-
+<select id="selectLicenseKind" resultType	="list" >
+	SELECT * FROM LICENSE_KIND
+</select>
 
 	<resultMap type="exboard" id="exboardMap">
 		<id column="EXPERT_BOARD_ID" property="expertBoardId" />
@@ -155,6 +142,7 @@
 </resultMap>
 
 <resultMap id="licenseMap" type="license">
+	 <result property="licenseId" column="license_id"/>
     <result property="licenseMemUsid" column="license_mem_usid"/>
     <result property="licenseFileName" column="license_file_name"/>
     <result property="licenseDate" column="license_date"/>

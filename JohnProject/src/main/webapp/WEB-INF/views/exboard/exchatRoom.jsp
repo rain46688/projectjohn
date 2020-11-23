@@ -3,30 +3,24 @@
 
 <style>
 
-html, body, div, span, applet, object, iframe,
-h1, h2, h3, h4, h5, h6, p, blockquote, pre,
-a, abbr, acronym, address, big, cite, code,
-del, dfn, em, ins, kbd, q, s, samp,
-small, strike, strong, sub, sup, tt, var,
-b, u, i, center,
-dl, dt, dd, ol, ul, li,
-fieldset, form, label, legend,
-table, caption, tbody, tfoot, thead, tr, th, td,
-article, aside, canvas, details, embed, 
-figure, figcaption, footer, header, hgroup, 
-menu, nav, output, ruby, section, summary,
-time, mark, audio, video {
-    margin: 0;
-    padding: 0;
-    border: 0;
-    font-size: 100%;
-    font: inherit;
-    vertical-align: baseline;
+html, body, div, span, applet, object, iframe, h1, h2, h3, h4, h5, h6, p, blockquote, pre, a, abbr, acronym, address, big, cite, code, del, dfn, em,
+	ins, kbd, q, s, samp, small, strike, strong, sub, sup, tt, var, b, u, i, center, dl, dt, dd, ol, ul, li, fieldset, form, label, legend, table,
+	caption, tbody, tfoot, thead, tr, th, td, article, aside, canvas, details, embed, figure, figcaption, footer, header, hgroup, menu, nav, output, ruby,
+	section, summary, time, mark, audio, video {
+	margin: 0;
+	padding: 0;
+	border: 0;
+	font-size: 100%;
+	font: inherit;
+	vertical-align: baseline;
+	-ms-user-select: none;
+	-moz-user-select: -moz-none;
+	-webkit-user-select: none;
+	-khtml-user-select: none;
+	user-select: none;
 }
 
 #content{
-	
-	/* background-color: #121212; */
 	background-color: #F1F3F3; 
 
 }
@@ -35,7 +29,6 @@ time, mark, audio, video {
 #upDiv {
 	height: 83.2%;
 	width: 100%;
-	/* border: 1px solid red; */
 	display: flex;
 	padding: 1%;
 }
@@ -53,7 +46,6 @@ time, mark, audio, video {
 	z-index: 2;
 	position: absolute;
 	right: 25.5%;
-	/* top: 50.7%; */
 	top: 65.5%;
 	border: 2px solid #FFCC66;
 	width: 10%;
@@ -61,34 +53,21 @@ time, mark, audio, video {
 
 /* 상단 영역 비디오 div */
 #videoDiv {
-	/* padding: 3%; */
 	padding:1%;
-/* 	border: 1px solid gray; */
 	height: 100%;
 	width: 80%;
-	/* background-color:#05135C; */
-	/* background-color: rgba(5, 19, 92, 0.96); */
-/* 	background-color: gray; */
-	/* background-color: #121212; */
 	background-color: white;
 	border-radius: 8px;
 	margin-right: 1%;
-	/* box-shadow: 8px 8px 8px rgba(0, 0, 0, 0.8); */
 }
 
 /* 상단 텍스트 div */
 #textAreaDiv {
-	/* border: 1px solid green; */
 	height: 100%;
 	width: 30%;
-	/* background-color:#05135C; */
-	/* background-color: rgba(5, 19, 92, 0.96); */
-	/* background-color: gray; */
-/* 	background-color: #121212; */
 	background-color: white;
 	border-radius: 8px;
 	padding: 1%;
-	/* box-shadow: 8px 8px 8px rgba(0, 0, 0, 0.8); */
 }
 
 /* 상단 텍스트 영역 */
@@ -102,8 +81,6 @@ time, mark, audio, video {
 	/* 스크롤 바 투명하게 만들기 */
 	overflow-x: hidden;
 	-ms-overflow-style: none;
-	/* background-color:#FFCC66; */
-	/* display:none; */
 }
 
 /* 스크롤 바 투명하게 만들기 */
@@ -126,7 +103,6 @@ textarea {
 	height: 100%;
 	display: none; 
 	border-radius: 8px;
-	/* 	background-color: #E2E2E8; */
 	background-image: url(${path }/resources/images/expertimg.png);
 	background-repeat: no-repeat;
 	background-size: 100%;
@@ -134,32 +110,16 @@ textarea {
 	padding-top: 20%;
 }
 
-/* #dragImg>img {
-	display: block;
-	width: 50%;
-	height: 50%;
-	margin-left: auto;
-	margin-right: auto;
-}
-
-#dragImg p {
-	font-size: 25px;
-	text-align: center;
-	font-weight: bold;
-} */
-
 /* ------------------------------------------ */
 
 /* 하단 영역 div */
 #bottomDiv {
 	height: 15%;
-/* 	border: 1px solid blue; */
 	display: flex;
 }
 
 /* 왼쪽 버튼 영역 div */
 #buttonDiv {
-	/* border: 1px solid brown; */
 	height: 100%;
 	width: 30%;
 	text-align: right;
@@ -172,7 +132,6 @@ textarea {
 	width:48%;
 	height:100%;
 	border-radius: 8px;
-	/* box-shadow: 8px 8px 8px rgba(0, 0, 0, 0.8); */
 	 font-size:30px;
 	font-weight: bold; 
 }
@@ -183,28 +142,19 @@ textarea {
 	width:32%;
 	height:100%;
 	border-radius: 8px;
-
-	/* box-shadow: 8px 8px 8px rgba(0, 0, 0, 0.8); */
 	 font-size:30px;
 	font-weight: bold; 
 }
 
 /* 이미지 영역 div */
 #imgDiv {
-	/* border: 25px solid rgba(5, 19, 92, 0.96); */
-
-	/* border: 25px solid #121212; */
 	 border: 25px solid white;
 	border-radius: 8px;
-	/* background-color:#05135C; */
-	/* background-color: rgba(5, 19, 92, 0.96); */
 	background-color:white;
 	height: 100%;
 	width: 77%;
-	/* box-shadow: 8px 8px 8px rgba(0, 0, 0, 0.8); */
 	margin: 0% 1% 1%;
 	display:inline-block;
-	/* padding:2%; */
 	overflow-x: hidden;
 	-ms-overflow-style: none;
 	padding-top:2%;
@@ -214,7 +164,6 @@ textarea {
  font-size:100%;
  color:gray;
  text-align:center;
-/* padding:2%; */
 }
 
 .upload{
@@ -244,7 +193,7 @@ textarea {
 	</div>
 <!--  -->
 	<div id="bottomDiv">
-	<div id="imgDiv"><p>왼쪽 상단 박스에 드래그하여 이미지를 전송 후  이 박스에 표시되며 클릭하여 이미지를 확대할수있습니다.</p></div>
+	<div id="imgDiv"><p> 왼쪽 상단 박스에 드래그하여 이미지를 전송 후  이 박스에 표시되며 클릭하여 이미지를 확대할수있습니다.</p></div>
 		<div id="buttonDiv">
 			<c:if test="${loginMember.memClass == '전문가'}">
 				<c:if test="${eb.expertBoardMemberend == 1}">
@@ -269,7 +218,7 @@ textarea {
 	</div>
 </div>
 
-<script defer>
+<script>
 
 	'use strict';
 	
@@ -500,8 +449,8 @@ textarea {
 					imgDivPrint(content.msg);
 				} else if (content.type == 'END') {
 					console.log(" === 분기 END === ");
-					exit();
-					location.replace('${path}/');
+					/* 	exit(); */
+					location.replace('${path}/board/boardList');
 				}else if(content.type == 'MEMEND'){
 					console.log(" === 분기 MEMEND === ");
 					let experthtml = "";
@@ -731,11 +680,11 @@ textarea {
 					//
 					document.body.appendChild(form);
 					form.submit();
-					exit();
-					sendMessage(new ExboardMsg("END",
-							"${loginMember.memClass}", "종료"));
+			 		//exit(); 
+					sendMessage(new ExboardMsg("END","${loginMember.memClass}", "종료"));
 					//알람 발송 - 상담이 완료됬다는 알람 - 페이지가 넘어가기때문에 바로 변경해줄 사항 없음
-					sendAlarm("${loginMember.usid}",user_usid,"expertend",bno,"${loginMember.memNickname}");
+					sendAlarm("${loginMember.usid}",user_usid,"expertend","${bno}","${loginMember.memNickname}");
+					result = false;
 				}
 			}
 
@@ -754,7 +703,7 @@ textarea {
 			//---------------------------- 회원 정보 보기 -------------------------------------
 			
 			function memInfoView(e){
-				window.open('${path}/expert/memInfo?bno=${bno}&usid=${loginMember.usid}','회원','width=800, height=700, toolbar=no, menubar=no, scrollbars=no, resizable=yes');
+				window.open('${path}/expert/memInfo?bno=${bno}&usid=${loginMember.usid}&musid='+user_usid,'회원','width=800, height=700, toolbar=no, menubar=no, scrollbars=no, resizable=yes');
 			};
 	
 			
