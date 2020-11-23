@@ -1,6 +1,11 @@
 package com.kh.john.member.socket;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
@@ -48,7 +53,6 @@ public class MemberSocketHandler extends TextWebSocketHandler {
 		}
 		
 		MemberChat memberChat=objectMapper.readValue(message.getPayload(), MemberChat.class);//JSON으로 받은 메세지를 해석해서 memberChat 객체에 저장
-		log.debug("memberChat"+ memberChat);
 		service.insertMemberChat(memberChat);//저장
 		
 		allChatList=service.loadAllChatList();
@@ -56,7 +60,7 @@ public class MemberSocketHandler extends TextWebSocketHandler {
 		Iterator<Member> it=users.keySet().iterator();//users라는 map 전체를 돌릴 것이다
 		while(it.hasNext()) {
 			Member key=it.next();//user에 있는 Member객체로 하나씩 뽑아와서 key변수로 지정
-			users.get(key).sendMessage(new TextMessage(objectMapper.writeValueAsString(allChatList)));			
+			users.get(key).sendMessage(new TextMessage(objectMapper.writeValueAsString(allChatList)));
 		}
 	
 	}
@@ -76,5 +80,4 @@ public class MemberSocketHandler extends TextWebSocketHandler {
 			users.remove(listKey);
 		}
 	}
-	
 }

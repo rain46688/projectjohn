@@ -71,12 +71,12 @@
 	div.menuContainer:hover {
 		background-color: #0054BA;
 	}
-	#menuContainer a{
-		color: white;
-	}
-	#menuContainer a:hover{
+	a.menuLink{
 		color: white;
 		margin-right: 1.5em;
+	}
+	a.menuLink:hover{
+		color: white;
 	}
 </style>
 <div id="side">
