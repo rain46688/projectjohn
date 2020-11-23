@@ -31,7 +31,8 @@ html, body, div, span, applet, object, iframe, h1, h2, h3, h4, h5, h6, p, blockq
 }
 
 #content * {
-	border: 1px solid red;
+	/* border: 1px solid red; */
+	font-family: 'Noto Serif KR', serif;
 }
 
 /* 기본 배경 */
@@ -205,7 +206,7 @@ html, body, div, span, applet, object, iframe, h1, h2, h3, h4, h5, h6, p, blockq
 
 /* 년 */
 h6 {
-	font-size: 3vh;
+	font-size: 2vh;
 	font-weight: bold;
 }
 
@@ -221,7 +222,7 @@ h6 {
 
 /* 각 소제목들 p태그 */
 p {
-	font-size: 3vh;
+	font-size: 2vh;
 	font-weight: bold;
 	padding: 1% 0 1% 0;
 }
@@ -286,7 +287,7 @@ textarea {
 		<!-- profile -->
 		<div id="profileDiv">
 			<div id="imgDiv">
-				<img src="${path }/resources/images/expert.png" id="imgProfile" class="img-thumbnail" />
+				<img src="${path }/resources/profile_images/${mem.profilePic}"  id="imgProfile" class="img-thumbnail" />
 			</div>
 			<div id="mirrorimgDiv">
 				<p>+</p>
@@ -299,7 +300,7 @@ textarea {
 						<p>경력</p>
 						<div id="careerleftDiv">
 							<div id="exinput">
-								<input type="number" name="career" class="form-control short" min="1" max="99" value="${expert.expertRating }" />
+								<input type="number" name="career" class="form-control short" min="1" max="99" value="${expert.expertProfile }" />
 							</div>
 							<div id="exinput2">
 								<h6>년</h6>
@@ -492,7 +493,7 @@ textarea {
 			<input type="hidden" value="${license.licenseId }" class="licenseIdInput"/>
 			<div class="licenseDiv">
 				<div class="licenseImg" id="licenseImg${status.count}">
-					<img src="${path }/resources/images/expert.png" id="imgLicense${status.count}" class="img-thumbnail licenseImgs" />
+					<img src="${path }/resources/upload/upload_license/${license.licenseFileName }" id="imgLicense${status.count}" class="img-thumbnail licenseImgs" />
 				</div>
 				<div class="licenseImgView" id="licenseImgView${status.count}">
 					<p>+</p>
@@ -539,7 +540,7 @@ textarea {
 
 		<div class="licenseDiv">
 				<div class="licenseImg" id="licenseImg${num}">
-					<img src="${path }/resources/images/expert.png" id="imgLicense${num}" class="img-thumbnail licenseImgs" />
+					<img src="${path }/resources/upload/upload_license/nolicense.png" id="imgLicense${num}" class="img-thumbnail licenseImgs" />
 				</div>
 				<div class="licenseImgView" id="licenseImgView${num}">
 					<p>+</p>
@@ -551,6 +552,7 @@ textarea {
 						</div>
 						<div class="licenseContent">
 							<select id="licenseTypeSelect${num}" name="licenseTypeSelect${num}" required class="form-control short licenseTypeSelect">
+										 <option value="선택 안함" selected>선택 안함</option>
 									<c:forEach items="${likindList }" var="lity"  varStatus="status">
 								 <option value="${lity}" >${lity}</option>
 								</c:forEach>
@@ -571,7 +573,8 @@ textarea {
 						</div>
 						<div class="licenseContent">
 							<select id="licenseCompanySelect${num}" name="licenseCompanySelect${num}" required class="form-control short licenseCompanySelect">
-							<c:forEach items="${comkindList }" var="comli"  varStatus="status">
+									 <option value="선택 안함" selected>선택 안함</option>
+								<c:forEach items="${comkindList }" var="comli"  varStatus="status">
 								 <option value="${comli}" >${comli}</option>
 								</c:forEach>
 							</select>
@@ -630,17 +633,35 @@ function modifyLicense(){
 	console.log("자격증 수정 완료");
 	let formData = new FormData();
 	let frm = $(".licenseUpload");
-	console.log("길 : "+frm.length);
+	let type = $(".licenseTypeSelect");
+	let date = $(".licenseTime");
+	let comp = $(".licenseCompanySelect");
+	let idinput = $(".licenseIdInput");
  	for(let i = 0; i < 3; i++){
+ 		console.log(" ============================== ")
+ 		console.log("자격증 id : "+$(idinput[i]).val());
+ 		console.log("자격증 타입 : "+$(type[i]).val());
+ 		console.log("자격증 날짜 : "+$(date[i]).val());
+ 		console.log("자격증 기관 : "+$(comp[i]).val());
 		if(frm[i].files[0] != null){
-		console.log("이름 : "+(frm[i].files[0]).name);
+		console.log("이미지 선택함 : "+(frm[i].files[0]).name);
 		formData.append('upFile',frm[i].files[0],(frm[i].files[0]).name);
+		formData.append('types',$(type[i]).val());
+		formData.append('dates',$(date[i]).val());
+		formData.append('linum',$(idinput[i]).val());
+		formData.append('companys',$(comp[i]).val());
 		}else{
-			console.log("null : "+i);
+			console.log("이미지 선택 안함 : ");
+			
+			if($(type[i]).val() != '선택 안함' && $(comp[i]).val() != '선택 안함'){
+				alert('수정하시려면 자격증 이미지는 필수로 선택해주세요');
+				return false;
+			}
 		}
+		console.log(" ============================== ")
 	}
-
- 	$.ajax({
+ 	console.log("서버 전송 직전 출력");
+	$.ajax({
 		url : '${path}/expert/modifyLicense',
 		data : formData,
 		type : 'post',
@@ -648,38 +669,14 @@ function modifyLicense(){
 		processData : false,
 		dataType : "json",
 		success : function(data) {
-			console.log("수정 data : " + data);
-			
+			console.log("전송 완료 후 출력 data : " + data);
+			if(data == 1){
+				alert("수정 완료 되었습니다.");
+			}else{
+				alert("수정 실패 관리자에게 문의하세요");
+			}
 		}
 	});
-	
-/* 	let frm1 = $("#licenseUpload1")[0].files[0];
-	let frm2 = $("#licenseUpload2")[0].files[0];
-	let frm3 = $("#licenseUpload3")[0].files[0];
-	console.log("frm1 : "+frm1);
-	console.log("frm2 : "+frm2);
-	console.log("frm3 : "+frm3);
-
-	formData.append('upFile',frm1,frm1.name);
-	formData.append('upFile',frm2,frm2.name);
-	formData.append('upFile',frm3,frm3.name);
-	formData.append('career',career);
-	formData.append('counselSelect',counselSelect);
-	formData.append('fistTime',fistTime);
-	formData.append('seTime',seTime);
-	formData.append('modiText',modiText);
- 	$.ajax({
-		url : '${path}/expert/modifyLicense',
-		data : formData,
-		type : 'post',
-		contentType : false,
-		processData : false,
-		dataType : "json",
-		success : function(data) {
-			console.log("수정 data : " + data);
-			
-		}
-	}); */
 }
 
 
@@ -718,7 +715,11 @@ function modify(){
 		dataType : "json",
 		success : function(data) {
 			console.log("수정 data : " + data);
-			
+			if(data == 1){
+				alert("수정 완료 되었습니다.");
+			}else{
+				alert("수정 실패 관리자에게 문의하세요");
+			}
 		}
 	});
 }
@@ -768,7 +769,7 @@ $("#profileUpload").change(function(e){
 
 
 
- $('#imgDiv').hover(function(){
+/*  $('#imgDiv').hover(function(){
 	proWith =  $("#imgProfile").width();
 	proHeight =  $("#imgProfile").height();
     $('#mirrorimgDiv').css('display','flex');
@@ -776,7 +777,7 @@ $("#profileUpload").change(function(e){
 }, function() {
 	$('#mirrorimgDiv').css('display','none');
 	   $("#imgDiv").css('display','flex');
-});
+}); */
 
 $('#mirrorimgDiv').hover(function(){
     $('#mirrorimgDiv').css('display','flex');

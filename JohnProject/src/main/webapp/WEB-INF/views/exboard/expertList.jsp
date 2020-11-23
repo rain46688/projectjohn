@@ -42,13 +42,13 @@ html, body, div, span, applet, object, iframe, h1, h2, h3, h4, h5, h6, p, blockq
 
 /* 위 div */
 #upDiv * {
- 	border: 1px solid red; 
+ 	/* border: 1px solid red;  */
 	/* text-shadow: -1px 0 #BFBFBF, 0 0.5px #BFBFBF, 0.5px 0 #BFBFBF, 0 -1px #BFBFBF; */
 }
 
 /* 아래 div */
 #downDiv * {
-	 border: 1px solid red; 
+	 /* border: 1px solid red;  */
 	/* text-shadow: -1px 0 #BFBFBF, 0 0.5px #BFBFBF, 0.5px 0 #BFBFBF, 0 -1px #BFBFBF; */
 }
 
@@ -124,7 +124,7 @@ img {
 .splide__slide {
 	width: 100%;
 	height: 100%;
-	border-left: 1px solid gray;
+	border-left: 1px solid #C6C5C5;
 }
 
 .splide__slide>img {
@@ -355,7 +355,7 @@ img {
 	width:100%;
 	font-size:4vh;
 	padding-top:15vh;
-	text-shadow: -1px 0 #BFBFBF, 0 0.5px #BFBFBF, 0.5px 0 #BFBFBF, 0 -1px #BFBFBF;
+	/* text-shadow: -1px 0 #BFBFBF, 0 0.5px #BFBFBF, 0.5px 0 #BFBFBF, 0 -1px #BFBFBF; */
 }
 
 .emptyReview{
@@ -364,7 +364,7 @@ img {
 	font-size:5vh;
 	padding-top:15vh;
 	text-align:center;
-	text-shadow: -1px 0 #BFBFBF, 0 0.5px #BFBFBF, 0.5px 0 #BFBFBF, 0 -1px #BFBFBF;
+	/* text-shadow: -1px 0 #BFBFBF, 0 0.5px #BFBFBF, 0.5px 0 #BFBFBF, 0 -1px #BFBFBF; */
 }
 </style>
 
@@ -380,7 +380,7 @@ img {
 								<!-- =========== -->
 								<li class="splide__slide">
 									<div class="card-body">
-										<img class="expertimg" alt="전문가" src="${path }/resources/images/expert.png">
+										<img class="expertimg" alt="전문가" src="${path }/resources/profile_images/${expert['mem'].profilePic}">
 										<div class="exRight">
 											<div class="exName">${expert['mem'].memName}</div>
 											<div class="exRating">

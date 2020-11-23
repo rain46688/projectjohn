@@ -30,7 +30,7 @@ html, body, div, span, applet, object, iframe, h1, h2, h3, h4, h5, h6, p, blockq
 }
 
 body * {
-	border: 1px solid red;
+	/* border: 1px solid red; */
 }
 
 #exapplyTextArea {
@@ -68,7 +68,7 @@ textarea {
 					<div class="card-title mb-4">
 						<div class="d-flex justify-content-start">
 							<div class="image-container">
-								<img src="${path }/resources/images/expert.png" id="imgProfile" style="width: 150px; height: 150px" class="img-thumbnail" />
+								<img src="${path }/resources/profile_images/${mem.profilePic}" id="imgProfile" style="width: 150px; height: 150px" class="img-thumbnail" />
 							</div>
 							<div class="userData ml-3">
 								<h2 class="d-block" style="font-size: 1.5rem; font-weight: bold">${mem.memName } 상담사님</h2>
@@ -165,7 +165,7 @@ textarea {
 										<div class="col-md-7 col-6">
 										<!-- 자격증 이미지 넣어야됨! -->
 												<div class="image-container">
-													<img src="${path }/resources/images/expert.png" id="imgProfile" style="width: 150px; height: 150px" class="img-thumbnail" />
+													<img src="${path }/resources/upload/upload_license/${license.licenseFileName }" id="imgProfile" style="width: 150px; height: 150px" class="img-thumbnail" />
 												</div>
 												<h6 class="d-block">자격증 종류 : ${license.licenseType }</h6>
 												<h6 class="d-block">자격증 발급일 : ${license.licenseDate }</h6>
@@ -175,7 +175,6 @@ textarea {
 									</div>
 									<hr />
 									<!--  -->
-									
 										</c:forEach>
 										</c:when>
 										<c:otherwise>

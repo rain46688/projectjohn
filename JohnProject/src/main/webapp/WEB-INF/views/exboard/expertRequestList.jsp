@@ -32,7 +32,7 @@ html, body, div, span, applet, object, iframe, h1, h2, h3, h4, h5, h6, p, blockq
 }
 
 #content *{
-	 border:1px solid red;
+	/*  border:1px solid red; */
 }
 
 .divList {

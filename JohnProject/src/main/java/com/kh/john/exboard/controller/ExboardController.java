@@ -31,6 +31,7 @@ import com.kh.john.exboard.model.vo.SessionVo;
 import com.kh.john.member.controller.AES256Util;
 import com.kh.john.member.controller.MailHandler;
 import com.kh.john.member.model.vo.Expert;
+import com.kh.john.member.model.vo.License;
 import com.kh.john.member.model.vo.Member;
 
 import lombok.extern.slf4j.Slf4j;
@@ -428,7 +429,7 @@ public class ExboardController {
 		if (enterMem.getMemClass().equals("전문가")) {
 			// 일반 유저 아이디
 			// 이 부분 이렇게 안해도될꺼같은데 나중에 보고 지우기
-			if (musid == null) {
+			if (musid.equals("undefined") || musid == null) {
 				map.put("expertusid", "" + enterMem.getUsid());
 				map.put("bno", bno);
 				musid = service.selectMemExboard(map);
@@ -479,6 +480,7 @@ public class ExboardController {
 					service.selectExpertMem("" + ((Member) session.getAttribute("loginMember")).getUsid()));
 			mv.addObject("license",
 					service.selectExpertLicense("" + ((Member) session.getAttribute("loginMember")).getUsid()));
+			mv.addObject("mem", service.selectMember("" + ((Member) session.getAttribute("loginMember")).getUsid()));
 			mv.addObject("likindList", service.selectLicenseKind());
 			mv.addObject("coukindList", service.selectCounselKind());
 			mv.addObject("comkindList", service.selectCompanyKind());
@@ -492,7 +494,8 @@ public class ExboardController {
 	@ResponseBody
 	@RequestMapping("/expert/modifyEx")
 	public String expertModifyEx(MultipartFile[] upFile, HttpServletRequest request, String career,
-			String counselSelect, String fistTime, String seTime, String modiText, String beforeProfile) {
+			String counselSelect, String fistTime, String seTime, String modiText, String beforeProfile,
+			HttpSession session) {
 		log.debug("expertModifyEx 실행");
 		log.debug("업 파일 : " + upFile + " 업파일 길이 : " + upFile.length);
 		log.debug("파람 : " + career + " " + counselSelect + " " + fistTime + " " + seTime + " " + modiText);
@@ -536,10 +539,18 @@ public class ExboardController {
 			}
 		}
 		try {
-			result = new ObjectMapper().writeValueAsString(list);
-		} catch (JsonProcessingException e) {
+			Expert et = new Expert();
+			et.setExpertUsid(((Member) session.getAttribute("loginMember")).getUsid());
+			et.setExpertCounselArea(counselSelect);
+			et.setExpertCounselStartTime(fistTime);
+			et.setExpertCounselEndTime(seTime);
+			et.setExpertGreetings(modiText);
+			et.setExpertProfile(career);
+			service.updateExInfoModify(et);
+			result = "1";
+		} catch (Exception e) {
 			// TODO Auto-generated catch block
-			e.printStackTrace();
+			result = "0";
 		}
 		return result;
 	}
@@ -553,13 +564,6 @@ public class ExboardController {
 			@RequestParam(required = false, defaultValue = "") String[] companys,
 			@RequestParam(required = false, defaultValue = "") String[] linum) {
 		log.debug("expertModifyLicense 실행");
-		log.debug("업 파일 : " + upFile + " 업파일 길이 : " + upFile.length);
-		log.debug(" 파파 : " + types + " " + dates + " " + companys);
-
-		for (int i = 0; i < 3; i++) {
-			log.debug("배열 내용 " + linum + " " + upFile[i].getOriginalFilename() + " " + types[i] + " " + dates[i] + " "
-					+ companys[i]);
-		}
 
 		String result = "";
 		String path = request.getServletContext().getRealPath("/resources/upload/upload_license");
@@ -596,10 +600,29 @@ public class ExboardController {
 			}
 		}
 		try {
-			result = new ObjectMapper().writeValueAsString(list);
-		} catch (JsonProcessingException e) {
+
+			List<License> paramlist = new ArrayList<License>();
+
+			for (int i = 0; i < upFile.length; i++) {
+				License li = new License();
+				if (!linum[i].equals("undefined")) {
+					li.setLicenseId(Integer.parseInt(linum[i]));
+				} else {
+					li.setLicenseId(-1);
+					log.debug(" 음수 확인용 : " + li.getLicenseId());
+				}
+				li.setLicenseFileName(list.get(i));
+				li.setLicenseDate(new java.sql.Date((new SimpleDateFormat("YYYY-MM-DD")).parse(dates[i]).getTime()));
+				li.setLicenseType(types[i]);
+				li.setLicenseCompany(companys[i]);
+				paramlist.add(li);
+			}
+			service.updateLicenseModify(paramlist);
+
+			result = "1";
+		} catch (Exception e) {
 			// TODO Auto-generated catch block
-			e.printStackTrace();
+			result = "0";
 		}
 		return result;
 	}
