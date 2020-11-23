@@ -113,7 +113,7 @@
 			</a>
 		</div>
 		<div class="menusOnSide">
-			<a href="${path}/report/adminReport"> <img src="${path }/resources/images/admin/siren (1).png"
+			<a href="${path}/admin/adminReport"> <img src="${path }/resources/images/admin/siren (1).png"
 			class="menuImages">신고관리
 			</a>
 		</div>

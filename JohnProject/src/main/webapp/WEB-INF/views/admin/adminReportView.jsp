@@ -265,13 +265,14 @@ border-radius:20px;
 	       </div>
        </div>
 <%-- 		<c:forEach items="${reportFile}" var="r" varStatus="vs">
-             <img src="${path }/resources/upload/report/${r.reportFileName }">
+             <img src="${path }/resources/upload/admin/${r.reportFileName }">
         </c:forEach>  --%>
 		<div class="input-group marginTop4">
         <img src="${path }/resources/images/admin/check.png" width="30px" height="30px">&nbsp;신고내용&nbsp;:
         </div>
         <div class="input-group marginTop5">
-        <textarea class="form-control" name="reportContent" placeholder="내용" required readonly id="reportContent"><c:out value="${report.reportContent }"/></textarea>
+        <textarea class="form-control" name="reportContent" placeholder="내용" required readonly id="reportContent">
+        <c:out value="${report.reportContent }"/></textarea>
 		</div>
         
         
@@ -311,7 +312,7 @@ border-radius:20px;
 		
 		<!-- <h5>답글달기</h5> -->
 		<div class="input-group marginTop7">
-			<form class="form-contact comment_form" action="${path}/report/reportAnswer?reportId=${report.reportId}"
+			<form class="form-contact comment_form" action="${path}/admin/reportAnswer?reportId=${report.reportId}"
 				id="commentForm" method="post">
 					
 				
@@ -372,7 +373,7 @@ border-radius:20px;
 		
 		function reportWarn(reportTargetUsid){
 			 if (confirm("정말 경고를 주시겠습니까?") == true){
-				 location.href="${path}/report/adminReportWarn?reportTargetUsid="+reportTargetUsid+"&reportIswarning="+reportIswarning;
+				 location.href="${path}/admin/adminReportWarn?reportTargetUsid="+reportTargetUsid+"&reportIswarning="+reportIswarning;
 			 }else{  
 			     return;
 			 }
@@ -382,7 +383,7 @@ border-radius:20px;
 
 		function reportViewDelete(reportId){
 			 if (confirm("정말 삭제하시겠습니까?") == true){
-				 location.href="${path}/report/adminReportDelete?reportId="+reportId;
+				 location.href="${path}/admin/adminReportDelete?reportId="+reportId;
 			 }else{  
 			     return;
 			 }

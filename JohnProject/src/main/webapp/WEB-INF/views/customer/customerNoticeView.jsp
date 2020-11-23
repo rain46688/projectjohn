@@ -175,10 +175,20 @@
 		}
 		
 		function noticeViewModify(noticeId){
+			 var sessionId = '${loginMember.usid}';
+				if(sessionId!='31'){
+					alert("관리자만 접근할 수 있습니다");
+					return;
+				}
 			location.href="${path}/customer/customerNoticeModify?noticeId="+noticeId;
 		}
 				
 		function noticeViewDelete(noticeId){
+			 var sessionId = '${loginMember.usid}';
+			if(sessionId!='31'){
+				alert("관리자만 접근할 수 있습니다");
+				return;
+			}
 			 if (confirm("정말 삭제하시겠습니까?") == true){
 				 location.href="${path}/customer/customerNoticeDelete?noticeId="+noticeId;
 			 }else{  

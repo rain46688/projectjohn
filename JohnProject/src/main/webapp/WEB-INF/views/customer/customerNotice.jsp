@@ -133,7 +133,7 @@ a:hover {
 		           
 <button type="button" value="글쓰기" id="bbtn" 
 class="btn btn-outline-info" 
-onclick="location.href='${path}/customer/customerNoticeForm'">WRITE</button>
+onclick="noticeWrite('${notice.noticeId}');">WRITE</button>
 
 		        <div class="board_list_wrap">
 				<div class="board_list">
@@ -169,6 +169,18 @@ onclick="location.href='${path}/customer/customerNoticeForm'">WRITE</button>
 		       </div>
 		      
 		      </section>
+		      
+		      <script>
+		      function noticeWrite(noticeId){
+					 var sessionId = '${loginMember.usid}';
+						if(sessionId!='31'){
+							alert("관리자만 접근할 수 있습니다");
+							return;
+						}
+						
+				location.href="${path}/customer/customerNoticeForm";
+				}
+		      </script>
 	
 
 	
