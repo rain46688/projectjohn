@@ -47,11 +47,12 @@ public class AdminController {
 	   private AES256Util aes;
 
 	// 어드민 메뉴화면 이동(임시)
-	@RequestMapping("/admin/adminPage")
-	public String adminPage() {
-		return "/admin/adminPage";
-	}
+//	@RequestMapping("/admin/adminPage")
+//	public String adminPage() {
+//		return "/admin/adminPage";
+//	}
 
+	
 	// 멤버 리스트 불러오기
 	@RequestMapping("/admin/adminMember")
 	public ModelAndView adminMember(ModelAndView mv,

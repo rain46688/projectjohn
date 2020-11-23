@@ -23,12 +23,12 @@
 }
 
 .alinkEx1:visited{
-	color:#003478;
+	color:#ffcc66;
 	
 }
 
 .alinkEx2:visited{
-	color:#ffcc66;
+	color:#003478;
 }
 
 ul.tabs {

@@ -110,7 +110,7 @@
 	width:48%;
 	float:left;
 	font-size:20px;
-	color:#eeeeee;
+	color:black;
 }
 
 .marginTop2{
@@ -120,7 +120,7 @@
 	width:48%;
 	float:left;
 	font-size:20px;
-	color:#eeeeee;
+	color:black;
 }
 
 
@@ -136,10 +136,10 @@
 		<form id="frm" action="${path}/report/customerReportEnd" method="POST"
 			enctype="multipart/form-data">
 			<div class="input-group marginTop1">
-			신고대상 게시물&nbsp;<input class="form-control" type="text" name="reportBoardId" id="reportBoardId" value="24" readonly> <!-- 신고대상게시물번호 --><!-- 변경요망 -->
+			<img src="${path }/resources/images/admin/check.png" width="30px" height="30px">&nbsp;신고대상 게시물&nbsp;:&nbsp;<c:out value="24"/> <!-- 신고대상게시물번호 --><!-- 변경요망 -->
 			</div>
 			<div class="input-group marginTop2">
-			신고대상 회원&nbsp;<input class="form-control" type="text" name="reportTargetNickname" id="reportTargetNickname" value="홍잭슨" readonly><!-- 변경요망 -->
+			<img src="${path }/resources/images/admin/check.png" width="30px" height="30px">&nbsp;신고대상 회원&nbsp;:&nbsp;<c:out value="홍잭슨" /><!-- 변경요망 -->
 			</div>
 			<div class="input-group marginTop">
 			<select class="custom-select custom-select-sm" name="reportType" id="reportType">

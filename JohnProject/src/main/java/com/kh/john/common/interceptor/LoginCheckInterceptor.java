@@ -21,7 +21,7 @@ public class LoginCheckInterceptor extends HandlerInterceptorAdapter {
 		
 		if(login==null||login.getUsid()!=31) {
 			request.setAttribute("msg", "관리자만 접근이 가능합니다");
-			request.setAttribute("loc", "/");
+			request.setAttribute("loc", "/board/boardList");
 	
 			request.getRequestDispatcher("/WEB-INF/views/common/msg.jsp")
 			.forward(request, response);
