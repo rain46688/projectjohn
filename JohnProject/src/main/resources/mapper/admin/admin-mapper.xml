@@ -252,7 +252,7 @@
 
 	<select id="searchExpertListCount" resultType="_int"
 		parameterType="map" >
-		SELECT COUNT(*) FROM MEMBER WHERE ${type2} LIKE '%'||#{keyword, jdbcType=VARCHAR}||'%'
+		SELECT COUNT(*) FROM MEMBER WHERE '${type2}' LIKE '%'||#{keyword, jdbcType=VARCHAR}||'%'
 		AND MEM_CLASS LIKE('전문가')
 	</select>
 	

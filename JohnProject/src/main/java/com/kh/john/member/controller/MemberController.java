@@ -388,8 +388,11 @@ public class MemberController {
 	
 //	회원정보 수정하기
 	@RequestMapping("/member/myPage/updateMemberInfo")
-	public String updateMemberInfo() {
-		return "member/updateMemberInfo";
+	public ModelAndView updateMemberInfo(ModelAndView mv, @SessionAttribute("loginMember") Member loginMember) {
+		Member member=service.selectMemberByUsid(loginMember);
+		mv.addObject("member",member);
+		mv.setViewName("member/updateMemberInfo");
+		return mv;
 	}
 
 //	비밀번호 변경하기

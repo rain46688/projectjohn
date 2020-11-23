@@ -12,48 +12,82 @@
 </jsp:include>
 
 <style type="text/css">
-* {
-	font-family: 나눔고딕;
+@import url('https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@500&display=swap');
+#totaldiv{
+	background-color:#ffcc66;
+	margin-right: 5%;
+    margin-bottom:5%;
+    margin-left:5%;
+    margin-top:2%;
+    border-radius:20px;
+    height:93%;
 }
+
 #messageWindow {
 	background: black;
 	color: greenyellow;
 }
 #inputMessage {
-	width: 500px;
-	height: 20px
-}
-#btn-submit {
-	background: white;
-	background: #F7E600;
-	width: 60px;
-	height: 30px;
-	color: #607080;
+	width: 90%;
+	height: 40px;
 	border: none;
+	background-color:#eeeeee;
+	border-radius:10px;
+}
+#btn-submit{
+	border-color: #ffcc66;
+    color: white; 
+    background-color: #003478;
+    width:70px;
+    height:40px;
+    border-radius:10px;
+
+}
+
+#btn-submit:hover,
+#btn-submit:focus {
+    background-color: #ffcc66;
+    border-color: #003478;
+    color: #003478; 
+
 }
 #main-container {
-	width: 600px;
+/* 	width: 600px;
 	height: 680px;
 	border: 1px solid black;
 	margin: 10px;
 	display: inline-block;
+	font-family: 'Noto Sans KR', sans-serif; */
+	padding-right: 20%;
+    padding-bottom:20%;
+    padding-left:20%;
+    padding-top:2%;
+    font-family: 'Noto Sans KR', sans-serif;
+	overflow:hidden;
 }
 #chat-container {
 	vertical-align: bottom;
-	border: 1px solid black;
+	border: none;
+	border-radius:30px;
 	margin: 10px;
 	min-height: 600px;
 	max-height: 600px;
-	overflow: scroll;
+	/* overflow: scroll; */
+	overflow-y:scroll;
 	overflow-x: hidden;
-	background: #9bbbd4;
+	background: #003478;
+	width:100%;
+
 }
+ ::-webkit-scrollbar{
+ 	display:block;
+ }
 .chat {
 	font-size: 20px;
 	color: black;
-	margin: 5px;
+	margin: 20px;
 	min-height: 20px;
-	padding: 5px;
+	padding: 10px;
 	min-width: 50px;
 	text-align: left;
 	height: auto;
@@ -62,28 +96,31 @@
 	width: auto;
 	display: inline-block;
 	border-radius: 10px 10px 10px 10px;
+
 }
-.notice {
+/* .notice {
 	color: #607080;
 	font-weight: bold;
 	border: none;
 	text-align: center;
 	background-color: #9bbbd4;
 	display: block;
-}
+} */
 .my-chat {
 	text-align: right;
-	background: #F7E600;
+	background: #ffcc66;
 	border-radius: 10px 10px 10px 10px;
+	margin-right:1px;
+	padding:10px;
 }
 #bottom-container {
 	margin: 10px;
 }
 .chat-info {
-	color: #556677;
-	font-size: 10px;
+	color: #eeeeee;
+	font-size: 12px;
 	text-align: right;
-	padding: 5px;
+	padding: 20px;
 	padding-top: 0px;
 }
 .chat-box {
@@ -92,19 +129,44 @@
 .my-chat-box {
 	text-align: right;
 }
+
+
+
+/*추가*/
+.board_list_head {
+    border-top: 3px solid #003478;
+    border-bottom: 2px solid #003478;
+    background-color:#003478;
+    color:#ffcc66;
+    border-radius:10px;
+    font-family: 'Noto Sans KR', sans-serif;
+    padding: 10px 0;
+   
+}
+
+.board_list_head > div{
+    display: inline-block;
+    text-align: center;
+    font-size: 25px; /*본문글자크기*/
+    font-weight: 600;
+}
+
+
 </style>
 
 <section id="content">
-	<div id="main-container">
+<div id="totaldiv">
+	<div id="main-container">  
 
-		<div id="chat-container"></div>
+		<div id="chat-container"></div> 
 
 		<div id="bottom-container">
 
-			<input id="inputMessage" type="text"> <input id="btn-submit"
+			<input id="inputMessage" type="text"> <input id="btn-submit"     
 				type="submit" value="전송">
 
 		</div>
+	</div>
 	</div>
 </section>
 
@@ -145,10 +207,12 @@
 					
   	        	let msgR=$('#chat-container').html( 
 						$('#chat-container').html()
-								+ "<div class='my-chat-box'><div class='chat'>"
+								+ "<div class='my-chat-box'><div class='chat my-chat'>"
 								+ v['adminChatContent']
-								+ "</div><div class='chat my-chat'>"
+								+ "</div><div class='chat-info'>"
 								+ dateInfo + "</div></div>"); 
+ 						 
+  	   
 						
 		 	         } 
 		 	         

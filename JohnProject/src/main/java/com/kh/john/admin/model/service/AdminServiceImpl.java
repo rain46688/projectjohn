@@ -170,26 +170,32 @@ public class AdminServiceImpl implements AdminService{
 		return dao.selectNoticeCount(session);
 	}
 
+//	@Override
+//	public int insertNotice(Notice n,List<NoticeFile> files) throws RuntimeException{
+//		int result = dao.insertNotice(session,n);
+//		System.out.println("서비스"+files);
+//		if(result>0) {
+////			if(!files.isEmpty()) {
+//				for(NoticeFile f:files) {
+//					dao.insertNoticeFile(session, f);
+//					
+//				}
+//			//}
+//		}
+//		
+//		return result;
+//	}
 	@Override
-	public int insertNotice(Notice n,List<NoticeFile> files) throws RuntimeException{
-		int result = dao.insertNotice(session,n);
-		System.out.println("서비스"+files);
-		if(result>0) {
-//			if(!files.isEmpty()) {
-				for(NoticeFile f:files) {
-					dao.insertNoticeFile(session, f);
-					
-				}
-			//}
-		}
-		
-		return result;
+	public int insertNotice(Notice n) {
+		return dao.insertNotice(session, n);
 	}
+	
 
 	@Override
 	public Notice selectOneNotice(int notice_id) {
 		return dao.selectOneNotice(session, notice_id);
 	}
+
 
 	@Override
 	public List<NoticeFile> selectNoticeFile(int notice_id) {

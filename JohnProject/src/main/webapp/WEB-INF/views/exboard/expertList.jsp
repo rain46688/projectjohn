@@ -33,7 +33,11 @@ html, body, div, span, applet, object, iframe, h1, h2, h3, h4, h5, h6, p, blockq
 	font-size: 100%;
 	font: inherit;
 	vertical-align: baseline;
-	
+	-ms-user-select: none;
+	-moz-user-select: -moz-none;
+	-webkit-user-select: none;
+	-khtml-user-select: none;
+	user-select: none;
 }
 
 /* 위 div */
@@ -150,12 +154,8 @@ img {
 .grid-container {
 	display: grid;
 	grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+	/* grid-template-columns: repeat(auto-fill, minmax(20vh, 1fr)); */
 	grid-gap: 1em;
-}
-
-/* 카테고리 그리드 */
-.counsel-listing {
-	position: relative;
 }
 
 /* 카테고리 그리드 이미지 */
@@ -210,10 +210,16 @@ img {
 	}
 }
 
+/* 카테고리 그리드 */
+.counsel-listing {
+ 	position: relative;
+}
+
 .cImgages {
 	/* border:1px solid black; */
 	width: 100%;
-	height: 180px;
+	/* height: 13vh;  */
+	height: 180px; 
 }
 
 /* 별 */
