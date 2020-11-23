@@ -147,4 +147,10 @@ public class ExboardDaoImpl implements ExboardDao {
 		return session.selectList("expert.selectExRequestList");
 	}
 
+	@Override
+	public List<String> selectLicenseKind(SqlSessionTemplate session) throws Exception {
+		// TODO Auto-generated method stub
+		return session.selectList("expert.selectLicenseKind");
+	}
+
 }

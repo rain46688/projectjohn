@@ -49,4 +49,6 @@ public interface ExboardService {
 
 	List<ExpertRequest> selectExRequestList() throws Exception;
 
+	List<String> selectLicenseKind() throws Exception;
+
 }

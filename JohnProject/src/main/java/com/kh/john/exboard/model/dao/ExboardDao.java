@@ -53,4 +53,6 @@ public interface ExboardDao {
 
 	List<ExpertRequest> selectExRequestList(SqlSessionTemplate session) throws Exception;
 
+	List<String> selectLicenseKind(SqlSessionTemplate session) throws Exception;
+
 }

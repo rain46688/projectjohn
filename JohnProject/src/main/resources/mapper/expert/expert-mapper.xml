@@ -86,6 +86,9 @@
 	SELECT * FROM EXPERT_REQUEST
 </select>
 
+<select id="selectLicenseKind" resultType	="list" >
+	SELECT * FROM LICENSE_KIND
+</select>
 
 	<resultMap type="exboard" id="exboardMap">
 		<id column="EXPERT_BOARD_ID" property="expertBoardId" />

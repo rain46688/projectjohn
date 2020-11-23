@@ -299,7 +299,7 @@ textarea {
 						<p>경력</p>
 						<div id="careerleftDiv">
 							<div id="exinput">
-								<input type="number" name="career" class="form-control short" min="1" max="99" />
+								<input type="number" name="career" class="form-control short" min="1" max="99" value="${expert.expertRating }" />
 							</div>
 							<div id="exinput2">
 								<h6>년</h6>
@@ -309,12 +309,12 @@ textarea {
 					<div class="rightDiv">
 						<p>전문 분야</p>
 						<select id="counselSelect" name="counselSelect" required class="form-control short">
-							<option value="부부 상담" selected>부부 상담</option>
-							<option value="연애 상담">연애 상담</option>
-							<option value="직장 상담">직장 상담</option>
-							<option value="심리 상담">심리 상담</option>
-							<option value="자녀 상담">자녀 상담</option>
-							<option value="진로 상담">진로 상담</option>
+							<option value="부부 상담" <c:if test="${expert.expertCounselArea eq '부부 상담'? 'selected':'' }"/>>부부 상담</option>
+							<option value="연애 상담" <c:if test="${expert.expertCounselArea eq '연애 상담'? 'selected':'' }"/>>연애 상담</option>
+							<option value="직장 상담" <c:if test="${expert.expertCounselArea eq '직장 상담'? 'selected':'' }"/>>직장 상담</option>
+							<option value="심리 상담" <c:if test="${expert.expertCounselArea eq '심리 상담'? 'selected':'' }"/>>심리 상담</option>
+							<option value="자녀 상담" <c:if test="${expert.expertCounselArea eq '자녀 상담'? 'selected':'' }"/>>자녀 상담</option>
+							<option value="진로 상담" <c:if test="${expert.expertCounselArea eq '진로 상담'? 'selected':'' }"/>>진로 상담</option>
 						</select>
 					</div>
 				</div>
@@ -323,9 +323,9 @@ textarea {
 					<div class="timeleftDiv">
 						<p>상담 가능 시간</p>
 						<div id="time">
-							<input name="fistTime" type="time" class="form-control times">
+							<input name="fistTime" type="time" class="form-control times" value="${expert.expertCounselStartTime }" >
 							<p>~</p>
-							<input name="seTime" type="time" class="form-control times">
+							<input name="seTime" type="time" class="form-control times" value="${expert.expertCounselEndTime }" >
 						</div>
 					</div>
 				</div>
@@ -337,7 +337,7 @@ textarea {
 			<div id="textArearowDiv">
 				<div id="textAreaDiv">
 					<p>인사말</p>
-					<textarea id="exTextArea" name="modiText"></textarea>
+					<textarea id="exTextArea" name="modiText" >${expert.expertGreetings}</textarea>
 				</div>
 			</div>
 			<div id="buttonDiv">
@@ -491,7 +491,61 @@ textarea {
 		</div>
 		<div id="licenseDownDiv">
 
+			<c:forEach items="${license }" var="license"  varStatus="status">
+			<input type="hidden" value="${license.licenseId }" class="licenseIdInput"/>
 			<div class="licenseDiv">
+				<div class="licenseImg" id="licenseImg${status.count}">
+					<img src="${path }/resources/images/expert.png" id="imgLicense${status.count}" class="img-thumbnail licenseImgs" />
+				</div>
+				<div class="licenseImgView" id="licenseImgView${status.count}">
+					<p>+</p>
+				</div>
+				<div class="licenseInfo">
+					<div class="licenseType">
+						<div class="licenseTitle">
+							<p>자격증 타입</p>
+						</div>
+						
+						<c:forEach items="${likindList }" var="litype"  varStatus="status">
+							<div>${litype}</div>
+						</c:forEach>
+						
+						<div class="licenseContent">
+							<select id="licenseTypeSelect${status.count}" name="licenseTypeSelect${status.count}" required class="form-control short licenseTypeSelect">
+							<c:forEach items="${likindList }" var="lity"  varStatus="status">
+								 <option value="${lity.LICENSE_KIND_NAME}"/>${lity.LICENSE_KIND_NAME}</option>
+								</c:forEach>
+							</select>
+						</div>
+					</div>
+					<div class="licenseDate">
+						<div class="licenseTitle">
+							<p>자격증 발급 날짜</p>
+						</div>
+						<div class="licenseContent">
+							<input name="licenseTime1" id="licenseTime1" type="date" class="form-control times licenseTime">
+						</div>
+					</div>
+					<div class="licenseCompany">
+						<div class="licenseTitle">
+							<p>자격증 발급 기관</p>
+						</div>
+						<div class="licenseContent">
+							<select id="licenseCompanySelect${status.count}" name="licenseCompanySelect${status.count}" required class="form-control short licenseCompanySelect">
+								<option value="한국 청소년 상담 복지 개발원" selected>한국 청소년 상담 복지 개발원</option>
+								<option value="여성가족부">여성가족부</option>
+								<option value="삽업인력관리공단 큐넷">삽업인력관리공단 큐넷</option>
+								<option value="한국 상담 심리 학회">한국 상담 심리 학회</option>
+								<option value="한국 상담 학회">한국 상담 학회</option>
+								<option value="한국 임상 심리 학회">한국 임상 심리 학회</option>
+							</select>
+						</div>
+					</div>
+				</div>
+			</div>
+			</c:forEach>
+
+		<div class="licenseDiv">
 				<div class="licenseImg" id="licenseImg1">
 					<img src="${path }/resources/images/expert.png" id="imgLicense1" class="img-thumbnail licenseImgs" />
 				</div>
@@ -542,134 +596,6 @@ textarea {
 						</div>
 						<div class="licenseContent">
 							<select id="licenseCompanySelect1" name="licenseCompanySelect1" required class="form-control short licenseCompanySelect">
-								<option value="한국 청소년 상담 복지 개발원" selected>한국 청소년 상담 복지 개발원</option>
-								<option value="여성가족부">여성가족부</option>
-								<option value="삽업인력관리공단 큐넷">삽업인력관리공단 큐넷</option>
-								<option value="한국 상담 심리 학회">한국 상담 심리 학회</option>
-								<option value="한국 상담 학회">한국 상담 학회</option>
-								<option value="한국 임상 심리 학회">한국 임상 심리 학회</option>
-							</select>
-						</div>
-					</div>
-				</div>
-			</div>
-
-
-
-			<div class="licenseDiv">
-				<div class="licenseImg" id="licenseImg2">
-					<img src="${path }/resources/images/expert.png" id="imgLicense2" class="img-thumbnail licenseImgs" />
-				</div>
-				<div class="licenseImgView" id="licenseImgView2">
-					<p>+</p>
-				</div>
-					<div class="licenseInfo">
-					<div class="licenseType">
-						<div class="licenseTitle">
-							<p>자격증 타입</p>
-						</div>
-						<div class="licenseContent">
-							<select id="licenseTypeSelect2" name="licenseTypeSelect2" required class="form-control short licenseTypeSelect">
-								<option value="미술 심리 상담 지도사 1급" selected>미술 심리 상담 지도사 1급</option>
-								<option value="미술 심리 상담 지도사 2급">미술 심리 상담 지도사 2급</option>
-								<option value="노인 심리 상담 지도사">노인 심리 상담 지도사</option>
-								<option value="심리 상담 지도사 1급">심리 상담 지도사 1급</option>
-								<option value="음악 심리 상담 지도사 1급">음악 심리 상담 지도사 1급</option>
-								<option value="아동 심리 상담사">아동 심리 상담사</option>
-								<option value="부모 교육 심리 상담사">부모 교육 심리 상담사</option>
-								<option value="청소년 상담사 1급">청소년 상담사 1급</option>
-								<option value="청소년 상담사 2급">청소년 상담사 2급</option>
-								<option value="청소년 상담사 3급">청소년 상담사 3급</option>
-								<option value="직업 상담사 1급">직업 상담사 1급</option>
-								<option value="직업 상담사 2급">직업 상담사 2급</option>
-								<option value="직업 상담사 3급">직업 상담사 3급</option>
-								<option value="전문 상담사 1급">전문 상담사 1급</option>
-								<option value="전문 상담사 2급">전문 상담사 2급</option>
-								<option value="전문 상담사 3급">전문 상담사 3급</option>
-								<option value="임상 심리사 1급">임상 심리사 1급</option>
-								<option value="임상 심리사 2급">임상 심리사 2급</option>
-								<option value="전문 상담 교사">전문 상담 교사</option>
-								<option value="임상 심리 전문가">임상 심리 전문가</option>
-							</select>
-						</div>
-					</div>
-					<div class="licenseDate">
-						<div class="licenseTitle">
-							<p>자격증 발급 날짜</p>
-						</div>
-						<div class="licenseContent">
-							<input name="licenseTime2" id="licenseTime2" type="date" class="form-control times licenseTime" value="2020-09-11">
-						</div>
-					</div>
-					<div class="licenseCompany">
-						<div class="licenseTitle">
-							<p>자격증 발급 기관</p>
-						</div>
-						<div class="licenseContent">
-							<select id="licenseCompanySelect2" name="licenseCompanySelect2" required class="form-control short licenseCompanySelect">
-								<option value="한국 청소년 상담 복지 개발원" selected>한국 청소년 상담 복지 개발원</option>
-								<option value="여성가족부">여성가족부</option>
-								<option value="삽업인력관리공단 큐넷">삽업인력관리공단 큐넷</option>
-								<option value="한국 상담 심리 학회">한국 상담 심리 학회</option>
-								<option value="한국 상담 학회">한국 상담 학회</option>
-								<option value="한국 임상 심리 학회">한국 임상 심리 학회</option>
-							</select>
-						</div>
-					</div>
-				</div>
-			</div>
-
-			<div class="licenseDiv">
-				<div class="licenseImg" id="licenseImg3">
-					<img src="${path }/resources/images/expert.png" id="imgLicense3" class="img-thumbnail licenseImgs" />
-				</div>
-				<div class="licenseImgView" id="licenseImgView3">
-					<p>+</p>
-				</div>
-				<div class="licenseInfo">
-					<div class="licenseType">
-						<div class="licenseTitle">
-							<p>자격증 타입</p>
-						</div>
-						<div class="licenseContent">
-							<select id="licenseTypeSelect3" name="licenseTypeSelect3" required class="form-control short licenseTypeSelect licenseTypeSelect">
-								<option value="미술 심리 상담 지도사 1급" selected>미술 심리 상담 지도사 1급</option>
-								<option value="미술 심리 상담 지도사 2급">미술 심리 상담 지도사 2급</option>
-								<option value="노인 심리 상담 지도사">노인 심리 상담 지도사</option>
-								<option value="심리 상담 지도사 1급">심리 상담 지도사 1급</option>
-								<option value="음악 심리 상담 지도사 1급">음악 심리 상담 지도사 1급</option>
-								<option value="아동 심리 상담사">아동 심리 상담사</option>
-								<option value="부모 교육 심리 상담사">부모 교육 심리 상담사</option>
-								<option value="청소년 상담사 1급">청소년 상담사 1급</option>
-								<option value="청소년 상담사 2급">청소년 상담사 2급</option>
-								<option value="청소년 상담사 3급">청소년 상담사 3급</option>
-								<option value="직업 상담사 1급">직업 상담사 1급</option>
-								<option value="직업 상담사 2급">직업 상담사 2급</option>
-								<option value="직업 상담사 3급">직업 상담사 3급</option>
-								<option value="전문 상담사 1급">전문 상담사 1급</option>
-								<option value="전문 상담사 2급">전문 상담사 2급</option>
-								<option value="전문 상담사 3급">전문 상담사 3급</option>
-								<option value="임상 심리사 1급">임상 심리사 1급</option>
-								<option value="임상 심리사 2급">임상 심리사 2급</option>
-								<option value="전문 상담 교사">전문 상담 교사</option>
-								<option value="임상 심리 전문가">임상 심리 전문가</option>
-							</select>
-						</div>
-					</div>
-					<div class="licenseDate">
-						<div class="licenseTitle">
-							<p>자격증 발급 날짜</p>
-						</div>
-						<div class="licenseContent">
-							<input name="licenseTime3" id="licenseTime3" type="date" class="form-control times licenseTime">
-						</div>
-					</div>
-					<div class="licenseCompany">
-						<div class="licenseTitle">
-							<p>자격증 발급 기관</p>
-						</div>
-						<div class="licenseContent">
-							<select id="licenseCompanySelect3" name="licenseCompanySelect3" required class="form-control short licenseCompanySelect" >
 								<option value="한국 청소년 상담 복지 개발원" selected>한국 청소년 상담 복지 개발원</option>
 								<option value="여성가족부">여성가족부</option>
 								<option value="삽업인력관리공단 큐넷">삽업인력관리공단 큐넷</option>
