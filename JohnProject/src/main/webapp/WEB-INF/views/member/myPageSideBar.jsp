@@ -42,7 +42,6 @@
 	#menu {
 		color: white;
 		font-size: 1em;
-		/* border:1px solid red; */
 		width:100%;
 		margin-top: 1em;
 		overflow: auto;
@@ -72,10 +71,10 @@
 	div.menuContainer:hover {
 		background-color: #0054BA;
 	}
-	a{
+	#menuContainer a{
 		color: white;
 	}
-	a:hover{
+	#menuContainer a:hover{
 		color: white;
 		margin-right: 1.5em;
 	}

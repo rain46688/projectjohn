@@ -9,25 +9,28 @@
 	<jsp:param name="title" value=""/>
 </jsp:include>
 <style>
-/* 	input[type=file]{ */
-/* 		position: relative; */
-/* 		top: 0; */
-/* 		right: 0; */
-/* 		min-width: 100%; */
-/* 		min-height: 100%; */
-/* 		font-size: 10px; */
-/* 		text-align: right; */
-/* 		filter: alpha(opacity=0); */
-/* 		opacity: 0; */
-/* 		outline: none; */
-/* 		background: white; */
-/* 		cursor: inherit; */
-/* 		display: block; */
-/* 	} */
-/* 	.file{ */
-/* 		visibility: hidden; */
-/* 		position: relative; */
-/* 	} */
+	div.content{
+		border: 1px red solid;
+	}
+	input[type=file]{
+		position: relative;
+		top: 0;
+		right: 0;
+		min-width: 100%;
+		min-height: 100%;
+		font-size: 10px;
+		text-align: right;
+		filter: alpha(opacity=0);
+		opacity: 0;
+		outline: none;
+		background: white;
+ 		cursor: inherit;
+		display: block;
+	}
+	.file{
+		visibility: hidden;
+		position: relative;
+ 	}
 /* 	#fileNameField{ */
 /*         outline: none; */
 /*         border: black solid 1px; */
