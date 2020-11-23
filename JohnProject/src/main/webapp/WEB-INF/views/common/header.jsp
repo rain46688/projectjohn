@@ -34,7 +34,7 @@
 #header {
     border-top-right-radius: 30px;
     width: 100%;
-    height: 7%; 
+    height: 9%; 
     background-color: #0054BA;
 /*     border-left: 1px solid rgb(98, 98, 98); */
     padding-right:3em;
@@ -42,20 +42,6 @@
 
 #header > button {
 	float:right;
-}
-
-#alarmdiv {
-	display: inline-flex;
-	/* border: 1px solid red; */
-	height: 100%;
-	width: 60px;
-}
-
-#alarmdiv>#bell>img {
-	z-index: 1;
-	/* border: 1px solid black; */
-	height: 100%;
-	width: 200%;
 }
 
 #al {
@@ -76,11 +62,69 @@
 }
 
 #bell {
-	margin-left:0.4em;
-	margin-top:0.4em;
-	width:1em;
-	height:2em;
+	width:1.5em;
+	height:1.5em;
+	margin-right:0.2em;
 }
+
+#profileContainer {
+	float:right;
+	border:1px red solid;
+}
+
+#profileImage {
+	width:25px;
+	height:25px;
+	border-radius:25px;
+}
+
+#headerList {
+	list-style-type: none;
+	margin: 0;
+	padding: 0;
+	display: flex;
+	flex-direction: row-reverse;
+}
+
+#headerList>li {
+	margin:0.5em;
+	margin-right:0;
+	padding:0.5em;
+	padding-right:0;
+}
+
+#search {
+	float:left;
+	margin:0.5em;
+	padding:0.5em;
+}
+
+#myPageDrop {
+  position: relative;
+  display: inline-block;
+  cursor:pointer;
+}
+
+.dropdown-content {
+  display: none;
+  width:100em;
+  position: absolute;
+  background-color: #f1f1f1;
+  box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+  z-index: 4;
+  padding-right:30px;
+}
+
+.dropdown-content a {
+  color: black;
+  padding: 12px 16px;
+  text-decoration: none;
+  display: block;
+}
+
+.dropdown-content a:hover {background-color: #ddd;}
+
+#myPageDrop:hover .dropdown-content {display: block;}
 </style>
 <body>
 	<div class="containerJohn">
@@ -102,22 +146,36 @@
 			</c:choose>
 			<div id="headerAndContent">
 				<div id="header">
+					
 					<!-- 알람 및 마이페이지 버튼 -->
-					<button onclick="location.href='${path}/customer/customerNotice'">고객센터</button>
-					<button onclick="location.href='${path}/member/myPage?usid=${loginMember.usid}'">마이페이지</button>
-					<button onclick="location.href='${path}/admin/adminMember'">ADMIN</button>
-					<button onclick="location.href='${path}/member/logout'">로그아웃</button>
-					<!-- 전문과 관련 페이지 접근용 임시 포탈 -->
-					<button onclick="location.href='${path}/expert'">전문가</button>
-					<!-- 알람 임시 위치 & 이미지 나중에 수정해야됨 -->
-					<div id="alarmdiv">
-						<c:if test="${loginMember.usid != null}">
-							<a id="bell" class="bell2" href="${path }/alarm/alarmList?usid=${loginMember.usid }"><img id="bell" src="${path }/resources/images/bell.png"></a>
-							<c:if test="${loginMember.usid != null}">
-								<a id="number" href="${path }/alarm/alarmList?usid=${loginMember.usid }"></a>
-							</c:if>
-						</c:if>
+					<div id="search">
+						<input type="text">
 					</div>
+					<ul id="headerList">
+						<li>
+							<div id="myPageDrop" tabindex="1">
+								<img id="profileImage" src="${path}/resources/profile_images/${loginMember.profilePic}">
+								<div class="dropdown-content">
+								  <a href="${path}/customer/customerNotice">고객센터</a>
+								  <a href="${path}/admin/adminMember">ADMIN</a>
+								  <a href="${path}/board/boardInsert">글쓰기</a>
+								  <a href="${path}/member/logout">로그아웃</a>
+								</div>
+							</div>
+						</li>
+						<li>
+							<c:if test="${loginMember.usid != null}">
+								<a id="bell" class="bell2" href="${path }/alarm/alarmList?usid=${loginMember.usid }"><img id="bell" src="${path }/resources/images/bell.png"></a>
+								<c:if test="${loginMember.usid != null}">
+									<a id="number" href="${path }/alarm/alarmList?usid=${loginMember.usid }"></a>
+								</c:if>
+							</c:if>
+						</li>
+					</ul>
+					<!-- 전문과 관련 페이지 접근용 임시 포탈 -->
+					<%-- <button onclick="location.href='${path}/expert'">전문가</button> --%>
+					<!-- 알람 임시 위치 & 이미지 나중에 수정해야됨 -->
+					
 				</div>
 
 

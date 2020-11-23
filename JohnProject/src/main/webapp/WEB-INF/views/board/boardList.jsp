@@ -89,12 +89,8 @@
 	}
 </style>
 	<div id="content">
-                    <!-- 내용 -->
-                    <button onclick="location.href = '${path}/board/boardInsert'">글쓰기</button>
-               		<%-- <c:forEach var="sub" items="${subList}">
-               			<br>
-						${sub.subCategory}
-					</c:forEach> --%>
+					<!-- 내용 -->
+                    
 					<div id="result">
 						<div class="popular">
 							<h1 class='subListTitle'>인기</h1>

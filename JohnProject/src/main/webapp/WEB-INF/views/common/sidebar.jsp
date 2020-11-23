@@ -45,9 +45,14 @@
 	
 	#container_logo{
 	    margin-top: 0;
+		padding-top: 1em;
 	    display: flex;
 	    justify-content: center;
 	    background-color:#00316D;
+	}
+
+	#sidebar_logo{
+    	width: 80%;
 	}
 	
 	#menu {
@@ -80,9 +85,7 @@
 		/* border:1px solid red; */
 	}
 	
-	#sidebar_logo{
-    	width: 80%;
-	}
+	
 </style>
 <div id="side">
 
@@ -108,13 +111,17 @@
 			<img class="menuImages" src="${path}/resources/images/history.png">
 			내 기록
 		</div>
+		<div id="expert" class="menusOnSide" onclick="location.href='${path}/expert'">
+			<img class="menuImages" src="${path}/resources/images/expert_menu.png">
+			전문가와 상담하기
+		</div>
 		<hr>
 		<div id="subList" class="menusOnSide">
 			<img class="menuImages" src="${path}/resources/images/sub.png">
 			구독한 채널
 		</div>
 		<hr>
-		<div id="cates" class="menusOnSide">
+		<div id="cates" class="menusOnSide" >
 			<img class="menuImages" src="${path}/resources/images/cate.png">
 			큰 카테고리들
 		</div>
