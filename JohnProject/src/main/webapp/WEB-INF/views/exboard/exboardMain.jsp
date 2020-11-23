@@ -31,7 +31,6 @@ label, input {
 	<c:if test="${loginMember.memClass == '전문가'}">
 		<button class="btn btn-outline-success" onclick="location.href='${path}/expert/expertRequestPrintList'">전문가가 상담할 유저 리스트 보기</button>
 		<button class="btn btn-outline-success" onclick="location.href='${path}/expert/expertInfoModify'">전문가 정보 수정하기</button>
-		<button class="btn btn-outline-success" onclick="location.href='${path}/expert/expertInfoModifyLicense'">전문가 자격증 정보 수정하기</button>
 	</c:if>
 	
 	

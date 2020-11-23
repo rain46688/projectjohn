@@ -139,6 +139,7 @@
 </resultMap>
 
 <resultMap id="licenseMap" type="license">
+	 <result property="licenseId" column="license_id"/>
     <result property="licenseMemUsid" column="license_mem_usid"/>
     <result property="licenseFileName" column="license_file_name"/>
     <result property="licenseDate" column="license_date"/>

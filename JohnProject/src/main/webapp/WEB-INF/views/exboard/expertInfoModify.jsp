@@ -342,7 +342,8 @@ textarea {
 			</div>
 			<div id="buttonDiv">
 				<button class="btn btn-outline-success" onclick="modify();">수정완료</button>
-				<input id="profileUpload" type="file" style="display: none;">
+				<input id="profileUpload" type="file" >
+				<!-- style="display: none;" -->
 			</div>
 		</div>
 	</div>
@@ -503,7 +504,7 @@ textarea {
 							<p>자격증 타입</p>
 						</div>
 						<div class="licenseContent">
-							<select id="licenseTypeSelect1" name="licenseTypeSelect1" required class="form-control short">
+							<select id="licenseTypeSelect1" name="licenseTypeSelect1" required class="form-control short licenseTypeSelect">
 								<option value="미술 심리 상담 지도사 1급" selected>미술 심리 상담 지도사 1급</option>
 								<option value="미술 심리 상담 지도사 2급">미술 심리 상담 지도사 2급</option>
 								<option value="노인 심리 상담 지도사">노인 심리 상담 지도사</option>
@@ -532,7 +533,7 @@ textarea {
 							<p>자격증 발급 날짜</p>
 						</div>
 						<div class="licenseContent">
-							<input name="licenseTime1" id="licenseTime1" type="date" class="form-control times">
+							<input name="licenseTime1" id="licenseTime1" type="date" class="form-control times licenseTime">
 						</div>
 					</div>
 					<div class="licenseCompany">
@@ -540,7 +541,7 @@ textarea {
 							<p>자격증 발급 기관</p>
 						</div>
 						<div class="licenseContent">
-							<select id="licenseCompanySelect1" name="licenseCompanySelect1" required class="form-control short">
+							<select id="licenseCompanySelect1" name="licenseCompanySelect1" required class="form-control short licenseCompanySelect">
 								<option value="한국 청소년 상담 복지 개발원" selected>한국 청소년 상담 복지 개발원</option>
 								<option value="여성가족부">여성가족부</option>
 								<option value="삽업인력관리공단 큐넷">삽업인력관리공단 큐넷</option>
@@ -568,7 +569,7 @@ textarea {
 							<p>자격증 타입</p>
 						</div>
 						<div class="licenseContent">
-							<select id="licenseTypeSelect2" name="licenseTypeSelect2" required class="form-control short">
+							<select id="licenseTypeSelect2" name="licenseTypeSelect2" required class="form-control short licenseTypeSelect">
 								<option value="미술 심리 상담 지도사 1급" selected>미술 심리 상담 지도사 1급</option>
 								<option value="미술 심리 상담 지도사 2급">미술 심리 상담 지도사 2급</option>
 								<option value="노인 심리 상담 지도사">노인 심리 상담 지도사</option>
@@ -597,7 +598,7 @@ textarea {
 							<p>자격증 발급 날짜</p>
 						</div>
 						<div class="licenseContent">
-							<input name="licenseTime2" id="licenseTime2" type="date" class="form-control times" value="2020-09-11">
+							<input name="licenseTime2" id="licenseTime2" type="date" class="form-control times licenseTime" value="2020-09-11">
 						</div>
 					</div>
 					<div class="licenseCompany">
@@ -605,7 +606,7 @@ textarea {
 							<p>자격증 발급 기관</p>
 						</div>
 						<div class="licenseContent">
-							<select id="licenseCompanySelect2" name="licenseCompanySelect2" required class="form-control short">
+							<select id="licenseCompanySelect2" name="licenseCompanySelect2" required class="form-control short licenseCompanySelect">
 								<option value="한국 청소년 상담 복지 개발원" selected>한국 청소년 상담 복지 개발원</option>
 								<option value="여성가족부">여성가족부</option>
 								<option value="삽업인력관리공단 큐넷">삽업인력관리공단 큐넷</option>
@@ -631,7 +632,7 @@ textarea {
 							<p>자격증 타입</p>
 						</div>
 						<div class="licenseContent">
-							<select id="licenseTypeSelect3" name="licenseTypeSelect3" required class="form-control short">
+							<select id="licenseTypeSelect3" name="licenseTypeSelect3" required class="form-control short licenseTypeSelect licenseTypeSelect">
 								<option value="미술 심리 상담 지도사 1급" selected>미술 심리 상담 지도사 1급</option>
 								<option value="미술 심리 상담 지도사 2급">미술 심리 상담 지도사 2급</option>
 								<option value="노인 심리 상담 지도사">노인 심리 상담 지도사</option>
@@ -660,7 +661,7 @@ textarea {
 							<p>자격증 발급 날짜</p>
 						</div>
 						<div class="licenseContent">
-							<input name="licenseTime3" id="licenseTime3" type="date" class="form-control times">
+							<input name="licenseTime3" id="licenseTime3" type="date" class="form-control times licenseTime">
 						</div>
 					</div>
 					<div class="licenseCompany">
@@ -668,7 +669,7 @@ textarea {
 							<p>자격증 발급 기관</p>
 						</div>
 						<div class="licenseContent">
-							<select id="licenseCompanySelect3" name="licenseCompanySelect3" required class="form-control short" >
+							<select id="licenseCompanySelect3" name="licenseCompanySelect3" required class="form-control short licenseCompanySelect" >
 								<option value="한국 청소년 상담 복지 개발원" selected>한국 청소년 상담 복지 개발원</option>
 								<option value="여성가족부">여성가족부</option>
 								<option value="삽업인력관리공단 큐넷">삽업인력관리공단 큐넷</option>
@@ -683,8 +684,10 @@ textarea {
 
 			<div id="licenseButtonDiv">
 				<button class="btn btn-outline-success" onclick="modifyLicense();">수정완료</button>
-				<input id="licenseUpload1" type="file" style="display: none;"> <input id="licenseUpload2" type="file" style="display: none;"> <input
-					id="licenseUpload3" type="file" style="display: none;">
+				<input id="licenseUpload1" type="file"  class="licenseUpload"> 
+				<input id="licenseUpload2" type="file"  class="licenseUpload"> 
+				<input id="licenseUpload3" type="file"  class="licenseUpload">
+				<!-- style="display: none;" -->
 			</div>
 		</div>
 
@@ -724,19 +727,38 @@ $("#licenseupFlag").click(e=>{
 
 function modifyLicense(){
 	console.log("자격증 수정 완료");
-	let frm1 = $("#licenseUpload1")[0].files[0];
+	let formData = new FormData();
+	let frm = $(".licenseUpload");
+	console.log("길 : "+frm.length);
+ 	for(let i = 0; i < 3; i++){
+		if(frm[i].files[0] != null){
+		console.log("이름 : "+(frm[i].files[0]).name);
+		formData.append('upFile',frm[i].files[0],(frm[i].files[0]).name);
+		}else{
+			console.log("null : "+i);
+		}
+	}
+
+ 	$.ajax({
+		url : '${path}/expert/modifyLicense',
+		data : formData,
+		type : 'post',
+		contentType : false,
+		processData : false,
+		dataType : "json",
+		success : function(data) {
+			console.log("수정 data : " + data);
+			
+		}
+	});
+	
+/* 	let frm1 = $("#licenseUpload1")[0].files[0];
 	let frm2 = $("#licenseUpload2")[0].files[0];
 	let frm3 = $("#licenseUpload3")[0].files[0];
 	console.log("frm1 : "+frm1);
 	console.log("frm2 : "+frm2);
 	console.log("frm3 : "+frm3);
 
-	
-	
-	
-	
-	
-	let formData = new FormData();
 	formData.append('upFile',frm1,frm1.name);
 	formData.append('upFile',frm2,frm2.name);
 	formData.append('upFile',frm3,frm3.name);
@@ -756,7 +778,7 @@ function modifyLicense(){
 			console.log("수정 data : " + data);
 			
 		}
-	});
+	}); */
 }
 
 
@@ -775,7 +797,12 @@ function modify(){
 	console.log("seTime : "+seTime);
 	console.log("modiText : "+modiText);
 	let formData = new FormData();
+	console.log("z :  "+frm2);
+	if(frm2 == undefined){
+		formData.append('beforeProfile',"${loginMember.profilePic}");
+	}else{
 	formData.append('upFile',frm2,frm2.name);
+	}
 	formData.append('career',career);
 	formData.append('counselSelect',counselSelect);
 	formData.append('fistTime',fistTime);
