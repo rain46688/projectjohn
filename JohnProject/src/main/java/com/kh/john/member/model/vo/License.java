@@ -7,6 +7,7 @@ import lombok.Data;
 @Data
 public class License {
 	
+	private int licenseId;
 	private int licenseMemUsid;
 	private String licenseFileName;
 	private Date licenseDate;
