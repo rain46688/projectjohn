@@ -63,20 +63,19 @@
 }
 
 #bell {
-	width:1.5em;
-	height:1.5em;
-	margin-right:0.2em;
 }
 
-#profileContainer {
-	float:right;
-	border:1px red solid;
-}
-
-#profileImage {
-	width:25px;
-	height:25px;
+#profileCon {
 	border-radius:25px;
+	width:35px;
+	height:35px;
+	overflow:hidden
+}
+
+#profileImage {	
+	width:40px;
+	height:40px;
+	object-fit:cover;
 }
 
 #headerList {
@@ -152,6 +151,23 @@
 	font-size: 30px;
 	color: white;
 }
+
+#headerList ion-icon{
+	font-size: 35px;
+	color: white;
+}
+
+#headerList li {
+	display: flex;
+	align-items: center;
+	justify-content: center;
+}
+
+#headerList li>a {
+	display: flex;
+	align-items: center;
+	justify-content: center;
+}
 </style>
 <body>
 	<div class="containerJohn">
@@ -184,7 +200,9 @@
 					<ul id="headerList">
 						<li>
 							<div id="myPageDrop" tabindex="1">
-								<img id="profileImage" src="${path}/resources/profile_images/${loginMember.profilePic}">
+								<div id="profileCon">
+									<img id="profileImage" src="${path}/resources/profile_images/${loginMember.profilePic}">
+								</div>
 								<div class="dropdown-content">
 								  <a href="${path }/member/myPage?usid=${loginMember.usid}">마이페이지</a>
 								  <a href="${path}/customer/customerNotice">고객센터</a>
@@ -196,7 +214,7 @@
 						</li>
 						<li>
 							<c:if test="${loginMember.usid != null}">
-								<a id="bell" class="bell2" href="${path }/alarm/alarmList?usid=${loginMember.usid }"><img id="bell" src="${path }/resources/images/bell.png"></a>
+								<a id="bell" class="bell2" href="${path }/alarm/alarmList?usid=${loginMember.usid }"><ion-icon name="notifications-circle-outline"></ion-icon></a>
 								<c:if test="${loginMember.usid != null}">
 									<a id="number" href="${path }/alarm/alarmList?usid=${loginMember.usid }"></a>
 								</c:if>
