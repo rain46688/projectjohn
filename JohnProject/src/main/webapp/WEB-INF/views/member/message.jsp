@@ -4,20 +4,110 @@
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
 <c:set var="path" value="${pageContext.request.contextPath }"/>
+<head>
+	<!-- 글씨체 -->
+	<link rel="preconnect" href="https://fonts.gstatic.com">
+	<link href="https://fonts.googleapis.com/css2?family=Noto+Serif+KR&display=swap" rel="stylesheet">
+</head>
 <jsp:include page="/WEB-INF/views/common/header.jsp">
 	<jsp:param name="title" value=""/>
 </jsp:include>
 <style>
+	#content *{
+		font-family: 'Noto Serif KR', serif;
+	}
+	div#savedContainer{
+		overflow: auto;
+		margin: 5% auto;
+		width: 70%;
+	}
+	div.msgBoxL{
+		display: flex;
+		width: 100%;
+		clear: both;
+	}
+	div.msgBoxR{
+		width: 100%;
+		float: right;
+	}
+	div.msgLeft{
+		width: 40%;
+		background-color: white;
+		color: #003478;
+		border-radius: 15px;
+		margin-bottom: 15px;
+		padding: 10px;
+	}
 	div.msgRight{
-		background-color: aqua;
+		width: 40%;
+		background-color: #003478;
+		color: white;
+		border-radius: 15px;
+		margin-bottom: 15px;
+		text-align: right;
+		margin-right: 0;
+		float: right;
+		padding: 10px;
+	}
+	div.picDiv{
+		width: 3em;
+		text-align: center;
+		display: flex;
+		float: left;
+		margin-bottom: 10px;
+	}
+	div.picDiv img{
+		min-width: 3em;
+		height: 3em;
+		max-width: 100%;
+		border-radius: 15px;
+		float: left;
+	}
+	div.rightTopDiv{
+		display: flex;
+		float: left;
+		margin: 10px 5px;
+	}
+	div.nickDiv{
+		position: relative;
+		float: left;
+		margin: 5px;
+	}
+	div.dateDiv{
+		clear: both;
+		margin: 8px;
+		font-size: 0.8em;
+		color: gray;
+	}
+	div.msgDiv{
+		margin: 5px;
+		text-align: left;
+		clear: both;
+	}
+	div#textingContainer{
+		margin: 50px auto;
+		clear: both;
+		width: 60%;
+		text-align: center;
+		vertical-align: middle;
+	}
+	input#message{
+		border: none;
+		padding: 7px;
+		width: 80%;
+		margin: 10px;
+	}
+	div#textingContainer button{
+		margin: 10px;
+		margin-bottom: 15px;
 	}
 </style>
 <section id="content">
 	<div>
 		<div id="savedContainer"></div>
 		<div id="textingContainer">
-			<input type="text" id="message">
-			<button type="button" id="sendMessage" onclick="fn_sendMessage()">전송</button>
+			<input type="text" id="message" placeholder="메세지를 입력하세요.">
+			<button type="button" class="btn btn-outline-dark id="sendMessage" onclick="fn_sendMessage()">전송</button>
 		</div>
 	</div>
 </section>
@@ -62,23 +152,30 @@
 			})
 			
 			$.each(allChatList,function(i,v){
+				let msgBoxL=$("<div/>").attr({"class":"msgBoxL"});
+				let msgBoxR=$("<div/>").attr({"class":"msgBoxR"});
 				let msgLeft=$("<div/>").attr({"class":"msgLeft"});
 		 		let msgRight=$("<div/>").attr({"class":"msgRight"});
-		 		let picDiv=$("<div/>").html($("<img/>").attr("src","${path}/resources/profile_images/"+otherProfile));
-		 		let nickDiv=$("<div/>").html(otherNick);
-		 		let dateDiv=$("<div/>").attr({"class":"msgDate"});
-				console.log("date"+allChatList[i].mchatDateString);
+		 		let picDiv=$("<div/>").attr({"class":"picDiv"}).html($("<img/>").attr("src","${path}/resources/profile_images/"+otherProfile));
+				let rightTopDiv=$("<div/>").attr({"class":"rightTopDiv"});
+		 		let nickDiv=$("<div/>").attr({"class":"nickDiv"}).html(otherNick);
+		 		let dateDiv=$("<div/>").attr({"class":"dateDiv"});
+				let msgDiv=$("<div/>").attr({"class":"msgDiv"});
 				
 				if(v['mchatFirstUsid']=='${loginMember.usid}' && v['mchatSecondUsid']==otherUsid){ //발신인==나
-					let msgR=msgRight.html(v['mchatContent']);
+					let msgR=msgDiv.html(v['mchatContent']);
 					let msgDate=dateDiv.html(v['mchatDateString']);
-			 		$("#savedContainer").append(msgR).append(msgDate);
+					msgRight.append(msgR).append(msgDate)
+					msgBoxR.append(msgRight)
+			 		$("#savedContainer").append(msgBoxR);
 				}
 				if(v['mchatFirstUsid']==otherUsid && v['mchatSecondUsid']=='${loginMember.usid}'){
-					let msgL=msgLeft.html(v['mchatContent']);
+					let msgL=msgDiv.html(v['mchatContent']);
 					let msgDate=dateDiv.html(v['mchatDateString']);
-			 		$("#savedContainer").append(picDiv).append(nickDiv).append(msgL);
-					$("#savedContainer").append(msgL).append(msgDate);
+					rightTopDiv.append(nickDiv).append(msgDate);
+			 		msgLeft.append(picDiv).append(rightTopDiv).append(msgL);
+					msgBoxL.append(msgLeft)
+					$("#savedContainer").append(msgBoxL);
 				}
 			});			
 		}

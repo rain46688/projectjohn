@@ -65,6 +65,8 @@ public interface AdminDao {
 
 	int selectAdminExpertCounselCount(SqlSession session);
 	
+	int selectAdminExpertCounselCount2(SqlSession session);
+	
 	//공지관련
 	List<Notice> selectNoticeList(SqlSessionTemplate session, int cPage, int numPerPage);
 	

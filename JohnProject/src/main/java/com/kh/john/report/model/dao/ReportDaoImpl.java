@@ -37,6 +37,16 @@ public class ReportDaoImpl implements ReportDao {
 	}
 
 	@Override
+	public List<Report> selectReportListAfter(SqlSessionTemplate session, int cPage, int numPerPage) {
+		return session.selectList("report.selectReportListAfter",null,new RowBounds((cPage-1)*numPerPage,numPerPage));
+	}
+
+	@Override
+	public int selectReportCountAfter(SqlSession session) {
+		return session.selectOne("report.selectReportCountAfter");
+	}
+
+	@Override
 	public Report selectOneReport(SqlSessionTemplate session, int report_id) {
 		return session.selectOne("report.selectOneReport",report_id);
 	}

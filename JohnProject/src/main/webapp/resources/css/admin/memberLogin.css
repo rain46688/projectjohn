@@ -223,13 +223,18 @@ h1::before {
   font-weight: 400;
   padding-left: 30px;
 /*   font-family: 'Black Han Sans', sans-serif; */
-  margin-top: 40px;
-  margin-bottom: 40px;
+  margin-top: 30px;
+  margin-bottom: 30px;
 }
 
 .input_field:hover,
 .input_field:focus {
   outline: none;
+}
+
+div#saveIdContainer{
+  margin: 10px;
+  text-align: left;
 }
 
 /* 로그인버튼 */
@@ -266,7 +271,7 @@ h1::before {
 #create_account {
   display: block;
   position: relative;
-  top: 30px;
+  top: 10px;
 /*   font-family: 'Black Han Sans', sans-serif; */
 }
 

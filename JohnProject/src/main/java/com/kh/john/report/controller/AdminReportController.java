@@ -38,6 +38,26 @@ public class AdminReportController {
 		
 	}
 	
+	//신고관리 불러오기(신고처리true)
+	@RequestMapping("/report/adminReportAfter")
+	public ModelAndView adminReportAfter(ModelAndView mv,
+			@RequestParam (value="cPage", required=false, defaultValue="1") int cPage, 
+			@RequestParam (value="numPerPage", required=false, defaultValue="5") int numPerPage) {
+		
+		List<Report> list = service.selectReportListAfter(cPage,numPerPage);
+		int totalData = service.selectReportCountAfter();
+		
+		mv.addObject("pageBar",PageBarFactory.getPageBar(totalData, cPage, numPerPage, "adminReportAfter"));
+		
+		mv.addObject("totalData",totalData);
+		
+		mv.addObject("list", list);
+		System.out.println("신고처리true list"+list);
+		mv.setViewName("report/adminReportAfter");
+		return mv;
+		
+	}
+	
 	//신고 게시글 불러오기
 	@RequestMapping("/report/adminReportView")
 	public ModelAndView reportView(ModelAndView mv, int reportId) {

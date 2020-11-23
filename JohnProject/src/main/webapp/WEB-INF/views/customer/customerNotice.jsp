@@ -10,34 +10,159 @@
 	<jsp:param name="title" value=" "/>
 	
 </jsp:include>
+<style type="text/css">
+@import
+	url('https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@500&display=swap')
+	;
 	
+/*a링크*/
+a:link {
+	text-decoration: none;
+	color: black;
+}
+
+.alink:visited {
+	text-decoration: none;
+	color: black;
+}
+
+a:active {
+	text-decoration: none;
+	color: black;
+}
+
+a:hover {
+	text-decoration: underline;
+	color: black;
+}
+
+/*표*/
+.board_list_wrap {
+	padding: 60px;
+	font-family: 'Noto Sans KR', sans-serif;
+	margin-top:5%;
+
+}
+
+.board_list_head, .board_list_body .item {
+	padding: 10px 0;
+	font-size: 0;
+}
+
+.board_list_head {
+	border-top: 3px solid #003478;
+	border-bottom: 2px solid #003478;
+	background-color: #003478;
+	color: #ffcc66;
+	border-radius: 10px;
+}
+
+.board_list_body .item {
+	border-bottom: 2px solid #eeeeee;
+	background-color: white;
+	border-radius: 10px;
+	font-family: 'Noto Sans KR', sans-serif;
+	opacity: 0.7;
+}
+
+.board_list_head>div, .board_list_body .item>div {
+	display: inline-block;
+	text-align: center;
+	font-size: 14px; /*본문글자크기*/
+}
+
+.board_list_head>div {
+	font-weight: 600;
+}
+
+.board_list .col {
+	width: 23%; 
+	padding-top: 1%; 
+	padding-bottom: 1%;
+	font-size: 15px; /*헤드글자크기*/
+	/*바꾸지마셈*/
+}
+
+.item:hover {
+	opacity: 2.5;
+	border-bottom: 2px solid #ffcc66;
+}
+
+/*페이지바*/
+.page-item.active .page-link { /*현재피이지*/
+	background-color: #003478;
+	color: white;
+	border: none;
+}
+
+.pagination-sm .page-link { /*한칸한칸크기*/
+	padding: 10px 20px;
+}
+
+.pagination a:hover:not(.active) { /*호버*/
+	background-color: #ffcc66;
+}
+
+
+/*글쓰기버튼*/
+
+#bbtn{
+	float:right;
+	margin-right:4%;
+	border-color: #ffcc66;
+    color: white; 
+    background-color: #003478;
+	margin-top:5%;
+}
+
+#bbtn:hover,
+#bbtn:focus {
+    background-color: #ffcc66;
+    border-color: #003478;
+    color: #003478; 
+
+}
+
+
+</style>	
 <section id="content" >
 
-<p>총 <c:out value="${totalData}"/>건의 게시물이 있습니다.</p>
+<%-- <p id="totalNotice">총 <c:out value="${totalData}"/>건의 공지사항이 있습니다.</p> --%>
 
-<button type="button" value="글쓰기" id="btn-add" class="btn btn-outline-info"  onclick="location.href='${path}/customer/customerNoticeForm'"> 글쓰기</button>
 		           
-		         <table id="tbl-board" class="table table-striped table-hover">
-		            <tr>
-		                <th>번호</th>
-		                <th>닉네임</th>
-		                <th>제목</th>
-		                <th>날짜</th>
-		            </tr>
+<button type="button" value="글쓰기" id="bbtn" 
+class="btn btn-outline-info" 
+onclick="location.href='${path}/customer/customerNoticeForm'">WRITE</button>
+
+		        <div class="board_list_wrap">
+				<div class="board_list">
+					 <div class="board_list_head">
+		             <div class="col">번호</div>
+		             <div class="col">제목</div>
+		             <div class="col">닉네임</div>
+		             <div class="col">날짜</div>
+		            </div>
 		            
 		            <c:forEach items="${list }" var="n">
-		           <tr>
-            		<td><c:out value="${n.noticeId }"/></td> 
-            		<td><c:out value="${n.noticeAdminNickname }"/></td> 
-            		<td><a href="${path }/customer/customerNoticeView?noticeId=${n.noticeId }"><c:out value="${n.noticeTitle }"/></a></td> 
-            		<td><c:out value="${n.noticeEnrolldate }"/></td> 
-            		
-            	</tr>
+		           	<div class="board_list_body">
+		           	<a href="${path }/customer/customerNoticeView?noticeId=${n.noticeId }" class="alink">
+					<div class="item">
+            		<div class="col"><c:out value="${n.noticeId }"/></div>
+            		<div class="col"><c:out value="${n.noticeTitle }"/></div>
+            		<div class="col"><c:out value="${n.noticeAdminNickname }"/></div>
+            		<div class="col"><c:out value="${n.noticeEnrolldate }"/></div>
+            		</div>
+            		</a>
+					</div>
+            	
 		            </c:forEach>
-		        </table> 
+		      
 		        
 	
-		        
+		        </div>
+				</div>
+				
+		       
 		       <div id="pageBar">
 		        ${pageBar } 
 		       </div>
