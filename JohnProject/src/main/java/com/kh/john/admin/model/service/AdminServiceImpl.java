@@ -138,25 +138,25 @@ public class AdminServiceImpl implements AdminService{
 	}
 	
 	@Override
-	public List<ExpertRequest> selectAdminExpertCounsel(int cPage, int numPerPage) {
+	public List<ExpertRequest> selectAdminExpertCounsel0(int cPage, int numPerPage) {
 		System.out.println("서비스 numperpage"+numPerPage);
 
-		return dao.selectAdminExpertCounsel(session, cPage, numPerPage);
+		return dao.selectAdminExpertCounsel0(session, cPage, numPerPage);
 	}
 	
 	@Override
-	public List<ExpertRequest> selectAdminExpertCounsel2(int cPage, int numPerPage) {
-		return dao.selectAdminExpertCounsel2(session, cPage, numPerPage);
+	public List<ExpertRequest> selectAdminExpertCounsel1(int cPage, int numPerPage) {
+		return dao.selectAdminExpertCounsel1(session, cPage, numPerPage);
 	}
 
 	@Override
-	public int selectAdminExpertCounselCount() {
-		return dao.selectAdminExpertCounselCount(session);
+	public int selectAdminExpertCounselCount0() {
+		return dao.selectAdminExpertCounselCount0(session);
 	}
 	
 	@Override
-	public int selectAdminExpertCounselCount2() {
-		return dao.selectAdminExpertCounselCount2(session);
+	public int selectAdminExpertCounselCount1() {
+		return dao.selectAdminExpertCounselCount1(session);
 	}
 
 	//공지관련

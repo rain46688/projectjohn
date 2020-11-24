@@ -6,6 +6,12 @@
 <c:set var="path" value="${pageContext.request.contextPath }" />
 
 <style>
+
+  #aa:link { text-decoration: none; color: white;} 
+  #aa:visited { text-decoration: none; color: white;}
+  #aa:active { text-decoration: none; color: white;}
+  #aa:hover {text-decoration:underline; color: white;}
+  
 #side {
 	border-bottom-left-radius: 30px;
 	border-top-left-radius: 30px;
@@ -93,32 +99,32 @@
 	</div>
 	<div id="menu">
 		<div class="menusOnSide">
-			<a href="${path}/admin/adminMember"> <img src="${path }/resources/images/admin/personicon(1).png"
+			<a href="${path}/admin/adminMember"id="aa"> <img src="${path }/resources/images/admin/personicon(1).png"
 			class="menuImages">회원관리
 			</a> 
 		</div>
 		<div class="menusOnSide">
-			<a href="${path}/admin/adminBeforeExpert"><img src="${path }/resources/images/admin/expert(1).png"
+			<a href="${path}/admin/adminBeforeExpert"id="aa"><img src="${path }/resources/images/admin/expert(1).png"
 			class="menuImages">전문가관리
 			</a>
 		</div>
 		<div class="menusOnSide">
-			<a href="${path}/admin/adminExpertCounsel0"> <img src="${path }/resources/images/admin/expertcounsel(1).png"
+			<a href="${path}/admin/adminExpertCounsel0"id="aa"> <img src="${path }/resources/images/admin/expertcounsel(1).png"
 			class="menuImages">전문가 상담관리
 			</a>
 		</div>
 		<div class="menusOnSide">
-			<a href="${path}/admin/adminBoard"> <img src="${path }/resources/images/admin/board(1).png"
+			<a href="${path}/admin/adminBoard"id="aa"> <img src="${path }/resources/images/admin/board(1).png"
 			class="menuImages">게시판관리
 			</a>
 		</div>
 		<div class="menusOnSide">
-			<a href="${path}/admin/adminReport"> <img src="${path }/resources/images/admin/siren (1).png"
+			<a href="${path}/admin/adminReport"id="aa"> <img src="${path }/resources/images/admin/siren (1).png"
 			class="menuImages">신고관리
 			</a>
 		</div>
 		<div class="menusOnSide">
-			<a href="${path}/admin/adminChatRoom"> <img class="menuImages"
+			<a href="${path}/admin/adminChatRoom"id="aa"> <img class="menuImages"
 			src="${path }/resources/images/admin/message.png"/>
 			1:1 문의답변
 			</a>

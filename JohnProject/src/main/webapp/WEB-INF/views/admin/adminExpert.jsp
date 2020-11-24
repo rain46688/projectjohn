@@ -396,7 +396,7 @@ a:hover {
 			<form id="myForm" action="${path }/admin/adminExpertSearch" method="post">
 			
 			<div id="one">
-				<select name="searchType" class="form-control" required>
+				<select name="searchType" class="form-control">
 					<option value=" " disabled selected>검색타입</option> 
 					
 					<option value="mem_name" <c:if test="${param.searchType eq 'mem_name'}">selected</c:if>>이름</option>
@@ -423,8 +423,8 @@ a:hover {
 				<br>
 				
 				<div id="seven">
-				<label><input type="checkbox" name="leave_mem" value="0">현직 전문가</label>&nbsp;&nbsp;&nbsp;&nbsp;
-				<label><input type="checkbox" name="leave_mem" value="1">퇴사 전문가</label>
+				<label><input type="checkbox" name="leaveMem" value="0">현직 전문가</label>&nbsp;&nbsp;&nbsp;&nbsp;
+				<label><input type="checkbox" name="leaveMem" value="1">퇴사 전문가</label>
 				</div>
 				
 				<br>
@@ -435,7 +435,7 @@ a:hover {
 			</div>
 			
 			<div id="six">
-			<select name="searchType2" class="form-control" required>
+			<select name="searchType2" class="form-control">
 				<option value=" " disabled selected>선택</option> 
 				<option value="enroll_date" <c:if test="${param.searchType2 eq 'enroll_date'}">selected</c:if>>입사날짜</option>
 				<%-- <option value="expert_rating" <c:if test="${param.searchType eq 'expert_rating'}">selected</c:if>>등급순</option>
