@@ -21,7 +21,7 @@ html, body, div, span, applet, object, iframe, h1, h2, h3, h4, h5, h6, p, blockq
 }
 
 #content *{
-/*  border:1px solid red; */
+  /* border:1px solid red;  */
 }
 
 #content{
@@ -58,11 +58,16 @@ html, body, div, span, applet, object, iframe, h1, h2, h3, h4, h5, h6, p, blockq
 }
 
 .divCell, .divTableHead {
-	border-bottom: 1px #DEE2E6 solid;
+	 border-bottom: 1px #DEE2E6 solid;
+/* 	border-bottom: 1px #DEE2E6 solid;
+	border-right: 1px #DEE2E6 solid;
+	border-left: 1px #DEE2E6 solid; */
 	display: table-cell;
 	padding: 3%1%;
 	width: 16.67%;
 	font-size: 2vh;
+	/* background-color:#FFEB00; */
+	
 }
 
 
@@ -87,7 +92,7 @@ html, body, div, span, applet, object, iframe, h1, h2, h3, h4, h5, h6, p, blockq
 
 .al {
 	margin: 0px;
-	height: 80px;
+	height: 30%;
 	display: none;
 }
 
@@ -97,6 +102,7 @@ html, body, div, span, applet, object, iframe, h1, h2, h3, h4, h5, h6, p, blockq
 	font-size: 15px;
 	font-weight: bold;
 	width: 100%;
+	height:auto;
 }
 
 .empty {
@@ -116,6 +122,11 @@ html, body, div, span, applet, object, iframe, h1, h2, h3, h4, h5, h6, p, blockq
 
 .form-check-label{
 	cursor: pointer;
+}
+
+.date{
+	text-align:right;
+	font-size:1.5vh;
 }
 
 </style>
@@ -204,28 +215,29 @@ function printalfunc(list, type){
 		if(allselectflag == true){
 			if(e['alarmType'].includes(type)){
 				console.log("출력");
-				print += "<div class='divRow shadow p-3 mb-5 bg-white rounded' style='cursor: pointer'>";
+				/* shadow p-3 mb-5 bg-white rounded */
+				print += "<div class='divRow' style='cursor: pointer'>";
 				print += "<input type='hidden' value='"+e['alarmId']+"'>";
-				print += "<div class='divCell'>"+e['alarmSendMemNickname']+"상담사님으로 부터 상담 요청이있습니다.<br> <small>"+e['tmpDate']+"</small></div></div>";
+				print += "<div class='divCell'>1 : 1 영상 상담 요청이있습니다.<div class='date'>"+e['tmpDate']+"</div></div></div>";
 				print += "<div class='al'><div class='alContent'>"
 				print += "안녕하세요 상담사 "+e['alarmSendMemNickname']+"입니다.<br> 아래 URL로 바로 접속하셔서 상담 진행하시면됩니다.<br>" 
-				print += "<a href='${path }/expert/expertRoom?bno="+e['alarmMsgContent']+"'>상담 링크 바로가기</a></div></div>"
+				print += "<a href='${path }/expert/expertRoom?bno="+e['alarmMsgContent']+"'>-클릭해서 상담 접속-</a></div></div>"
 			}else{
 				//추가 예정
-				print = "<div class='empty'>알람이 없습니다.</div>";
+				print = "<div class='empty'>알림이 비어있습니다.</div>";
 			}
 		}else{
 			if(e['alarmType'].includes(type) && e['alarmIscheked'] == false){
 				console.log("출력");
-				print += "<div class='divRow shadow p-3 mb-5 bg-white rounded' style='cursor: pointer'>";
+				print += "<div class='divRow' style='cursor: pointer'>";
 				print += "<input type='hidden' value='"+e['alarmId']+"'>";
-				print += "<div class='divCell'>"+e['alarmSendMemNickname']+"상담사님으로 부터 상담 요청이있습니다.<br> <small>"+e['tmpDate']+"</small></div></div>";
+				print += "<div class='divCell'>1 : 1 영상 상담 요청이있습니다.<div class='date'>"+e['tmpDate']+"</div></div></div>";
 				print += "<div class='al'><div class='alContent'>"
 				print += "안녕하세요 상담사 "+e['alarmSendMemNickname']+"입니다.<br> 아래 URL로 바로 접속하셔서 상담 진행하시면됩니다.<br>" 
-				print += "<a href='${path }/expert/expertRoom?bno="+e['alarmMsgContent']+"'>상담 링크 바로가기</a></div></div>"
+				print += "<a href='${path }/expert/expertRoom?bno="+e['alarmMsgContent']+"'>-클릭해서 상담 접속-</a></div></div>"
 			}else{
 				//추가 예정
-				print = "<div class='empty'>알람이 없습니다.</div>";
+				print = "<div class='empty'>알림이 비어있습니다.</div>";
 			}
 		}
 	});
@@ -263,18 +275,20 @@ $(function(){
 //리스트 뿌린후 한번 실행시켜줘야 호버 작동함!
 function divhover(){
 	$(".divRow").click(e=>{
-		   $(e.target).parent().next().slideToggle('slow', function() {
+		   $(e.target).parent().next().slideToggle('fast', function() {
 		     });
-		   $(this).removeClass( 'shadow p-3 mb-5 bg-white rounded' );
+		  // $(this).removeClass( 'shadow p-3 mb-5 bg-white rounded' );
 		});
 		$('.divRow').hover(function() {
 			//console.log("온");
 			$(this).css('color', '#FFC107');
-			$(this).removeClass('shadow p-3 mb-5 bg-white rounded');
+			$(this).addClass('shadow p-3 mb-5 bg-white rounded');
+			//$(this).removeClass('shadow p-3 mb-5 bg-white rounded');
 		}, function() {
 			//console.log("오프");
 			$(this).css('color', 'black');
-			$(this).addClass('shadow p-3 mb-5 bg-white rounded');
+			//$(this).addClass('shadow p-3 mb-5 bg-white rounded');
+			$(this).removeClass('shadow p-3 mb-5 bg-white rounded');
 		});
 };
 divhover();
