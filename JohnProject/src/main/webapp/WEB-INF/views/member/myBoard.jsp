@@ -119,16 +119,14 @@
 				<div class="textInner">
 					<c:out value="${boardList.hit}"/>
 				</div>
-				<div>
-					<c:choose>
-						<c:when test="${boardList.isclose eq true }">
-							<div class="textInner lastText">종료됨</div>
-						</c:when>
-						<c:otherwise>
-							<div class="textInner lastText">진행중</div>
-						</c:otherwise>
-					</c:choose>
-				</div>
+				<c:choose>
+					<c:when test="${boardList.isclose eq true }">
+						<div class="textInner lastText">종료됨</div>
+					</c:when>
+					<c:otherwise>
+						<div class="textInner lastText">진행중</div>
+					</c:otherwise>
+				</c:choose>
 			</c:forEach>
 		</div>
 		<div>

@@ -63,7 +63,7 @@
 </update>
 
 <select id="selectMyBoard" parameterType="map" resultMap="boardMap">
-	SELECT * FROM BOARD WHERE WRITER_USID=#{usid}
+	SELECT * FROM BOARD WHERE WRITER_USID=#{usid} ORDER BY ENROLL_DATE DESC
 </select>
 
 <select id="myBoardCount" parameterType="_int" resultType="_int">
