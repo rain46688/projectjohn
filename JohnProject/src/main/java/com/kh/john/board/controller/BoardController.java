@@ -117,10 +117,9 @@ public class BoardController {
 	@RequestMapping("board/boardPage")
 	public ModelAndView boardPage(ModelAndView mv, int boardNo, HttpServletResponse response) {
 		
-		response.setHeader("Access-Control-Allow-Origin", "*");
-		Board b = service.boardSelectOne(boardNo);
+		Map m = service.boardSelectOne(boardNo);
 		
-		mv.addObject("currBoard", b);
+		mv.addObject("currBoard", m);
 		mv.setViewName("/board/boardPage");
 		
 		return mv;

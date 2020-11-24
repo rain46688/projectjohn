@@ -46,10 +46,9 @@
 	  padding: 0 2px;
 	  cursor: pointer;
 	  transition: 250ms all;
-	  width:14em;
-	  height:5em;
-	  border-radius: 5px;
-	  background-color:#FFD02F;
+	  width:16em;
+	  height:8em;
+	  background-color:#CCD7E6;
 	}
 	
 	.subListBigCon .sector .subListContent:hover {
@@ -95,6 +94,7 @@
 					<div id="result">
 						<div class="popular">
 							<h1 class='subListTitle'>인기</h1>
+							<hr>
 							<div id='popularList' class='subListBigCon'>
 
 							</div>
@@ -102,6 +102,7 @@
 						</div>
 						<div class="new">
 							<h1 class='subListTitle'>최신</h1>
+							<hr>
 							<div id='newList' class='subListBigCon'>
 
 							</div>
@@ -253,7 +254,13 @@
 					subListContent.onclick = function(){
 						location.assign('${path}/board/boardPage?boardNo='+eachList[i][j].boardId);
 					}
-					subListContent.innerHTML = eachList[i][j].title + ":" + eachList[i][j].writerNickname;
+					//제목
+					let subListConTitle = document.createElement('div');
+					subListConTitle.innerHTML = eachList[i][j].title;
+					subListContent.appendChild(subListConTitle);
+
+					//조회수 + 찜
+					
 					let sector = document.getElementById('sector' + idx + eachList[i][j].smallCategory);
 					sector.appendChild(subListContent);
 					

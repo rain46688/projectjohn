@@ -16,7 +16,7 @@ public interface BoardDao {
 	List<Board> boardSelectCate(SqlSession session, String boardTitle);
 	int boardInsert(SqlSession session, Board b);
 	int boardInsertFiles(SqlSession session, BoardFile file);
-	Board boardSelectOne(SqlSession session, int boardNo);
+	Map boardSelectOne(SqlSession session, int boardNo);
 	List<Comment> commentSelectList(SqlSession session, int currBoardNo);
 	int boardCommentInsert(SqlSession session, Map param);
 	List<Subscribe> boardSubList(SqlSession session, int usid);

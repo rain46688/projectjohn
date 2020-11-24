@@ -22,6 +22,7 @@ body{
     box-shadow: 10px 10px 12px rgba(0, 0, 0, 0.5);
     display: flex;
     flex-direction: row;
+    overflow:hidden;
 }
 
 /* #header #alarmdiv {
@@ -34,10 +35,9 @@ body{
 }
 
 #content{
-    /* border-left: 1px solid rgb(98, 98, 98); */
     border-bottom-right-radius: 10px;
     width: 100%;
-    height: 91%;
+    height: 89%;
     overflow:auto;
-    background-color:#F0F2FC;
+    background-color:white;
 }
