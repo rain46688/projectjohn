@@ -114,7 +114,9 @@
 					</a>
 				</div>
 				<div class="textInner">
-					<c:out value="${boardList.enrollDate}"/>
+					<!-- <c:set var="dateOrigin" value="${boardList.enrollDate}"/>
+					<fmt:parseDate var="parsedate" value="${dateOrigin}" pattern="yyyy-MM-dd hh:mm"/>
+					<c:out value="parsedate"/> -->
 				</div>
 				<div class="textInner">
 					<c:out value="${boardList.hit}"/>
@@ -135,12 +137,3 @@
 	</div>
 </section>
 <jsp:include page="/WEB-INF/views/common/footer.jsp"/>
-
-
-
-
-
-
-
-
-
