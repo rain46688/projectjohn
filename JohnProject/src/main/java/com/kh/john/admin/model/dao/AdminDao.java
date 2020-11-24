@@ -59,13 +59,13 @@ public interface AdminDao {
 	
 	int updateMemberToExpertEnd(SqlSession session, Member m);
 	
-	List<ExpertRequest> selectAdminExpertCounsel(SqlSessionTemplate session, int cPage, int numPerPage);
+	List<ExpertRequest> selectAdminExpertCounsel0(SqlSessionTemplate session, int cPage, int numPerPage);
 	
-	List<ExpertRequest> selectAdminExpertCounsel2(SqlSessionTemplate session, int cPage, int numPerPage);
+	List<ExpertRequest> selectAdminExpertCounsel1(SqlSessionTemplate session, int cPage, int numPerPage);
 
-	int selectAdminExpertCounselCount(SqlSession session);
+	int selectAdminExpertCounselCount0(SqlSession session);
 	
-	int selectAdminExpertCounselCount2(SqlSession session);
+	int selectAdminExpertCounselCount1(SqlSession session);
 	
 	//공지관련
 	List<Notice> selectNoticeList(SqlSessionTemplate session, int cPage, int numPerPage);

@@ -113,25 +113,68 @@ border-color: #ffcc66;
 	display:none;
 }
 
+ .marginTop1{/*불러오는값들 하나하나*/
+	margin-top: 0.5em;
+	margin-bottom:0.5em;
+	margin-left:1%;
+	width:50%;
+	font-size:20px;
+	color:black;
+/* 	background-color:#003478; */
+	border-radius:20px;
+	padding:1%;
+}
+
+.marginTop3{ /*불러오는내역 전체*/
+	border:2px solid ;
+	border-radius:20px;
+	margin-top:3%;
+
+}
+
+ .marginTop2{ /*게시글번호*/
+	float: right;
+	width:10%;
+	text-align:right;
+	display: inline;
+}
+
+  .marginTop0{/*신고상세내역 제목*/
+	width:50%;
+	float:left;
+}
 </style>
     
 	
 		<div id="content">
 		<div id="wrapper">
-		<div id="title"><h4><img src="${path }/resources/images/admin/pencil.png" width="24px" height="29px">&nbsp;게시글 수정하기</h4></div>
-		<hr color="black">
+		
+		<div class="input-group marginTop0">
+		<h4><img src="${path }/resources/images/admin/pencil.png" width="24px" height="29px">&nbsp;게시글 수정하기</h4>
+		</div>
+		
+		    <div class="input-group marginTop2">
+			[<c:out value="${notice.noticeId }"/>]&nbsp;
+	        </div>
+	        
+	        <br>
+			<hr color="black">
+
 		<div id="editor">
 		<form name="customerNoticeModifyFrm" action="${path }/customer/customerNoticeModifyEnd" 
 		id="frm" method="post" enctype="multipart/form-data">
+		   
+		<input type="hidden" value="${notice.noticeId }" name="noticeId" id="noticeId"/>
+		<input type="hidden" value="${notice.noticeTitle }" name="noticeTitle" id="noticeTitle"/>
+		<input type="hidden" value="${notice.noticeAdminNickname }" name="noticeAdminNickname" id="noticeAdminNickname"/>
 		
-		<div class="input-group marginTop">
-		<input type="text" class="form-control" name="noticeId" id="noticeId" value="${notice.noticeId }" readonly> 
-        </div>
-        <div class="input-group marginTop">
-        <input type="text" class="form-control" value="${notice.noticeTitle }" placeholder="제목" name="noticeTitle" id="noticeTitle"  required>
-        </div>
-        <div class="input-group marginTop">
-        <input type="text" class="form-control" name="noticeAdminNickname" id="noticeAdminNickname" value="${notice.noticeAdminNickname }" readonly required>
+		<div class="input-group marginTop3">
+	        <div class="input-group marginTop1">
+	        <img src="${path }/resources/images/admin/check.png" width="30px" height="30px">&nbsp;글쓴이&nbsp;:&nbsp;<c:out value="${notice.noticeAdminNickname }"/>
+			</div>
+	        <div class="input-group marginTop1">
+	        <img src="${path }/resources/images/admin/check.png" width="30px" height="30px">&nbsp;제목&nbsp;:&nbsp;&nbsp;<input type="text" class="form-control" value="${notice.noticeTitle }" placeholder="제목" name="noticeTitle" id="noticeTitle"  required>
+	        </div>
 		</div>
 <!-- 			<div class="input-group mb-3" style="padding: 0px;">
 				<div class="input-group-prepend" style="padding: 0px;">

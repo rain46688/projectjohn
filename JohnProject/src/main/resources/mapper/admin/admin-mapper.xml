@@ -94,7 +94,7 @@
 
 	<select id="searchMemberList" resultMap="memberMap" parameterType="map">
 		SELECT M.*,R.REPORT_ISWARNING FROM MEMBER M LEFT OUTER JOIN REPORT R ON M.USID=R.REPORT_TARGET_USID 
-		WHERE 1=1 AND MEM_CLASS LIKE ('일반유저') 
+		WHERE 1=1 
 		<if test="type !=null and keyword !=null">
 			AND ${type} LIKE '%'||#{keyword, jdbcType=VARCHAR}||'%'
 		</if>
@@ -121,8 +121,31 @@
 
 	<select id="searchMemberListCount" resultType="_int"
 		parameterType="map">
-		SELECT COUNT(*) FROM MEMBER WHERE '${type}' LIKE
-		'%'||#{keyword, jdbcType=VARCHAR}||'%' 
+		<!-- SELECT COUNT(*) FROM MEMBER WHERE '${type}' LIKE
+		'%'||#{keyword, jdbcType=VARCHAR}||'%'  -->
+		SELECT COUNT(*) FROM MEMBER WHERE 1=1 
+		
+		<if test="type !=null and keyword !=null">
+			AND ${type} LIKE '%'||#{keyword, jdbcType=VARCHAR}||'%'
+		</if>
+
+		<if test="gender !=null">
+			AND GENDER = #{gender, jdbcType=VARCHAR}
+		</if>
+
+		<if test="memClass!=null">
+			AND MEM_CLASS IN
+			<foreach collection="memClass" item="v" index="i" open="("
+				close=")" separator=","> #{v, jdbcType=VARCHAR}
+			</foreach>
+		</if>
+
+		<if test="leaveMem!=null">
+			AND LEAVE_MEM IN
+			<foreach collection="leaveMem" item="a" index="i" open="("
+				close=")" separator=","> #{a, jdbcType=INTEGER}
+			</foreach>
+		</if>
 	
 	</select>
 	
@@ -173,14 +196,47 @@
 		
 	</select>
 
-	<select id="searchBoardListCount" resultType="_int"
+	<!-- <select id="searchBoardListCount" resultType="_int"
 		parameterType="map">
 		SELECT COUNT(*) FROM BOARD B, MEMBER M WHERE 1=1 AND
 		B.WRITER_USID=M.USID AND '${type}' LIKE '%'||#{keyword, jdbcType=VARCHAR}||'%'
 		<if test="bigCategory!=null" >
 			AND B.BIG_CATEGORY LIKE '%'||#{bigCategory, jdbcType=VARCHAR}||'%'
 		</if>
-	</select>
+		
+	</select> -->
+
+ 		<select id="searchBoardListCount" resultType="_int" parameterType="map">
+ 		SELECT COUNT(*) FROM BOARD B WHERE 1=1 
+ 		<if test="type !=null and keyword !=null">
+			AND ${type} LIKE '%'||#{keyword, jdbcType=VARCHAR}||'%'
+		</if>
+		
+		
+		<if test="isclose!=null " >
+			AND B.ISCLOSE IN
+			<foreach collection="isclose" item="v" index="i" open="("
+				close=")" separator=","> #{v, jdbcType=VARCHAR}
+			</foreach>
+		</if>
+		
+		<if test='bigCategory!=null and (bigCategory neq "대분류")' >
+			AND B.BIG_CATEGORY LIKE '%'||#{bigCategory, jdbcType=VARCHAR}||'%'
+		</if>
+		
+		<if test='smallCategory!=null and (smallCategory neq "소분류")' >
+			AND B.SMALL_CATEGORY LIKE '%'||#{smallCategory, jdbcType=VARCHAR}||'%'
+		</if>
+		
+		<if test='type2 != null  and (order eq "ascend".toString())'>
+			ORDER BY B.${type2} ASC
+		</if>
+		
+		<if test='type2 != null  and(order eq "descend".toString())'>
+			ORDER BY B.${type2} DESC
+		</if>
+		</select>
+
 
 	<!-- 전문가관련 -->
 	<select id="selectExpertList" resultMap="memberMap">
@@ -252,8 +308,39 @@
 
 	<select id="searchExpertListCount" resultType="_int"
 		parameterType="map" >
-		SELECT COUNT(*) FROM MEMBER WHERE '${type2}' LIKE '%'||#{keyword, jdbcType=VARCHAR}||'%'
-		AND MEM_CLASS LIKE('전문가')
+<!-- 		SELECT COUNT(*) FROM MEMBER WHERE '${type2}' LIKE '%'||#{keyword, jdbcType=VARCHAR}||'%'
+		AND MEM_CLASS LIKE('전문가')-->
+		SELECT COUNT(*) FROM MEMBER WHERE MEM_CLASS LIKE('전문가') AND 1=1
+		
+		<if test="type !=null and keyword !=null">
+			AND ${type} LIKE '%'||#{keyword, jdbcType=VARCHAR}||'%'
+		</if>
+
+		<if test="gender !=null">
+			AND GENDER = #{gender, jdbcType=VARCHAR}
+		</if>
+
+		<if test="memClass!=null">
+			AND MEM_CLASS IN
+			<foreach collection="memClass" item="v" index="i" open="("
+				close=")" separator=","> #{v, jdbcType=VARCHAR}
+			</foreach>
+		</if>
+
+		<if test="leaveMem!=null">
+			AND LEAVE_MEM IN
+			<foreach collection="leaveMem" item="a" index="i" open="("
+				close=")" separator=","> #{a, jdbcType=INTEGER}
+			</foreach>
+		</if>
+		
+		<if test='type2 != null  and (order eq "ascend".toString())'>
+			ORDER BY ${type2} ASC
+		</if>
+		
+		<if test='type2 != null  and(order eq "descend".toString())'>
+			ORDER BY ${type2} DESC
+		</if>
 	</select>
 	
 	<update id="updateMemberToExpertEnd" parameterType="member">
@@ -261,19 +348,19 @@
 		WHERE USID=#{usid}
 	</update>
 	
-	<select id="selectAdminExpertCounsel" resultMap="expertRequestMap">
+	<select id="selectAdminExpertCounsel0" resultMap="expertRequestMap">
 		SELECT * FROM EXPERT_REQUEST WHERE EXPERT_ISCOUNSEL=0
 	</select>
 	
-	<select id="selectAdminExpertCounsel2" resultMap="expertRequestMap">
+	<select id="selectAdminExpertCounsel1" resultMap="expertRequestMap">
 		SELECT * FROM EXPERT_REQUEST WHERE EXPERT_ISCOUNSEL=1
 	</select>
 	
-	<select id="selectAdminExpertCounselCount" resultType="_int">
+	<select id="selectAdminExpertCounselCount0" resultType="_int">
 		SELECT COUNT(*) FROM EXPERT_REQUEST WHERE EXPERT_ISCOUNSEL=0
 	</select> 
 	
-	<select id="selectAdminExpertCounselCount2" resultType="_int">
+	<select id="selectAdminExpertCounselCount1" resultType="_int">
 		SELECT COUNT(*) FROM EXPERT_REQUEST WHERE EXPERT_ISCOUNSEL=1
 	</select> 
 	

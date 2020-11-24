@@ -9,6 +9,11 @@
 	href="https://fonts.googleapis.com/css2?family=Black+Han+Sans&display=swap"
 	rel="stylesheet">
 <style>
+  #aa:link { text-decoration: none; color: white;} 
+  #aa:visited { text-decoration: none; color: white;}
+  #aa:active { text-decoration: none; color: white;}
+  #aa:hover {text-decoration:underline; color: white;}
+  
 #side {
 	border-bottom-left-radius: 30px;
 	border-top-left-radius: 30px;
@@ -22,6 +27,7 @@
 	/* background-image: url('${path}/resources/images/logo_dot.png');
 	    background-repeat: repeated; */
 	opcaity: 0.5;
+	color:white;
 }
 
 /* #side::before {
@@ -89,24 +95,24 @@
 
 <div id="side">
 	<div id="container_logo">
-		<a href="${path }/board/boardList" id="anchor_logo"> <img
+		<a href="${path }/board/boardList" id="anchor_logo" id="aa"> <img
 			src="${path}/resources/images/logo_long_black.png" id="sidebar_logo"
 			alt="로고">
 		</a>
 	</div>
 	<div id="menu">
 		<div class="menusOnSide">
-			<a href="${path}/report/customerReport"> <img src="${path }/resources/images/admin/siren (1).png"
+			<a href="${path}/report/customerReport" id="aa"> <img src="${path }/resources/images/admin/siren (1).png"
 			class="menuImages"> 신고하기
 			</a>
 		</div>
 		<div class="menusOnSide">
-			<a href="${path}/customer/customerNotice"> <img src="${path }/resources/images/admin/notice(1).png"
+			<a href="${path}/customer/customerNotice" id="aa"> <img src="${path }/resources/images/admin/notice(1).png"
 			class="menuImages"> 공지사항
 			</a>
 		</div>
 		<div class="menusOnSide">
-			<a href="${path}/customer/customerFaq"> <img class="menuImages"
+			<a href="${path}/customer/customerFaq" id="aa"> <img class="menuImages"
 			src="${path }/resources/images/admin/faq(1).png"/> FAQ
 			</a>
 		</div>

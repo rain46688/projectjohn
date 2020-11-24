@@ -7,7 +7,7 @@
 
 <jsp:include page="/WEB-INF/views/common/header.jsp">
 
-	<jsp:param name="title" value=" " />
+	<jsp:param name="title" value="adminBoard" />
 
 </jsp:include>
 <style>
@@ -341,11 +341,11 @@ appearance: none;
 		
 		<div id="totalone">
 		<div id="one">
-		 <select class="form-control" name="bigCategory" id="s0" required>
+		 <select class="form-control" name="bigCategory" id="s0" >
 		 		<option>대분류</option>
-				<option value="연애상담" <c:if test="${param.big_category eq '연애상담'}">selected</c:if>>연애상담</option> 
-				<option value="일반게시판" <c:if test="${param.big_category eq '일반게시판'}">selected</c:if>>일반게시판</option> 
-				<option value="음성게시판" <c:if test="${param.big_category eq '음성게시판'}">selected</c:if>>음성게시판</option> 
+				<option value="연애상담" <c:if test="${param.bigCategory eq '연애상담'}">selected</c:if>>연애상담</option> 
+				<option value="일반게시판" <c:if test="${param.bigCategory eq '일반게시판'}">selected</c:if>>일반게시판</option> 
+				<option value="음성게시판" <c:if test="${param.bigCategory eq '음성게시판'}">selected</c:if>>음성게시판</option> 
 	    </select>
 		</div>
 
@@ -364,11 +364,11 @@ appearance: none;
 			</select>	 --%>
 		<div id="totaltwo">
 		<div id="three"> 
-			<select name="searchType" class="form-control" required>
+			<select name="searchType" class="form-control" >
 				<option value=" " disabled selected>검색타입</option> 
 				
-				<option value="mem_name" <c:if test="${param.searchType eq 'mem_name'}">selected</c:if>>이름</option>
-				<option value="mem_email" <c:if test="${param.searchType eq 'mem_email'}">selected</c:if>>이메일</option>
+				<option value="memName" <c:if test="${param.searchType eq 'memName'}">selected</c:if>>이름</option>
+				<option value="memEmail" <c:if test="${param.searchType eq 'memEmail'}">selected</c:if>>이메일</option>
 				<option value="title" ${param.searchType eq 'title'?"selected":"" }>제목</option>	
 					
 			</select>
@@ -386,11 +386,11 @@ appearance: none;
 			</div>
 			
 			<div id="six">
-			<select name="searchType2" class="form-control" required>
+			<select name="searchType2" class="form-control" >
 				<option value=" " disabled selected>선택하세요</option> 
-				<option value="enroll_date" <c:if test="${param.searchType eq 'enroll_date'}">selected</c:if>>날짜</option>
-				<option value="board_id" <c:if test="${param.searchType eq 'board_id'}">selected</c:if>>글번호</option>
-				<option value="hit" ${param.searchType eq 'hit'?"selected":"" }>조회수</option>	
+				<option value="enroll_date" <c:if test="${param.searchType2 eq 'enroll_date'}">selected</c:if>>날짜</option>
+				<option value="board_id" <c:if test="${param.searchType2 eq 'board_id'}">selected</c:if>>글번호</option>
+				<option value="hit" ${param.searchType2 eq 'hit'?"selected":"" }>조회수</option>	
 			</select>
 			</div>
 		</div>

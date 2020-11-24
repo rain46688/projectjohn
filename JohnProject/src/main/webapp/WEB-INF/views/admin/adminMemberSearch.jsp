@@ -7,7 +7,7 @@
 
 <jsp:include page="/WEB-INF/views/common/header.jsp">
 	
-	<jsp:param name="title" value=" "/>
+	<jsp:param name="title" value="adminMemberSearch"/>
 	
 </jsp:include>
 <style>
@@ -236,6 +236,7 @@ appearance: none;
 
 .pagination-sm .page-link { /*한칸한칸크기*/
 	padding:10px 20px ;
+	margin:0;
 }
 
 .pagination a:hover:not(.active) { /*호버*/
@@ -269,8 +270,8 @@ appearance: none;
 			<div id="totalone">
 			
 			<div id="three">
-			<select name="searchType" class="form-control" required>
-				<option value=" " disabled selected>검색타입</option>
+			<select name="searchType" class="form-control" >
+				<option value="${param.searchType }" disabled selected>검색타입</option>
 
 				<option value="mem_name"
 					<c:if test="${param.searchType eq 'mem_name'}">selected</c:if>>이름</option>
@@ -287,32 +288,38 @@ appearance: none;
 
 			<div id="five">
 			
-			<label><input type="radio" name="gender"
-				value='M'>남</label> &nbsp;&nbsp;&nbsp;&nbsp;
+				<label>
+				<input type="radio" name="gender"
+				value="M" <c:if test="${param.gender eq 'M'}">checked</c:if>> 남</label> &nbsp;&nbsp;&nbsp;&nbsp;
 				
 				<label><input type="radio" name="gender"
-				value='F'>여</label> <br> 
-				
+				value="F" <c:if test="${param.gender eq 'F'}">checked</c:if>> 여</label> <br> 
 				<label>
+				
 				<input type="checkbox" name="leaveMem"
-				value="0">현재 회원 
+				value="${param.leaveMem }"<c:if test="${param.leaveMem eq '0'}">checked</c:if>>현재 회원 
 				</label>&nbsp;&nbsp;&nbsp;&nbsp;
 				
-				<label>
+				<label> 
 				<input type="checkbox" name="leaveMem"
-				value="1">탈퇴한 회원 <br> 
+				value="${param.leaveMem }"<c:if test="${param.leaveMem eq '1'}">checked</c:if>>탈퇴한 회원 <br> 
 				</label>
 				
 				<br>
 				
 				<label>
 				<input type="checkbox"
-				name="memClass" value="일반유저">일반유저 
+				name="memClass" value="일반유저" <c:if test="${param.memClass eq '일반유저'}">checked</c:if>>일반유저 
 				</label>&nbsp;&nbsp;&nbsp;&nbsp;
 				
 				<label>
 				<input type="checkbox"
-				name="memClass" value="전문가">전문가 
+				name="memClass" value="예비전문가"<c:if test="${param.memClass eq '예비전문가'}">checked</c:if>>예비전문가 
+				</label>
+				
+				<label>
+				<input type="checkbox"
+				name="memClass" value="전문가"<c:if test="${param.memClass eq '전문가'}">checked</c:if>>전문가 
 				</label>
 			</div>
 			
