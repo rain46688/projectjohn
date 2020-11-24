@@ -33,7 +33,7 @@ public class BoardDaoImpl implements BoardDao{
 	}
 	
 	@Override
-	public Board boardSelectOne(SqlSession session, int boardNo) {
+	public Map boardSelectOne(SqlSession session, int boardNo) {
 		// TODO Auto-generated method stub
 		return session.selectOne("board.boardSelectOne", boardNo);
 	}

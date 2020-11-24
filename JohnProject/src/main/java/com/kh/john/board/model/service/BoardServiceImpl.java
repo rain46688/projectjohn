@@ -48,7 +48,7 @@ public class BoardServiceImpl implements BoardService {
 	}
 	
 	@Override
-	public Board boardSelectOne(int boardNo) {
+	public Map boardSelectOne(int boardNo) {
 		// TODO Auto-generated method stub
 		return dao.boardSelectOne(session, boardNo);
 	}
