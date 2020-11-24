@@ -31,7 +31,7 @@
 }
 
 .containerJohn *{
-	  border:1px solid red;  
+	/*   border:1px solid red;   */
 }
 
 #headerAndContent {
@@ -166,7 +166,7 @@
 	z-index:4;
 	background-color:white;
 	top:11.3%;
-	right:2.6%;
+	right:4%;
 	padding:0.5%;
 	display:none;
 	font-weight:bold;
@@ -181,14 +181,13 @@
 	text-align: center;
 	width: 25px;
 	height: 25px;
-	top: 40%;
-	right:80%;
+	right:50%;
 	font-size: 15px; font-weight : bold;
-	color: black;
-	background-color: white;
+	color: white;
+	background-color: #F13F36;
 	border-radius: 70%;
 	border: 1px solid black;
-	box-shadow: 1px 1px 1px 1px gray;
+	/* box-shadow: 1px 1px 1px 1px gray; */
 	font-weight: bold;
 	cursor:pointer;
 }

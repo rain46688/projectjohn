@@ -15,7 +15,6 @@ html, body, div, span, applet, object, iframe, h1, h2, h3, h4, h5, h6, p, blockq
 	-webkit-user-select: none;
 	-khtml-user-select: none;
 	user-select: none;
-	color:black;
 }
 
 /* #alcontent {
@@ -29,22 +28,22 @@ html, body, div, span, applet, object, iframe, h1, h2, h3, h4, h5, h6, p, blockq
 	border-radius:1%;
 } */
 
-.divListBody {
+.divListBodyAl {
 	display: table-row-group;
 }
 
-.divList {
+.divListAl {
 	display: table;
 	width: 100%;
 	height: 30%;
 	text-align: center;
 }
 
-.divRow {
+.divRowAl {
 	display: table-row;
 }
 
-.divCell, .divTableHead {
+.divCellAl, .divTableHeadAl {
 	 border-bottom: 1px #DEE2E6 solid;
 /* 	border-bottom: 1px #DEE2E6 solid;
 	border-right: 1px #DEE2E6 solid;
@@ -52,19 +51,16 @@ html, body, div, span, applet, object, iframe, h1, h2, h3, h4, h5, h6, p, blockq
 	display: table-cell;
 	padding: 3%1%;
 	width: 16.67%;
-	font-size: 2vh;
+	font-size: 1.7vh;
 	/* background-color:#FFEB00; */
-	
 }
 
-
-.nav{
+.divListAl .nav{
 	background-color: #003478;
 	border-radius:10% 2% 2%;
 }
 
-
-.nav-link {
+.divListAl .nav-link {
 	cursor: pointer;
 	/* background-color: white; */
 	color:white;
@@ -92,7 +88,7 @@ html, body, div, span, applet, object, iframe, h1, h2, h3, h4, h5, h6, p, blockq
 	height:auto;
 }
 
-.empty {
+.emptyAl {
 	margin-top: 20px;
 	font-weight: bold;
 	margin-top: 15px;
@@ -117,20 +113,20 @@ html, body, div, span, applet, object, iframe, h1, h2, h3, h4, h5, h6, p, blockq
 }
 
 </style>
-	<div class="divList">
+	<div class="divListAl">
 		<div id="sideDiv">
 		<label class="form-check-label">
     		<input id="check" type="checkbox" class="form-check-input" value="">모두 보기
   		</label>
-		<img src="${path}/resources/images/delete.png" alt="" width="30px" height="30px"></div>
-		<div class="divListBody">
+		<img id="" src="${path}/resources/images/delete.png" alt="" width="30px" height="30px"></div>
+		<div class="divListBodyAl">
 			<ul class="nav nav-tabs">
 				<li class="nav-item"><a class="nav-link active">상담</a></li>
 				<li class="nav-item"><a class="nav-link">게시판</a></li>
 				<li class="nav-item"><a class="nav-link">신고</a></li>
 				<li class="nav-item"><a class="nav-link">테스트</a></li>
 			</ul>
-			<div class="alarmPrintDiv">zz</div>
+			<div class="alarmPrintDiv"></div>
 		</div>
 	</div>
 <script>
@@ -168,6 +164,27 @@ $(".nav-link").click(e =>{
 	}
 });
 
+
+$("#check").click(e => {
+	console.log("선택");
+	let selectedNav;
+	let allnav = $(".nav-link");
+	for(let i=0; i < allnav.length; i++){
+		if($(allnav[i]).hasClass('active')){
+			selectedNav = $(allnav[i]).html();
+			console.log("선택된것 : "+selectedNav);
+		}
+	};
+	
+	if(selectedNav === '상담'){
+		printalfunc(alarmList,'expert');
+	}else if(selectedNav === '게시판'){
+		
+	}else if(selectedNav === '신고'){
+		
+	}
+});
+
 /* $('.nav-item').hover(function() {
 	console.log("z")
 	if(!$(this).children().hasClass('active')){
@@ -190,43 +207,43 @@ $(".nav-link").click(e =>{
 function printalfunc(list, type){
 	let print="";
 	console.log("printalfunc 실행 리스트 길이 : "+list.length+" 타입 : "+type);
-//	if(list.length > 0){
+
 	let allselectflag = $("#check").is(":checked");
 	console.log("체크 여부 : "+allselectflag);
-	
+	if(list.length > 0){
 	list.forEach((e, i)=>{
 		if(allselectflag == true){
 			if(e['alarmType'].includes(type)){
 				console.log("출력");
 				/* shadow p-3 mb-5 bg-white rounded */
-				print += "<div class='divRow' style='cursor: pointer'>";
+				print += "<div class='divRowAl' style='cursor: pointer'>";
 				print += "<input type='hidden' value='"+e['alarmId']+"'>";
-				print += "<div class='divCell'>1 : 1 영상 상담 요청이있습니다.<div class='date'>"+e['tmpDate']+"</div></div></div>";
+				print += "<div class='divCellAl'>1 : 1 영상 상담 요청이있습니다.<div class='date'>"+e['tmpDate']+"</div></div></div>";
 				print += "<div class='al'><div class='alContent'>"
 				print += "안녕하세요 상담사 "+e['alarmSendMemNickname']+"입니다.<br> 아래 URL로 바로 접속하셔서 상담 진행하시면됩니다.<br>" 
 				print += "<a href='${path }/expert/expertRoom?bno="+e['alarmMsgContent']+"'>-클릭해서 상담 접속-</a></div></div>"
 			}else{
 				//추가 예정
-				print = "<div class='empty'>알림이 비어있습니다.</div>";
+				print = "<div class='emptyAl'>알림이 비어있습니다.</div>";
 			}
 		}else{
 			if(e['alarmType'].includes(type) && e['alarmIscheked'] == false){
 				console.log("출력");
-				print += "<div class='divRow' style='cursor: pointer'>";
+				print += "<div class='divRowAl' style='cursor: pointer'>";
 				print += "<input type='hidden' value='"+e['alarmId']+"'>";
-				print += "<div class='divCell'>1 : 1 영상 상담 요청이있습니다.<div class='date'>"+e['tmpDate']+"</div></div></div>";
+				print += "<div class='divCellAl'>1 : 1 영상 상담 요청이있습니다.<div class='date'>"+e['tmpDate']+"</div></div></div>";
 				print += "<div class='al'><div class='alContent'>"
 				print += "안녕하세요 상담사 "+e['alarmSendMemNickname']+"입니다.<br> 아래 URL로 바로 접속하셔서 상담 진행하시면됩니다.<br>" 
 				print += "<a href='${path }/expert/expertRoom?bno="+e['alarmMsgContent']+"'>-클릭해서 상담 접속-</a></div></div>"
 			}else{
 				//추가 예정
-				print = "<div class='empty'>알림이 비어있습니다.</div>";
+				print = "<div class='emptyAl'>알림이 비어있습니다.</div>";
 			}
 		}
 	});
-//	}else{
-//		print = "<div class='empty'>알람이 없습니다.</div>";
-//	}
+	}else{
+		print = "<div class='emptyAl'>알람이 없습니다.</div>";
+	}
 	$(".alarmPrintDiv").html(print);
 	//ajax 후 함수 실행
 	divhover();
@@ -251,18 +268,18 @@ function Alarm(alarmId,alarmSendMemUsid, alarmReceiveMemUsid,
 
 //토글 박스 내려갔다 올라갔다하는것
 $(function(){
-	$(".noti").slideToggle('fast', function() {
+	$(".al").slideToggle('fast', function() {
 		  });
 });
 
 //리스트 뿌린후 한번 실행시켜줘야 호버 작동함!
 function divhover(){
-	$(".divRow").click(e=>{
+	$(".divRowAl").click(e=>{
 		   $(e.target).parent().next().slideToggle('fast', function() {
 		     });
 		  // $(this).removeClass( 'shadow p-3 mb-5 bg-white rounded' );
 		});
-		$('.divRow').hover(function() {
+		$('.divRowAl').hover(function() {
 			//console.log("온");
 			$(this).css('color', '#FFC107');
 			$(this).addClass('shadow p-3 mb-5 bg-white rounded');
@@ -275,83 +292,5 @@ function divhover(){
 		});
 };
 divhover();
-
-// ==========================================================================================
-
-//위에 알람 메뉴 클릭시 ajax로 출력
-/* $(".nav-link").click(e =>{
-	
-	let alli = $(e.target).parents().parents().children('li');
-	let item;
-	let alprint = "";
-	//console.log(alli.length);
-	for(let i=0; i < alli.length; i++){
-		$(alli[i]).children().removeClass('active');
-		
-	};
-	$(e.target).addClass('active');
-	item = $(e.target).html();
-	console.log("item : "+item);
-	if(item === '상담'){
-		item = 'expert';
-		console.log("change : "+item);
-	}else{
-		//추가 예정
-	}
-	
-	 $.ajax({
-		type:'get',
-		data:{'item':item,usid:"${loginMember.usid}"},
-		dataType: "json",
-		url:"${path}/alarm/selectAlarmItem",
-		success:function(data){
-			//console.log("data : "+data);
-			if(data == ''){
-				//console.log("빔");
-				$(".alarmPrintDiv").html("");
-				$(".alarmPrintDiv").html("<div class='empty'>알람이 없습니다.</div>");
-			}else{
-				//console.log("안빔");
-				$.each(data, function(i, item){
-					//console.log("i : "+i);
-					//console.log("date : "+item["tmpDate"]);
-					alprint += printalfunc(item["alarmId"],item["alarmSendMemNickname"],item["tmpDate"],item["alarmType"],item["alarmMsgContent"]);
-				});
-				$(".alarmPrintDiv").html("");
-				$(".alarmPrintDiv").html(alprint);
-				//ajax 후 함수 실행
-				divhover();
-			}
-		}
-	});
-}); 
-
-//알람 누르면 읽은것으로 처리되게 만듬
-$(".divRow").click(e=>{
-	 //$(e.target).parent().next().slideToggle('slow', function() {
-  // });
-
- //$(this).removeClass( 'shadow p-3 mb-5 bg-white rounded' );
- 
- const aid = $(e.target).parent().children('input:eq(0)').val();
-// console.log("누름"+aid);
- 
-  $.ajax({
-	   type:"GET",
-	   data:{
-		   "aid":aid
-	   },
-	   url:"${path}/alarm/alarmRead",
-	   success:function (data){
-		   if(data == 1){
-			   console.log("성공");
-		   }
-		   else{
-			   console.log("실패");
-		   }
-	   }
- });
-}); 
-*/
 
 </script>
