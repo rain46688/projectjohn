@@ -1,6 +1,11 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ include file="/WEB-INF/views/common/header.jsp"%>
 <style>
+
+#content *{
+ border:1px solid red;
+}
+
 #content {
 	text-align: center;
 	border-radius: 5px;
@@ -66,7 +71,6 @@
 <br>
 <br>
 <section id="content" class="container">
-	<p>임시 알람 테스트 리스트</p>
 	<div class="divList">
 		<div class="divListBody">
 			<br> <br>
@@ -76,14 +80,13 @@
 				<li class="nav-item"><a class="nav-link">신고</a></li>
 				<li class="nav-item"><a class="nav-link">테스트</a></li>
 			</ul>
-
 			<div class="alarmPrintDiv">
+	<!--  -->
+	<%-- 		<div class="alarmPrintDiv">
 				<c:choose>
 					<c:when test="${fn:length(list) > 0}">
 						<c:forEach items="${list }" var="n">
 
-							<%-- <c:choose>
-							<c:when test="${n.alarmType eq 'expert'}"> --%>
 							<div class="divRow shadow p-3 mb-5 bg-white rounded" style="cursor: pointer">
 								<input type="hidden" value="${n.alarmId}">
 								<div class="divCell">
@@ -96,8 +99,6 @@
 										href="${path }/expert/expertRoom?bno=${n.alarmMsgContent}">상담 링크 바로가기</a>
 								</div>
 							</div>
-							<%-- 		</c:when>
-						</c:choose> --%>
 
 						</c:forEach>
 					</c:when>
@@ -105,9 +106,10 @@
 						<div class="empty">알람이 없습니다.</div>
 					</c:otherwise>
 				</c:choose>
+				</div>
+			 --%>
+	<!--  -->
 			</div>
-
-
 		</div>
 	</div>
 </section>
@@ -116,8 +118,110 @@
 
 'use strict';
 
-//위에 알람 메뉴 클릭시 ajax로 출력
+/* let newURL = window.location.pathname;
+console.log(newURL); */
+//			/john/alarm/alarmList
+let alarmList = [];
+
+//메뉴 클릭시 이벤트
 $(".nav-link").click(e =>{
+	let alli = $(e.target).parents().parents().children('li');
+	let item;
+	let alprint = "";
+	for(let i=0; i < alli.length; i++){
+		$(alli[i]).children().removeClass('active');
+	};
+	$(e.target).addClass('active');
+	item = $(e.target).html();
+	console.log("item : "+item);
+	if(item === '상담'){
+		item = 'expert';
+		printalfunc(alarmList, item);
+		console.log("change : "+item);
+	}else if(item === '게시판'){
+		item = ' ';
+		printalfunc(alarmList, item);
+		console.log("change : "+item);
+	}else if(item === '신고'){
+		item = ' ';
+		printalfunc(alarmList, item);
+		console.log("change : "+item);
+	}
+});
+
+//알람 프린트
+function printalfunc(list, type){
+	let print="";
+	console.log("printalfunc 실행 리스트 길이 : "+list.length+" 타입 : "+type);
+//	if(list.length > 0){
+	list.forEach((e, i)=>{
+		if(e['alarmType'].includes(type)){
+			console.log("출력");
+			print += "<div class='divRow shadow p-3 mb-5 bg-white rounded' style='cursor: pointer'>";
+			print += "<input type='hidden' value='"+e['alarmId']+"'>";
+			print += "<div class='divCell'>"+e['alarmSendMemNickname']+"상담사님으로 부터 상담 요청이있습니다.<br> <small>"+e['tmpDate']+"</small></div></div>";
+			print += "<div class='noti'><div class='noContent'>"
+			print += "안녕하세요 상담사 "+e['alarmSendMemNickname']+"입니다.<br> 아래 URL로 바로 접속하셔서 상담 진행하시면됩니다.<br>" 
+			print += "<a href='${path }/expert/expertRoom?bno="+e['alarmMsgContent']+"'>상담 링크 바로가기</a></div></div>"
+		}else{
+			//추가 예정
+			print = "<div class='empty'>알람이 없습니다.</div>";
+		}
+	});
+//	}else{
+//		print = "<div class='empty'>알람이 없습니다.</div>";
+//	}
+	$(".alarmPrintDiv").html(print);
+	//ajax 후 함수 실행
+	divhover();
+};
+
+  
+//알람 객체
+function Alarm(alarmId,alarmSendMemUsid, alarmReceiveMemUsid,
+		alarmType, alarmMsgContent,
+		alarmSendMemNickname, tmpDate,
+		alarmIscheked) {
+	this.alarmId = alarmId;
+	this.alarmSendMemUsid = alarmSendMemUsid;
+	this.alarmReceiveMemUsid = alarmReceiveMemUsid;
+	this.alarmType = alarmType;
+	this.alarmMsgContent = alarmMsgContent;
+	this.alarmSendMemNickname = alarmSendMemNickname;
+	this.tmpDate = tmpDate;
+	this.alarmIscheked = alarmIscheked;
+};
+
+
+//토글 박스 내려갔다 올라갔다하는것
+$(function(){
+	$(".noti").slideToggle('fast', function() {
+		  });
+});
+
+//리스트 뿌린후 한번 실행시켜줘야 호버 작동함!
+function divhover(){
+	$(".divRow").click(e=>{
+		   $(e.target).parent().next().slideToggle('slow', function() {
+		     });
+		   $(this).removeClass( 'shadow p-3 mb-5 bg-white rounded' );
+		});
+		$('.divRow').hover(function() {
+			//console.log("온");
+			$(this).css('color', '#FFC107');
+			$(this).removeClass('shadow p-3 mb-5 bg-white rounded');
+		}, function() {
+			//console.log("오프");
+			$(this).css('color', 'black');
+			$(this).addClass('shadow p-3 mb-5 bg-white rounded');
+		});
+};
+divhover();
+
+// ==========================================================================================
+
+//위에 알람 메뉴 클릭시 ajax로 출력
+/* $(".nav-link").click(e =>{
 	
 	let alli = $(e.target).parents().parents().children('li');
 	let item;
@@ -162,40 +266,19 @@ $(".nav-link").click(e =>{
 			}
 		}
 	});
-	 
-	
-});
+}); 
 
-//알람 프린트
-function printalfunc(alid,sendnic,date,type,msg){
-	let print="";
-	
-	if(type == 'expert'){
-	print += "<div class='divRow shadow p-3 mb-5 bg-white rounded' style='cursor: pointer'>";
-	print += "<input type='hidden' value='"+alid+"'>";
-	print += "<div class='divCell'>"+sendnic+"상담사님으로 부터 상담 요청이있습니다.<br> <small>"+date+"</small></div></div>";
-	print += "<div class='noti'><div class='noContent'>"
-	print += "안녕하세요 상담사 "+sendnic+"입니다.<br> 아래 URL로 바로 접속하셔서 상담 진행하시면됩니다.<br>" 
-	print += "<a href='${path }/expert/expertRoom?bno="+msg+"'>상담 링크 바로가기</a></div></div>"
-	}else{
-		//추가 예정
-	}
-	return print;
-}
-
-
-/*
 //알람 누르면 읽은것으로 처리되게 만듬
 $(".divRow").click(e=>{
- 	 //$(e.target).parent().next().slideToggle('slow', function() {
-    // });
-  
-   //$(this).removeClass( 'shadow p-3 mb-5 bg-white rounded' );
-   
-   const aid = $(e.target).parent().children('input:eq(0)').val();
-  // console.log("누름"+aid);
-   
-    $.ajax({
+	 //$(e.target).parent().next().slideToggle('slow', function() {
+  // });
+
+ //$(this).removeClass( 'shadow p-3 mb-5 bg-white rounded' );
+ 
+ const aid = $(e.target).parent().children('input:eq(0)').val();
+// console.log("누름"+aid);
+ 
+  $.ajax({
 	   type:"GET",
 	   data:{
 		   "aid":aid
@@ -209,51 +292,8 @@ $(".divRow").click(e=>{
 			   console.log("실패");
 		   }
 	   }
-   });
+ });
 }); 
-  */
-  
-  
-//알람 객체
-function Alarm(alarmId,alarmSendMemUsid, alarmReceiveMemUsid,
-		alarmType, alarmMsgContent,
-		alarmSendMemNickname, tmpDate,
-		alarmIscheked) {
-	this.alarmId = alarmId;
-	this.alarmSendMemUsid = alarmSendMemUsid;
-	this.alarmReceiveMemUsid = alarmReceiveMemUsid;
-	this.alarmType = alarmType;
-	this.alarmMsgContent = alarmMsgContent;
-	this.alarmSendMemNickname = alarmSendMemNickname;
-	this.tmpDate = tmpDate;
-	this.alarmIscheked = alarmIscheked;
-};
-
-	$(function(){
-		$(".noti").slideToggle('fast', function() {
-		     });
-	})
-
-//토글
-function divhover(){
-		//alarmPrintDiv
-	$(".divRow").click(e=>{
-		   $(e.target).parent().next().slideToggle('slow', function() {
-		     });
-		   $(this).removeClass( 'shadow p-3 mb-5 bg-white rounded' );
-		});
-		$('.divRow').hover(function() {
-			//console.log("온");
-			$(this).css('color', '#FFC107');
-			$(this).removeClass('shadow p-3 mb-5 bg-white rounded');
-		}, function() {
-			//console.log("오프");
-			$(this).css('color', 'black');
-			$(this).addClass('shadow p-3 mb-5 bg-white rounded');
-		});
-};
-divhover();
-
-
+*/
 
 </script>

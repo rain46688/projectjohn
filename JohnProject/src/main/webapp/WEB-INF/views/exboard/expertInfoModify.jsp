@@ -608,6 +608,8 @@ textarea:focus {
 
 'use strict;'
 
+//이미지 h w 값 변수 생성
+
 let proWith;
 let proHeight;
 let liWith1;
@@ -617,13 +619,14 @@ let liHeight2;
 let liWith3;
 let liHeight3;
 
+//가운데 화면 스위칭
+
 $("#upFlag").click(e=>{
 	$("#mainDiv").stop(true).animate({'opacity': 0}, 300, function() {
         $(this).css({'display': 'none'})
         $('#licenseModifyDiv').stop(true).css({'display': 'block', 'opacity': 0}).animate({'opacity': 1}, 300)
     });
 });
-
 
 $("#licenseupFlag").click(e=>{
 	$("#licenseModifyDiv").stop(true).animate({'opacity': 0}, 300, function() {
@@ -633,6 +636,7 @@ $("#licenseupFlag").click(e=>{
 });
 
 
+// 자격증 수정 완료 버튼
 
 function modifyLicense(){
 	console.log("자격증 수정 완료");
@@ -684,6 +688,7 @@ function modifyLicense(){
 	});
 }
 
+// 수정완료 버튼
 
 function modify(){
 	console.log("수정 완료");
@@ -729,6 +734,8 @@ function modify(){
 	});
 }
 
+ 
+<!--
 $("#mirrorimgDiv").click(e => {
 	console.log("이미지 눌릠");
 	 $("#profileUpload").click();
@@ -773,8 +780,7 @@ $("#profileUpload").change(function(e){
 });
 
 
-
-/*  $('#imgDiv').hover(function(){
+ $('#imgDiv').hover(function(){
 	proWith =  $("#imgProfile").width();
 	proHeight =  $("#imgProfile").height();
     $('#mirrorimgDiv').css('display','flex');
@@ -782,7 +788,7 @@ $("#profileUpload").change(function(e){
 }, function() {
 	$('#mirrorimgDiv').css('display','none');
 	   $("#imgDiv").css('display','flex');
-}); */
+}); 
 
 $('#mirrorimgDiv').hover(function(){
     $('#mirrorimgDiv').css('display','flex');
@@ -791,6 +797,9 @@ $('#mirrorimgDiv').hover(function(){
 	$('#mirrorimgDiv').css('display','none');
 	    $("#imgDiv").css('display','flex');
 });
+-->
+
+//자격증 이미지 호버
 
 $('#licenseImg1').hover(function(){
 	liWith1 =  $("#imgLicense1").width();
@@ -846,22 +855,21 @@ $('#licenseImgView3').hover(function(){
 	   $("#licenseImg3").css('display','flex');
 });
 
-
+//자격증 이미지 클릭 이벤트
 
 $("#licenseImgView1").click(e => {
-	console.log("자격증1 눌릠");
 	 $("#licenseUpload1").click();
 });
 
 $("#licenseImgView2").click(e => {
-	console.log("자격증2 눌릠");
 	 $("#licenseUpload2").click();
 });
 
 $("#licenseImgView3").click(e => {
-	console.log("자격증3 눌릠");
 	 $("#licenseUpload3").click();
 });
+
+//업로드
 
 $("#licenseUpload1").change(function(e){
     e.preventDefault();
@@ -915,6 +923,4 @@ function fileViewUpload(f,w,h,im,up){
 	    return false;
 		}
 }
-
-
 </script>
