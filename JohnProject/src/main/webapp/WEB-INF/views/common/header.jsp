@@ -253,7 +253,7 @@
 							</div>
 						</li>
 						<li>
-						<!--  -->
+						<!--  호버 -->
 								<div id="bellDiv">
 										<c:if test="${loginMember.usid != null}">
 											<a id="bell" class="bell2" ><ion-icon name="notifications-circle-outline"></ion-icon></a>
@@ -262,7 +262,6 @@
 											</c:if>
 										</c:if>
 									<div id="alarmDropdownDiv">
-										<%@ include file="/WEB-INF/views/alarm/alarm.jsp"%>
 								</div> 
 							</div>
 						<!--  -->	
