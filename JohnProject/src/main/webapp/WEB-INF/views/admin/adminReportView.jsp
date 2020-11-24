@@ -242,7 +242,8 @@ border-radius:20px;
 		<div class="input-group marginTop2">
 		[<c:out value="${report.reportId }"/>]&nbsp;
 		</div>
-		
+			<br>
+			<hr color="black">
 		
 		<%-- 신고접수회원번호<input type="text" class="form-control" name="reportWriterUsid" value="${report.reportWriterUsid }" readonly required> --%>
         <%-- 신고대상회원<input type="text" class="form-control" name="reportTargetUsid" id="reportTargetUsid" value="${report.reportTargetUsid}" >  --%>

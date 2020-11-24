@@ -128,27 +128,27 @@ public class AdminDaoImpl implements AdminDao {
 	}
 
 	@Override
-	public List<ExpertRequest> selectAdminExpertCounsel(SqlSessionTemplate session,int cPage,
+	public List<ExpertRequest> selectAdminExpertCounsel0(SqlSessionTemplate session,int cPage,
 			int numPerPage) {
 		System.out.println("dao numperpage"+numPerPage);
 
-		return session.selectList("admin.selectAdminExpertCounsel",new RowBounds((cPage-1)*numPerPage, numPerPage));
+		return session.selectList("admin.selectAdminExpertCounsel0",null,new RowBounds((cPage-1)*numPerPage, numPerPage));
 	}
 	
 	@Override
-	public List<ExpertRequest> selectAdminExpertCounsel2(SqlSessionTemplate session,int cPage,
+	public List<ExpertRequest> selectAdminExpertCounsel1(SqlSessionTemplate session,int cPage,
 			int numPerPage) {
-		return session.selectList("admin.selectAdminExpertCounsel2",new RowBounds((cPage-1)*numPerPage, numPerPage));
+		return session.selectList("admin.selectAdminExpertCounsel1",null,new RowBounds((cPage-1)*numPerPage, numPerPage));
 	}
 
 	@Override
-	public int selectAdminExpertCounselCount(SqlSession session) {
-		return session.selectOne("admin.selectAdminExpertCounselCount");
+	public int selectAdminExpertCounselCount0(SqlSession session) {
+		return session.selectOne("admin.selectAdminExpertCounselCount0");
 	}
 	
 	@Override
-	public int selectAdminExpertCounselCount2(SqlSession session) {
-		return session.selectOne("admin.selectAdminExpertCounselCount2");
+	public int selectAdminExpertCounselCount1(SqlSession session) {
+		return session.selectOne("admin.selectAdminExpertCounselCount1");
 	}
 
 	//공지관련

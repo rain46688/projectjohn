@@ -125,10 +125,12 @@
 			<div class="input-group marginTop0">
 			<h4><img src="${path }/resources/images/admin/board.png" width="30px" height="27px">&nbsp;게시판 상세내역</h4>
 			</div>
+			
 			<div class="input-group marginTop2">
 			[<c:out value="${notice.noticeId }"/>]&nbsp;
 			</div>
-			
+			<br>
+			<hr color="black">
 			<input type="hidden" class="form-control" name="noticeAdminUisd" id="noticeAdminUisd" value="${notice.noticeAdminUisd }" > 
 
 		<div class="input-group marginTop3">	       
