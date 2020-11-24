@@ -137,7 +137,7 @@
 		</div>
 		<div class="menuContainer">
 			<ion-icon name="people-outline"></ion-icon>
-			<a class="menuLink nav-link" href="#">
+			<a class="menuLink nav-link" href="${path }/expert/expertPrintList?ca=직장 상담">
 				전문가와 상담하기
 			</a>
 		</div>
