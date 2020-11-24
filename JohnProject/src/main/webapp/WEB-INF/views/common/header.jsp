@@ -31,7 +31,7 @@
 }
 
 .containerJohn *{
-	  border:1px solid red; 
+	 /*  border:1px solid red;  */
 }
 
 #headerAndContent {
@@ -262,6 +262,7 @@
 											</c:if>
 										</c:if>
 									<div id="alarmDropdownDiv">
+									
 								</div> 
 							</div>
 						<!--  -->	
