@@ -759,10 +759,11 @@ public class MemberController {
 		List<ExpertRequest> requestList=service.counselingRequest(cPage,numPerPage,usid);
 		int totalData=service.requestListCount(usid);
 		
-		mv.addObject("pageBar",myPagePageBar.getPageBar(totalData, cPage, numPerPage, "expertHistory", loginMember.getUsid()));
+		mv.addObject("pageBar",myPagePageBar.getPageBar(totalData, cPage, numPerPage, "counselingRequest", loginMember.getUsid()));
 		mv.addObject("totalData", totalData);
 		mv.addObject("requestList", requestList);
 		mv.setViewName("member/counselingRequest");
 		return mv;
 	}
+	
 }

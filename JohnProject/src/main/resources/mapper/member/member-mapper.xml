@@ -156,7 +156,7 @@
 </select>
 
 <select id="counselingRequest" parameterType="_int" resultMap="exrequestMap">
-	SELECT * FROM EXPERT_REQUEST WHERE EXPERT_REQUEST_MEM_USID=#{usid}
+	SELECT * FROM EXPERT_REQUEST WHERE EXPERT_REQUEST_MEM_USID=#{usid} ORDER BY EXPERT_DATE DESC
 </select>
 
 <select id="requestListCount" parameterType="_int" resultType="_int">
