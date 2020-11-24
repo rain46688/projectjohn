@@ -107,9 +107,6 @@ public interface MemberService {
 	//닉네임으로 멤버 여러 명 찾기
 	List<Member> memberListByNick(String nick);
 
-	//usid로 채팅 내역 가져오기
-	List<MemberChat> loadMemberChat(int usid);
-
 	//전체 채팅 내역 가져오기
 	List<MemberChat> loadAllChatList();
 
@@ -122,8 +119,11 @@ public interface MemberService {
 	//상담 신청 내역
 	List<ExpertRequest> counselingRequest(int cPage, int numPerPage, int usid);
 
-	//의 개순
+	//의 개수
 	int requestListCount(int usid);
+
+	//insert후 list 불러오기
+	List<MemberChat> reloadChatList(MemberChat memberChat);
 
 
 	

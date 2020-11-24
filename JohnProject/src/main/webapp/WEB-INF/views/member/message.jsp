@@ -114,22 +114,21 @@
 <script>
 	//소켓 시작
 	const memberSocket=new WebSocket("wss://localhost${path}/memberSocket");
-	const msgListSocket=new WebSocket("wss://localhost${path}/msgListSocket");
+
 	//소켓이 열림
 	memberSocket.onopen=function(){
-		memberSocket.send("message");
+		memberSocket.send("messageOnOpen");
 	};
 	
 	//메세지 보냄
 	function fn_sendMessage(){
 		let message=$("#message").val();
 		if(message!=null){
-			sendChat(${loginMember.usid},${otherInfo.usid},message,"","");
-			sendMsgList(${loginMember.usid},${otherInfo.usid},message,"","");
+			sendChat("${loginMember.usid}","${otherInfo.usid}",message,"","");
 			$("#message").val('');
 		}
 	};
-	
+
 	//엔터로 보냄
 	$("#message").on('keypress', function(e){
         if(e.keyCode==13) {
@@ -183,9 +182,7 @@
 	function sendChat(mchatFirstUsid, mchatSecondUsid, mchatContent, mchatDate, mchatFile){
 		memberSocket.send(JSON.stringify(new MemberChat(mchatFirstUsid, mchatSecondUsid, mchatContent, mchatDate, mchatFile)))
 	};
-	function sendMsgList(mchatFirstUsid, mchatSecondUsid, mchatContent, mchatDate, mchatFile){
-		msgListSocket.send(JSON.stringify(new MemberChat(mchatFirstUsid, mchatSecondUsid, mchatContent, mchatDate, mchatFile)))
-	};
+	
 	function MemberChat(mchatFirstUsid, mchatSecondUsid, mchatContent, mchatDate, mchatFile){
 		this.mchatFirstUsid=mchatFirstUsid;
 		this.mchatSecondUsid=mchatSecondUsid;

@@ -1,6 +1,7 @@
 package com.kh.john.member.model.service;
 
 import java.sql.Date;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -237,11 +238,6 @@ public class MemberServiceImpl implements MemberService {
 	}
 
 	@Override
-	public List<MemberChat> loadMemberChat(int usid) {
-		return dao.loadMemberChat(session, usid);
-	}
-
-	@Override
 	public List<MemberChat> loadAllChatList() {
 		return dao.loadAllChatList(session);
 	}
@@ -264,6 +260,17 @@ public class MemberServiceImpl implements MemberService {
 	@Override
 	public int requestListCount(int usid) {
 		return dao.requestListCount(session, usid);
+	}
+
+	@Override
+	@Transactional
+	public List<MemberChat> reloadChatList(MemberChat memberChat) {
+		int result=dao.insertMemberChat(session, memberChat);
+		List<MemberChat> allChatList=new ArrayList<MemberChat>();
+		if(result>0) {
+			allChatList=dao.loadAllChatList(session);
+		}
+		return allChatList;
 	}
 
 

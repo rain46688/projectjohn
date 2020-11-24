@@ -15,4 +15,8 @@ public class MemberChat {
 	private Date mchatDate;
 	private String mchatDateString;
 	private String mchatFile;
+	private String firstProfilePic;
+	private String secondProfilePic;
+	private String firstNick;
+	private String secondNick;
 }

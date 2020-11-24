@@ -484,6 +484,10 @@ public class MemberController {
 			int result=service.updatePic(member);
 			
 			if(result>0) {
+				HttpSession session=request.getSession();
+				session.removeAttribute("loginMember");
+				loginMember=service.selectMemberByUsid(member);
+				mv.addObject("loginMember",loginMember);
 				mv.addObject("msg","프로필 사진 변경에 성공했습니다.");
 				mv.addObject("loc","/member/myPage?usid="+loginMember.getUsid());
 				mv.setViewName("common/msg");

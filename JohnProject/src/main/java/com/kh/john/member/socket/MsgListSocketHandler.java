@@ -1,5 +1,6 @@
 package com.kh.john.member.socket;
 
+import java.io.IOException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -19,6 +20,7 @@ import org.springframework.web.socket.WebSocketMessage;
 import org.springframework.web.socket.WebSocketSession;
 import org.springframework.web.socket.handler.TextWebSocketHandler;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.kh.john.member.model.service.MemberService;
 import com.kh.john.member.model.vo.Member;
@@ -55,17 +57,29 @@ public class MsgListSocketHandler extends TextWebSocketHandler {
 			return;
 		}
 		
-		MemberChat memberchat=objectMapper.readValue(message.getPayload(), MemberChat.class);
+//		MemberChat memberchat=objectMapper.readValue(message.getPayload(), MemberChat.class);
+//		System.out.println("**********msg핸들러 메소드 실행됨*******");
+//		Iterator<Member> it=users.keySet().iterator();//users라는 map 전체를 돌릴 것이다
+//		while(it.hasNext()) {
+//			Member key=it.next();//user에 있는 Member객체로 하나씩 뽑아와서 key변수로 지정
+//			if(memberchat.getMchatSecondUsid()==key.getUsid()) {
+//				List<MemberMessage> otherInfo=loadOtherInfo(users.get(key));
+//				users.get(key).sendMessage(new TextMessage(objectMapper.writeValueAsString(otherInfo)));								
+//			}
+//		}
+		
+	}
+	
+	protected void sendMsgList(MemberChat memberChat) throws JsonProcessingException, IOException {
 		System.out.println("**********msg핸들러 메소드 실행됨*******");
 		Iterator<Member> it=users.keySet().iterator();//users라는 map 전체를 돌릴 것이다
 		while(it.hasNext()) {
 			Member key=it.next();//user에 있는 Member객체로 하나씩 뽑아와서 key변수로 지정
-			if(memberchat.getMchatSecondUsid()==key.getUsid()) {
+			if(memberChat.getMchatSecondUsid()==key.getUsid()) {
 				List<MemberMessage> otherInfo=loadOtherInfo(users.get(key));
-				users.get(key).sendMessage(new TextMessage(objectMapper.writeValueAsString(otherInfo)));								
+				users.get(key).sendMessage(new TextMessage(objectMapper.writeValueAsString(otherInfo)));
 			}
 		}
-		
 	}
 
 
