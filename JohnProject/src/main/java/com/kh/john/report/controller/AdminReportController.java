@@ -20,7 +20,7 @@ public class AdminReportController {
 	private ReportService service;
 	
 	//신고관리 불러오기
-	@RequestMapping("/report/adminReport")
+	@RequestMapping("/admin/adminReport")
 	public ModelAndView adminReport(ModelAndView mv,
 			@RequestParam (value="cPage", required=false, defaultValue="1") int cPage, 
 			@RequestParam (value="numPerPage", required=false, defaultValue="5") int numPerPage) {
@@ -33,13 +33,13 @@ public class AdminReportController {
 		mv.addObject("totalData",totalData);
 		
 		mv.addObject("list", list);
-		mv.setViewName("report/adminReport");
+		mv.setViewName("admin/adminReport");
 		return mv;
 		
 	}
 	
 	//신고관리 불러오기(신고처리true)
-	@RequestMapping("/report/adminReportAfter")
+	@RequestMapping("/admin/adminReportAfter")
 	public ModelAndView adminReportAfter(ModelAndView mv,
 			@RequestParam (value="cPage", required=false, defaultValue="1") int cPage, 
 			@RequestParam (value="numPerPage", required=false, defaultValue="5") int numPerPage) {
@@ -53,24 +53,24 @@ public class AdminReportController {
 		
 		mv.addObject("list", list);
 		System.out.println("신고처리true list"+list);
-		mv.setViewName("report/adminReportAfter");
+		mv.setViewName("admin/adminReportAfter");
 		return mv;
 		
 	}
 	
 	//신고 게시글 불러오기
-	@RequestMapping("/report/adminReportView")
+	@RequestMapping("/admin/adminReportView")
 	public ModelAndView reportView(ModelAndView mv, int reportId) {
 		
 		mv.addObject("report",service.selectOneReport(reportId));
 		mv.addObject("reportFile",service.selectReportFile(reportId));
-		mv.setViewName("report/adminReportView");
+		mv.setViewName("admin/adminReportView");
 			
 		return mv;
 	}
 	
 	//신고 게시글 삭제
-	@RequestMapping(value="/report/adminReportDelete")
+	@RequestMapping(value="/admin/adminReportDelete")
 	public ModelAndView deleteReport(Report r, ModelAndView mv){
 		
 		int result = service.deleteReport(r);
@@ -84,13 +84,13 @@ public class AdminReportController {
 		}
 		
 		mv.addObject("msg",msg);
-		mv.addObject("loc","/report/adminReport");
+		mv.addObject("loc","/admin/adminReport");
 		
 		return mv;
 	}
 	
 	//신고 게시글 경고주기
-	@RequestMapping("/report/adminReportWarn")
+	@RequestMapping("/admin/adminReportWarn")
 	public ModelAndView reportWarn(Report r, ModelAndView mv, Member m,
 			@RequestParam(value="reportIswarning", required=false) int reportIswarning) {
 		int result = service.reportWarn(r);
@@ -109,24 +109,24 @@ public class AdminReportController {
 		}
 		
 		mv.addObject("msg",msg);
-		mv.addObject("loc","/report/adminReport");
+		mv.addObject("loc","/admin/adminReport");
 		mv.setViewName("common/msg");
 		
 		return mv;
 	}
 	
 	//신고 게시글 답글달기
-	@RequestMapping("/report/reportAnswer")
+	@RequestMapping("/admin/reportAnswer")
 	public ModelAndView reportAnswer(Report r, ModelAndView mv) {
 		int result = service.insertReportAnswer(r);
 		
 		if(result>0) {
 			mv.addObject("msg","등록 완료!");
-			mv.addObject("loc", "/report/adminReport");
+			mv.addObject("loc", "/admin/adminReport");
 			mv.setViewName("common/msg");
 		}else {
 			mv.addObject("msg", "등록 실패ㅠㅠ");
-			mv.addObject("loc", "/report/adminReport");
+			mv.addObject("loc", "/admin/adminReport");
 		}
 		
 		return mv;

@@ -392,8 +392,8 @@ a:hover {
 			<form id="myForm" action="${path }/admin/adminExpertSearch" method="post">
 			
 			<div id="one">
-				<select name="searchType" class="form-control" required>
-					<option value=" " disabled selected>검색타입</option> 
+				<select name="searchType" class="form-control">
+					<option value="${param.searchType }" disabled selected>검색타입</option> 
 					
 					<option value="mem_name" <c:if test="${param.searchType eq 'mem_name'}">selected</c:if>>이름</option>
 					<option value="mem_email" <c:if test="${param.searchType eq 'mem_email'}">selected</c:if>>이메일</option>
@@ -412,27 +412,27 @@ a:hover {
 				
 				<div id="five">
 				
-				<label><input type="radio" name="gender" value='M'>남</label>&nbsp;&nbsp;&nbsp;&nbsp;
-				<label><input type="radio" name="gender" value='F'>여</label>
+				<label><input type="radio" name="gender" value='M'<c:if test="${param.gender eq 'M'}">checked</c:if>>남</label>&nbsp;&nbsp;&nbsp;&nbsp;
+				<label><input type="radio" name="gender" value='F'<c:if test="${param.gender eq 'F'}">checked</c:if>>여</label>
 				</div>
 				
 				<br>
 				
 				<div id="seven">
-				<label><input type="checkbox" name="leave_mem" value="0">현직 전문가</label>&nbsp;&nbsp;&nbsp;&nbsp;
-				<label><input type="checkbox" name="leave_mem" value="1">퇴사 전문가</label>
+				<label><input type="checkbox" name="leaveMem" value='0'<c:if test="${param.leaveMem eq '0'}">checked</c:if>>현직 전문가</label>&nbsp;&nbsp;&nbsp;&nbsp;
+				<label><input type="checkbox" name="leaveMem" value='1'<c:if test="${param.leaveMem eq '1'}">checked</c:if>>퇴사 전문가</label>
 				</div>
 				
 				<br>
 				
 			<div id="five">	
-			<label><input type="radio" name="order" value='ascend'>오름차순</label>&nbsp;&nbsp;&nbsp;&nbsp;
-			<label><input type="radio" name="order" value='descend'>내림차순</label> 
+			<label><input type="radio" name="order" value='ascend'<c:if test="${param.order eq 'ascend'}">checked</c:if>>오름차순</label>&nbsp;&nbsp;&nbsp;&nbsp;
+			<label><input type="radio" name="order" value='descend'<c:if test="${param.order eq 'descend'}">checked</c:if>>내림차순</label> 
 			</div>
 			
 			<div id="six">
-			<select name="searchType2" class="form-control" required>
-				<option value=" " disabled selected>선택</option> 
+			<select name="searchType2" class="form-control">
+				<option value="${param.searchType2 }" disabled selected>선택</option> 
 				<option value="enroll_date" <c:if test="${param.searchType2 eq 'enroll_date'}">selected</c:if>>입사날짜</option>
 				<%-- <option value="expert_rating" <c:if test="${param.searchType eq 'expert_rating'}">selected</c:if>>등급순</option>
 				<option value="expert_counsel_start_time" ${param.searchType eq 'expert_counsel_start_time'?"selected":"" }>상담시간순</option>	 --%>

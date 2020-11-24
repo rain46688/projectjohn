@@ -5,6 +5,7 @@
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
 <c:set var="path" value="${pageContext.request.contextPath }"/>
 
+
 <jsp:include page="/WEB-INF/views/common/header.jsp">
 	
 	<jsp:param name="title" value=" "/>
@@ -23,12 +24,12 @@
 }
 
 .alinkEx1:visited{
-	color:#003478;
+	color:#ffcc66;
 	
 }
 
 .alinkEx2:visited{
-	color:#ffcc66;
+	color:#003478;
 }
 
 ul.tabs {
@@ -245,14 +246,10 @@ a:hover {
 	</div>
 			</div>
 </div>
-			<div id="pageBar">${pageBar }</div>
+			<div id="pageBar">${pageBar}</div>
 			
 		</div>
 
 	</div>
 	</section>
 	
-
-	<script>
-	console.log(${pageBar});
-	</script>

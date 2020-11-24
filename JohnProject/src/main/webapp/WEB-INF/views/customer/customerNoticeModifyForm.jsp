@@ -4,6 +4,7 @@
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
 <c:set var="path" value="${pageContext.request.contextPath }"/>
+<script type="text/javascript" src="${pageContext.request.contextPath }/resources/js/ckeditor/ckeditor.js"></script>
 
 <jsp:include page="/WEB-INF/views/common/header.jsp">
 	
@@ -12,21 +13,170 @@
 </jsp:include>
 	
 	<style>
-	    div#board-container{width:400px; margin:0 auto; text-align:center;}
-	    div#board-container input,div#board-container button{margin-bottom:15px;}
-	    div#board-container label.custom-file-label{text-align:left;}
-    </style>
+@import url('https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@500&display=swap');
+
+#wrapper {
+    margin: 0 auto;
+    margin-top: 2em;
+    padding: 1em;
+    width: 52.5em;
+    text-align: center;
+    align-items: center;
+    margin-bottom: 3em;
+/*     border: 0.5px solid rgb(224, 224, 224); */
+    border-radius: 1em;
+    overflow: auto;
+    background-color:#ffcc66;
+    font-family: 'Noto Sans KR', sans-serif;
     
-	<section id="content">
-		<div id="board-container">
-		<h1>게시판상세화면</h1>
+  }
+  
+
+
+#title {
+	text-align: left;
+}
+
+.form-control, #cke_editor1{
+	border-radius:10px;
+}
+
+
+#imageUpload {
+	border:1px  rgb(224, 224, 224) solid;
+	text-align: left;
+	height: 6em;
+	border-radius: 7px;
+}
+
+
+/* #submitBtn>button{
+	width: 100%;
+	height: 2.5em;
+	color: white;
+	background-color: gray;
+}
+
+#submitBtn>button:hover{
+	color: black;
+	background-color: white; */
+	
+#bbtn{
+margin-top:3%;
+border-color: #ffcc66;
+   color: white; 
+   background-color: #003478;
+
+}
+
+#bbtn:hover,
+#bbtn:focus {
+    background-color: #ffcc66;
+    border-color: #003478;
+    color: #003478; 
+
+}
+
+#imageUpload {
+	text-align: left;
+	overflow: hidden;
+}
+#imageUpload>label {
+	height: 100%;
+	width: 6em;
+	float: left;
+	font-size: larger;
+}
+
+#imageUpload>label>p{
+	margin-top: 0.1em;
+}
+
+#image-prev {
+	width: 35.25em;
+	height: 6em;
+	border-radius: 5px;
+	overflow: hidden;
+	float: left;
+}
+
+#image-prev>img {
+	width: 7.05em;
+	height: 100%;
+}
+
+.marginTop{
+	margin-top: 0.5em;
+}
+
+#maxMems {
+	display:none;
+}
+
+ .marginTop1{/*불러오는값들 하나하나*/
+	margin-top: 0.5em;
+	margin-bottom:0.5em;
+	margin-left:1%;
+	width:50%;
+	font-size:20px;
+	color:black;
+/* 	background-color:#003478; */
+	border-radius:20px;
+	padding:1%;
+}
+
+.marginTop3{ /*불러오는내역 전체*/
+	border:2px solid ;
+	border-radius:20px;
+	margin-top:3%;
+
+}
+
+ .marginTop2{ /*게시글번호*/
+	float: right;
+	width:10%;
+	text-align:right;
+	display: inline;
+}
+
+  .marginTop0{/*신고상세내역 제목*/
+	width:50%;
+	float:left;
+}
+</style>
+    
+	
+		<div id="content">
+		<div id="wrapper">
 		
-		<form name="customerNoticeModifyFrm" action="${path }/customer/customerNoticeModifyEnd" method="post">
-		<input type="text" class="form-control" name="noticeId" id="noticeId" value="${notice.noticeId }" readonly> 
-        <input type="text" class="form-control" value="${notice.noticeTitle }" placeholder="제목" name="noticeTitle" id="noticeTitle"  required>
-        <input type="text" class="form-control" name="noticeAdminNickname" value="${notice.noticeAdminNickname }" readonly required>
+		<div class="input-group marginTop0">
+		<h4><img src="${path }/resources/images/admin/pencil.png" width="24px" height="29px">&nbsp;게시글 수정하기</h4>
+		</div>
 		
-			<div class="input-group mb-3" style="padding: 0px;">
+		    <div class="input-group marginTop2">
+			[<c:out value="${notice.noticeId }"/>]&nbsp;
+	        </div>
+	        
+	        <br>
+			<hr color="black">
+
+		<div id="editor">
+		<form name="customerNoticeModifyFrm" action="${path }/customer/customerNoticeModifyEnd" 
+		id="frm" method="post" enctype="multipart/form-data">
+		   
+		<input type="hidden" value="${notice.noticeId }" name="noticeId" id="noticeId"/>
+		<input type="hidden" value="${notice.noticeTitle }" name="noticeTitle" id="noticeTitle"/>
+		<input type="hidden" value="${notice.noticeAdminNickname }" name="noticeAdminNickname" id="noticeAdminNickname"/>
+		
+		<div class="input-group marginTop3">
+	        <div class="input-group marginTop1">
+	        <img src="${path }/resources/images/admin/check.png" width="30px" height="30px">&nbsp;글쓴이&nbsp;:&nbsp;<c:out value="${notice.noticeAdminNickname }"/>
+			</div>
+	        <div class="input-group marginTop1">
+	        <img src="${path }/resources/images/admin/check.png" width="30px" height="30px">&nbsp;제목&nbsp;:&nbsp;&nbsp;<input type="text" class="form-control" value="${notice.noticeTitle }" placeholder="제목" name="noticeTitle" id="noticeTitle"  required>
+	        </div>
+		</div>
+<!-- 			<div class="input-group mb-3" style="padding: 0px;">
 				<div class="input-group-prepend" style="padding: 0px;">
 					<span class="input-group-text">첨부파일1</span>
 				</div>
@@ -34,10 +184,10 @@
 					<input type="file" class="custom-file-input" name="upFile" id="upFile1"> 
 					<label class="custom-file-label" for="upFile1">파일을 선택하세요</label>
 				</div>
-			</div>
+			</div> -->
 
 			
-			<div class="input-group mb-3" style="padding: 0px;">
+<!-- 			<div class="input-group mb-3" style="padding: 0px;">
 				<div class="input-group-prepend" style="padding: 0px;">
 					<span class="input-group-text">첨부파일2</span>
 				</div>
@@ -45,45 +195,83 @@
 					<input type="file" class="custom-file-input" name="upFile" id="upFile2"> 
 					<label class="custom-file-label" for="upFile2">파일을 선택하세요</label>
 				</div>
-			</div>
+			</div> -->
 			
-			<div id="preview"></div>
-	        <div id="preview2"></div>
+			<!-- <div id="preview"></div>
+	        <div id="preview2"></div> -->
 
         
+        <div id="textEditor" class="marginTop">
+        <textarea class="form-control" name="noticeContent" id="editor1" placeholder="내용" required>
+        <c:out value="${notice.noticeContent }"/></textarea>
+        </div>
         
-        <textarea class="form-control" name="noticeContent" placeholder="내용" required><c:out value="${notice.noticeContent }"/></textarea>
-        <br>
+        <div id="submitBtn">
+        <button class="marginTop btn btn-outline-secondary" type="button" onclick="fn_submit();" id="bbtn">수정완료</button>
+        <input type="reset" class="marginTop btn btn-outline-secondary" id="bbtn" value="취소">
+        </div>
         
-        <input type="submit" value="수정완료">
-        <input type="reset" value="취소">
-        
+		
         </form>
         
-        </div>
-
         
-	</section>
+        </div>
+		</div>
+      	</div>
+        
 	
+		<script type="text/javascript">
+		CKEDITOR.replace( 'noticeContent',{
+			width:'100%',
+			height:'1000px'
+		});
+	
+		</script>
 	
         <script>
         $(function(){
+    		CKEDITOR.replace('editor1',{
+    			filebrowserUploadUrl: '${path}/customer/customerNoticeFileUpload',
+    			width: '100%',
+    		    height: 400
+    		})
+
+
+    	})
+    	
+    	function fn_submit(){
+    		let value = CKEDITOR.instances.editor1.getData();
+        	console.log(value);
+ 			if (confirm("정말 수정하시겠습니까?") == true){
+				 
+    		document.getElementById('editor1').value = value;
+    		
+    		document.getElementById('frm').submit();
+    		
+    		
+			 }else{  
+			     return;
+			 }
+    	}
+        
+        
+        /* $(function(){
         	$('[name=upFile]').change(e=>{
         		const fileName=$(e.target)[0].files[0].name; 
         		$(e.target).next(".custom-file-label").html(fileName);
         		
         	})
-        })
+        }) */
         
 
         
-	    function submit(){
+/* 	    function submit(){
 			 if (confirm("정말 수정하시겠습니까?") == true){
 				 
 			 }else{  
 			     return;
 			 }
-		}
+		} */
         
         $(document).ready(function (e){
 	        $("input[id='upFile1']").change(function(e){

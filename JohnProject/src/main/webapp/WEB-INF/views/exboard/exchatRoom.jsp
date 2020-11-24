@@ -44,11 +44,13 @@ html, body, div, span, applet, object, iframe, h1, h2, h3, h4, h5, h6, p, blockq
 /* 상단 영역 비디오 자신 뷰*/
 #video1 {
 	z-index: 2;
+	/* position: relative; */
 	position: absolute;
-	right: 25.5%;
-	top: 65.5%;
+ 	right: 25.5%;
+	top: 64.5%;
+	object-fit: cover;
 	border: 2px solid #FFCC66;
-	width: 10%;
+	width: 25vh;
 }
 
 /* 상단 영역 비디오 div */
@@ -148,7 +150,7 @@ textarea {
 
 /* 이미지 영역 div */
 #imgDiv {
-	 border: 25px solid white;
+	border: 2vh solid white;
 	border-radius: 8px;
 	background-color:white;
 	height: 100%;

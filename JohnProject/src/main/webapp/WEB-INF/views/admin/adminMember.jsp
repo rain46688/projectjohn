@@ -270,7 +270,7 @@ appearance: none;
 			<div id="totalone">
 			
 			<div id="three">
-			<select name="searchType" class="form-control" required>
+			<select name="searchType" class="form-control" >
 				<option value=" " disabled selected>검색타입</option>
 
 				<option value="mem_name"
@@ -309,7 +309,11 @@ appearance: none;
 				<label>
 				<input type="checkbox"
 				name="memClass" value="일반유저">일반유저 
-				</label>&nbsp;&nbsp;&nbsp;&nbsp;
+				</label>&nbsp;&nbsp;
+				<label>
+				<input type="checkbox"
+				name="memClass" value="예비전문가">예비전문가 
+				</label>&nbsp;&nbsp;
 				
 				<label>
 				<input type="checkbox"
@@ -325,6 +329,9 @@ appearance: none;
 			</div>	
 			
 			</div>
+			
+			
+			
 			
 		</form>
 	</div>

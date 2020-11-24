@@ -47,11 +47,12 @@ public class AdminController {
 	   private AES256Util aes;
 
 	// 어드민 메뉴화면 이동(임시)
-	@RequestMapping("/admin/adminPage")
-	public String adminPage() {
-		return "/admin/adminPage";
-	}
+//	@RequestMapping("/admin/adminPage")
+//	public String adminPage() {
+//		return "/admin/adminPage";
+//	}
 
+	
 	// 멤버 리스트 불러오기
 	@RequestMapping("/admin/adminMember")
 	public ModelAndView adminMember(ModelAndView mv,
@@ -206,7 +207,7 @@ public class AdminController {
 		List<Board> list = service.searchBoardList(param, cPage, numPerPage);
 		
 
-		mv.addObject("pageBar", PageBarFactory.getPageBar(totalData, cPage, numPerPage, "adminBoard"));
+		mv.addObject("pageBar", PageBarFactory.getPageBar(totalData, cPage, numPerPage, "adminBoardSearch"));
 
 		mv.addObject("totalData", totalData);
 		System.out.println("토탈데이터:"+totalData);
@@ -356,7 +357,7 @@ public class AdminController {
 			a.setMemEmail(memberId);
 		}
 
-		mv.addObject("pageBar", PageBarFactory.getPageBar(totalData, cPage, numPerPage, "adminMember"));
+		mv.addObject("pageBar", PageBarFactory.getPageBar(totalData, cPage, numPerPage, "adminExpertSearch"));
 
 		mv.addObject("totalData", totalData);
 		System.out.println("토탈데이터:"+totalData);
@@ -369,11 +370,11 @@ public class AdminController {
 	//전문가 상담진행상황 불러오기(진행중)
 	@RequestMapping("/admin/adminExpertCounsel0")
 	public ModelAndView adminExpertCounsel(ModelAndView mv, 
-			@RequestParam(value = "cPage", required = false, defaultValue = "1") int cPage,
-			@RequestParam(value = "numPerPage", required = false, defaultValue = "5") int numPerPage) {
+			@RequestParam(value="cPage", required = false, defaultValue = "1") int cPage,
+			@RequestParam(value="numPerPage", required = false, defaultValue = "5") int numPerPage) {
 		
-		List<ExpertRequest> list = service.selectAdminExpertCounsel(cPage,numPerPage);
-		int totalData = service.selectAdminExpertCounselCount();
+		List<ExpertRequest> list = service.selectAdminExpertCounsel0(cPage,numPerPage);
+		int totalData = service.selectAdminExpertCounselCount0();
 		
 		mv.addObject("pageBar", PageBarFactory.getPageBar(totalData, cPage, numPerPage, "adminExpertCounsel0"));
 		System.out.println("컨트롤러 numperpage"+numPerPage);
@@ -387,11 +388,11 @@ public class AdminController {
 	//전문가 상담진행상황 불러오기(종료)
 	@RequestMapping("/admin/adminExpertCounsel1")
 	public ModelAndView adminExpertCounsel2(ModelAndView mv, 
-			@RequestParam(value = "cPage", required = false, defaultValue = "1") int cPage,
-			@RequestParam(value = "numPerPage", required = false, defaultValue = "5") int numPerPage) {
+			@RequestParam(value="cPage", required = false, defaultValue = "1") int cPage,
+			@RequestParam(value="numPerPage", required = false, defaultValue = "5") int numPerPage) {
 		
-		List<ExpertRequest> list = service.selectAdminExpertCounsel2(cPage,numPerPage);
-		int totalData = service.selectAdminExpertCounselCount2();
+		List<ExpertRequest> list = service.selectAdminExpertCounsel1(cPage,numPerPage);
+		int totalData = service.selectAdminExpertCounselCount1();
 		
 		mv.addObject("pageBar", PageBarFactory.getPageBar(totalData, cPage, numPerPage, "adminExpertCounsel1"));
 

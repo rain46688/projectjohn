@@ -76,9 +76,8 @@
 .marginTop6{
 	margin-top: 0.5em;
 	margin-bottom:0.5em;
-	margin-left:1%;
-	margin-right:1%;
-	width:98%;
+	margin-left:0%;
+	width:100%;
 	font-size:20px;
 	color:white;
  	background-color:#003478; 
@@ -88,10 +87,10 @@
 
 
 
-
 .accordion .accordion-item {
   border-bottom: 1px solid white;
   border-radius:20px;
+  width:100%;
 }
 
 .accordion .accordion-item button[aria-expanded='true'] {
@@ -198,6 +197,41 @@ border-radius:20px;
   margin: 2em 0;
 }
 
+
+#btnDiv{
+	text-align:center;
+}
+
+#bbtn{
+	margin-top:3%;
+	border-color: #ffcc66;
+    color: white; 
+    background-color: #003478;
+	
+}
+
+#bbtn:hover,
+#bbtn:focus {
+    background-color: #ffcc66;
+    border-color: #003478;
+    color: #003478; 
+
+}
+
+.marginTop7{
+	margin-top: 0.5em;
+	margin-bottom:0.5em;
+	margin-left:1%;
+	margin-right:1%;
+	width:98%;
+	font-size:20px;
+	color:white;
+ 	/* background-color:#003478;  */
+	border-radius:20px;
+	padding:1%;
+}
+
+
 </style>
     
 	<section id="content">
@@ -208,7 +242,8 @@ border-radius:20px;
 		<div class="input-group marginTop2">
 		[<c:out value="${report.reportId }"/>]&nbsp;
 		</div>
-		
+			<br>
+			<hr color="black">
 		
 		<%-- 신고접수회원번호<input type="text" class="form-control" name="reportWriterUsid" value="${report.reportWriterUsid }" readonly required> --%>
         <%-- 신고대상회원<input type="text" class="form-control" name="reportTargetUsid" id="reportTargetUsid" value="${report.reportTargetUsid}" >  --%>
@@ -231,15 +266,18 @@ border-radius:20px;
 	       </div>
        </div>
 <%-- 		<c:forEach items="${reportFile}" var="r" varStatus="vs">
-             <img src="${path }/resources/upload/report/${r.reportFileName }">
+             <img src="${path }/resources/upload/admin/${r.reportFileName }">
         </c:forEach>  --%>
 		<div class="input-group marginTop4">
         <img src="${path }/resources/images/admin/check.png" width="30px" height="30px">&nbsp;신고내용&nbsp;:
         </div>
         <div class="input-group marginTop5">
-        <textarea class="form-control" name="reportContent" placeholder="내용" required readonly id="reportContent"><c:out value="${report.reportContent }"/></textarea>
+        <textarea class="form-control" name="reportContent" placeholder="내용" required readonly id="reportContent">
+        <c:out value="${report.reportContent }"/></textarea>
 		</div>
         
+        
+        <input type="hidden" id="reportIswarning" value="<c:out value="${report.reportIswarning }"/>">
         <br>
    		
    
@@ -247,7 +285,7 @@ border-radius:20px;
 
 	<script type="text/javascript">
 	CKEDITOR.replace( 'reportContent',{
-		width:'1000px',
+		width:'100%',
 		height:'1000px'
 	});
 	
@@ -274,8 +312,8 @@ border-radius:20px;
 	
 		
 		<!-- <h5>답글달기</h5> -->
-		<div class="input-group marginTop1">
-			<form class="form-contact comment_form" action="${path}/report/reportAnswer?reportId=${report.reportId}"
+		<div class="input-group marginTop7">
+			<form class="form-contact comment_form" action="${path}/admin/reportAnswer?reportId=${report.reportId}"
 				id="commentForm" method="post">
 					
 				
@@ -293,34 +331,29 @@ border-radius:20px;
 							class="button button-contactForm btn_1 boxed-btn"
 							onclick="function validate();">답글달기</button>
 					</div> -->
-					
-					<div class="accordion-item">
-						<button id="accordion-button-1" aria-expanded="false" onclick="function validate();">
-							<span class="accordion-title">답글달기</span>
-							<span class="icon" aria-hidden="true"></span>
-						</button>
-						<div class="accordion-content">
-							<textarea class="form-control w-100" name="reportAnswer"
-								id="reportAnswer" cols="30" rows="9"
-								placeholder="답글을 적어주세요"></textarea>
+					<div class="accordion">
+						<div class="accordion-item">
+							<button type="button" id="accordion-button-1" aria-expanded="false">
+								<span class="accordion-title">답글달기</span>
+								<span class="icon" aria-hidden="true"></span>
+							</button>
+							<div class="accordion-content">
+								<!-- <button type="submit" id="bbtn2" onclick="function validate();">SUBMIT</button> -->
+								<textarea class="form-control w-100" name="reportAnswer"
+									id="reportAnswer" cols="500" rows="500"
+									placeholder="답글을 적어주세요"></textarea>
+							</div>
 						</div>
 					</div>
 		
 			</form>
 		</div>
 		
-		<script>
-			function validate(){
-				if ('${loginMember.memClass}' != '관리자') {
-					alert("관리자만 등록할 수 있습니다!");
-					return false;
-				}
-			};
-		</script>
-
-  
-        <button class="btn btn-outline-info" onclick="reportWarn('${report.reportTargetUsid}');">경고주기</button>
-        <button class="btn btn-outline-info" onclick="reportViewDelete('${report.reportId}');">삭제하기</button>
+		
+  		<div id="btnDiv">
+        <button class="btn btn-outline-info" onclick="reportWarn('${report.reportTargetUsid}');" id="bbtn">경고주기</button>
+        <button class="btn btn-outline-info" onclick="reportViewDelete('${report.reportId}');" id="bbtn">삭제하기</button>
+        </div>
 </div>  
 
 
@@ -336,24 +369,76 @@ border-radius:20px;
 	
 	
 	<script>
-
-		function reportViewDelete(reportId){
-			 if (confirm("정말 삭제하시겠습니까?") == true){
-				 location.href="${path}/report/adminReportDelete?reportId="+reportId;
-			 }else{  
-			     return;
-			 }
-		}
-		
+	
 		var reportIswarning=document.getElementById("reportIswarning").value;
 		
 		function reportWarn(reportTargetUsid){
 			 if (confirm("정말 경고를 주시겠습니까?") == true){
-				 location.href="${path}/report/adminReportWarn?reportTargetUsid="+reportTargetUsid+"&reportIswarning="+reportIswarning;
+				 location.href="${path}/admin/adminReportWarn?reportTargetUsid="+reportTargetUsid+"&reportIswarning="+reportIswarning;
 			 }else{  
 			     return;
 			 }
 		}
+		
+	
+
+		function reportViewDelete(reportId){
+			 if (confirm("정말 삭제하시겠습니까?") == true){
+				 location.href="${path}/admin/adminReportDelete?reportId="+reportId;
+			 }else{  
+			     return;
+			 }
+		}
+		
+		
+		
+				
+		$('#reportAnswer').keydown(
+				function(key) {
+					if (key.keyCode == 13) {
+						commentForm.submit();
+							validate();
+					}
+				});
+		
+		
+		
+		
+			function validate(){
+				if ('${loginMember.memClass}' != '관리자') {
+					alert("관리자만 등록할 수 있습니다!");
+					return false;
+				}
+			};
+			
+			
+			
+			
+			const items = document.querySelectorAll(".accordion button");
+
+			function toggleAccordion() {
+			  const itemToggle = this.getAttribute('aria-expanded');
+			  
+			  for (i = 0; i < items.length; i++) {
+			    items[i].setAttribute('aria-expanded', 'false');
+			  }
+			  
+			  if (itemToggle == 'false') {
+			    this.setAttribute('aria-expanded', 'true');
+			  }
+			}
+
+			items.forEach(item => item.addEventListener('click', toggleAccordion));
+
+			
+			
+			
+			
+
+			
+			
+	
+
 		
 	</script>
 	

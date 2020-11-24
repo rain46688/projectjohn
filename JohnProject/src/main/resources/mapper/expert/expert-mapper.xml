@@ -86,9 +86,30 @@
 	SELECT * FROM EXPERT_REQUEST
 </select>
 
-<select id="selectLicenseKind" resultType	="list" >
+<select id="selectLicenseKind" resultType	="string" >
 	SELECT * FROM LICENSE_KIND
 </select>
+
+<select id="selectCounselKind" resultType	="string" >
+	SELECT * FROM COUNSEL_KIND
+</select>
+
+<select id="selectCompanyKind" resultType	="string" >
+	SELECT * FROM COMPANY_KIND
+</select>
+
+<!--  -->
+<update id="updateLicenseModify" parameterType="license">
+	UPDATE LICENSE SET LICENSE_FILE_NAME = #{licenseFileName},LICENSE_DATE = #{licenseDate},LICENSE_TYPE = #{licenseType},LICENSE_COMPANY = #{licenseCompany} WHERE LICENSE_ID=#{licenseId}
+</update>
+
+<insert id="insertLicenseModify" parameterType="license">
+	INSERT INTO LICENSE VALUES(SEQ_LICENSE_NO.NEXVAL,#{licenseMemUsid},#{licenseFileName},#{licenseDate},#{licenseType},#{licenseCompany})
+</insert>
+
+<update id="updateExInfoModify" parameterType="expert">
+	UPDATE EXPERT_INFO SET EXPERT_GREETINGS = #{expertGreetings}, EXPERT_PROFILE = #{expertProfile},EXPERT_COUNSEL_AREA = #{expertCounselArea}, EXPERT_COUNSEL_START_TIME = #{expertCounselStartTime},EXPERT_COUNSEL_END_TIME = #{expertCounselEndTime}  WHERE EXPERT_USID=#{expertUsid}
+</update>
 
 	<resultMap type="exboard" id="exboardMap">
 		<id column="EXPERT_BOARD_ID" property="expertBoardId" />

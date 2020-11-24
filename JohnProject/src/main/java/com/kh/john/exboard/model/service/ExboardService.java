@@ -51,4 +51,12 @@ public interface ExboardService {
 
 	List<String> selectLicenseKind() throws Exception;
 
+	List<String> selectCounselKind() throws Exception;
+
+	List<String> selectCompanyKind() throws Exception;
+
+	void updateLicenseModify(List<License> paramlist) throws Exception;
+
+	void updateExInfoModify(Expert et) throws Exception;
+
 }

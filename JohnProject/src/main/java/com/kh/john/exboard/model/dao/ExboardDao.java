@@ -55,4 +55,14 @@ public interface ExboardDao {
 
 	List<String> selectLicenseKind(SqlSessionTemplate session) throws Exception;
 
+	List<String> selectCounselKind(SqlSessionTemplate session) throws Exception;
+
+	List<String> selectCompanyKind(SqlSessionTemplate session) throws Exception;
+
+	void updateLicenseModify(SqlSessionTemplate session, License li) throws Exception;
+
+	void insertLicenseModify(SqlSessionTemplate session, License li) throws Exception;
+
+	void updateExInfoModify(SqlSessionTemplate session, Expert et) throws Exception;
+
 }

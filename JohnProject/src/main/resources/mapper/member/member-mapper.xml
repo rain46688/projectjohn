@@ -140,12 +140,11 @@
 	SELECT * FROM MEMBER WHERE MEM_NICKNAME LIKE '%' || #{nick} || '%'
 </select>
 
-<select id="loadMemberChat" parameterType="_int" resultMap="mCMap">
-	SELECT * FROM MEMBER_CHAT WHERE MCHAT_FIRST_USID=#{usid} OR MCHAT_SECOND_USID==#{usid} ORDER BY MCHAT_DATE ASC
-</select>
-
 <select id="loadAllChatList" resultMap="mCMap">
-	SELECT MEMBER_CHAT.*,TO_CHAR(MCHAT_DATE,'YYYY-mm-DD HH24:Mi') FROM MEMBER_CHAT ORDER BY MCHAT_DATE ASC
+	SELECT M.*,TO_CHAR(M.MCHAT_DATE,'YYYY-mm-DD HH24:Mi'),F.MEM_NICKNAME AS FIRSTNICK,F.PROFILE_PIC AS FIRSTPIC,S.MEM_NICKNAME AS SECONDNICK,S.PROFILE_PIC AS SECONDPIC FROM MEMBER_CHAT M 
+	LEFT JOIN MEMBER F ON M.MCHAT_FIRST_USID=F.USID
+	LEFT JOIN MEMBER S ON M.MCHAT_SECOND_USID=S.USID
+	ORDER BY M.MCHAT_DATE ASC
 </select>
 
 <select id="expertCounselingHistory" parameterType="_int" resultMap="expertBoardMap">
@@ -180,8 +179,12 @@
 	<result property="mchatSecondUsid" column="mchat_second_usid"/>
 	<result property="mchatContent" column="mchat_content"/>
 	<result property="mchatDate" column="mchat_date"/>
+	<result property="mchatDateString" column="TO_CHAR(M.MCHAT_DATE,'YYYY-MM-DDHH24:MI')"/>
 	<result property="mchatFile" column="mchat_file"/>
-	<result property="mchatDateString" column="TO_CHAR(MCHAT_DATE,'YYYY-mm-DDHH24:Mi')"/>
+	<result property="firstNick" column="FIRSTNICK"/>
+	<result property="firstProfilePic" column="FIRSTPIC"/>
+	<result property="secondNick" column="SECONDNICK"/>
+	<result property="secondProfilePic" column="SECONDPIC"/>
 </resultMap>
 <resultMap type="expertObjects" id="eOMap">
 	<result property="usid" column="usid"/>

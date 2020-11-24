@@ -32,6 +32,7 @@
 		padding: 1%;
 	}
 	div.msgBox{
+		overflow: auto;
 		background-color: white;
 		border-radius: 15px;
 		margin-bottom: 2px;
@@ -145,13 +146,13 @@
 		})
 	};
 
-	const msgListSocket=new WebSocket("wss://localhost${path}/msgListSocket");
+	const memberSocket=new WebSocket("wss://localhost${path}/memberSocket");
 	
-	msgListSocket.onopen=function(){
-		msgListSocket.send("messageListOpen");
+	memberSocket.onopen=function(){
+		memberSocket.send("messageOnOpen");
 	};
 	
-	msgListSocket.onmessage=function(e){
+	memberSocket.onmessage=function(e){
 		$("#savedContainer").html('');
 		let data=JSON.parse(e.data);
 		if(data!=null){
@@ -159,30 +160,89 @@
 			$.each(data, function(i,v){
 				msgList[i]=v;
 			})
+			console.log(msgList);
+			let usidList=new Array();
 			$.each(msgList,function(i,v){
-				let otherUsid=v['otherUsid'];
-				let otherProfilePic=v['otherProfilePic'];
-				let otherNick=v['otherNick'];
-				let latestMsg=v['latestMessage'];
-				let latestDate=v['latestDateStr'];
-				let myUsid=v['myUsid'];
-				if(myUsid=='${loginMember.usid}' || otherUsid=='${loginMember.usid}'){
-					let msgBox=$("<div/>").attr({"class":"msgBox","onclick":"location.href='${path}/member/myPage/message?usid=${loginMember.usid}&otherUsid="+otherUsid+"'"});
-					let picDiv=$("<div/>").attr("class","picDiv").html($("<img/>").attr("src","${path}/resources/profile_images/"+otherProfilePic));
-					let rightDiv=$("<div/>").attr("class","rightDiv");
-					let rightTopDiv=$("<div/>").attr("class","rightTopDiv");
-					let nickDiv=$("<div/>").attr("class","nickDiv").html(otherNick);
-					let dateDiv=$("<div/>").attr("class","dateDiv").html(latestDate);
-					let msgDiv=$("<div/>").attr("class","msgDiv").html(latestMsg);
-					rightTopDiv.append(nickDiv).append(dateDiv);
-					rightDiv.append(rightTopDiv).append(msgDiv);
-					msgBox.append(picDiv).append(rightDiv);
-					$("#savedContainer").append(msgBox);					
+				let firstUsid=v['mchatFirstUsid'];
+				let secondUsid=v['mchatSecondUsid'];
+				if(firstUsid=='${loginMember.usid}' || secondUsid=='${loginMember.usid}'){
+					// 수신인이 나
+					if(firstUsid!='${loginMember.usid}' && secondUsid=='${loginMember.usid}'){
+						let otherUsid=firstUsid;
+						if(!usidList.includes(otherUsid)){
+							usidList.push(otherUsid);
+						}
+					}
+					// 발신인이 나
+					if(firstUsid=='${loginMember.usid}' && secondUsid!='${loginMember.usid}'){
+						let otherUsid=secondUsid;
+						if(!usidList.includes(otherUsid)){
+							usidList.push(otherUsid);
+						}
+					}
 				}
 			});
+
+			let otherInfo=new Array();
+			let ourChat=new Array();
+			ourChat[i]=new Array();
+			for(var i in usidList){
+				let loginUsid='${loginMember.usid}';
+				let otherUsid=usidList[i];
+				$.each(msgList,function(index,value){
+					let firstUsid=value['mchatFirstUsid'];
+					let secondUsid=value['mchatSecondUsid'];
+					if((firstUsid==loginUsid && secondUsid==otherUsid) || (firstUsid==otherUsid && secondUsid==loginUsid)){
+						ourChat[i]=value;
+					}
+				});
+			}
+
+			function date_descending(a, b) {
+				var dateA = new Date(a['mchatDateString'].concat(":00"));
+				var dateB = new Date(b['mchatDateString'].concat(":00"));
+				return dateA < dateB ? 1 : -1;
+			};
+			ourChat.sort(date_descending);
+
+			$.each(ourChat,function(i,v){
+				let firstUsid=v['mchatFirstUsid'];
+				let secondUsid=v['mchatSecondUsid'];
+				let otherUsid;
+				let otherProfilePic;
+				let otherNick;
+				// if(firstUsid=='${loginMember.usid}' || secondUsid=='${loginMember.usid}'){
+					// 수신인이 나
+					if(firstUsid!='${loginMember.usid}' && secondUsid=='${loginMember.usid}'){
+						otherUsid=firstUsid;
+						otherProfilePic=v['firstProfilePic'];
+						otherNick=v['firstNick'];
+					}
+					// 발신인이 나
+					if(firstUsid=='${loginMember.usid}' && secondUsid!='${loginMember.usid}'){
+						otherUsid=secondUsid;
+						otherProfilePic=v['secondProfilePic'];
+						otherNick=v['secondNick'];
+					}
+				// }
+				let latestMsg=v['mchatContent'];
+				let latestDate=v['mchatDateString'];
+
+				let msgBox=$("<div/>").attr({"class":"msgBox","onclick":"location.href='${path}/member/myPage/message?usid=${loginMember.usid}&otherUsid="+otherUsid+"'"});
+				let picDiv=$("<div/>").attr("class","picDiv").html($("<img/>").attr("src","${path}/resources/profile_images/"+otherProfilePic));
+				let rightDiv=$("<div/>").attr("class","rightDiv");
+				let rightTopDiv=$("<div/>").attr("class","rightTopDiv");
+				let nickDiv=$("<div/>").attr("class","nickDiv").html(otherNick);
+				let dateDiv=$("<div/>").attr("class","dateDiv").html(latestDate);
+				let msgDiv=$("<div/>").attr("class","msgDiv").html(latestMsg);
+				rightTopDiv.append(nickDiv).append(dateDiv);
+				rightDiv.append(rightTopDiv).append(msgDiv);
+				msgBox.append(picDiv).append(rightDiv);
+				$("#savedContainer").append(msgBox);	
+			})
 		}
 	}
-	msgListSocket.onclose=function(){
+	memberSocket.onclose=function(){
 		console.log('onclose실행');
 	}
 </script>
