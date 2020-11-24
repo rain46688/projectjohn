@@ -1,7 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
-<%@ include file="/WEB-INF/views/common/header.jsp"%>
 <style>
-
 html, body, div, span, applet, object, iframe, h1, h2, h3, h4, h5, h6, p, blockquote, pre, a, abbr, acronym, address, big, cite, code, del, dfn, em,
 	ins, kbd, q, s, samp, small, strike, strong, sub, sup, tt, var, b, u, i, center, dl, dt, dd, ol, ul, li, fieldset, form, label, legend, table,
 	caption, tbody, tfoot, thead, tr, th, td, article, aside, canvas, details, embed, figure, figcaption, footer, header, hgroup, menu, nav, output, ruby,
@@ -20,18 +18,7 @@ html, body, div, span, applet, object, iframe, h1, h2, h3, h4, h5, h6, p, blockq
 	color:black;
 }
 
-#content *{
-  /* border:1px solid red;  */
-}
-
-#content{
-	display:flex;
-	align-items:center;
-	justify-content:center;
-	font-weight:bold;
-}
-
-#alcontent {
+/* #alcontent {
 	display:flex;
 	align-items:center;
 	justify-content:center;
@@ -40,7 +27,7 @@ html, body, div, span, applet, object, iframe, h1, h2, h3, h4, h5, h6, p, blockq
 	padding:2%;
 	background-color:white;
 	border-radius:1%;
-}
+} */
 
 .divListBody {
 	display: table-row-group;
@@ -111,7 +98,7 @@ html, body, div, span, applet, object, iframe, h1, h2, h3, h4, h5, h6, p, blockq
 	margin-top: 15px;
 	width: 100%;
 	font-size: 25px;
-	padding:3% 0 3% 0;
+	padding:5% 0 5% 0;
 }
 
 #sideDiv{
@@ -130,8 +117,6 @@ html, body, div, span, applet, object, iframe, h1, h2, h3, h4, h5, h6, p, blockq
 }
 
 </style>
-<section id="content">
-	<div id="alcontent">
 	<div class="divList">
 		<div id="sideDiv">
 		<label class="form-check-label">
@@ -145,17 +130,15 @@ html, body, div, span, applet, object, iframe, h1, h2, h3, h4, h5, h6, p, blockq
 				<li class="nav-item"><a class="nav-link">신고</a></li>
 				<li class="nav-item"><a class="nav-link">테스트</a></li>
 			</ul>
-			<div class="alarmPrintDiv"></div>
+			<div class="alarmPrintDiv">zz</div>
 		</div>
 	</div>
-		</div>
-</section>
 <script>
 
 'use strict';
 
-/* let newURL = window.location.pathname;
-console.log(newURL); */
+ let newURL = window.location.pathname;
+console.log(newURL); 
 //			/john/alarm/alarmList
 let alarmList = [];
 

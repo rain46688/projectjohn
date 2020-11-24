@@ -27,6 +27,11 @@
 	background-image: url("${path}/resources/images/background_pattern.png");
 	background-repeated: repeated;
 	/* background-color: rgb(201, 193, 181); */
+
+}
+
+.containerJohn *{
+	  border:1px solid red; 
 }
 
 #headerAndContent {
@@ -43,26 +48,6 @@
 
 #header > button {
 	float:right;
-}
-
-#al {
-	z-index: 2;
-	position: relative;
-	text-align: center;
-	width: 25px;
-	height: 25px;
-	top: 55%;
-	left:10%;
-	font-size: 15px; font-weight : bold;
-	color: yellow;
-	background-color: red;
-	border-radius: 70%;
-	border: 1px solid black;
-	box-shadow: 1px 1px 1px 1px gray;
-	font-weight: bold;
-}
-
-#bell {
 }
 
 #profileCon {
@@ -161,6 +146,7 @@
 	display: flex;
 	align-items: center;
 	justify-content: center;
+	height:70%;
 }
 
 #headerList li>a {
@@ -168,6 +154,60 @@
 	align-items: center;
 	justify-content: center;
 }
+
+#bellDiv{
+	display:flex;
+	width:100%;
+	height:100%;
+}
+
+#alarmDropdownDiv{
+	position: absolute;
+	z-index:4;
+	background-color:white;
+	top:11.3%;
+	right:2.6%;
+	padding:1%;
+	display:none;
+	font-weight:bold;
+	width:30%;
+	height:auto;
+	min-height:40%;
+}
+
+#al {
+	z-index: 2;
+	position: relative;
+	text-align: center;
+	width: 25px;
+	height: 25px;
+	top: 40%;
+	right:80%;
+	font-size: 15px; font-weight : bold;
+	color: black;
+	background-color: white;
+	border-radius: 70%;
+	border: 1px solid black;
+	box-shadow: 1px 1px 1px 1px gray;
+	font-weight: bold;
+	cursor:pointer;
+}
+
+
+#bell {
+	cursor:pointer;
+ 	width:100%;
+ 	height:100%;
+}
+
+#bellDiv:hover #alarmDropdownDiv{
+	display:flex;
+}
+
+#number:hover #alarmDropdownDiv{
+	display:flex;
+}
+
 </style>
 <body>
 	<div class="containerJohn">
@@ -203,7 +243,7 @@
 								<div id="profileCon">
 									<img id="profileImage" src="${path}/resources/profile_images/${loginMember.profilePic}">
 								</div>
-								<div class="dropdown-content">
+						<div class="dropdown-content">
 								  <a href="${path }/member/myPage?usid=${loginMember.usid}">마이페이지</a>
 								  <a href="${path}/customer/customerNotice">고객센터</a>
 								  <a href="${path}/admin/adminMember">ADMIN</a>
@@ -213,18 +253,21 @@
 							</div>
 						</li>
 						<li>
-							<c:if test="${loginMember.usid != null}">
-								<a id="bell" class="bell2" href="${path }/alarm/alarmList?usid=${loginMember.usid }"><ion-icon name="notifications-circle-outline"></ion-icon></a>
-								<c:if test="${loginMember.usid != null}">
-									<a id="number" href="${path }/alarm/alarmList?usid=${loginMember.usid }"></a>
-								</c:if>
-							</c:if>
+						<!--  -->
+								<div id="bellDiv">
+										<c:if test="${loginMember.usid != null}">
+											<a id="bell" class="bell2" ><ion-icon name="notifications-circle-outline"></ion-icon></a>
+											<c:if test="${loginMember.usid != null}">
+											<a id="number"></a>
+											</c:if>
+										</c:if>
+									<div id="alarmDropdownDiv">
+										<%@ include file="/WEB-INF/views/alarm/alarm.jsp"%>
+								</div> 
+							</div>
+						<!--  -->	
 						</li>
 					</ul>
-					<!-- 전문과 관련 페이지 접근용 임시 포탈 -->
-					<%-- <button onclick="location.href='${path}/expert'">전문가</button> --%>
-					<!-- 알람 임시 위치 & 이미지 나중에 수정해야됨 -->
-					
 				</div>
 
 

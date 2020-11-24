@@ -800,6 +800,7 @@ $('#mirrorimgDiv').hover(function(){
 -->
 
 //자격증 이미지 호버
+// 시간날때 여기 로직 정리좀 하기--11/23
 
 $('#licenseImg1').hover(function(){
 	liWith1 =  $("#imgLicense1").width();

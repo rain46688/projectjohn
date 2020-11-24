@@ -46,6 +46,7 @@
 					/* 기본적으로 실행되는 로직 알람이 왔다는 표시를 해줌 */
 					console.log("msg 콘솔 : " + msg);
 					let aldata = JSON.parse(msg.data);
+					console.log("aldata : "+aldata);
 					$("#number").html("");
 					$("#number").html("<div id='al'>!</div>");
 					$("#bell").addClass('bell2');
@@ -59,11 +60,15 @@
 							console.log("유저로 부터 상담 신청 삭제됨");
 							exListsendMessage("start");
 						}
-					}else if(window.location.pathname == '/john/alarm/alarmList'){
-						console.log('들어옴?');
-						alarmList = aldata;
-						printalfunc(alarmList,'expert');
 					}
+					//else if(window.location.pathname == '/john/alarm/alarmList'){
+					//	console.log('들어옴?');
+					//	alarmList = aldata;
+					//	printalfunc(alarmList,'expert');
+					//}
+					
+					alarmList = aldata;
+					printalfunc(alarmList,'expert');
 				};
 
 				function sendAlarm(send_usid, receive_usid, type, msg,

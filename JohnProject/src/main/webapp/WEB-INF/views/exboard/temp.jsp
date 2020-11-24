@@ -2,43 +2,44 @@
 <%@ include file="/WEB-INF/views/common/header.jsp"%>
 <style>
 
+html, body, div, span, applet, object, iframe, h1, h2, h3, h4, h5, h6, p, blockquote, pre, a, abbr, acronym, address, big, cite, code, del, dfn, em,
+	ins, kbd, q, s, samp, small, strike, strong, sub, sup, tt, var, b, u, i, center, dl, dt, dd, ol, ul, li, fieldset, form, label, legend, table,
+	caption, tbody, tfoot, thead, tr, th, td, article, aside, canvas, details, embed, figure, figcaption, footer, header, hgroup, menu, nav, output, ruby,
+	section, summary, time, mark, audio, video {
+	margin: 0;
+	padding: 0;
+	border: 0;
+	font-size: 100%;
+	font: inherit;
+	vertical-align: baseline;
+	-ms-user-select: none;
+	-moz-user-select: -moz-none;
+	-webkit-user-select: none;
+	-khtml-user-select: none;
+	user-select: none;
+	color:black;
+}
+
 #content *{
- border:1px solid red;
+  /* border:1px solid red;  */
 }
 
-#content {
-	text-align: center;
-	border-radius: 5px;
-	margin: 10% atuo;
-	height: auto;
-	width: 50%;
-	border-radius: 5px;
-	height: auto;
-	padding: 4em;
+#content{
+	display:flex;
+	align-items:center;
+	justify-content:center;
+	font-weight:bold;
 }
 
-.noti {
-	margin: 0px;
-	height: 80px;
-	/* display: none; */
-	/* display: inline-block; */
-	display: none;
-}
-
-.noContent {
-	margin-top: 20px;
-	margin-bottom: 15px;
-	font-size: 15px;
-	font-weight: bold;
-	width: 100%;
-}
-
-.divCell, .divTableHead {
-	border-bottom: 1px #DEE2E6 solid;
-	display: table-cell;
-	padding: 25px 10px;
-	width: 16.67%;
-	font-size: 15px;
+#alcontent {
+	display:flex;
+	align-items:center;
+	justify-content:center;
+	width:50%;
+	height:auto;
+	padding:2%;
+	background-color:white;
+	border-radius:1%;
 }
 
 .divListBody {
@@ -48,12 +49,60 @@
 .divList {
 	display: table;
 	width: 100%;
-	height: 80px;
+	height: 30%;
 	text-align: center;
 }
 
 .divRow {
 	display: table-row;
+}
+
+.divCell, .divTableHead {
+	 border-bottom: 1px #DEE2E6 solid;
+/* 	border-bottom: 1px #DEE2E6 solid;
+	border-right: 1px #DEE2E6 solid;
+	border-left: 1px #DEE2E6 solid; */
+	display: table-cell;
+	padding: 3%1%;
+	width: 16.67%;
+	font-size: 2vh;
+	/* background-color:#FFEB00; */
+	
+}
+
+
+.nav{
+	background-color: #003478;
+	border-radius:10% 2% 2%;
+}
+
+
+.nav-link {
+	cursor: pointer;
+	/* background-color: white; */
+	color:white;
+	font-weight:bold;
+	text-decoration: none;
+}
+
+.active{
+	color:black;
+	font-weight:bold;
+}
+
+.al {
+	margin: 0px;
+	height: 30%;
+	display: none;
+}
+
+.alContent {
+	margin-top: 20px;
+	margin-bottom: 15px;
+	font-size: 15px;
+	font-weight: bold;
+	width: 100%;
+	height:auto;
 }
 
 .empty {
@@ -62,14 +111,33 @@
 	margin-top: 15px;
 	width: 100%;
 	font-size: 25px;
+	padding:3% 0 3% 0;
 }
 
-.nav-link {
-	cursor: pointer
+#sideDiv{
+	float:right;
+	padding:1%;
+	cursor: pointer;
 }
+
+.form-check-label{
+	cursor: pointer;
+}
+
+.date{
+	text-align:right;
+	font-size:1.5vh;
+}
+
 </style>
-<section id="content" class="container">
+<section id="content">
+	<div id="alcontent">
 	<div class="divList">
+		<div id="sideDiv">
+		<label class="form-check-label">
+    		<input id="check" type="checkbox" class="form-check-input" value="">모두 보기
+  		</label>
+		<img src="${path}/resources/images/delete.png" alt="" width="30px" height="30px"></div>
 		<div class="divListBody">
 			<ul class="nav nav-tabs">
 				<li class="nav-item"><a class="nav-link active">상담</a></li>
@@ -80,6 +148,7 @@
 			<div class="alarmPrintDiv"></div>
 		</div>
 	</div>
+		</div>
 </section>
 <script>
 
@@ -116,23 +185,60 @@ $(".nav-link").click(e =>{
 	}
 });
 
+/* $('.nav-item').hover(function() {
+	console.log("z")
+	if(!$(this).children().hasClass('active')){
+		$(this).children().css('color', '#FECC66');
+	}
+}, function() {
+	console.log("z2")
+	if(!$(this).children().hasClass('active')){
+		$(this).children().css('color', 'white');
+	}
+});
+ */
+
+/* $(".form-check-input").click(e =>{
+	console.log("체크 여부 : "+$("input:checkbox[name=checkbox]").is(":checked"));
+}); */
+
+
 //알람 프린트
 function printalfunc(list, type){
 	let print="";
 	console.log("printalfunc 실행 리스트 길이 : "+list.length+" 타입 : "+type);
 //	if(list.length > 0){
+	let allselectflag = $("#check").is(":checked");
+	console.log("체크 여부 : "+allselectflag);
+	
 	list.forEach((e, i)=>{
-		if(e['alarmType'].includes(type)){
-			console.log("출력");
-			print += "<div class='divRow shadow p-3 mb-5 bg-white rounded' style='cursor: pointer'>";
-			print += "<input type='hidden' value='"+e['alarmId']+"'>";
-			print += "<div class='divCell'>"+e['alarmSendMemNickname']+"상담사님으로 부터 상담 요청이있습니다.<br> <small>"+e['tmpDate']+"</small></div></div>";
-			print += "<div class='noti'><div class='noContent'>"
-			print += "안녕하세요 상담사 "+e['alarmSendMemNickname']+"입니다.<br> 아래 URL로 바로 접속하셔서 상담 진행하시면됩니다.<br>" 
-			print += "<a href='${path }/expert/expertRoom?bno="+e['alarmMsgContent']+"'>상담 링크 바로가기</a></div></div>"
+		if(allselectflag == true){
+			if(e['alarmType'].includes(type)){
+				console.log("출력");
+				/* shadow p-3 mb-5 bg-white rounded */
+				print += "<div class='divRow' style='cursor: pointer'>";
+				print += "<input type='hidden' value='"+e['alarmId']+"'>";
+				print += "<div class='divCell'>1 : 1 영상 상담 요청이있습니다.<div class='date'>"+e['tmpDate']+"</div></div></div>";
+				print += "<div class='al'><div class='alContent'>"
+				print += "안녕하세요 상담사 "+e['alarmSendMemNickname']+"입니다.<br> 아래 URL로 바로 접속하셔서 상담 진행하시면됩니다.<br>" 
+				print += "<a href='${path }/expert/expertRoom?bno="+e['alarmMsgContent']+"'>-클릭해서 상담 접속-</a></div></div>"
+			}else{
+				//추가 예정
+				print = "<div class='empty'>알림이 비어있습니다.</div>";
+			}
 		}else{
-			//추가 예정
-			print = "<div class='empty'>알람이 없습니다.</div>";
+			if(e['alarmType'].includes(type) && e['alarmIscheked'] == false){
+				console.log("출력");
+				print += "<div class='divRow' style='cursor: pointer'>";
+				print += "<input type='hidden' value='"+e['alarmId']+"'>";
+				print += "<div class='divCell'>1 : 1 영상 상담 요청이있습니다.<div class='date'>"+e['tmpDate']+"</div></div></div>";
+				print += "<div class='al'><div class='alContent'>"
+				print += "안녕하세요 상담사 "+e['alarmSendMemNickname']+"입니다.<br> 아래 URL로 바로 접속하셔서 상담 진행하시면됩니다.<br>" 
+				print += "<a href='${path }/expert/expertRoom?bno="+e['alarmMsgContent']+"'>-클릭해서 상담 접속-</a></div></div>"
+			}else{
+				//추가 예정
+				print = "<div class='empty'>알림이 비어있습니다.</div>";
+			}
 		}
 	});
 //	}else{
@@ -169,18 +275,20 @@ $(function(){
 //리스트 뿌린후 한번 실행시켜줘야 호버 작동함!
 function divhover(){
 	$(".divRow").click(e=>{
-		   $(e.target).parent().next().slideToggle('slow', function() {
+		   $(e.target).parent().next().slideToggle('fast', function() {
 		     });
-		   $(this).removeClass( 'shadow p-3 mb-5 bg-white rounded' );
+		  // $(this).removeClass( 'shadow p-3 mb-5 bg-white rounded' );
 		});
 		$('.divRow').hover(function() {
 			//console.log("온");
 			$(this).css('color', '#FFC107');
-			$(this).removeClass('shadow p-3 mb-5 bg-white rounded');
+			$(this).addClass('shadow p-3 mb-5 bg-white rounded');
+			//$(this).removeClass('shadow p-3 mb-5 bg-white rounded');
 		}, function() {
 			//console.log("오프");
 			$(this).css('color', 'black');
-			$(this).addClass('shadow p-3 mb-5 bg-white rounded');
+			//$(this).addClass('shadow p-3 mb-5 bg-white rounded');
+			$(this).removeClass('shadow p-3 mb-5 bg-white rounded');
 		});
 };
 divhover();
