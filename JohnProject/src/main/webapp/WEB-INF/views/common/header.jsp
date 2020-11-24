@@ -31,7 +31,7 @@
 }
 
 .containerJohn *{
-	 /*  border:1px solid red;  */
+	  border:1px solid red;  
 }
 
 #headerAndContent {
@@ -167,12 +167,12 @@
 	background-color:white;
 	top:11.3%;
 	right:2.6%;
-	padding:1%;
+	padding:0.5%;
 	display:none;
 	font-weight:bold;
-	width:30%;
+	width:25%;
 	height:auto;
-	min-height:40%;
+	min-height:30%;
 }
 
 #al {
@@ -256,13 +256,13 @@
 						<!--  호버 -->
 								<div id="bellDiv">
 										<c:if test="${loginMember.usid != null}">
-											<a id="bell" class="bell2" ><ion-icon name="notifications-circle-outline"></ion-icon></a>
+											<a id="bell" ><ion-icon name="notifications-circle-outline"></ion-icon></a>
 											<c:if test="${loginMember.usid != null}">
 											<a id="number"></a>
 											</c:if>
 										</c:if>
 									<div id="alarmDropdownDiv">
-									
+										<%@ include file="/WEB-INF/views/alarm/alarm.jsp"%>
 								</div> 
 							</div>
 						<!--  -->	

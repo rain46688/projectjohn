@@ -9,6 +9,7 @@
 	console.log("세션 스토리지 => usid : "+usid+" path : "+path);	 		
 
 				function alarmPrint() {
+
 					if (usid != "") {
 						$.ajax({
 							type : "GET",
@@ -32,13 +33,14 @@
 					}
 				};
 
+				// 서버 주소 잘 확인하기!
 				//const alsocket = new WebSocket("wss://localhost/john/alsocket");
 				//const alsocket = new WebSocket("wss://192.168.120.31path/alsocket");
 				const alsocket = new WebSocket("wss://192.168.219.105"+path+"/alsocket");
 
 				alsocket.onopen = function() {
 					console.log('오픈');
-					alarmPrint();
+					//alarmPrint();
 					alsocket.send('list');
 				};
 
@@ -50,7 +52,22 @@
 					$("#number").html("");
 					$("#number").html("<div id='al'>!</div>");
 					$("#bell").addClass('bell2');
+					// 알람 리스트에 값을 넣어주고 새로 갱신해줌 기본이 상담 리스트를 뿌려줌
+					alarmList = aldata;
+					printalfunc(alarmList,'expert');
+
+					if (usid != "") {
+						console.log("로그인 되있음");
+						if(alarmList.length > 0){
+							console.log("느낌표");
+							$("#number").html("<div id='al'>!</div>");
+							}
+					} else {
+						console.log("로그인이 안되있습니다.");
+					}
+					
 					/*  */
+					//각각 페이지에 따라 분기 처리 
 					if(window.location.pathname == '/john/expert/expertRequestPrintList'){
 						console.log("신청");
 						if(aldata['alarmType'] == 'expertApply'){
@@ -62,13 +79,8 @@
 						}
 					}
 					//else if(window.location.pathname == '/john/alarm/alarmList'){
-					//	console.log('들어옴?');
-					//	alarmList = aldata;
-					//	printalfunc(alarmList,'expert');
 					//}
-					
-					alarmList = aldata;
-					printalfunc(alarmList,'expert');
+				
 				};
 
 				function sendAlarm(send_usid, receive_usid, type, msg,
@@ -89,15 +101,3 @@
 					this.alarmDate = alarmDate;
 					this.alarmIscheked = alarmIscheked;
 				};
-
-				$('#alarmdiv').hover(function() {
-					$(this).css({
-						"height" : "110%",
-						"width" : "62px"
-					});
-				}, function() {
-					$(this).css({
-						"height" : "100%",
-						"width" : "60px"
-					});
-				});
