@@ -31,7 +31,7 @@
 }
 
 .containerJohn *{
-	/*   border:1px solid red;   */
+	/*   border:1px solid red;  */
 }
 
 #headerAndContent {
@@ -159,6 +159,7 @@
 	display:flex;
 	width:100%;
 	height:100%;
+	align-items: center;
 }
 
 #alarmDropdownDiv{
@@ -196,7 +197,6 @@
 #bell {
 	cursor:pointer;
  	width:100%;
- 	height:100%;
 }
 
 #bellDiv:hover #alarmDropdownDiv{

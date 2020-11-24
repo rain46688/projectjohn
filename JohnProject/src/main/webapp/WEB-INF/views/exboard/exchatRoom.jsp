@@ -685,6 +685,7 @@ textarea {
 			 		//exit(); 
 					sendMessage(new ExboardMsg("END","${loginMember.memClass}", "종료"));
 					//알람 발송 - 상담이 완료됬다는 알람 - 페이지가 넘어가기때문에 바로 변경해줄 사항 없음
+					console.log("usid : ${loginMember.usid}"+" 유저 usid : "+user_usid+" bno : ${bno}"+"닉 : ${loginMember.memNickname}");
 					sendAlarm("${loginMember.usid}",user_usid,"expertend","${bno}","${loginMember.memNickname}");
 					result = false;
 				}

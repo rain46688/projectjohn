@@ -25,7 +25,7 @@ public interface ExboardService {
 
 	List<ExpertRequest> selectExpertRequest(Member mem) throws Exception;
 
-	int insertExpertBoard(String memusid, Member expertmem) throws Exception;
+	int insertExpertBoard(String memusid, String memnic, Member expertmem) throws Exception;
 
 	List<ExpertBoard> selectExpertBoard(Member mem) throws Exception;
 
