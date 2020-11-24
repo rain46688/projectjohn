@@ -31,7 +31,8 @@ html, body, div, span, applet, object, iframe, h1, h2, h3, h4, h5, h6, p, blockq
 }
 
 #content * {
-	border: 1px solid red;
+	/* border: 1px solid red; */
+	font-family: 'Noto Serif KR', serif;
 }
 
 /* 기본 배경 */
@@ -60,7 +61,8 @@ html, body, div, span, applet, object, iframe, h1, h2, h3, h4, h5, h6, p, blockq
 #upDiv {
 	height: 15%;
 	width: 100%;
-	background-color: #0054BA;
+	/* background-color: #0054BA; */
+	background-color: #003478;
 	padding: 1.5%;
 	display: flex;
 	border: 1px solid #C6C5C5;
@@ -114,6 +116,7 @@ html, body, div, span, applet, object, iframe, h1, h2, h3, h4, h5, h6, p, blockq
 	width: 40%;
 	height: 100%;
 	background-color: rgba(255, 255, 255, 1);
+	border-radius:2%;
 }
 
 #mirrorimgDiv {
@@ -205,7 +208,7 @@ html, body, div, span, applet, object, iframe, h1, h2, h3, h4, h5, h6, p, blockq
 
 /* 년 */
 h6 {
-	font-size: 3vh;
+	font-size: 2vh;
 	font-weight: bold;
 }
 
@@ -221,7 +224,7 @@ h6 {
 
 /* 각 소제목들 p태그 */
 p {
-	font-size: 3vh;
+	font-size: 2vh;
 	font-weight: bold;
 	padding: 1% 0 1% 0;
 }
@@ -252,13 +255,14 @@ select {
 	height: 60%
 }
 
+textarea {
+	resize: none;
+	border-radius:1%;
+}
+
 /* 위 텍스트 영역 눌르면 옆에 테두리 생기는거 지우는 용도 */
 textarea:focus {
 	outline: none;
-}
-
-textarea {
-	resize: none;
 }
 
 /* 버튼 */
@@ -286,7 +290,7 @@ textarea {
 		<!-- profile -->
 		<div id="profileDiv">
 			<div id="imgDiv">
-				<img src="${path }/resources/images/expert.png" id="imgProfile" class="img-thumbnail" />
+				<img src="${path }/resources/profile_images/${mem.profilePic}"  id="imgProfile" class="img-thumbnail" />
 			</div>
 			<div id="mirrorimgDiv">
 				<p>+</p>
@@ -299,7 +303,7 @@ textarea {
 						<p>경력</p>
 						<div id="careerleftDiv">
 							<div id="exinput">
-								<input type="number" name="career" class="form-control short" min="1" max="99" value="${expert.expertRating }" />
+								<input type="number" name="career" class="form-control short" min="1" max="99" value="${expert.expertProfile }" />
 							</div>
 							<div id="exinput2">
 								<h6>년</h6>
@@ -309,12 +313,9 @@ textarea {
 					<div class="rightDiv">
 						<p>전문 분야</p>
 						<select id="counselSelect" name="counselSelect" required class="form-control short">
-							<option value="부부 상담" <c:if test="${expert.expertCounselArea eq '부부 상담'? 'selected':'' }"/>>부부 상담</option>
-							<option value="연애 상담" <c:if test="${expert.expertCounselArea eq '연애 상담'? 'selected':'' }"/>>연애 상담</option>
-							<option value="직장 상담" <c:if test="${expert.expertCounselArea eq '직장 상담'? 'selected':'' }"/>>직장 상담</option>
-							<option value="심리 상담" <c:if test="${expert.expertCounselArea eq '심리 상담'? 'selected':'' }"/>>심리 상담</option>
-							<option value="자녀 상담" <c:if test="${expert.expertCounselArea eq '자녀 상담'? 'selected':'' }"/>>자녀 상담</option>
-							<option value="진로 상담" <c:if test="${expert.expertCounselArea eq '진로 상담'? 'selected':'' }"/>>진로 상담</option>
+								<c:forEach items="${coukindList }" var="counselList"  varStatus="status">
+								 <option value="${counselList}" ${expert.expertCounselArea == counselList ? 'selected="selected"' : '' } >${counselList}</option>
+								</c:forEach>
 						</select>
 					</div>
 				</div>
@@ -342,7 +343,7 @@ textarea {
 			</div>
 			<div id="buttonDiv">
 				<button class="btn btn-outline-success" onclick="modify();">수정완료</button>
-				<input id="profileUpload" type="file" >
+				<input id="profileUpload" type="file" style="display: none;">
 				<!-- style="display: none;" -->
 			</div>
 		</div>
@@ -458,6 +459,7 @@ textarea {
 	display: flex;
 	justify-content: center;
 	align-items: flex-end;
+	padding-bottom:2%;
 }
 
 .licenseImgView {
@@ -469,6 +471,7 @@ textarea {
 	align-items: center;
 	position: relative;
 	cursor: pointer;
+	background-color:white;
 }
 
 .licenseImgView>p {
@@ -495,7 +498,7 @@ textarea {
 			<input type="hidden" value="${license.licenseId }" class="licenseIdInput"/>
 			<div class="licenseDiv">
 				<div class="licenseImg" id="licenseImg${status.count}">
-					<img src="${path }/resources/images/expert.png" id="imgLicense${status.count}" class="img-thumbnail licenseImgs" />
+					<img src="${path }/resources/upload/upload_license/${license.licenseFileName }" id="imgLicense${status.count}" class="img-thumbnail licenseImgs" />
 				</div>
 				<div class="licenseImgView" id="licenseImgView${status.count}">
 					<p>+</p>
@@ -505,15 +508,10 @@ textarea {
 						<div class="licenseTitle">
 							<p>자격증 타입</p>
 						</div>
-						
-						<c:forEach items="${likindList }" var="litype"  varStatus="status">
-							<div>${litype}</div>
-						</c:forEach>
-						
 						<div class="licenseContent">
 							<select id="licenseTypeSelect${status.count}" name="licenseTypeSelect${status.count}" required class="form-control short licenseTypeSelect">
-							<c:forEach items="${likindList }" var="lity"  varStatus="status">
-								 <option value="${lity.LICENSE_KIND_NAME}"/>${lity.LICENSE_KIND_NAME}</option>
+							<c:forEach items="${likindList }" var="lity">
+								 <option value="${lity}" ${license.licenseType == lity ? 'selected="selected"' : '' } >${lity}</option>
 								</c:forEach>
 							</select>
 						</div>
@@ -523,7 +521,7 @@ textarea {
 							<p>자격증 발급 날짜</p>
 						</div>
 						<div class="licenseContent">
-							<input name="licenseTime1" id="licenseTime1" type="date" class="form-control times licenseTime">
+							<input name="licenseTime${status.count}" id="licenseTime${status.count}" type="date" class="form-control times licenseTime" value="${license.licenseDate}">
 						</div>
 					</div>
 					<div class="licenseCompany">
@@ -532,12 +530,9 @@ textarea {
 						</div>
 						<div class="licenseContent">
 							<select id="licenseCompanySelect${status.count}" name="licenseCompanySelect${status.count}" required class="form-control short licenseCompanySelect">
-								<option value="한국 청소년 상담 복지 개발원" selected>한국 청소년 상담 복지 개발원</option>
-								<option value="여성가족부">여성가족부</option>
-								<option value="삽업인력관리공단 큐넷">삽업인력관리공단 큐넷</option>
-								<option value="한국 상담 심리 학회">한국 상담 심리 학회</option>
-								<option value="한국 상담 학회">한국 상담 학회</option>
-								<option value="한국 임상 심리 학회">한국 임상 심리 학회</option>
+									<c:forEach items="${comkindList }" var="comli"  varStatus="status">
+								 <option value="${comli}" ${license.licenseCompany == comli ? 'selected="selected"' : '' } >${comli}</option>
+								</c:forEach>
 							</select>
 						</div>
 					</div>
@@ -545,11 +540,14 @@ textarea {
 			</div>
 			</c:forEach>
 
+	<c:set var="num" value="${fn:length(license) + 1}"/>
+	<c:forEach var ="i" begin="1" end="${3 - (fn:length(license))}">
+
 		<div class="licenseDiv">
-				<div class="licenseImg" id="licenseImg1">
-					<img src="${path }/resources/images/expert.png" id="imgLicense1" class="img-thumbnail licenseImgs" />
+				<div class="licenseImg" id="licenseImg${num}">
+					<img src="${path }/resources/upload/upload_license/nolicense.png" id="imgLicense${num}" class="img-thumbnail licenseImgs" />
 				</div>
-				<div class="licenseImgView" id="licenseImgView1">
+				<div class="licenseImgView" id="licenseImgView${num}">
 					<p>+</p>
 				</div>
 				<div class="licenseInfo">
@@ -558,27 +556,11 @@ textarea {
 							<p>자격증 타입</p>
 						</div>
 						<div class="licenseContent">
-							<select id="licenseTypeSelect1" name="licenseTypeSelect1" required class="form-control short licenseTypeSelect">
-								<option value="미술 심리 상담 지도사 1급" selected>미술 심리 상담 지도사 1급</option>
-								<option value="미술 심리 상담 지도사 2급">미술 심리 상담 지도사 2급</option>
-								<option value="노인 심리 상담 지도사">노인 심리 상담 지도사</option>
-								<option value="심리 상담 지도사 1급">심리 상담 지도사 1급</option>
-								<option value="음악 심리 상담 지도사 1급">음악 심리 상담 지도사 1급</option>
-								<option value="아동 심리 상담사">아동 심리 상담사</option>
-								<option value="부모 교육 심리 상담사">부모 교육 심리 상담사</option>
-								<option value="청소년 상담사 1급">청소년 상담사 1급</option>
-								<option value="청소년 상담사 2급">청소년 상담사 2급</option>
-								<option value="청소년 상담사 3급">청소년 상담사 3급</option>
-								<option value="직업 상담사 1급">직업 상담사 1급</option>
-								<option value="직업 상담사 2급">직업 상담사 2급</option>
-								<option value="직업 상담사 3급">직업 상담사 3급</option>
-								<option value="전문 상담사 1급">전문 상담사 1급</option>
-								<option value="전문 상담사 2급">전문 상담사 2급</option>
-								<option value="전문 상담사 3급">전문 상담사 3급</option>
-								<option value="임상 심리사 1급">임상 심리사 1급</option>
-								<option value="임상 심리사 2급">임상 심리사 2급</option>
-								<option value="전문 상담 교사">전문 상담 교사</option>
-								<option value="임상 심리 전문가">임상 심리 전문가</option>
+							<select id="licenseTypeSelect${num}" name="licenseTypeSelect${num}" required class="form-control short licenseTypeSelect">
+										 <option value="선택 안함" selected>선택 안함</option>
+									<c:forEach items="${likindList }" var="lity"  varStatus="status">
+								 <option value="${lity}" >${lity}</option>
+								</c:forEach>
 							</select>
 						</div>
 					</div>
@@ -587,7 +569,7 @@ textarea {
 							<p>자격증 발급 날짜</p>
 						</div>
 						<div class="licenseContent">
-							<input name="licenseTime1" id="licenseTime1" type="date" class="form-control times licenseTime">
+							<input name="licenseTime${num}" id="licenseTime${num}" type="date" class="form-control times licenseTime">
 						</div>
 					</div>
 					<div class="licenseCompany">
@@ -595,24 +577,25 @@ textarea {
 							<p>자격증 발급 기관</p>
 						</div>
 						<div class="licenseContent">
-							<select id="licenseCompanySelect1" name="licenseCompanySelect1" required class="form-control short licenseCompanySelect">
-								<option value="한국 청소년 상담 복지 개발원" selected>한국 청소년 상담 복지 개발원</option>
-								<option value="여성가족부">여성가족부</option>
-								<option value="삽업인력관리공단 큐넷">삽업인력관리공단 큐넷</option>
-								<option value="한국 상담 심리 학회">한국 상담 심리 학회</option>
-								<option value="한국 상담 학회">한국 상담 학회</option>
-								<option value="한국 임상 심리 학회">한국 임상 심리 학회</option>
+							<select id="licenseCompanySelect${num}" name="licenseCompanySelect${num}" required class="form-control short licenseCompanySelect">
+									 <option value="선택 안함" selected>선택 안함</option>
+								<c:forEach items="${comkindList }" var="comli"  varStatus="status">
+								 <option value="${comli}" >${comli}</option>
+								</c:forEach>
 							</select>
 						</div>
 					</div>
 				</div>
 			</div>
+			<c:set var="num" value="${num + 1}"/>
+			</c:forEach>
 
 			<div id="licenseButtonDiv">
 				<button class="btn btn-outline-success" onclick="modifyLicense();">수정완료</button>
-				<input id="licenseUpload1" type="file"  class="licenseUpload"> 
-				<input id="licenseUpload2" type="file"  class="licenseUpload"> 
-				<input id="licenseUpload3" type="file"  class="licenseUpload">
+				<!-- ${fn:length(license) + 1}/${3 - (fn:length(license))} -->
+				<input id="licenseUpload1" type="file"  class="licenseUpload" style="display: none;"> 
+				<input id="licenseUpload2" type="file"  class="licenseUpload" style="display: none;"> 
+				<input id="licenseUpload3" type="file"  class="licenseUpload" style="display: none;">
 				<!-- style="display: none;" -->
 			</div>
 		</div>
@@ -625,6 +608,8 @@ textarea {
 
 'use strict;'
 
+//이미지 h w 값 변수 생성
+
 let proWith;
 let proHeight;
 let liWith1;
@@ -634,13 +619,14 @@ let liHeight2;
 let liWith3;
 let liHeight3;
 
+//가운데 화면 스위칭
+
 $("#upFlag").click(e=>{
 	$("#mainDiv").stop(true).animate({'opacity': 0}, 300, function() {
         $(this).css({'display': 'none'})
         $('#licenseModifyDiv').stop(true).css({'display': 'block', 'opacity': 0}).animate({'opacity': 1}, 300)
     });
 });
-
 
 $("#licenseupFlag").click(e=>{
 	$("#licenseModifyDiv").stop(true).animate({'opacity': 0}, 300, function() {
@@ -650,22 +636,41 @@ $("#licenseupFlag").click(e=>{
 });
 
 
+// 자격증 수정 완료 버튼
 
 function modifyLicense(){
 	console.log("자격증 수정 완료");
 	let formData = new FormData();
 	let frm = $(".licenseUpload");
-	console.log("길 : "+frm.length);
+	let type = $(".licenseTypeSelect");
+	let date = $(".licenseTime");
+	let comp = $(".licenseCompanySelect");
+	let idinput = $(".licenseIdInput");
  	for(let i = 0; i < 3; i++){
+ 		console.log(" ============================== ")
+ 		console.log("자격증 id : "+$(idinput[i]).val());
+ 		console.log("자격증 타입 : "+$(type[i]).val());
+ 		console.log("자격증 날짜 : "+$(date[i]).val());
+ 		console.log("자격증 기관 : "+$(comp[i]).val());
 		if(frm[i].files[0] != null){
-		console.log("이름 : "+(frm[i].files[0]).name);
+		console.log("이미지 선택함 : "+(frm[i].files[0]).name);
 		formData.append('upFile',frm[i].files[0],(frm[i].files[0]).name);
+		formData.append('types',$(type[i]).val());
+		formData.append('dates',$(date[i]).val());
+		formData.append('linum',$(idinput[i]).val());
+		formData.append('companys',$(comp[i]).val());
 		}else{
-			console.log("null : "+i);
+			console.log("이미지 선택 안함 : ");
+			
+			if($(type[i]).val() != '선택 안함' && $(comp[i]).val() != '선택 안함'){
+				alert('수정하시려면 자격증 이미지는 필수로 선택해주세요');
+				return false;
+			}
 		}
+		console.log(" ============================== ")
 	}
-
- 	$.ajax({
+ 	console.log("서버 전송 직전 출력");
+	$.ajax({
 		url : '${path}/expert/modifyLicense',
 		data : formData,
 		type : 'post',
@@ -673,40 +678,17 @@ function modifyLicense(){
 		processData : false,
 		dataType : "json",
 		success : function(data) {
-			console.log("수정 data : " + data);
-			
+			console.log("전송 완료 후 출력 data : " + data);
+			if(data == 1){
+				alert("수정 완료 되었습니다.");
+			}else{
+				alert("수정 실패 관리자에게 문의하세요");
+			}
 		}
 	});
-	
-/* 	let frm1 = $("#licenseUpload1")[0].files[0];
-	let frm2 = $("#licenseUpload2")[0].files[0];
-	let frm3 = $("#licenseUpload3")[0].files[0];
-	console.log("frm1 : "+frm1);
-	console.log("frm2 : "+frm2);
-	console.log("frm3 : "+frm3);
-
-	formData.append('upFile',frm1,frm1.name);
-	formData.append('upFile',frm2,frm2.name);
-	formData.append('upFile',frm3,frm3.name);
-	formData.append('career',career);
-	formData.append('counselSelect',counselSelect);
-	formData.append('fistTime',fistTime);
-	formData.append('seTime',seTime);
-	formData.append('modiText',modiText);
- 	$.ajax({
-		url : '${path}/expert/modifyLicense',
-		data : formData,
-		type : 'post',
-		contentType : false,
-		processData : false,
-		dataType : "json",
-		success : function(data) {
-			console.log("수정 data : " + data);
-			
-		}
-	}); */
 }
 
+// 수정완료 버튼
 
 function modify(){
 	console.log("수정 완료");
@@ -743,11 +725,17 @@ function modify(){
 		dataType : "json",
 		success : function(data) {
 			console.log("수정 data : " + data);
-			
+			if(data == 1){
+				alert("수정 완료 되었습니다.");
+			}else{
+				alert("수정 실패 관리자에게 문의하세요");
+			}
 		}
 	});
 }
 
+ 
+<!--
 $("#mirrorimgDiv").click(e => {
 	console.log("이미지 눌릠");
 	 $("#profileUpload").click();
@@ -792,7 +780,6 @@ $("#profileUpload").change(function(e){
 });
 
 
-
  $('#imgDiv').hover(function(){
 	proWith =  $("#imgProfile").width();
 	proHeight =  $("#imgProfile").height();
@@ -801,7 +788,7 @@ $("#profileUpload").change(function(e){
 }, function() {
 	$('#mirrorimgDiv').css('display','none');
 	   $("#imgDiv").css('display','flex');
-});
+}); 
 
 $('#mirrorimgDiv').hover(function(){
     $('#mirrorimgDiv').css('display','flex');
@@ -810,6 +797,10 @@ $('#mirrorimgDiv').hover(function(){
 	$('#mirrorimgDiv').css('display','none');
 	    $("#imgDiv").css('display','flex');
 });
+-->
+
+//자격증 이미지 호버
+// 시간날때 여기 로직 정리좀 하기--11/23
 
 $('#licenseImg1').hover(function(){
 	liWith1 =  $("#imgLicense1").width();
@@ -865,22 +856,21 @@ $('#licenseImgView3').hover(function(){
 	   $("#licenseImg3").css('display','flex');
 });
 
-
+//자격증 이미지 클릭 이벤트
 
 $("#licenseImgView1").click(e => {
-	console.log("자격증1 눌릠");
 	 $("#licenseUpload1").click();
 });
 
 $("#licenseImgView2").click(e => {
-	console.log("자격증2 눌릠");
 	 $("#licenseUpload2").click();
 });
 
 $("#licenseImgView3").click(e => {
-	console.log("자격증3 눌릠");
 	 $("#licenseUpload3").click();
 });
+
+//업로드
 
 $("#licenseUpload1").change(function(e){
     e.preventDefault();
@@ -934,6 +924,4 @@ function fileViewUpload(f,w,h,im,up){
 	    return false;
 		}
 }
-
-
 </script>

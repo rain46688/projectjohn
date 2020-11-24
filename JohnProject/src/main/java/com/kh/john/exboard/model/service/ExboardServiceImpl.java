@@ -223,4 +223,43 @@ public class ExboardServiceImpl implements ExboardService {
 		return dao.selectLicenseKind(session);
 	}
 
+	@Override
+	public List<String> selectCounselKind() throws Exception {
+		// TODO Auto-generated method stub
+		return dao.selectCounselKind(session);
+	}
+
+	@Override
+	public List<String> selectCompanyKind() throws Exception {
+		// TODO Auto-generated method stub
+		return dao.selectCompanyKind(session);
+	}
+
+	@Override
+	public void updateLicenseModify(List<License> paramlist) throws Exception {
+		// TODO Auto-generated method stub
+
+		for (License li : paramlist) {
+			if (li.getLicenseId() > 0) {
+				// 업데이트
+				dao.updateLicenseModify(session, li);
+				log.debug("updateLicenseModify 업데이트");
+			} else if (li.getLicenseId() == -1) {
+				// 인서트
+				dao.insertLicenseModify(session, li);
+				log.debug("updateLicenseModify 인서트");
+			} else {
+				// 오류
+				log.debug("updateLicenseModify 오류");
+			}
+		}
+
+	}
+
+	@Override
+	public void updateExInfoModify(Expert et) throws Exception {
+		// TODO Auto-generated method stub
+		dao.updateExInfoModify(session, et);
+	}
+
 }

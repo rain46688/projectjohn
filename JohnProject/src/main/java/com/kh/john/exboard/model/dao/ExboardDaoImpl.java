@@ -153,4 +153,34 @@ public class ExboardDaoImpl implements ExboardDao {
 		return session.selectList("expert.selectLicenseKind");
 	}
 
+	@Override
+	public List<String> selectCounselKind(SqlSessionTemplate session) throws Exception {
+		// TODO Auto-generated method stub
+		return session.selectList("expert.selectCounselKind");
+	}
+
+	@Override
+	public List<String> selectCompanyKind(SqlSessionTemplate session) throws Exception {
+		// TODO Auto-generated method stub
+		return session.selectList("expert.selectCompanyKind");
+	}
+
+	@Override
+	public void updateLicenseModify(SqlSessionTemplate session, License li) throws Exception {
+		// TODO Auto-generated method stub
+		session.update("expert.updateLicenseModify", li);
+	}
+
+	@Override
+	public void insertLicenseModify(SqlSessionTemplate session, License li) throws Exception {
+		// TODO Auto-generated method stub
+		session.update("expert.insertLicenseModify", li);
+	}
+
+	@Override
+	public void updateExInfoModify(SqlSessionTemplate session, Expert et) throws Exception {
+		// TODO Auto-generated method stub
+		session.update("expert.updateExInfoModify", et);
+	}
+
 }

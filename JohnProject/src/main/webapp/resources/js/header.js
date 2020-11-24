@@ -20,7 +20,7 @@
 							success : function(data) {
 								console.log("data : " + data);
 								if (data > 0) {
-									$("#number").append(
+									$("#number").html(
 											"<div id='al'>!</div>");
 								} else {
 									$("#bell").removeClass('bell2');
@@ -37,27 +37,38 @@
 				const alsocket = new WebSocket("wss://192.168.219.105"+path+"/alsocket");
 
 				alsocket.onopen = function() {
+					console.log('오픈');
 					alarmPrint();
+					alsocket.send('list');
 				};
 
 				alsocket.onmessage = function(msg) {
 					/* 기본적으로 실행되는 로직 알람이 왔다는 표시를 해줌 */
 					console.log("msg 콘솔 : " + msg);
 					let aldata = JSON.parse(msg.data);
+					console.log("aldata : "+aldata);
 					$("#number").html("");
-					$("#number").append("<div id='al'>!</div>");
+					$("#number").html("<div id='al'>!</div>");
 					$("#bell").addClass('bell2');
 					/*  */
 					if(window.location.pathname == '/john/expert/expertRequestPrintList'){
 						console.log("신청");
 						if(aldata['alarmType'] == 'expertApply'){
 							console.log("유저로 부터 상담 신청 들어옴");
-							exListsendMessage("start");
+							exListsendMessage("start");  1
 						}else if(aldata['alarmType'] == 'expertApplyCancel'){
 							console.log("유저로 부터 상담 신청 삭제됨");
 							exListsendMessage("start");
 						}
 					}
+					//else if(window.location.pathname == '/john/alarm/alarmList'){
+					//	console.log('들어옴?');
+					//	alarmList = aldata;
+					//	printalfunc(alarmList,'expert');
+					//}
+					
+					alarmList = aldata;
+					printalfunc(alarmList,'expert');
 				};
 
 				function sendAlarm(send_usid, receive_usid, type, msg,

@@ -1,18 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
-<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
-<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
-<c:set var="path" value="${pageContext.request.contextPath}" />
-<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
-<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
-
-<jsp:include page="/WEB-INF/views/common/header.jsp">
-	<jsp:param name="title" value=" " />
-</jsp:include>
-
+<%@ include file="/WEB-INF/views/common/header.jsp"%>
 <style>
+
 html, body, div, span, applet, object, iframe, h1, h2, h3, h4, h5, h6, p, blockquote, pre, a, abbr, acronym, address, big, cite, code, del, dfn, em,
 	ins, kbd, q, s, samp, small, strike, strong, sub, sup, tt, var, b, u, i, center, dl, dt, dd, ol, ul, li, fieldset, form, label, legend, table,
 	caption, tbody, tfoot, thead, tr, th, td, article, aside, canvas, details, embed, figure, figcaption, footer, header, hgroup, menu, nav, output, ruby,
@@ -28,447 +17,358 @@ html, body, div, span, applet, object, iframe, h1, h2, h3, h4, h5, h6, p, blockq
 	-webkit-user-select: none;
 	-khtml-user-select: none;
 	user-select: none;
+	color:black;
 }
 
-#content * {
-	/* border: 1px solid red; */
+#content *{
+  /* border:1px solid red;  */
 }
 
-#content {
-	display: flex;
-	justify-content: center;
-	padding-top: 3vh;
+#content{
+	display:flex;
+	align-items:center;
+	justify-content:center;
+	font-weight:bold;
 }
 
-#mainDiv {
-	width: 60%;
-	height: 100%;
-	border: 1px solid #C6C5C5;
-	border-radius:1em;
-	background-color: #BACADE;
+#alcontent {
+	display:flex;
+	align-items:center;
+	justify-content:center;
+	width:50%;
+	height:auto;
+	padding:2%;
+	background-color:white;
+	border-radius:1%;
 }
 
-#upDiv {
-	height: 15%;
-	width: 100%;
-	background-color: #0054BA;
-	padding: 1.5%;
-	display: flex;
-	border: 1px solid #C6C5C5;
-	border-radius:1em 1em 0 0;
+.divListBody {
+	display: table-row-group;
 }
 
-#upDiv>h2 {
-	font-size: 5vh;
-	height: 100%;
-	width: 50%;
-	font-weight: bold;
-	color: white;
-}
-
-#upFlag {
-	width: 50%;
-	height: 100%;
-	display: flex;
-	justify-content: flex-end;
-	align-items: flex-end;
-	color: white;
-}
-
-#upFlag>p {
-	cursor: pointer;
-}
-
-#basicInfo-tab {
-	color: black;
-}
-
-#profileDiv {
-	margin-top: 3%;
+.divList {
+	display: table;
 	width: 100%;
 	height: 30%;
-	display: flex;
-	padding: 1%;
+	text-align: center;
 }
 
-#imgDiv {
-	z-index: 0;
-	width: 30%;
-	height: 100%;
+.divRow {
+	display: table-row;
 }
 
-#mirrorimgDiv {
-	z-index: 1;
-	width: 30%;
-	height: 100%;
+.divCell, .divTableHead {
+	 border-bottom: 1px #DEE2E6 solid;
+/* 	border-bottom: 1px #DEE2E6 solid;
+	border-right: 1px #DEE2E6 solid;
+	border-left: 1px #DEE2E6 solid; */
+	display: table-cell;
+	padding: 3%1%;
+	width: 16.67%;
+	font-size: 2vh;
+	/* background-color:#FFEB00; */
+	
+}
+
+
+.nav{
+	background-color: #003478;
+	border-radius:10% 2% 2%;
+}
+
+
+.nav-link {
+	cursor: pointer;
+	/* background-color: white; */
+	color:white;
+	font-weight:bold;
+	text-decoration: none;
+}
+
+.active{
+	color:black;
+	font-weight:bold;
+}
+
+.al {
+	margin: 0px;
+	height: 30%;
 	display: none;
-	justify-content: center;
-	align-items: center;
-	background-color: rgba(200, 200, 200, 0.6);
-	position: relative;
-	left: -30%;
+}
+
+.alContent {
+	margin-top: 20px;
+	margin-bottom: 15px;
+	font-size: 15px;
+	font-weight: bold;
+	width: 100%;
+	height:auto;
+}
+
+.empty {
+	margin-top: 20px;
+	font-weight: bold;
+	margin-top: 15px;
+	width: 100%;
+	font-size: 25px;
+	padding:3% 0 3% 0;
+}
+
+#sideDiv{
+	float:right;
+	padding:1%;
 	cursor: pointer;
 }
 
-#mirrorimgDiv>p {
-	font-size: 10vh;
-	color: black;
-}
-
-#imgProfile {
-	width: 100%;
-	height: 100%;
-}
-
-#downDiv {
-	width: 100%;
-	height: 55%;
-	margin: 1% 1% 0 1%;
-	padding: 1%;
-}
-
-.rowDiv {
-	width: 100%;
-	height: 25%;
-	display: flex;
-}
-
-.rowDiv div {
-	margin: 0 1% 0 1%;
-}
-
-.leftDiv {
-	width: 50%;
-	height: 100%;
-}
-
-.rightDiv {
-	width: 50%;
-	height: 100%;
-}
-
-#buttonDiv {
-	display: flex;
-	justify-content: center;
-}
-
-p {
-	font-size: 3vh;
-	font-weight: bold;
-}
-
-input {
-	height: 40%;
-	width: 40%;
-}
-
-select {
-	width: 100%;
-	height: 40%;
-}
-
-/* 위 텍스트 영역 눌르면 옆에 테두리 생기는거 지우는 용도 */
-textarea:focus {
-	outline: none;
-}
-
-textarea {
-	resize: none;
-}
-
-#exTextArea {
-	width: 100%;
-	height: 100%;
-}
-
-#careerleftDiv {
-	width: 100%;
-	height: 50%;
-	display: flex;
-}
-
-#exinput {
-	width: 30%;
-	height: 100%;
-}
-
-#exinput2 {
-	width: 70%;
-	height: 100%;
-}
-
-h6 {
-	font-size: 3vh;
-	font-weight: bold;
-}
-
-#licenseModifyDiv{
-	width: 60%;
-	height: auto;
-	border: 1px solid #C6C5C5;
-	background-color: #BACADE;
-	display:none;
-	opacity: 0;
-}
-
-.appear {
-  animation: fade-in 1s;
-  animation-fill-mode: forwards;
-  display: flex;
-}
-
-.disappear {
-  animation: fade-out 1s;
-  animation-fill-mode: forwards;
-}
-
-@keyframes fade-in {
-  from {
-    opacity: 0;
-  }
-  to {
-    opacity: 1;
-  }
-}
-
-@keyframes fade-out {
-  from {
-    opacity: 1;
-
-  }
-  to {
-    opacity: 0;
-  }
-}
-
-
-/*  */
-
-#licenseupDiv {
-	height: 15%;
-	width: 100%;
-	background-color: #0054BA;
-	padding: 1.5%;
-	display: flex;
-}
-
-#licenseupDiv>h2 {
-	font-size: 5vh;
-	height: 100%;
-	width: 50%;
-	font-weight: bold;
-	color: white;
-}
-
-#licenseupFlag {
-	width: 50%;
-	height: 100%;
-	display: flex;
-	justify-content: flex-end;
-	align-items: flex-end;
-	color: white;
-}
-
-#licenseupFlag>p {
+.form-check-label{
 	cursor: pointer;
+}
+
+.date{
+	text-align:right;
+	font-size:1.5vh;
 }
 
 </style>
-<!-- https://unordinarydays.tistory.com/99 참고 -->
-<!-- 멀티파트 폼 넣어야됨 -->
 <section id="content">
-	<div id="mainDiv">
-		<!-- up -->
-		<div id="upDiv">
-			<h2>전문가 정보 수정</h2>
-			<div id="upFlag">
-				<p>라이센스 수정</p>
-			</div>
-		</div>
-		<!-- <hr> -->
-		<!-- profile -->
-		<div id="profileDiv">
-			<div id="imgDiv">
-				<img src="${path }/resources/images/expert.png" id="imgProfile" class="img-thumbnail" />
-			</div>
-			<div id="mirrorimgDiv">
-				<p>+</p>
-			</div>
-		</div>
-		<!-- downDiv -->
-		<div id="downDiv">
-			<!--  -->
-			<div class="rowDiv">
-				<div class="leftDiv">
-					<p>경력</p>
-					<div id="careerleftDiv">
-						<div id="exinput">
-							<input type="number" name="career" class="form-control short" />
-						</div>
-						<div id="exinput2">
-							<h6>년</h6>
-						</div>
-					</div>
-				</div>
-				<div class="rightDiv">
-					<p>전문 분야</p>
-					<select id="counselSelect" name="counselSelect" required>
-						<option value="부부 상담" selected>부부 상담</option>
-						<option value="연애 상담">연애 상담</option>
-						<option value="직장 상담">직장 상담</option>
-						<option value="심리 상담">심리 상담</option>
-						<option value="자녀 상담">자녀 상담</option>
-						<option value="진로 상담">진로 상담</option>
-					</select>
-				</div>
-			</div>
-			<div class="rowDiv">
-				<div class="leftDiv">
-					<p>상담 가능 시간</p>
-					<input name="fistTime" type="time"> ~ <input name="seTime" type="time">
-				</div>
-				<div class="rightDiv">
-					<p>인사말</p>
-					<textarea id="exTextArea" name="modiText"></textarea>
-				</div>
-			</div>
-			<div class="rowDiv">
-				<div class="leftDiv"></div>
-				<div class="rightDiv"></div>
-			</div>
-			<!--  -->
-			<div id="buttonDiv">
-				<button class="btn btn-outline-success" onclick="modify();">수정완료</button>
-			</div>
-			<input type="file" id="profileUpload" style="display: none;">
+	<div id="alcontent">
+	<div class="divList">
+		<div id="sideDiv">
+		<label class="form-check-label">
+    		<input id="check" type="checkbox" class="form-check-input" value="">모두 보기
+  		</label>
+		<img src="${path}/resources/images/delete.png" alt="" width="30px" height="30px"></div>
+		<div class="divListBody">
+			<ul class="nav nav-tabs">
+				<li class="nav-item"><a class="nav-link active">상담</a></li>
+				<li class="nav-item"><a class="nav-link">게시판</a></li>
+				<li class="nav-item"><a class="nav-link">신고</a></li>
+				<li class="nav-item"><a class="nav-link">테스트</a></li>
+			</ul>
+			<div class="alarmPrintDiv"></div>
 		</div>
 	</div>
-	
-	<div id="licenseModifyDiv">
-			<div id="licenseupDiv">
-			<h2>라이센스 수정</h2>
-			<div id="licenseupFlag">
-				<p>전문가 정보 수정</p>
-			</div>
 		</div>
-		<div id="licenseDownDiv">
-		
-		</div>
-	
-	
-	</div>
 </section>
-
-
 <script>
 
-'use strict;'
+'use strict';
 
-$("#upFlag").click(e=>{
-	$("#mainDiv").stop(true).animate({'opacity': 0}, 300, function() {
-        $(this).css({'display': 'none'})
-        $('#licenseModifyDiv').stop(true).css({'display': 'block', 'opacity': 0}).animate({'opacity': 1}, 300)
-    });
-});
+/* let newURL = window.location.pathname;
+console.log(newURL); */
+//			/john/alarm/alarmList
+let alarmList = [];
 
-
-$("#licenseupFlag").click(e=>{
-	$("#licenseModifyDiv").stop(true).animate({'opacity': 0}, 300, function() {
-        $(this).css({'display': 'none'})
-        $('#mainDiv').stop(true).css({'display': 'block', 'opacity': 0}).animate({'opacity': 1}, 300)
-    });
-});
-
-
-
-function modify(){
-	console.log("수정 완료");
-	let frm2 = $("#profileUpload")[0].files[0];
-	console.log("frm2 : "+frm2);
-	const career = $("input[name=career]").val();
-	const counselSelect = $("#counselSelect option:selected").val()
-	const fistTime = $("input[name=fistTime]").val()
-	const seTime = $("input[name=seTime]").val()
-	const modiText = $("#exTextArea").val()
-	console.log("career : "+career);
-	console.log("counselSelect : "+counselSelect);
-	console.log("fistTime : "+fistTime);
-	console.log("seTime : "+seTime);
-	console.log("modiText : "+modiText);
-	let formData = new FormData();
-	formData.append('upFile',frm2,frm2.name);
-	formData.append('career',career);
-	formData.append('counselSelect',counselSelect);
-	formData.append('fistTime',fistTime);
-	formData.append('seTime',seTime);
-	formData.append('modiText',modiText);
- 	$.ajax({
-		url : '${path}/expert/modifyEx',
-		data : formData,
-		type : 'post',
-		contentType : false,
-		processData : false,
-		dataType : "json",
-		success : function(data) {
-			console.log("수정 data : " + data);
-			
-		}
-	});
-	
-}
-
-$("#mirrorimgDiv").click(e => {
-	console.log("이미지 눌릠");
-	 $("#profileUpload").click();
-
-	
-});
-
-$("#profileUpload").change(function(e){
-
-    e.preventDefault();
-	console.log("이미지 선택됨");
-	console.log("files : " + $("#profileUpload").val());
-	let file2 = $("#profileUpload").val();
-	
-	let f = (file2).substring((file2).lastIndexOf('.'),(file2).length);
-	console.log(f);
-	
-	if(f != '.png' && f != '.jpg' && f != '.jpeg' && f != '.gif'){
-	alert('이미지 파일만 업로드 가능합니다.');
-	return false;
-	}else{
-		
-		
-	let file = this.files[0];
-    reader = new FileReader();
-    reader.onload = function (event) {
-        let img = new Image();
-        img.src = event.target.result;
-        console.log($("#imgProfile").width()+" "+$("#imgProfile").height());
-          img.width = $("#imgProfile").width();
-          img.height = $("#imgProfile").height();
-        $('#imgDiv').empty();
-        $('#imgDiv').append(img);
-    };
-    reader.readAsDataURL(file);
-    return false;
+//메뉴 클릭시 이벤트
+$(".nav-link").click(e =>{
+	let alli = $(e.target).parents().parents().children('li');
+	let item;
+	let alprint = "";
+	for(let i=0; i < alli.length; i++){
+		$(alli[i]).children().removeClass('active');
+	};
+	$(e.target).addClass('active');
+	item = $(e.target).html();
+	console.log("item : "+item);
+	if(item === '상담'){
+		item = 'expert';
+		printalfunc(alarmList, item);
+		console.log("change : "+item);
+	}else if(item === '게시판'){
+		item = ' ';
+		printalfunc(alarmList, item);
+		console.log("change : "+item);
+	}else if(item === '신고'){
+		item = ' ';
+		printalfunc(alarmList, item);
+		console.log("change : "+item);
 	}
 });
 
-
-
-$('#imgDiv').hover(function(){
-    $('#mirrorimgDiv').css('display','flex');
+/* $('.nav-item').hover(function() {
+	console.log("z")
+	if(!$(this).children().hasClass('active')){
+		$(this).children().css('color', '#FECC66');
+	}
 }, function() {
-	$('#mirrorimgDiv').css('display','none');
+	console.log("z2")
+	if(!$(this).children().hasClass('active')){
+		$(this).children().css('color', 'white');
+	}
+});
+ */
+
+/* $(".form-check-input").click(e =>{
+	console.log("체크 여부 : "+$("input:checkbox[name=checkbox]").is(":checked"));
+}); */
+
+
+//알람 프린트
+function printalfunc(list, type){
+	let print="";
+	console.log("printalfunc 실행 리스트 길이 : "+list.length+" 타입 : "+type);
+//	if(list.length > 0){
+	let allselectflag = $("#check").is(":checked");
+	console.log("체크 여부 : "+allselectflag);
+	
+	list.forEach((e, i)=>{
+		if(allselectflag == true){
+			if(e['alarmType'].includes(type)){
+				console.log("출력");
+				/* shadow p-3 mb-5 bg-white rounded */
+				print += "<div class='divRow' style='cursor: pointer'>";
+				print += "<input type='hidden' value='"+e['alarmId']+"'>";
+				print += "<div class='divCell'>1 : 1 영상 상담 요청이있습니다.<div class='date'>"+e['tmpDate']+"</div></div></div>";
+				print += "<div class='al'><div class='alContent'>"
+				print += "안녕하세요 상담사 "+e['alarmSendMemNickname']+"입니다.<br> 아래 URL로 바로 접속하셔서 상담 진행하시면됩니다.<br>" 
+				print += "<a href='${path }/expert/expertRoom?bno="+e['alarmMsgContent']+"'>-클릭해서 상담 접속-</a></div></div>"
+			}else{
+				//추가 예정
+				print = "<div class='empty'>알림이 비어있습니다.</div>";
+			}
+		}else{
+			if(e['alarmType'].includes(type) && e['alarmIscheked'] == false){
+				console.log("출력");
+				print += "<div class='divRow' style='cursor: pointer'>";
+				print += "<input type='hidden' value='"+e['alarmId']+"'>";
+				print += "<div class='divCell'>1 : 1 영상 상담 요청이있습니다.<div class='date'>"+e['tmpDate']+"</div></div></div>";
+				print += "<div class='al'><div class='alContent'>"
+				print += "안녕하세요 상담사 "+e['alarmSendMemNickname']+"입니다.<br> 아래 URL로 바로 접속하셔서 상담 진행하시면됩니다.<br>" 
+				print += "<a href='${path }/expert/expertRoom?bno="+e['alarmMsgContent']+"'>-클릭해서 상담 접속-</a></div></div>"
+			}else{
+				//추가 예정
+				print = "<div class='empty'>알림이 비어있습니다.</div>";
+			}
+		}
+	});
+//	}else{
+//		print = "<div class='empty'>알람이 없습니다.</div>";
+//	}
+	$(".alarmPrintDiv").html(print);
+	//ajax 후 함수 실행
+	divhover();
+};
+
+  
+//알람 객체
+function Alarm(alarmId,alarmSendMemUsid, alarmReceiveMemUsid,
+		alarmType, alarmMsgContent,
+		alarmSendMemNickname, tmpDate,
+		alarmIscheked) {
+	this.alarmId = alarmId;
+	this.alarmSendMemUsid = alarmSendMemUsid;
+	this.alarmReceiveMemUsid = alarmReceiveMemUsid;
+	this.alarmType = alarmType;
+	this.alarmMsgContent = alarmMsgContent;
+	this.alarmSendMemNickname = alarmSendMemNickname;
+	this.tmpDate = tmpDate;
+	this.alarmIscheked = alarmIscheked;
+};
+
+
+//토글 박스 내려갔다 올라갔다하는것
+$(function(){
+	$(".noti").slideToggle('fast', function() {
+		  });
 });
 
-$('#mirrorimgDiv').hover(function(){
-    $('#mirrorimgDiv').css('display','flex');
-}, function() {
-	$('#mirrorimgDiv').css('display','none');
-});
+//리스트 뿌린후 한번 실행시켜줘야 호버 작동함!
+function divhover(){
+	$(".divRow").click(e=>{
+		   $(e.target).parent().next().slideToggle('fast', function() {
+		     });
+		  // $(this).removeClass( 'shadow p-3 mb-5 bg-white rounded' );
+		});
+		$('.divRow').hover(function() {
+			//console.log("온");
+			$(this).css('color', '#FFC107');
+			$(this).addClass('shadow p-3 mb-5 bg-white rounded');
+			//$(this).removeClass('shadow p-3 mb-5 bg-white rounded');
+		}, function() {
+			//console.log("오프");
+			$(this).css('color', 'black');
+			//$(this).addClass('shadow p-3 mb-5 bg-white rounded');
+			$(this).removeClass('shadow p-3 mb-5 bg-white rounded');
+		});
+};
+divhover();
 
+// ==========================================================================================
+
+//위에 알람 메뉴 클릭시 ajax로 출력
+/* $(".nav-link").click(e =>{
+	
+	let alli = $(e.target).parents().parents().children('li');
+	let item;
+	let alprint = "";
+	//console.log(alli.length);
+	for(let i=0; i < alli.length; i++){
+		$(alli[i]).children().removeClass('active');
+		
+	};
+	$(e.target).addClass('active');
+	item = $(e.target).html();
+	console.log("item : "+item);
+	if(item === '상담'){
+		item = 'expert';
+		console.log("change : "+item);
+	}else{
+		//추가 예정
+	}
+	
+	 $.ajax({
+		type:'get',
+		data:{'item':item,usid:"${loginMember.usid}"},
+		dataType: "json",
+		url:"${path}/alarm/selectAlarmItem",
+		success:function(data){
+			//console.log("data : "+data);
+			if(data == ''){
+				//console.log("빔");
+				$(".alarmPrintDiv").html("");
+				$(".alarmPrintDiv").html("<div class='empty'>알람이 없습니다.</div>");
+			}else{
+				//console.log("안빔");
+				$.each(data, function(i, item){
+					//console.log("i : "+i);
+					//console.log("date : "+item["tmpDate"]);
+					alprint += printalfunc(item["alarmId"],item["alarmSendMemNickname"],item["tmpDate"],item["alarmType"],item["alarmMsgContent"]);
+				});
+				$(".alarmPrintDiv").html("");
+				$(".alarmPrintDiv").html(alprint);
+				//ajax 후 함수 실행
+				divhover();
+			}
+		}
+	});
+}); 
+
+//알람 누르면 읽은것으로 처리되게 만듬
+$(".divRow").click(e=>{
+	 //$(e.target).parent().next().slideToggle('slow', function() {
+  // });
+
+ //$(this).removeClass( 'shadow p-3 mb-5 bg-white rounded' );
+ 
+ const aid = $(e.target).parent().children('input:eq(0)').val();
+// console.log("누름"+aid);
+ 
+  $.ajax({
+	   type:"GET",
+	   data:{
+		   "aid":aid
+	   },
+	   url:"${path}/alarm/alarmRead",
+	   success:function (data){
+		   if(data == 1){
+			   console.log("성공");
+		   }
+		   else{
+			   console.log("실패");
+		   }
+	   }
+ });
+}); 
+*/
 
 </script>

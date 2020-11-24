@@ -7,10 +7,10 @@
 </select> 
 
 	<select id="selectAlarmList" parameterType="_int"  resultMap="alMap"> 
-		SELECT * FROM ALARM WHERE ALARM_TYPE = 'expert' AND ALARM_RECEIVE_MEM_USID = #{usid} AND ALARM_ISCHECKED = 0
+		SELECT * FROM ALARM WHERE ALARM_RECEIVE_MEM_USID = #{usid}
 	</select>
 
-	<update id="updateAlarmRead" parameterType="_int">
+<!-- 	<update id="updateAlarmRead" parameterType="_int">
 		UPDATE ALARM SET ALARM_ISCHECKED = 1 WHERE ALARM_ID = #{aid}
 	</update>
 	
@@ -20,7 +20,7 @@
 	
 		<select id="selectAlarmItem" parameterType="map"  resultMap="alMap"> 
 		SELECT * FROM ALARM WHERE ALARM_TYPE = #{item} AND ALARM_RECEIVE_MEM_USID = #{usid} AND ALARM_ISCHECKED = 0
-	</select>
+	</select> -->
 	
 		<resultMap type="alarm" id="alMap">
 		<id column="ALARM_ID" property="alarmId" />
