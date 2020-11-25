@@ -160,16 +160,12 @@
 	justify-content: center;
 }
 
-<<<<<<< HEAD
-
-=======
 #bellDiv{
 	display:flex;
 	width:100%;
 	height:100%;
 	align-items: center;
 }
->>>>>>> e45e5010cf068baa31717009369237c5630f2e75
 
 #alarmDropdownDiv{
 	position: absolute;
@@ -212,11 +208,8 @@
 #bell {
 	cursor:pointer;
  	width:100%;
-<<<<<<< HEAD
  	height:100%;
  	border:1px red solid;
-=======
->>>>>>> e45e5010cf068baa31717009369237c5630f2e75
 }
 
 #bellDiv:hover #alarmDropdownDiv{
@@ -281,10 +274,7 @@
 											</c:if>
 										</c:if>
 									<div id="alarmDropdownDiv">
-<<<<<<< HEAD
-=======
 										<%@ include file="/WEB-INF/views/alarm/alarm.jsp"%>
->>>>>>> e45e5010cf068baa31717009369237c5630f2e75
 								</div> 
 							</div>
 						<!--  -->	
