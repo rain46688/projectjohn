@@ -8,12 +8,14 @@
 		스크롤시 로고 fixed
 	 */
 	#side {
+		background-image: url("${path}/resources/images/side_back.png");
+		background-repeated: repeated;
 	    border-bottom-left-radius: 30px;
 	    border-top-left-radius: 30px;
 	    overflow: auto;
 	    width: 18%;
 	    height: 100%;
-	    background-color:#00316D;
+	    /* background-color:#00316d; */
 	    display: flex;
 	    flex-direction: column;
 	    align-items: center;
@@ -22,7 +24,7 @@
 	
 	#container_logo{
 	    margin-top: 0;
-		padding-top: 1em;
+		padding-top: 1.5em;
 	    display: flex;
 	    justify-content: center;
 	    background-color:#00316D;
@@ -95,7 +97,7 @@
 		font-family: 'Noto Serif KR', serif;
 	}
 	div.menuContainer:hover {
-		background-color: #0054BA;
+		background-color: rgb(255,255,255,0.1);
 	}
 	
 	div.menuContainer a {
