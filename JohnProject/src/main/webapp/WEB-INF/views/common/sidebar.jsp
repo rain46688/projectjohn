@@ -10,8 +10,8 @@
 	#side {
 		background-image: url("${path}/resources/images/side_back.png");
 		background-repeated: repeated;
-	    border-bottom-left-radius: 30px;
-	    border-top-left-radius: 30px;
+	    /* border-bottom-left-radius: 25px;
+	    border-top-left-radius: 25px; */
 	    overflow: auto;
 	    width: 18%;
 	    height: 100%;
@@ -27,11 +27,12 @@
 		padding-top: 1.5em;
 	    display: flex;
 	    justify-content: center;
-	    background-color:#00316D;
+	    background-color: transparent;
 	}
 
 	#sidebar_logo{
     	width: 80%;
+    	background-color: transparent;
 	}
 	
 	#menu {

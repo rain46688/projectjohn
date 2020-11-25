@@ -61,4 +61,10 @@ public class BoardDaoImpl implements BoardDao{
 		// TODO Auto-generated method stub
 		return session.selectList("board.boardSubList", usid);
 	}
+	
+	@Override
+	public int boardLikeInsert(SqlSession session, Map param) {
+		// TODO Auto-generated method stub
+		return session.insert("board.boardLikeInsert", param);
+	}
 }

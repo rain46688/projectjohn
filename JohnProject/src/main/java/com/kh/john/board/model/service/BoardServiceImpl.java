@@ -33,16 +33,7 @@ public class BoardServiceImpl implements BoardService {
 	@Transactional
 	public int boardInsert(Board b) {
 		// TODO Auto-generated method stub
-		
 		int result = dao.boardInsert(session, b);
-		
-//		if(result > 0) {
-//			if(!files.isEmpty()) {
-//				for(BoardFile f : files) {
-//					dao.boardInsertFiles(session, f);
-//				}
-//			}
-//		}
 		
 		return result;
 	}
@@ -75,5 +66,11 @@ public class BoardServiceImpl implements BoardService {
 	public List<Subscribe> boardSubList(int usid) {
 		// TODO Auto-generated method stub
 		return dao.boardSubList(session, usid);
+	}
+	
+	@Override
+	public int boardLikeInsert(Map param) {
+		// TODO Auto-generated method stub
+		return dao.boardLikeInsert(session, param);
 	}
 }

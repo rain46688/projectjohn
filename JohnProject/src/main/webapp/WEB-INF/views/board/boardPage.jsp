@@ -235,33 +235,32 @@
   color:gray;
 }
 
+ion-icon#likeButton {
+	cursor:pointer;
+}
 
+#boardDate {
+	text-align:right;
+}
 	
 </style>
 <script>
-	const ROOM_ID = ${currBoard.boardId}
+	const ROOM_ID = "${currBoard.boardId}";
 </script>
 <!-- <script defer src="http://localhost:82/socket.io/socket.io.js"></script> -->
 <div id="content">
     <div id="wrapper">
       <div id="titleAndLikes">
-        <div id="title">Title</div>
+        <div id="title">${currBoard.TITLE }</div>
         <div id="likeAndHits">
-          <span><ion-icon name="heart-outline"></ion-icon> 좋아요 0 조회수 0</span>
+          <span><ion-icon id="likeButton" name="heart-outline"></ion-icon> 좋아요 ${currBoard.LIKE_NUM } 조회수 ${currBoard.HIT }</span>
         </div>
       </div>
       <hr id="titleHr">
+      <div id="boardDate">${currBoard.WRITER_NICKNAME } <fmt:formatDate value="${currBoard.ENROLL_DATE}" pattern="yyyy.MM.dd HH:mm"/></div>
       <div id="boardContent">
-        아빠랑 따로 살거든... 이혼 이런게 아니라 동생이랑 아빠가 붙어만 있으면 싸우고 동생이 아빠한테 트라우마가 있어서 같이 살기 힘들어하고 싫어해서 지금 몇달째 아빠랑 따로 살고있어 앞으로 2년은 더 따로 살 것 같아
-
-아빠 오늘 생신인데 엄마는 회사가고 나는 학교,학원 가고 동생은 뭐 아빠 얼굴 보는거 자체가 싫고 힘들어해서 오늘 아빠 혼자 생일 보낼 것 같아
-
-혼자 생일 보내면 엄청 서러울텐데 진짜 걱정이야 아빠가 아들 얼굴 못본지 5달 됐다고 보고싶다고 하는데 앞으로 만날 일이 없으니까 아빠도 힘들어하고.. (나랑 엄마랑은 시간 날 때 만나는 편이긴 한데 나도 학생이고 엄마아빠 맞벌이 하니까 만날 일이 ㅂㄹ 없어)
-
-그래도 이번주주말에 엄마랑 내가 아빠 집에 몰래 가서 서프라이즈 해줄 계획이야
-
-그래도 오늘 아빠가 혼자 생일 보낼 거 생각하니까 내가 다 눈물이 나 적어도 오늘은 아빠 생일이니까 이따가 저녁에 아빠한테 전화는 꼭 할건데 아빠한테 생일축하한다고 하자마자 울 것 같아 진짜 어떡하지
-      ${currBoard }
+        ${currBoard.CONTENT }
+        ${currBoard}
       </div>
       <hr>
       <div id="judgeCon">
@@ -270,10 +269,10 @@
             <button id="agree" type="button" class="btn btn-primary">
               <ion-icon name="thumbs-up-outline"></ion-icon>
               <br>
-              찬성이름</button>
+              ${currBoard.AGREE_NAME }</button>
           </div>
           <div class="countCon">
-            <div>100</div>
+            <div>${currBoard.AGREE_NUM }</div>
           </div>
         </div>
         <div class="judgeBtns" id="disagreeBtn">
@@ -281,9 +280,9 @@
             <button id="disagree" type="button" class="btn btn-primary">
               <ion-icon name="thumbs-down-outline"></ion-icon>
               <br>
-              반대이름</button>
+              ${currBoard.DISAGREE_NAME }</button>
           </div>
-          <div class="countCon">100</div>
+          <div class="countCon">${currBoard.DISAGREE_NUM }</div>
         </div>
       </div>
       <hr>
@@ -428,6 +427,48 @@
 </script> -->
 <script>
 'use strict'
+document.getElementById('likeButton').addEventListener('click', function(){
+	if(this.name=='heart-outline'){
+		$.ajax({
+			url: "${path}/board/boardLikeInsert",
+			type: "post",
+			dataType: "json",
+			data: {
+				loginUsid: ${loginMember.usid},
+				boardId: ${currBoard.BOARD_ID}
+			},
+			success: function(data) {
+				if(data == 'fail') {
+					return;
+				}else {
+					document.getElementById('likeButton').setAttribute('name',"heart");
+					alert('성공!');
+				}
+			}
+		})
+	}else {
+		$.ajax({
+			url: "${path}/board/boardLikeDelete",
+			type: "post",
+			dataType: "json",
+			data: {
+				loginUsid: ${loginMember.usid},
+				boardId: ${currBoard.BOARD_ID}
+			},
+			success: function(data) {
+				if(data == 'fail') {
+					return;
+				}else {
+					document.getElementById('likeButton').setAttribute('name',"heart");
+					alert('성공!');
+				}
+			}
+		})
+	}
+})
+
+
+
 $(document).ready(function(){
 	fn_commentList();
 })
@@ -438,7 +479,7 @@ function fn_commentList(){
 		type: "post",
 		dataType: "json",
 		data: {
-			currBoardNo: ${currBoard.boardId}
+			currBoardNo: ${currBoard.BOARD_ID}
 		},
 		success: function(data) {
 			let html = "";
@@ -462,7 +503,7 @@ function fn_commentInsert(){
 		type:"post",
 		dataType:"json",
 		data:{
-			currBoardNo:${currBoard.boardId},
+			currBoardNo:${currBoard.BOARD_ID},
 			content:contentValue
 		},
 		success:function(data){

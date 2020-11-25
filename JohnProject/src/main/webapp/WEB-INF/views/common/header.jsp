@@ -19,17 +19,21 @@
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/sockjs-client/1.5.0/sockjs.min.js"></script>
 <script defer src="${path}/resources/js/header.js"></script>
-<script src="https://unpkg.com/ionicons@5.2.3/dist/ionicons.js"></script>
+<script type="module" src="https://unpkg.com/ionicons@5.2.3/dist/ionicons/ionicons.esm.js"></script>
+<script nomodule="" src="https://unpkg.com/ionicons@5.2.3/dist/ionicons/ionicons.js"></script>
 <link rel="stylesheet" href="${path}/resources/css/layout.css">
 <link rel="preconnect" href="https://fonts.gstatic.com">
 <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+KR&display=swap" rel="stylesheet">
 </head>
 <style>
 .containerJohn {
-	/* background-image: url("${path}/resources/images/background_basic.png");
-	background-repeated: repeated; */
+	background-image: url("${path}/resources/images/special_back.jpg");
+	background-repeat: no-repeat;
+	  background-attachment: fixed;
+	  background-size: cover;
+	/* background-repeated: repeated; */
 	/* background-color: rgb(201, 193, 181); */
-	background-color:#000941;
+	/* background-color:#000941; */
 }
 
 .containerJohn *{
@@ -42,7 +46,7 @@
 #header {
     border-top-right-radius: 30px;
     width: 100%;
-    height: 8%; 
+    height: 6%; 
     /* background-color: #415a9c; */
    	background-color:white;
 /*     border-left: 1px solid rgb(98, 98, 98); */
@@ -160,16 +164,12 @@
 	justify-content: center;
 }
 
-<<<<<<< HEAD
-
-=======
 #bellDiv{
 	display:flex;
 	width:100%;
 	height:100%;
 	align-items: center;
 }
->>>>>>> e45e5010cf068baa31717009369237c5630f2e75
 
 #alarmDropdownDiv{
 	position: absolute;
@@ -212,11 +212,8 @@
 #bell {
 	cursor:pointer;
  	width:100%;
-<<<<<<< HEAD
  	height:100%;
  	border:1px red solid;
-=======
->>>>>>> e45e5010cf068baa31717009369237c5630f2e75
 }
 
 #bellDiv:hover #alarmDropdownDiv{
@@ -281,10 +278,7 @@
 											</c:if>
 										</c:if>
 									<div id="alarmDropdownDiv">
-<<<<<<< HEAD
-=======
 										<%@ include file="/WEB-INF/views/alarm/alarm.jsp"%>
->>>>>>> e45e5010cf068baa31717009369237c5630f2e75
 								</div> 
 							</div>
 						<!--  -->	

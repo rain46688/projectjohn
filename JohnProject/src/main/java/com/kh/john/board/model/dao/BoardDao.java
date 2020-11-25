@@ -20,4 +20,5 @@ public interface BoardDao {
 	List<Comment> commentSelectList(SqlSession session, int currBoardNo);
 	int boardCommentInsert(SqlSession session, Map param);
 	List<Subscribe> boardSubList(SqlSession session, int usid);
+	int boardLikeInsert(SqlSession session, Map param);
 }
