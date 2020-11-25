@@ -44,18 +44,17 @@
 				};
 
 				alsocket.onmessage = function(msg) {
-					console.log("msg 콘솔 : " + msg);
+					console.log("onmessage 실행됨");
 					let aldata = JSON.parse(msg.data);
-					console.log("aldata : "+$(aldata));
-					console.log("타입 : "+typeof aldata);
-					//알람 종 표시
-					printBell();
 					// 알람 리스트에 값을 넣어주고 새로 갱신해줌 기본이 상담 리스트를 뿌려줌
 					alarmList = aldata;
-					if(alarmList.length > 0){
+					//알람 종 표시
+					console.log("리스트 길이 : "+alarmList.length);
+					printBell();
+					//if(alarmList.length > 0){
 						console.log("프린트 리스트, "+usid);
 						printalfunc(alarmList,'expert');
-					}
+					//}
 					//각각 페이지에 따라 분기 처리 
 					if(window.location.pathname == '/john/expert/expertRequestPrintList'){
 						console.log("헤더 분기 1");
@@ -67,6 +66,7 @@
 				};
 
 				function printBell(){
+					console.log("벨 출력");
 					if (usid != "") {
 						console.log("로그인 되있음");
 						if(alarmList.length > 0){

@@ -40,6 +40,8 @@ public class AlarmSocketHandler extends TextWebSocketHandler {
 		log.info("닉네임 : " + m.getMemNickname());
 	}
 
+//알람 목록 호버하면 나오는 리스트에 시간 초까지 제대로 보이게 수정해보기
+	// 알람 보내면 상대방한테 제대로 바로 알람 갱신되는지 확인해보기
 	@Override
 	protected void handleTextMessage(WebSocketSession session, TextMessage message) throws Exception {
 		// TODO Auto-generated method stub
@@ -60,19 +62,19 @@ public class AlarmSocketHandler extends TextWebSocketHandler {
 				}
 			}
 		} else {
-//			Alarm almsg = objectMapper.readValue(message.getPayload(), Alarm.class);
-//			log.debug("almsg : " + almsg);
-//			Iterator<Member> it = users.keySet().iterator();
-//			while (it.hasNext()) {
-//				Member key = it.next();
-//				if (almsg.getAlarmReceiveMemUsid() == key.getUsid()) {
-//					log.debug("알람 디비 넣기");
-//					service.insertExpertAlarm(almsg);
-//					// users.get(key).sendMessage(new
-//					// TextMessage(objectMapper.writeValueAsString(almsg)));
-//					sendList(key);
-//				}
-//			}
+			Alarm almsg = objectMapper.readValue(message.getPayload(), Alarm.class);
+			log.debug("almsg : " + almsg);
+			Iterator<Member> it = users.keySet().iterator();
+			while (it.hasNext()) {
+				Member key = it.next();
+				if (almsg.getAlarmReceiveMemUsid() == key.getUsid()) {
+					log.debug("알람 디비 넣기");
+					service.insertExpertAlarm(almsg);
+					// users.get(key).sendMessage(new
+					// TextMessage(objectMapper.writeValueAsString(almsg)));
+					sendList(key);
+				}
+			}
 		}
 	}
 
@@ -101,6 +103,7 @@ public class AlarmSocketHandler extends TextWebSocketHandler {
 			for (Alarm a : list) {
 				String date = fmt.format(a.getAlarmDate());
 				log.debug("a : " + a);
+				log.debug("date : " + date);
 				a.setTmpDate(date);
 			}
 			users.get(m).sendMessage(new TextMessage(objectMapper.writeValueAsString(list)));

@@ -165,6 +165,22 @@ public class BoardController {
 		return mv;
 	}
 	
+	//좋아요 넣기
+	@RequestMapping("/board/boardLikeInsert")
+	@ResponseBody
+	public Map likeInsert(@RequestParam Map m) {
+		int result = service.boardLikeInsert(m);
+		
+		Map<String,String> ajaxResult = new HashMap();
+		
+		if(result > 0) {
+			ajaxResult.put("result","success");
+		}else {
+			ajaxResult.put("result","fail");
+		}
+		return ajaxResult;
+	}
+	
 	@RequestMapping(value="/board/boardFileUpload", method=RequestMethod.POST)
 	@ResponseBody
 	public String fileUpload(HttpServletRequest req, HttpServletResponse resp, 
