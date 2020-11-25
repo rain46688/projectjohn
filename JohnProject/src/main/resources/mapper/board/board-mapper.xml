@@ -92,4 +92,8 @@
 	<select id="boardHasLiked" parameterType="map" resultType="_int">
 		SELECT COUNT(*) FROM LIKE_DISLIKE WHERE LIKE_USID = #{loginUsid} AND LIKE_BOARD_ID = #{boardId}
 	</select>
+	
+	<update id="boardReadCount" parameterType="_int">
+		UPDATE BOARD SET HIT = HIT + 1 WHERE BOARD_ID = #{boardNo}
+	</update>
 </mapper>

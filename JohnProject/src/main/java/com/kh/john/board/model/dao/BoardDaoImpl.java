@@ -79,4 +79,10 @@ public class BoardDaoImpl implements BoardDao{
 		// TODO Auto-generated method stub
 		return session.selectOne("board.boardHasLiked", param);
 	}
+	
+	@Override
+	public int boardReadCount(SqlSession session, int boardNo) {
+		// TODO Auto-generated method stub
+		return session.update("board.boardReadCount", boardNo);
+	}
 }

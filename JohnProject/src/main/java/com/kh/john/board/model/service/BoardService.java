@@ -19,6 +19,7 @@ public interface BoardService {
 	int boardLikeInsert(Map param);
 	int boardLikeDelete(Map param);
 	int boardHasLiked(Map param);
+	int boardReadCount(int boardNo);
 
 }
 

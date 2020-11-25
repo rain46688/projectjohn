@@ -5,14 +5,12 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.OutputStream;
 import java.io.PrintWriter;
-import java.text.SimpleDateFormat;
-import java.util.ArrayList;
-import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.UUID;
 
+import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
@@ -34,7 +32,6 @@ import com.fasterxml.jackson.databind.JsonMappingException;
 import com.google.gson.JsonObject;
 import com.kh.john.board.model.service.BoardService;
 import com.kh.john.board.model.vo.Board;
-import com.kh.john.board.model.vo.BoardFile;
 import com.kh.john.board.model.vo.Comment;
 import com.kh.john.board.model.vo.Subscribe;
 import com.kh.john.member.model.vo.Member;
@@ -115,7 +112,32 @@ public class BoardController {
 	}
 
 	@RequestMapping("board/boardPage")
-	public ModelAndView boardPage(ModelAndView mv, int boardNo, HttpServletResponse response) {
+	public ModelAndView boardPage(ModelAndView mv, int boardNo, HttpServletResponse response, HttpServletRequest request) {
+		Cookie[] myCookies = request.getCookies();
+		String boardHistory = "";
+		boolean hasRead = false;
+		
+		//조회수 처리
+		if(myCookies!=null) {
+			for(Cookie c : myCookies) {
+				String name = c.getName();
+				String value = c.getValue();
+				
+				if(name.equals("boardHistory")) {
+					boardHistory = value;
+					if(value.contains("|"+boardNo+"|")) {
+						hasRead = true;
+						break;
+					}
+				}
+			}
+		}
+		if(!hasRead) {
+			Cookie c = new Cookie("boardHistory", boardHistory + "|" + boardNo + "|");
+			c.setMaxAge(-1);
+			response.addCookie(c);
+			int readResult = service.boardReadCount(boardNo);
+		}
 		
 		Map m = service.boardSelectOne(boardNo);
 		
