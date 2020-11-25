@@ -21,13 +21,15 @@
 <script defer src="${path}/resources/js/header.js"></script>
 <script src="https://unpkg.com/ionicons@5.2.3/dist/ionicons.js"></script>
 <link rel="stylesheet" href="${path}/resources/css/layout.css">
+<link rel="preconnect" href="https://fonts.gstatic.com">
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif+KR&display=swap" rel="stylesheet">
 </head>
 <style>
 .containerJohn {
-	background-image: url("${path}/resources/images/background_pattern.png");
-	background-repeated: repeated;
+	/* background-image: url("${path}/resources/images/background_basic.png");
+	background-repeated: repeated; */
 	/* background-color: rgb(201, 193, 181); */
-
+	background-color:#000941;
 }
 
 .containerJohn *{
@@ -40,10 +42,12 @@
 #header {
     border-top-right-radius: 30px;
     width: 100%;
-    height: 9%; 
-    background-color: #0054BA;
+    height: 8%; 
+    /* background-color: #415a9c; */
+   	background-color:white;
 /*     border-left: 1px solid rgb(98, 98, 98); */
     padding-right:3em;
+    border-bottom:1px solid rgba(0,0,0,.1);
 }
 
 #header > button {
@@ -119,7 +123,7 @@
 #search #searchText {
 	width:12em;
 	height:2em;
-	border:1px white solid;
+	border:1px gray solid;
 	border-radius:8px;
 	border-top-right-radius: 0%;
 	border-bottom-right-radius: 0%;
@@ -129,17 +133,18 @@
 	display: flex;
 	align-items: center;
 	justify-content: center;
-	border:1px white solid;
+	border:1px gray solid;
+	background-color:#ffc55b;
 }
 
 #search ion-icon{
 	font-size: 30px;
-	color: white;
+	color: black;
 }
 
 #headerList ion-icon{
 	font-size: 35px;
-	color: white;
+	color: black;
 }
 
 #headerList li {
@@ -155,12 +160,16 @@
 	justify-content: center;
 }
 
+<<<<<<< HEAD
+
+=======
 #bellDiv{
 	display:flex;
 	width:100%;
 	height:100%;
 	align-items: center;
 }
+>>>>>>> e45e5010cf068baa31717009369237c5630f2e75
 
 #alarmDropdownDiv{
 	position: absolute;
@@ -193,10 +202,21 @@
 	cursor:pointer;
 }
 
+#bellDiv{
+	border:1px red solid;
+	display:flex;
+	width:100%;
+	height:100%;
+}
 
 #bell {
 	cursor:pointer;
  	width:100%;
+<<<<<<< HEAD
+ 	height:100%;
+ 	border:1px red solid;
+=======
+>>>>>>> e45e5010cf068baa31717009369237c5630f2e75
 }
 
 #bellDiv:hover #alarmDropdownDiv{
@@ -261,7 +281,10 @@
 											</c:if>
 										</c:if>
 									<div id="alarmDropdownDiv">
+<<<<<<< HEAD
+=======
 										<%@ include file="/WEB-INF/views/alarm/alarm.jsp"%>
+>>>>>>> e45e5010cf068baa31717009369237c5630f2e75
 								</div> 
 							</div>
 						<!--  -->	
