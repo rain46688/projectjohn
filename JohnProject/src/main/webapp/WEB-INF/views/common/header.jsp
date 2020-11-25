@@ -36,10 +36,6 @@
 	/* background-color:#000941; */
 }
 
-.containerJohn *{
-	/*   border:1px solid red;  */
-}
-
 #headerAndContent {
     width: 82%;
 }
@@ -175,7 +171,7 @@
 	position: absolute;
 	z-index:4;
 	background-color:white;
-	top:10%;
+	top:9%;
 	right:4%;
 	padding:0.5%;
 	display:none;
@@ -211,9 +207,6 @@
 
 #bell {
 	cursor:pointer;
- 	width:100%;
- 	height:100%;
- /* 	border:1px red solid; */
 }
 
 #bellDiv:hover #alarmDropdownDiv{
@@ -222,6 +215,10 @@
 
 #number:hover #alarmDropdownDiv{
 	display:flex;
+}
+
+#header *{
+	/*  border:1px solid red;   */
 }
 
 </style>

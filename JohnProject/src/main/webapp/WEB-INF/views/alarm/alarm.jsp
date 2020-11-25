@@ -195,14 +195,17 @@ $("#check").click(e => {
 
 //알람 읽은것으로 처리
 $("#delete").click(e=>{
-	console.log("zz");
+	console.log("del");
+	let readList = [];
 	let selectedNavDelete = selectliItem();
 	let ataghtml = matchAtagHtml(selectedNavDelete);
 	alarmList.forEach((e, i)=>{
 			if(e['alarmType'].includes(ataghtml) && e['alarmIscheked'] == false){
 								console.log(e['alarmId']);
+								readList.push(e);
 			}
 	});
+	alsocket.send(JSON.stringify(readList));
 });
 
 
@@ -239,7 +242,7 @@ function printalfunc(list, type){
 				/* shadow p-3 mb-5 bg-white rounded */
 				print += "<div class='divRowAl' style='cursor: pointer'>";
 				print += "<input type='hidden' value='"+e['alarmId']+"'>";
-				print += "<div class='divCellAl'>1 : 1 영상 상담 요청이있습니다.<div class='date'>"+e['tmpDate']+"</div></div></div>";
+				print += "<div class='divCellAl'>1 : 1 영상 상담 요청이있습니다.<div class='date'>"+e['alarmDate']+"</div></div></div>";
 				print += "<div class='al'><div class='alContent'>"
 				print += "안녕하세요 상담사 "+e['alarmSendMemNickname']+"입니다.<br> 아래 URL로 바로 접속하셔서 상담 진행하시면됩니다.<br>" 
 				print += "<a href='${path }/expert/expertRoom?bno="+e['alarmMsgContent']+"'>-클릭해서 상담 접속-</a></div></div>"
@@ -252,7 +255,7 @@ function printalfunc(list, type){
 				console.log("출력");
 				print += "<div class='divRowAl' style='cursor: pointer'>";
 				print += "<input type='hidden' value='"+e['alarmId']+"'>";
-				print += "<div class='divCellAl'>1 : 1 영상 상담 요청이있습니다.<div class='date'>"+e['tmpDate']+"</div></div></div>";
+				print += "<div class='divCellAl'>1 : 1 영상 상담 요청이있습니다.<div class='date'>"+e['alarmDate']+"</div></div></div>";
 				print += "<div class='al'><div class='alContent'>"
 				print += "안녕하세요 상담사 "+e['alarmSendMemNickname']+"입니다.<br> 아래 URL로 바로 접속하셔서 상담 진행하시면됩니다.<br>" 
 				print += "<a href='${path }/expert/expertRoom?bno="+e['alarmMsgContent']+"'>-클릭해서 상담 접속-</a></div></div>"

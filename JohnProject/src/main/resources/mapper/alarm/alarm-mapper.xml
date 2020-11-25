@@ -2,17 +2,17 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="alarm">
 
-<select id="selectAlarmCount" parameterType="_int" resultType="string"> 
-	SELECT COUNT(*) FROM ALARM WHERE ALARM_RECEIVE_MEM_USID = #{usid} AND ALARM_ISCHECKED = 0
-</select> 
-
 	<select id="selectAlarmList" parameterType="_int"  resultMap="alMap"> 
-		SELECT * FROM ALARM WHERE ALARM_RECEIVE_MEM_USID = #{usid}
+		SELECT ALARM_ID,ALARM_SEND_MEM_USID,ALARM_RECEIVE_MEM_USID,ALARM_TYPE,ALARM_MSG_CONTENT,ALARM_SEND_MEM_NICKNAME,ALARM_ISCHECKED ,TO_CHAR(ALARM_DATE,'YYYY-MM-DD HH24:Mi:SS') AS ALARM_DATE  FROM ALARM WHERE ALARM_RECEIVE_MEM_USID = #{usid}  ORDER BY ALARM_DATE DESC
 	</select>
 	
 	<insert id="insetExpertAlarm" parameterType="alarm">
 		INSERT INTO ALARM VALUES(SEQ_ALARM_NO.NEXTVAL,#{alarmSendMemUsid},#{alarmReceiveMemUsid},#{alarmType},#{alarmMsgContent},#{alarmSendMemNickname},SYSDATE,0)
 	</insert>
+	
+	<update id="updateAlarmRead" parameterType="_int">
+		UPDATE ALARM SET ALARM_ISCHECKED = 1 WHERE ALARM_ID = #{aid}
+	</update>
 
 <!-- 	<update id="updateAlarmRead" parameterType="_int">
 		UPDATE ALARM SET ALARM_ISCHECKED = 1 WHERE ALARM_ID = #{aid}
@@ -20,7 +20,13 @@
 	
 		<select id="selectAlarmItem" parameterType="map"  resultMap="alMap"> 
 		SELECT * FROM ALARM WHERE ALARM_TYPE = #{item} AND ALARM_RECEIVE_MEM_USID = #{usid} AND ALARM_ISCHECKED = 0
-	</select> -->
+	</select>
+	
+	<select id="selectAlarmCount" parameterType="_int" resultType="string"> 
+	SELECT COUNT(*) FROM ALARM WHERE ALARM_RECEIVE_MEM_USID = #{usid} AND ALARM_ISCHECKED = 0
+</select> 
+	
+	 -->
 	
 		<resultMap type="alarm" id="alMap">
 		<id column="ALARM_ID" property="alarmId" />
@@ -32,6 +38,5 @@
 		<id column="ALARM_DATE" property="alarmDate" />
 		<id column="ALARM_ISCHECKED" property="alarmIscheked" />
 	</resultMap>
-	
 
 </mapper>
