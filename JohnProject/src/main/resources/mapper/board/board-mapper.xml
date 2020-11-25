@@ -80,4 +80,8 @@
 	<select id="boardSubList" parameterType="_int" resultMap="subscribeMap">
 		SELECT * FROM SUBSCRIBE WHERE SUB_MEM_USID = #{usid}
 	</select>
+	
+	<insert id="boardLikeInsert" parameterType="map">
+		INSERT INTO LIKE_DISLIKE VALUES(#{loginUsid}, #{boardId})
+	</insert>
 </mapper>

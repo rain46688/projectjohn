@@ -9,8 +9,8 @@
 <style>
 	
 	#result {
+		margin-top:1em;
 		font-family: 'Noto Serif KR', serif;
-		margin-top:2em;
 	 	scroll-behavior:smooth;
 	}
 	
@@ -22,6 +22,14 @@
 		margin-left:1em;
 		font-weight: 800;
 		font-size: 1.75em;
+	}
+	
+	.subListTitle a {
+		margin-left: 0em;
+		font-size: 14px;
+		font-weight: 600;
+		color:black;
+		text-decoration: underline;
 	}
 	
 	.subListBigCon {
@@ -48,7 +56,9 @@
 	  transition: 250ms all;
 	  width:16em;
 	  height:8em;
-	  background-color:#CCD7E6;
+	  /* background-color:#CCD7E6; */
+	  background-color: white;
+	  border-top:5px #ffc55b solid;
 	}
 	
 	.subListBigCon .sector .subListContent:hover {
@@ -93,7 +103,7 @@
                     
 					<div id="result">
 						<div class="popular">
-							<h1 class='subListTitle'>인기</h1>
+							<h1 class='subListTitle'>인기 <a href="#">View More</a></h1>
 							<hr>
 							<div id='popularList' class='subListBigCon'>
 
@@ -101,7 +111,7 @@
 							<hr>
 						</div>
 						<div class="new">
-							<h1 class='subListTitle'>최신</h1>
+							<h1 class='subListTitle'>최신 <a href="#">View More</a></h1>
 							<hr>
 							<div id='newList' class='subListBigCon'>
 
@@ -141,6 +151,9 @@
 		let subTitleCon = parent.document.createElement('h1');
 		subTitleCon.className = 'subListTitle';
 		subTitleCon.innerHTML = subTitle;
+		
+		let viewMore = parent.document.createElement('a');
+		viewMore.innerHTML = 'View More';
 		
 		// div.innerHTML += "<div id='subList" + (index+1) + "' class='subListBigCon'></div>";
 		let subListCon = parent.document.createElement('div');
