@@ -21,4 +21,7 @@ public interface BoardDao {
 	int boardCommentInsert(SqlSession session, Map param);
 	List<Subscribe> boardSubList(SqlSession session, int usid);
 	int boardLikeInsert(SqlSession session, Map param);
+	int boardLikeDelete(SqlSession session, Map param);
+	int boardHasLiked(SqlSession session, Map param);
+	int boardReadCount(SqlSession session, int boardNo);
 }

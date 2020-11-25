@@ -73,4 +73,22 @@ public class BoardServiceImpl implements BoardService {
 		// TODO Auto-generated method stub
 		return dao.boardLikeInsert(session, param);
 	}
+	
+	@Override
+	public int boardLikeDelete(Map param) {
+		// TODO Auto-generated method stub
+		return dao.boardLikeDelete(session, param);
+	}
+	
+	@Override
+	public int boardHasLiked(Map param) {
+		// TODO Auto-generated method stub
+		return dao.boardHasLiked(session, param);
+	}
+	
+	@Override
+	public int boardReadCount(int boardNo) {
+		// TODO Auto-generated method stub
+		return dao.boardReadCount(session, boardNo);
+	}
 }

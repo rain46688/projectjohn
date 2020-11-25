@@ -17,5 +17,9 @@ public interface BoardService {
 	int boardCommentInsert(Map param);
 	List<Subscribe> boardSubList(int usid);
 	int boardLikeInsert(Map param);
+	int boardLikeDelete(Map param);
+	int boardHasLiked(Map param);
+	int boardReadCount(int boardNo);
+
 }
 
