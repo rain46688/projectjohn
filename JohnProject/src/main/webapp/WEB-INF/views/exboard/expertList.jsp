@@ -110,7 +110,7 @@ html, body, div, span, applet, object, iframe, h1, h2, h3, h4, h5, h6, p, blockq
 }
 
 /* 슬라이드 이미지 */
-img {
+.expertimg {
 	width: 100%; 
 	height: auto;
 }

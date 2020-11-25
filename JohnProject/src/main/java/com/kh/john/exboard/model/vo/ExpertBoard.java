@@ -16,5 +16,5 @@ public class ExpertBoard {
 	private String expertBoardExNick;
 	private int expertBoardMemberend;
 	private int expertBoardExpertend;
-	private String expertBoardMemNick;
+	private String expertBoardMemNick;// 어디서 썻던거지??
 }

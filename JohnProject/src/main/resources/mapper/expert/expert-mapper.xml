@@ -31,7 +31,7 @@
 </select>
 
 <insert id="insertExpertBoard" parameterType="exboard">
-		INSERT INTO EXPERT_BOARD VALUES(SEQ_EXPERT_BOARD_NO.NEXTVAL,#{expertBoardUsid}, #{expertBoardMemUsid},NULL,default,NULL,default,#{expertBoardExNick},default,default)
+		INSERT INTO EXPERT_BOARD VALUES(SEQ_EXPERT_BOARD_NO.NEXTVAL,#{expertBoardUsid}, #{expertBoardMemUsid},NULL,default,NULL,default,#{expertBoardExNick},default,default,#{expertBoardMemNick})
 	<selectKey keyProperty="expertBoardId" resultType="_int" order="AFTER">
 		SELECT SEQ_EXPERT_BOARD_NO.CURRVAL FROM DUAL
 	</selectKey>

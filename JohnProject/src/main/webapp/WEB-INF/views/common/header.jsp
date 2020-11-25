@@ -33,7 +33,7 @@
 }
 
 .containerJohn *{
-	 /*  border:1px solid red;  */
+	/*   border:1px solid red;  */
 }
 
 #headerAndContent {
@@ -160,20 +160,29 @@
 	justify-content: center;
 }
 
+<<<<<<< HEAD
 
+=======
+#bellDiv{
+	display:flex;
+	width:100%;
+	height:100%;
+	align-items: center;
+}
+>>>>>>> e45e5010cf068baa31717009369237c5630f2e75
 
 #alarmDropdownDiv{
 	position: absolute;
 	z-index:4;
 	background-color:white;
 	top:11.3%;
-	right:2.6%;
-	padding:1%;
+	right:4%;
+	padding:0.5%;
 	display:none;
 	font-weight:bold;
-	width:30%;
+	width:25%;
 	height:auto;
-	min-height:40%;
+	min-height:30%;
 }
 
 #al {
@@ -182,14 +191,13 @@
 	text-align: center;
 	width: 25px;
 	height: 25px;
-	top: 40%;
-	right:80%;
+	right:50%;
 	font-size: 15px; font-weight : bold;
-	color: black;
-	background-color: white;
+	color: white;
+	background-color: #F13F36;
 	border-radius: 70%;
 	border: 1px solid black;
-	box-shadow: 1px 1px 1px 1px gray;
+	/* box-shadow: 1px 1px 1px 1px gray; */
 	font-weight: bold;
 	cursor:pointer;
 }
@@ -204,8 +212,11 @@
 #bell {
 	cursor:pointer;
  	width:100%;
+<<<<<<< HEAD
  	height:100%;
  	border:1px red solid;
+=======
+>>>>>>> e45e5010cf068baa31717009369237c5630f2e75
 }
 
 #bellDiv:hover #alarmDropdownDiv{
@@ -264,12 +275,16 @@
 						<!--  호버 -->
 								<div id="bellDiv">
 										<c:if test="${loginMember.usid != null}">
-											<a id="bell" class="bell2" ><ion-icon name="notifications-circle-outline"></ion-icon></a>
+											<a id="bell" ><ion-icon name="notifications-circle-outline"></ion-icon></a>
 											<c:if test="${loginMember.usid != null}">
 											<a id="number"></a>
 											</c:if>
 										</c:if>
 									<div id="alarmDropdownDiv">
+<<<<<<< HEAD
+=======
+										<%@ include file="/WEB-INF/views/alarm/alarm.jsp"%>
+>>>>>>> e45e5010cf068baa31717009369237c5630f2e75
 								</div> 
 							</div>
 						<!--  -->	
