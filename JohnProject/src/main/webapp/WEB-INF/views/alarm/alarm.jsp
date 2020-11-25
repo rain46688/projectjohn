@@ -118,7 +118,7 @@ html, body, div, span, applet, object, iframe, h1, h2, h3, h4, h5, h6, p, blockq
 		<label class="form-check-label">
     		<input id="check" type="checkbox" class="form-check-input" value="">모두 보기
   		</label>
-		<img id="" src="${path}/resources/images/delete.png" alt="" width="30px" height="30px"></div>
+		<img id="delete" src="${path}/resources/images/delete.png" alt="" width="30px" height="30px"></div>
 		<div class="divListBodyAl">
 			<ul class="nav nav-tabs">
 				<li class="nav-item"><a class="nav-link active">상담</a></li>
@@ -165,25 +165,45 @@ $(".nav-link").click(e =>{
 });
 
 
-$("#check").click(e => {
-	console.log("선택");
-	let selectedNav;
+function selectliItem(){
 	let allnav = $(".nav-link");
 	for(let i=0; i < allnav.length; i++){
 		if($(allnav[i]).hasClass('active')){
-			selectedNav = $(allnav[i]).html();
-			console.log("선택된것 : "+selectedNav);
+			sel = $(allnav[i]).html();
+			console.log("선택된것 : "+sel);
 		}
 	};
-	
-	if(selectedNav === '상담'){
-		printalfunc(alarmList,'expert');
-	}else if(selectedNav === '게시판'){
-		
-	}else if(selectedNav === '신고'){
-		
+	return sel;
+}
+
+function matchAtagHtml(item){
+	if(item === '상담'){
+		return 'expert'
+	}else if(item === '게시판'){
+		return ''
+	}else if(item === '신고'){
+		return ''
 	}
+}
+
+$("#check").click(e => {
+	console.log("선택");
+	let selectedNav = selectliItem();
+	printalfunc(alarmList,matchAtagHtml(selectedNav));
 });
+
+//알람 읽은것으로 처리
+$("#delete").click(e=>{
+	console.log("zz");
+	let selectedNavDelete = selectliItem();
+	let ataghtml = matchAtagHtml(selectedNavDelete);
+	alarmList.forEach((e, i)=>{
+			if(e['alarmType'].includes(type) && e['alarmIscheked'] == false){
+								
+			}
+		)};
+});
+
 
 /* $('.nav-item').hover(function() {
 	console.log("z")

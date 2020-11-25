@@ -9,14 +9,14 @@
 	<select id="selectAlarmList" parameterType="_int"  resultMap="alMap"> 
 		SELECT * FROM ALARM WHERE ALARM_RECEIVE_MEM_USID = #{usid}
 	</select>
-
-<!-- 	<update id="updateAlarmRead" parameterType="_int">
-		UPDATE ALARM SET ALARM_ISCHECKED = 1 WHERE ALARM_ID = #{aid}
-	</update>
 	
 	<insert id="insetExpertAlarm" parameterType="alarm">
 		INSERT INTO ALARM VALUES(SEQ_ALARM_NO.NEXTVAL,#{alarmSendMemUsid},#{alarmReceiveMemUsid},#{alarmType},#{alarmMsgContent},#{alarmSendMemNickname},SYSDATE,0)
 	</insert>
+
+<!-- 	<update id="updateAlarmRead" parameterType="_int">
+		UPDATE ALARM SET ALARM_ISCHECKED = 1 WHERE ALARM_ID = #{aid}
+	</update>
 	
 		<select id="selectAlarmItem" parameterType="map"  resultMap="alMap"> 
 		SELECT * FROM ALARM WHERE ALARM_TYPE = #{item} AND ALARM_RECEIVE_MEM_USID = #{usid} AND ALARM_ISCHECKED = 0
