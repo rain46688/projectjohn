@@ -246,7 +246,6 @@
 		console.log('onclose실행');
 	}
 </script>
-<jsp:include page="/WEB-INF/views/common/footer.jsp"/>
 
 
 

@@ -7,6 +7,8 @@
 	<!-- 글씨체 -->
 	<link rel="preconnect" href="https://fonts.gstatic.com">
 	<link href="https://fonts.googleapis.com/css2?family=Noto+Serif+KR&display=swap" rel="stylesheet">
+	<script type="module" src="https://unpkg.com/ionicons@5.2.3/dist/ionicons/ionicons.esm.js"></script>
+	<script nomodule="" src="https://unpkg.com/ionicons@5.2.3/dist/ionicons/ionicons.js"></script>
 </head>
 <style>
 	#container_logo{
@@ -31,7 +33,7 @@
 		width: 8px;
 	}
 	#menu::-webkit-scrollbar-thumb{
-		background-color: white;
+		background-color: black;
 	}
 	#menu::-webkit-scrollbar-track {
 		background-color: #05135C;
@@ -158,4 +160,3 @@
 		</div>
 	</div>
 </div>
-<script src="https://unpkg.com/ionicons@5.2.3/dist/ionicons.js"></script>

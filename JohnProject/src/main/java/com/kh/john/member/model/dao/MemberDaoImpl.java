@@ -152,7 +152,7 @@ public class MemberDaoImpl implements MemberDao {
 
 	@Override
 	public int expertBoardCount(SqlSessionTemplate session, int usid) {
-		return session.selectOne("member.expertBoardCount");
+		return session.selectOne("member.expertBoardCount",usid);
 	}
 
 	@Override
