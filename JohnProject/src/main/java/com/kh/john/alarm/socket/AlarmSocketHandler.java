@@ -75,6 +75,7 @@ public class AlarmSocketHandler extends TextWebSocketHandler {
 			while (it.hasNext()) {
 				Member key = it.next();
 				if (almsg.getAlarmReceiveMemUsid() == key.getUsid()) {
+					log.debug("알람 디비 넣기");
 					service.insertExpertAlarm(almsg);
 					users.get(key).sendMessage(new TextMessage(objectMapper.writeValueAsString(almsg)));
 				}

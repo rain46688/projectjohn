@@ -114,12 +114,13 @@ public class ExboardServiceImpl implements ExboardService {
 
 	// 상담 게시판 개설하기
 	@Override
-	public int insertExpertBoard(String memusid, Member expertmem) throws Exception {
+	public int insertExpertBoard(String memusid, String memnic, Member expertmem) throws Exception {
 		// TODO Auto-generated method stub
 		ExpertBoard exboard = new ExpertBoard();
 		exboard.setExpertBoardUsid(expertmem.getUsid());
 		exboard.setExpertBoardMemUsid(Integer.parseInt(memusid));
 		exboard.setExpertBoardExNick(expertmem.getMemNickname());
+		exboard.setExpertBoardMemNick(memnic);
 		int result = dao.insertExpertBoard(session, exboard);
 		if (result > 0) {
 			return exboard.getExpertBoardId();
@@ -199,9 +200,10 @@ public class ExboardServiceImpl implements ExboardService {
 		// TODO Auto-generated method stub
 
 		List<ExpertBoard> list = dao.selectExboardListCategory(session, ca);
-		for (ExpertBoard eb : list) {
-			eb.setExpertBoardMemNick(dao.selectMember(session, "" + eb.getExpertBoardMemUsid()).getMemNickname());
-		}
+//		for (ExpertBoard eb : list) {
+//			// 여기 수정좀 해야됨 expertBoardMemNick 추가했으니
+//			eb.setExpertBoardMemNick(dao.selectMember(session, "" + eb.getExpertBoardMemUsid()).getMemNickname());
+//		}
 		return list;
 	}
 

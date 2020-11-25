@@ -204,7 +204,7 @@ public class ExboardController {
 		String result = "";
 		Member expertmem = (Member) session.getAttribute("loginMember");
 		try {
-			result = "" + service.insertExpertBoard(no, expertmem);
+			result = "" + service.insertExpertBoard(no, nic, expertmem);
 			log.debug("result : " + result);
 		} catch (Exception e) {
 			// TODO Auto-generated catch block

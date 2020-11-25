@@ -32,7 +32,7 @@ html, body, div, span, applet, object, iframe, h1, h2, h3, h4, h5, h6, p, blockq
 
 #content * {
 	/* border: 1px solid red; */
-	font-family: 'Noto Serif KR', serif;
+	/* font-family: 'Noto Serif KR', serif; */
 }
 
 /* 기본 배경 */
@@ -223,22 +223,16 @@ h6 {
 }
 
 /* 각 소제목들 p태그 */
-p {
+#mainDiv p {
 	font-size: 2vh;
 	font-weight: bold;
 	padding: 1% 0 1% 0;
 }
 
-/* 인풋 태그 */
-input {
-	height: 40%;
-	width: 40%;
-}
-
-/* 셀렉트 태그 */
-select {
-	width: 100%;
-	height: 40%;
+.licenseTitle p{
+	font-size: 2vh;
+	font-weight: bold;
+	padding: 1% 0 1% 0;
 }
 
 /* 텍스트 에어리어 태그 */
@@ -372,7 +366,8 @@ textarea:focus {
 #licenseupDiv {
 	height: 15%;
 	width: 100%;
-	background-color: #0054BA;
+	/* background-color: #0054BA; */
+	background-color: #003478;
 	padding: 1.5%;
 	display: flex;
 	border: 1px solid #C6C5C5;
@@ -483,6 +478,7 @@ textarea:focus {
 	width: 100%;
 	height: 100%;
 }
+
 </style>
 
 	<div id="licenseModifyDiv">
@@ -733,71 +729,6 @@ function modify(){
 		}
 	});
 }
-
- 
-<!--
-$("#mirrorimgDiv").click(e => {
-	console.log("이미지 눌릠");
-	 $("#profileUpload").click();
-});
-
-$("#profileUpload").change(function(e){
-
-    e.preventDefault();
-	console.log("이미지 선택됨");
-	console.log("files : " + $("#profileUpload").val());
-	let file2 = $("#profileUpload").val();
-	
-	let f = (file2).substring((file2).lastIndexOf('.'),(file2).length);
-	console.log(f);
-	
-	if(f != '.png' && f != '.jpg' && f != '.jpeg' && f != '.gif'){
-	alert('이미지 파일만 업로드 가능합니다.');
-	return false;
-	}else{
-	let file = this.files[0];
-    reader = new FileReader();
-    reader.onload = function (event) {
-        let img = new Image();
-        img.src = event.target.result;
-     /*    console.log($("#imgProfile").width()+" "+$("#imgProfile").height());
-          img.width = $("#imgProfile").width();
-          img.height = $("#imgProfile").height(); */
-          
-          console.log(proWith+" "+proHeight);
-          img.width = proWith;
-          img.height = proHeight;
-          
-        $('#imgDiv').empty();
-        $('#imgDiv').append(img);
-      /*   $('#mirrorimgDiv').css('background-image',' ');
-        $('#mirrorimgDiv').css('background-image','url(C:\fakepath\search.png)'); */
-    };
-    
-    reader.readAsDataURL(file);
-    return false;
-	}
-});
-
-
- $('#imgDiv').hover(function(){
-	proWith =  $("#imgProfile").width();
-	proHeight =  $("#imgProfile").height();
-    $('#mirrorimgDiv').css('display','flex');
-   $("#imgDiv").css('display','none');
-}, function() {
-	$('#mirrorimgDiv').css('display','none');
-	   $("#imgDiv").css('display','flex');
-}); 
-
-$('#mirrorimgDiv').hover(function(){
-    $('#mirrorimgDiv').css('display','flex');
-    $("#imgDiv").css('display','none');
-}, function() {
-	$('#mirrorimgDiv').css('display','none');
-	    $("#imgDiv").css('display','flex');
-});
--->
 
 //자격증 이미지 호버
 // 시간날때 여기 로직 정리좀 하기--11/23
