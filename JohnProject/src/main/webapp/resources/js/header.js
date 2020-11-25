@@ -24,8 +24,8 @@
 					// 알람 리스트에 값을 넣어주고 새로 갱신해줌 기본이 상담 리스트를 뿌려줌
 					alarmList = aldata;
 					//알람 종 표시
+					printBell(alarmList);
 					console.log("리스트 길이 : "+alarmList.length);
-					printBell();
 					console.log("프린트 리스트, "+usid);
 					printalfunc(alarmList,matchAtagHtml(selectliItem()));
 					//각각 페이지에 따라 분기 처리 
@@ -35,21 +35,20 @@
 					}
 					//else if(window.location.pathname == '/john/alarm/alarmList'){
 					//}
-				
 				};
 
-				function printBell(){
-					console.log("벨 출력");
-					if (usid != "") {
-						console.log("로그인 되있음");
-						if(alarmList.length > 0){
-							console.log("느낌표");
-							$("#number").html("<div id='al'>!</div>");
-							}
-					} else {
-						console.log("로그인이 안되있습니다.");
-					}
-				}
+				// function printBell(){
+				// 	console.log("벨 출력");
+				// 	if (usid != "") {
+				// 		console.log("로그인 되있음");
+				// 		if(alarmList.length > 0){
+				// 			console.log("느낌표");
+				// 			$("#number").html("<div id='al'>!</div>");
+				// 			}
+				// 	} else {
+				// 		console.log("로그인이 안되있습니다.");
+				// 	}
+				// }
 
 				function sendAlarm(send_usid, receive_usid, type, msg,
 						send_nick) {
