@@ -18,7 +18,7 @@
 	}
 	div#container{
 		overflow: auto;
-		margin: 50px auto;
+		margin: 100px auto;
 		text-align: center;
 	}
 	div#titleContainer{
@@ -88,7 +88,7 @@
 	<div id="container">
 		<div id="titleContainer">
 			<div class="titleInner firstTitle">
-				세부 카테고리
+				카테고리
 			</div>
 			<div class="titleInner">
 				제목

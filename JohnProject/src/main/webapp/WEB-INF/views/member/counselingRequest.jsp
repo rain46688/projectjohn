@@ -18,7 +18,7 @@
 	}
 	div#container{
 		overflow: auto;
-		margin: 50px auto;
+		margin: 100px auto;
 		text-align: center;
 	}
 	div#titleContainer{
@@ -91,7 +91,7 @@
 				상담 신청 날짜
 			</div>
 			<div class="titleInner">
-				전문가 닉네임
+				상담사 닉네임
 			</div>
 			<div class="titleInner">
 				상담 희망 시간

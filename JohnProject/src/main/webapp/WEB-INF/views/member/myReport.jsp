@@ -18,7 +18,7 @@
 	}
 	div#container{
 		overflow: auto;
-		margin: 50px auto;
+		margin: 100px auto;
 		text-align: center;
 	}
 	div#titleContainer{

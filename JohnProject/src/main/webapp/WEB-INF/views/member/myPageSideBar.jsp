@@ -33,7 +33,7 @@
 		width: 8px;
 	}
 	#menu::-webkit-scrollbar-thumb{
-		background-color: white;
+		background-color: black;
 	}
 	#menu::-webkit-scrollbar-track {
 		background-color: #05135C;
