@@ -214,9 +214,9 @@ public class ExboardServiceImpl implements ExboardService {
 	}
 
 	@Override
-	public List<ExpertRequest> selectExRequestList() throws Exception {
+	public List<ExpertRequest> selectExRequestList(Member m) throws Exception {
 		// TODO Auto-generated method stub
-		return dao.selectExRequestList(session);
+		return dao.selectExRequestList(session, m);
 	}
 
 	@Override

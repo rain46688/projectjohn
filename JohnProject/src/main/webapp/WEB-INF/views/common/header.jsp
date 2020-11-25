@@ -36,10 +36,6 @@
 	/* background-color:#000941; */
 }
 
-.containerJohn *{
-	/*   border:1px solid red;  */
-}
-
 #headerAndContent {
     width: 82%;
 }
@@ -175,7 +171,7 @@
 	position: absolute;
 	z-index:4;
 	background-color:white;
-	top:11.3%;
+	top:9%;
 	right:4%;
 	padding:0.5%;
 	display:none;
@@ -203,7 +199,7 @@
 }
 
 #bellDiv{
-	border:1px red solid;
+	/* border:1px red solid; */
 	display:flex;
 	width:100%;
 	height:100%;
@@ -211,9 +207,6 @@
 
 #bell {
 	cursor:pointer;
- 	width:100%;
- 	height:100%;
- 	border:1px red solid;
 }
 
 #bellDiv:hover #alarmDropdownDiv{
@@ -222,6 +215,10 @@
 
 #number:hover #alarmDropdownDiv{
 	display:flex;
+}
+
+#header *{
+	/*  border:1px solid red;   */
 }
 
 </style>
@@ -273,11 +270,9 @@
 								<div id="bellDiv">
 										<c:if test="${loginMember.usid != null}">
 											<a id="bell" ><ion-icon name="notifications-circle-outline"></ion-icon></a>
-											<c:if test="${loginMember.usid != null}">
 											<a id="number"></a>
-											</c:if>
 										</c:if>
-									<div id="alarmDropdownDiv">
+									<div id="alarmDropdownDiv" class="shadow p-3 mb-5 bg-white rounded"> 
 										<%@ include file="/WEB-INF/views/alarm/alarm.jsp"%>
 								</div> 
 							</div>

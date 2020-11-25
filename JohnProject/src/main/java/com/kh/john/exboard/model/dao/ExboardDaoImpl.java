@@ -142,9 +142,9 @@ public class ExboardDaoImpl implements ExboardDao {
 	}
 
 	@Override
-	public List<ExpertRequest> selectExRequestList(SqlSessionTemplate session) throws Exception {
+	public List<ExpertRequest> selectExRequestList(SqlSessionTemplate session, Member m) throws Exception {
 		// TODO Auto-generated method stub
-		return session.selectList("expert.selectExRequestList");
+		return session.selectList("expert.selectExRequestList", m);
 	}
 
 	@Override

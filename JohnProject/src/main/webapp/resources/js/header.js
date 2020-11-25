@@ -2,36 +2,11 @@
  * 
  */
  
- 	'use strict';
- 	//세션 스토리지
-	let usid = sessionStorage.getItem('lousid');
-	let path = sessionStorage.getItem('path');
-	console.log("세션 스토리지 => usid : "+usid+" path : "+path);	 		
-
-				function alarmPrint() {
-
-					if (usid != "") {
-						$.ajax({
-							type : "GET",
-							data : {
-								"usid" : usid
-							},
-							dataType : "json",
-							url : path+"/alarm/alarmCount",
-							success : function(data) {
-								console.log("data : " + data);
-								if (data > 0) {
-									$("#number").html(
-											"<div id='al'>!</div>");
-								} else {
-									$("#bell").removeClass('bell2');
-								}
-							}
-						});
-					} else {
-						console.log("로그인이 안되있습니다.");
-					}
-				};
+				'use strict';
+				//세션 스토리지
+				let usid = sessionStorage.getItem('lousid');
+				let path = sessionStorage.getItem('path');
+				console.log("세션 스토리지 => usid : "+usid+" path : "+path);	 		
 
 				// 서버 주소 잘 확인하기!
 				//const alsocket = new WebSocket("wss://localhost/john/alsocket");
@@ -40,22 +15,31 @@
 
 				alsocket.onopen = function() {
 					console.log('오픈');
-					//alarmPrint();
 					alsocket.send('list');
 				};
 
 				alsocket.onmessage = function(msg) {
-					/* 기본적으로 실행되는 로직 알람이 왔다는 표시를 해줌 */
-					console.log("msg 콘솔 : " + msg);
+					console.log("onmessage 실행됨");
 					let aldata = JSON.parse(msg.data);
-					console.log("aldata : "+aldata);
-					$("#number").html("");
-					$("#number").html("<div id='al'>!</div>");
-					$("#bell").addClass('bell2');
 					// 알람 리스트에 값을 넣어주고 새로 갱신해줌 기본이 상담 리스트를 뿌려줌
 					alarmList = aldata;
-					printalfunc(alarmList,'expert');
+					//알람 종 표시
+					console.log("리스트 길이 : "+alarmList.length);
+					printBell();
+					console.log("프린트 리스트, "+usid);
+					printalfunc(alarmList,matchAtagHtml(selectliItem()));
+					//각각 페이지에 따라 분기 처리 
+					if(window.location.pathname == '/john/expert/expertRequestPrintList'){
+						console.log("헤더 분기 1");
+						exListsendMessage("start");
+					}
+					//else if(window.location.pathname == '/john/alarm/alarmList'){
+					//}
+				
+				};
 
+				function printBell(){
+					console.log("벨 출력");
 					if (usid != "") {
 						console.log("로그인 되있음");
 						if(alarmList.length > 0){
@@ -65,23 +49,7 @@
 					} else {
 						console.log("로그인이 안되있습니다.");
 					}
-					
-					/*  */
-					//각각 페이지에 따라 분기 처리 
-					if(window.location.pathname == '/john/expert/expertRequestPrintList'){
-						console.log("신청");
-						if(aldata['alarmType'] == 'expertApply'){
-							console.log("유저로 부터 상담 신청 들어옴");
-							exListsendMessage("start");  1
-						}else if(aldata['alarmType'] == 'expertApplyCancel'){
-							console.log("유저로 부터 상담 신청 삭제됨");
-							exListsendMessage("start");
-						}
-					}
-					//else if(window.location.pathname == '/john/alarm/alarmList'){
-					//}
-				
-				};
+				}
 
 				function sendAlarm(send_usid, receive_usid, type, msg,
 						send_nick) {

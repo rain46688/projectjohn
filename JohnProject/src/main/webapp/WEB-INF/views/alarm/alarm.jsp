@@ -118,7 +118,7 @@ html, body, div, span, applet, object, iframe, h1, h2, h3, h4, h5, h6, p, blockq
 		<label class="form-check-label">
     		<input id="check" type="checkbox" class="form-check-input" value="">모두 보기
   		</label>
-		<img id="" src="${path}/resources/images/delete.png" alt="" width="30px" height="30px"></div>
+		<img id="delete" src="${path}/resources/images/delete.png" alt="" width="30px" height="30px"></div>
 		<div class="divListBodyAl">
 			<ul class="nav nav-tabs">
 				<li class="nav-item"><a class="nav-link active">상담</a></li>
@@ -165,25 +165,49 @@ $(".nav-link").click(e =>{
 });
 
 
-$("#check").click(e => {
-	console.log("선택");
-	let selectedNav;
+function selectliItem(){
+	let sel;
 	let allnav = $(".nav-link");
 	for(let i=0; i < allnav.length; i++){
 		if($(allnav[i]).hasClass('active')){
-			selectedNav = $(allnav[i]).html();
-			console.log("선택된것 : "+selectedNav);
+			 sel = $(allnav[i]).html();
+			console.log("선택된것 : "+sel);
 		}
 	};
-	
-	if(selectedNav === '상담'){
-		printalfunc(alarmList,'expert');
-	}else if(selectedNav === '게시판'){
-		
-	}else if(selectedNav === '신고'){
-		
+	return sel;
+}
+
+function matchAtagHtml(item){
+	if(item === '상담'){
+		return 'expert'
+	}else if(item === '게시판'){
+		return ''
+	}else if(item === '신고'){
+		return ''
 	}
+}
+
+$("#check").click(e => {
+	console.log("선택");
+	let selectedNav = selectliItem();
+	printalfunc(alarmList,matchAtagHtml(selectedNav));
 });
+
+//알람 읽은것으로 처리
+$("#delete").click(e=>{
+	console.log("del");
+	let readList = [];
+	let selectedNavDelete = selectliItem();
+	let ataghtml = matchAtagHtml(selectedNavDelete);
+	alarmList.forEach((e, i)=>{
+			if(e['alarmType'].includes(ataghtml) && e['alarmIscheked'] == false){
+								console.log(e['alarmId']);
+								readList.push(e);
+			}
+	});
+	alsocket.send(JSON.stringify(readList));
+});
+
 
 /* $('.nav-item').hover(function() {
 	console.log("z")
@@ -218,7 +242,7 @@ function printalfunc(list, type){
 				/* shadow p-3 mb-5 bg-white rounded */
 				print += "<div class='divRowAl' style='cursor: pointer'>";
 				print += "<input type='hidden' value='"+e['alarmId']+"'>";
-				print += "<div class='divCellAl'>1 : 1 영상 상담 요청이있습니다.<div class='date'>"+e['tmpDate']+"</div></div></div>";
+				print += "<div class='divCellAl'>1 : 1 영상 상담 요청이있습니다.<div class='date'>"+e['alarmDate']+"</div></div></div>";
 				print += "<div class='al'><div class='alContent'>"
 				print += "안녕하세요 상담사 "+e['alarmSendMemNickname']+"입니다.<br> 아래 URL로 바로 접속하셔서 상담 진행하시면됩니다.<br>" 
 				print += "<a href='${path }/expert/expertRoom?bno="+e['alarmMsgContent']+"'>-클릭해서 상담 접속-</a></div></div>"
@@ -231,7 +255,7 @@ function printalfunc(list, type){
 				console.log("출력");
 				print += "<div class='divRowAl' style='cursor: pointer'>";
 				print += "<input type='hidden' value='"+e['alarmId']+"'>";
-				print += "<div class='divCellAl'>1 : 1 영상 상담 요청이있습니다.<div class='date'>"+e['tmpDate']+"</div></div></div>";
+				print += "<div class='divCellAl'>1 : 1 영상 상담 요청이있습니다.<div class='date'>"+e['alarmDate']+"</div></div></div>";
 				print += "<div class='al'><div class='alContent'>"
 				print += "안녕하세요 상담사 "+e['alarmSendMemNickname']+"입니다.<br> 아래 URL로 바로 접속하셔서 상담 진행하시면됩니다.<br>" 
 				print += "<a href='${path }/expert/expertRoom?bno="+e['alarmMsgContent']+"'>-클릭해서 상담 접속-</a></div></div>"

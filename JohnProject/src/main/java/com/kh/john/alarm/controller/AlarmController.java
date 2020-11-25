@@ -3,7 +3,6 @@ package com.kh.john.alarm.controller;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.kh.john.alarm.model.service.AlarmService;
@@ -17,43 +16,10 @@ public class AlarmController {
 	@Autowired
 	private AlarmService service;
 
-	@ResponseBody
-	@RequestMapping("/alarm/alarmCount")
-	public String alarmCount(int usid) {
-		log.info("alarmCount 실행");
-		String count = "0";
-		try {
-			count = "" + service.selectAlarmCount(usid);
-		} catch (Exception e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		log.info("count : " + count);
-		return count;
-	}
-
 	@RequestMapping("/alarm/alarmList")
 	public ModelAndView alarmList(int usid) {
 		log.info("alarmList 실행");
 		ModelAndView mv = new ModelAndView("/alarm/alarm");
-
-//		List<Alarm> list = null;
-//		try {
-//			list = service.selectAlarmList(usid);
-//
-//			SimpleDateFormat fmt = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss");
-//
-//			for (Alarm a : list) {
-//				String date = fmt.format(a.getAlarmDate());
-//				log.debug("date : " + date);
-//				a.setTmpDate(date);
-//			}
-//		} catch (Exception e) {
-//			// TODO Auto-generated catch block
-//			e.printStackTrace();
-//		}
-// mv.addObject("list", list);
-
 		return mv;
 	}
 
@@ -63,6 +29,21 @@ public class AlarmController {
 	
 	
 	*/
+
+//	@ResponseBody
+//	@RequestMapping("/alarm/alarmCount")
+//	public String alarmCount(int usid) {
+//		log.info("alarmCount 실행");
+//		String count = "0";
+//		try {
+//			count = "" + service.selectAlarmCount(usid);
+//		} catch (Exception e) {
+//			// TODO Auto-generated catch block
+//			e.printStackTrace();
+//		}
+//		log.info("count : " + count);
+//		return count;
+//	}
 
 //	@RequestMapping("/alarm/alarmList")
 //	public ModelAndView alarmList(int usid) {

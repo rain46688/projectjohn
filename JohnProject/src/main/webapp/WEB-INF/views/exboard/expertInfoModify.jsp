@@ -54,7 +54,8 @@ html, body, div, span, applet, object, iframe, h1, h2, h3, h4, h5, h6, p, blockq
 	height: 98%;
 	border: 1px solid #C6C5C5;
 	border-radius: 1em;
-	background-color: #BACADE;
+/* 	background-color: #BACADE; */
+	background-color:white; 
 }
 
 /* 위 영역 제목 부분*/
@@ -117,6 +118,7 @@ html, body, div, span, applet, object, iframe, h1, h2, h3, h4, h5, h6, p, blockq
 	height: 100%;
 	background-color: rgba(255, 255, 255, 1);
 	border-radius:2%;
+	border:1px solid #AEAEAE;
 }
 
 #mirrorimgDiv {
@@ -126,10 +128,6 @@ html, body, div, span, applet, object, iframe, h1, h2, h3, h4, h5, h6, p, blockq
 	display: none;
 	justify-content: center;
 	align-items: center;
-	/* background-image: url(${path }/resources/profile_images/${loginMember.profilePic});  */
-	/* 	background-image: url(${path }/resources/images/expert.png);
-	background-repeat: no-repeat;
-	background-size: 100% 100%;  */
 	background-color: rgba(255, 255, 255, 1);
 	position: relative;
 	cursor: pointer;
@@ -150,6 +148,9 @@ html, body, div, span, applet, object, iframe, h1, h2, h3, h4, h5, h6, p, blockq
 	width: 60%;
 	height: 100%;
 	margin: 0 2% 2% 2%;
+	border:1px solid #AEAEAE;
+	border-radius:1%;
+	
 }
 
 .rowDiv {
@@ -242,6 +243,7 @@ h6 {
 	font-size: 2vh;
 	font-weight: bold;
 	padding: 1%;
+	border:1px solid #AEAEAE;
 }
 
 #textArearowDiv {
@@ -277,7 +279,7 @@ textarea:focus {
 		<div id="upDiv">
 			<h2>전문가 정보 수정</h2>
 			<div id="upFlag">
-				<p>라이센스 수정</p>
+				<p>자격증 정보 수정</p>
 			</div>
 		</div>
 		<!-- <hr> -->
@@ -354,13 +356,15 @@ textarea:focus {
 /*  */
 #licenseModifyDiv {
 	width: 60%;
-	height: 98%;
+	height: 99%;
 	border: 1px solid #C6C5C5;
 	border-radius: 1em;
-	background-color: #BACADE;
+/* 	background-color: #BACADE; */
+	background-color:white;
 	/*  */
 	display: none;
 	opacity: 0;
+	padding-bottom:2%;
 }
 
 #licenseupDiv {
@@ -404,7 +408,8 @@ textarea:focus {
 	width: 100%;
 	height: 30%;
 	display: flex;
-	padding: 1%;
+	padding: 2%;
+	border-bottom:1px solid #AEAEAE;
 }
 
 .licenseImg {
@@ -454,7 +459,7 @@ textarea:focus {
 	display: flex;
 	justify-content: center;
 	align-items: flex-end;
-	padding-bottom:2%;
+	padding-top:1%;
 }
 
 .licenseImgView {
@@ -483,7 +488,7 @@ textarea:focus {
 
 	<div id="licenseModifyDiv">
 		<div id="licenseupDiv">
-			<h2>라이센스 수정</h2>
+			<h2>자격증 정보 수정</h2>
 			<div id="licenseupFlag">
 				<p>전문가 정보 수정</p>
 			</div>
