@@ -28,7 +28,7 @@
 </insert>
 
 <insert id="signUpExpert" parameterType="license">
-	INSERT INTO LICENSE VALUES(#{licenseMemUsid}, #{licenseFileName}, #{licenseDate}, #{licenseType}, #{licenseCompany})
+	INSERT INTO LICENSE VALUES(SEQ_LICENSE_NO.NEXTVAL,#{licenseMemUsid}, #{licenseFileName}, #{licenseDate}, #{licenseType}, #{licenseCompany})
 	<selectKey keyProperty="licenseMemUsid" resultType="_int" order="BEFORE">
 		SELECT SEQ_MEMBER_NO.CURRVAL FROM DUAL
 	</selectKey>
@@ -83,7 +83,7 @@
 </select>
 
 <select id="myReport" parameterType="map" resultMap="reportMap">
-	SELECT * FROM REPORT WHERE REPORT_WRITER_USID=#{usid}
+	SELECT * FROM REPORT WHERE REPORT_WRITER_USID=#{usid} ORDER BY REPORT_DATE DESC
 </select>
 
 <select id="myReportCount" parameterType="_int" resultType="_int">
@@ -99,11 +99,11 @@
 </update>
 
 <insert id="applyExpert" parameterType="license">
-	INSERT INTO LICENSE VALUES(#{licenseMemUsid}, #{licenseFileName}, #{licenseDate}, #{licenseType}, #{licenseCompany})
+	INSERT INTO LICENSE VALUES(SEQ_LICENSE_NO.NEXTVAL,#{licenseMemUsid}, #{licenseFileName}, #{licenseDate}, #{licenseType}, #{licenseCompany})
 </insert>
 
 <select id="expertBoardList" parameterType="map" resultMap="expertBoardMap">
-	SELECT * FROM EXPERT_BOARD WHERE EXPERT_BOARD_MEM_USID=#{usid}
+	SELECT * FROM EXPERT_BOARD WHERE EXPERT_BOARD_MEM_USID=#{usid} ORDER BY EXPERT_BOARD_DATE DESC
 </select>
 
 <select id="expertBoardCount" parameterType="_int" resultType="_int">

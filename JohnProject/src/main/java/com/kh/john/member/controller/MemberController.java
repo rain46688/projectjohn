@@ -585,7 +585,7 @@ public class MemberController {
 		List<Report> myReport=service.myReport(cPage,numPerPage,usid);
 		int totalData=service.myReportCount(usid);
 		
-		mv.addObject("pageBar",myPagePageBar.getPageBar(totalData, cPage, numPerPage, "myReportPage", loginMember.getUsid()));
+		mv.addObject("pageBar",myPagePageBar.getPageBar(totalData, cPage, numPerPage, "myReport", loginMember.getUsid()));
 		mv.addObject("totalData", totalData);
 		mv.addObject("myReport", myReport);
 		mv.setViewName("member/myReport");
@@ -686,7 +686,7 @@ public class MemberController {
 		int usid=loginMember.getUsid();
 		List<ExpertBoard> expertBoardList=service.expertBoardList(cPage,numPerPage,usid);
 		int totalData=service.expertBoardCount(usid);
-		
+		System.out.println("*******************"+totalData);
 		mv.addObject("pageBar",myPagePageBar.getPageBar(totalData, cPage, numPerPage, "counselingHistory", loginMember.getUsid()));
 		mv.addObject("totalData", totalData);
 		mv.addObject("expertBoardList", expertBoardList);
