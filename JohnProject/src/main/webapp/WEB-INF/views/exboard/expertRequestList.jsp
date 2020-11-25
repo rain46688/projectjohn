@@ -466,8 +466,8 @@ hr{
 			 		 bno = data;
 			 		 //알람 발송 - 상담이 진행됬다는 알람 - 페이지가 넘어가기때문에 바로 변경해줄 사항 없음
 			 		 sendAlarm("${loginMember.usid}",num,"expert",bno,"${loginMember.memNickname}");
-			 		 console.log("bno : "+bno);
-					location.replace('${path}/expert/counselStart?no='+num+"&nic="+nick+"&bno="+bno);
+			 		 console.log("${loginMember.usid} "+"num : "+num+"bno : "+bno+" ${loginMember.memNickname}");
+					//location.replace('${path}/expert/counselStart?no='+num+"&nic="+nick+"&bno="+bno);
 			 	   }
 			    }); 
 		}

@@ -52,7 +52,7 @@ public class ExpertListHandler extends TextWebSocketHandler {
 			Member m = (Member) map.get("loginMember");
 			if (message.getPayload().equals("start")) {
 				log.debug("handleTextMessage 리스트 뽑아오기!");
-				List<ExpertRequest> list = service.selectExRequestList();
+				List<ExpertRequest> list = service.selectExRequestList(m);
 				List<ExpertBoard> blist = service.selectExpertBoard(m);
 
 				for (ExpertRequest er : list) {

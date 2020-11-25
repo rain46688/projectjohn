@@ -171,7 +171,7 @@
 	position: absolute;
 	z-index:4;
 	background-color:white;
-	top:11.3%;
+	top:10%;
 	right:4%;
 	padding:0.5%;
 	display:none;
@@ -199,7 +199,7 @@
 }
 
 #bellDiv{
-	border:1px red solid;
+	/* border:1px red solid; */
 	display:flex;
 	width:100%;
 	height:100%;
@@ -209,7 +209,7 @@
 	cursor:pointer;
  	width:100%;
  	height:100%;
- 	border:1px red solid;
+ /* 	border:1px red solid; */
 }
 
 #bellDiv:hover #alarmDropdownDiv{
@@ -273,7 +273,7 @@
 											<a id="number"></a>
 											</c:if>
 										</c:if>
-									<div id="alarmDropdownDiv">
+									<div id="alarmDropdownDiv" class="shadow p-3 mb-5 bg-white rounded"> 
 										<%@ include file="/WEB-INF/views/alarm/alarm.jsp"%>
 								</div> 
 							</div>

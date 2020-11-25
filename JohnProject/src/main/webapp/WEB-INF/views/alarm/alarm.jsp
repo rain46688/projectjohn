@@ -166,10 +166,11 @@ $(".nav-link").click(e =>{
 
 
 function selectliItem(){
+	let sel;
 	let allnav = $(".nav-link");
 	for(let i=0; i < allnav.length; i++){
 		if($(allnav[i]).hasClass('active')){
-			sel = $(allnav[i]).html();
+			 sel = $(allnav[i]).html();
 			console.log("선택된것 : "+sel);
 		}
 	};
@@ -198,10 +199,10 @@ $("#delete").click(e=>{
 	let selectedNavDelete = selectliItem();
 	let ataghtml = matchAtagHtml(selectedNavDelete);
 	alarmList.forEach((e, i)=>{
-			if(e['alarmType'].includes(type) && e['alarmIscheked'] == false){
-								
+			if(e['alarmType'].includes(ataghtml) && e['alarmIscheked'] == false){
+								console.log(e['alarmId']);
 			}
-		)};
+	});
 });
 
 

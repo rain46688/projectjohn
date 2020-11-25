@@ -40,22 +40,33 @@
 
 				alsocket.onopen = function() {
 					console.log('오픈');
-					//alarmPrint();
 					alsocket.send('list');
 				};
 
 				alsocket.onmessage = function(msg) {
-					/* 기본적으로 실행되는 로직 알람이 왔다는 표시를 해줌 */
 					console.log("msg 콘솔 : " + msg);
 					let aldata = JSON.parse(msg.data);
-					console.log("aldata : "+aldata);
-					$("#number").html("");
-					$("#number").html("<div id='al'>!</div>");
-					$("#bell").addClass('bell2');
+					console.log("aldata : "+$(aldata));
+					console.log("타입 : "+typeof aldata);
+					//알람 종 표시
+					printBell();
 					// 알람 리스트에 값을 넣어주고 새로 갱신해줌 기본이 상담 리스트를 뿌려줌
 					alarmList = aldata;
-					printalfunc(alarmList,'expert');
+					if(alarmList.length > 0){
+						console.log("프린트 리스트, "+usid);
+						printalfunc(alarmList,'expert');
+					}
+					//각각 페이지에 따라 분기 처리 
+					if(window.location.pathname == '/john/expert/expertRequestPrintList'){
+						console.log("헤더 분기 1");
+						exListsendMessage("start");
+					}
+					//else if(window.location.pathname == '/john/alarm/alarmList'){
+					//}
+				
+				};
 
+				function printBell(){
 					if (usid != "") {
 						console.log("로그인 되있음");
 						if(alarmList.length > 0){
@@ -65,23 +76,7 @@
 					} else {
 						console.log("로그인이 안되있습니다.");
 					}
-					
-					/*  */
-					//각각 페이지에 따라 분기 처리 
-					if(window.location.pathname == '/john/expert/expertRequestPrintList'){
-						console.log("신청");
-						if(aldata['alarmType'] == 'expertApply'){
-							console.log("유저로 부터 상담 신청 들어옴");
-							exListsendMessage("start");  1
-						}else if(aldata['alarmType'] == 'expertApplyCancel'){
-							console.log("유저로 부터 상담 신청 삭제됨");
-							exListsendMessage("start");
-						}
-					}
-					//else if(window.location.pathname == '/john/alarm/alarmList'){
-					//}
-				
-				};
+				}
 
 				function sendAlarm(send_usid, receive_usid, type, msg,
 						send_nick) {
