@@ -52,7 +52,7 @@
   font-size:0.8em;
 }
 
-#titleAndLikes>#likeAndHits span {
+#titleAndLikes>#likeAndHits>span {
   position:absolute;
   bottom:0;
   right:0;
@@ -253,7 +253,7 @@ ion-icon#likeButton {
       <div id="titleAndLikes">
         <div id="title">${currBoard.TITLE }</div>
         <div id="likeAndHits">
-          <span><ion-icon id="likeButton" name="heart-outline"></ion-icon> 좋아요 ${currBoard.LIKE_NUM } 조회수 ${currBoard.HIT }</span>
+          <span><ion-icon id="likeButton" name="heart-outline"></ion-icon> 좋아요 <span id="likeCount">${currBoard.LIKE_NUM }</span> 조회수 ${currBoard.HIT }</span>
         </div>
       </div>
       <hr id="titleHr">
@@ -442,6 +442,8 @@ document.getElementById('likeButton').addEventListener('click', function(){
 					return;
 				}else {
 					document.getElementById('likeButton').setAttribute('name',"heart");
+					let likeCount = document.getElementById('likeCount').innerHTML;
+					document.getElementById('likeCount').innerHTML = parseInt(likeCount) + 1;
 					alert('성공!');
 				}
 			}
@@ -459,7 +461,9 @@ document.getElementById('likeButton').addEventListener('click', function(){
 				if(data == 'fail') {
 					return;
 				}else {
-					document.getElementById('likeButton').setAttribute('name',"heart");
+					document.getElementById('likeButton').setAttribute('name',"heart-outline");
+					let likeCount = document.getElementById('likeCount').innerHTML;
+					document.getElementById('likeCount').innerHTML = parseInt(likeCount) - 1;
 					alert('성공!');
 				}
 			}
@@ -470,7 +474,8 @@ document.getElementById('likeButton').addEventListener('click', function(){
 
 
 $(document).ready(function(){
-	fn_commentList();
+	// fn_commentList();
+	hasLiked();
 })
 
 function fn_commentList(){
@@ -515,6 +520,26 @@ function fn_commentInsert(){
 			console.log('asdf');
 			console.log(q);
 		} */
+	})
+}
+
+function hasLiked(){
+	let loginUsid = ${loginMember.usid};
+	$.ajax({
+		url: "${path}/board/boardHasLiked",
+		type: "post",
+		dataType: "json",
+		data: {
+			loginUsid: loginUsid,
+			boardId: ${currBoard.BOARD_ID}
+		},
+		success: function(data) {
+			if(data.result == 'has') {
+				document.getElementById('likeButton').setAttribute('name',"heart");
+			}else {
+				document.getElementById('likeButton').setAttribute('name',"heart-outline");
+			}
+		},
 	})
 }
 

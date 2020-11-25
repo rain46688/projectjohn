@@ -181,6 +181,37 @@ public class BoardController {
 		return ajaxResult;
 	}
 	
+	//좋아요 삭제
+	@RequestMapping("/board/boardLikeDelete")
+	@ResponseBody
+	public Map likeDelete(@RequestParam Map m) {
+		int result = service.boardLikeDelete(m);
+		
+		Map<String,String> ajaxResult = new HashMap();
+		
+		if(result > 0) {
+			ajaxResult.put("result","success");
+		}else {
+			ajaxResult.put("result","fail");
+		}
+		return ajaxResult;
+	}
+	
+	@RequestMapping("/board/boardHasLiked")
+	@ResponseBody
+	public Map hasLiked(@RequestParam Map m) {
+		int result = service.boardHasLiked(m);
+		
+		Map<String,String> ajaxResult = new HashMap();
+		
+		if(result > 0) {
+			ajaxResult.put("result","has");
+		}else {
+			ajaxResult.put("result","none");
+		}
+		return ajaxResult;
+	}
+	
 	@RequestMapping(value="/board/boardFileUpload", method=RequestMethod.POST)
 	@ResponseBody
 	public String fileUpload(HttpServletRequest req, HttpServletResponse resp, 

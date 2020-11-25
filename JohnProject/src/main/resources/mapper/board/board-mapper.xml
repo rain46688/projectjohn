@@ -84,4 +84,12 @@
 	<insert id="boardLikeInsert" parameterType="map">
 		INSERT INTO LIKE_DISLIKE VALUES(#{loginUsid}, #{boardId})
 	</insert>
+	
+	<delete id="boardLikeDelete" parameterType="map">
+		DELETE LIKE_DISLIKE WHERE LIKE_USID = #{loginUsid} AND LIKE_BOARD_ID = #{boardId}
+	</delete>
+	
+	<select id="boardHasLiked" parameterType="map" resultType="_int">
+		SELECT COUNT(*) FROM LIKE_DISLIKE WHERE LIKE_USID = #{loginUsid} AND LIKE_BOARD_ID = #{boardId}
+	</select>
 </mapper>
