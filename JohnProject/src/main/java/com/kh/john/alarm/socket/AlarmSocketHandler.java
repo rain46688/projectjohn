@@ -41,8 +41,7 @@ public class AlarmSocketHandler extends TextWebSocketHandler {
 	}
 
 //알람 목록 호버하면 나오는 리스트에 시간 초까지 제대로 보이게 수정해보기
-	@SuppressWarnings("unchecked")
-	// 알람 보내면 상대방한테 제대로 바로 알람 갱신되는지 확인해보기
+// 알람 보내면 상대방한테 제대로 바로 알람 갱신되는지 확인해보기
 	@Override
 	protected void handleTextMessage(WebSocketSession session, TextMessage message) throws Exception {
 		// TODO Auto-generated method stub
@@ -54,7 +53,6 @@ public class AlarmSocketHandler extends TextWebSocketHandler {
 		log.debug("유저 : " + m);
 		if (message.getPayload().equals("list")) {
 			log.debug("list 가져오기 실행, 닉네임 :  " + m.getMemNickname());
-
 			Iterator<Member> lit = users.keySet().iterator();
 			while (lit.hasNext()) {
 				Member key = lit.next();
@@ -64,7 +62,6 @@ public class AlarmSocketHandler extends TextWebSocketHandler {
 				}
 			}
 		} else {
-
 			Object oo = objectMapper.readValue(message.getPayload(), Object.class);
 			log.debug("자료형 뭔지 : " + oo.getClass().getName());
 
@@ -85,8 +82,6 @@ public class AlarmSocketHandler extends TextWebSocketHandler {
 					if (almsg.getAlarmReceiveMemUsid() == key.getUsid()) {
 						log.debug("알람 디비 넣기");
 						service.insertExpertAlarm(almsg);
-						// users.get(key).sendMessage(new
-						// TextMessage(objectMapper.writeValueAsString(almsg)));
 						sendList(key);
 					}
 				}

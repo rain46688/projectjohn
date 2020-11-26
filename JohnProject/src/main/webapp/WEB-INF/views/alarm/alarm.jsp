@@ -206,6 +206,7 @@ $("#delete").click(e=>{
 			}
 	});
 	alsocket.send(JSON.stringify(readList));
+	alsocket.send('list');
 });
 
 
@@ -227,16 +228,30 @@ $("#delete").click(e=>{
 }); */
 
 
+function printBell(list){
+	$("#number").html("");
+	let count = 0;
+	list.forEach((e, i)=>{
+		if(e['alarmIscheked'] == false){//안 읽은 알람을 탐색해서 카운트를 증가시킴
+			count++;
+		}
+	});
+	console.log("카운트 : "+count);
+	if(count > 0){
+		//체크가 안된 알람이 1개 이상 있다는것
+		$("#number").html("<div id='al'>!</div>");
+	}
+}
+
 //알람 프린트
 function printalfunc(list, type){
 	let print="";
 	console.log("printalfunc 실행 리스트 길이 : "+list.length+" 타입 : "+type);
-
 	let allselectflag = $("#check").is(":checked");
 	console.log("체크 여부 : "+allselectflag);
 	if(list.length > 0){
 	list.forEach((e, i)=>{
-		if(allselectflag == true){
+		if(allselectflag == true){//알람 체크가 0인거나 1인것 다 보여주기
 			if(e['alarmType'].includes(type)){
 				console.log("출력");
 				/* shadow p-3 mb-5 bg-white rounded */
@@ -251,6 +266,7 @@ function printalfunc(list, type){
 				print = "<div class='emptyAl'>알림이 비어있습니다.</div>";
 			}
 		}else{
+			//알람 체크가 0인것만 보여주기
 			if(e['alarmType'].includes(type) && e['alarmIscheked'] == false){
 				console.log("출력");
 				print += "<div class='divRowAl' style='cursor: pointer'>";
