@@ -79,9 +79,12 @@ public class AlarmSocketHandler extends TextWebSocketHandler {
 				Iterator<Member> it = users.keySet().iterator();
 				while (it.hasNext()) {
 					Member key = it.next();
+					log.debug("알람 디비 넣기");
+					// 세션에 접속해있지 않아도 디비에는 넣어야됨!
+					// 사용자가 사이트에없어도 알람은 보내야되니깐.
+					service.insertExpertAlarm(almsg);
+					// 세션에 접속해있는 사람한테 리스트 발송
 					if (almsg.getAlarmReceiveMemUsid() == key.getUsid()) {
-						log.debug("알람 디비 넣기");
-						service.insertExpertAlarm(almsg);
 						sendList(key);
 					}
 				}

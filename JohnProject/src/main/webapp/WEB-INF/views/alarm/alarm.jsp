@@ -251,9 +251,9 @@ function printalfunc(list, type){
 	console.log("체크 여부 : "+allselectflag);
 	if(list.length > 0){
 	list.forEach((e, i)=>{
-		if(allselectflag == true){//알람 체크가 0인거나 1인것 다 보여주기
-			if(e['alarmType'].includes(type)){
-				console.log("출력");
+		if(allselectflag == true){//모두 보기가 체크된 경우
+			if(e['alarmType'].includes(type)){//넘어온 타입이 맞는것만
+				console.log("출력1");
 				/* shadow p-3 mb-5 bg-white rounded */
 				print += "<div class='divRowAl' style='cursor: pointer'>";
 				print += "<input type='hidden' value='"+e['alarmId']+"'>";
@@ -261,29 +261,28 @@ function printalfunc(list, type){
 				print += "<div class='al'><div class='alContent'>"
 				print += "안녕하세요 상담사 "+e['alarmSendMemNickname']+"입니다.<br> 아래 URL로 바로 접속하셔서 상담 진행하시면됩니다.<br>" 
 				print += "<a href='${path }/expert/expertRoom?bno="+e['alarmMsgContent']+"'>-클릭해서 상담 접속-</a></div></div>"
-			}else{
-				//추가 예정
-				print = "<div class='emptyAl'>알림이 비어있습니다.</div>";
 			}
 		}else{
-			//알람 체크가 0인것만 보여주기
-			if(e['alarmType'].includes(type) && e['alarmIscheked'] == false){
-				console.log("출력");
+			//모두보기가 체크 안된경우, 알람 체크가 0인것만 보여주기
+			if(e['alarmType'].includes(type) && e['alarmIscheked'] == false){//타입이 같은것만
+				console.log("출력2");
 				print += "<div class='divRowAl' style='cursor: pointer'>";
 				print += "<input type='hidden' value='"+e['alarmId']+"'>";
 				print += "<div class='divCellAl'>1 : 1 영상 상담 요청이있습니다.<div class='date'>"+e['alarmDate']+"</div></div></div>";
 				print += "<div class='al'><div class='alContent'>"
 				print += "안녕하세요 상담사 "+e['alarmSendMemNickname']+"입니다.<br> 아래 URL로 바로 접속하셔서 상담 진행하시면됩니다.<br>" 
 				print += "<a href='${path }/expert/expertRoom?bno="+e['alarmMsgContent']+"'>-클릭해서 상담 접속-</a></div></div>"
-			}else{
-				//추가 예정
-				print = "<div class='emptyAl'>알림이 비어있습니다.</div>";
 			}
+		}
+		if(print == ''){
+			print = "<div class='emptyAl'>알람이 없습니다.</div>";
 		}
 	});
 	}else{
+		console.log("빔2");
 		print = "<div class='emptyAl'>알람이 없습니다.</div>";
 	}
+	console.log("html 프린트");
 	$(".alarmPrintDiv").html(print);
 	//ajax 후 함수 실행
 	divhover();
