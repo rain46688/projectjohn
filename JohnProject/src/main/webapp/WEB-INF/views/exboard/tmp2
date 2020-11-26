@@ -19,14 +19,21 @@
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/sockjs-client/1.5.0/sockjs.min.js"></script>
 <script defer src="${path}/resources/js/header.js"></script>
-<script src="https://unpkg.com/ionicons@5.2.3/dist/ionicons.js"></script>
+<script type="module" src="https://unpkg.com/ionicons@5.2.3/dist/ionicons/ionicons.esm.js"></script>
+<script nomodule="" src="https://unpkg.com/ionicons@5.2.3/dist/ionicons/ionicons.js"></script>
 <link rel="stylesheet" href="${path}/resources/css/layout.css">
+<link rel="preconnect" href="https://fonts.gstatic.com">
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif+KR&display=swap" rel="stylesheet">
 </head>
 <style>
 .containerJohn {
-	background-image: url("${path}/resources/images/background_pattern.png");
-	background-repeated: repeated;
+	background-image: url("${path}/resources/images/special_back.jpg");
+	background-repeat: no-repeat;
+	  background-attachment: fixed;
+	  background-size: cover;
+	/* background-repeated: repeated; */
 	/* background-color: rgb(201, 193, 181); */
+	/* background-color:#000941; */
 }
 
 #headerAndContent {
@@ -35,34 +42,16 @@
 #header {
     border-top-right-radius: 30px;
     width: 100%;
-    height: 9%; 
-    background-color: #0054BA;
+    height: 6%; 
+    /* background-color: #415a9c; */
+   	background-color:white;
 /*     border-left: 1px solid rgb(98, 98, 98); */
     padding-right:3em;
+    border-bottom:1px solid rgba(0,0,0,.1);
 }
 
 #header > button {
 	float:right;
-}
-
-#al {
-	z-index: 2;
-	position: relative;
-	text-align: center;
-	width: 25px;
-	height: 25px;
-	top: 55%;
-	left:10%;
-	font-size: 15px; font-weight : bold;
-	color: yellow;
-	background-color: red;
-	border-radius: 70%;
-	border: 1px solid black;
-	box-shadow: 1px 1px 1px 1px gray;
-	font-weight: bold;
-}
-
-#bell {
 }
 
 #profileCon {
@@ -134,7 +123,7 @@
 #search #searchText {
 	width:12em;
 	height:2em;
-	border:1px white solid;
+	border:1px gray solid;
 	border-radius:8px;
 	border-top-right-radius: 0%;
 	border-bottom-right-radius: 0%;
@@ -144,23 +133,25 @@
 	display: flex;
 	align-items: center;
 	justify-content: center;
-	border:1px white solid;
+	border:1px gray solid;
+	background-color:#ffc55b;
 }
 
 #search ion-icon{
 	font-size: 30px;
-	color: white;
+	color: black;
 }
 
 #headerList ion-icon{
 	font-size: 35px;
-	color: white;
+	color: black;
 }
 
 #headerList li {
 	display: flex;
 	align-items: center;
 	justify-content: center;
+	height:70%;
 }
 
 #headerList li>a {
@@ -168,6 +159,68 @@
 	align-items: center;
 	justify-content: center;
 }
+
+#bellDiv{
+	display:flex;
+	width:100%;
+	height:100%;
+	align-items: center;
+}
+
+#alarmDropdownDiv{
+	position: absolute;
+	z-index:4;
+	background-color:white;
+	top:9%;
+	right:4%;
+	padding:0.5%;
+	display:none;
+	font-weight:bold;
+	width:25%;
+	height:auto;
+	min-height:30%;
+}
+
+#al {
+	z-index: 2;
+	position: relative;
+	text-align: center;
+	width: 25px;
+	height: 25px;
+	right:50%;
+	font-size: 15px; font-weight : bold;
+	color: white;
+	background-color: #F13F36;
+	border-radius: 70%;
+	border: 1px solid black;
+	/* box-shadow: 1px 1px 1px 1px gray; */
+	font-weight: bold;
+	cursor:pointer;
+}
+
+#bellDiv{
+	/* border:1px red solid; */
+	display:flex;
+	width:100%;
+	height:100%;
+}
+
+#bell {
+	cursor:pointer;
+}
+
+#bellDiv:hover #alarmDropdownDiv{
+	display:flex;
+}
+
+#number:hover #alarmDropdownDiv{
+	display:flex;
+}
+
+#header *{
+	/*  border:1px solid red;   */
+}
+
 </style>
 <body>
 	<div class="containerJohn">
@@ -203,7 +256,7 @@
 								<div id="profileCon">
 									<img id="profileImage" src="${path}/resources/profile_images/${loginMember.profilePic}">
 								</div>
-								<div class="dropdown-content">
+						<div class="dropdown-content">
 								  <a href="${path }/member/myPage?usid=${loginMember.usid}">마이페이지</a>
 								  <a href="${path}/customer/customerNotice">고객센터</a>
 								  <a href="${path}/admin/adminMember">ADMIN</a>
@@ -213,18 +266,19 @@
 							</div>
 						</li>
 						<li>
-							<c:if test="${loginMember.usid != null}">
-								<a id="bell" class="bell2" href="${path }/alarm/alarmList?usid=${loginMember.usid }"><ion-icon name="notifications-circle-outline"></ion-icon></a>
-								<c:if test="${loginMember.usid != null}">
-									<a id="number" href="${path }/alarm/alarmList?usid=${loginMember.usid }"></a>
-								</c:if>
-							</c:if>
+						<!--  호버 -->
+								<div id="bellDiv">
+										<c:if test="${loginMember.usid != null}">
+											<a id="bell" ><ion-icon name="notifications-circle-outline"></ion-icon></a>
+											<a id="number"></a>
+										</c:if>
+									<div id="alarmDropdownDiv" class="shadow p-3 mb-5 bg-white rounded"> 
+										<%@ include file="/WEB-INF/views/alarm/alarm.jsp"%>
+								</div> 
+							</div>
+						<!--  -->	
 						</li>
 					</ul>
-					<!-- 전문과 관련 페이지 접근용 임시 포탈 -->
-					<%-- <button onclick="location.href='${path}/expert'">전문가</button> --%>
-					<!-- 알람 임시 위치 & 이미지 나중에 수정해야됨 -->
-					
 				</div>
 
 
