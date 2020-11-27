@@ -112,6 +112,14 @@ html, body, div, span, applet, object, iframe, h1, h2, h3, h4, h5, h6, p, blockq
 	font-size:1.5vh;
 }
 
+.alarmPrintDiv{
+	/* 스크롤 바 투명하게 만들기 */
+/* 	overflow-x: hidden;
+	-ms-overflow-style: none;
+	height:auto;
+	max-height:60%; */
+}
+
 </style>
 	<div class="divListAl">
 		<div id="sideDiv">
@@ -154,18 +162,18 @@ $(".nav-link").click(e =>{
 		printalfunc(alarmList, item);
 		console.log("change : "+item);
 	}else if(item === '게시판'){
-		item = ' ';
+		item = 'board';
 		printalfunc(alarmList, item);
 		console.log("change : "+item);
 	}else if(item === '신고'){
-		item = ' ';
+		item = 'report';
 		printalfunc(alarmList, item);
 		console.log("change : "+item);
 	}
 });
 
-
-function selectliItem(){
+//현재 선택된 nav 아이템 탐색
+/* function selectliItem(){
 	let sel;
 	let allnav = $(".nav-link");
 	for(let i=0; i < allnav.length; i++){
@@ -176,29 +184,36 @@ function selectliItem(){
 	};
 	return sel;
 }
-
-function matchAtagHtml(item){
+ */
+//디비 content에 맞게 변경
+function matchAtagHtml(){
+	let item;
+	let allnav = $(".nav-link");
+	for(let i=0; i < allnav.length; i++){
+		if($(allnav[i]).hasClass('active')){
+			item = $(allnav[i]).html();
+			console.log("선택된것 : "+item);
+		}
+	};
 	if(item === '상담'){
-		return 'expert'
+		return 'expert';
 	}else if(item === '게시판'){
-		return ''
+		return 'board';
 	}else if(item === '신고'){
-		return ''
+		return 'report';
 	}
 }
 
 $("#check").click(e => {
 	console.log("선택");
-	let selectedNav = selectliItem();
-	printalfunc(alarmList,matchAtagHtml(selectedNav));
+	printalfunc(alarmList,matchAtagHtml());
 });
 
 //알람 읽은것으로 처리
 $("#delete").click(e=>{
 	console.log("del");
 	let readList = [];
-	let selectedNavDelete = selectliItem();
-	let ataghtml = matchAtagHtml(selectedNavDelete);
+	let ataghtml = matchAtagHtml();
 	alarmList.forEach((e, i)=>{
 			if(e['alarmType'].includes(ataghtml) && e['alarmIscheked'] == false){
 								console.log(e['alarmId']);
@@ -251,45 +266,94 @@ function printalfunc(list, type){
 	console.log("체크 여부 : "+allselectflag);
 	if(list.length > 0){
 	list.forEach((e, i)=>{
-		if(allselectflag == true){//알람 체크가 0인거나 1인것 다 보여주기
-			if(e['alarmType'].includes(type)){
-				console.log("출력");
-				/* shadow p-3 mb-5 bg-white rounded */
-				print += "<div class='divRowAl' style='cursor: pointer'>";
-				print += "<input type='hidden' value='"+e['alarmId']+"'>";
-				print += "<div class='divCellAl'>1 : 1 영상 상담 요청이있습니다.<div class='date'>"+e['alarmDate']+"</div></div></div>";
-				print += "<div class='al'><div class='alContent'>"
-				print += "안녕하세요 상담사 "+e['alarmSendMemNickname']+"입니다.<br> 아래 URL로 바로 접속하셔서 상담 진행하시면됩니다.<br>" 
-				print += "<a href='${path }/expert/expertRoom?bno="+e['alarmMsgContent']+"'>-클릭해서 상담 접속-</a></div></div>"
-			}else{
-				//추가 예정
-				print = "<div class='emptyAl'>알림이 비어있습니다.</div>";
+
+		if(allselectflag == true && e['alarmType'].includes(type)){//모두 보기가 체크된 경우
+			console.log("모두보기 분기 1");
+					if(type == 'expert'){
+						console.log("상담 All");
+						print += expertPrintHtml(e);
+					}else if(type == 'board'){
+						console.log("게시판 All");
+						print += boardPrintHtml(e);
+					}else if(type == 'report'){
+						console.log("신고 All");
+						print += reportPrintHtml(e);
+					}else if(type == 'test'){
+						console.log("테스트 All");
+					}
+					
+		}else if(e['alarmType'].includes(type) && e['alarmIscheked'] == false){
+				//모두보기가 체크 안된경우, 알람 체크가 0인것만 보여주기
+				//console.log("No 모두보기 분기 1");
+				//console.log("알람 체크 여부 : "+e['alarmIscheked']);
+				//console.log("타입 : "+e['alarmType']+" 타입 : "+type+" 비교 : "+e['alarmType'].includes(type));
+				//console.log("어떻게 될깐? : "+('board').includes('board'));
+				
+				console.log("No 모두보기 분기 2");
+				if(type == 'expert'){
+					console.log("상담 NoAll");
+					print += expertPrintHtml(e);
+				}else if(type == 'board'){
+					console.log("게시판 NoAll");
+					print += boardPrintHtml(e);
+				}else if(type == 'report'){
+					console.log("신고 NoAll");
+					print += reportPrintHtml(e);
+				}else if(type == 'test'){
+					console.log("테스트 NoAll");
+				}
 			}
-		}else{
-			//알람 체크가 0인것만 보여주기
-			if(e['alarmType'].includes(type) && e['alarmIscheked'] == false){
-				console.log("출력");
-				print += "<div class='divRowAl' style='cursor: pointer'>";
-				print += "<input type='hidden' value='"+e['alarmId']+"'>";
-				print += "<div class='divCellAl'>1 : 1 영상 상담 요청이있습니다.<div class='date'>"+e['alarmDate']+"</div></div></div>";
-				print += "<div class='al'><div class='alContent'>"
-				print += "안녕하세요 상담사 "+e['alarmSendMemNickname']+"입니다.<br> 아래 URL로 바로 접속하셔서 상담 진행하시면됩니다.<br>" 
-				print += "<a href='${path }/expert/expertRoom?bno="+e['alarmMsgContent']+"'>-클릭해서 상담 접속-</a></div></div>"
-			}else{
-				//추가 예정
-				print = "<div class='emptyAl'>알림이 비어있습니다.</div>";
-			}
-		}
+	//forEach 끝
 	});
-	}else{
-		print = "<div class='emptyAl'>알람이 없습니다.</div>";
+	console.log("반복 끝");
+	if(print == ''){
+		print = "<div class='emptyAl'>알람이 없습니다.1</div>";
 	}
+	//리스트 0개 아닐때
+	}else{
+		console.log("빔2");
+		print = "<div class='emptyAl'>알람이 없습니다.2</div>";
+	}
+	console.log("html 프린트");
 	$(".alarmPrintDiv").html(print);
 	//ajax 후 함수 실행
 	divhover();
 };
 
-  
+//프린트html 상담
+function expertPrintHtml(e){
+	let print ="";
+	print += "<div class='divRowAl' style='cursor: pointer'>";
+	print += "<input type='hidden' value='"+e['alarmId']+"'>";
+	print += "<div class='divCellAl'> "+e['alarmType']+" 1 : 1 영상 상담 요청이있습니다.<div class='date'>"+e['alarmDate']+"</div></div></div>";
+	print += "<div class='al'><div class='alContent'>"
+	print += "안녕하세요 상담사 "+e['alarmSendMemNickname']+"입니다.<br> 아래 URL로 바로 접속하셔서 상담 진행하시면됩니다.<br>" 
+	print += "<a href='${path }/expert/expertRoom?bno="+e['alarmMsgContent']+"'>-클릭해서 상담 접속-</a></div></div>"
+	return print;
+};
+
+//프린트html 게시판
+function boardPrintHtml(e){
+	let print ="";
+	print += "<div class='divRowAl' style='cursor: pointer'>";
+	print += "<input type='hidden' value='"+e['alarmId']+"'>";
+	print += "<div class='divCellAl'> "+e['alarmType']+" 게시판 알람입니다.<div class='date'>"+e['alarmDate']+"</div></div></div>";
+	print += "<div class='al'><div class='alContent'>";
+	print += "게시판 알람입니다.<br></div></div>";
+	return print;
+};
+
+//프린트html 신고
+function reportPrintHtml(e){
+	let print ="";
+	print += "<div class='divRowAl' style='cursor: pointer'>";
+	print += "<input type='hidden' value='"+e['alarmId']+"'>";
+	print += "<div class='divCellAl'> "+e['alarmType']+" 게시판 알람입니다2.<div class='date'>"+e['alarmDate']+"</div></div></div>";
+	print += "<div class='al'><div class='alContent'>";
+	print += "게시판 알람입니다.<br></div></div>";
+	return print;
+};
+
 //알람 객체
 function Alarm(alarmId,alarmSendMemUsid, alarmReceiveMemUsid,
 		alarmType, alarmMsgContent,
@@ -304,7 +368,6 @@ function Alarm(alarmId,alarmSendMemUsid, alarmReceiveMemUsid,
 	this.tmpDate = tmpDate;
 	this.alarmIscheked = alarmIscheked;
 };
-
 
 //토글 박스 내려갔다 올라갔다하는것
 $(function(){
