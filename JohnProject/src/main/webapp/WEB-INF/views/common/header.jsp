@@ -179,6 +179,10 @@
 	width:25%;
 	height:auto;
 	min-height:30%;
+	overflow-x: hidden;
+	-ms-overflow-style: none;
+	height:auto;
+	max-height:60%;
 }
 
 #al {

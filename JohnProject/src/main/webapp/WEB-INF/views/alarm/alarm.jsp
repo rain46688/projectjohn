@@ -112,6 +112,14 @@ html, body, div, span, applet, object, iframe, h1, h2, h3, h4, h5, h6, p, blockq
 	font-size:1.5vh;
 }
 
+.alarmPrintDiv{
+	/* 스크롤 바 투명하게 만들기 */
+/* 	overflow-x: hidden;
+	-ms-overflow-style: none;
+	height:auto;
+	max-height:60%; */
+}
+
 </style>
 	<div class="divListAl">
 		<div id="sideDiv">
@@ -164,8 +172,8 @@ $(".nav-link").click(e =>{
 	}
 });
 
-
-function selectliItem(){
+//현재 선택된 nav 아이템 탐색
+/* function selectliItem(){
 	let sel;
 	let allnav = $(".nav-link");
 	for(let i=0; i < allnav.length; i++){
@@ -176,8 +184,17 @@ function selectliItem(){
 	};
 	return sel;
 }
-
-function matchAtagHtml(item){
+ */
+//디비 content에 맞게 변경
+function matchAtagHtml(){
+	let item;
+	let allnav = $(".nav-link");
+	for(let i=0; i < allnav.length; i++){
+		if($(allnav[i]).hasClass('active')){
+			item = $(allnav[i]).html();
+			console.log("선택된것 : "+item);
+		}
+	};
 	if(item === '상담'){
 		return 'expert';
 	}else if(item === '게시판'){
@@ -189,16 +206,14 @@ function matchAtagHtml(item){
 
 $("#check").click(e => {
 	console.log("선택");
-	let selectedNav = selectliItem();
-	printalfunc(alarmList,matchAtagHtml(selectedNav));
+	printalfunc(alarmList,matchAtagHtml());
 });
 
 //알람 읽은것으로 처리
 $("#delete").click(e=>{
 	console.log("del");
 	let readList = [];
-	let selectedNavDelete = selectliItem();
-	let ataghtml = matchAtagHtml(selectedNavDelete);
+	let ataghtml = matchAtagHtml();
 	alarmList.forEach((e, i)=>{
 			if(e['alarmType'].includes(ataghtml) && e['alarmIscheked'] == false){
 								console.log(e['alarmId']);
@@ -305,7 +320,6 @@ function printalfunc(list, type){
 	divhover();
 };
 
-
 //프린트html 상담
 function expertPrintHtml(e){
 	let print ="";
@@ -340,8 +354,6 @@ function reportPrintHtml(e){
 	return print;
 };
 
-
-  
 //알람 객체
 function Alarm(alarmId,alarmSendMemUsid, alarmReceiveMemUsid,
 		alarmType, alarmMsgContent,
@@ -356,7 +368,6 @@ function Alarm(alarmId,alarmSendMemUsid, alarmReceiveMemUsid,
 	this.tmpDate = tmpDate;
 	this.alarmIscheked = alarmIscheked;
 };
-
 
 //토글 박스 내려갔다 올라갔다하는것
 $(function(){
