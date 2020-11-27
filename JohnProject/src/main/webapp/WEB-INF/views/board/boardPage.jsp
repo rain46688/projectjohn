@@ -171,7 +171,7 @@
   width:75%;
 }
 
-#commentInsert #textArea {
+#commentInsert #commentContent {
   height:100%;
   width:100%;
   border-radius:10px;
@@ -210,13 +210,19 @@
 }
 
 .commentProfileCon {
-  border:1px red solid;
   width:12%;
-  min-width:30px;
-  max-width:30px;
-  height:30px;
+  min-width:25px;
+  max-width:25px;
+  height:25px;
   border-radius:30px;
   margin:0.3em;
+  overflow:hidden;
+}
+
+.commentProfileCon .commentProfileImg {
+	width:25px;
+	height:25px;
+	object-fit:cover;
 }
 
 .commentContentCon {
@@ -232,6 +238,7 @@
   max-width:88%;
   overflow:hidden;
 }
+
 
 .commentContentCon .commentInfo {
   margin-bottom:0.2em;
@@ -310,7 +317,7 @@ ion-icon#likeButton {
         <div class="comment">
           <div class="commentProfileCon">
             <div class="commentProfile">
-              
+              <img class="commentProfileImg" src="${path }/resources/profile_images/NONEPROFILE.PNG">
             </div>
           </div>
           <div class="commentContentCon">
@@ -322,7 +329,7 @@ ion-icon#likeButton {
             asdasdasdsadasdasdasdasd
             asdasdasdsadsadsadasd
             asdsadsadsadasdsadasd
-            asdasdasdasdasdasdsdsadsad
+            asdasdasdasdasdasdsdsadsad	
             asdasdasdasda
             asdasdsadsadasdasdasdas
             </div>
@@ -360,10 +367,10 @@ ion-icon#likeButton {
       </div>
       <div id="commentInsert">
         <div id="textCon">
-          <textarea id="textArea"></textarea>
+          <textarea id="commentContent"></textarea>
         </div>
         <div id="textBtnCon">
-          <button type="button" class="btn btn-primary">
+          <button onclick="fn_commentInsert();" type="button" class="btn btn-primary">
             댓글쓰기
           </button>
         </div>
@@ -490,7 +497,7 @@ document.getElementById('likeButton').addEventListener('click', function(){
 
 
 $(document).ready(function(){
-	// fn_commentList();
+	fn_commentList();
 	hasLiked();
 })
 //댓글 리스트 불러오기
@@ -503,17 +510,58 @@ function fn_commentList(){
 			currBoardNo: ${currBoard.BOARD_ID}
 		},
 		success: function(data) {
-			let html = "";
-			$.each(data, function(index, item){
-				let date = new Date(item.comEnrollDate);
-				let dateToString = date.toString();
-				let parsedString = dateToString.substring(0,25);
-				item.com_enroll_date = parsedString;
-				html += JSON.stringify(item)
-				html += "<br>"
-			})
-			$(".comment_list").html(html);
+			commentListPrint(data);
 		},
+	})
+}
+
+function commentListPrint(commentList) {
+	document.getElementById('commentPrint').innerHTML = "";
+	commentList.forEach(function(item, index){
+		if(item!=null){
+			let comment = document.createElement('div');
+			if(item.comWriterUsid == ${currBoard.WRITER_USID}) comment.className = 'commentFromWriter';
+			else comment.className = 'comment';
+
+			let commentProfileCon = document.createElement('div');
+			commentProfileCon.className = 'commentProfileCon';
+
+			let commentProfile = document.createElement('div');
+			commentProfile.className = 'commentProfile';
+
+			let img = document.createElement('img');
+			img.className = 'commentProfileImg';
+			img.setAttribute('src','${path}/resources/profile_images/' + item.comProfilePic);
+			
+			commentProfile.appendChild(img);
+			commentProfileCon.appendChild(commentProfile);
+			comment.appendChild(commentProfileCon);
+			
+			let commentContentCon = document.createElement('div');
+			commentContentCon.className = 'commentContentCon';
+
+			let commentInfo = document.createElement('div');
+			commentInfo.className = 'commentInfo';
+
+			let name = document.createElement('b');
+			name.innerHTML = item.comWriterNickname;
+
+			let date = document.createElement('small');
+			date.innerHTML = item.com_enroll_date;
+
+			commentInfo.appendChild(name).appendChild(date);//test
+
+			commentContentCon.appendChild(commentInfo);
+
+			let commentContent = document.createElement('div');
+			commentContent.className = 'commentContent';
+
+			commentContentCon.appendChild(commentContent);
+
+			comment.appendChild(commentContentCon);
+
+			document.getElementById('commentPrint').appendChild(comment);
+		}
 	})
 }
 
@@ -526,10 +574,12 @@ function fn_commentInsert(){
 		dataType:"json",
 		data:{
 			currBoardNo:${currBoard.BOARD_ID},
-			content:contentValue
+			content:contentValue,
+			writerUsid:${loginMember.usid},
+			profilePic:'${loginMember.profilePic}',
+			writerNick:'${loginMember.memNickname}'
 		},
 		success:function(data){
-			console.log(data);
 			if(data.result=='success')fn_commentList();
 			else alert('댓글 등록에 실패했습니다.');
 		}
