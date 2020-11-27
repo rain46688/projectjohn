@@ -24,4 +24,6 @@ public interface BoardDao {
 	int boardLikeDelete(SqlSession session, Map param);
 	int boardHasLiked(SqlSession session, Map param);
 	int boardReadCount(SqlSession session, int boardNo);
+	int boardHasJudged(SqlSession session, Map param);
+	int boardJudgeInsert(SqlSession session, Map param);
 }

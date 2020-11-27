@@ -109,7 +109,7 @@
   color:black;
 }
 
-.judgeBtns button#agree {
+.judgeBtns button {
   border:1px gray solid;
 }
 
@@ -123,8 +123,14 @@
   color:black;
 }
 
-.judgeBtns button#disagree {
-  border:1px gray solid;
+.judgeBtns button#agree-disabled {
+	background-color:white;
+	color:black;
+}
+
+.judgeBtns button#agree-disabled:hover {
+  background-color:#ffc55b;
+  color:white;
 }
 
 .judgeBtns button#disagree {
@@ -135,6 +141,16 @@
 .judgeBtns button#disagree:hover {
   background-color:white;
   color:black;
+}
+
+.judgeBtns button#disagree-disabled {
+	background-color:white;
+    color:black;
+}
+
+.judgeBtns button#disagree-disabled:hover {
+  background-color:#00316d;
+  color:white;
 }
 
 #commentSection #commentPrint {
@@ -266,23 +282,25 @@ ion-icon#likeButton {
       <div id="judgeCon">
         <div class="judgeBtns" id="agreeBtn">
           <div id="agreeBtnCon">
-            <button id="agree" type="button" class="btn btn-primary">
+            <button onclick="fn_judge('agree');" id="agree" type="button" class="btn btn-primary">
               <ion-icon name="thumbs-up-outline"></ion-icon>
               <br>
               ${currBoard.AGREE_NAME }</button>
           </div>
           <div class="countCon">
-            <div>${currBoard.AGREE_NUM }</div>
+            <div id="agreeNum">${currBoard.AGREE_NUM }</div>
           </div>
         </div>
         <div class="judgeBtns" id="disagreeBtn">
           <div id="disagreeBtnCon">
-            <button id="disagree" type="button" class="btn btn-primary">
+            <button onclick="fn_judge('disagree');" id="disagree" type="button" class="btn btn-primary">
               <ion-icon name="thumbs-down-outline"></ion-icon>
               <br>
               ${currBoard.DISAGREE_NAME }</button>
           </div>
-          <div class="countCon">${currBoard.DISAGREE_NUM }</div>
+          <div class="countCon">
+          	<div id="disagreeNum">${currBoard.DISAGREE_NUM }</div>
+          	</div>
         </div>
       </div>
       <hr>
@@ -444,7 +462,6 @@ document.getElementById('likeButton').addEventListener('click', function(){
 					document.getElementById('likeButton').setAttribute('name',"heart");
 					let likeCount = document.getElementById('likeCount').innerHTML;
 					document.getElementById('likeCount').innerHTML = parseInt(likeCount) + 1;
-					alert('성공!');
 				}
 			}
 		})
@@ -464,7 +481,6 @@ document.getElementById('likeButton').addEventListener('click', function(){
 					document.getElementById('likeButton').setAttribute('name',"heart-outline");
 					let likeCount = document.getElementById('likeCount').innerHTML;
 					document.getElementById('likeCount').innerHTML = parseInt(likeCount) - 1;
-					alert('성공!');
 				}
 			}
 		})
@@ -477,7 +493,7 @@ $(document).ready(function(){
 	// fn_commentList();
 	hasLiked();
 })
-
+//댓글 리스트 불러오기
 function fn_commentList(){
 	$.ajax({
 		url: "${path}/board/boardCommentList",
@@ -501,6 +517,7 @@ function fn_commentList(){
 	})
 }
 
+//댓글 쓰기
 function fn_commentInsert(){
 	let contentValue = document.getElementById('commentContent').value;
 	$.ajax({
@@ -516,13 +533,10 @@ function fn_commentInsert(){
 			if(data.result=='success')fn_commentList();
 			else alert('댓글 등록에 실패했습니다.');
 		}
-		/* ,error:function(q,e,r){
-			console.log('asdf');
-			console.log(q);
-		} */
 	})
 }
 
+//좋아했는지에 따라 하트 모양 바꾸기
 function hasLiked(){
 	let loginUsid = ${loginMember.usid};
 	$.ajax({
@@ -541,6 +555,63 @@ function hasLiked(){
 			}
 		},
 	})
+}
+
+//재판
+function fn_judge(judge) {
+	let boardId = ${currBoard.BOARD_ID};
+	let loginUsid = ${loginMember.usid};
+	let judResult;
+	let loginNick = '${loginMember.memNickname}';
+
+	if(judge=='agree'){
+		judResult = 0;
+		$.ajax({
+			url: "${path}/board/boardJudge",
+			type: "post",
+			dataType: "json",
+			data: {
+				loginUsid: loginUsid,
+				boardId: boardId,
+				judResult:judResult,
+				loginNick:loginNick
+			},
+			success: function(data) {
+				if(data.result == 'has') {
+					alert("이미 참여하셨습니다.");
+				}else if(data.result == 'fail') {
+					alert("참여에 실패했습니다.")
+				}
+				else {
+					let likeCount = document.getElementById('agreeNum').innerHTML;
+					document.getElementById('agreeNum').innerHTML = parseInt(likeCount) + 1;
+				}
+			}
+		})
+	}else {
+		judResult = 1;
+		$.ajax({
+			url: "${path}/board/boardJudge",
+			type: "post",
+			dataType: "json",
+			data: {
+				loginUsid: loginUsid,
+				boardId: boardId,
+				judResult:judResult,
+				loginNick:loginNick
+			},
+			success: function(data) {
+				if(data.result == 'has') {
+					alert("이미 참여하셨습니다");
+				}else if(data.result == 'fail') {
+					alert("참여에 실패했습니다.")
+				}else {
+					let likeCount = document.getElementById('disagreeNum').innerHTML;
+					document.getElementById('disagreeNum').innerHTML = parseInt(likeCount) + 1;
+				}
+			}
+		})
+	}
 }
 
 </script>
