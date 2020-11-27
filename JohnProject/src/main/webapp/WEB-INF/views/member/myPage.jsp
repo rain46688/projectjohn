@@ -88,10 +88,7 @@ div#boards{
 }
 div.board{
 	max-width: 100%;
-	border-top: black 1px solid;
-}
-div.board:last-child{
-	border-bottom: black 1px solid;
+	border: black 1px solid;
 }
 div.boardTitle{
 	font-size: 1.2rem;
@@ -157,17 +154,11 @@ div.board button{
 				<div class="boardTitle">
 					서신함
 				</div>
-				<div class="boardText">
-					다른 존경장님들과 주고 받은 서신을 확인할 수 있습니다.
-				</div>
 				<button type="button" class="btn btn-outline-dark btn-sm" onclick="location.href='${path}/member/myPage/messageList?usid=${loginMember.usid}'">이동하기</button>
 			</div>
 			<div class="board">
 				<div class="boardTitle">
 					회원정보 수정하기
-				</div>
-				<div class="boardText">
-					회원 정보를 수정할 수 있습니다.
 				</div>
 				<button type="button" class="btn btn-outline-dark btn-sm" onclick="location.href='${path}/member/myPage/updateMemberInfo?usid=${loginMember.usid}'">이동하기</button>
 			</div>
@@ -176,17 +167,11 @@ div.board button{
 					<div class="boardTitle">
 						전문가 정보 수정하기
 					</div>
-					<div class="boardText">
-						전문가 정보를 수정할 수 있습니다.
-					</div>
 					<button type="button" class="btn btn-outline-dark btn-sm">이동하기</button>
 				</div>
 				<div class="board">
 					<div class="boardTitle">
 						상담한 내역
-					</div>
-					<div class="boardText">
-						상담 제공 내역 상세 페이지로 이동합니다.
 					</div>
 					<button type="button" class="btn btn-outline-dark btn-sm" onclick="location.href='${path}/member/expertPage/counselingHistory?usid=${loginMember.usid}'">이동하기</button>
 				</div>
@@ -195,17 +180,11 @@ div.board button{
 				<div class="boardTitle">
 					나의 게시물 내역
 				</div>
-				<div class="boardText">
-					내가 쓴 게시물 내역으로 이동합니다.
-				</div>
 				<button type="button" class="btn btn-outline-dark btn-sm" onclick="location.href='${path}/member/myPage/myBoard?usid=${loginMember.usid}'">이동하기</button>
 			</div>
 			<div class="board">
 				<div class="boardTitle">
 					상담 신청 내역
-				</div>
-				<div class="boardText">
-					상담 신청 내역 상세 페이지로 이동합니다.
 				</div>
 				<button type="button" class="btn btn-outline-dark btn-sm" onclick="location.href='${path}/member/myPage/counselingRequest?usid=${loginMember.usid}'">이동하기</button>
 			</div>
@@ -213,17 +192,11 @@ div.board button{
 				<div class="boardTitle">
 					상담 받은 내역
 				</div>
-				<div class="boardText">
-					전문가에게 상담을 받은 내역 상세 페이지로 이동합니다.
-				</div>
 				<button type="button" class="btn btn-outline-dark btn-sm" onclick="location.href='${path}/member/myPage/counselingHistory?usid=${loginMember.usid}'">이동하기</button>
 			</div>
 			<div class="board">
 				<div class="boardTitle">
 					좋아요 한 게시물
-				</div>
-				<div class="boardText">
-					좋아요 한 게시물 목록으로 이동합니다.
 				</div>
 				<button type="button" class="btn btn-outline-dark btn-sm" onclick="location.href='${path}/member/myPage/liked?usid=${loginMember.usid}'">이동하기</button>
 			</div>
@@ -231,17 +204,11 @@ div.board button{
 				<div class="boardTitle">
 					내 신고 내역
 				</div>
-				<div class="boardText">
-					신고한 내역 상세 페이지로 이동합니다.
-				</div>
 				<button type="button" class="btn btn-outline-dark btn-sm" onclick="location.href='${path}/member/myPage/myReport?usid=${loginMember.usid}'">이동하기</button>
 			</div>
 			<div class="board">
 				<div class="boardTitle">
 					전문가 신청하기	
-				</div>
-				<div class="boardText">
-					상담 전문가 신청 페이지로 이동합니다.
 				</div>
 				<button type="button" class="btn btn-outline-dark btn-sm" onclick="location.href='${path}/member/myPage/applyExpertPage?usid=${loginMember.usid}'">이동하기</button>
 			</div>
