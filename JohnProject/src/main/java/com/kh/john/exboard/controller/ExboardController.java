@@ -471,7 +471,7 @@ public class ExboardController {
 	}
 
 	// 전문가 수정
-	@RequestMapping(value = "/expert/expertInfoModify")
+	@RequestMapping("/member/myPage/expertInfoModify")
 	public ModelAndView expertInfoModify(HttpSession session) throws Exception {
 		log.info(" ===== expertInfoModify 실행 ===== ");
 		ModelAndView mv = new ModelAndView("/exboard/expertInfoModify");
