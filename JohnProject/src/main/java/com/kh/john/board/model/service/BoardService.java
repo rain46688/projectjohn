@@ -20,6 +20,7 @@ public interface BoardService {
 	int boardLikeDelete(Map param);
 	int boardHasLiked(Map param);
 	int boardReadCount(int boardNo);
-
+	int boardHasJudged(Map param);
+	int boardJudgeInsert(Map param);
 }
 

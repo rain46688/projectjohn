@@ -288,7 +288,7 @@ ion-icon#likeButton {
               ${currBoard.AGREE_NAME }</button>
           </div>
           <div class="countCon">
-            <div>${currBoard.AGREE_NUM }</div>
+            <div id="agreeNum">${currBoard.AGREE_NUM }</div>
           </div>
         </div>
         <div class="judgeBtns" id="disagreeBtn">
@@ -298,7 +298,9 @@ ion-icon#likeButton {
               <br>
               ${currBoard.DISAGREE_NAME }</button>
           </div>
-          <div class="countCon">${currBoard.DISAGREE_NUM }</div>
+          <div class="countCon">
+          	<div id="disagreeNum">${currBoard.DISAGREE_NUM }</div>
+          	</div>
         </div>
       </div>
       <hr>
@@ -557,15 +559,58 @@ function hasLiked(){
 
 //재판
 function fn_judge(judge) {
-	let boardNo = ${currBoard.BOARD_ID};
+	let boardId = ${currBoard.BOARD_ID};
 	let loginUsid = ${loginMember.usid};
+	let judResult;
+	let loginNick = '${loginMember.memNickname}';
 
 	if(judge=='agree'){
+		judResult = 0;
 		$.ajax({
-			
+			url: "${path}/board/boardJudge",
+			type: "post",
+			dataType: "json",
+			data: {
+				loginUsid: loginUsid,
+				boardId: boardId,
+				judResult:judResult,
+				loginNick:loginNick
+			},
+			success: function(data) {
+				if(data.result == 'has') {
+					alert("이미 참여하셨습니다.");
+				}else if(data.result == 'fail') {
+					alert("참여에 실패했습니다.")
+				}
+				else {
+					let likeCount = document.getElementById('agreeNum').innerHTML;
+					document.getElementById('agreeNum').innerHTML = parseInt(likeCount) + 1;
+				}
+			}
 		})
 	}else {
-
+		judResult = 1;
+		$.ajax({
+			url: "${path}/board/boardJudge",
+			type: "post",
+			dataType: "json",
+			data: {
+				loginUsid: loginUsid,
+				boardId: boardId,
+				judResult:judResult,
+				loginNick:loginNick
+			},
+			success: function(data) {
+				if(data.result == 'has') {
+					alert("이미 참여하셨습니다");
+				}else if(data.result == 'fail') {
+					alert("참여에 실패했습니다.")
+				}else {
+					let likeCount = document.getElementById('disagreeNum').innerHTML;
+					document.getElementById('disagreeNum').innerHTML = parseInt(likeCount) + 1;
+				}
+			}
+		})
 	}
 }
 

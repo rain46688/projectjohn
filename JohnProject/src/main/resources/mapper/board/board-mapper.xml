@@ -96,4 +96,12 @@
 	<update id="boardReadCount" parameterType="_int">
 		UPDATE BOARD SET HIT = HIT + 1 WHERE BOARD_ID = #{boardNo}
 	</update>
+	
+	<select id="boardHasJudged" parameterType="map" resultType="_int">
+		SELECT COUNT(*) FROM JUDGMENT WHERE JUG_BOARD_ID = #{boardId} AND JUG_MEM_USID = #{loginUsid}
+	</select>
+	
+	<insert id="boardJudgeInsert" parameterType="map">
+		INSERT INTO JUDGMENT VALUES(#{boardId}, #{loginUsid}, #{judResult}, #{loginNick})
+	</insert>
 </mapper>

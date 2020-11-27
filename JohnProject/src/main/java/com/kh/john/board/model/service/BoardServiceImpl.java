@@ -91,4 +91,16 @@ public class BoardServiceImpl implements BoardService {
 		// TODO Auto-generated method stub
 		return dao.boardReadCount(session, boardNo);
 	}
+	
+	@Override
+	public int boardHasJudged(Map param) {
+		// TODO Auto-generated method stub
+		return dao.boardHasJudged(session, param);
+	}
+	
+	@Override
+	public int boardJudgeInsert(Map param) {
+		// TODO Auto-generated method stub
+		return dao.boardJudgeInsert(session, param);
+	}
 }
