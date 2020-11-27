@@ -13,19 +13,21 @@
 		visibility: hidden;
 		position: relative;
 	}
-	.fileNameField{
+	div.input-group .fileNameField{
         outline: none;
         border: black solid 1px;
         background-color: white;
         width: 50%;
         height: 2.5rem;
-        margin: 10px 20%;
+        margin: 1rem 10%;
 		margin-bottom: 5px;
         padding: 5px;
         box-sizing: border-box;
         font-size: 1rem;
+        float: left;
+        color: gray;
     }
-    button.button{
+    div.input-group button.browse{
         min-width: 100px;
         width: 10%;
         padding: 5px;
@@ -33,6 +35,20 @@
         cursor: pointer;
         text-align: center;
         margin: 1rem auto;
+        float: left;
+    }
+    input.input{
+        clear: both;
+        outline: none;
+        border: black solid 1px;
+        background-color: white;
+        width: 50%;
+        height: 2.5rem;
+        margin: 1rem 10%;
+        padding: 5px;
+        box-sizing: border-box;
+        font-size: 1rem;
+        color: gray;
     }
 </style>
 

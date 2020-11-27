@@ -14,7 +14,6 @@
 </jsp:include>
 <style>
 	#content *{
-		/* border: 1px red solid; */
 		font-family: 'Noto Serif KR', serif;
 	}
 	div.divForExpert, div#forExpertTitle, div.licenseTitle{
@@ -22,6 +21,8 @@
 	}
 	div.addLicenseDiv,div.removeLicenseDiv{
 		display: none;
+		text-align: center;
+		margin: 0 auto;
 	}
 	div#forExpertTitle{
 		margin:50px auto;
@@ -56,6 +57,16 @@
 		padding: 1rem;
 		background-color: white;
 	}
+	button.licenseBtn{
+		min-width: 100px;
+        width: 10%;
+        padding: 5px;
+        font-size: 0.9rem;
+        cursor: pointer;
+        text-align: center;
+        margin: 1rem auto;
+		background-color: white;
+	}
 </style>
 <section id="content">
 	<div id="forExpertTitle">
@@ -80,20 +91,22 @@
 		</div>
 		<div id="forExpert3" class="divForExpert"></div>
 		<div class="addLicenseDiv" id="addLicenseDiv1">
-			<button type="button" class="addLicenseBtn licenseBtn" id="addLicenseBtn1">추가</button>
+			<button type="button" class="addLicenseBtn licenseBtn btn btn-outline-dark licenseBtn" id="addLicenseBtn1">추가</button>
 		</div>
 		<div class="addLicenseDiv" id="addLicenseDiv2">
-			<button type="button" class="addLicenseBtn licenseBtn" id="addLicenseBtn2">추가2</button>
+			<button type="button" class="addLicenseBtn licenseBtn btn btn-outline-dark licenseBtn" id="addLicenseBtn2">추가</button>
 		</div>
 		<div class="removeLicenseDiv" id="removeLicenseDiv1">
-			<button type="button" class="removeLicenseBtn licenseBtn" id="removeLicenseBtn1">삭제</button>
+			<button type="button" class="removeLicenseBtn licenseBtn btn btn-outline-dark licenseBtn" id="removeLicenseBtn1">삭제</button>
 		</div>
 		<div class="removeLicenseDiv" id="removeLicenseDiv2">
-			<button type="button" class="removeLicenseBtn licenseBtn" id="removeLicenseBtn2">삭제2</button>
+			<button type="button" class="removeLicenseBtn licenseBtn btn btn-outline-dark licenseBtn" id="removeLicenseBtn2">삭제</button>
 		</div>
-		<button type="button" onclick="fn_applyExpert()">
-			신청하기
-		</button>
+		<div class="addLicenseDiv" style="display: block;">
+			<button type="button" class="btn btn-outline-dark licenseBtn" onclick="fn_applyExpert()">
+				신청하기
+			</button>
+		</div>
 	</form>
 </section>
 <script>
