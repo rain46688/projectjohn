@@ -4,7 +4,7 @@
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
 <c:set var="path" value="${pageContext.request.contextPath }"/>
-
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif+KR&display=swap" rel="stylesheet">
 <jsp:include page="/WEB-INF/views/common/header.jsp">
 	
 	<jsp:param name="title" value="adminMemberSearch"/>
@@ -22,7 +22,7 @@
 
 .board_list_wrap {
     padding: 85px;
-    font-family: 'Noto Sans KR', sans-serif;
+    font-family: 'Noto Serif KR', serif;
     
  	
 }
@@ -39,14 +39,14 @@
     background-color:#003478;
     color:#ffcc66;
     border-radius:10px;
-    font-family: 'Noto Sans KR', sans-serif;
+    font-family: 'Noto Serif KR', serif;
 }
 
 .board_list_body .item {
     border-bottom: 2px solid #eeeeee;
     background-color:white;
     border-radius:10px;
-    font-family: 'Noto Sans KR', sans-serif;
+    font-family: 'Noto Serif KR', serif;
     opacity: 0.7;
 }
 
@@ -91,7 +91,7 @@
     margin: 1em auto;
     display: inline-block; 
     color:white;
-    font-family: 'Noto Sans KR', sans-serif;
+    font-family: 'Noto Serif KR', serif;
     margin-right:10px;
 }
 
@@ -223,7 +223,7 @@ appearance: none;
 /*모달전체*/
 .modal-content{
 	 background-color:#ffcc66;
-	 font-family: 'Noto Sans KR', sans-serif;
+	 font-family: 'Noto Serif KR', serif;
 	 
 }
 /*페이지바*/
@@ -297,12 +297,12 @@ appearance: none;
 				<label>
 				
 				<input type="checkbox" name="leaveMem"
-				value="${param.leaveMem }"<c:if test="${param.leaveMem eq '0'}">checked</c:if>>현재 회원 
+				value="0"<c:if test="${param.leaveMem eq '0'}">checked</c:if>>현재 회원 
 				</label>&nbsp;&nbsp;&nbsp;&nbsp;
 				
 				<label> 
 				<input type="checkbox" name="leaveMem"
-				value="${param.leaveMem }"<c:if test="${param.leaveMem eq '1'}">checked</c:if>>탈퇴한 회원 <br> 
+				value="1"<c:if test="${param.leaveMem eq '1'}">checked</c:if>>탈퇴한 회원 <br> 
 				</label>
 				
 				<br>
@@ -386,10 +386,23 @@ appearance: none;
 		</div>
 
 
-		<div id="pageBar" class="paging">${pageBar }</div>
+		<div id="pageBar" class="paging">${pageBar2 }</div>
 
 
 
 </section>
 	
+<script type="text/javascript">
+	function deleteMember(usid) {
+		if (confirm("정말 탈퇴시키겠습니까?") == true) {
+			location.replace("${path}/admin/adminDeleteMember?usid=" + usid);
+		} else {
+			return;
+		}
+	}
+	
+	
+		 
+	 
 
+</script>

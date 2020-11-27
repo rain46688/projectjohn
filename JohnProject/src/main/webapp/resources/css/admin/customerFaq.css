@@ -3,6 +3,7 @@
 * {
   -webkit-box-sizing: border-box;
           box-sizing: border-box;
+
 }
 
 /* *::before, *::after {
@@ -18,7 +19,7 @@
 /* body {
   margin: 0;
   padding: 0;
-  font-family: 'Noto Sans KR', sans-serif;
+  font-family: 'Noto Serif KR', serif;
   background: #003478;
   color: white;
   display: -webkit-box;
@@ -41,7 +42,7 @@
   margin-top:8%;
   margin-left:10%;
   margin-right:10%;
-  font-family:'Noto Sans KR', sans-serif;
+ font-family: 'Noto Serif KR', serif;
 }
 
 .accordion .accordion-item {
