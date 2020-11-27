@@ -32,10 +32,16 @@ label, input {
 		<button class="btn btn-outline-success" onclick="location.href='${path}/expert/expertRequestPrintList'">전문가가 상담할 유저 리스트 보기</button>
 		<button class="btn btn-outline-success" onclick="location.href='${path}/expert/expertInfoModify'">전문가 정보 수정하기</button>
 	</c:if>
-	
-	
+	<br><br>
+	<input type="text" class="form-control short" name="usid" placeholder="받는사람 usid"/>
+	<input type="text" class="form-control short" name="type" placeholder="타입"/>
+	<input type="text" class="form-control short" name="content" placeholder="내용"/>
+	<button class="btn btn-outline-success" onclick="sendAlarm('${loginMember.usid}',$('input[name=usid]').val(),$('input[name=type]').val(),$('input[name=content]').val(),'${loginMember.memNickname}');">알람 보내기</button>
 	
 	<!-- 
+	
+	
+	sendAlarm("${loginMember.usid}",num,"expert",bno,"${loginMember.memNickname}");
 	
 	진행 순서
 	

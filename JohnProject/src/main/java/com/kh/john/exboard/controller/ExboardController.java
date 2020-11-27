@@ -261,44 +261,44 @@ public class ExboardController {
 		ModelAndView mv = new ModelAndView("/exboard/exchatRoom");
 		Member m = (Member) session.getAttribute("loginMember");
 		SessionVo s = new SessionVo();
-		ExpertBoard eb = null;
+		ExpertBoard eb;
 		log.debug("m : " + m);
 		// 해당 게시판 넘버에 맞는 유저를 판별하기 위해서 가져옴
 		try {
 			eb = service.selectExpertBoard(bnum);
-			log.debug("eb : " + eb);// 없으면 아예 없는 방이라는뜻
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			eb = null;
+		}
+		log.debug("eb : " + eb);// 없으면 아예 없는 방이라는뜻
+		// 쿼리스트링에 방넘버가 없거나 있지도 않는 방에 접근할때
+		if (eb == null || bnum.equals("") || bnum == null) {
+			log.debug("잘못된 접근");
+			mv = gotoMsg(mv, "/", "잘못된 접근입니다.");
+			return mv;
+		}
 
-			// 쿼리스트링에 방넘버가 없거나 있지도 않는 방에 접근할때
-			if (eb == null || bnum.equals("") || bnum == null) {
-				log.debug("잘못된 접근");
+		// 만료된 상담에 접근할때
+		if (eb.getExpertBoardExpertend() == 1 && eb.getExpertBoardMemberend() == 1) {
+			mv = gotoMsg(mv, "/", "만료된 상담입니다.");
+			return mv;
+		}
+
+		// 해당 방의 유저 이외에 사람들이 접근할때 에러
+		if (m.getMemClass().equals("전문가")) {
+			if (m.getUsid() != eb.getExpertBoardUsid()) {
 				mv = gotoMsg(mv, "/", "잘못된 접근입니다.");
 				return mv;
 			}
-
-			// 만료된 상담에 접근할때
-			if (eb.getExpertBoardExpertend() == 1 && eb.getExpertBoardMemberend() == 1) {
-				mv = gotoMsg(mv, "/", "만료된 상담입니다.");
+			s.setExpert(true);
+		} else {
+			if (m.getUsid() != eb.getExpertBoardMemUsid()) {
+				mv = gotoMsg(mv, "/", "잘못된 접근입니다.");
 				return mv;
 			}
-
-			// 해당 방의 유저 이외에 사람들이 접근할때 에러
-			if (m.getMemClass().equals("전문가")) {
-				if (m.getUsid() != eb.getExpertBoardUsid()) {
-					mv = gotoMsg(mv, "/", "잘못된 접근입니다.");
-					return mv;
-				}
-				s.setExpert(true);
-			} else {
-				if (m.getUsid() != eb.getExpertBoardMemUsid()) {
-					mv = gotoMsg(mv, "/", "잘못된 접근입니다.");
-					return mv;
-				}
-				s.setExpert(false);
-			}
-		} catch (Exception e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			s.setExpert(false);
 		}
+
 		s.setCurRoomBid(bnum);
 		s.setNickname(m.getMemNickname());
 		s.setSessionUsid(m.getUsid());
