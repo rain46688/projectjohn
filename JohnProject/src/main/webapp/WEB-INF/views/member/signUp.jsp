@@ -311,6 +311,12 @@
 				$("#certiResult").html('');
 			});
 
+			$('#id').on('keypress', function(e){
+	            if(e.keyCode==13) {
+                    $("#certibtn").click();
+                }
+            });  
+
 			// pw제약조건
 			var pwPattern = /^(?=.*[A-Za-z])(?=.*[0-9])[A-Za-z0-9]{4,16}$/;
 			$(function(){
@@ -714,7 +720,7 @@
 				if($("#checkIdhidden").val()=='existed'){
 					alert('아이디 중복 확인을 해주세요.');
 				}
-				if($("#certiKey").val().trim()!=$("#certiNum").val().trim()){
+				if($("#certiKey").val()!=$("#certiNum").val()){
 					alert('이메일 인증을 확인해주세요.');
 				}
 				if($("#checkNNhidden").val()=='existed'){

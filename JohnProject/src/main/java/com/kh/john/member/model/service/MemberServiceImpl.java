@@ -54,10 +54,10 @@ public class MemberServiceImpl implements MemberService {
 		sendMail.setSubject("재판하는 존경장님 인증을 부탁드려요:)");
 		sendMail.setText(
                 new StringBuffer()
-                .append("<h1>메일인증</h1>")
-                .append(authKey)
+                .append("<h1>회원가입 인증번호입니다.</h1>")
+                .append("<h2>"+authKey+"</h2>")
                 .toString());
-		sendMail.setFrom("22mailme@gmail.com", "관리자");
+		sendMail.setFrom("your.honor.2020.john@gmail.com", "관리자");
 		sendMail.setTo(email);
 		sendMail.send();
 		return authKey;
