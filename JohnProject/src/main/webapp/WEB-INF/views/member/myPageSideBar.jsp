@@ -18,6 +18,8 @@
 	    background-color:#00316D;
 	}
 	#side {
+		background-image: url("${path}/resources/images/sideBarPattern.png");
+		background-repeated: repeated;
 	    border-bottom-left-radius: 30px;
 	    border-top-left-radius: 30px;
 	    overflow: auto;

@@ -7,19 +7,7 @@
 <!-- css -->
 <style>
 	input[type=file]{
-		position: relative;
-		top: 0;
-		right: 0;
-		min-width: 100%;
-		min-height: 100%;
-		font-size: 10px;
-		text-align: right;
-		filter: alpha(opacity=0);
-		opacity: 0;
-		outline: none;
-		background: white;
-		cursor: inherit;
-		display: block;
+		display:none;
 	}
 	.file{
 		visibility: hidden;
@@ -29,11 +17,22 @@
         outline: none;
         border: black solid 1px;
         background-color: white;
-        width: 80%;
-        margin: 0 0 15px;
-        padding: 15px;
+        width: 50%;
+        height: 2.5rem;
+        margin: 10px 20%;
+		margin-bottom: 5px;
+        padding: 5px;
         box-sizing: border-box;
-        font-size: 14px;
+        font-size: 1rem;
+    }
+    button.button{
+        min-width: 100px;
+        width: 10%;
+        padding: 5px;
+        font-size: 0.9rem;
+        cursor: pointer;
+        text-align: center;
+        margin: 1rem auto;
     }
 </style>
 
@@ -41,8 +40,8 @@
     <!-- 자격증 파일 넣는 곳 -->
     <input type="file" name="licenseFileName" class="file real-input license1" accept="img/*">
     <div class="input-group col-xs-12">
-        <input type="text" class="input inputFile fileNameField license1" disabled placeholder="이미지를 업로드 하세요.">
-        <button type="button" class="browse button" style="width: 20%;">
+        <input type="text" class="input inputFile fileNameField license1" disabled placeholder="자격증 파일을 업로드 하세요.">
+        <button type="button" class="browse button btn btn-outline-dark" style="width: 20%;">
             파일찾기
         </button>
     </div>
