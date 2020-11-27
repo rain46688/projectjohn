@@ -20,6 +20,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.SessionAttribute;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.socket.WebSocketSession;
+import org.springframework.web.util.UriComponents;
 
 import com.kh.john.admin.model.service.AdminService;
 import com.kh.john.admin.model.vo.AdminMessage;
@@ -56,7 +57,14 @@ public class AdminController {
 	// 멤버 리스트 불러오기
 	@RequestMapping("/admin/adminMember")
 	public ModelAndView adminMember(ModelAndView mv,
+			@RequestParam(value="searchType", required=false) String type,
+			@RequestParam(value="searchType", required=false) String type2,
+			@RequestParam(value="keyword", required=false) String keyword,
+			@RequestParam(value="gender", required=false) String gender,
+			@RequestParam(value="memClass", required=false) String[] memClass,
+			@RequestParam(value="leaveMem", required=false) String[] leaveMem,
 			@RequestParam(value="memEmail",required=false) String memEmail, 
+			@RequestParam(value="tel", required=false) String tel,
 			@RequestParam(value ="cPage", required = false, defaultValue = "1") int cPage,
 			@RequestParam(value ="numPerPage", required = false, defaultValue = "5") int numPerPage) 
 					throws NoSuchAlgorithmException, UnsupportedEncodingException, GeneralSecurityException {
@@ -65,19 +73,25 @@ public class AdminController {
 		
 		for (Member a : list) {
 			String memberId;
+			String tele;
 			try {
 				memberId = aes.decrypt(a.getMemEmail());
+				tele = aes.decrypt(a.getTel());
 			} catch (Exception e) {
 				memberId = a.getMemEmail();
+				tele = a.getTel();
 			}
 			a.setMemEmail(memberId);
+			a.setTel(tele);
 		}
+		
+	
 		
 
 		int totalData = service.selectMemberCount();
 		System.out.println("멤버리스트토탈데이터:"+totalData);
 
-		mv.addObject("pageBar", PageBarFactory.getPageBar(totalData, cPage, numPerPage, "adminMember"));
+		mv.addObject("pageBar2", AdminPageBar.getPageBar(totalData, cPage, numPerPage, "adminMember",type,type2,keyword,gender));
 
 		mv.addObject("totalData", totalData);
 		mv.addObject("list", list);	
@@ -145,12 +159,14 @@ public class AdminController {
 			}
 			a.setMemEmail(memberId);
 		}
-		mv.addObject("pageBar", PageBarFactory.getPageBar(totalData, cPage, numPerPage, "adminMemberSearch"));
 
 		mv.addObject("totalData", totalData);
 		System.out.println("토탈데이터:"+totalData);
 		mv.addObject("list", list);
 		System.out.println("리스트:"+list);
+	
+		mv.addObject("pageBar2", AdminPageBar.getPageBar(totalData, cPage, numPerPage,"adminMemberSearch",type,type2,keyword,gender));
+		
 		mv.setViewName("admin/adminMemberSearch");
 		return mv;
 	}
