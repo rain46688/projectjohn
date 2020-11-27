@@ -627,4 +627,24 @@ public class ExboardController {
 		return result;
 	}
 
+	@RequestMapping("/expert/expertReviewWrite")
+	public ModelAndView expertReviewWrite(String bno) {
+		ModelAndView mv = new ModelAndView("/exboard/expertReviewWrite");
+		return mv;
+	}
+
+//	@RequestMapping("/expert/expertReviewWriteEnd")
+//	public String expertReviewWriteEnd(String bno) {
+//		String result = "";
+//		try {
+//			service.updateExpertBoardReview(bno);
+//			result = "1";
+//		} catch (Exception e) {
+//			// TODO Auto-generated catch block
+//			e.printStackTrace();
+//			result = "0";
+//		}
+//		return result;
+//	}
+
 }
