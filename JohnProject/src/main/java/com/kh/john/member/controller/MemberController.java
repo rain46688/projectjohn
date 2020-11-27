@@ -143,9 +143,9 @@ public class MemberController {
 				sendMail.setText(
 						new StringBuffer()
 						.append("<h1>임시 비밀번호</h1>")
-						.append(tempPw)
+						.append("<h2>"+tempPw+"</h2>")
 						.toString());
-				sendMail.setFrom("22mailme@gmail.com", "관리자");
+				sendMail.setFrom("your.honor.2020.john@gmail.com", "관리자");
 				sendMail.setTo(strId);
 				sendMail.send();
 				mv.addObject("findMember",member);
@@ -312,6 +312,7 @@ public class MemberController {
 
 		// 회원구분
 		String classMem = param.get("memClass").toString();
+		System.out.println("**********"+classMem);
 		if (classMem == "normalUser") {
 			member.setMemClass("일반유저");
 			result = service.signUpEnd(member);
@@ -355,7 +356,7 @@ public class MemberController {
 					licenseList.add(license);
 				}
 			}
-			if(licenseList.size()<1) {
+			if(classMem == "expertUser" && licenseList.size()<1) {
 				msg="최소 한 개의 자격증을 등록해야 합니다.";
 				script="history.back()";
 			}else {
