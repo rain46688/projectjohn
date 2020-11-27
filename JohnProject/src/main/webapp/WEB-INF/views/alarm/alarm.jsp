@@ -338,7 +338,7 @@ function expertEndPrintHtml(e){
 
 function writereview(bno){
 	console.log("bno : "+bno);
-	window.open("","popForm","width=800, height=700, toolbar=no, menubar=no, scrollbars=no, resizable=no");
+	window.open("","popForm","width=500, height=500, toolbar=no, menubar=no, scrollbars=no, resizable=no");
 	let forms = document.createElement("form");
 	forms.setAttribute("charset","UTF-8");
 	forms.setAttribute("method","post");
