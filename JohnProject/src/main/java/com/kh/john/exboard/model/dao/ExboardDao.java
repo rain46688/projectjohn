@@ -71,4 +71,6 @@ public interface ExboardDao {
 
 	String selectExpertBoardReviewCount(SqlSessionTemplate session, Map<String, String> map) throws Exception;
 
+	int expertReviewWriteCheck(SqlSessionTemplate session, String bno) throws Exception;
+
 }

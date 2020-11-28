@@ -282,4 +282,20 @@ public class ExboardServiceImpl implements ExboardService {
 		dao.updateExpertInfoReview(session, map);
 	}
 
+	@Override
+	public int expertReviewWriteCheck(String bno) throws Exception {
+		// TODO Auto-generated method stub
+		int result = -1;
+		log.debug("result1 : " + result);
+		try {
+			result = dao.expertReviewWriteCheck(session, bno);
+			log.debug("result2 : " + result);
+		} catch (Exception e) {
+			// TODO: handle exception
+		}
+		log.debug("result3 : " + result);
+
+		return result;
+	}
+
 }

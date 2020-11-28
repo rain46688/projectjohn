@@ -61,4 +61,6 @@ public interface ExboardService {
 
 	void updateExpertBoardReview(Map<String, String> map) throws Exception;
 
+	int expertReviewWriteCheck(String bno) throws Exception;
+
 }

@@ -201,4 +201,10 @@ public class ExboardDaoImpl implements ExboardDao {
 		return session.selectOne("expert.selectExpertBoardReviewCount", map);
 	}
 
+	@Override
+	public int expertReviewWriteCheck(SqlSessionTemplate session, String bno) throws Exception {
+		// TODO Auto-generated method stub
+		return session.selectOne("expert.expertReviewWriteCheck", bno);
+	}
+
 }

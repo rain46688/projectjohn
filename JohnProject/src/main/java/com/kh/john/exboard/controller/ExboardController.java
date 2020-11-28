@@ -631,6 +631,17 @@ public class ExboardController {
 	@RequestMapping("/expert/expertReviewWrite")
 	public ModelAndView expertReviewWrite(String bno) {
 		ModelAndView mv = new ModelAndView("/exboard/expertReviewWrite");
+		int result = -2;
+		try {
+			result = service.expertReviewWriteCheck(bno);
+		} catch (Exception e) {
+			// TODO: handle exception
+
+		}
+		// 이따 확인해봐야됨!!!
+		// 후기 작성해도 얼럿뜸
+		log.debug("result : " + result);
+		mv.addObject("duplicate", result);
 		mv.addObject("bno", bno);
 		return mv;
 	}

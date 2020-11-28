@@ -123,6 +123,11 @@
 	select count(*) from expert_board where expert_board_usid = #{exusid} and expert_board_review is not null
 </select>
 
+<select id="expertReviewWriteCheck" resultType	="_int" parameterType="string">
+	SELECT EXPERT_BOARD_RATING FROM EXPERT_BOARD WHERE EXPERT_BOARD_ID = #{bno}
+</select>
+
+
 	<resultMap type="exboard" id="exboardMap">
 		<id column="EXPERT_BOARD_ID" property="expertBoardId" />
 		<id column="EXPERT_BOARD_USID" property="expertBoardUsid" />

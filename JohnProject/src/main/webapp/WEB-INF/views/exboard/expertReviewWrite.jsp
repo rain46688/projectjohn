@@ -150,6 +150,14 @@ function fixedSize() {
 	this.resizeTo(500, 500);
 };
 
+console.log("ㅋㅋ : ${duplicate}");
+
+if("${duplicate}" == 1){
+	console.log("이미 작성한 리뷰");
+	alert("이미 작성한 후기입니다.");
+	window.close(); 
+}
+
 //리뷰 작성
 function reviewWrite(){
 	console.log("ㅋㅋㅋ");
