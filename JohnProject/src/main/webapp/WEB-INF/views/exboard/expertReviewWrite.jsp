@@ -145,14 +145,13 @@ textarea {
 
 'use strict';
 
+//화면 크기 고정
 $(this).resize(fixedSize);
 function fixedSize() {
 	this.resizeTo(500, 500);
 };
 
-console.log("ㅋㅋ : ${duplicate}");
-
-if("${duplicate}" == 1){
+if("${duplicate}" != 0){//0이 평점 기본이기때문에 0이아니면 평점이 작성된것
 	console.log("이미 작성한 리뷰");
 	alert("이미 작성한 후기입니다.");
 	window.close(); 
