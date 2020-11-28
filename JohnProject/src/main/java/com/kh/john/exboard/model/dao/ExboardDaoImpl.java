@@ -183,4 +183,22 @@ public class ExboardDaoImpl implements ExboardDao {
 		session.update("expert.updateExInfoModify", et);
 	}
 
+	@Override
+	public void updateExpertBoardReview(SqlSessionTemplate session, Map<String, String> map) throws Exception {
+		// TODO Auto-generated method stub
+		session.update("expert.updateExpertBoardReview", map);
+	}
+
+	@Override
+	public void updateExpertInfoReview(SqlSessionTemplate session, Map<String, String> map) throws Exception {
+		// TODO Auto-generated method stub
+		session.update("expert.updateExpertInfoReview", map);
+	}
+
+	@Override
+	public String selectExpertBoardReviewCount(SqlSessionTemplate session, Map<String, String> map) throws Exception {
+		// TODO Auto-generated method stub
+		return session.selectOne("expert.selectExpertBoardReviewCount", map);
+	}
+
 }

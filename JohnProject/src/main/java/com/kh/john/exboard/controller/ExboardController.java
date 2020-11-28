@@ -627,24 +627,36 @@ public class ExboardController {
 		return result;
 	}
 
+	// 리뷰작성 페이지
 	@RequestMapping("/expert/expertReviewWrite")
 	public ModelAndView expertReviewWrite(String bno) {
 		ModelAndView mv = new ModelAndView("/exboard/expertReviewWrite");
+		mv.addObject("bno", bno);
 		return mv;
 	}
 
-//	@RequestMapping("/expert/expertReviewWriteEnd")
-//	public String expertReviewWriteEnd(String bno) {
-//		String result = "";
-//		try {
-//			service.updateExpertBoardReview(bno);
-//			result = "1";
-//		} catch (Exception e) {
-//			// TODO Auto-generated catch block
-//			e.printStackTrace();
-//			result = "0";
-//		}
-//		return result;
-//	}
+	// 리뷰작성 완료 페이지
+	@ResponseBody
+	@RequestMapping("/expert/expertReviewWriteEnd")
+	public String expertReviewWriteEnd(String bno, String review, String rating, HttpSession session) {
+		log.debug("expertReviewWriteEnd");
+		log.debug("bno : " + bno + " review : " + review + " rating : " + rating);
+		String result = "";
+		try {
+			Map<String, String> map = new HashMap<String, String>();
+			map.put("bno", bno);
+			map.put("review", review);
+			map.put("rating", rating);
+			map.put("memusid", "" + ((Member) session.getAttribute("loginMember")).getUsid());
+			log.debug("memusid : " + map.get("memusid"));
+			service.updateExpertBoardReview(map);
+			result = "1";
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			result = "0";
+		}
+		return result;
+	}
 
 }

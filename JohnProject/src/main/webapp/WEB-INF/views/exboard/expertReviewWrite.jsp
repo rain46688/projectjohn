@@ -134,7 +134,7 @@ textarea {
 			<textarea id="reviewTextArea" name="reText" placeholder="솔직한 후기를 적어주세요"></textarea>
 			</div>
 			<div id="rebottomDiv">
-			<button type="text" class="btn btn-outline-success">작성 완료</button>
+			<button type="text" class="btn btn-outline-success" onclick="reviewWrite();">작성 완료</button>
 			</div>
 		</div>
 	</div>
@@ -148,7 +148,31 @@ textarea {
 $(this).resize(fixedSize);
 function fixedSize() {
 	this.resizeTo(500, 500);
-}
+};
+
+//리뷰 작성
+function reviewWrite(){
+	console.log("ㅋㅋㅋ");
+	
+	$.ajax({
+		url : '${path}/expert/expertReviewWriteEnd',
+		data : {
+				'bno' : '${bno}',
+				'review' : $("#reviewTextArea").val(),
+				'rating' : startcount()
+			},
+		dataType : 'json',
+		success : function(data){
+		console.log(data);
+			if(data == 1){
+				alert("성공적으로 등록되었습니다.");
+			}else{
+				alert("등록에 실패하였습니다. 관리자에게 문의하세요");
+			}
+			window.close(); 
+		}
+	});
+};
 
 $('.starRev span').click(function(){
 	  $(this).parent().children('span').removeClass('checked');
@@ -167,7 +191,7 @@ function startcount(){
 		}
 	}
 	return count;	
-}
+};
 
 
 

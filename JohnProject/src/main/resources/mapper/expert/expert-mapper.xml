@@ -111,6 +111,18 @@
 	UPDATE EXPERT_INFO SET EXPERT_GREETINGS = #{expertGreetings}, EXPERT_PROFILE = #{expertProfile},EXPERT_COUNSEL_AREA = #{expertCounselArea}, EXPERT_COUNSEL_START_TIME = #{expertCounselStartTime},EXPERT_COUNSEL_END_TIME = #{expertCounselEndTime}  WHERE EXPERT_USID=#{expertUsid}
 </update>
 
+<update id="updateExpertBoardReview" parameterType="map">
+	UPDATE EXPERT_BOARD SET EXPERT_BOARD_RATING = #{rating}, EXPERT_BOARD_REVIEW = #{review} WHERE EXPERT_BOARD_ID=#{bno}
+</update>
+
+<update id="updateExpertInfoReview" parameterType="map">
+	UPDATE EXPERT_INFO SET EXPERT_RATING = (EXPERT_RATING + #{rating}), EXPERT_REVIEW_COUNT = #{count} WHERE EXPERT_USID=#{exusid}
+</update>
+
+<select id="selectExpertBoardReviewCount" resultType	="string" parameterType="map">
+	select count(*) from expert_board where expert_board_usid = #{exusid} and expert_board_review is not null
+</select>
+
 	<resultMap type="exboard" id="exboardMap">
 		<id column="EXPERT_BOARD_ID" property="expertBoardId" />
 		<id column="EXPERT_BOARD_USID" property="expertBoardUsid" />
@@ -124,52 +136,52 @@
 		<id column="EXPERT_BOARD_EXPERTEND" property="expertBoardExpertend" />
 	</resultMap>
 	
-		<resultMap type="exrequest" id="exrequestMap">
+	<resultMap type="exrequest" id="exrequestMap">
 		<id column="EXPERT_REQUEST_EX_USID" property="expertRequetExUsid" />
 		<id column="EXPERT_REQUEST_MEM_USID" property="expertRequestMemUsid" />
 		<id column="EXPERT_REQUEST_EX_NICK" property="expertRequetExNick" />
 		<id column="EXPERT_REQUEST_MEM_NICK" property="expertRequestMemNick" />
 		<id column="EXPERT_ISCOUNSEL" property="expertIscounsel" />
 		<id column="EXPERT_DATE" property="expertDate" />
-			<id column="EXPERT_COUNSEL_TIME" property="expertCounselTime" />
-				<id column="EXPERT_COUNSEL_REQUIRE" property="expertCounselRequire" />
+		<id column="EXPERT_COUNSEL_TIME" property="expertCounselTime" />
+		<id column="EXPERT_COUNSEL_REQUIRE" property="expertCounselRequire" />
 	</resultMap>
 	
-<resultMap id="memberMap" type="member">
-    <result property="usid" column="usid"/>
-    <result property="memEmail" column="mem_email"/>
-    <result property="memPwd" column="mem_pwd"/>
-    <result property="memName" column="mem_name"/>
-    <result property="memNickname" column="mem_nickname"/>
-    <result property="gender" column="gender"/>
-    <result property="birthday" column="birthday"/>
-    <result property="enrollDate" column="enroll_date"/>
-    <result property="point" column="point"/>
-    <result property="leaveMem" column="leave_mem"/>
-    <result property="pwIsUuid" column="pw_is_uuid"/>
-    <result property="memClass" column="mem_class"/>
-    <result property="profilePic" column="profile_pic"/>
-    <result property="tel" column="tel"/>
-</resultMap>
-
-<resultMap id="expertMap" type="expert">
-    <result property="expertUsid" column="expert_usid"/>
-    <result property="expertRating" column="expert_rating"/>
-    <result property="expertGreetings" column="expert_greetings"/>
-    <result property="expertProfile" column="expert_profile"/>
-    <result property="expertCounselArea" column="expert_counsel_area"/>
-    <result property="expertCounselStartTime" column="expert_counsel_start_time"/>
- 	<result property="expertCounselEndTime" column="expert_counsel_end_time"/>
-</resultMap>
-
-<resultMap id="licenseMap" type="license">
-	 <result property="licenseId" column="license_id"/>
-    <result property="licenseMemUsid" column="license_mem_usid"/>
-    <result property="licenseFileName" column="license_file_name"/>
-    <result property="licenseDate" column="license_date"/>
-    <result property="licenseType" column="license_type"/>
-    <result property="licenseCompany" column="license_company"/>
-</resultMap>
+	<resultMap id="memberMap" type="member">
+	    <result property="usid" column="usid"/>
+	    <result property="memEmail" column="mem_email"/>
+	    <result property="memPwd" column="mem_pwd"/>
+	    <result property="memName" column="mem_name"/>
+	    <result property="memNickname" column="mem_nickname"/>
+	    <result property="gender" column="gender"/>
+	    <result property="birthday" column="birthday"/>
+	    <result property="enrollDate" column="enroll_date"/>
+	    <result property="point" column="point"/>
+	    <result property="leaveMem" column="leave_mem"/>
+	    <result property="pwIsUuid" column="pw_is_uuid"/>
+	    <result property="memClass" column="mem_class"/>
+	    <result property="profilePic" column="profile_pic"/>
+	    <result property="tel" column="tel"/>
+	</resultMap>
+	
+	<resultMap id="expertMap" type="expert">
+	    <result property="expertUsid" column="expert_usid"/>
+	    <result property="expertRating" column="expert_rating"/>
+	    <result property="expertGreetings" column="expert_greetings"/>
+	    <result property="expertProfile" column="expert_profile"/>
+	    <result property="expertCounselArea" column="expert_counsel_area"/>
+	    <result property="expertCounselStartTime" column="expert_counsel_start_time"/>
+	 	<result property="expertCounselEndTime" column="expert_counsel_end_time"/>
+	</resultMap>
+	
+	<resultMap id="licenseMap" type="license">
+		 <result property="licenseId" column="license_id"/>
+	    <result property="licenseMemUsid" column="license_mem_usid"/>
+	    <result property="licenseFileName" column="license_file_name"/>
+	    <result property="licenseDate" column="license_date"/>
+	    <result property="licenseType" column="license_type"/>
+	    <result property="licenseCompany" column="license_company"/>
+	</resultMap>
 
 
 </mapper>
