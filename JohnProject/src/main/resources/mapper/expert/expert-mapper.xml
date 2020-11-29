@@ -139,6 +139,7 @@
 		<id column="EXPERT_BOARD_EX_NICK" property="expertBoardExNick" />
 		<id column="EXPERT_BOARD_MEMBEREND" property="expertBoardMemberend" />
 		<id column="EXPERT_BOARD_EXPERTEND" property="expertBoardExpertend" />
+		<id column="EXPERT_BOARD_MEM_NICK" property="expertBoardMemNick" />
 	</resultMap>
 	
 	<resultMap type="exrequest" id="exrequestMap">
@@ -177,6 +178,7 @@
 	    <result property="expertCounselArea" column="expert_counsel_area"/>
 	    <result property="expertCounselStartTime" column="expert_counsel_start_time"/>
 	 	<result property="expertCounselEndTime" column="expert_counsel_end_time"/>
+	 	<result property="expertReviewCount" column="expert_review_count"/>
 	</resultMap>
 	
 	<resultMap id="licenseMap" type="license">
