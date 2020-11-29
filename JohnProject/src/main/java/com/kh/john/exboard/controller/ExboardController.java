@@ -636,7 +636,6 @@ public class ExboardController {
 			result = service.expertReviewWriteCheck(bno);
 		} catch (Exception e) {
 			// TODO: handle exception
-
 		}
 		// 이따 확인해봐야됨!!!
 		// 후기 작성해도 얼럿뜸

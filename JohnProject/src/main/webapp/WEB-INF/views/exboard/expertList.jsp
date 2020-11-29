@@ -49,7 +49,7 @@ html, body, div, span, applet, object, iframe, h1, h2, h3, h4, h5, h6, p, blockq
 
 /* 아래 div */
 #downDiv * {
-	 /* border: 1px solid red;  */
+/* 	 border: 1px solid red;  */
 	/* text-shadow: -1px 0 #BFBFBF, 0 0.5px #BFBFBF, 0.5px 0 #BFBFBF, 0 -1px #BFBFBF; */
 }
 
@@ -319,7 +319,8 @@ html, body, div, span, applet, object, iframe, h1, h2, h3, h4, h5, h6, p, blockq
 
 /* 리뷰 점수 */
 .userRating {
-	height: 10%;
+	margin-top:1%;
+	height: 15%;
 	border-bottom: 1px solid #C6C5C5;
 }
 
@@ -337,7 +338,7 @@ html, body, div, span, applet, object, iframe, h1, h2, h3, h4, h5, h6, p, blockq
 
 /* 리뷰 내용 */
 .userReview {
-	height: 80%;
+	height: 70%;
 	width: 100%;
 	font-style: italic;
 	color: gray;
@@ -348,6 +349,7 @@ html, body, div, span, applet, object, iframe, h1, h2, h3, h4, h5, h6, p, blockq
 	text-overflow: ellipsis;
 	overflow: hidden;
 	-webkit-box-orient: vertical;
+	margin:3%;
 }
 
 /* 빈값 */
@@ -384,7 +386,8 @@ html, body, div, span, applet, object, iframe, h1, h2, h3, h4, h5, h6, p, blockq
 										<img class="expertimg" alt="전문가" src="${path }/resources/profile_images/${expert['mem'].profilePic}">
 										<div class="exRight">
 											<div class="exName">${expert['mem'].memName}</div>
-											<div class="exRating">
+											<%-- ${(expert['ex'].expertRating)/(expert['ex'].expertRating)} --%>
+										<%-- 	<div class="exRating">
 											평점 : 
 											<c:forEach var="i" begin="1" end="${expert['ex'].expertRating}">
 												<span class="fa fa-star checked"></span>
@@ -392,7 +395,8 @@ html, body, div, span, applet, object, iframe, h1, h2, h3, h4, h5, h6, p, blockq
 											<c:forEach var="i" begin="1" end="${5 - (expert['ex'].expertRating)}">
 												<span class="fa fa-star"></span>
 											</c:forEach>
-											</div>
+											</div>  --%>
+											
 											<div class="exCounselArea">분야 : ${expert['ex'].expertCounselArea}</div>
 											<button type="button" class="btn btn-outline-primary" onclick="counsel('${expert['mem'].usid}','${expert['mem'].memNickname}');">상담 신청</button>
 										</div>
