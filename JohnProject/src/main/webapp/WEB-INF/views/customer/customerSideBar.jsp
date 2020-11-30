@@ -4,6 +4,7 @@
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
 <c:set var="path" value="${pageContext.request.contextPath }" />
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif+KR&display=swap" rel="stylesheet">
 <link rel="preconnect" href="https://fonts.gstatic.com">
 <link
 	href="https://fonts.googleapis.com/css2?family=Black+Han+Sans&display=swap"
@@ -12,9 +13,11 @@
   #aa:link { text-decoration: none; color: white;} 
   #aa:visited { text-decoration: none; color: white;}
   #aa:active { text-decoration: none; color: white;}
-  #aa:hover {text-decoration:underline; color: white;}
+  #aa:hover {text-decoration:none; color: white;}
   
 #side {
+font-family: 'Noto Serif KR', serif;
+background-image: url("${path}/resources/images/sideBarPattern.png");
 	border-bottom-left-radius: 30px;
 	border-top-left-radius: 30px;
 	overflow: auto;
@@ -67,8 +70,8 @@
 
 .menusOnSide {
 	cursor: pointer;
-	padding-bottom: 0.5em;
-	padding-top: 0.5em;
+	padding-bottom: 1em;
+	padding-top: 1em;
 	width: 100%;
 	/* border:1px solid red; */
 }
@@ -90,37 +93,54 @@
 #sidebar_logo {
 	width: 80%;
 }
+
+/* a.menuLink{
+	color: white;
+	width: 100%;
+	padding: 0;
+	margin: 0.5rem auto;
+}
+a.menuLink:hover{
+	color: white;
+} */
 </style>
 
 
 <div id="side">
 	<div id="container_logo">
-		<a href="${path }/board/boardList" id="anchor_logo" id="aa"> <img
+		<a href="${path }/board/boardList" id="anchor_logo" id="aa" class="menuLink"> <img
 			src="${path}/resources/images/logo_long_black.png" id="sidebar_logo"
 			alt="로고">
 		</a>
 	</div>
 	<div id="menu">
+			<a href="${path}/report/customerReport" id="aa" class="menuLink"> 
 		<div class="menusOnSide">
-			<a href="${path}/report/customerReport" id="aa"> <img src="${path }/resources/images/admin/siren (1).png"
-			class="menuImages"> 신고하기
-			</a>
+			<img src="${path }/resources/images/admin/siren (1).png"
+				class="menuImages"> 신고하기
 		</div>
+			</a>
+			
+			<a href="${path}/customer/customerNotice" id="aa" class="menuLink"> 
 		<div class="menusOnSide">
-			<a href="${path}/customer/customerNotice" id="aa"> <img src="${path }/resources/images/admin/notice(1).png"
-			class="menuImages"> 공지사항
-			</a>
+			<img src="${path }/resources/images/admin/notice(1).png"
+				class="menuImages"> 공지사항
 		</div>
+			</a>
+			
+			<a href="${path}/customer/customerFaq" id="aa" class="menuLink"> 
 		<div class="menusOnSide">
-			<a href="${path}/customer/customerFaq" id="aa"> <img class="menuImages"
-			src="${path }/resources/images/admin/faq(1).png"/> FAQ
-			</a>
+			 <img class="menuImages"
+				src="${path }/resources/images/admin/faq(1).png"/>FAQ
 		</div>
+			</a>
+		
+			<a href="${path}/customer/customerChat?adminUsid=31&myUsid=${loginMember.usid }" class="menuLink"> 
 		<div class="menusOnSide">
-			<a href="${path}/customer/customerChat?adminUsid=31&myUsid=${loginMember.usid }"> <img class="menuImages"
-			src="${path }/resources/images/admin/message.png"/> 1:1문의하기
-			</a>
+			<img class="menuImages"
+				src="${path }/resources/images/admin/message.png"/> 1:1문의하기
 		</div>
+			</a>
 
 	</div>
 </div>

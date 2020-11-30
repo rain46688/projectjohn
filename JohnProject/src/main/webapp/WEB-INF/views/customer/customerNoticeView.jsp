@@ -5,7 +5,7 @@
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
 <c:set var="path" value="${pageContext.request.contextPath }"/>
 <script type="text/javascript" src="${pageContext.request.contextPath }/resources/js/ckeditor/ckeditor.js"></script>
-
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif+KR&display=swap" rel="stylesheet">
 <jsp:include page="/WEB-INF/views/common/header.jsp">
 	
 	<jsp:param name="title" value=" "/>
@@ -25,7 +25,7 @@
     border-radius: 1em;
     overflow: auto;
     background-color:#ffcc66;
-    font-family: 'Noto Sans KR', sans-serif;
+    font-family: 'Noto Serif KR', serif;
  }
  div#board-container input,div#board-container button{
  margin-bottom:15px;

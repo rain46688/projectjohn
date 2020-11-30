@@ -254,7 +254,7 @@ h6 {
 	height: 100%;
 	font-size: 2vh;
 	font-weight: bold;
-	padding: 1%;
+	padding: 1% 0 0 3%;
 	border: 1px solid #AEAEAE;
 }
 

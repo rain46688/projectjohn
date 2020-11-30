@@ -4,7 +4,7 @@
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
 <c:set var="path" value="${pageContext.request.contextPath }" />
-
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif+KR&display=swap" rel="stylesheet">
 <jsp:include page="/WEB-INF/views/common/header.jsp">
 
 	<jsp:param name="title" value=" " />
@@ -57,12 +57,12 @@
 	border: 1px solid black;
 	margin: 10px;
 	display: inline-block;
-	font-family: 'Noto Sans KR', sans-serif; */
+	font-family: 'Noto Serif KR', serif; */
 	padding-right: 20%;
     padding-bottom:20%;
     padding-left:20%;
     padding-top:2%;
-    font-family: 'Noto Sans KR', sans-serif;
+    font-family: 'Noto Serif KR', serif;
 	overflow:hidden;
 }
 #chat-container {
@@ -139,7 +139,7 @@
     background-color:#003478;
     color:#ffcc66;
     border-radius:10px;
-    font-family: 'Noto Sans KR', sans-serif;
+    font-family: 'Noto Serif KR', serif;
     padding: 10px 0;
    
 }

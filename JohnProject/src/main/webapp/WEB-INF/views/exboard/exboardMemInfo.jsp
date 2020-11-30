@@ -73,11 +73,12 @@ textarea {
 							<div class="userData ml-3">
 							<c:if test="${not empty expert}">
 								<h2 class="d-block" style="font-size: 1.5rem; font-weight: bold">${mem.memName } 상담사님</h2>
+								<c:set var="count" value="${((expert.expertReviewCount) == 0)?1:(expert.expertReviewCount)}" />
 								<h6 class="d-block">평점 :
-									<c:forEach var="i" begin="1" end="${expert.expertRating}">
+									<c:forEach var="i" begin="1" end="${Math.round((expert.expertRating)/(count))}">
 												<span class="fa fa-star checked"></span>
 											</c:forEach>
-											<c:forEach var="i" begin="1" end="${5 - (expert.expertRating)}">
+											<c:forEach var="i" begin="1" end="${5 - (Math.round((expert.expertRating)/(count)))}">
 												<span class="fa fa-star"></span>
 											</c:forEach>
 								</h6>
