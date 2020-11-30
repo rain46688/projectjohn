@@ -87,7 +87,7 @@ html, body, div, span, applet, object, iframe, h1, h2, h3, h4, h5, h6, p, blockq
 	width: 100%;
 	height: 45%;
 	margin: 1% 1% 0 1%;
-	padding: 3% 3% 0 1%;
+	padding: 0 4% 0 1%;
 }
 
 /* 제목 */
@@ -174,6 +174,7 @@ html, body, div, span, applet, object, iframe, h1, h2, h3, h4, h5, h6, p, blockq
 }
 
 .timeleftDiv {
+	padding-top:2%;
 	width: 100%;
 	height: 100%;
 }
@@ -255,12 +256,13 @@ h6 {
 	font-size: 2vh;
 	font-weight: bold;
 	padding: 1% 0 0 3%;
+	margin:0 2% 0 1.2%;
 	border: 1px solid #AEAEAE;
 }
 
 #textArearowDiv {
 	width: 100%;
-	height: 60%
+	height: 70%
 }
 
 textarea {
@@ -277,9 +279,9 @@ textarea:focus {
 #buttonDiv {
 	display: flex;
 	justify-content: center;
-	align-items: flex-end;
-	width: 100%;
-	height: 40%;
+	/* align-items: flex-end; */
+	align-items: center;
+	height: 50%;
 	width: 100%;
 }
 
@@ -485,6 +487,7 @@ textarea:focus {
 	position: relative;
 	cursor: pointer;
 	background-color: white;
+	border:1px solid gray;
 }
 
 .licenseImgView>p {

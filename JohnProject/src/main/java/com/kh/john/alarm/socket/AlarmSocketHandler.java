@@ -35,8 +35,13 @@ public class AlarmSocketHandler extends TextWebSocketHandler {
 		log.debug("알람 서버 afterConnectionEstablished");
 		Map<String, Object> map = session.getAttributes();
 		Member m = (Member) map.get("loginMember");
-		users.put(m, session);
-		log.info("알람 서버 오픈 접속 닉네임 : " + m.getMemNickname());
+		if (m != null) {
+			users.put(m, session);
+			log.debug("알람 서버 오픈 접속 닉네임 : " + m.getMemNickname());
+
+		} else {
+			log.debug("m이 null임.");
+		}
 	}
 
 //알람 목록 호버하면 나오는 리스트에 시간 초까지 제대로 보이게 수정해보기
