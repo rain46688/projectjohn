@@ -751,42 +751,111 @@ function modify(){
 	});
 }
 
-//호버 이미지 섬네일 변경 & 업로드
-for(let i = 1; i < 4; i++){
-	$('#licenseImg'+i).hover(function(){
-		liWith1 =  $("#imgLicense"+i).width();
-		liHeight1 =  $("#imgLicense"+i).height();
-	    $('#licenseImgView'+i).css('display','flex');
-	   $("#licenseImg"+i).css('display','none');
-	}, function() {
-		$('#licenseImgView'+i).css('display','none');
-		   $("#licenseImg"+i).css('display','flex');
-	});
+//자격증 이미지 호버
+// 시간날때 여기 로직 정리좀 하기--11/23
 
-	$('#licenseImgView'+i).hover(function(){
-	    $('#licenseImgView'+i).css('display','flex');
-	   $("#licenseImg"+i).css('display','none');
-	}, function() {
-		$('#licenseImgView'+i).css('display','none');
-		   $("#licenseImg"+i).css('display','flex');
-	});
-	
-	$("#licenseImgView"+i).click(e => {
-		 $("#licenseUpload"+i).click();
-	});
-	
-	$("#licenseUpload"+i).change(function(e){
-	    e.preventDefault();
-		console.log("이미지 선택됨");
-		console.log("files : " + $("#licenseUpload"+i).val());
-		let file2 = $("#licenseUpload"+i).val();
-		
-		let f = (file2).substring((file2).lastIndexOf('.'),(file2).length);
-		console.log(f);
-		fileViewUpload(f,liWith1,liHeight1,$('#licenseImg'+i),this)
-	});
-}
+$('#licenseImg1').hover(function(){
+	liWith1 =  $("#imgLicense1").width();
+	liHeight1 =  $("#imgLicense1").height();
+    $('#licenseImgView1').css('display','flex');
+   $("#licenseImg1").css('display','none');
+}, function() {
+	$('#licenseImgView1').css('display','none');
+	   $("#licenseImg1").css('display','flex');
+});
 
+$('#licenseImgView1').hover(function(){
+    $('#licenseImgView1').css('display','flex');
+   $("#licenseImg1").css('display','none');
+}, function() {
+	$('#licenseImgView1').css('display','none');
+	   $("#licenseImg1").css('display','flex');
+});
+
+$('#licenseImg2').hover(function(){
+	liWith2 =  $("#imgLicense2").width();
+	liHeight2 =  $("#imgLicense2").height();
+    $('#licenseImgView2').css('display','flex');
+   $("#licenseImg2").css('display','none');
+}, function() {
+	$('#licenseImgView2').css('display','none');
+	   $("#licenseImg2").css('display','flex');
+});
+
+$('#licenseImgView2').hover(function(){
+    $('#licenseImgView2').css('display','flex');
+   $("#licenseImg2").css('display','none');
+}, function() {
+	$('#licenseImgView2').css('display','none');
+	   $("#licenseImg2").css('display','flex');
+});
+
+$('#licenseImg3').hover(function(){
+	liWith3 =  $("#imgLicense3").width();
+	liHeight3 =  $("#imgLicense3").height();
+    $('#licenseImgView3').css('display','flex');
+   $("#licenseImg3").css('display','none');
+}, function() {
+	$('#licenseImgView3').css('display','none');
+	   $("#licenseImg3").css('display','flex');
+});
+
+$('#licenseImgView3').hover(function(){
+    $('#licenseImgView3').css('display','flex');
+   $("#licenseImg3").css('display','none');
+}, function() {
+	$('#licenseImgView3').css('display','none');
+	   $("#licenseImg3").css('display','flex');
+});
+
+//자격증 이미지 클릭 이벤트
+
+$("#licenseImgView1").click(e => {
+	 $("#licenseUpload1").click();
+});
+
+$("#licenseImgView2").click(e => {
+	 $("#licenseUpload2").click();
+});
+
+$("#licenseImgView3").click(e => {
+	 $("#licenseUpload3").click();
+});
+
+//업로드
+
+$("#licenseUpload1").change(function(e){
+    e.preventDefault();
+	console.log("이미지 선택됨");
+	console.log("files : " + $("#licenseUpload1").val());
+	let file2 = $("#licenseUpload1").val();
+	
+	let f = (file2).substring((file2).lastIndexOf('.'),(file2).length);
+	console.log(f);
+	fileViewUpload(f,liWith1,liHeight1,$('#licenseImg1'),this)
+});
+
+$("#licenseUpload2").change(function(e){
+    e.preventDefault();
+	console.log("이미지 선택됨");
+	console.log("files : " + $("#licenseUpload2").val());
+	let file2 = $("#licenseUpload2").val();
+	
+	let f = (file2).substring((file2).lastIndexOf('.'),(file2).length);
+	console.log(f);
+	fileViewUpload(f,liWith2,liHeight2,$('#licenseImg2'),this)
+});
+
+$("#licenseUpload3").change(function(e){
+    e.preventDefault();
+	console.log("이미지 선택됨");
+	console.log("files : " + $("#licenseUpload3").val());
+	let file2 = $("#licenseUpload3").val();
+	
+	let f = (file2).substring((file2).lastIndexOf('.'),(file2).length);
+	console.log(f);
+	fileViewUpload(f,liWith3,liHeight3,$('#licenseImg3'),this)
+});
 
 function fileViewUpload(f,w,h,im,up){
 	if(f != '.png' && f != '.jpg' && f != '.jpeg' && f != '.gif'){

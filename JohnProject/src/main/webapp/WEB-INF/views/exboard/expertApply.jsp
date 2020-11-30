@@ -34,6 +34,7 @@ body * {
 	/* border: 1px solid red; */
 }
 
+/* 추가 사항 */
 #exapplyTextArea {
 	width:100%;
 	height:20vh;
@@ -201,16 +202,20 @@ textarea {
 
 <script>
 
+//헤더jsp가 없기 때문에 알람 헤어.js랑 연결해야됨 그래서 세션 스토리지에 정보 넣는것
+//안넣어도됨 수정
 	'use strict';
-	sessionStorage.clear();
+/* 	sessionStorage.clear();
 		sessionStorage.setItem('lousid', "${loginMember.usid}");
-		sessionStorage.setItem('path', "${path}");
+		sessionStorage.setItem('path', "${path}"); */
 
+		//사이즈 조절
 	$(this).resize(fixedSize);
 	function fixedSize() {
 		this.resizeTo(800, 800);
 	}
 
+	//상담 신청
 	function expertRequest() {
 		console.log("상담 신청, ${mem.usid}");
 
@@ -255,6 +260,7 @@ textarea {
 				});
 	};
 
+	//상담 신청 취소
 	function expertRequestCancel() {
 		console.log("상담 취소, ${mem.usid}");
 		$
