@@ -14,4 +14,5 @@ public class Expert {
 	private String expertCounselArea;
 	private String expertCounselStartTime;
 	private String expertCounselEndTime;
+	private int expertReviewCount;
 }
