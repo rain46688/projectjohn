@@ -229,7 +229,7 @@
   border:1px rgb(65,90,156) solid;
   background-color:white;
   color:black;
-  font-size:1.1em;
+  font-size:0.9em;
   border-radius:8px;
   margin-top:0.3em;
   padding:0.3em;
@@ -242,6 +242,16 @@
 
 .commentContentCon .commentInfo {
   margin-bottom:0.2em;
+}
+
+.commentContentCon .commentInfo b {
+	font-size:16px;
+	font-weight:bold;
+}
+
+.commentContentCon .commentInfo small {
+	margin-left:3px;
+	font-size:13px;
 }
 
 .commentContentCon .commentLikeCon {
@@ -519,7 +529,10 @@ function commentListPrint(commentList) {
 	document.getElementById('commentPrint').innerHTML = "";
 	commentList.forEach(function(item, index){
 		if(item!=null){
-			console.log(item.comWriterUsid);
+			//날짜 변환
+			let time = parseInt(item.comEnrollDate);
+			time = new Date(time);
+			time = time.customFormat("#YYYY#/#MM#/#DD# #hh#:#mm#");
 			let comment = document.createElement('div');
 			if(item.comWriterUsid == '${currBoard.WRITER_USID}') comment.className = 'commentFromWriter';
 			else comment.className = 'comment';
@@ -548,14 +561,16 @@ function commentListPrint(commentList) {
 			name.innerHTML = item.comWriterNickname;
 
 			let date = document.createElement('small');
-			date.innerHTML = item.com_enroll_date;
+			date.innerHTML = time;
 
-			commentInfo.appendChild(name).appendChild(date);//test
+			commentInfo.appendChild(name);
+			commentInfo.appendChild(date);//test
 
 			commentContentCon.appendChild(commentInfo);
 
 			let commentContent = document.createElement('div');
 			commentContent.className = 'commentContent';
+			commentContent.innerHTML = item.comContent;
 
 			commentContentCon.appendChild(commentContent);
 
@@ -569,6 +584,7 @@ function commentListPrint(commentList) {
 //댓글 쓰기
 function fn_commentInsert(){
 	let contentValue = document.getElementById('commentContent').value;
+	console.log(contentValue);
 	$.ajax({
 		url:"${path}/board/boardCommentInsert",
 		type:"post",
@@ -581,7 +597,10 @@ function fn_commentInsert(){
 			writerNick:'${loginMember.memNickname}'
 		},
 		success:function(data){
-			if(data.result=='success')fn_commentList();
+			if(data.result=='success'){
+				fn_commentList();
+				document.getElementById('commentContent').value = "";
+				}
 			else alert('댓글 등록에 실패했습니다.');
 		}
 	})
@@ -664,6 +683,26 @@ function fn_judge(judge) {
 		})
 	}
 }
+
+Date.prototype.customFormat = function(formatString){
+	  var YYYY,YY,MMMM,MMM,MM,M,DDDD,DDD,DD,D,hhhh,hhh,hh,h,mm,m,ss,s,ampm,AMPM,dMod,th;
+	  YY = ((YYYY=this.getFullYear())+"").slice(-2);
+	  MM = (M=this.getMonth()+1)<10?('0'+M):M;
+	  MMM = (MMMM=["January","February","March","April","May","June","July","August","September","October","November","December"][M-1]).substring(0,3);
+	  DD = (D=this.getDate())<10?('0'+D):D;
+	  DDD = (DDDD=["Sunday","Monday","Tuesday","Wednesday","Thursday","Friday","Saturday"][this.getDay()]).substring(0,3);
+	  th=(D>=10&&D<=20)?'th':((dMod=D%10)==1)?'st':(dMod==2)?'nd':(dMod==3)?'rd':'th';
+	  formatString = formatString.replace("#YYYY#",YYYY).replace("#YY#",YY).replace("#MMMM#",MMMM).replace("#MMM#",MMM).replace("#MM#",MM).replace("#M#",M).replace("#DDDD#",DDDD).replace("#DDD#",DDD).replace("#DD#",DD).replace("#D#",D).replace("#th#",th);
+	  h=(hhh=this.getHours());
+	  if (h==0) h=24;
+	  if (h>12) h-=12;
+	  hh = h<10?('0'+h):h;
+	  hhhh = hhh<10?('0'+hhh):hhh;
+	  AMPM=(ampm=hhh<12?'am':'pm').toUpperCase();
+	  mm=(m=this.getMinutes())<10?('0'+m):m;
+	  ss=(s=this.getSeconds())<10?('0'+s):s;
+	  return formatString.replace("#hhhh#",hhhh).replace("#hhh#",hhh).replace("#hh#",hh).replace("#h#",h).replace("#mm#",mm).replace("#m#",m).replace("#ss#",ss).replace("#s#",s).replace("#ampm#",ampm).replace("#AMPM#",AMPM);
+	};
 
 </script>
 </body>

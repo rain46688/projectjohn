@@ -70,7 +70,7 @@
 	</select>
 	
 	<insert id="boardCommentInsert" parameterType="map">
-		INSERT INTO "COMMENT" VALUES(SEQ_COMMENT_NO.NEXTVAL, #{currBoardNo},#{writerUsid} , #{writerNick}, #{content}, #{profilePic}, SYSDATE)
+		INSERT INTO "COMMENT" VALUES(SEQ_COMMENT_NO.NEXTVAL, #{currBoardNo},#{writerUsid} ,#{content} , #{writerNick}, #{profilePic}, SYSDATE)
 	</insert>
 	
 	<select id="boardSelectCate" parameterType="string" resultMap="boardMap">
