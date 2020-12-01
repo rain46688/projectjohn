@@ -40,7 +40,7 @@
 	
 	<insert id="boardInsert" parameterType="board" >
 		INSERT INTO BOARD VALUES(
-		SEQ_BOARD_NO.NEXTVAL, 9, '홍잭슨', #{title}, #{content}, SYSDATE, default, #{bigCategory}, #{smallCategory}, 0, default, #{agreeName}, #{disagreeName}
+		SEQ_BOARD_NO.NEXTVAL, #{writerUsid}, #{writerNickname}, #{title}, #{content}, SYSDATE, default, #{bigCategory}, #{smallCategory}, 0, default, #{agreeName}, #{disagreeName}
 		)
 	</insert>
 	

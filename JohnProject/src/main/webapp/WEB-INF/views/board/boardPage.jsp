@@ -519,8 +519,9 @@ function commentListPrint(commentList) {
 	document.getElementById('commentPrint').innerHTML = "";
 	commentList.forEach(function(item, index){
 		if(item!=null){
+			console.log(item.comWriterUsid);
 			let comment = document.createElement('div');
-			if(item.comWriterUsid == ${currBoard.WRITER_USID}) comment.className = 'commentFromWriter';
+			if(item.comWriterUsid == '${currBoard.WRITER_USID}') comment.className = 'commentFromWriter';
 			else comment.className = 'comment';
 
 			let commentProfileCon = document.createElement('div');
