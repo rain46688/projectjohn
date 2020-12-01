@@ -39,7 +39,7 @@ public class BoardDaoImpl implements BoardDao{
 	}
 	
 	@Override
-	public List<Comment> commentSelectList(SqlSession session, int currBoardNo) {
+	public List<Map> commentSelectList(SqlSession session, int currBoardNo) {
 		// TODO Auto-generated method stub
 		return session.selectList("board.commentSelectList", currBoardNo);
 	}
@@ -96,5 +96,17 @@ public class BoardDaoImpl implements BoardDao{
 	public int boardJudgeInsert(SqlSession session, Map param) {
 		// TODO Auto-generated method stub
 		return session.insert("board.boardJudgeInsert", param);
+	}
+	
+	@Override
+	public int boardCommentHasLiked(SqlSession session, Map param) {
+		// TODO Auto-generated method stub
+		return session.selectOne("board.boardCommentHasLiked", param);
+	}
+	
+	@Override
+	public int boardCommentLike(SqlSession session, Map param) {
+		// TODO Auto-generated method stub
+		return session.insert("board.boardCommentLike", param);
 	}
 }

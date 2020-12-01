@@ -254,17 +254,21 @@
 	font-size:13px;
 }
 
-.commentContentCon .commentLikeCon {
+.commentContentCon .commentLikeAndFuncCon {
   margin-top:0.2em;
   text-align:right;
 }
 
+.commentLikeAndFuncCon span {
+	cursor:pointer;
+	margin-left:0.2em;
+}
 
-.commentLikeCon span#up {
+.commentLikeAndFuncCon span.up {
   color:red;
 }
 
-.commentLikeCon span#down {
+.commentLikeAndFuncCon span.down {
   color:gray;
 }
 
@@ -343,9 +347,11 @@ ion-icon#likeButton {
             asdasdasdasda
             asdasdsadsadasdasdasdas
             </div>
-            <div class="commentLikeCon">
-              <span id="up"><ion-icon name="thumbs-up-outline"></ion-icon> 12</span> 
-              <span id="down"><ion-icon name="thumbs-down-outline"></ion-icon> 3</span>
+            <div class="commentLikeAndFuncCon">
+              <span class="modify">수정하기</span>
+              <span class="delete">삭제하기</span>
+              <span class="up"><ion-icon name="thumbs-up-outline"></ion-icon> 12</span> 
+              <span class="down"><ion-icon name="thumbs-down-outline"></ion-icon> 3</span>
             </div>
           </div>
         </div>
@@ -368,7 +374,7 @@ ion-icon#likeButton {
             asdasdasdasda
             asdasdsadsadasdasdasdas
             </div>
-            <div class="commentLikeCon">
+            <div class="commentLikeAndFuncCon">
               <span id="up"><ion-icon name="thumbs-up-outline"></ion-icon> 12</span> 
               <span id="down"><ion-icon name="thumbs-down-outline"></ion-icon> 3</span>
             </div>
@@ -504,8 +510,6 @@ document.getElementById('likeButton').addEventListener('click', function(){
 	}
 })
 
-
-
 $(document).ready(function(){
 	fn_commentList();
 	hasLiked();
@@ -525,16 +529,17 @@ function fn_commentList(){
 	})
 }
 
+//댓글 리스트 화면에 출력
 function commentListPrint(commentList) {
 	document.getElementById('commentPrint').innerHTML = "";
 	commentList.forEach(function(item, index){
 		if(item!=null){
 			//날짜 변환
-			let time = parseInt(item.comEnrollDate);
+			let time = parseInt(item.COM_ENROLL_DATE);
 			time = new Date(time);
 			time = time.customFormat("#YYYY#/#MM#/#DD# #hh#:#mm#");
 			let comment = document.createElement('div');
-			if(item.comWriterUsid == '${currBoard.WRITER_USID}') comment.className = 'commentFromWriter';
+			if(item.COM_WRITER_NICKNAME == '${currBoard.WRITER_USID}') comment.className = 'commentFromWriter';
 			else comment.className = 'comment';
 
 			let commentProfileCon = document.createElement('div');
@@ -545,7 +550,7 @@ function commentListPrint(commentList) {
 
 			let img = document.createElement('img');
 			img.className = 'commentProfileImg';
-			img.setAttribute('src','${path}/resources/profile_images/' + item.comProfilePic);
+			img.setAttribute('src','${path}/resources/profile_images/' + item.COM_PROFILE_PIC);
 			
 			commentProfile.appendChild(img);
 			commentProfileCon.appendChild(commentProfile);
@@ -558,7 +563,7 @@ function commentListPrint(commentList) {
 			commentInfo.className = 'commentInfo';
 
 			let name = document.createElement('b');
-			name.innerHTML = item.comWriterNickname;
+			name.innerHTML = item.COM_WRITER_NICKNAME;
 
 			let date = document.createElement('small');
 			date.innerHTML = time;
@@ -570,10 +575,63 @@ function commentListPrint(commentList) {
 
 			let commentContent = document.createElement('div');
 			commentContent.className = 'commentContent';
-			commentContent.innerHTML = item.comContent;
+			commentContent.innerHTML = item.COM_CONTENT;
 
 			commentContentCon.appendChild(commentContent);
-
+			
+			let commentLikeAndFuncCon = document.createElement('div');
+			commentLikeAndFuncCon.className = 'commentLikeAndFuncCon';
+			
+			if(${loginMember.usid} == item.COM_WRITER_USID){
+			
+			let modifySpan = document.createElement('span');
+			modifySpan.className = 'modify';
+			modifySpan.innerHTML = '수정하기';
+			let deleteSpan = document.createElement('span');
+			deleteSpan.className = 'delete';
+			deleteSpan.innerHTML = '삭제하기';
+			
+			commentLikeAndFuncCon.appendChild(modifySpan);
+			commentLikeAndFuncCon.appendChild(deleteSpan);
+			}
+			
+			//댓글 좋아요
+			let upSpan = document.createElement('span');
+			upSpan.className = 'up';
+			upSpan.setAttribute('onclick',"fn_commentLike('like',"+item.COM_ID+", this);");
+			
+			//댓글 좋아요 아이콘
+			let thumbUp = document.createElement('ion-icon');
+			thumbUp.setAttribute('name','thumbs-up-outline');
+			
+			//댓글 좋아요 카운트
+			let upCount = document.createElement('span');
+			upCount.className = 'comUpCount';
+			upCount.innerHTML = item.LIKE_COUNT
+			upSpan.appendChild(thumbUp);
+			upSpan.appendChild(upCount);
+			
+			//댓글 싫어요
+			let downSpan = document.createElement('span');
+			downSpan.className = 'down';
+			downSpan.setAttribute('onclick',"fn_commentLike('dislike',"+item.COM_ID+", this);");
+			
+			//댓글 싫어요 아이콘
+			let thumbDown = document.createElement('ion-icon');
+			thumbDown.setAttribute('name','thumbs-down-outline');
+			
+			//댓글 싫어요 카운트
+			let downCount = document.createElement('span');
+			downCount.className = 'comDownCount';
+			downCount.innerHTML = item.DISLIKE_COUNT;
+			downSpan.appendChild(thumbDown);
+			downSpan.appendChild(downCount);
+			
+			commentLikeAndFuncCon.appendChild(upSpan);
+			commentLikeAndFuncCon.appendChild(downSpan);
+			
+			commentContentCon.appendChild(commentLikeAndFuncCon);
+			
 			comment.appendChild(commentContentCon);
 
 			document.getElementById('commentPrint').appendChild(comment);
@@ -584,7 +642,6 @@ function commentListPrint(commentList) {
 //댓글 쓰기
 function fn_commentInsert(){
 	let contentValue = document.getElementById('commentContent').value;
-	console.log(contentValue);
 	$.ajax({
 		url:"${path}/board/boardCommentInsert",
 		type:"post",
@@ -604,6 +661,68 @@ function fn_commentInsert(){
 			else alert('댓글 등록에 실패했습니다.');
 		}
 	})
+}
+
+//댓글 좋아요, 싫어요 업데이트
+function fn_commentLike(key, comId, e){
+	console.log(key, comId);
+	
+	
+	let loginUsid = ${loginMember.usid};
+	let value;
+	if(key == 'like'){
+		//좋아요
+		value = 1;
+		$.ajax({
+			url: "${path}/board/boardCommentLike",
+			type: "post",
+			dataType: "json",
+			data: {
+				loginUsid: loginUsid,
+				comId: comId,
+				key: value
+			},
+			success: function(data) {
+				if(data.result == 'has') {
+					alert("이미 참여하셨습니다.");
+				}else if(data.result == 'fail') {
+					alert("참여에 실패했습니다.")
+				}
+				else {
+					let counts = e.getElementsByClassName('comUpCount');
+					for(let i = 0; i < counts.length; i++){
+						counts[i].innerHTML = parseInt(counts[i].innerHTML) + 1;
+					}
+				}
+			},
+		})
+	}else {
+		//싫어요
+		value = 2;
+		$.ajax({
+			url: "${path}/board/boardCommentLike",
+			type: "post",
+			dataType: "json",
+			data: {
+				loginUsid: loginUsid,
+				comId: comId,
+				key : value
+			},
+			success: function(data) {
+				if(data.result == 'has') {
+					alert("이미 참여하셨습니다.");
+				}else if(data.result == 'fail') {
+					alert("참여에 실패했습니다.")
+				}
+				else {
+					let counts = e.getElementsByClassName('comDownCount');
+					for(let i = 0; i < counts.length; i++){
+						counts[i].innerHTML = parseInt(counts[i].innerHTML) + 1;
+					}
+				}
+			},
+		})
+	}
 }
 
 //좋아했는지에 따라 하트 모양 바꾸기
@@ -684,26 +803,27 @@ function fn_judge(judge) {
 	}
 }
 
+//*** This code is copyright 2002-2016 by Gavin Kistner, !@phrogz.net
+//*** It is covered under the license viewable at http://phrogz.net/JS/_ReuseLicense.txt
 Date.prototype.customFormat = function(formatString){
-	  var YYYY,YY,MMMM,MMM,MM,M,DDDD,DDD,DD,D,hhhh,hhh,hh,h,mm,m,ss,s,ampm,AMPM,dMod,th;
-	  YY = ((YYYY=this.getFullYear())+"").slice(-2);
-	  MM = (M=this.getMonth()+1)<10?('0'+M):M;
-	  MMM = (MMMM=["January","February","March","April","May","June","July","August","September","October","November","December"][M-1]).substring(0,3);
-	  DD = (D=this.getDate())<10?('0'+D):D;
-	  DDD = (DDDD=["Sunday","Monday","Tuesday","Wednesday","Thursday","Friday","Saturday"][this.getDay()]).substring(0,3);
-	  th=(D>=10&&D<=20)?'th':((dMod=D%10)==1)?'st':(dMod==2)?'nd':(dMod==3)?'rd':'th';
-	  formatString = formatString.replace("#YYYY#",YYYY).replace("#YY#",YY).replace("#MMMM#",MMMM).replace("#MMM#",MMM).replace("#MM#",MM).replace("#M#",M).replace("#DDDD#",DDDD).replace("#DDD#",DDD).replace("#DD#",DD).replace("#D#",D).replace("#th#",th);
-	  h=(hhh=this.getHours());
-	  if (h==0) h=24;
-	  if (h>12) h-=12;
-	  hh = h<10?('0'+h):h;
-	  hhhh = hhh<10?('0'+hhh):hhh;
-	  AMPM=(ampm=hhh<12?'am':'pm').toUpperCase();
-	  mm=(m=this.getMinutes())<10?('0'+m):m;
-	  ss=(s=this.getSeconds())<10?('0'+s):s;
-	  return formatString.replace("#hhhh#",hhhh).replace("#hhh#",hhh).replace("#hh#",hh).replace("#h#",h).replace("#mm#",mm).replace("#m#",m).replace("#ss#",ss).replace("#s#",s).replace("#ampm#",ampm).replace("#AMPM#",AMPM);
-	};
-
+  var YYYY,YY,MMMM,MMM,MM,M,DDDD,DDD,DD,D,hhhh,hhh,hh,h,mm,m,ss,s,ampm,AMPM,dMod,th;
+  YY = ((YYYY=this.getFullYear())+"").slice(-2);
+  MM = (M=this.getMonth()+1)<10?('0'+M):M;
+  MMM = (MMMM=["January","February","March","April","May","June","July","August","September","October","November","December"][M-1]).substring(0,3);
+  DD = (D=this.getDate())<10?('0'+D):D;
+  DDD = (DDDD=["Sunday","Monday","Tuesday","Wednesday","Thursday","Friday","Saturday"][this.getDay()]).substring(0,3);
+  th=(D>=10&&D<=20)?'th':((dMod=D%10)==1)?'st':(dMod==2)?'nd':(dMod==3)?'rd':'th';
+  formatString = formatString.replace("#YYYY#",YYYY).replace("#YY#",YY).replace("#MMMM#",MMMM).replace("#MMM#",MMM).replace("#MM#",MM).replace("#M#",M).replace("#DDDD#",DDDD).replace("#DDD#",DDD).replace("#DD#",DD).replace("#D#",D).replace("#th#",th);
+  h=(hhh=this.getHours());
+  if (h==0) h=24;
+  if (h>12) h-=12;
+  hh = h<10?('0'+h):h;
+  hhhh = hhh<10?('0'+hhh):hhh;
+  AMPM=(ampm=hhh<12?'am':'pm').toUpperCase();
+  mm=(m=this.getMinutes())<10?('0'+m):m;
+  ss=(s=this.getSeconds())<10?('0'+s):s;
+  return formatString.replace("#hhhh#",hhhh).replace("#hhh#",hhh).replace("#hh#",hh).replace("#h#",h).replace("#mm#",mm).replace("#m#",m).replace("#ss#",ss).replace("#s#",s).replace("#ampm#",ampm).replace("#AMPM#",AMPM);
+};
 </script>
 </body>
 </html>

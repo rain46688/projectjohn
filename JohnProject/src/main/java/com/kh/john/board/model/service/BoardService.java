@@ -13,7 +13,7 @@ public interface BoardService {
 	List<Board> boardSelectCate(String boardTitle);
 	int boardInsert(Board b);
 	Map boardSelectOne(int boardNo);
-	List<Comment> commentSelectList(int currBoardNo);
+	List<Map> commentSelectList(int currBoardNo);
 	int boardCommentInsert(Map param);
 	List<Subscribe> boardSubList(int usid);
 	int boardLikeInsert(Map param);
@@ -22,5 +22,7 @@ public interface BoardService {
 	int boardReadCount(int boardNo);
 	int boardHasJudged(Map param);
 	int boardJudgeInsert(Map param);
+	int boardCommentHasLiked(Map param);
+	int boardCommentLike(Map param);
 }
 

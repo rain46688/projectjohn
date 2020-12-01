@@ -45,7 +45,7 @@ public class BoardServiceImpl implements BoardService {
 	}
 	
 	@Override
-	public List<Comment> commentSelectList(int currBoardNo) {
+	public List<Map> commentSelectList(int currBoardNo) {
 		// TODO Auto-generated method stub
 		return dao.commentSelectList(session, currBoardNo);
 	}
@@ -102,5 +102,17 @@ public class BoardServiceImpl implements BoardService {
 	public int boardJudgeInsert(Map param) {
 		// TODO Auto-generated method stub
 		return dao.boardJudgeInsert(session, param);
+	}
+	
+	@Override
+	public int boardCommentHasLiked(Map param) {
+		// TODO Auto-generated method stub
+		return dao.boardCommentHasLiked(session, param);
+	}
+	
+	@Override
+	public int boardCommentLike(Map param) {
+		// TODO Auto-generated method stub
+		return dao.boardCommentLike(session,param);
 	}
 }

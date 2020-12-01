@@ -48,7 +48,6 @@ public class BoardController {
 	@Autowired
 	private BoardService service;
 	
-	
 	@RequestMapping("/board/boardList")
 	public ModelAndView boardList(ModelAndView mv, HttpServletRequest request) {
 		//list페이지에서 subList 보내줘야함
@@ -149,10 +148,10 @@ public class BoardController {
 	
 	@ResponseBody
 	@RequestMapping("board/boardCommentList")
-	public List<Comment> boardCommentList(int currBoardNo)
+	public List<Map> boardCommentList(int currBoardNo)
 			throws JsonMappingException, JsonGenerationException, IOException{
 		
-		List<Comment> list = service.commentSelectList(currBoardNo);
+		List<Map> list = service.commentSelectList(currBoardNo);
 		
 		return list;
 	}
@@ -171,6 +170,30 @@ public class BoardController {
 			result.put("result","fail");
 		}
 		return result;
+	}
+	
+	//댓글 좋아요 업데이트
+	@ResponseBody
+	@RequestMapping("board/boardCommentLike")
+	public Map boardCommentLike(@RequestParam Map param) throws JsonMappingException, JsonGenerationException, IOException {
+		
+		int result = service.boardCommentHasLiked(param);
+		
+		Map<String,String> ajaxResult = new HashMap();
+		
+		if(result > 0) {
+			ajaxResult.put("result","has");
+			return ajaxResult;
+		}
+		
+		result = service.boardCommentLike(param);
+		if(result > 0) {
+			ajaxResult.put("result", "success");
+		}else {
+			ajaxResult.put("result", "fail");
+		}
+		
+		return ajaxResult;
 	}
 	
 	//작은 카테고리 조회

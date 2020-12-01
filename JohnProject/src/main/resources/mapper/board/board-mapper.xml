@@ -65,8 +65,14 @@
 		WHERE BOARD_ID = #{boardId}
 	</select>
 	
-	<select id="commentSelectList" parameterType="_int" resultMap="commentMap">
-		SELECT * FROM "COMMENT" WHERE COM_BOARD_ID = #{currBoardNo}
+	<select id="commentSelectList" parameterType="_int" resultType="map">
+		SELECT COM_ID, COM_BOARD_ID, COM_WRITER_USID, COM_CONTENT, COM_WRITER_NICKNAME, 
+		COM_PROFILE_PIC, COM_ENROLL_DATE, NVL(LIKE_COUNT,0) LIKE_COUNT, NVL(DISLIKE_COUNT,0) DISLIKE_COUNT FROM "COMMENT" A
+		LEFT OUTER JOIN (SELECT COUNT(COM_LIKEDISLIKE) LIKE_COUNT, COM_LIKEDISLIKE_ID FROM COMMENT_LIKEDISLIKE WHERE COM_LIKEDISLIKE = 1 GROUP BY COM_LIKEDISLIKE_ID) B
+		ON A.COM_ID = B.COM_LIKEDISLIKE_ID
+		LEFT OUTER JOIN (SELECT COUNT(COM_LIKEDISLIKE) DISLIKE_COUNT, COM_LIKEDISLIKE_ID FROM COMMENT_LIKEDISLIKE WHERE COM_LIKEDISLIKE = 2 GROUP BY COM_LIKEDISLIKE_ID) C
+		ON A.COM_ID = C.COM_LIKEDISLIKE_ID
+		WHERE COM_BOARD_ID = #{currBoardNo}
 	</select>
 	
 	<insert id="boardCommentInsert" parameterType="map">
@@ -103,5 +109,13 @@
 	
 	<insert id="boardJudgeInsert" parameterType="map">
 		INSERT INTO JUDGMENT VALUES(#{boardId}, #{loginUsid}, #{judResult}, #{loginNick})
+	</insert>
+	
+	<select id="boardCommentHasLiked" parameterType="map" resultType="_int">
+		SELECT COUNT(*) FROM COMMENT_LIKEDISLIKE WHERE COM_LIKEDISLIKE_ID = #{comId} AND COM_LIKEDISLIKE_USID = #{loginUsid}
+	</select>
+	
+	<insert id="boardCommentLike" parameterType="map">
+		INSERT INTO COMMENT_LIKEDISLIKE VALUES(#{comId}, #{loginUsid}, #{key})
 	</insert>
 </mapper>

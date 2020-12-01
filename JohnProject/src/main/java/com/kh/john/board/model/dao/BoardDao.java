@@ -17,7 +17,7 @@ public interface BoardDao {
 	int boardInsert(SqlSession session, Board b);
 	int boardInsertFiles(SqlSession session, BoardFile file);
 	Map boardSelectOne(SqlSession session, int boardNo);
-	List<Comment> commentSelectList(SqlSession session, int currBoardNo);
+	List<Map> commentSelectList(SqlSession session, int currBoardNo);
 	int boardCommentInsert(SqlSession session, Map param);
 	List<Subscribe> boardSubList(SqlSession session, int usid);
 	int boardLikeInsert(SqlSession session, Map param);
@@ -26,4 +26,6 @@ public interface BoardDao {
 	int boardReadCount(SqlSession session, int boardNo);
 	int boardHasJudged(SqlSession session, Map param);
 	int boardJudgeInsert(SqlSession session, Map param);
+	int boardCommentHasLiked(SqlSession session, Map param);
+	int boardCommentLike(SqlSession session, Map param);
 }
