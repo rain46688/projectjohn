@@ -31,6 +31,10 @@ label, input {
 	<c:if test="${loginMember.memClass == '전문가'}">
 		<button class="btn btn-outline-success" onclick="location.href='${path}/expert/expertRequestPrintList'">전문가가 상담할 유저 리스트 보기</button>
 		<button class="btn btn-outline-success" onclick="location.href='${path}/member/myPage/expertInfoModify?usid=${loginMember.usid }'">전문가 정보 수정하기</button>
+		<button type="button" class="exBtn btn btn-outline-success my-2 my-sm-0" onclick='memInfoView();'>회원 정보</button>
+	</c:if>
+		<c:if test="${loginMember.memClass != '전문가'}">
+	<button type="button" class="memBtn btn btn-outline-success my-2 my-sm-0" onclick='memInfoView();'>상담사 정보</button>
 	</c:if>
 	<br><br>
 	<input type="text" class="form-control short" name="usid" placeholder="받는사람 usid"/>
@@ -86,7 +90,21 @@ label, input {
 	 
 	EXPERT_BOARD_MEMBEREND와 EXPERT_BOARD_EXPERTEND 값이 둘다 1이면 상담이 정상적으로 종료된것임. 
 	
+	
+	//상담 희망시간, 요구사항 받아서 넘기기
+// 상담 종료후에도 평점이랑 후기 적기
+//https://www.cssscript.com/accessible-star-rating-system-pure-css/
+	
 
 -->
+
+<script>
+
+function memInfoView(e){
+	window.open('${path}/expert/memInfo?bno=${bno}&usid=${loginMember.usid}&musid='+32,'회원','width=800, height=700, toolbar=no, menubar=no, scrollbars=no, resizable=no');
+};
+
+
+</script>
 
 </section>

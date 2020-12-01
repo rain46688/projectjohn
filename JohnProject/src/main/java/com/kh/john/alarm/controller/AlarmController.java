@@ -16,105 +16,11 @@ public class AlarmController {
 	@Autowired
 	private AlarmService service;
 
+	// 알람 리스트 뿌려주기 웹소켓으로 처리
 	@RequestMapping("/alarm/alarmList")
 	public ModelAndView alarmList(int usid) {
 		log.info("alarmList 실행");
 		ModelAndView mv = new ModelAndView("/alarm/alarm");
 		return mv;
 	}
-
-	/*
-	
-	
-	
-	
-	*/
-
-//	@ResponseBody
-//	@RequestMapping("/alarm/alarmCount")
-//	public String alarmCount(int usid) {
-//		log.info("alarmCount 실행");
-//		String count = "0";
-//		try {
-//			count = "" + service.selectAlarmCount(usid);
-//		} catch (Exception e) {
-//			// TODO Auto-generated catch block
-//			e.printStackTrace();
-//		}
-//		log.info("count : " + count);
-//		return count;
-//	}
-
-//	@RequestMapping("/alarm/alarmList")
-//	public ModelAndView alarmList(int usid) {
-//		log.info("alarmCheck 실행");
-//
-//		List<Alarm> list = null;
-//		try {
-//			list = service.selectAlarmList(usid);
-//
-//			SimpleDateFormat fmt = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss");
-//
-//			for (Alarm a : list) {
-//				String date = fmt.format(a.getAlarmDate());
-//				log.debug("date : " + date);
-//				a.setTmpDate(date);
-//			}
-//		} catch (Exception e) {
-//			// TODO Auto-generated catch block
-//			e.printStackTrace();
-//		}
-//
-//		ModelAndView mv = new ModelAndView("/alarm/alarm");
-//		mv.addObject("list", list);
-//		return mv;
-//	}
-//
-//	@ResponseBody
-//	@RequestMapping("/alarm/alarmRead")
-//	public int alarmRead(int aid) {
-//		log.info("alarmRead 실행");
-//		int result = 0;
-//		try {
-//			result = service.updateAlarmRead(aid);
-//		} catch (Exception e) {
-//			// TODO Auto-generated catch block
-//			e.printStackTrace();
-//		}
-//		return result;
-//	}
-//
-//	@ResponseBody
-//	@RequestMapping("/alarm/selectAlarmItem")
-//	public String selectAlarmItem(String item, String usid) {
-//		log.info("selectAlarmItem 실행");
-//
-//		log.debug("item : " + item + " usid : " + usid);
-//		Map<String, String> map = new HashMap<String, String>();
-//		map.put("item", item);
-//		map.put("usid", usid);
-//
-//		String result = "";
-//
-//		try {
-//			List<Alarm> list = service.selectAlarmItem(map);
-//			SimpleDateFormat fmt = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss");
-//
-//			for (Alarm a : list) {
-//				String date = fmt.format(a.getAlarmDate());
-//				log.debug("date : " + date);
-//				a.setTmpDate(date);
-//			}
-//			result = new ObjectMapper().writeValueAsString(list);
-//		} catch (JsonProcessingException e) {
-//			// TODO Auto-generated catch block
-//			e.printStackTrace();
-//		} catch (Exception e) {
-//			// TODO Auto-generated catch block
-//			e.printStackTrace();
-//		}
-//
-//		return result;
-//	}
-
 }

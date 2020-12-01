@@ -86,10 +86,6 @@ public class ExboardController {
 		return mv;
 	}
 
-//상담 희망시간, 요구사항 받아서 넘기기
-// 상담 종료후에도 평점이랑 후기 적기
-//https://www.cssscript.com/accessible-star-rating-system-pure-css/
-
 	// 전문가 상세 프로필 보는곳 여기서 상담 신청 가능
 	@RequestMapping("/expert/expertApply")
 	public ModelAndView expertApply(String no, String nic, HttpSession session) {
@@ -101,11 +97,13 @@ public class ExboardController {
 		expert.setMemNickname(nic);
 		ModelAndView mv = new ModelAndView("/exboard/expertApply");
 		try {
+			// map에다가 넣고 파라미터로 넘김
 			Map<String, String> map = new HashMap<String, String>();
 			map.put("exusid", "" + expert.getUsid());
 			map.put("memusid", "" + mem.getUsid());
 			Member mm = service.selectMember(no);
 			try {
+				// 복호화
 				mm.setMemEmail(aes.decrypt(mm.getMemEmail()));
 				mm.setTel(aes.decrypt(mm.getTel()));
 			} catch (Exception e) {
@@ -135,8 +133,9 @@ public class ExboardController {
 		expert.setMemNickname(nic);
 		time = time.replace("T", " ");
 
+		// 큰 숫자는 그냥 구분하기 위한 숫자
 		if (time.equals("") || time == null) {
-			log.debug("시간을 선택해주세요");
+			log.debug("예상 시간을 입력하지 않았을 경우");
 			return "9998";
 		}
 
@@ -214,6 +213,7 @@ public class ExboardController {
 	}
 
 	// 상담 게시판 개설
+	// 처음에 유저랑 상담사가 상담 할때 한번 실행되고 나머진 연결로만됨
 	@RequestMapping("/expert/counselStart")
 	public String counselStart(HttpServletRequest req, String no, String nic, String bno,
 			RedirectAttributes redirectAttributes) {
@@ -237,6 +237,7 @@ public class ExboardController {
 			sendMail.setFrom("minsu87750@gmail.com", "재판하는 존경장님");
 			sendMail.setTo(email);
 			sendMail.send();
+			// 상담하는 유저의 메일로 이메일 발송하기 원래는 문자였지만 사정상 이렇게 대체
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -244,14 +245,6 @@ public class ExboardController {
 		log.debug("result : " + result);
 		redirectAttributes.addAttribute("bno", result);
 		return "redirect:/expert/expertRoom";
-	}
-
-	// 에러 메세지용 메소드
-	public ModelAndView gotoMsg(ModelAndView mv, String loc, String msg) {
-		mv = new ModelAndView("/common/msg");
-		mv.addObject("loc", loc);
-		mv.addObject("msg", msg);
-		return mv;
 	}
 
 	// 채팅창 입장
@@ -334,6 +327,14 @@ public class ExboardController {
 		return mv;
 	}
 
+	// 에러 메세지용 메소드
+	public ModelAndView gotoMsg(ModelAndView mv, String loc, String msg) {
+		mv = new ModelAndView("/common/msg");
+		mv.addObject("loc", loc);
+		mv.addObject("msg", msg);
+		return mv;
+	}
+
 	// 상담 종료
 	@RequestMapping(value = "/expert/counselEnd")
 	public String counselEnd(String extext, String bno, RedirectAttributes redirectAttributes) throws Exception {
@@ -402,7 +403,7 @@ public class ExboardController {
 		return result;
 	}
 
-	// 회원 정보보기
+	// 회원 정보보기, 회원이 상담사 보기 , 상담사가 회원 보기 둘다 이걸로 실행됨
 	@RequestMapping(value = "/expert/memInfo")
 	public ModelAndView memInfo(@RequestParam(required = false) String usid, @RequestParam(required = false) String bno,
 			@RequestParam(required = false) String musid) throws Exception {
@@ -446,6 +447,7 @@ public class ExboardController {
 			searchMem = service.selectMember(searchMemUsid);
 			ex = service.selectExpertMem("" + searchMem.getUsid());
 			searchMem.setMemEmail(aes.decrypt(searchMem.getMemEmail()));
+			searchMem.setTel(aes.decrypt(searchMem.getTel()));
 			mv.addObject("mem", searchMem);
 			mv.addObject("expert", ex);
 			mv.addObject("license", service.selectExpertLicense("" + searchMem.getUsid()));
@@ -470,7 +472,7 @@ public class ExboardController {
 		return result;
 	}
 
-	// 전문가 수정
+	// 전문가 정보 수정 페이지 기존 정보 가져와서 뿌려주기
 	@RequestMapping("/member/myPage/expertInfoModify")
 	public ModelAndView expertInfoModify(HttpSession session) throws Exception {
 		log.info(" ===== expertInfoModify 실행 ===== ");
@@ -490,7 +492,7 @@ public class ExboardController {
 		return mv;
 	}
 
-	// 전문가 수정
+	// 전문가 수정 첫번째 페이지 자격증 아님
 	@ResponseBody
 	@RequestMapping("/expert/modifyEx")
 	public String expertModifyEx(MultipartFile[] upFile, HttpServletRequest request, String career,
@@ -555,7 +557,7 @@ public class ExboardController {
 		return result;
 	}
 
-	// 전문가 자격증 수정
+	// 전문가 자격증 수정 두번째 페이지임
 	@ResponseBody
 	@RequestMapping("/expert/modifyLicense")
 	public String expertModifyLicense(MultipartFile[] upFile, HttpServletRequest request,

@@ -33,26 +33,6 @@ body * {
 	/* border: 1px solid red; */
 }
 
-#exapplyTextArea {
-	width:100%;
-	height:20vh;
-}
-
-/* 위 텍스트 영역 눌르면 옆에 테두리 생기는거 지우는 용도 */
-textarea:focus {
-	outline: none;
-}
-
-textarea {
-    resize: none;
-}
-
-#exbtn{
-	display:flex;
-	justify-content:center;
-}
-
-
 /* 별 */
 .checked {
 	color: orange;
@@ -231,6 +211,7 @@ textarea {
 <script>
 	'use strict';
 
+	//사이즈 조절
 	$(this).resize(fixedSize);
 	function fixedSize() {
 		this.resizeTo(800, 800);
