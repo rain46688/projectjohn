@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ include file="/WEB-INF/views/common/header.jsp"%>
+<script type="text/javascript" src="${pageContext.request.contextPath }/resources/js/ckeditor/ckeditor.js"></script>
 
 <style>
 
@@ -20,9 +21,13 @@ html, body, div, span, applet, object, iframe, h1, h2, h3, h4, h5, h6, p, blockq
 	user-select: none;
 }
 
-#content{
-	background-color: #F1F3F3; 
+#headerAndContent{
+	background-color:#062449;
+}
 
+#content{
+	/* background-color: #F1F3F3;  */
+	background-color: #062449; 
 }
 
 /* 상단 영역 */
@@ -61,6 +66,7 @@ html, body, div, span, applet, object, iframe, h1, h2, h3, h4, h5, h6, p, blockq
 	background-color: white;
 	border-radius: 8px;
 	margin-right: 1%;
+	border: 10px solid #FFCC66;
 }
 
 /* 상단 텍스트 div */
@@ -70,6 +76,7 @@ html, body, div, span, applet, object, iframe, h1, h2, h3, h4, h5, h6, p, blockq
 	background-color: white;
 	border-radius: 8px;
 	padding: 1%;
+	border: 10px solid #FFCC66;
 }
 
 /* 상단 텍스트 영역 */
@@ -118,6 +125,7 @@ textarea {
 #bottomDiv {
 	height: 15%;
 	display: flex;
+	
 }
 
 /* 왼쪽 버튼 영역 div */
@@ -160,11 +168,12 @@ textarea {
 	overflow-x: hidden;
 	-ms-overflow-style: none;
 	padding-top:2%;
+		border: 10px solid #FFCC66;
 }
 
 #imgDiv>p{
  font-size:100%;
- color:gray;
+ color:black;
  text-align:center;
 }
 
@@ -186,7 +195,7 @@ textarea {
 		<div id="textAreaDiv">
 			<div id="dragImg"></div>
 				<c:if test="${loginMember.memClass == '전문가'}">
-					<textarea id="extext"></textarea>
+					<textarea id="extext" class="expertonly"></textarea>
 				</c:if>
 				<c:if test="${loginMember.memClass != '전문가'}">
 					<textarea id="extext" readonly></textarea> 
@@ -741,12 +750,12 @@ textarea {
 				
 			}
 			
-			
-			
-			
-			
-			
-			
+	/* 		 CKEDITOR.replace('extext',
+					    {
+					      height : '100%',
+					      startupFocus : false
+					    }
+					  ); */
 			
 	
 </script>

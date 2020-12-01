@@ -32,8 +32,13 @@ html, body, div, span, applet, object, iframe, h1, h2, h3, h4, h5, h6, p, blockq
 	user-select: none;
 }
 
-#content *{
-	/*  border:1px solid red; */
+#headerAndContent{
+	 background-color:#062449; 
+}
+
+#content{
+	/* background-color: #F1F3F3;  */
+	 background-color: #062449;
 }
 
 .divList {
@@ -41,11 +46,15 @@ html, body, div, span, applet, object, iframe, h1, h2, h3, h4, h5, h6, p, blockq
 	width: 100%;
 	height: 20%;
 	text-align: center;
-	padding:0 5% 0 5%;
+	/* padding:0 5% 0 5%; */
+	padding: 0 3% 0 3%;
+	 background-color:#062449; 
+	  
 }
 
 .divRow {
 	display: table-row;
+	
 }
 
 .divRowTitle {
@@ -61,6 +70,10 @@ h1 {
 	/* text-shadow: -1px 0 #BFBFBF, 0 0.5px #BFBFBF, 0.5px 0 #BFBFBF, 0 -1px #BFBFBF; */
 	margin: 2% 0 3% 3%;
 	font-size:5vh;
+	 background-color:white; 
+	 display:inline-block;
+	 padding:1%;
+	 border: 10px solid #FFCC66;
 }
 
 .active {
@@ -81,6 +94,7 @@ h1 {
 	/* background-color: #0054BA; */
 	background-color: #003478;
 	color: white;
+	
 }
 
 .divRowTitle .divCell{
@@ -93,6 +107,7 @@ h1 {
 
 .divListBody {
 	display: table-row-group;
+	background-color:white;
 }
 
 .empty {
@@ -138,6 +153,7 @@ h1 {
 	align-items:center;
 	border:1px solid #AEAEAE;
 	background-color:white;
+	 border: 5px solid #FFCC66;
 }
 
 #innerSearchDiv select{
