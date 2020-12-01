@@ -65,4 +65,12 @@ public interface ExboardDao {
 
 	void updateExInfoModify(SqlSessionTemplate session, Expert et) throws Exception;
 
+	void updateExpertBoardReview(SqlSessionTemplate session, Map<String, String> map) throws Exception;
+
+	void updateExpertInfoReview(SqlSessionTemplate session, Map<String, String> map) throws Exception;
+
+	String selectExpertBoardReviewCount(SqlSessionTemplate session, Map<String, String> map) throws Exception;
+
+	int expertReviewWriteCheck(SqlSessionTemplate session, String bno) throws Exception;
+
 }

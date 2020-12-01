@@ -4,7 +4,7 @@
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
 <c:set var="path" value="${pageContext.request.contextPath }" />
-
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif+KR&display=swap" rel="stylesheet">
 <jsp:include page="/WEB-INF/views/common/header.jsp">
 
 	<jsp:param name="title" value="adminBoardSearch" />
@@ -22,7 +22,7 @@
 /*표*/
 .board_list_wrap {
     padding: 85px;
-    font-family: 'Noto Sans KR', sans-serif;
+    font-family: 'Noto Serif KR', serif;
 }
 
 .board_list_head,
@@ -44,7 +44,7 @@
     border-bottom: 2px solid #eeeeee;
     background-color:white;
     border-radius:10px;
-    font-family: 'Noto Sans KR', sans-serif;
+    font-family: 'Noto Serif KR', serif;
     opacity: 0.7;
 }
 
@@ -88,7 +88,7 @@
     margin: 1em auto;
     display: inline-block; 
     color:white;
-    font-family: 'Noto Sans KR', sans-serif;
+    font-family: 'Noto Serif KR', serif;
     margin-right:10px;
 }
 
@@ -262,7 +262,7 @@ appearance: none;
 /*모달전체*/
 .modal-content{
 	 background-color:#ffcc66;
-	 font-family: 'Noto Sans KR', sans-serif;
+	 font-family: 'Noto Serif KR', serif;
 	 
 }
 /*페이지바*/
@@ -467,5 +467,18 @@ appearance: none;
 	<div id="pageBar">${pageBar }</div>
 
  </section>
+ 
+ <script>
+ 
+/*  function submitBtn(bigCategory,searchType,keyword,order,searchType2,isclose){
+	location.replace("${path}/admin/adminBoardSearch?bigCategory="+'${param.bigCategory}'+"&searchType="+'${param.searchType}'+
+			"&keyword="+'${param.keyword}'+"&order="+'${param.order}'+
+			"&searchType2="+'${param.searchType2}'+"&isclose="+'${param.isclose}');
+	 
+ } */
+
+ 
+
+ </script>
 
 

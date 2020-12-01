@@ -9,6 +9,7 @@ import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.kh.john.common.exception.ExpertReviewException;
 import com.kh.john.common.exception.RequestDuplicateException;
 import com.kh.john.exboard.model.dao.ExboardDao;
 import com.kh.john.exboard.model.vo.ExpertBoard;
@@ -262,6 +263,39 @@ public class ExboardServiceImpl implements ExboardService {
 	public void updateExInfoModify(Expert et) throws Exception {
 		// TODO Auto-generated method stub
 		dao.updateExInfoModify(session, et);
+	}
+
+	@Override
+	public void updateExpertBoardReview(Map<String, String> map) throws Exception {
+		// TODO Auto-generated method stub
+		// 전문가 게시글 정보 업데이트
+		dao.updateExpertBoardReview(session, map);
+		// 전문가 usid를 bno랑 memusid로 얻어옴
+		map.put("exusid", dao.selectExpertExboard(session, map));
+		log.debug("exusid : " + map.get("exusid"));
+		// 카운트 계산
+		map.put("count", dao.selectExpertBoardReviewCount(session, map));
+		if (map.get("exusid") == null || map.get("count") == null) {
+			throw new ExpertReviewException("전문가 부분 null");
+		}
+		// 전문가 정보 업데이트
+		dao.updateExpertInfoReview(session, map);
+	}
+
+	@Override
+	public int expertReviewWriteCheck(String bno) throws Exception {
+		// TODO Auto-generated method stub
+		int result = -1;
+		log.debug("result1 : " + result);
+		try {
+			result = dao.expertReviewWriteCheck(session, bno);
+			log.debug("result2 : " + result);
+		} catch (Exception e) {
+			// TODO: handle exception
+		}
+		log.debug("result3 : " + result);
+
+		return result;
 	}
 
 }

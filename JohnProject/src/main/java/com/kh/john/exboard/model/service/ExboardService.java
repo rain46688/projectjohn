@@ -59,4 +59,8 @@ public interface ExboardService {
 
 	void updateExInfoModify(Expert et) throws Exception;
 
+	void updateExpertBoardReview(Map<String, String> map) throws Exception;
+
+	int expertReviewWriteCheck(String bno) throws Exception;
+
 }

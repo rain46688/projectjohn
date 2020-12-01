@@ -4,7 +4,7 @@
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
 <c:set var="path" value="${pageContext.request.contextPath }"/>
-
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif+KR&display=swap" rel="stylesheet">
 <jsp:include page="/WEB-INF/views/common/header.jsp">
 	
 	<jsp:param name="title" value=" "/>
@@ -18,7 +18,7 @@
 /*탭*/
 
 .tabs{
-	font-family: 'Noto Sans KR', sans-serif;
+	font-family: 'Noto Serif KR', serif;
 
 }
 
@@ -38,7 +38,7 @@ ul.tabs {
     float: left;
     list-style: none;
     height: 32px;
-    border-bottom: 1px solid #eee;
+/*     border-bottom: 1px solid #eee; */
     border-left: 1px solid #eee;
     width: 100%;
 }
@@ -110,7 +110,7 @@ tab_content2{
     margin: 1em auto;
     display: inline-block; 
     color:white;
-    font-family: 'Noto Sans KR', sans-serif;
+    font-family: 'Noto Serif KR', serif;
     margin-right:10px;
 
 }
@@ -125,7 +125,7 @@ tab_content2{
 
 #four>.form-control{
 	width:100%;
-	height:100%;
+
 	color:black;
 	float:left; 
 	margin-top:-3%;
@@ -259,7 +259,7 @@ appearance: none;
 /*모달전체*/
 .modal-content{
 	 background-color:#ffcc66;
-	 font-family: 'Noto Sans KR', sans-serif;
+	 font-family: 'Noto Serif KR', serif;
 	 
 }
 /*페이지바*/
@@ -305,7 +305,7 @@ a:hover {
 /*표*/
 .board_list_wrap {
 	padding: 60px;
-	font-family: 'Noto Sans KR', sans-serif;
+	font-family: 'Noto Serif KR', serif;
 }
 
 .board_list_head, .board_list_body .item {
@@ -325,7 +325,7 @@ a:hover {
 	border-bottom: 2px solid #eeeeee;
 	background-color: white;
 	border-radius: 10px;
-	font-family: 'Noto Sans KR', sans-serif;
+	font-family: 'Noto Serif KR', serif;
 	opacity: 0.7;
 }
 

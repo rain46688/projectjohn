@@ -38,23 +38,25 @@ html, body, div, span, applet, object, iframe, h1, h2, h3, h4, h5, h6, p, blockq
 	-webkit-user-select: none;
 	-khtml-user-select: none;
 	user-select: none;
+	font-family: 'Noto Serif KR', serif;
 }
 
 /* 위 div */
 #upDiv * {
- 	/* border: 1px solid red;  */
+	/* border: 1px solid red; */
 	/* text-shadow: -1px 0 #BFBFBF, 0 0.5px #BFBFBF, 0.5px 0 #BFBFBF, 0 -1px #BFBFBF; */
 }
 
 /* 아래 div */
 #downDiv * {
-	 /* border: 1px solid red;  */
+	/* 	 border: 1px solid red;  */
 	/* text-shadow: -1px 0 #BFBFBF, 0 0.5px #BFBFBF, 0.5px 0 #BFBFBF, 0 -1px #BFBFBF; */
+	
 }
 
 /* 위 div */
 #upDiv {
-/* 	border: 1px solid gray;
+	/* 	border: 1px solid gray;
 	margin:0.5% 0 0.5% 0;
 	border-radius:0.5em; */
 	width: 100%;
@@ -111,7 +113,7 @@ html, body, div, span, applet, object, iframe, h1, h2, h3, h4, h5, h6, p, blockq
 
 /* 슬라이드 이미지 */
 .expertimg {
-	width: 100%; 
+	width: 100%;
 	height: auto;
 }
 
@@ -212,14 +214,14 @@ html, body, div, span, applet, object, iframe, h1, h2, h3, h4, h5, h6, p, blockq
 
 /* 카테고리 그리드 */
 .counsel-listing {
- 	position: relative;
+	position: relative;
 }
 
 .cImgages {
 	/* border:1px solid black; */
 	width: 100%;
 	/* height: 13vh;  */
-	height: 180px; 
+	height: 180px;
 }
 
 /* 별 */
@@ -238,25 +240,27 @@ html, body, div, span, applet, object, iframe, h1, h2, h3, h4, h5, h6, p, blockq
 	display: inline-block;
 	height: 50%;
 	width: 50%;
+	padding-left:3%;
 }
 
 /* 카드 오른쪽 이름  */
 .exName {
 	height: 20%;
+		font-size: 2vh;
 }
 
 /* 카드 오른쪽 점수  */
 .exRating {
 	height: 20%;
-	font-size: 1.6vh;
-	overflow:hidden;
+	font-size: 2vh;
+	overflow: hidden;
 }
 
 /* 카드 오른쪽 전문 분야  */
-.exCounselArea{
-	height:20%;
+.exCounselArea {
+	height: 20%;
 	font-size: 2vh;
-	overflow:hidden;
+	overflow: hidden;
 }
 
 /* 카드 오른쪽 버튼  */
@@ -318,7 +322,8 @@ html, body, div, span, applet, object, iframe, h1, h2, h3, h4, h5, h6, p, blockq
 
 /* 리뷰 점수 */
 .userRating {
-	height: 10%;
+	margin-top: 1%;
+	height: 15%;
 	border-bottom: 1px solid #C6C5C5;
 }
 
@@ -326,6 +331,7 @@ html, body, div, span, applet, object, iframe, h1, h2, h3, h4, h5, h6, p, blockq
 #reviewDivTitle {
 	height: 20%;
 	width: 100%;
+	margin-bottom: 2%;
 }
 
 /* 리뷰 제목 */
@@ -336,7 +342,7 @@ html, body, div, span, applet, object, iframe, h1, h2, h3, h4, h5, h6, p, blockq
 
 /* 리뷰 내용 */
 .userReview {
-	height: 80%;
+	height: 70%;
 	width: 100%;
 	font-style: italic;
 	color: gray;
@@ -347,34 +353,51 @@ html, body, div, span, applet, object, iframe, h1, h2, h3, h4, h5, h6, p, blockq
 	text-overflow: ellipsis;
 	overflow: hidden;
 	-webkit-box-orient: vertical;
+	margin: 3%;
 }
 
 /* 빈값 */
+#emptyupdiv {
+	width: 100%;
+	height: 100%;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	/* background-color: blue; */
+}
 
-.empty{
-	width:100%;
-	font-size:4vh;
-	padding-top:15vh;
+.empty {
+	width: 50%;
+	height: 50%;
+	font-size: 5vh;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	/* padding-top:15vh; */
+/* 	background-color: red; */
 	/* text-shadow: -1px 0 #BFBFBF, 0 0.5px #BFBFBF, 0.5px 0 #BFBFBF, 0 -1px #BFBFBF; */
 }
 
-.emptyReview{
-	width:100%;
-	height:100%;
-	font-size:5vh;
-	padding-top:15vh;
-	text-align:center;
+.emptyReview {
+	width: 100%;
+	height: 100%;
+	font-size: 5vh;
+	padding-top: 15vh;
+	text-align: center;
 	/* text-shadow: -1px 0 #BFBFBF, 0 0.5px #BFBFBF, 0.5px 0 #BFBFBF, 0 -1px #BFBFBF; */
 }
 </style>
 
 <section id="content">
 	<div id="upDiv">
-		<div class="splide">
-			<div class="splide__track">
-				<ul class="splide__list">
-					<c:choose>
-						<c:when test="${fn:length(list) > 0}">
+
+
+
+		<c:choose>
+			<c:when test="${fn:length(list) > 0}">
+				<div class="splide">
+					<div class="splide__track">
+						<ul class="splide__list">
 							<c:forEach items="${list }" var="expert">
 
 								<!-- =========== -->
@@ -383,23 +406,32 @@ html, body, div, span, applet, object, iframe, h1, h2, h3, h4, h5, h6, p, blockq
 										<img class="expertimg" alt="전문가" src="${path }/resources/profile_images/${expert['mem'].profilePic}">
 										<div class="exRight">
 											<div class="exName">${expert['mem'].memName}</div>
+											<c:set var="count" value="${((expert['ex'].expertReviewCount) == 0)?1:(expert['ex'].expertReviewCount)}" />
 											<div class="exRating">
-											평점 : 
-											<c:forEach var="i" begin="1" end="${expert['ex'].expertRating}">
-												<span class="fa fa-star checked"></span>
-											</c:forEach>
-											<c:forEach var="i" begin="1" end="${5 - (expert['ex'].expertRating)}">
-												<span class="fa fa-star"></span>
-											</c:forEach>
+												평점 :
+												<c:forEach var="i" begin="1" end="${Math.round((expert['ex'].expertRating)/(count))}">
+													<span class="fa fa-star checked"></span>
+												</c:forEach>
+												<c:forEach var="i" begin="1" end="${5 - (Math.round((expert['ex'].expertRating)/(count)))}">
+													<span class="fa fa-star"></span>
+												</c:forEach>
 											</div>
+
+											<%-- 			
+											<div class="exCounselArea"><p>카운트 : ${(expert['ex'].expertReviewCount)}</p></div>
+											<div class="exCounselArea"><p>점수 : ${(expert['ex'].expertRating)}</p></div>
+											<div class="exCounselArea">	<p>확ㅇ : ${Math.round((expert['ex'].expertRating)/(expert['ex'].expertReviewCount))}</p></div>
+											 --%>
+
 											<div class="exCounselArea">분야 : ${expert['ex'].expertCounselArea}</div>
-											<button type="button" class="btn btn-outline-primary" onclick="counsel('${expert['mem'].usid}','${expert['mem'].memNickname}');">상담 신청</button>
+											<button type="button" class="btn btn-outline-primary" onclick="counsel('${expert['mem'].usid}','${expert['mem'].memNickname}');">상담
+												신청</button>
 										</div>
 										<div class="exBottm">
-										<c:if test="${empty (expert['ex'].expertGreetings)}">
+											<c:if test="${empty (expert['ex'].expertGreetings)}">
 										인사말 없음.
 										</c:if>
-										<c:if test="${not empty (expert['ex'].expertGreetings)}">
+											<c:if test="${not empty (expert['ex'].expertGreetings)}">
 										${expert['ex'].expertGreetings}
 										</c:if>
 										</div>
@@ -408,63 +440,72 @@ html, body, div, span, applet, object, iframe, h1, h2, h3, h4, h5, h6, p, blockq
 								<!-- =========== -->
 
 							</c:forEach>
-						</c:when>
-						<c:otherwise>
-							<div class="empty"><h1>등록된 상담사가 없습니다.</h1></div>
-						</c:otherwise>
-					</c:choose>
+						</ul>
+					</div>
+				</div>
+			</c:when>
+			<c:otherwise>
+				<div id="emptyupdiv">
+					<div class="empty">
+						<h1>등록된 상담사가 없습니다.</h1>
+					</div>
+				</div>
+			</c:otherwise>
+		</c:choose>
 
-				</ul>
-			</div>
-		</div>
+
+
+
 	</div>
 
 	<div id="downDiv">
 		<div id="reviewDiv">
-		
-						<c:choose>
-						<c:when test="${fn:length(exbolist) > 0}">
-							<div class="splide2">
-				<div class="splide__track">
-					<ul class="splide__list">
-							<c:forEach items="${exbolist }" var="review">
+
+			<c:choose>
+				<c:when test="${fn:length(exbolist) > 0}">
+					<div class="splide2">
+						<div class="splide__track">
+							<ul class="splide__list">
+								<c:forEach items="${exbolist }" var="review">
 
 
-						<!-- =========== -->
-						<li class="splide__slide">
-							<div class="reviewDiv">
-								<div id="reviewDivTitle">
-									<h1 id="reviewTitleH1">베스트 상담 후기</h1>
-								</div>
-								<div class="reviewInnerUpDiv">
-									<div class="userNickName">닉네임 : ${review.expertBoardMemNick }</div>
-									<div class="counselDate">날짜 : ${review.expertBoardDate }</div>
-									<div class="counselAreaReview">분야 : ${param.ca }</div>
-								</div>
-								<div class="userRating">
-									평점 : 
-									<c:forEach var="i" begin="1" end="${review.expertBoardRating}">
-												<span class="fa fa-star checked"></span>
-											</c:forEach>
-											<c:forEach var="i" begin="1" end="${5 - (review.expertBoardRating)}">
-												<span class="fa fa-star"></span>
-											</c:forEach>
-								</div>
-								<div class="userReview">${review.expertBoardReview}</div>
-							</div>
-						</li>	
-						<!-- =========== -->
-					</c:forEach>
-						</ul>
-				</div>
-			</div>
-						</c:when>
-						<c:otherwise>
-							<div class="emptyReview"><h1>등록된 리뷰가 없습니다.</h1></div>
-						</c:otherwise>
-					</c:choose>
+									<!-- =========== -->
+									<li class="splide__slide">
+										<div class="reviewDiv">
+											<div id="reviewDivTitle">
+												<h1 id="reviewTitleH1">베스트 상담 후기</h1>
+											</div>
+											<div class="reviewInnerUpDiv">
+												<div class="userNickName">닉네임 : ${review.expertBoardMemNick }</div>
+												<div class="counselDate">날짜 : ${review.expertBoardDate }</div>
+												<div class="counselAreaReview">분야 : ${param.ca }</div>
+											</div>
+											<div class="userRating">
+												평점 :
+												<c:forEach var="i" begin="1" end="${review.expertBoardRating}">
+													<span class="fa fa-star checked"></span>
+												</c:forEach>
+												<c:forEach var="i" begin="1" end="${5 - (review.expertBoardRating)}">
+													<span class="fa fa-star"></span>
+												</c:forEach>
+											</div>
+											<div class="userReview">${review.expertBoardReview}</div>
+										</div>
+									</li>
+									<!-- =========== -->
+								</c:forEach>
+							</ul>
+						</div>
+					</div>
+				</c:when>
+				<c:otherwise>
+					<div class="emptyReview">
+						<h1>등록된 리뷰가 없습니다.</h1>
+					</div>
+				</c:otherwise>
+			</c:choose>
 
-				
+
 		</div>
 		<div id="categoryDiv">
 
