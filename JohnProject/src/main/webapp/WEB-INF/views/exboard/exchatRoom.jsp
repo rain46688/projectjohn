@@ -47,7 +47,7 @@ html, body, div, span, applet, object, iframe, h1, h2, h3, h4, h5, h6, p, blockq
 	/* position: relative; */
 	position: absolute;
  	right: 25.5%;
-	top: 64.5%;
+	top: 59.5%;
 	object-fit: cover;
 	border: 2px solid #FFCC66;
 	width: 25vh;

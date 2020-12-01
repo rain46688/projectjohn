@@ -41,57 +41,67 @@ html, body, div, span, applet, object, iframe, h1, h2, h3, h4, h5, h6, p, blockq
 	font-family: 'Noto Serif KR', serif;
 }
 
+#headerAndContent{
+	background-color:#062449;
+}
+
+#content{
+	background-color:#062449;
+	padding-bottom:1%;
+}
+
 /* 위 div */
 #upDiv * {
 	/* border: 1px solid red; */
-	/* text-shadow: -1px 0 #BFBFBF, 0 0.5px #BFBFBF, 0.5px 0 #BFBFBF, 0 -1px #BFBFBF; */
 }
 
 /* 아래 div */
 #downDiv * {
-	/* 	 border: 1px solid red;  */
-	/* text-shadow: -1px 0 #BFBFBF, 0 0.5px #BFBFBF, 0.5px 0 #BFBFBF, 0 -1px #BFBFBF; */
-	
+	 /* border: 1px solid red; */
 }
 
 /* 위 div */
 #upDiv {
-	/* 	border: 1px solid gray;
-	margin:0.5% 0 0.5% 0;
-	border-radius:0.5em; */
 	width: 100%;
 	height: 60%;
-	/* 	background-color:black; */
+/* 	display:flex;
+	justify-content:center; */
 }
 
 /* 아래 div */
 #downDiv {
-	/* 	border: 1px solid brown; */
 	width: 100%;
 	height: 40%;
-	/* background-color: brown; */
 	display: flex;
-	border-top: 1px solid #C6C5C5;
+	/* border-top: 1px solid #C6C5C5; */
 }
 
 /* 리뷰 div */
 #reviewDiv {
-	/*  background-color: red;  */
 	height: 100%;
 	width: 50%;
-	border-right: 1px solid #C6C5C5;
+	/* border-right: 1px solid #C6C5C5; */
+	margin:0 2% 0 3%;
 }
 
 /* 카테고리 div */
 #categoryDiv {
-	/* background-color: blue; */
-	height: 100%;
+	height: 110%;
 	width: 50%;
+	background-color:white;
+	margin:0 3% 0 0;
 }
 
 /* 가로 슬라이드 */
 .splide {
 	height: 100%;
+
+}
+
+.splide__track{
+/* 수정 */
+	background-color:white;
+	/* border-radius:2%; */
 }
 
 .splide__track * {
@@ -103,8 +113,8 @@ html, body, div, span, applet, object, iframe, h1, h2, h3, h4, h5, h6, p, blockq
 	height: 100%;
 	font-size: 20px;
 	margin: 10px;
-	/* 	border: 1px solid black; */
 	display: inline-block;
+
 }
 
 #upDiv .splide__list .splide__slide {
@@ -126,7 +136,8 @@ html, body, div, span, applet, object, iframe, h1, h2, h3, h4, h5, h6, p, blockq
 .splide__slide {
 	width: 100%;
 	height: 100%;
-	border-left: 1px solid #C6C5C5;
+	/* 수정 */
+	/* border-left: 1px solid #C6C5C5; */
 }
 
 .splide__slide>img {
@@ -142,7 +153,6 @@ html, body, div, span, applet, object, iframe, h1, h2, h3, h4, h5, h6, p, blockq
 #categoryDiv {
 	padding: 20px;
 	font-family: sans-serif;
-	/* background: #f2f2f2; */
 	overflow-x: hidden;
 	-ms-overflow-style: none;
 }
@@ -155,8 +165,8 @@ html, body, div, span, applet, object, iframe, h1, h2, h3, h4, h5, h6, p, blockq
 /* 카테고리 그리드 */
 .grid-container {
 	display: grid;
-	grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
-	/* grid-template-columns: repeat(auto-fill, minmax(20vh, 1fr)); */
+	/* grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); */
+	grid-template-columns: repeat(auto-fill, minmax(20vh, 1fr));
 	grid-gap: 1em;
 }
 
@@ -186,9 +196,7 @@ html, body, div, span, applet, object, iframe, h1, h2, h3, h4, h5, h6, p, blockq
 	left: 0;
 	opacity: 0;
 	transition: opacity .5s;
-	/* background: rgba(90, 0, 10, 0.4); */
 	color: black;
-	/* position the text in t’ middle*/
 	display: flex;
 	align-items: center;
 	justify-content: center;
@@ -218,10 +226,9 @@ html, body, div, span, applet, object, iframe, h1, h2, h3, h4, h5, h6, p, blockq
 }
 
 .cImgages {
-	/* border:1px solid black; */
 	width: 100%;
-	/* height: 13vh;  */
-	height: 180px;
+	height: 13vh;
+	/* height: 180px; */
 }
 
 /* 별 */
@@ -240,13 +247,13 @@ html, body, div, span, applet, object, iframe, h1, h2, h3, h4, h5, h6, p, blockq
 	display: inline-block;
 	height: 50%;
 	width: 50%;
-	padding-left:3%;
+	padding-left: 3%;
 }
 
 /* 카드 오른쪽 이름  */
 .exName {
 	height: 20%;
-		font-size: 2vh;
+	font-size: 2vh;
 }
 
 /* 카드 오른쪽 점수  */
@@ -285,10 +292,9 @@ html, body, div, span, applet, object, iframe, h1, h2, h3, h4, h5, h6, p, blockq
 
 /* 리뷰 부분 */
 .reviewDiv {
-	padding: 2%;
+	padding: 1%;
 	width: 100%;
-	height: 100%;
-	/* background-color: skyblue;  */
+	height: 50%;
 }
 
 /* 리뷰 위 div  */
@@ -296,14 +302,15 @@ html, body, div, span, applet, object, iframe, h1, h2, h3, h4, h5, h6, p, blockq
 	height: 10%;
 	width: 100%;
 	display: flex;
+	font-size:90%;
 }
 
 /* 리뷰한사람 닉네임  */
 .userNickName {
 	height: 100%;
-	width: 20%;
+	width: 40%;
 	border-right: 1px solid #C6C5C5;
-	margin-right: 2vh;
+	margin-right: 1vh;
 }
 
 /* 리뷰한 날짜 */
@@ -311,13 +318,13 @@ html, body, div, span, applet, object, iframe, h1, h2, h3, h4, h5, h6, p, blockq
 	height: 100%;
 	width: 30%;
 	border-right: 1px solid #C6C5C5;
-	margin-right: 2vh;
+	margin-right: 1vh;
 }
 
 /* 리뷰 카테고리 */
 .counselAreaReview {
 	height: 100%;
-	width: 50%;
+	width: 20%;
 }
 
 /* 리뷰 점수 */
@@ -336,13 +343,13 @@ html, body, div, span, applet, object, iframe, h1, h2, h3, h4, h5, h6, p, blockq
 
 /* 리뷰 제목 */
 #reviewTitleH1 {
-	font-size: 40px;
+	font-size: 4vh;
 	font-weight: bold;
 }
 
 /* 리뷰 내용 */
 .userReview {
-	height: 70%;
+	height: 40%;
 	width: 100%;
 	font-style: italic;
 	color: gray;
@@ -353,7 +360,6 @@ html, body, div, span, applet, object, iframe, h1, h2, h3, h4, h5, h6, p, blockq
 	text-overflow: ellipsis;
 	overflow: hidden;
 	-webkit-box-orient: vertical;
-	margin: 3%;
 }
 
 /* 빈값 */
@@ -363,28 +369,25 @@ html, body, div, span, applet, object, iframe, h1, h2, h3, h4, h5, h6, p, blockq
 	display: flex;
 	justify-content: center;
 	align-items: center;
-	/* background-color: blue; */
 }
 
 .empty {
-	width: 50%;
-	height: 50%;
-	font-size: 5vh;
+	width: 95%;
+	height: 70%;
+	font-size: 3vh;
 	display: flex;
 	justify-content: center;
 	align-items: center;
-	/* padding-top:15vh; */
-/* 	background-color: red; */
-	/* text-shadow: -1px 0 #BFBFBF, 0 0.5px #BFBFBF, 0.5px 0 #BFBFBF, 0 -1px #BFBFBF; */
+	background-color:white;
 }
 
 .emptyReview {
 	width: 100%;
-	height: 100%;
-	font-size: 5vh;
+	height: 110%;
+	font-size: 3vh;
 	padding-top: 15vh;
 	text-align: center;
-	/* text-shadow: -1px 0 #BFBFBF, 0 0.5px #BFBFBF, 0.5px 0 #BFBFBF, 0 -1px #BFBFBF; */
+	background-color:white;
 }
 </style>
 
