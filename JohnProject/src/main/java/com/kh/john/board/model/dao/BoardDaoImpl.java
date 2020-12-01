@@ -109,4 +109,16 @@ public class BoardDaoImpl implements BoardDao{
 		// TODO Auto-generated method stub
 		return session.insert("board.boardCommentLike", param);
 	}
+	
+	@Override
+	public int boardCommentDelete(SqlSession session, Map param) {
+		// TODO Auto-generated method stub
+		return session.delete("board.boardCommentDelete", param);
+	}
+	
+	@Override
+	public int boardCommentModify(SqlSession session, Map param) {
+		// TODO Auto-generated method stub
+		return session.update("board.boardCommentModify", param);
+	}
 }

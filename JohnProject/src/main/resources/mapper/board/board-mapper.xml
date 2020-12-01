@@ -73,6 +73,7 @@
 		LEFT OUTER JOIN (SELECT COUNT(COM_LIKEDISLIKE) DISLIKE_COUNT, COM_LIKEDISLIKE_ID FROM COMMENT_LIKEDISLIKE WHERE COM_LIKEDISLIKE = 2 GROUP BY COM_LIKEDISLIKE_ID) C
 		ON A.COM_ID = C.COM_LIKEDISLIKE_ID
 		WHERE COM_BOARD_ID = #{currBoardNo}
+		ORDER BY COM_ENROLL_DATE
 	</select>
 	
 	<insert id="boardCommentInsert" parameterType="map">
@@ -118,4 +119,12 @@
 	<insert id="boardCommentLike" parameterType="map">
 		INSERT INTO COMMENT_LIKEDISLIKE VALUES(#{comId}, #{loginUsid}, #{key})
 	</insert>
+	
+	<delete id="boardCommentDelete" parameterType="map">
+		DELETE FROM "COMMENT" WHERE COM_ID = ${comId}
+	</delete>
+	
+	<update id="boardCommentModify" parameterType="map">
+		UPDATE "COMMENT" SET COM_CONTENT = #{value} WHERE COM_ID = #{comId}
+	</update>
 </mapper>

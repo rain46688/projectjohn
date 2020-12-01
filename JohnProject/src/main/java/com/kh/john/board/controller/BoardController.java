@@ -157,6 +157,38 @@ public class BoardController {
 	}
 	
 	@ResponseBody
+	@RequestMapping("board/boardCommentUpdate")
+	public Map boardCommentModify(@RequestParam Map param) throws JsonMappingException, JsonGenerationException, IOException {
+		
+		Map<String,String> result = new HashMap();
+		System.out.println(param);
+		int intResult = service.boardCommentModify(param);
+		
+		if(intResult > 0) {
+			result.put("result","success");
+		}else {
+			result.put("result","fail");
+		}
+		return result;
+	}
+	
+	@ResponseBody
+	@RequestMapping("board/boardCommentDelete")
+	public Map boardCommentDelete(@RequestParam Map param) throws JsonMappingException, JsonGenerationException, IOException {
+		
+		Map<String,String> result = new HashMap();
+		System.out.println(param);
+		int intResult = service.boardCommentDelete(param);
+		
+		if(intResult > 0) {
+			result.put("result","success");
+		}else {
+			result.put("result","fail");
+		}
+		return result;
+	}
+	
+	@ResponseBody
 	@RequestMapping("board/boardCommentInsert")
 	public Map boardCommentInsert(@RequestParam Map param) throws JsonMappingException, JsonGenerationException, IOException {
 		

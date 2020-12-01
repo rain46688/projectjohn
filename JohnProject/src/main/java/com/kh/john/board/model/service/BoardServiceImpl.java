@@ -115,4 +115,16 @@ public class BoardServiceImpl implements BoardService {
 		// TODO Auto-generated method stub
 		return dao.boardCommentLike(session,param);
 	}
+	
+	@Override
+	public int boardCommentDelete(Map param) {
+		// TODO Auto-generated method stub
+		return dao.boardCommentDelete(session,param);
+	}
+	
+	@Override
+	public int boardCommentModify(Map param) {
+		// TODO Auto-generated method stub
+		return dao.boardCommentModify(session,param);
+	}
 }

@@ -583,14 +583,23 @@ function commentListPrint(commentList) {
 			commentLikeAndFuncCon.className = 'commentLikeAndFuncCon';
 			
 			if(${loginMember.usid} == item.COM_WRITER_USID){
+			//comId 넣기
+			let comIdInput = document.createElement('input');
+			comIdInput.setAttribute('type','hidden');
+			comIdInput.setAttribute('value',item.COM_ID);
 			
+			//댓글 수정하기
 			let modifySpan = document.createElement('span');
 			modifySpan.className = 'modify';
 			modifySpan.innerHTML = '수정하기';
+			
+			//댓글 삭제하기
 			let deleteSpan = document.createElement('span');
 			deleteSpan.className = 'delete';
 			deleteSpan.innerHTML = '삭제하기';
+			deleteSpan.setAttribute('onclick',"fn_commentDelete("+item.COM_ID+");");
 			
+			commentLikeAndFuncCon.appendChild(comIdInput);
 			commentLikeAndFuncCon.appendChild(modifySpan);
 			commentLikeAndFuncCon.appendChild(deleteSpan);
 			}
@@ -637,6 +646,54 @@ function commentListPrint(commentList) {
 			document.getElementById('commentPrint').appendChild(comment);
 		}
 	})
+}
+
+//댓글 수정
+$(document).on('click','.modify',function(e){
+	console.log(e);
+	let comId = $(e.target).parent().children('input').val();
+	let value = $(e.target).parent().parent().children('.commentContent').text();
+	console.log(comId , value);
+	let html = "<input class='modifyInput' type='text' size='20' value="+value+">";
+	html += "<button onclick='fn_commentModify("+comId+", this);'>수정하기</button>"
+	$(e.target).parent().parent().children('.commentContent').html(html);
+})
+
+//댓글 수정 Ajax
+function fn_commentModify(comId, e) {
+	let values = e.parentElement.getElementsByTagName('input');
+	let value = values[0].value;
+	$.ajax({
+		url:"${path}/board/boardCommentUpdate",
+		type:"post",
+		dataType:"json",
+		data:{
+			comId:comId,
+			value:value
+		},
+		success:function(data){
+			if(data.result=='success')fn_commentList();
+			else alert('댓글 수정에 실패했습니다.');
+		}
+	})
+}
+//댓글 삭제
+function fn_commentDelete(comId){
+	if(confirm('정말로 삭제하시겠습니까?')){
+		console.log(comId);
+		$.ajax({
+			url:"${path}/board/boardCommentDelete",
+			type:"post",
+			dataType:"json",
+			data:{
+				comId:comId
+			},
+			success:function(data){
+				if(data.result=='success')fn_commentList();
+				else alert('댓글 삭제에 실패했습니다.');
+			}
+		})
+	}
 }
 
 //댓글 쓰기

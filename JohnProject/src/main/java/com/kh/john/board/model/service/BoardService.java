@@ -24,5 +24,7 @@ public interface BoardService {
 	int boardJudgeInsert(Map param);
 	int boardCommentHasLiked(Map param);
 	int boardCommentLike(Map param);
+	int boardCommentDelete(Map param);
+	int boardCommentModify(Map param);
 }
 

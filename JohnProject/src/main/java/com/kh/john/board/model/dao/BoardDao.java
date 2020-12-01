@@ -28,4 +28,6 @@ public interface BoardDao {
 	int boardJudgeInsert(SqlSession session, Map param);
 	int boardCommentHasLiked(SqlSession session, Map param);
 	int boardCommentLike(SqlSession session, Map param);
+	int boardCommentDelete(SqlSession session, Map param);
+	int boardCommentModify(SqlSession session, Map param);
 }
