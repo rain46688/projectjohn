@@ -134,6 +134,7 @@ textarea {
 	width: 30%;
 	text-align: right;
 	padding-right:1%;
+	display:flex;
 }
 
 /* 전문가 버튼 영역 div */
@@ -183,6 +184,97 @@ textarea {
 	margin:1%;
 }
 
+/* 전문가 빨강 버튼 */
+
+.button-8{
+  width:50%;
+  height:100%;
+  border:2px solid #DC3545;
+  text-align:center;
+  cursor:pointer;
+  position:relative;
+  box-sizing:border-box;
+  overflow:hidden;
+  display:flex;
+  justify-content:center;
+  align-items:center;
+  margin: 0 1%; 
+}
+
+.button-8 .johnbtn{
+  font-family:arial;
+  font-size:3vh;
+  font-weight:bold;
+  color:#FFCC66;
+  text-decoration:none;
+  line-height:50px;
+  transition:all .5s ease;
+  z-index:2;
+  position:relative;
+}
+
+.eff-8{
+  width:100%;
+  height:100%;
+  border:90px solid #DC3545;
+  position:absolute;
+  transition:all .5s ease;
+  z-index:1;
+  box-sizing:border-box;
+}
+
+.button-8:hover .eff-8{
+  border:0px solid #DC3545;
+}
+.button-8:hover .johnbtn{
+  color: #DC3545;
+}
+
+/* 전문가 초록 버튼 */
+.button-7{
+  width:50%;
+  height:100%;
+  border:2px solid #28A745;
+  text-align:center;
+  cursor:pointer;
+  position:relative;
+  box-sizing:border-box;
+  overflow:hidden;
+  display:flex;
+  justify-content:center;
+  align-items:center;
+  margin: 0 1%; 
+}
+
+.button-7 .johnbtn{
+  font-family:arial;
+  font-size:3vh;
+  font-weight:bold;
+  color:#FFCC66;
+  text-decoration:none;
+  line-height:50px;
+  transition:all .5s ease;
+  z-index:2;
+  position:relative;
+}
+
+.eff-7{
+  width:100%;
+  height:100%;
+  border:90px solid #28A745;
+  position:absolute;
+  transition:all .5s ease;
+  z-index:1;
+  box-sizing:border-box;
+}
+
+.button-7:hover .eff-7{
+  border:0px solid #28A745;
+}
+.button-7:hover .johnbtn{
+  color: #28A745;
+}
+
 </style>
 
 <div id="content">
@@ -208,22 +300,52 @@ textarea {
 		<div id="buttonDiv">
 			<c:if test="${loginMember.memClass == '전문가'}">
 				<c:if test="${eb.expertBoardMemberend == 1}">
-				<button type="button" class="exBtn btn btn-outline-success my-2 my-sm-0" onclick='counselEnd();'>상담 완료</button>
+													<div class="button-8">
+												    <div class="eff-8"></div>
+												    <a class="johnbtn" onclick='counselEnd();'>상담 완료</a>
+												  </div>	
+				<!-- <button type="button" class="exBtn btn btn-outline-success my-2 my-sm-0" onclick='counselEnd();'>상담 완료</button> -->
 				</c:if>
 				<c:if test="${eb.expertBoardMemberend == 0}">
-				<button type="button" class="exBtn btn btn-outline-danger my-2 my-sm-0" onclick="alert('상담 받는 유저가 고민 해결 버튼을 클릭 후\n상담 종료가 가능합니다.');">상담 진행중</button>
+				  								<div class="button-8">
+												    <div class="eff-8"></div>
+												    <a class="johnbtn" onclick="alert('상담 받는 유저가 고민 해결 버튼을 클릭 후\n상담 종료가 가능합니다.');">상담 진행중</a>
+												  </div>	
+				<!-- <button type="button" class="exBtn btn btn-outline-danger my-2 my-sm-0" onclick="alert('상담 받는 유저가 고민 해결 버튼을 클릭 후\n상담 종료가 가능합니다.');">상담 진행중</button> -->
 				</c:if>
-				<button type="button" class="exBtn btn btn-outline-success my-2 my-sm-0" onclick='memInfoView();'>회원 정보</button>
+													<div class="button-7">
+												    <div class="eff-7"></div>
+												    <a class="johnbtn"  onclick='memInfoView();'>정보</a>
+												  </div>	
+				<!-- <button type="button" class="exBtn btn btn-outline-success my-2 my-sm-0" onclick='memInfoView();'>회원 정보</button> -->
 			</c:if>
 			<c:if test="${loginMember.memClass != '전문가'}">
-				<button type="button" class="memBtn btn btn-outline-success my-2 my-sm-0" onclick='onoff();'>캠 온오프</button>
+			
+													<div class="button-7">
+												    <div class="eff-7"></div>
+												    <a class="johnbtn"  onclick='onoff();'>캠 온오프</a>
+												  </div>	
+			
+				<!-- <button type="button" class="memBtn btn btn-outline-success my-2 my-sm-0" onclick='onoff();'>캠 온오프</button> -->
 				<c:if test="${eb.expertBoardMemberend == 0}">
-				<button type="button" class="memBtn btn btn-outline-success my-2 my-sm-0" onclick='counselMemberEnd();'>고민 해결</button>
+						<div class="button-7">
+												    <div class="eff-7"></div>
+												    <a class="johnbtn"  onclick='counselMemberEnd();'>고민 해결</a>
+												  </div>	
+				<!-- <button type="button" class="memBtn btn btn-outline-success my-2 my-sm-0" onclick='counselMemberEnd();'>고민 해결</button> -->
 				</c:if>
 				<c:if test="${eb.expertBoardMemberend == 1}">
-					<button type="button" class="memBtn btn btn-outline-danger my-2 my-sm-0" onclick="alert('상담사 분이 상담 완료를 누르면 상담이 정상 종료됩니다.');">상담 종료중</button>
+												<div class="button-8">
+												    <div class="eff-8"></div>
+												    <a class="johnbtn"  onclick="alert('상담사 분이 상담 완료를 누르면 상담이 정상 종료됩니다.');">상담 종료중</a>
+												  </div>	
+					<!-- <button type="button" class="memBtn btn btn-outline-danger my-2 my-sm-0" onclick="alert('상담사 분이 상담 완료를 누르면 상담이 정상 종료됩니다.');">상담 종료중</button> -->
 				</c:if>
-				<button type="button" class="memBtn btn btn-outline-success my-2 my-sm-0" onclick='memInfoView();'>상담사 정보</button>
+				<div class="button-7">
+												    <div class="eff-7"></div>
+												    <a class="johnbtn"  onclick='memInfoView();'>정보</a>
+												  </div>	
+				<!-- <button type="button" class="memBtn btn btn-outline-success my-2 my-sm-0" onclick='memInfoView();'>상담사 정보</button> -->
 			</c:if>
 		</div>
 	</div>

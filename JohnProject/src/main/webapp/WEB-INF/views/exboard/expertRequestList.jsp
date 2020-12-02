@@ -204,7 +204,7 @@ hr{
 	font-size:2vh;
 	font-weight:bold;
 }
-/*  */
+/* 검색 버튼  */
 .button-8{
   width:10%;
   height:40%;
@@ -232,7 +232,7 @@ hr{
 
 .eff-8{
   width:100%;
-  height:50px;
+  height:100%;
   border:70px solid #00316D;
   position:absolute;
   transition:all .5s ease;
@@ -247,7 +247,7 @@ hr{
 .button-8:hover .johnbtn{
   color:#00316D;
 }
-/*  */
+/* 일반 버튼  */
 .button-7{
   width:100%;
   height:70%;
@@ -290,7 +290,7 @@ hr{
 .button-7:hover .johnbtn{
   color:#00316D;
 }
-/*  */
+/* 빨강 버튼 */
 .button-6{
   width:100%;
   height:70%;
@@ -337,8 +337,8 @@ hr{
 </style>
 
 <section id="content">
-<br>
-	<h1>상담 신청 확인 게시판</h1>
+<br><br><br>
+	<!-- <h1>상담 신청 확인 게시판</h1> -->
 	<!-- <hr/> -->
 	
 	<!-- 검색 및 정렬 할수있는 Div -->
