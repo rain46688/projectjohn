@@ -30,6 +30,10 @@ html, body, div, span, applet, object, iframe, h1, h2, h3, h4, h5, h6, p, blockq
 	background-color: #062449; 
 }
 
+#content *{
+	/* border:1px solid red; */
+}
+
 /* 상단 영역 */
 #upDiv {
 	height: 83.2%;
@@ -211,6 +215,8 @@ textarea {
   transition:all .5s ease;
   z-index:2;
   position:relative;
+ /*  width:100%;
+  height:100%; */
 }
 
 .eff-8{

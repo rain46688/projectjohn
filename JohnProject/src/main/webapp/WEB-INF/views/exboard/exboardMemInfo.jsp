@@ -33,6 +33,14 @@ body * {
 	 /* border: 1px solid red; */
 }
 
+body{
+	background-color: #062449;
+}
+
+.card{
+	border: 10px solid #FFCC66;
+}
+
 /* 별 */
 .checked {
 	color: orange;
