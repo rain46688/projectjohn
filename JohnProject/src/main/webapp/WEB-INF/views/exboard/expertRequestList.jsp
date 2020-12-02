@@ -204,7 +204,135 @@ hr{
 	font-size:2vh;
 	font-weight:bold;
 }
+/*  */
+.button-8{
+  width:10%;
+  height:40%;
+  border:2px solid #00316D;
+  display:flex;
+  justify-content:center;
+  align-items:center;
+  cursor:pointer;
+  position:relative;
+  box-sizing:border-box;
+  overflow:hidden;
+  margin:2%;
+}
 
+.button-8 .johnbtn{
+  font-family:arial;
+  font-size:2vh;
+  color:#FFCC66;
+  text-decoration:none;
+  line-height:50px;
+  transition:all .5s ease;
+  z-index:2;
+  position:relative;
+}
+
+.eff-8{
+  width:100%;
+  height:50px;
+  border:70px solid #00316D;
+  position:absolute;
+  transition:all .5s ease;
+  z-index:1;
+  box-sizing:border-box;
+}
+
+.button-8:hover .eff-8{
+  border:0px solid #00316D;
+}
+
+.button-8:hover .johnbtn{
+  color:#00316D;
+}
+/*  */
+.button-7{
+  width:100%;
+  height:70%;
+  border:2px solid #00316D;
+  display:flex;
+  justify-content:center;
+  align-items:center;
+  cursor:pointer;
+  position:relative;
+  box-sizing:border-box;
+  overflow:hidden;
+  margin:2%;
+}
+
+.button-7 .johnbtn{
+  font-family:arial;
+  font-size:2vh;
+  color:#FFCC66;
+  text-decoration:none;
+  line-height:50px;
+  transition:all .5s ease;
+  z-index:2;
+  position:relative;
+}
+
+.eff-7{
+  width:100%;
+  height:50px;
+  border:70px solid #00316D;
+  position:absolute;
+  transition:all .5s ease;
+  z-index:1;
+  box-sizing:border-box;
+}
+
+.button-7:hover .eff-7{
+  border:0px solid #00316D;
+}
+
+.button-7:hover .johnbtn{
+  color:#00316D;
+}
+/*  */
+.button-6{
+  width:100%;
+  height:70%;
+  border:2px solid #DC3545;
+  display:flex;
+  justify-content:center;
+  align-items:center;
+  cursor:pointer;
+  position:relative;
+  box-sizing:border-box;
+  overflow:hidden;
+  margin:2%;
+}
+
+.button-6 .johnbtn{
+  font-family:arial;
+  font-size:2vh;
+  color:#FFCC66;
+  text-decoration:none;
+  line-height:50px;
+  transition:all .5s ease;
+  z-index:2;
+  position:relative;
+}
+
+.eff-6{
+  width:100%;
+  height:50px;
+  border:70px solid #DC3545;
+  position:absolute;
+  transition:all .5s ease;
+  z-index:1;
+  box-sizing:border-box;
+}
+
+.button-6:hover .eff-6{
+  border:0px solid #DC3545;
+}
+
+.button-6:hover .johnbtn{
+  color:#DC3545;
+}
 
 </style>
 
@@ -224,10 +352,18 @@ hr{
 					</select>
 					<img src="${path}/resources/images/search.png" alt="" width="30px" height="30px">
 					<input type="text" name="search" id="searchInput" onkeypress="searchkey();">
-					<button id="searchBtn"class="btn btn-outline-success" >검색</button>
+					
+							 				 <div class="button-8">
+												    <div class="eff-8"></div>
+												    <a  class="johnbtn"  id="searchBtn22">검색</a>
+												  </div>	 
+					
+					
+				<!-- <button id="searchBtn22"class="btn btn-outline-success" >검색</button> -->
+				
 				</div>
 		</div>
-		<div id="sortDiv">
+		<div id="sortDiv" >
 			<select id="counselSelect" name="counselSelect" required>
 						<option value="req"  selected>요청 상담</option> 
 						<option value="on" >진행중 상담</option>
@@ -309,15 +445,19 @@ hr{
 					if(e['endCounsel'] == false){
 							if(e['startCounsel']== false){
 								//end start 둘다 false이면 요청 온 상태
-								pbhtml += "<button class='btn btn-outline-success' onclick='counselStart(\""+e['expertRequestMemUsid']+"\",\""+e['expertRequestMemNick']+"\");'>상담 시작</button>";
+								
+									pbhtml +=	 "<div class='button-7'><div class='eff-7'></div><a  class='johnbtn' onclick='counselStart(\""+e['expertRequestMemUsid']+"\",\""+e['expertRequestMemNick']+"\");'>상담 시작</a></div>";	 
+								//pbhtml += "<button class='btn btn-outline-success' onclick='counselStart(\""+e['expertRequestMemUsid']+"\",\""+e['expertRequestMemNick']+"\");'>상담 시작</button>";
 							}else{
 								//end false에서 start true면 진행중인 상태
-								pbhtml += "<button class='btn btn-outline-danger' onclick='counselConn(\""+e['expertRequestMemUsid']+"\",\""+e['expertRequestMemNick']+"\");'>채팅 접속</button>";
+								pbhtml +=	 "<div class='button-6'><div class='eff-6'></div><a  class='johnbtn' onclick='counselConn(\""+e['expertRequestMemUsid']+"\",\""+e['expertRequestMemNick']+"\");'>채팅 접속</a></div>";
+								//pbhtml += "<button class='btn btn-outline-danger' onclick='counselConn(\""+e['expertRequestMemUsid']+"\",\""+e['expertRequestMemNick']+"\");'>채팅 접속</button>";
 							}
 					}else{
 						pbhtml +="상담 완료";
 					}
-					pbhtml += "</div><div class='divCell'><form  name='form' ><input type='hidden' name='usid' value='${loginMember.usid}'><input type='hidden' name='musid' value='"+e['expertRequestMemUsid']+"'><button class='btn btn-outline-success' onclick='exmemInfo(this.form);'>회원 정보</button></form></div></div>";
+					//pbhtml += "</div><div class='divCell'><form  name='form' ><input type='hidden' name='usid' value='${loginMember.usid}'><input type='hidden' name='musid' value='"+e['expertRequestMemUsid']+"'><button class='btn btn-outline-success' onclick='exmemInfo(this.form);'>회원 정보</button></form></div></div>";
+					pbhtml +=	 "</div><div class='divCell'><div class='button-7'><div class='eff-7'></div><a  class='johnbtn' onclick='exmemInfo(\""+"${loginMember.usid}"+"\",\""+e['expertRequestMemUsid']+"\");'>회원 정보</a></div></div></div>";	 
 				}
 			});
 		}else{
@@ -382,9 +522,10 @@ hr{
 			search($("#searchSelect").val(),$("#searchInput").val());
 		}
 		return false;
-	}
+	};
 	
-	$("#searchBtn").click(e => {
+	$("#searchBtn22").click(e => {
+		console.log("검색");
 		search($("#searchSelect").val(),$("#searchInput").val());
 	});
 
@@ -497,7 +638,11 @@ hr{
 	}
 	
 	//회원 상세보기
-	function exmemInfo(f){
+	function exmemInfo(usid,musid){
+		console.log(usid, musid);
+		 window.open("${path}/expert/memInfo?usid="+usid+"&musid="+musid,'회원','width=600, height=600, toolbar=no, menubar=no, scrollbars=no, resizable=yes');
+		/* 		console.log("폼 : "+$(e.target).parent());
+			let f = $(e.target).parent();
 			const x = 600;
 			const y = 600;
 			const cx = (window.screen.width / 2) - (x / 2);
@@ -510,7 +655,7 @@ hr{
 			f.target = title;
 			f.action = url;
 			f.method = "post";
-			f.submit();    
+			f.submit();     */
 	}
 	
 	</script>

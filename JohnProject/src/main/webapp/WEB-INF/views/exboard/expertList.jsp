@@ -52,7 +52,7 @@ html, body, div, span, applet, object, iframe, h1, h2, h3, h4, h5, h6, p, blockq
 
 /* 위 div */
 #upDiv * {
-	/* border: 1px solid red; */
+/* 	border: 1px solid red; */
 }
 
 /* 아래 div */
@@ -389,6 +389,49 @@ html, body, div, span, applet, object, iframe, h1, h2, h3, h4, h5, h6, p, blockq
 	text-align: center;
 	background-color:white;
 }
+
+.button-8{
+  width:100%;
+  height:50px;
+  border:2px solid #00316D;
+  float:left;
+  text-align:center;
+  cursor:pointer;
+  position:relative;
+  box-sizing:border-box;
+  overflow:hidden;
+/*   margin:0 0 40px 50px; */
+  
+}
+
+.button-8 .johnbtn{
+  font-family:arial;
+  font-size:2vh;
+  color:#FFCC66;
+  text-decoration:none;
+  line-height:50px;
+  transition:all .5s ease;
+  z-index:2;
+  position:relative;
+}
+
+.eff-8{
+  width:100%;
+  height:50px;
+  border:70px solid #00316D;
+  position:absolute;
+  transition:all .5s ease;
+  z-index:1;
+  box-sizing:border-box;
+}
+
+.button-8:hover .eff-8{
+  border:0px solid #00316D;
+}
+.button-8:hover .johnbtn{
+  color:#00316D;
+}
+
 </style>
 
 <section id="content">
@@ -427,8 +470,15 @@ html, body, div, span, applet, object, iframe, h1, h2, h3, h4, h5, h6, p, blockq
 											 --%>
 
 											<div class="exCounselArea">분야 : ${expert['ex'].expertCounselArea}</div>
-											<button type="button" class="btn btn-outline-primary" onclick="counsel('${expert['mem'].usid}','${expert['mem'].memNickname}');">상담
-												신청</button>
+											
+											<%-- <button type="button" class="btn btn-outline-primary" onclick="counsel('${expert['mem'].usid}','${expert['mem'].memNickname}');">상담
+												신청</button> --%>
+												
+											  <div class="button-8">
+												    <div class="eff-8"></div>
+												    <a class="johnbtn" onclick="counsel('${expert['mem'].usid}','${expert['mem'].memNickname}');">상담 신청</a>
+												  </div>	
+												  
 										</div>
 										<div class="exBottm">
 											<c:if test="${empty (expert['ex'].expertGreetings)}">
