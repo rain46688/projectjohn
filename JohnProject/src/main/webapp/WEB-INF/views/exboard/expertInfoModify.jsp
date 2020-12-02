@@ -37,11 +37,17 @@ html, body, div, span, applet, object, iframe, h1, h2, h3, h4, h5, h6, p, blockq
 	
 }
 
+
+#headerAndContent{
+	background-color:#062449;
+}
+
 /* 기본 배경 */
 #content {
 	display: flex;
 	justify-content: center;
 	padding-top: 1vh;
+	background-color:#062449;
 }
 
 /*  */
@@ -54,10 +60,11 @@ html, body, div, span, applet, object, iframe, h1, h2, h3, h4, h5, h6, p, blockq
 #mainDiv {
 	width: 60%;
 	height: 98%;
-	border: 1px solid #C6C5C5;
+	/* border: 1px solid #C6C5C5; */
 	border-radius: 1em;
 	/* 	background-color: #BACADE; */
 	background-color: white;
+	border: 10px solid #FFCC66;
 }
 
 /* 위 영역 제목 부분*/
@@ -286,6 +293,50 @@ textarea:focus {
 }
 
 /*  */
+/* 일반 버튼  */
+.button-7{
+  width:20%;
+  height:30%;
+  border:2px solid #00316D;
+  display:flex;
+  justify-content:center;
+  align-items:center;
+  cursor:pointer;
+  position:relative;
+  box-sizing:border-box;
+  overflow:hidden;
+  margin:2%;
+}
+
+.button-7 .johnbtn{
+  font-family:arial;
+  font-size:2vh;
+  color:#FFCC66;
+  text-decoration:none;
+  line-height:50px;
+  transition:all .5s ease;
+  z-index:2;
+  position:relative;
+}
+
+.eff-7{
+  width:100%;
+  height:50px;
+  border:70px solid #00316D;
+  position:absolute;
+  transition:all .5s ease;
+  z-index:1;
+  box-sizing:border-box;
+}
+
+.button-7:hover .eff-7{
+  border:0px solid #00316D;
+}
+
+.button-7:hover .johnbtn{
+  color:#00316D;
+}
+
 </style>
 <section id="content">
 	<div id="mainDiv">
@@ -352,7 +403,12 @@ textarea:focus {
 				</div>
 			</div>
 			<div id="buttonDiv">
-				<button class="btn btn-outline-success" onclick="modify();">수정완료</button>
+													 <div class="button-7">
+												    <div class="eff-7"></div>
+												    <a class="johnbtn" onclick="modify();">수정 완료</a>
+												  </div>	
+												  
+				<!-- <button class="btn btn-outline-success" onclick="modify();">수정완료</button> -->
 				<input id="profileUpload" type="file" style="display: none;">
 				<!-- style="display: none;" -->
 			</div>
@@ -371,7 +427,8 @@ textarea:focus {
 #licenseModifyDiv {
 	width: 60%;
 	height: 99%;
-	border: 1px solid #C6C5C5;
+/* 	border: 1px solid #C6C5C5; */
+	border: 10px solid #FFCC66;
 	border-radius: 1em;
 	/* 	background-color: #BACADE; */
 	background-color: white;
@@ -499,6 +556,13 @@ textarea:focus {
 	width: 100%;
 	height: 100%;
 }
+
+/* 수정완료 버튼 */
+#licenseButtonDiv .button-7{
+height:100%;
+	margin:0;
+}
+
 </style>
 
 	<div id="licenseModifyDiv">
@@ -609,7 +673,11 @@ textarea:focus {
 			</c:forEach>
 
 			<div id="licenseButtonDiv">
-				<button class="btn btn-outline-success" onclick="modifyLicense();">수정완료</button>
+					 <div class="button-7">
+												    <div class="eff-7"></div>
+												    <a class="johnbtn" onclick="modify();">수정 완료</a>
+												  </div>	
+				<!-- <button class="btn btn-outline-success" onclick="modifyLicense();">수정완료</button> -->
 				<!-- ${fn:length(license) + 1}/${3 - (fn:length(license))} -->
 				<input id="licenseUpload1" type="file" class="licenseUpload" style="display: none;"> <input id="licenseUpload2" type="file"
 					class="licenseUpload" style="display: none;"> <input id="licenseUpload3" type="file" class="licenseUpload" style="display: none;">
