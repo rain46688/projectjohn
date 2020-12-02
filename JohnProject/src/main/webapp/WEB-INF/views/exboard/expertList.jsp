@@ -57,15 +57,16 @@ html, body, div, span, applet, object, iframe, h1, h2, h3, h4, h5, h6, p, blockq
 
 /* 아래 div */
 #downDiv * {
-	 /* border: 1px solid red; */
+	/* border: 1px solid red;  */
 }
 
 /* 위 div */
 #upDiv {
 	width: 100%;
-	height: 60%;
+	height: 58%;
 /* 	display:flex;
 	justify-content:center; */
+
 }
 
 /* 아래 div */
@@ -74,6 +75,7 @@ html, body, div, span, applet, object, iframe, h1, h2, h3, h4, h5, h6, p, blockq
 	height: 40%;
 	display: flex;
 	/* border-top: 1px solid #C6C5C5; */
+	padding:0 5vh 0 5vh;
 }
 
 /* 리뷰 div */
@@ -81,27 +83,34 @@ html, body, div, span, applet, object, iframe, h1, h2, h3, h4, h5, h6, p, blockq
 	height: 100%;
 	width: 50%;
 	/* border-right: 1px solid #C6C5C5; */
-	margin:0 2% 0 3%;
+	padding-right:1vh;
 }
 
 /* 카테고리 div */
 #categoryDiv {
-	height: 110%;
+	height: 105.45%;
 	width: 50%;
 	background-color:white;
-	margin:0 3% 0 0;
+	/* margin:0 3% 0 0; */
+	border: 10px solid #FFCC66;
+	padding-left:1vh;
 }
 
 /* 가로 슬라이드 */
 .splide {
 	height: 100%;
+}
 
+#reviewDiv .splide__track{
+		width:100%;
+		height:100%;
 }
 
 .splide__track{
-/* 수정 */
+	/* 수정 */
 	background-color:white;
 	/* border-radius:2%; */
+	border: 10px solid #FFCC66;
 }
 
 .splide__track * {
@@ -167,6 +176,7 @@ html, body, div, span, applet, object, iframe, h1, h2, h3, h4, h5, h6, p, blockq
 	display: grid;
 	/* grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); */
 	grid-template-columns: repeat(auto-fill, minmax(20vh, 1fr));
+	/* 간격 */
 	grid-gap: 1em;
 }
 
@@ -247,7 +257,8 @@ html, body, div, span, applet, object, iframe, h1, h2, h3, h4, h5, h6, p, blockq
 	display: inline-block;
 	height: 50%;
 	width: 50%;
-	padding-left: 3%;
+	padding: 0 0 0 3%;
+	margin:3% 0 3% 0;
 }
 
 /* 카드 오른쪽 이름  */
@@ -295,7 +306,9 @@ html, body, div, span, applet, object, iframe, h1, h2, h3, h4, h5, h6, p, blockq
 	padding: 1%;
 	width: 100%;
 	height: 50%;
+
 }
+
 
 /* 리뷰 위 div  */
 .reviewInnerUpDiv {
@@ -379,29 +392,29 @@ html, body, div, span, applet, object, iframe, h1, h2, h3, h4, h5, h6, p, blockq
 	justify-content: center;
 	align-items: center;
 	background-color:white;
+	 border: 10px solid #FFCC66;
 }
 
 .emptyReview {
 	width: 100%;
-	height: 110%;
+	height: 105%;
 	font-size: 3vh;
 	padding-top: 15vh;
 	text-align: center;
 	background-color:white;
+	border: 10px solid #FFCC66;
 }
 
 .button-8{
   width:100%;
   height:50px;
   border:2px solid #00316D;
-  float:left;
   text-align:center;
   cursor:pointer;
   position:relative;
   box-sizing:border-box;
   overflow:hidden;
-/*   margin:0 0 40px 50px; */
-  
+/*   margin: 4vh 0 0 0; */
 }
 
 .button-8 .johnbtn{

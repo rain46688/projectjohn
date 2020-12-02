@@ -640,22 +640,7 @@ hr{
 	//회원 상세보기
 	function exmemInfo(usid,musid){
 		console.log(usid, musid);
-		 window.open("${path}/expert/memInfo?usid="+usid+"&musid="+musid,'회원','width=600, height=600, toolbar=no, menubar=no, scrollbars=no, resizable=yes');
-		/* 		console.log("폼 : "+$(e.target).parent());
-			let f = $(e.target).parent();
-			const x = 600;
-			const y = 600;
-			const cx = (window.screen.width / 2) - (x / 2);
-			const cy= (window.screen.height / 2) - (y / 2);
-
-			const url    ="${path}/expert/memInfo";
-			const title  = "chat";
-			const status = "toolbar=no,directories=no,scrollbars=no,resizable=no,status=no,menubar=no,width="+x+", height="+y+", top="+cy+",left="+cx;
-			pop =  window.open("", title,status);
-			f.target = title;
-			f.action = url;
-			f.method = "post";
-			f.submit();     */
+		 window.open("${path}/expert/memInfo?usid="+usid+"&musid="+musid,'회원','width=600, height=600, toolbar=no, menubar=no, scrollbars=no, resizable=no');
 	}
 	
 	</script>
