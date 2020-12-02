@@ -19,7 +19,7 @@
         background-color: white;
         width: 50%;
         height: 2.5rem;
-        margin: 1rem 10%;
+        margin: 1rem auto 5px 10%;
 		margin-bottom: 5px;
         padding: 5px;
         box-sizing: border-box;
@@ -35,6 +35,7 @@
         cursor: pointer;
         text-align: center;
         margin: 1rem auto;
+        margin-right: 10%;
         float: left;
     }
     input.input{
