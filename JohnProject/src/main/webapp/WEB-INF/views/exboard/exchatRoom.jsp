@@ -386,6 +386,7 @@ textarea {
 	//---------------------------- 드래그 파일 -------------------------------------
 
 	let uploadFiles = [];
+	
 	let $drop = $("#extext");
 
 	$drop.on("dragenter", function(e) {
@@ -429,6 +430,8 @@ textarea {
 			let size = uploadFiles.push(file); 
 			console.log("확인 : "+file);
 		}
+		
+		
 		
 		//---------------------------- 드래그 파일 전송 -------------------------------------
 		
