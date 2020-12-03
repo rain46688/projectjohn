@@ -57,7 +57,7 @@ html, body, div, span, applet, object, iframe, h1, h2, h3, h4, h5, h6, p, blockq
 	z-index: 2;
 	/* position: relative; */
 	position: absolute;
-	left:46%;
+	left:53%;
 	top:60%;
 	object-fit: cover;
 	border: 2px solid #FFCC66;
@@ -81,10 +81,9 @@ html, body, div, span, applet, object, iframe, h1, h2, h3, h4, h5, h6, p, blockq
 	width: 40%;
 	background-color: white;
 	border-radius: 8px;
-	padding: 1%;
+/* 	padding: 1%; */
 	border: 10px solid #FFCC66;
-		overflow-x: hidden;
-	-ms-overflow-style: none;
+
 }
 
 /* 상단 텍스트 영역 */
@@ -115,16 +114,17 @@ textarea {
 }
 
 /* 드래그 드롭용 div 영역 */
-#dragImg {
+ #dragImg {
 	width: 100%;
 	height: 100%;
 	display: none; 
 	border-radius: 8px;
-	background-image: url(${path }/resources/images/expertimg.png);
+	background-image: url(${path }/resources/images/expertimg3.png);
 	background-repeat: no-repeat;
 	background-size: 100%;
 	z-index: 2;
 	padding-top: 20%;
+	background-color:#E2E2E8;
 }
 
 /* ------------------------------------------ */
@@ -177,7 +177,7 @@ textarea {
 	overflow-x: hidden;
 	-ms-overflow-style: none;
 	padding-top:2%;
-		border: 10px solid #FFCC66;
+	border: 10px solid #FFCC66;
 }
 
 #imgDiv>p{
@@ -297,7 +297,14 @@ textarea {
 
 #edit{
 	width:100%;
-	height:90%;
+	height:95%;
+	 /* background-color:red;  */
+			overflow-x: hidden;
+	-ms-overflow-style: none;
+}
+
+#toolbar-container{
+	width:100%;	
 }
 
 </style>
@@ -311,14 +318,8 @@ textarea {
 		</div>
 		<div id="textAreaDiv">
 			<div id="dragImg"></div>
-				<c:if test="${loginMember.memClass == '전문가'}">
-		 			<div id="toolbar-container"></div>
-					<div id="edit"></div>
-					<!-- <textarea id="extext" class="expertonly"></textarea> -->
-				</c:if>
-				<c:if test="${loginMember.memClass != '전문가'}">
-					<!-- <textarea id="extext" readonly></textarea>  -->
-				</c:if>
+			<div id="toolbar-container"></div>
+				<div id="edit"></div>
 		</div>
 	</div>
 <!--  -->
@@ -385,22 +386,25 @@ textarea {
 	
 	//---------------------------- 드래그 파일 -------------------------------------
 
-	let uploadFiles = [];
 	
-	let $drop = $("#extext");
-
+	let uploadFiles = [];
+	let $drop = $("#edit");
+	
 	$drop.on("dragenter", function(e) {
 		$(this).addClass('drag-over');
-		$("#extext").css({
+		$("#toolbar-container").css({
+			"display" : "none"
+		});
+		$("#edit").css({
 			"display" : "none"
 		});
 		$("#dragImg").css({
 			"display" : "inline-block"
 		});
 	});
-
+	
 	let $drop2 = $("#dragImg");
-
+	
 	$drop2.on("dragenter", function(e) {
 		$(this).addClass('drag-over');
 	}).on("dragleave", function(e) {
@@ -408,7 +412,10 @@ textarea {
 		$("#dragImg").css({
 			"display" : "none"
 		});
-		$("#extext").css({
+		$("#edit").css({
+			"display" : "inline-block"
+		});
+		$("#toolbar-container").css({
 			"display" : "inline-block"
 		});
 	}).on("dragover", function(e) {
@@ -420,7 +427,10 @@ textarea {
 		$("#dragImg").css({
 			"display" : "none"
 		});
-		$("#extext").css({
+		$("#edit").css({
+			"display" : "inline-block"
+		});
+		$("#toolbar-container").css({
 			"display" : "inline-block"
 		});
 		let files = e.originalEvent.dataTransfer.files;
@@ -430,8 +440,6 @@ textarea {
 			let size = uploadFiles.push(file); 
 			console.log("확인 : "+file);
 		}
-		
-		
 		
 		//---------------------------- 드래그 파일 전송 -------------------------------------
 		
@@ -476,6 +484,7 @@ textarea {
 			}
 		});
 	});
+
 	
 	function imgDivPrint(msg){
 		console.log("msg : "+msg);
@@ -593,8 +602,8 @@ textarea {
 					//$("#expertTextDiv").html("<p>"+content.nick + "님이 접속하셨습니다.</p><br>");
 				} else if (content.type == 'TXT') {
 					console.log(" === 분기 TXT === ");
-					$("#textAreaDiv").html(content.msg);
-					$("#textAreaDiv").scrollTop($("#textAreaDiv")[0].scrollHeight);
+					$("#edit").html(content.msg);
+					$("#edit").scrollTop($("#edit")[0].scrollHeight);
 					//$("#extext").val(content.msg);
 				/* 	$("#expertTextDiv").html($("#expertTextDiv").html()+"<p>"+content.msg+"</p>");
 					$("#expertTextDiv").scrollTop($("#expertTextDiv")[0].scrollHeight); */
@@ -837,7 +846,7 @@ textarea {
 					let hiddenField = document.createElement("input");
 					hiddenField.setAttribute("type", "hidden");
 					hiddenField.setAttribute("name", "extext");
-					hiddenField.setAttribute("value", counselText);
+					hiddenField.setAttribute("value", $("#edit").html());
 					form.appendChild(hiddenField);
 					//
 					let hiddenField2 = document.createElement("input");
@@ -872,7 +881,7 @@ textarea {
 			//---------------------------- 회원 정보 보기 -------------------------------------
 			
 			function memInfoView(e){
-				window.open('${path}/expert/memInfo?bno=${bno}&usid=${loginMember.usid}&musid='+user_usid,'회원','width=800, height=700, toolbar=no, menubar=no, scrollbars=no, resizable=no');
+				window.open('${path}/expert/memInfo?bno=${bno}&usid=${loginMember.usid}&musid='+user_usid,'회원','width=800, height=550, toolbar=no, menubar=no, scrollbars=no, resizable=no');
 			};
 	
 			
@@ -906,15 +915,9 @@ textarea {
 				
 				
 			}
-		
-		/* 	  ClassicEditor
-		        .create( document.querySelector( '#textAreaDiv' ),{
-		        	height: '100%'
-		        } )
-		        .catch( error => {
-		            console.error( error );
-		        }); */
-		        
+
+			if("${loginMember.memClass}" == "전문가"){
+				console.log("참?");
 		        DecoupledEditor
 		        .create( document.querySelector( '#edit' ) )
 		        .then( editor => {
@@ -925,6 +928,11 @@ textarea {
 		        .catch( error => {
 		            console.error( error );
 		        } );
+			}else{
+				console.log("거짓?");
+				 $("#edit").css({'padding':'1%'});
+			}
+
 
 	
 </script>

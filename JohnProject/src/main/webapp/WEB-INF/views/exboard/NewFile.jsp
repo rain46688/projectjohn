@@ -376,13 +376,17 @@ textarea {
 	let $drop = $("#extext");
 
 	$drop.on("dragenter", function(e) {
+		
 		$(this).addClass('drag-over');
+		
 		$("#extext").css({
 			"display" : "none"
 		});
+		
 		$("#dragImg").css({
 			"display" : "inline-block"
 		});
+		
 	});
 
 	let $drop2 = $("#dragImg");
