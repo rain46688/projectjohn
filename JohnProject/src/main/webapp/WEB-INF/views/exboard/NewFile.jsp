@@ -1,18 +1,9 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
-<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
-<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
-<c:set var="path" value="${pageContext.request.contextPath}" />
-<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
-<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
-
-<jsp:include page="/WEB-INF/views/common/header.jsp">
-	<jsp:param name="title" value=" " />
-</jsp:include>
+<%@ include file="/WEB-INF/views/common/header.jsp"%>
+<script type="text/javascript" src="${pageContext.request.contextPath }/resources/js/ckeditor/ckeditor.js"></script>
 
 <style>
+
 html, body, div, span, applet, object, iframe, h1, h2, h3, h4, h5, h6, p, blockquote, pre, a, abbr, acronym, address, big, cite, code, del, dfn, em,
 	ins, kbd, q, s, samp, small, strike, strong, sub, sup, tt, var, b, u, i, center, dl, dt, dd, ol, ul, li, fieldset, form, label, legend, table,
 	caption, tbody, tfoot, thead, tr, th, td, article, aside, canvas, details, embed, figure, figcaption, footer, header, hgroup, menu, nav, output, ruby,
@@ -28,246 +19,87 @@ html, body, div, span, applet, object, iframe, h1, h2, h3, h4, h5, h6, p, blockq
 	-webkit-user-select: none;
 	-khtml-user-select: none;
 	user-select: none;
+}
+
+#headerAndContent{
+	background-color:#062449;
+}
+
+#content{
+	/* background-color: #F1F3F3;  */
+	background-color: #062449; 
+}
+
+#content *{
+	/* border:1px solid red; */
 	font-family: 'Noto Serif KR', serif;
 }
 
-#content * {
-	/*  border: 1px solid red; */
-	/* font-family: 'Noto Serif KR', serif; */
-	
-}
-
-/* 기본 배경 */
-#content {
-	display: flex;
-	justify-content: center;
-	padding-top: 1vh;
-}
-
-/*  */
-/*  */
-/*  */
-/* 전문가 정보 영역 */
-/*  */
-/*  */
-/*  */
-#mainDiv {
-	width: 60%;
-	height: 98%;
-	border: 1px solid #C6C5C5;
-	border-radius: 1em;
-	/* 	background-color: #BACADE; */
-	background-color: white;
-}
-
-/* 위 영역 제목 부분*/
+/* 상단 영역 */
 #upDiv {
-	height: 15%;
+	height: 83.2%;
 	width: 100%;
-	/* background-color: #0054BA; */
-	background-color: #003478;
-	padding: 1.5%;
 	display: flex;
-	border: 1px solid #C6C5C5;
-	border-radius: 1em 1em 0 0;
+	padding: 1%;
 }
 
-/* 프로필 영역 중간부분 */
-#profileDiv {
-	margin-top: 1%;
-	width: 100%;
-	height: 30%;
-	display: flex;
-	padding: 0 0 0 3%;
-	margin: 3% 0 0 0;
-}
-
-/* 아래부분 인사말 */
-#downDiv {
-	width: 100%;
-	height: 45%;
-	margin: 1% 1% 0 1%;
-	padding: 0 4% 0 1%;
-}
-
-/* 제목 */
-#upDiv>h2 {
-	font-size: 5vh;
-	height: 100%;
-	width: 50%;
-	font-weight: bold;
-	color: white;
-}
-
-/* 누르면 자격증으로 넘어가는거 */
-#upFlag {
-	width: 50%;
-	height: 100%;
-	display: flex;
-	justify-content: flex-end;
-	align-items: flex-end;
-	color: white;
-}
-
-#upFlag>p {
-	cursor: pointer;
-}
-
-/* 프로필 이미지 영역 */
-#imgDiv {
-	z-index: 0;
-	width: 40%;
-	height: 100%;
-	background-color: rgba(255, 255, 255, 1);
-	border-radius: 2%;
-	border: 1px solid #AEAEAE;
-}
-
-#mirrorimgDiv {
+/* 상단 영역 비디오 상대방 뷰*/
+#video2 {
 	z-index: 1;
-	width: 40%;
+	width: 100%;
 	height: 100%;
+	border: 2px solid #FFCC66;
+}
+
+/* 상단 영역 비디오 자신 뷰*/
+#video1 {
+	z-index: 2;
+	/* position: relative; */
+	position: absolute;
+ 	right: 25.5%;
+	top: 59.5%;
+	object-fit: cover;
+	border: 2px solid #FFCC66;
+	width: 25vh;
+}
+
+/* 상단 영역 비디오 div */
+#videoDiv {
+	padding:1%;
+	height: 100%;
+	width: 80%;
+	background-color: white;
+	border-radius: 8px;
+	margin-right: 1%;
+	border: 10px solid #FFCC66;
+}
+
+/* 상단 텍스트 div */
+#textAreaDiv {
+	height: 100%;
+	width: 30%;
+	background-color: white;
+	border-radius: 8px;
+	padding: 1%;
+	border: 10px solid #FFCC66;
+}
+
+/* 상단 텍스트 영역 */
+#extext {
+	width: 100%;
+	height: 100%;
+	display: inline-block;
+	border-radius: 8px;
+	font-size: 20px;
+	padding: 3%;
+	/* 스크롤 바 투명하게 만들기 */
+	overflow-x: hidden;
+	-ms-overflow-style: none;
+}
+
+/* 스크롤 바 투명하게 만들기 */
+::-webkit-scrollbar {
 	display: none;
-	justify-content: center;
-	align-items: center;
-	background-color: rgba(255, 255, 255, 1);
-	position: relative;
-	cursor: pointer;
-}
-
-#mirrorimgDiv>p {
-	font-size: 10vh;
-	color: black;
-}
-
-#imgProfile {
-	width: 100%;
-	height: 100%;
-}
-
-/* 중간 오른쪽 영역  */
-#upRightDiv {
-	width: 60%;
-	height: 100%;
-	margin: 0 2% 2% 2%;
-	border: 1px solid #AEAEAE;
-	border-radius: 1%;
-	display: flex;
-	/*위에서 아래로 수직 배치*/
-	flex-direction: column;
-	justify-content: center;
-}
-
-.rowDiv {
-	width: 100%;
-	height: 30%;
-	display: flex;
-}
-
-.rowDiv div {
-	margin: 0 1% 0 1%;
-}
-
-.leftDiv {
-	width: 44%;
-	height: 100%;
-}
-
-.timeleftDiv {
-	padding-top:2%;
-	width: 100%;
-	height: 100%;
-}
-
-#time {
-	display: flex;
-}
-
-#time input {
-	margin: 0 1% 0 0;
-	width: 40%;
-}
-
-#time p{
-	width:8%;
-	height:100%:
-}
-
-.timeleftDiv input {
-	width: 50%;
-	height: 100%;
-}
-
-/* 시간 주의사항 */
-/* #timeWarning {
-	text-align:center;
-	font-size:1.5vh;
-	color:black;
-	font-weight:bold;
-	font-style:italic;
-} */
-
-.rightDiv {
-	width: 50%;
-	height: 100%;
-	padding-right: 9%;
-	padding-left:2%;
-}
-
-#careerleftDiv {
-	width: 100%;
-	height: 50%;
-	display: flex;
-}
-
-/* 년 */
-h6 {
-	font-size: 2vh;
-	font-weight: bold;
-}
-
-#exinput {
-	width: 40%;
-	height: 100%;
-}
-
-#exinput2 {
-	width: 60%;
-	height: 100%;
-}
-
-/* 각 소제목들 p태그 */
-#mainDiv p {
-	font-size: 2vh;
-	font-weight: bold;
-	padding: 1% 0 1% 2%;
-}
-
-.licenseTitle p {
-	font-size: 2vh;
-	font-weight: bold;
-	padding: 1% 0 1% 0;
-}
-
-/* 텍스트 에어리어 태그 */
-#exTextArea {
-	width: 100%;
-	height: 100%;
-	font-size: 2vh;
-	font-weight: bold;
-	padding: 1% 0 0 3%;
-	margin:0 2% 0 1.2%;
-	border: 1px solid #AEAEAE;
-}
-
-#textArearowDiv {
-	width: 100%;
-	height: 70%
-}
-
-textarea {
-	resize: none;
-	border-radius: 1%;
 }
 
 /* 위 텍스트 영역 눌르면 옆에 테두리 생기는거 지우는 용도 */
@@ -275,605 +107,784 @@ textarea:focus {
 	outline: none;
 }
 
-/* 버튼 */
-#buttonDiv {
-	display: flex;
-	justify-content: center;
-	/* align-items: flex-end; */
-	align-items: center;
-	height: 50%;
+textarea {
+    resize: none;
+}
+
+/* 드래그 드롭용 div 영역 */
+#dragImg {
 	width: 100%;
+	height: 100%;
+	display: none; 
+	border-radius: 8px;
+	background-image: url(${path }/resources/images/expertimg.png);
+	background-repeat: no-repeat;
+	background-size: 100%;
+	z-index: 2;
+	padding-top: 20%;
 }
 
-/*  */
-</style>
-<section id="content">
-	<div id="mainDiv">
-		<!-- up -->
-		<div id="upDiv">
-			<h2>전문가 정보 수정</h2>
-			<div id="upFlag">
-				<p>자격증 정보 수정</p>
-			</div>
-		</div>
-		<!-- <hr> -->
-		<!-- profile -->
-		<div id="profileDiv">
-			<div id="imgDiv">
-				<img src="${path }/resources/profile_images/${mem.profilePic}" id="imgProfile" class="img-thumbnail" />
-			</div>
-			<div id="mirrorimgDiv">
-				<p>+</p>
-			</div>
-			<!-- <div id="mirrorimgDiv2"></div> -->
-			<div id="upRightDiv">
+/* ------------------------------------------ */
 
-				<div class="rowDiv">
-					<div class="leftDiv">
-						<p>경력</p>
-						<div id="careerleftDiv">
-							<div id="exinput">
-								<input type="number" name="career" class="form-control short" min="1" max="99" value="${expert.expertProfile }" />
-							</div>
-							<div id="exinput2">
-								<h6>년</h6>
-							</div>
-						</div>
-					</div>
-					<div class="rightDiv">
-						<p>전문 분야</p>
-						<select id="counselSelect" name="counselSelect" required class="form-control short">
-							<c:forEach items="${coukindList }" var="counselList" varStatus="status">
-								<option value="${counselList}" ${expert.expertCounselArea == counselList ? 'selected="selected"' : '' }>${counselList}</option>
-							</c:forEach>
-						</select>
-					</div>
-				</div>
-
-				<div class="rowDiv">
-					<div class="timeleftDiv">
-						<p>상담 가능 시간</p>
-						<div id="time">
-							<input name="fistTime" type="time" class="form-control times" value="${expert.expertCounselStartTime }">
-							<p>~</p>
-							<input name="seTime" type="time" class="form-control times" value="${expert.expertCounselEndTime }">
-						</div>
-					</div>
-				</div>
-				<!-- 	<div id="timeWarning">주말 공휴일 제외</div> -->
-			</div>
-		</div>
-		<!-- downDiv -->
-		<div id="downDiv">
-			<div id="textArearowDiv">
-				<div id="textAreaDiv">
-					<p>인사말</p>
-					<textarea id="exTextArea" name="modiText">${expert.expertGreetings}</textarea>
-				</div>
-			</div>
-			<div id="buttonDiv">
-				<button class="btn btn-outline-success" onclick="modify();">수정완료</button>
-				<input id="profileUpload" type="file" style="display: none;">
-				<!-- style="display: none;" -->
-			</div>
-		</div>
-	</div>
-
-	<style>
-
-/*  */
-/*  */
-/*  */
-/* 라이센스 영역 */
-/*  */
-/*  */
-/*  */
-#licenseModifyDiv {
-	width: 60%;
-	height: 99%;
-	border: 1px solid #C6C5C5;
-	border-radius: 1em;
-	/* 	background-color: #BACADE; */
-	background-color: white;
-	/*  */
-	display: none;
-	opacity: 0;
-	padding-bottom: 2%;
-}
-
-#licenseupDiv {
+/* 하단 영역 div */
+#bottomDiv {
 	height: 15%;
-	width: 100%;
-	/* background-color: #0054BA; */
-	background-color: #003478;
-	padding: 1.5%;
 	display: flex;
-	border: 1px solid #C6C5C5;
-	border-radius: 1em 1em 0 0;
+	
 }
 
-#licenseupDiv>h2 {
-	font-size: 5vh;
+/* 왼쪽 버튼 영역 div */
+#buttonDiv {
 	height: 100%;
-	width: 50%;
-	font-weight: bold;
-	color: white;
-}
-
-#licenseupFlag {
-	width: 50%;
-	height: 100%;
-	display: flex;
-	justify-content: flex-end;
-	align-items: flex-end;
-	color: white;
-}
-
-#licenseupFlag>p {
-	cursor: pointer;
-	font-weight: bold;
-}
-
-#licenseDownDiv {
-	height: 85%;
-	width: 100%;
-}
-
-.licenseDiv {
-	width: 100%;
-	height: 30%;
-	display: flex;
-	padding: 2%;
-	border-bottom: 1px solid #AEAEAE;
-}
-
-.licenseImg {
-	z-index: 0;
 	width: 30%;
+	text-align: right;
+	padding-right:1%;
+	display:flex;
+}
+
+/* 전문가 버튼 영역 div */
+#buttonDiv>.exBtn{
+	display:inline-block;
+	width:48%;
+	height:100%;
+	border-radius: 8px;
+	 font-size:30px;
+	font-weight: bold; 
+}
+
+/* 유저 버튼 영역 div */
+#buttonDiv>.memBtn{
+	display:inline-block;
+	width:32%;
+	height:100%;
+	border-radius: 8px;
+	 font-size:30px;
+	font-weight: bold; 
+}
+
+/* 이미지 영역 div */
+#imgDiv {
+	border: 2vh solid white;
+	border-radius: 8px;
+	background-color:white;
 	height: 100%;
+	width: 77%;
+	margin: 0% 1% 1%;
+	display:inline-block;
+	overflow-x: hidden;
+	-ms-overflow-style: none;
+	padding-top:2%;
+		border: 10px solid #FFCC66;
 }
 
-.licenseInfo {
-	width: 70%;
-	height: 100%;
-	margin: 1%;
+#imgDiv>p{
+ font-size:100%;
+ color:black;
+ text-align:center;
 }
 
-.licenseType {
-	width: 100%;
-	height: 35%;
-	display: flex;
+.upload{
+	width:10%;
+	height:100%;
+	margin:1%;
 }
 
-.licenseDate {
-	width: 100%;
-	height: 35%;
-	display: flex;
+/* 전문가 빨강 버튼 */
+
+.button-8{
+  width:50%;
+  height:100%;
+  border:2px solid #DC3545;
+  text-align:center;
+  cursor:pointer;
+  position:relative;
+  box-sizing:border-box;
+  overflow:hidden;
+  display:flex;
+  justify-content:center;
+  align-items:center;
+  margin: 0 1%; 
 }
 
-.licenseCompany {
-	width: 100%;
-	height: 35%;
-	display: flex;
+.button-8 .johnbtn{
+  font-size:3vh;
+  font-weight:bold;
+  color:#FFCC66;
+  text-decoration:none;
+  line-height:50px;
+  transition:all .5s ease;
+  z-index:2;
+  position:relative;
+ /*  width:100%;
+  height:100%; */
 }
 
-.licenseTitle {
-	height: 100%;
-	width: 40%;
-	text-align: center;
+.eff-8{
+  width:100%;
+  height:100%;
+  border:90px solid #DC3545;
+  position:absolute;
+  transition:all .5s ease;
+  z-index:1;
+  box-sizing:border-box;
 }
 
-.licenseContent {
-	height: 100%;
-	width: 60%;
+.button-8:hover .eff-8{
+  border:0px solid #DC3545;
+}
+.button-8:hover .johnbtn{
+  color: #DC3545;
 }
 
-#licenseButtonDiv {
-	width: 100%;
-	height: 10%;
-	display: flex;
-	justify-content: center;
-	align-items: flex-end;
-	padding-top: 1%;
+/* 전문가 초록 버튼 */
+.button-7{
+  width:50%;
+  height:100%;
+  border:2px solid #28A745;
+  text-align:center;
+  cursor:pointer;
+  position:relative;
+  box-sizing:border-box;
+  overflow:hidden;
+  display:flex;
+  justify-content:center;
+  align-items:center;
+  margin: 0 1%; 
 }
 
-.licenseImgView {
-	z-index: 1;
-	width: 30%;
-	height: 100%;
-	display: none;
-	justify-content: center;
-	align-items: center;
-	position: relative;
-	cursor: pointer;
-	background-color: white;
-	border:1px solid gray;
+.button-7 .johnbtn{
+  font-size:3vh;
+  font-weight:bold;
+  color:#FFCC66;
+  text-decoration:none;
+  line-height:50px;
+  transition:all .5s ease;
+  z-index:2;
+  position:relative;
 }
 
-.licenseImgView>p {
-	font-size: 8vh;
-	color: black;
+.eff-7{
+  width:100%;
+  height:100%;
+  border:90px solid #28A745;
+  position:absolute;
+  transition:all .5s ease;
+  z-index:1;
+  box-sizing:border-box;
 }
 
-.licenseImgs {
-	width: 100%;
-	height: 100%;
+.button-7:hover .eff-7{
+  border:0px solid #28A745;
 }
+.button-7:hover .johnbtn{
+  color: #28A745;
+}
+
 </style>
 
-	<div id="licenseModifyDiv">
-		<div id="licenseupDiv">
-			<h2>자격증 정보 수정</h2>
-			<div id="licenseupFlag">
-				<p>전문가 정보 수정</p>
-			</div>
+<div id="content">
+
+	<div id="upDiv">
+		<div id="videoDiv">
+			<video id="video2" autoplay playsinline controls preload="metadata"></video>
+			<video id="video1" autoplay playsinline controls preload="metadata"></video>
 		</div>
-		<div id="licenseDownDiv">
-
-			<c:forEach items="${license }" var="license" varStatus="status">
-				<input type="hidden" value="${license.licenseId }" class="licenseIdInput" />
-				<div class="licenseDiv">
-					<div class="licenseImg" id="licenseImg${status.count}">
-						<img src="${path }/resources/upload/upload_license/${license.licenseFileName }" id="imgLicense${status.count}" class="img-thumbnail licenseImgs" />
-					</div>
-					<div class="licenseImgView" id="licenseImgView${status.count}">
-						<p>+</p>
-					</div>
-					<div class="licenseInfo">
-						<div class="licenseType">
-							<div class="licenseTitle">
-								<p>자격증 타입</p>
-							</div>
-							<div class="licenseContent">
-								<select id="licenseTypeSelect${status.count}" name="licenseTypeSelect${status.count}" required class="form-control short licenseTypeSelect">
-									<c:forEach items="${likindList }" var="lity">
-										<option value="${lity}" ${license.licenseType == lity ? 'selected="selected"' : '' }>${lity}</option>
-									</c:forEach>
-								</select>
-							</div>
-						</div>
-						<div class="licenseDate">
-							<div class="licenseTitle">
-								<p>자격증 발급 날짜</p>
-							</div>
-							<div class="licenseContent">
-								<input name="licenseTime${status.count}" id="licenseTime${status.count}" type="date" class="form-control times licenseTime"
-									value="${license.licenseDate}">
-							</div>
-						</div>
-						<div class="licenseCompany">
-							<div class="licenseTitle">
-								<p>자격증 발급 기관</p>
-							</div>
-							<div class="licenseContent">
-								<select id="licenseCompanySelect${status.count}" name="licenseCompanySelect${status.count}" required
-									class="form-control short licenseCompanySelect">
-									<c:forEach items="${comkindList }" var="comli" varStatus="status">
-										<option value="${comli}" ${license.licenseCompany == comli ? 'selected="selected"' : '' }>${comli}</option>
-									</c:forEach>
-								</select>
-							</div>
-						</div>
-					</div>
-				</div>
-			</c:forEach>
-
-			<c:set var="num" value="${fn:length(license) + 1}" />
-			<c:forEach var="i" begin="1" end="${3 - (fn:length(license))}">
-
-				<div class="licenseDiv">
-					<div class="licenseImg" id="licenseImg${num}">
-						<img src="${path }/resources/upload/upload_license/nolicense.png" id="imgLicense${num}" class="img-thumbnail licenseImgs" />
-					</div>
-					<div class="licenseImgView" id="licenseImgView${num}">
-						<p>+</p>
-					</div>
-					<div class="licenseInfo">
-						<div class="licenseType">
-							<div class="licenseTitle">
-								<p>자격증 타입</p>
-							</div>
-							<div class="licenseContent">
-								<select id="licenseTypeSelect${num}" name="licenseTypeSelect${num}" required class="form-control short licenseTypeSelect">
-									<option value="선택 안함" selected>선택 안함</option>
-									<c:forEach items="${likindList }" var="lity" varStatus="status">
-										<option value="${lity}">${lity}</option>
-									</c:forEach>
-								</select>
-							</div>
-						</div>
-						<div class="licenseDate">
-							<div class="licenseTitle">
-								<p>자격증 발급 날짜</p>
-							</div>
-							<div class="licenseContent">
-								<input name="licenseTime${num}" id="licenseTime${num}" type="date" class="form-control times licenseTime">
-							</div>
-						</div>
-						<div class="licenseCompany">
-							<div class="licenseTitle">
-								<p>자격증 발급 기관</p>
-							</div>
-							<div class="licenseContent">
-								<select id="licenseCompanySelect${num}" name="licenseCompanySelect${num}" required class="form-control short licenseCompanySelect">
-									<option value="선택 안함" selected>선택 안함</option>
-									<c:forEach items="${comkindList }" var="comli" varStatus="status">
-										<option value="${comli}">${comli}</option>
-									</c:forEach>
-								</select>
-							</div>
-						</div>
-					</div>
-				</div>
-				<c:set var="num" value="${num + 1}" />
-			</c:forEach>
-
-			<div id="licenseButtonDiv">
-				<button class="btn btn-outline-success" onclick="modifyLicense();">수정완료</button>
-				<!-- ${fn:length(license) + 1}/${3 - (fn:length(license))} -->
-				<input id="licenseUpload1" type="file" class="licenseUpload" style="display: none;"> <input id="licenseUpload2" type="file"
-					class="licenseUpload" style="display: none;"> <input id="licenseUpload3" type="file" class="licenseUpload" style="display: none;">
-				<!-- style="display: none;" -->
-			</div>
+		<div id="textAreaDiv">
+			<div id="dragImg"></div>
+				<c:if test="${loginMember.memClass == '전문가'}">
+					<textarea id="extext" class="expertonly"></textarea>
+				</c:if>
+				<c:if test="${loginMember.memClass != '전문가'}">
+					<textarea id="extext" readonly></textarea> 
+				</c:if>
 		</div>
-
 	</div>
-</section>
-
+<!--  -->
+	<div id="bottomDiv">
+	<div id="imgDiv"><p> 왼쪽 상단 박스에 드래그하여 이미지를 전송 후  이 박스에 표시되며 클릭하여 이미지를 확대할수있습니다.</p></div>
+		<div id="buttonDiv">
+			<c:if test="${loginMember.memClass == '전문가'}">
+				<c:if test="${eb.expertBoardMemberend == 1}">
+													<div class="button-8">
+												    <div class="eff-8"></div>
+												    <a class="johnbtn" onclick='counselEnd();'>상담 완료</a>
+												  </div>	
+				<!-- <button type="button" class="exBtn btn btn-outline-success my-2 my-sm-0" onclick='counselEnd();'>상담 완료</button> -->
+				</c:if>
+				<c:if test="${eb.expertBoardMemberend == 0}">
+				  								<div class="button-8">
+												    <div class="eff-8"></div>
+												    <a class="johnbtn" onclick="alert('상담 받는 유저가 고민 해결 버튼을 클릭 후\n상담 종료가 가능합니다.');">상담 진행중</a>
+												  </div>	
+				<!-- <button type="button" class="exBtn btn btn-outline-danger my-2 my-sm-0" onclick="alert('상담 받는 유저가 고민 해결 버튼을 클릭 후\n상담 종료가 가능합니다.');">상담 진행중</button> -->
+				</c:if>
+													<div class="button-7">
+												    <div class="eff-7"></div>
+												    <a class="johnbtn"  onclick='memInfoView();'>정보</a>
+												  </div>	
+				<!-- <button type="button" class="exBtn btn btn-outline-success my-2 my-sm-0" onclick='memInfoView();'>회원 정보</button> -->
+			</c:if>
+			<c:if test="${loginMember.memClass != '전문가'}">
+			
+													<div class="button-7">
+												    <div class="eff-7"></div>
+												    <a class="johnbtn"  onclick='onoff();'>캠 온오프</a>
+												  </div>	
+			
+				<!-- <button type="button" class="memBtn btn btn-outline-success my-2 my-sm-0" onclick='onoff();'>캠 온오프</button> -->
+				<c:if test="${eb.expertBoardMemberend == 0}">
+						<div class="button-7">
+												    <div class="eff-7"></div>
+												    <a class="johnbtn"  onclick='counselMemberEnd();'>고민 해결</a>
+												  </div>	
+				<!-- <button type="button" class="memBtn btn btn-outline-success my-2 my-sm-0" onclick='counselMemberEnd();'>고민 해결</button> -->
+				</c:if>
+				<c:if test="${eb.expertBoardMemberend == 1}">
+												<div class="button-8">
+												    <div class="eff-8"></div>
+												    <a class="johnbtn"  onclick="alert('상담사 분이 상담 완료를 누르면 상담이 정상 종료됩니다.');">상담 종료중</a>
+												  </div>	
+					<!-- <button type="button" class="memBtn btn btn-outline-danger my-2 my-sm-0" onclick="alert('상담사 분이 상담 완료를 누르면 상담이 정상 종료됩니다.');">상담 종료중</button> -->
+				</c:if>
+				<div class="button-7">
+												    <div class="eff-7"></div>
+												    <a class="johnbtn"  onclick='memInfoView();'>정보</a>
+												  </div>	
+				<!-- <button type="button" class="memBtn btn btn-outline-success my-2 my-sm-0" onclick='memInfoView();'>상담사 정보</button> -->
+			</c:if>
+		</div>
+	</div>
+</div>
 
 <script>
 
-'use strict;'
+	'use strict';
+	
+	//---------------------------- 드래그 파일 -------------------------------------
 
-//이미지 h w 값 변수 생성
+	let uploadFiles = [];
+	let $drop = $("#extext");
 
-let proWith;
-let proHeight;
-let liWith1;
-let liHeight1;
-let liWith2;
-let liHeight2;
-let liWith3;
-let liHeight3;
+	$drop.on("dragenter", function(e) {
+		$(this).addClass('drag-over');
+		$("#extext").css({
+			"display" : "none"
+		});
+		$("#dragImg").css({
+			"display" : "inline-block"
+		});
+	});
 
-//가운데 화면 스위칭
+	let $drop2 = $("#dragImg");
 
-$("#upFlag").click(e=>{
-	$("#mainDiv").stop(true).animate({'opacity': 0}, 300, function() {
-        $(this).css({'display': 'none'})
-        $('#licenseModifyDiv').stop(true).css({'display': 'block', 'opacity': 0}).animate({'opacity': 1}, 300)
-    });
-});
-
-$("#licenseupFlag").click(e=>{
-	$("#licenseModifyDiv").stop(true).animate({'opacity': 0}, 300, function() {
-        $(this).css({'display': 'none'})
-        $('#mainDiv').stop(true).css({'display': 'block', 'opacity': 0}).animate({'opacity': 1}, 300)
-    });
-});
-
-
-// 자격증 수정 완료 버튼
-
-function modifyLicense(){
-	console.log("자격증 수정 완료");
-	let formData = new FormData();
-	let frm = $(".licenseUpload");
-	let type = $(".licenseTypeSelect");
-	let date = $(".licenseTime");
-	let comp = $(".licenseCompanySelect");
-	let idinput = $(".licenseIdInput");
- 	for(let i = 0; i < 3; i++){
- 		console.log(" ============================== ")
- 		console.log("자격증 id : "+$(idinput[i]).val());
- 		console.log("자격증 타입 : "+$(type[i]).val());
- 		console.log("자격증 날짜 : "+$(date[i]).val());
- 		console.log("자격증 기관 : "+$(comp[i]).val());
-		if(frm[i].files[0] != null){
-		console.log("이미지 선택함 : "+(frm[i].files[0]).name);
-		formData.append('upFile',frm[i].files[0],(frm[i].files[0]).name);
-		formData.append('types',$(type[i]).val());
-		formData.append('dates',$(date[i]).val());
-		formData.append('linum',$(idinput[i]).val());
-		formData.append('companys',$(comp[i]).val());
+	$drop2.on("dragenter", function(e) {
+		$(this).addClass('drag-over');
+	}).on("dragleave", function(e) {
+		$(this).removeClass('drag-over');
+		$("#dragImg").css({
+			"display" : "none"
+		});
+		$("#extext").css({
+			"display" : "inline-block"
+		});
+	}).on("dragover", function(e) {
+		e.stopPropagation();
+		e.preventDefault();
+	}).on('drop', function(e) {
+		e.preventDefault();
+		$(this).removeClass('drag-over');
+		$("#dragImg").css({
+			"display" : "none"
+		});
+		$("#extext").css({
+			"display" : "inline-block"
+		});
+		let files = e.originalEvent.dataTransfer.files;
+		console.log("files : " + files);
+		for (let i = 0; i < files.length; i++) {
+			let file = files[i];
+			let size = uploadFiles.push(file); 
+			console.log("확인 : "+file);
+		}
+		
+		//---------------------------- 드래그 파일 전송 -------------------------------------
+		
+		let formData = new FormData();
+		$.each(uploadFiles, function(i, file) {
+		console.log("파일 이름 : "+file.name);
+		
+		let f = (file.name).substring((file.name).lastIndexOf('.'),(file.name).length);
+		
+		console.log("f : "+f);
+		
+		if(f != '.png' && f != '.jpg' && f != '.jpeg' && f != '.gif'){
+			console.log("업로드 안됨 파일 이름 : "+file.name);
+			alert('이미지 파일만 업로드 가능합니다.');
 		}else{
-			console.log("이미지 선택 안함 : ");
-			
-			if($(type[i]).val() != '선택 안함' && $(comp[i]).val() != '선택 안함'){
-				alert('수정하시려면 자격증 이미지는 필수로 선택해주세요');
+			formData.append('upFile', file, file.name);
+			console.log("업로드 됨 파일 이름 : "+file.name);
+		}
+		
+		});
+		
+	 	$.ajax({
+			url : '${path}/expert/upload',
+			data : formData,
+			type : 'post',
+			contentType : false,
+			processData : false,
+			dataType : "json",
+			success : function(data) {
+				console.log("파일 업로드 완료 data : " + data);
+				let msg = "";
+				$.each(data, function(i, item) {
+					console.log("i : " + i + ", item : " + item);
+					msg += item + "|";
+				});
+				console.log(msg);
+				sendMessage(new ExboardMsg("FILE", "", msg));
+				$("#previewImg").html("");
+				imgDivPrint(msg);
+				//배열 초기화 안그러면 계속 들어감..
+				uploadFiles = [];
+			}
+		});
+	});
+	
+	function imgDivPrint(msg){
+		console.log("msg : "+msg);
+		let list = msg.split('|');
+		let imgprint = "";
+		for(let i in list){
+			console.log(list[i]);
+			if(i == list.length-1){
+				break;
+			}
+			imgprint+="<img  class='upload' src='${path}/resources/upload_images/"+list[i]+"' title='"+list[i]+"' onclick='imgView(event);' style='cursor: pointer'/>";
+		}
+		
+		if($("#imgDiv").children().html() != ''){
+			console.log("빔");
+			$("#imgDiv").html("");
+		}
+		
+		let con = $("#imgDiv").html()+imgprint;
+		$("#imgDiv").html("");
+		$("#imgDiv").html(con);
+		$("#imgDiv").scrollTop($("#imgDiv")[0].scrollHeight);
+		list="";
+		imgprint="";
+		console.log("msg2 : "+msg);
+	}
+	
+	//---------------------------- 사진 크게 보기 -------------------------------------
+	
+	function imgView(e){
+		window.open('${path}/resources/upload_images/'+$(e.target).attr( 'title' ),'이미지','width=800, height=700, toolbar=no, menubar=no, scrollbars=no, resizable=yes');
+	};
+	
+	
+	//---------------------------- 상담 설정 -------------------------------------
+
+	//마이크 비디오 설정
+	const video1 = document.getElementById('video1');
+	const video2 = document.getElementById('video2');
+	let flag = true;
+	let pc;
+	let localStream;
+	let remoteStream;
+	let rtc_peer_connection = null;
+	let rtc_session_description = null;
+	let get_user_media = null;
+	//let user_cam=null;
+	let user_usid;
+	let counselText="";
+
+	/* 		let cam = _.once = function(func){
+				console.log("once");
 				return false;
-			}
-		}
-		console.log(" ============================== ")
-	}
- 	console.log("서버 전송 직전 출력");
-	$.ajax({
-		url : '${path}/expert/modifyLicense',
-		data : formData,
-		type : 'post',
-		contentType : false,
-		processData : false,
-		dataType : "json",
-		success : function(data) {
-			console.log("전송 완료 후 출력 data : " + data);
-			if(data == 1){
-				alert("수정 완료 되었습니다.");
-			}else{
-				alert("수정 실패 관리자에게 문의하세요");
-			}
-		}
-	});
-}
+			}; 
+			user_cam = cam();
+			console.log("user_cam : "+user_cam); */
 
-// 수정완료 버튼
-
-function modify(){
-	console.log("수정 완료");
-	let frm2 = $("#profileUpload")[0].files[0];
-	console.log("frm2 : "+frm2);
-	const career = $("input[name=career]").val();
-	const counselSelect = $("#counselSelect option:selected").val()
-	const fistTime = $("input[name=fistTime]").val()
-	const seTime = $("input[name=seTime]").val()
-	const modiText = $("#exTextArea").val()
-	console.log("career : "+career);
-	console.log("counselSelect : "+counselSelect);
-	console.log("fistTime : "+fistTime);
-	console.log("seTime : "+seTime);
-	console.log("modiText : "+modiText);
-	let formData = new FormData();
-	console.log("z :  "+frm2);
-	if(frm2 == undefined){
-		formData.append('beforeProfile',"${loginMember.profilePic}");
-	}else{
-	formData.append('upFile',frm2,frm2.name);
-	}
-	formData.append('career',career);
-	formData.append('counselSelect',counselSelect);
-	formData.append('fistTime',fistTime);
-	formData.append('seTime',seTime);
-	formData.append('modiText',modiText);
- 	$.ajax({
-		url : '${path}/expert/modifyEx',
-		data : formData,
-		type : 'post',
-		contentType : false,
-		processData : false,
-		dataType : "json",
-		success : function(data) {
-			console.log("수정 data : " + data);
-			if(data == 1){
-				alert("수정 완료 되었습니다.");
-			}else{
-				alert("수정 실패 관리자에게 문의하세요");
-			}
-		}
-	});
-}
-
-//자격증 이미지 호버
-// 시간날때 여기 로직 정리좀 하기--11/23
-
-$('#licenseImg1').hover(function(){
-	liWith1 =  $("#imgLicense1").width();
-	liHeight1 =  $("#imgLicense1").height();
-    $('#licenseImgView1').css('display','flex');
-   $("#licenseImg1").css('display','none');
-}, function() {
-	$('#licenseImgView1').css('display','none');
-	   $("#licenseImg1").css('display','flex');
-});
-
-$('#licenseImgView1').hover(function(){
-    $('#licenseImgView1').css('display','flex');
-   $("#licenseImg1").css('display','none');
-}, function() {
-	$('#licenseImgView1').css('display','none');
-	   $("#licenseImg1").css('display','flex');
-});
-
-$('#licenseImg2').hover(function(){
-	liWith2 =  $("#imgLicense2").width();
-	liHeight2 =  $("#imgLicense2").height();
-    $('#licenseImgView2').css('display','flex');
-   $("#licenseImg2").css('display','none');
-}, function() {
-	$('#licenseImgView2').css('display','none');
-	   $("#licenseImg2").css('display','flex');
-});
-
-$('#licenseImgView2').hover(function(){
-    $('#licenseImgView2').css('display','flex');
-   $("#licenseImg2").css('display','none');
-}, function() {
-	$('#licenseImgView2').css('display','none');
-	   $("#licenseImg2").css('display','flex');
-});
-
-$('#licenseImg3').hover(function(){
-	liWith3 =  $("#imgLicense3").width();
-	liHeight3 =  $("#imgLicense3").height();
-    $('#licenseImgView3').css('display','flex');
-   $("#licenseImg3").css('display','none');
-}, function() {
-	$('#licenseImgView3').css('display','none');
-	   $("#licenseImg3").css('display','flex');
-});
-
-$('#licenseImgView3').hover(function(){
-    $('#licenseImgView3').css('display','flex');
-   $("#licenseImg3").css('display','none');
-}, function() {
-	$('#licenseImgView3').css('display','none');
-	   $("#licenseImg3").css('display','flex');
-});
-
-//자격증 이미지 클릭 이벤트
-
-$("#licenseImgView1").click(e => {
-	 $("#licenseUpload1").click();
-});
-
-$("#licenseImgView2").click(e => {
-	 $("#licenseUpload2").click();
-});
-
-$("#licenseImgView3").click(e => {
-	 $("#licenseUpload3").click();
-});
-
-//업로드
-
-$("#licenseUpload1").change(function(e){
-    e.preventDefault();
-	console.log("이미지 선택됨");
-	console.log("files : " + $("#licenseUpload1").val());
-	let file2 = $("#licenseUpload1").val();
+	//TURN & STUN 서버 등록
+	const configuration = {
+		'iceServers' : [ {
+			'urls' : 'stun:stun.l.google.com:19302'
+		}, {
+			'url' : 'turn:numb.viagenie.ca',
+			'credential' : 'muazkh',
+			'username' : 'webrtc@live.com'
+		} ]
+	};
 	
-	let f = (file2).substring((file2).lastIndexOf('.'),(file2).length);
-	console.log(f);
-	fileViewUpload(f,liWith1,liHeight1,$('#licenseImg1'),this)
-});
+			//---------------------------- signaling 서버 -------------------------------------
 
-$("#licenseUpload2").change(function(e){
-    e.preventDefault();
-	console.log("이미지 선택됨");
-	console.log("files : " + $("#licenseUpload2").val());
-	let file2 = $("#licenseUpload2").val();
+			//const conn = new WebSocket('wss://192.168.120.31${path}/ertc');
+			const conn = new WebSocket('wss://192.168.219.105${path}/ertc');
+			//const conn = new WebSocket('wss://localhost${path}/ertc');
+
+			conn.onopen = function() {
+				console.log("onopen => signaling server 연결");
+				if ("${loginMember.memClass}" != '전문가') {
+					sendMessage(new ExboardMsg("SYS",
+							"${loginMember.memNickname}", "접속",
+							"${loginMember.usid}"));
+				}
+			};
+
+			conn.onmessage = function(msg) {
+				console.log("onmessage => 메세지 출력 : " + msg);
+				let content = JSON.parse(msg.data);
+				console.log("content.type : " + content.type);
+				if (content.type === 'expert') {
+					console.log(" === 분기 expert === ");
+					start();
+				} else if (content.type === 'offer') {
+					console.log(" === 분기 offer === ");
+					start();
+					pc
+							.setRemoteDescription(new rtc_session_description(
+									content));
+					doAnswer();
+				} else if (content.type === 'answer') {
+					console.log(" === 분기 answer === ");
+					pc
+							.setRemoteDescription(new rtc_session_description(
+									content));
+
+				} else if (content.type === 'candidate') {
+					console.log(" === 분기 candidate === ");
+					let candidate = new RTCIceCandidate({
+						sdpMLineIndex : content.label,
+						candidate : content.candidate
+					});
+					pc.addIceCandidate(candidate);
+				} else if (content.type == 'SYS') {
+					console.log(" === 분기 SYS === ");
+					start();
+					user_usid = content.id;
+					//$("#expertTextDiv").html("<p>"+content.nick + "님이 접속하셨습니다.</p><br>");
+				} else if (content.type == 'TXT') {
+					console.log(" === 분기 TXT === ");
+					$("#extext").val(content.msg);
+				/* 	$("#expertTextDiv").html($("#expertTextDiv").html()+"<p>"+content.msg+"</p>");
+					$("#expertTextDiv").scrollTop($("#expertTextDiv")[0].scrollHeight); */
+				} else if (content.type == 'CAM') {
+					console.log(" === 분기 CAM === ");
+					if (content.msg === 'off') {
+						video2.srcObject = null;
+						//$("#expertTextDiv").html($("#expertTextDiv").html() + "<br><p>유저가 카메라를 끄셨습니다.</p>");
+						//user_cam = false;
+					} else {
+						video2.srcObject = remoteStream;
+						//$("#expertTextDiv").html($("#expertTextDiv").html() + "<br><p>유저가 카메라를 키셨습니다.</p>");
+						//user_cam = true;
+					}
+				} else if (content.type == 'FILE') {
+					console.log(" === 분기 FILE === ");
+					console.log("content : " + content.msg);
+					imgDivPrint(content.msg);
+				} else if (content.type == 'END') {
+					console.log(" === 분기 END === ");
+					/* 	exit(); */
+					location.replace('${path}/board/boardList');
+				}else if(content.type == 'MEMEND'){
+					console.log(" === 분기 MEMEND === ");
+					let experthtml = "";
+					experthtml += "<button type='button' class='exBtn btn btn-outline-success my-2 my-sm-0' onclick='counselEnd();'>상담 완료</button>";
+					experthtml += "<button type='button' class='exBtn btn btn-outline-success my-2 my-sm-0' onclick='memInfoView();'>회원 정보 보기</button>";
+					$("#buttonDiv").html(experthtml);
+				}
+			};
+
+			conn.onclose = function() {
+				console.log('onclose 실행');
+			};
+
+			function sendMessage(message) {
+				conn.send(JSON.stringify(message));
+				console.log("메세지 보내는 함수 sendMessage");
+			};
+
+			//---------------------------- 비디오 설정 -------------------------------------
+
+		
+		const constraints = {
+					  video: {width: {exact: 1280}, height: {exact: 720}},
+				    audio : true
+				}; 
+			
+			
+			if (navigator.getUserMedia) {
+				console.log("getUserMedia");
+				get_user_media = navigator.getUserMedia.bind(navigator);
+				//get_user_media = navigator.mediaDevices.getUserMedia(constraints);
+				console.log("navigator : "+navigator);
+				console.log("navigator.getUserMedia.bind(navigator) : "+navigator.getUserMedia.bind(navigator));
+				videoStart();
+				rtc_peer_connection = RTCPeerConnection;
+				rtc_session_description = RTCSessionDescription;
+			} else if (navigator.mozGetUserMedia) {
+				console.log("mozGetUserMedia");
+				get_user_media = navigator.mozGetUserMedia.bind(navigator);
+				videoStart();
+				rtc_peer_connection = mozRTCPeerConnection;
+				rtc_session_description = mozRTCSessionDescription;
+			} else if (navigator.webkitGetUserMedia) {
+				console.log("webkitGetUserMedia");
+				get_user_media = navigator.webkitGetUserMedia.bind(navigator);
+				videoStart();
+				rtc_peer_connection = webkitRTCPeerConnection;
+				rtc_session_description = webkitRTCSessionDescription;
+			} else {
+				console.log("지원안하는 브라우저");
+				alert("지원하지 않는 브라우저입니다. firefox chrome브라우저를 이용하세요");
+				flag = false;
+			}
+
+		 	function videoStart() {
+				console.log("constraints : "+constraints);
+				console.log("get_user_media : "+get_user_media);
+				get_user_media(constraints, function(stream) {
+					console.log('stream 함수 => 스트림 요청 성공');
+					localStream = stream;
+					console.log("localStream : " + localStream);
+					if ("${loginMember.memClass}" == '전문가') {
+						video1.srcObject = localStream;
+					}
+					sendMessage(new ExboardMsg("expert"));
+					console.log("메세지 보냄!");
+					console.log("gotStream 함수 => start 실행");
+					start();
+				}, function(e) {
+					alert('카메라 오류 : ' + e+" \n 메세지 : "+e.message);
+				});
+			};
+			
 	
-	let f = (file2).substring((file2).lastIndexOf('.'),(file2).length);
-	console.log(f);
-	fileViewUpload(f,liWith2,liHeight2,$('#licenseImg2'),this)
-});
+			//---------------------------- P2P 연결 로직 -------------------------------------
 
-$("#licenseUpload3").change(function(e){
-    e.preventDefault();
-	console.log("이미지 선택됨");
-	console.log("files : " + $("#licenseUpload3").val());
-	let file2 = $("#licenseUpload3").val();
+			function start() {
+				if (flag && typeof localStream !== 'undefined') {
+					console.log("peer 연결 부분 분기 진입");
+					createPeerConnection();
+					pc.addStream(localStream);
+					flag = false;
+					console.log("do call 실행됨 ");
+					doCall();
+				}
+			};
+
+			function createPeerConnection() {
+				console.log("createPeerConnection 실행");
+				try {
+					//configuration에는 STUN & TURN 서버가 있음
+					//STUN : Session Traversal Utilities for NAT의 약자로 자신의 공인 아이피를 알아오기위해 STUN 서버에 요청하고 STUN 서버는 공인 IP주소를 응답함.
+					//TURN : Traversal Using Relays around NAT 의 약자 NAT 또는 방화벽에서 보조하는 프로토콜. 클라이언트는 직접 서버와 통신 하지않고 TURN 서버를 경유함.
+					pc = new rtc_peer_connection(configuration);
+					pc.onicecandidate = handleIceCandidate;
+					pc.onaddstream = handleRemoteStreamAdded;
+					pc.onremovestream = handleRemoteStreamRemoved;
+					console.log(" RTCPeerConnection 생성 완료 ");
+				} catch (e) {
+					console.log(" RTCPeerConnection 생성 에러발생 : " + e.message);
+					alert("RTCPeerConnection 에러");
+					return;
+				}
+			};
+
+			function handleRemoteStreamAdded(event) {
+				console.log("RemoteStream 추가됨");
+				//원격 스트림에 스트림을 넣어줌
+				remoteStream = event.stream;
+				if ("${loginMember.memClass}" != '전문가') {
+					video2.srcObject = remoteStream;
+				}
+				/* else{
+					if(user_cam != false){
+						video2.srcObject = remoteStream;
+					} 
+				}
+				 */
+			};
+
+			function doCall() {
+				console.log("createOff 함수를 통해서 통신 요청");
+				pc.createOffer(setLocalAndSendMessage, handleCreateOfferError);
+			};
+
+			function doAnswer() {
+				console.log('peer에게 응답 보내기.');
+				pc.createAnswer().then(setLocalAndSendMessage,
+						onCreateSessionDescriptionError);
+			};
+
+			//핸들러 후보 상대방 탐색
+			//ICE : Interactive Connectivity Establishment의 약자로 두 단말이 서로 통신할수 있는 최적의 경로를 찾을수있도록 도와주는 프레임워크임.
+			function handleIceCandidate(event) {
+				console.log('icecandidate 실행 event : ' + event);
+				if (event.candidate) {
+					console.log('icecandidate 응답 보내기 ');
+					sendMessage({
+						type : 'candidate',
+						label : event.candidate.sdpMLineIndex,
+						id : event.candidate.sdpMid,
+						candidate : event.candidate.candidate
+					});
+				} else {
+					console.log(' handleIceCandidate 탐색 종료 ');
+				}
+			};
+
+			function handleRemoteStreamRemoved(event) {
+				console.log('원격 스트림 삭제됨 Event : ' + event);
+			};
+
+			function setLocalAndSendMessage(sessionDescription) {
+				pc.setLocalDescription(sessionDescription);
+				console.log("setLocalAndSendMessage 응답 보내기 : "
+						+ sessionDescription);
+				sendMessage(sessionDescription);
+			};
+
+			//연결 끊기
+			function exit() {
+				stop();
+				console.log('연결 종료 응답 보내기 ');
+				sendMessage(new ExboardMsg("END"));
+			};
+
+			function stop() {
+				console.log('연결 종료');
+				pc = null;
+			};
+
+			//---------------------------- 잡다한 메소드 -------------------------------------
+
+			function handleCreateOfferError(event) {
+				console.log('Offer부분 생성 에러 error: ', event);
+			};
+
+			function onCreateSessionDescriptionError(error) {
+				trace('onCreateSessionDescriptionError 에러 : '
+						+ error.toString());
+			}
+
+			//메세지 객체
+			function ExboardMsg(type, nick, msg, id, sdp, label, candidate) {
+				this.type = type;
+				this.nick = nick;
+				this.msg = msg;
+				this.id = id;
+				this.sdp = sdp;
+				this.label = label;
+				this.candidate = candidate;
+			};
+
+			//엔터키 입력시 메세지 발송
+			$("#extext").keyup(function(key) {
+				if (key.keyCode == 13) {
+					let txt = $("#extext").val();
+					//$("#extext").val("");
+					//console.log(txt);
+					sendMessage(new ExboardMsg("TXT", "", txt));
+					counselText = txt.replaceAll("\n",'<br>');
+					console.log(counselText);
+					//$("#expertTextDiv").html($("#expertTextDiv").html()+"<p>"+txt+"</p>");
+					//$("#expertTextDiv").scrollTop($("#expertTextDiv")[0].scrollHeight);
+				}
+			});
+
+			//상담 종료 해당 텍스트 에어리어의 기록 디비에 저장하고 종료
+			function counselEnd() {
+				console.log("user_usid : " + user_usid);
+				let result = confirm("해당 회원과 상담을 종료 하시겠습니까?");
+				if (result) {
+					let form = document.createElement("form");
+					form.setAttribute("charset", "UTF-8");
+					form.setAttribute("method", "Post");
+					form.setAttribute("action", "${path}/expert/counselEnd");
+					//
+					let hiddenField = document.createElement("input");
+					hiddenField.setAttribute("type", "hidden");
+					hiddenField.setAttribute("name", "extext");
+					hiddenField.setAttribute("value", counselText);
+					form.appendChild(hiddenField);
+					//
+					let hiddenField2 = document.createElement("input");
+					hiddenField2.setAttribute("type", "hidden");
+					hiddenField2.setAttribute("name", "bno");
+					hiddenField2.setAttribute("value", "${bno}");
+					form.appendChild(hiddenField2);
+					//
+					document.body.appendChild(form);
+					form.submit();
+			 		//exit(); 
+					sendMessage(new ExboardMsg("END","${loginMember.memClass}", "종료"));
+					//알람 발송 - 상담이 완료됬다는 알람 - 페이지가 넘어가기때문에 바로 변경해줄 사항 없음
+					console.log("usid : ${loginMember.usid}"+" 유저 usid : "+user_usid+" bno : ${bno}"+"닉 : ${loginMember.memNickname}");
+					sendAlarm("${loginMember.usid}",user_usid,"expertend","${bno}","${loginMember.memNickname}");
+					result = false;
+				}
+			}
+
+			function onoff() {
+
+				if (video1.srcObject != null) {
+					//캠 켜있다.
+					video1.srcObject = null;
+					sendMessage(new ExboardMsg("CAM", "", "off"));
+				} else {
+					video1.srcObject = localStream;
+					sendMessage(new ExboardMsg("CAM", "", "on"));
+				}
+			};
 	
-	let f = (file2).substring((file2).lastIndexOf('.'),(file2).length);
-	console.log(f);
-	fileViewUpload(f,liWith3,liHeight3,$('#licenseImg3'),this)
-});
-
-function fileViewUpload(f,w,h,im,up){
-	if(f != '.png' && f != '.jpg' && f != '.jpeg' && f != '.gif'){
-		alert('이미지 파일만 업로드 가능합니다.');
-		return false;
-		}else{
-		let file = up.files[0];
-	    reader = new FileReader();
-	    reader.onload = function (event) {
-	        let img = new Image();
-	        img.src = event.target.result;
-	        img.width = w;
-	        img.height = h;
-	        im.empty();
-	        im.append(img);
-	    };
-	    reader.readAsDataURL(file);
-	    return false;
-		}
-}
+			//---------------------------- 회원 정보 보기 -------------------------------------
+			
+			function memInfoView(e){
+				window.open('${path}/expert/memInfo?bno=${bno}&usid=${loginMember.usid}&musid='+user_usid,'회원','width=800, height=700, toolbar=no, menubar=no, scrollbars=no, resizable=no');
+			};
+	
+			
+			function counselMemberEnd(){
+				
+				let result = confirm("고민 해결을 완료하시면 상담사 분이 확인 후 종료됩니다.\n한번 완료하시면 취소가 불가능합니다.");
+				
+				if(result){
+				$.ajax({
+					url : "${path}/expert/counselMemberEnd",
+					type : 'post',
+					data : {"bno":"${bno}"},
+					dataType : "json",
+					success : function(data){
+						console.log("data : "+data);
+						if(data == '1'){
+							let memhtml="";
+							memhtml += "<button type='button' class='memBtn btn btn-outline-success my-2 my-sm-0' onclick='onoff();'>캠 온오프</button>";
+							memhtml += "<button type='button' class='memBtn btn btn-outline-danger my-2 my-sm-0' onclick='alert('상담사 분이 상담 완료를 누르면 상담이 정상 종료됩니다.');'>상담 종료중</button>";
+							memhtml += "<button type='button' class='memBtn btn btn-outline-success my-2 my-sm-0' onclick='memInfoView();'>상담사 정보 보기</button>";
+							$("#buttonDiv").html(memhtml);
+							sendMessage(new ExboardMsg("MEMEND","${loginMember.memClass}", "유저 종료"));
+							console.log("성공");
+						}else{
+							
+							console.log("실패");
+						}
+					}
+				})
+				}
+				
+				
+			}
+			
+	/* 		 CKEDITOR.replace('extext',
+					    {
+					      height : '100%',
+					      startupFocus : false
+					    }
+					  ); */
+			
+	
 </script>
