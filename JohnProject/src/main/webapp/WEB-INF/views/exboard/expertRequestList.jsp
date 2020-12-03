@@ -233,7 +233,7 @@ hr{
 .eff-8{
   width:100%;
   height:100%;
-  border:70px solid #00316D;
+  border:90px solid #00316D;
   position:absolute;
   transition:all .5s ease;
   z-index:1;
@@ -275,8 +275,8 @@ hr{
 
 .eff-7{
   width:100%;
-  height:50px;
-  border:70px solid #00316D;
+  height:70px;
+  border:90px solid #00316D;
   position:absolute;
   transition:all .5s ease;
   z-index:1;
@@ -318,8 +318,8 @@ hr{
 
 .eff-6{
   width:100%;
-  height:50px;
-  border:70px solid #DC3545;
+  height:70px;
+  border:90px solid #DC3545;
   position:absolute;
   transition:all .5s ease;
   z-index:1;
