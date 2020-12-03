@@ -30,6 +30,7 @@ html, body, div, span, applet, object, iframe, h1, h2, h3, h4, h5, h6, p, blockq
 	-webkit-user-select: none;
 	-khtml-user-select: none;
 	user-select: none;
+
 }
 
 #headerAndContent{
@@ -39,6 +40,10 @@ html, body, div, span, applet, object, iframe, h1, h2, h3, h4, h5, h6, p, blockq
 #content{
 	/* background-color: #F1F3F3;  */
 	 background-color: #062449;
+}
+
+#content *{
+			font-family: 'Noto Serif KR', serif;
 }
 
 .divList {
@@ -220,7 +225,6 @@ hr{
 }
 
 .button-8 .johnbtn{
-  font-family:arial;
   font-size:2vh;
   color:#FFCC66;
   text-decoration:none;
@@ -263,7 +267,6 @@ hr{
 }
 
 .button-7 .johnbtn{
-  font-family:arial;
   font-size:2vh;
   color:#FFCC66;
   text-decoration:none;
@@ -306,7 +309,6 @@ hr{
 }
 
 .button-6 .johnbtn{
-  font-family:arial;
   font-size:2vh;
   color:#FFCC66;
   text-decoration:none;

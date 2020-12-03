@@ -32,6 +32,7 @@ html, body, div, span, applet, object, iframe, h1, h2, h3, h4, h5, h6, p, blockq
 
 #content *{
 	/* border:1px solid red; */
+	font-family: 'Noto Serif KR', serif;
 }
 
 /* 상단 영역 */
@@ -206,7 +207,6 @@ textarea {
 }
 
 .button-8 .johnbtn{
-  font-family:arial;
   font-size:3vh;
   font-weight:bold;
   color:#FFCC66;
@@ -253,7 +253,6 @@ textarea {
 }
 
 .button-7 .johnbtn{
-  font-family:arial;
   font-size:3vh;
   font-weight:bold;
   color:#FFCC66;
@@ -659,7 +658,7 @@ textarea {
 					console.log("gotStream 함수 => start 실행");
 					start();
 				}, function(e) {
-					alert('카메라와 마이크를 허용해주세요 / 에러 : ' + e);
+					alert('카메라 오류 : ' + e+" \n 메세지 : "+e.message);
 				});
 			};
 			

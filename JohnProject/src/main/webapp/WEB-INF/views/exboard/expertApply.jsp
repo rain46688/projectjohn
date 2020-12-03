@@ -78,7 +78,6 @@ body{
 }
 
 .button-7 .johnbtn{
-  font-family:arial;
   font-size:2vh;
   color:#FFCC66;
   text-decoration:none;
