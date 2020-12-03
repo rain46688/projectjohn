@@ -610,20 +610,19 @@ textarea {
 
 			//---------------------------- 비디오 설정 -------------------------------------
 
-			const constraints = {
-				video : {
-					width : {
-						exact : 1280
-					},
-					height : {
-						exact : 720
-					}
-				},
-				audio : true
-			};
+		
+		const constraints = {
+					  video: {width: {exact: 1280}, height: {exact: 720}},
+				    audio : true
+				}; 
+			
+			
 			if (navigator.getUserMedia) {
 				console.log("getUserMedia");
 				get_user_media = navigator.getUserMedia.bind(navigator);
+				//get_user_media = navigator.mediaDevices.getUserMedia(constraints);
+				console.log("navigator : "+navigator);
+				console.log("navigator.getUserMedia.bind(navigator) : "+navigator.getUserMedia.bind(navigator));
 				videoStart();
 				rtc_peer_connection = RTCPeerConnection;
 				rtc_session_description = RTCSessionDescription;
@@ -645,7 +644,9 @@ textarea {
 				flag = false;
 			}
 
-			function videoStart() {
+		 	function videoStart() {
+				console.log("constraints : "+constraints);
+				console.log("get_user_media : "+get_user_media);
 				get_user_media(constraints, function(stream) {
 					console.log('stream 함수 => 스트림 요청 성공');
 					localStream = stream;
@@ -658,10 +659,11 @@ textarea {
 					console.log("gotStream 함수 => start 실행");
 					start();
 				}, function(e) {
-					alert('카메라와 마이크를 허용해주세요 / 에러 : ' + e.name);
+					alert('카메라와 마이크를 허용해주세요 / 에러 : ' + e);
 				});
-			}
-
+			};
+			
+	
 			//---------------------------- P2P 연결 로직 -------------------------------------
 
 			function start() {
