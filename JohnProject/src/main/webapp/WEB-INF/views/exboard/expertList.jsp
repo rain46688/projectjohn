@@ -52,7 +52,7 @@ html, body, div, span, applet, object, iframe, h1, h2, h3, h4, h5, h6, p, blockq
 
 /* 위 div */
 #upDiv * {
-/* 	border: 1px solid red; */
+	/* 	border: 1px solid red; */
 }
 
 /* 아래 div */
@@ -405,15 +405,20 @@ html, body, div, span, applet, object, iframe, h1, h2, h3, h4, h5, h6, p, blockq
 	border: 10px solid #FFCC66;
 }
 
+/* 버튼 */
 .button-8{
   width:100%;
-  height:50px;
+  height:40%;
   border:2px solid #00316D;
   text-align:center;
   cursor:pointer;
   position:relative;
   box-sizing:border-box;
   overflow:hidden;
+  /*  */
+  display:flex;
+   justify-content:center;
+  align-items:center;
 /*   margin: 4vh 0 0 0; */
 }
 
@@ -425,6 +430,9 @@ html, body, div, span, applet, object, iframe, h1, h2, h3, h4, h5, h6, p, blockq
   transition:all .5s ease;
   z-index:2;
   position:relative;
+  /*  */
+  width:100%;
+  height:100%;
 }
 
 .eff-8{

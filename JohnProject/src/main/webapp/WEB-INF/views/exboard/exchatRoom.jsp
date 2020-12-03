@@ -1,7 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ include file="/WEB-INF/views/common/header.jsp"%>
-<script type="text/javascript" src="${pageContext.request.contextPath }/resources/js/ckeditor/ckeditor.js"></script>
-
+<%-- <script type="text/javascript" src="${pageContext.request.contextPath }/resources/js/ckeditor/ckeditor.js"></script> --%>
+<!-- <script src="https://cdn.ckeditor.com/ckeditor5/23.1.0/classic/ckeditor.js"></script> -->
+<script src="https://cdn.ckeditor.com/ckeditor5/23.1.0/decoupled-document/ckeditor.js"></script>
 <style>
 
 html, body, div, span, applet, object, iframe, h1, h2, h3, h4, h5, h6, p, blockquote, pre, a, abbr, acronym, address, big, cite, code, del, dfn, em,
@@ -56,8 +57,8 @@ html, body, div, span, applet, object, iframe, h1, h2, h3, h4, h5, h6, p, blockq
 	z-index: 2;
 	/* position: relative; */
 	position: absolute;
- 	right: 25.5%;
-	top: 59.5%;
+	left:46%;
+	top:60%;
 	object-fit: cover;
 	border: 2px solid #FFCC66;
 	width: 25vh;
@@ -67,7 +68,7 @@ html, body, div, span, applet, object, iframe, h1, h2, h3, h4, h5, h6, p, blockq
 #videoDiv {
 	padding:1%;
 	height: 100%;
-	width: 80%;
+	width: 60%;
 	background-color: white;
 	border-radius: 8px;
 	margin-right: 1%;
@@ -77,11 +78,13 @@ html, body, div, span, applet, object, iframe, h1, h2, h3, h4, h5, h6, p, blockq
 /* 상단 텍스트 div */
 #textAreaDiv {
 	height: 100%;
-	width: 30%;
+	width: 40%;
 	background-color: white;
 	border-radius: 8px;
 	padding: 1%;
 	border: 10px solid #FFCC66;
+		overflow-x: hidden;
+	-ms-overflow-style: none;
 }
 
 /* 상단 텍스트 영역 */
@@ -215,8 +218,12 @@ textarea {
   transition:all .5s ease;
   z-index:2;
   position:relative;
- /*  width:100%;
-  height:100%; */
+   /*  */
+  width:100%;
+  height:100%;
+  display:flex;
+   justify-content:center;
+  align-items:center;
 }
 
 .eff-8{
@@ -261,6 +268,12 @@ textarea {
   transition:all .5s ease;
   z-index:2;
   position:relative;
+     /*  */
+  width:100%;
+  height:100%;
+  display:flex;
+   justify-content:center;
+  align-items:center;
 }
 
 .eff-7{
@@ -280,6 +293,13 @@ textarea {
   color: #28A745;
 }
 
+/*  */
+
+#edit{
+	width:100%;
+	height:90%;
+}
+
 </style>
 
 <div id="content">
@@ -292,14 +312,17 @@ textarea {
 		<div id="textAreaDiv">
 			<div id="dragImg"></div>
 				<c:if test="${loginMember.memClass == '전문가'}">
-					<textarea id="extext" class="expertonly"></textarea>
+		 			<div id="toolbar-container"></div>
+					<div id="edit"></div>
+					<!-- <textarea id="extext" class="expertonly"></textarea> -->
 				</c:if>
 				<c:if test="${loginMember.memClass != '전문가'}">
-					<textarea id="extext" readonly></textarea> 
+					<!-- <textarea id="extext" readonly></textarea>  -->
 				</c:if>
 		</div>
 	</div>
 <!--  -->
+
 	<div id="bottomDiv">
 	<div id="imgDiv"><p> 왼쪽 상단 박스에 드래그하여 이미지를 전송 후  이 박스에 표시되며 클릭하여 이미지를 확대할수있습니다.</p></div>
 		<div id="buttonDiv">
@@ -567,7 +590,9 @@ textarea {
 					//$("#expertTextDiv").html("<p>"+content.nick + "님이 접속하셨습니다.</p><br>");
 				} else if (content.type == 'TXT') {
 					console.log(" === 분기 TXT === ");
-					$("#extext").val(content.msg);
+					$("#textAreaDiv").html(content.msg);
+					$("#textAreaDiv").scrollTop($("#textAreaDiv")[0].scrollHeight);
+					//$("#extext").val(content.msg);
 				/* 	$("#expertTextDiv").html($("#expertTextDiv").html()+"<p>"+content.msg+"</p>");
 					$("#expertTextDiv").scrollTop($("#expertTextDiv")[0].scrollHeight); */
 				} else if (content.type == 'CAM') {
@@ -783,14 +808,14 @@ textarea {
 			};
 
 			//엔터키 입력시 메세지 발송
-			$("#extext").keyup(function(key) {
+			$("#edit").keyup(function(key) {
 				if (key.keyCode == 13) {
-					let txt = $("#extext").val();
+					let txt = $("#edit").html();
 					//$("#extext").val("");
-					//console.log(txt);
+					console.log("메세지 : "+txt);
 					sendMessage(new ExboardMsg("TXT", "", txt));
-					counselText = txt.replaceAll("\n",'<br>');
-					console.log(counselText);
+					//counselText = txt.replaceAll("\n",'<br>');
+					//console.log(counselText);
 					//$("#expertTextDiv").html($("#expertTextDiv").html()+"<p>"+txt+"</p>");
 					//$("#expertTextDiv").scrollTop($("#expertTextDiv")[0].scrollHeight);
 				}
@@ -878,13 +903,25 @@ textarea {
 				
 				
 			}
-			
-	/* 		 CKEDITOR.replace('extext',
-					    {
-					      height : '100%',
-					      startupFocus : false
-					    }
-					  ); */
-			
+		
+		/* 	  ClassicEditor
+		        .create( document.querySelector( '#textAreaDiv' ),{
+		        	height: '100%'
+		        } )
+		        .catch( error => {
+		            console.error( error );
+		        }); */
+		        
+		        DecoupledEditor
+		        .create( document.querySelector( '#edit' ) )
+		        .then( editor => {
+		            const toolbarContainer = document.querySelector( '#toolbar-container' );
+
+		            toolbarContainer.appendChild( editor.ui.view.toolbar.element );
+		        } )
+		        .catch( error => {
+		            console.error( error );
+		        } );
+
 	
 </script>

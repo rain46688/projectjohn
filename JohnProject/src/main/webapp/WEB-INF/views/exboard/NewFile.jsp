@@ -215,8 +215,12 @@ textarea {
   transition:all .5s ease;
   z-index:2;
   position:relative;
- /*  width:100%;
-  height:100%; */
+   /*  */
+  width:100%;
+  height:100%;
+  display:flex;
+   justify-content:center;
+  align-items:center;
 }
 
 .eff-8{
@@ -261,6 +265,12 @@ textarea {
   transition:all .5s ease;
   z-index:2;
   position:relative;
+     /*  */
+  width:100%;
+  height:100%;
+  display:flex;
+   justify-content:center;
+  align-items:center;
 }
 
 .eff-7{
