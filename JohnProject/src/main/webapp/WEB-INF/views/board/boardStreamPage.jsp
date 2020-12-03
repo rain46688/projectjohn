@@ -79,6 +79,7 @@ hr {
   font-family: 'Noto Serif KR', serif;
   padding:2em;
   border-right:1px silver solid;
+  overflow:auto;
 }
 
 #titleHr {
@@ -114,7 +115,6 @@ hr {
 }
 
 #boardContent {
-  height:100%;
   border-radius:10px;
   background-color:#F0F2FC;
   padding:1.5em;
@@ -282,7 +282,6 @@ hr {
 
 .box1 {
   width: 90%;
-  height: 20em;
   box-sizing: border-box;
   position: relative;
   margin: 50px auto;
@@ -540,6 +539,17 @@ hr {
 </script> -->
 <script>
 'use strict'
+
+const chatSocket = new SockJS("https://localhost:8443${path}/chat");
+
+chatSocket.onopen = function(e){
+  let user = {boardId:${currBoard.BOARD_ID},
+              usid:${loginMember.usid}};
+	chatSocket.send(JSON.stringify(user));
+}
+
+
+//좋아요 기능
 document.getElementById('likeButton').addEventListener('click', function(){
 	if(this.name=='heart-outline'){
 		$.ajax({
@@ -583,276 +593,8 @@ document.getElementById('likeButton').addEventListener('click', function(){
 })
 
 $(document).ready(function(){
-	/* fn_commentList(); */
 	hasLiked();
 })
-//댓글 리스트 불러오기
-function fn_commentList(){
-	$.ajax({
-		url: "${path}/board/boardCommentList",
-		type: "post",
-		dataType: "json",
-		data: {
-			currBoardNo: ${currBoard.BOARD_ID}
-		},
-		success: function(data) {
-			commentListPrint(data);
-		},
-	})
-}
-
-//댓글 리스트 화면에 출력
-function commentListPrint(commentList) {
-	document.getElementById('commentPrint').innerHTML = "";
-	commentList.forEach(function(item, index){
-		if(item!=null){
-			//날짜 변환
-			let time = parseInt(item.COM_ENROLL_DATE);
-			time = new Date(time);
-			time = time.customFormat("#YYYY#/#MM#/#DD# #hh#:#mm#");
-			let comment = document.createElement('div');
-			if(item.COM_WRITER_NICKNAME == '${currBoard.WRITER_USID}') comment.className = 'commentFromWriter';
-			else comment.className = 'comment';
-
-			let commentProfileCon = document.createElement('div');
-			commentProfileCon.className = 'commentProfileCon';
-
-			let commentProfile = document.createElement('div');
-			commentProfile.className = 'commentProfile';
-
-			let img = document.createElement('img');
-			img.className = 'commentProfileImg';
-			img.setAttribute('src','${path}/resources/profile_images/' + item.COM_PROFILE_PIC);
-			
-			commentProfile.appendChild(img);
-			commentProfileCon.appendChild(commentProfile);
-			comment.appendChild(commentProfileCon);
-			
-			let commentContentCon = document.createElement('div');
-			commentContentCon.className = 'commentContentCon';
-
-			let commentInfo = document.createElement('div');
-			commentInfo.className = 'commentInfo';
-
-			let name = document.createElement('b');
-			name.innerHTML = item.COM_WRITER_NICKNAME;
-
-			let date = document.createElement('small');
-			date.innerHTML = time;
-
-			commentInfo.appendChild(name);
-			commentInfo.appendChild(date);//test
-
-			commentContentCon.appendChild(commentInfo);
-
-			let commentContent = document.createElement('div');
-			commentContent.className = 'commentContent';
-			commentContent.innerHTML = item.COM_CONTENT;
-
-			commentContentCon.appendChild(commentContent);
-			
-			let commentLikeAndFuncCon = document.createElement('div');
-			commentLikeAndFuncCon.className = 'commentLikeAndFuncCon';
-			
-			if(${loginMember.usid} == item.COM_WRITER_USID){
-			//comId 넣기
-			let comIdInput = document.createElement('input');
-			comIdInput.setAttribute('type','hidden');
-			comIdInput.setAttribute('value',item.COM_ID);
-			
-			//댓글 수정하기
-			let modifySpan = document.createElement('span');
-			modifySpan.className = 'modify';
-			modifySpan.innerHTML = '수정하기';
-			
-			//댓글 삭제하기
-			let deleteSpan = document.createElement('span');
-			deleteSpan.className = 'delete';
-			deleteSpan.innerHTML = '삭제하기';
-			deleteSpan.setAttribute('onclick',"fn_commentDelete("+item.COM_ID+");");
-			
-			commentLikeAndFuncCon.appendChild(comIdInput);
-			commentLikeAndFuncCon.appendChild(modifySpan);
-			commentLikeAndFuncCon.appendChild(deleteSpan);
-			}
-			
-			//댓글 좋아요
-			let upSpan = document.createElement('span');
-			upSpan.className = 'up';
-			upSpan.setAttribute('onclick',"fn_commentLike('like',"+item.COM_ID+", this);");
-			
-			//댓글 좋아요 아이콘
-			let thumbUp = document.createElement('ion-icon');
-			thumbUp.setAttribute('name','thumbs-up-outline');
-			
-			//댓글 좋아요 카운트
-			let upCount = document.createElement('span');
-			upCount.className = 'comUpCount';
-			upCount.innerHTML = item.LIKE_COUNT
-			upSpan.appendChild(thumbUp);
-			upSpan.appendChild(upCount);
-			
-			//댓글 싫어요
-			let downSpan = document.createElement('span');
-			downSpan.className = 'down';
-			downSpan.setAttribute('onclick',"fn_commentLike('dislike',"+item.COM_ID+", this);");
-			
-			//댓글 싫어요 아이콘
-			let thumbDown = document.createElement('ion-icon');
-			thumbDown.setAttribute('name','thumbs-down-outline');
-			
-			//댓글 싫어요 카운트
-			let downCount = document.createElement('span');
-			downCount.className = 'comDownCount';
-			downCount.innerHTML = item.DISLIKE_COUNT;
-			downSpan.appendChild(thumbDown);
-			downSpan.appendChild(downCount);
-			
-			commentLikeAndFuncCon.appendChild(upSpan);
-			commentLikeAndFuncCon.appendChild(downSpan);
-			
-			commentContentCon.appendChild(commentLikeAndFuncCon);
-			
-			comment.appendChild(commentContentCon);
-
-			document.getElementById('commentPrint').appendChild(comment);
-		}
-	})
-}
-
-//댓글 수정
-$(document).on('click','.modify',function(e){
-	console.log(e);
-	let comId = $(e.target).parent().children('input').val();
-	let value = $(e.target).parent().parent().children('.commentContent').text();
-	console.log(comId , value);
-	let html = "<input class='modifyInput' type='text' size='20' value="+value+">";
-	html += "<button onclick='fn_commentModify("+comId+", this);'>수정하기</button>"
-	$(e.target).parent().parent().children('.commentContent').html(html);
-})
-
-//댓글 수정 Ajax
-function fn_commentModify(comId, e) {
-	let values = e.parentElement.getElementsByTagName('input');
-	let value = values[0].value;
-	$.ajax({
-		url:"${path}/board/boardCommentUpdate",
-		type:"post",
-		dataType:"json",
-		data:{
-			comId:comId,
-			value:value
-		},
-		success:function(data){
-			if(data.result=='success')fn_commentList();
-			else alert('댓글 수정에 실패했습니다.');
-		}
-	})
-}
-//댓글 삭제
-function fn_commentDelete(comId){
-	if(confirm('정말로 삭제하시겠습니까?')){
-		console.log(comId);
-		$.ajax({
-			url:"${path}/board/boardCommentDelete",
-			type:"post",
-			dataType:"json",
-			data:{
-				comId:comId
-			},
-			success:function(data){
-				if(data.result=='success')fn_commentList();
-				else alert('댓글 삭제에 실패했습니다.');
-			}
-		})
-	}
-}
-
-//댓글 쓰기
-function fn_commentInsert(){
-	let contentValue = document.getElementById('commentContent').value;
-	$.ajax({
-		url:"${path}/board/boardCommentInsert",
-		type:"post",
-		dataType:"json",
-		data:{
-			currBoardNo:${currBoard.BOARD_ID},
-			content:contentValue,
-			writerUsid:${loginMember.usid},
-			profilePic:'${loginMember.profilePic}',
-			writerNick:'${loginMember.memNickname}'
-		},
-		success:function(data){
-			if(data.result=='success'){
-				fn_commentList();
-				document.getElementById('commentContent').value = "";
-				}
-			else alert('댓글 등록에 실패했습니다.');
-		}
-	})
-}
-
-//댓글 좋아요, 싫어요 업데이트
-function fn_commentLike(key, comId, e){
-	console.log(key, comId);
-	
-	
-	let loginUsid = ${loginMember.usid};
-	let value;
-	if(key == 'like'){
-		//좋아요
-		value = 1;
-		$.ajax({
-			url: "${path}/board/boardCommentLike",
-			type: "post",
-			dataType: "json",
-			data: {
-				loginUsid: loginUsid,
-				comId: comId,
-				key: value
-			},
-			success: function(data) {
-				if(data.result == 'has') {
-					alert("이미 참여하셨습니다.");
-				}else if(data.result == 'fail') {
-					alert("참여에 실패했습니다.")
-				}
-				else {
-					let counts = e.getElementsByClassName('comUpCount');
-					for(let i = 0; i < counts.length; i++){
-						counts[i].innerHTML = parseInt(counts[i].innerHTML) + 1;
-					}
-				}
-			},
-		})
-	}else {
-		//싫어요
-		value = 2;
-		$.ajax({
-			url: "${path}/board/boardCommentLike",
-			type: "post",
-			dataType: "json",
-			data: {
-				loginUsid: loginUsid,
-				comId: comId,
-				key : value
-			},
-			success: function(data) {
-				if(data.result == 'has') {
-					alert("이미 참여하셨습니다.");
-				}else if(data.result == 'fail') {
-					alert("참여에 실패했습니다.")
-				}
-				else {
-					let counts = e.getElementsByClassName('comDownCount');
-					for(let i = 0; i < counts.length; i++){
-						counts[i].innerHTML = parseInt(counts[i].innerHTML) + 1;
-					}
-				}
-			},
-		})
-	}
-}
 
 //좋아했는지에 따라 하트 모양 바꾸기
 function hasLiked(){
