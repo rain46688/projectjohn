@@ -167,15 +167,15 @@
 	})
 	
 	//소켓연결
-	const socket = new SockJS("http://localhost:9090${path}/list");
-	let message = '';
+	const socket = new SockJS("https://172.30.1.18:8443${path}/list");
+	let message = ''; 
 	socket.onopen = function(e){
 		socket.send('boardList');
 	}
 	
 	//리스트 크기
 	const boardLength = 15;
-	
+
 	//메세지가 왔을 때 액션
     socket.onmessage = function(e){
 		//모든 게시글

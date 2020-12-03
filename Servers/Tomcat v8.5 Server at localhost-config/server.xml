@@ -91,6 +91,8 @@
          Either JSSE or OpenSSL style configuration may be used. OpenSSL style
          configuration is used below.
     -->
+    <Connector SSLEnabled="true" clientAuth="false" keystoreFile="/Users/jackson/.keystore" keystorePass="1234" maxThreads="150" port="8443" protocol="org.apache.coyote.http11.Http11NioProtocol" scheme="https" secure="true" sslProtocol="TLS">
+    </Connector>
     <!--
     <Connector port="8443" protocol="org.apache.coyote.http11.Http11AprProtocol"
                maxThreads="150" SSLEnabled="true" >
