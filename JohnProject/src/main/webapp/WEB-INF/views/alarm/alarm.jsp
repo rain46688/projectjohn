@@ -31,11 +31,19 @@ html, body, div, span, applet, object, iframe, h1, h2, h3, h4, h5, h6, p, blockq
 	display: table-row-group;
 }
 
+#alarmDropdownDiv{
+ 	background-color: #062449;
+ 	
+}
+
 .divListAl {
 	display: table;
 	width: 100%;
 	height: 30%;
 	text-align: center;
+	background-color: white;
+	border: 10px solid #FFCC66;
+
 }
 
 .divRowAl {
@@ -51,12 +59,13 @@ html, body, div, span, applet, object, iframe, h1, h2, h3, h4, h5, h6, p, blockq
 	padding: 3% 1%;
 	width: 16.67%;
 	font-size: 1.7vh;
-	/* background-color:#FFEB00; */
+
 }
 
 .divListAl .nav {
 	background-color: #003478;
-	border-radius: 10% 2% 2%;
+	/* border-radius: 10% 2% 2%; */
+
 }
 
 .divListAl .nav-link {
@@ -65,6 +74,7 @@ html, body, div, span, applet, object, iframe, h1, h2, h3, h4, h5, h6, p, blockq
 	color: white;
 	font-weight: bold;
 	text-decoration: none;
+
 }
 
 .active {
@@ -94,6 +104,7 @@ html, body, div, span, applet, object, iframe, h1, h2, h3, h4, h5, h6, p, blockq
 	width: 100%;
 	font-size: 25px;
 	padding: 5% 0 5% 0;
+	height:200px;
 }
 
 #sideDiv {

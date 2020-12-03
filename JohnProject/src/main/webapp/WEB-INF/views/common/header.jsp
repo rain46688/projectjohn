@@ -276,7 +276,8 @@
 											<a id="bell" ><ion-icon name="notifications-circle-outline"></ion-icon></a>
 											<a id="number"></a>
 										</c:if>
-									<div id="alarmDropdownDiv" class="shadow p-3 mb-5 bg-white rounded"> 
+										<!-- <div id="alarmDropdownDiv" class="shadow p-3 mb-5 bg-white rounded">  -->
+									<div id="alarmDropdownDiv" class="shadow p-3 mb-5  rounded"> 
 										<%@ include file="/WEB-INF/views/alarm/alarm.jsp"%>
 								</div> 
 							</div>
