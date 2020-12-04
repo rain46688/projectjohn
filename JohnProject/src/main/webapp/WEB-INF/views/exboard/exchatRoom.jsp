@@ -1,7 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ include file="/WEB-INF/views/common/header.jsp"%>
-<script type="text/javascript" src="${pageContext.request.contextPath }/resources/js/ckeditor/ckeditor.js"></script>
-
+<%-- <script type="text/javascript" src="${pageContext.request.contextPath }/resources/js/ckeditor/ckeditor.js"></script> --%>
+<!-- <script src="https://cdn.ckeditor.com/ckeditor5/23.1.0/classic/ckeditor.js"></script> -->
+<script src="https://cdn.ckeditor.com/ckeditor5/23.1.0/decoupled-document/ckeditor.js"></script>
 <style>
 
 html, body, div, span, applet, object, iframe, h1, h2, h3, h4, h5, h6, p, blockquote, pre, a, abbr, acronym, address, big, cite, code, del, dfn, em,
@@ -32,6 +33,7 @@ html, body, div, span, applet, object, iframe, h1, h2, h3, h4, h5, h6, p, blockq
 
 #content *{
 	/* border:1px solid red; */
+	font-family: 'Noto Serif KR', serif;
 }
 
 /* 상단 영역 */
@@ -47,7 +49,7 @@ html, body, div, span, applet, object, iframe, h1, h2, h3, h4, h5, h6, p, blockq
 	z-index: 1;
 	width: 100%;
 	height: 100%;
-	border: 2px solid #FFCC66;
+/* 	border: 2px solid #FFCC66; */
 }
 
 /* 상단 영역 비디오 자신 뷰*/
@@ -55,8 +57,8 @@ html, body, div, span, applet, object, iframe, h1, h2, h3, h4, h5, h6, p, blockq
 	z-index: 2;
 	/* position: relative; */
 	position: absolute;
- 	right: 25.5%;
-	top: 59.5%;
+	left:53%;
+	top:60%;
 	object-fit: cover;
 	border: 2px solid #FFCC66;
 	width: 25vh;
@@ -66,7 +68,7 @@ html, body, div, span, applet, object, iframe, h1, h2, h3, h4, h5, h6, p, blockq
 #videoDiv {
 	padding:1%;
 	height: 100%;
-	width: 80%;
+	width: 60%;
 	background-color: white;
 	border-radius: 8px;
 	margin-right: 1%;
@@ -76,11 +78,12 @@ html, body, div, span, applet, object, iframe, h1, h2, h3, h4, h5, h6, p, blockq
 /* 상단 텍스트 div */
 #textAreaDiv {
 	height: 100%;
-	width: 30%;
+	width: 40%;
 	background-color: white;
 	border-radius: 8px;
-	padding: 1%;
+/* 	padding: 1%; */
 	border: 10px solid #FFCC66;
+
 }
 
 /* 상단 텍스트 영역 */
@@ -111,16 +114,17 @@ textarea {
 }
 
 /* 드래그 드롭용 div 영역 */
-#dragImg {
+ #dragImg {
 	width: 100%;
 	height: 100%;
 	display: none; 
 	border-radius: 8px;
-	background-image: url(${path }/resources/images/expertimg.png);
+	background-image: url(${path }/resources/images/expertimg3.png);
 	background-repeat: no-repeat;
 	background-size: 100%;
 	z-index: 2;
 	padding-top: 20%;
+	background-color:#E2E2E8;
 }
 
 /* ------------------------------------------ */
@@ -173,7 +177,7 @@ textarea {
 	overflow-x: hidden;
 	-ms-overflow-style: none;
 	padding-top:2%;
-		border: 10px solid #FFCC66;
+	border: 10px solid #FFCC66;
 }
 
 #imgDiv>p{
@@ -206,7 +210,6 @@ textarea {
 }
 
 .button-8 .johnbtn{
-  font-family:arial;
   font-size:3vh;
   font-weight:bold;
   color:#FFCC66;
@@ -215,8 +218,12 @@ textarea {
   transition:all .5s ease;
   z-index:2;
   position:relative;
- /*  width:100%;
-  height:100%; */
+   /*  */
+  width:100%;
+  height:100%;
+  display:flex;
+   justify-content:center;
+  align-items:center;
 }
 
 .eff-8{
@@ -253,7 +260,6 @@ textarea {
 }
 
 .button-7 .johnbtn{
-  font-family:arial;
   font-size:3vh;
   font-weight:bold;
   color:#FFCC66;
@@ -262,6 +268,12 @@ textarea {
   transition:all .5s ease;
   z-index:2;
   position:relative;
+     /*  */
+  width:100%;
+  height:100%;
+  display:flex;
+   justify-content:center;
+  align-items:center;
 }
 
 .eff-7{
@@ -281,6 +293,20 @@ textarea {
   color: #28A745;
 }
 
+/*  */
+
+#edit{
+	width:100%;
+	height:92.8%;
+	 /* background-color:red;  */
+			overflow-x: hidden;
+	-ms-overflow-style: none;
+}
+
+#toolbar-container{
+	width:100%;	
+}
+
 </style>
 
 <div id="content">
@@ -292,15 +318,12 @@ textarea {
 		</div>
 		<div id="textAreaDiv">
 			<div id="dragImg"></div>
-				<c:if test="${loginMember.memClass == '전문가'}">
-					<textarea id="extext" class="expertonly"></textarea>
-				</c:if>
-				<c:if test="${loginMember.memClass != '전문가'}">
-					<textarea id="extext" readonly></textarea> 
-				</c:if>
+			<div id="toolbar-container"></div>
+				<div id="edit"></div>
 		</div>
 	</div>
 <!--  -->
+
 	<div id="bottomDiv">
 	<div id="imgDiv"><p> 왼쪽 상단 박스에 드래그하여 이미지를 전송 후  이 박스에 표시되며 클릭하여 이미지를 확대할수있습니다.</p></div>
 		<div id="buttonDiv">
@@ -308,14 +331,14 @@ textarea {
 				<c:if test="${eb.expertBoardMemberend == 1}">
 													<div class="button-8">
 												    <div class="eff-8"></div>
-												    <a class="johnbtn" onclick='counselEnd();'>상담 완료</a>
+												    <a class="johnbtn" onclick='counselEnd();'>완료</a>
 												  </div>	
 				<!-- <button type="button" class="exBtn btn btn-outline-success my-2 my-sm-0" onclick='counselEnd();'>상담 완료</button> -->
 				</c:if>
 				<c:if test="${eb.expertBoardMemberend == 0}">
 				  								<div class="button-8">
 												    <div class="eff-8"></div>
-												    <a class="johnbtn" onclick="alert('상담 받는 유저가 고민 해결 버튼을 클릭 후\n상담 종료가 가능합니다.');">상담 진행중</a>
+												    <a class="johnbtn" onclick="alert('상담 받는 유저가 고민 해결 버튼을 클릭 후\n상담 종료가 가능합니다.');">상담중</a>
 												  </div>	
 				<!-- <button type="button" class="exBtn btn btn-outline-danger my-2 my-sm-0" onclick="alert('상담 받는 유저가 고민 해결 버튼을 클릭 후\n상담 종료가 가능합니다.');">상담 진행중</button> -->
 				</c:if>
@@ -329,21 +352,21 @@ textarea {
 			
 													<div class="button-7">
 												    <div class="eff-7"></div>
-												    <a class="johnbtn"  onclick='onoff();'>캠 온오프</a>
+												    <a class="johnbtn"  onclick='onoff();'>카메라</a>
 												  </div>	
 			
 				<!-- <button type="button" class="memBtn btn btn-outline-success my-2 my-sm-0" onclick='onoff();'>캠 온오프</button> -->
 				<c:if test="${eb.expertBoardMemberend == 0}">
 						<div class="button-7">
 												    <div class="eff-7"></div>
-												    <a class="johnbtn"  onclick='counselMemberEnd();'>고민 해결</a>
+												    <a class="johnbtn"  onclick='counselMemberEnd();'>해결</a>
 												  </div>	
 				<!-- <button type="button" class="memBtn btn btn-outline-success my-2 my-sm-0" onclick='counselMemberEnd();'>고민 해결</button> -->
 				</c:if>
 				<c:if test="${eb.expertBoardMemberend == 1}">
 												<div class="button-8">
 												    <div class="eff-8"></div>
-												    <a class="johnbtn"  onclick="alert('상담사 분이 상담 완료를 누르면 상담이 정상 종료됩니다.');">상담 종료중</a>
+												    <a class="johnbtn"  onclick="alert('상담사 분이 상담 완료를 누르면 상담이 정상 종료됩니다.');">종료중</a>
 												  </div>	
 					<!-- <button type="button" class="memBtn btn btn-outline-danger my-2 my-sm-0" onclick="alert('상담사 분이 상담 완료를 누르면 상담이 정상 종료됩니다.');">상담 종료중</button> -->
 				</c:if>
@@ -363,21 +386,25 @@ textarea {
 	
 	//---------------------------- 드래그 파일 -------------------------------------
 
+	
 	let uploadFiles = [];
-	let $drop = $("#extext");
-
+	let $drop = $("#edit");
+	
 	$drop.on("dragenter", function(e) {
 		$(this).addClass('drag-over');
-		$("#extext").css({
+		$("#toolbar-container").css({
+			"display" : "none"
+		});
+		$("#edit").css({
 			"display" : "none"
 		});
 		$("#dragImg").css({
 			"display" : "inline-block"
 		});
 	});
-
+	
 	let $drop2 = $("#dragImg");
-
+	
 	$drop2.on("dragenter", function(e) {
 		$(this).addClass('drag-over');
 	}).on("dragleave", function(e) {
@@ -385,7 +412,10 @@ textarea {
 		$("#dragImg").css({
 			"display" : "none"
 		});
-		$("#extext").css({
+		$("#edit").css({
+			"display" : "inline-block"
+		});
+		$("#toolbar-container").css({
 			"display" : "inline-block"
 		});
 	}).on("dragover", function(e) {
@@ -397,7 +427,10 @@ textarea {
 		$("#dragImg").css({
 			"display" : "none"
 		});
-		$("#extext").css({
+		$("#edit").css({
+			"display" : "inline-block"
+		});
+		$("#toolbar-container").css({
 			"display" : "inline-block"
 		});
 		let files = e.originalEvent.dataTransfer.files;
@@ -451,6 +484,7 @@ textarea {
 			}
 		});
 	});
+
 	
 	function imgDivPrint(msg){
 		console.log("msg : "+msg);
@@ -568,7 +602,9 @@ textarea {
 					//$("#expertTextDiv").html("<p>"+content.nick + "님이 접속하셨습니다.</p><br>");
 				} else if (content.type == 'TXT') {
 					console.log(" === 분기 TXT === ");
-					$("#extext").val(content.msg);
+					$("#edit").html(content.msg);
+					$("#edit").scrollTop($("#edit")[0].scrollHeight);
+					//$("#extext").val(content.msg);
 				/* 	$("#expertTextDiv").html($("#expertTextDiv").html()+"<p>"+content.msg+"</p>");
 					$("#expertTextDiv").scrollTop($("#expertTextDiv")[0].scrollHeight); */
 				} else if (content.type == 'CAM') {
@@ -593,8 +629,12 @@ textarea {
 				}else if(content.type == 'MEMEND'){
 					console.log(" === 분기 MEMEND === ");
 					let experthtml = "";
-					experthtml += "<button type='button' class='exBtn btn btn-outline-success my-2 my-sm-0' onclick='counselEnd();'>상담 완료</button>";
-					experthtml += "<button type='button' class='exBtn btn btn-outline-success my-2 my-sm-0' onclick='memInfoView();'>회원 정보 보기</button>";
+					
+					experthtml += "<div class='button-8'> <div class='eff-8'></div><a class='johnbtn' onclick='counselEnd();'>완료</a></div>";
+					experthtml += "<div class='button-7'><div class='eff-7'></div><a class='johnbtn' onclick='memInfoView();'>정보</a></div>";
+					
+					//experthtml += "<button type='button' class='exBtn btn btn-outline-success my-2 my-sm-0' onclick='counselEnd();'>상담 완료</button>";
+					//experthtml += "<button type='button' class='exBtn btn btn-outline-success my-2 my-sm-0' onclick='memInfoView();'>회원 정보 보기</button>";
 					$("#buttonDiv").html(experthtml);
 				}
 			};
@@ -659,7 +699,7 @@ textarea {
 					console.log("gotStream 함수 => start 실행");
 					start();
 				}, function(e) {
-					alert('카메라와 마이크를 허용해주세요 / 에러 : ' + e);
+					alert('카메라 오류 : ' + e+" \n 메세지 : "+e.message);
 				});
 			};
 			
@@ -784,14 +824,14 @@ textarea {
 			};
 
 			//엔터키 입력시 메세지 발송
-			$("#extext").keyup(function(key) {
+			$("#edit").keyup(function(key) {
 				if (key.keyCode == 13) {
-					let txt = $("#extext").val();
+					let txt = $("#edit").html();
 					//$("#extext").val("");
-					//console.log(txt);
+					console.log("메세지 : "+txt);
 					sendMessage(new ExboardMsg("TXT", "", txt));
-					counselText = txt.replaceAll("\n",'<br>');
-					console.log(counselText);
+					//counselText = txt.replaceAll("\n",'<br>');
+					//console.log(counselText);
 					//$("#expertTextDiv").html($("#expertTextDiv").html()+"<p>"+txt+"</p>");
 					//$("#expertTextDiv").scrollTop($("#expertTextDiv")[0].scrollHeight);
 				}
@@ -810,7 +850,7 @@ textarea {
 					let hiddenField = document.createElement("input");
 					hiddenField.setAttribute("type", "hidden");
 					hiddenField.setAttribute("name", "extext");
-					hiddenField.setAttribute("value", counselText);
+					hiddenField.setAttribute("value", $("#edit").html());
 					form.appendChild(hiddenField);
 					//
 					let hiddenField2 = document.createElement("input");
@@ -845,7 +885,7 @@ textarea {
 			//---------------------------- 회원 정보 보기 -------------------------------------
 			
 			function memInfoView(e){
-				window.open('${path}/expert/memInfo?bno=${bno}&usid=${loginMember.usid}&musid='+user_usid,'회원','width=800, height=700, toolbar=no, menubar=no, scrollbars=no, resizable=no');
+				window.open('${path}/expert/memInfo?bno=${bno}&usid=${loginMember.usid}&musid='+user_usid,'회원','width=800, height=550, toolbar=no, menubar=no, scrollbars=no, resizable=no');
 			};
 	
 			
@@ -863,14 +903,20 @@ textarea {
 						console.log("data : "+data);
 						if(data == '1'){
 							let memhtml="";
-							memhtml += "<button type='button' class='memBtn btn btn-outline-success my-2 my-sm-0' onclick='onoff();'>캠 온오프</button>";
-							memhtml += "<button type='button' class='memBtn btn btn-outline-danger my-2 my-sm-0' onclick='alert('상담사 분이 상담 완료를 누르면 상담이 정상 종료됩니다.');'>상담 종료중</button>";
-							memhtml += "<button type='button' class='memBtn btn btn-outline-success my-2 my-sm-0' onclick='memInfoView();'>상담사 정보 보기</button>";
+						
+							memhtml += "<div class='button-7'><div class='eff-7'></div><a class='johnbtn' onclick='onoff();'>카메라</a></div>";
+							memhtml += "<div class='button-8'><div class='eff-8'></div><a class='johnbtn' onclick='endAlert();'>종료중</a></div>";
+							memhtml += "<div class='button-7'><div class='eff-7'></div><a class='johnbtn' onclick='memInfoView();'>정보</a></div>";
+							
+							//memhtml += "<button type='button' class='memBtn btn btn-outline-success my-2 my-sm-0' onclick='onoff();'>캠 온오프</button>";
+							//memhtml += "<button type='button' class='memBtn btn btn-outline-danger my-2 my-sm-0' onclick='alert('상담사 분이 상담 완료를 누르면 상담이 정상 종료됩니다.');'>상담 종료중</button>";
+							//memhtml += "<button type='button' class='memBtn btn btn-outline-success my-2 my-sm-0' onclick='memInfoView();'>상담사 정보 보기</button>";
+							
 							$("#buttonDiv").html(memhtml);
 							sendMessage(new ExboardMsg("MEMEND","${loginMember.memClass}", "유저 종료"));
 							console.log("성공");
 						}else{
-							
+								
 							console.log("실패");
 						}
 					}
@@ -879,13 +925,29 @@ textarea {
 				
 				
 			}
+
+			if("${loginMember.memClass}" == "전문가"){
+				console.log("참?");
+		        DecoupledEditor
+		        .create( document.querySelector( '#edit' ) )
+		        .then( editor => {
+		            const toolbarContainer = document.querySelector( '#toolbar-container' );
+
+		            toolbarContainer.appendChild( editor.ui.view.toolbar.element );
+		        } )
+		        .catch( error => {
+		            console.error( error );
+		        } );
+			}else{
+				console.log("거짓?");
+				 $("#edit").css({'padding':'1%'});
+			}
+
 			
-	/* 		 CKEDITOR.replace('extext',
-					    {
-					      height : '100%',
-					      startupFocus : false
-					    }
-					  ); */
-			
+			function endAlert(){
+				let st = '상담사 분이 상담 완료를 누르면 상담이 정상 종료됩니다.';
+				alert(st);
+			}
+
 	
 </script>

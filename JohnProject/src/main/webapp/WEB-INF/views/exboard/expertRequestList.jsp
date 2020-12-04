@@ -30,6 +30,7 @@ html, body, div, span, applet, object, iframe, h1, h2, h3, h4, h5, h6, p, blockq
 	-webkit-user-select: none;
 	-khtml-user-select: none;
 	user-select: none;
+font-family: 'Noto Serif KR', serif;
 }
 
 #headerAndContent{
@@ -39,6 +40,10 @@ html, body, div, span, applet, object, iframe, h1, h2, h3, h4, h5, h6, p, blockq
 #content{
 	/* background-color: #F1F3F3;  */
 	 background-color: #062449;
+}
+
+#content *{
+		/* 	border:1px solid red; */
 }
 
 .divList {
@@ -204,23 +209,24 @@ hr{
 	font-size:2vh;
 	font-weight:bold;
 }
+
 /* 검색 버튼  */
 .button-8{
   width:10%;
   height:40%;
   border:2px solid #00316D;
-  display:flex;
-  justify-content:center;
-  align-items:center;
   cursor:pointer;
   position:relative;
   box-sizing:border-box;
   overflow:hidden;
   margin:2%;
+  /*  */
+   display:flex;
+   justify-content:center;
+  align-items:center;
 }
 
 .button-8 .johnbtn{
-  font-family:arial;
   font-size:2vh;
   color:#FFCC66;
   text-decoration:none;
@@ -228,6 +234,12 @@ hr{
   transition:all .5s ease;
   z-index:2;
   position:relative;
+   /*  */
+  width:100%;
+  height:100%;
+  display:flex;
+   justify-content:center;
+  align-items:center;
 }
 
 .eff-8{
@@ -260,10 +272,10 @@ hr{
   box-sizing:border-box;
   overflow:hidden;
   margin:2%;
+
 }
 
 .button-7 .johnbtn{
-  font-family:arial;
   font-size:2vh;
   color:#FFCC66;
   text-decoration:none;
@@ -271,6 +283,12 @@ hr{
   transition:all .5s ease;
   z-index:2;
   position:relative;
+    /*  */
+  width:100%;
+  height:100%;
+  display:flex;
+   justify-content:center;
+  align-items:center;
 }
 
 .eff-7{
@@ -303,10 +321,10 @@ hr{
   box-sizing:border-box;
   overflow:hidden;
   margin:2%;
+ 
 }
 
 .button-6 .johnbtn{
-  font-family:arial;
   font-size:2vh;
   color:#FFCC66;
   text-decoration:none;
@@ -314,6 +332,12 @@ hr{
   transition:all .5s ease;
   z-index:2;
   position:relative;
+        /*  */
+  width:100%;
+  height:100%;
+  display:flex;
+   justify-content:center;
+  align-items:center;
 }
 
 .eff-6{
@@ -324,6 +348,7 @@ hr{
   transition:all .5s ease;
   z-index:1;
   box-sizing:border-box;
+
 }
 
 .button-6:hover .eff-6{

@@ -309,7 +309,6 @@ textarea:focus {
 }
 
 .button-7 .johnbtn{
-  font-family:arial;
   font-size:2vh;
   color:#FFCC66;
   text-decoration:none;
@@ -317,12 +316,18 @@ textarea:focus {
   transition:all .5s ease;
   z-index:2;
   position:relative;
+       /*  */
+  width:100%;
+  height:100%;
+  display:flex;
+   justify-content:center;
+  align-items:center;
 }
 
 .eff-7{
   width:100%;
   height:50px;
-  border:70px solid #00316D;
+  border:90px solid #00316D;
   position:absolute;
   transition:all .5s ease;
   z-index:1;
