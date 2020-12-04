@@ -49,7 +49,7 @@ html, body, div, span, applet, object, iframe, h1, h2, h3, h4, h5, h6, p, blockq
 	z-index: 1;
 	width: 100%;
 	height: 100%;
-	border: 2px solid #FFCC66;
+/* 	border: 2px solid #FFCC66; */
 }
 
 /* 상단 영역 비디오 자신 뷰*/
@@ -297,7 +297,7 @@ textarea {
 
 #edit{
 	width:100%;
-	height:95%;
+	height:92.8%;
 	 /* background-color:red;  */
 			overflow-x: hidden;
 	-ms-overflow-style: none;
@@ -331,14 +331,14 @@ textarea {
 				<c:if test="${eb.expertBoardMemberend == 1}">
 													<div class="button-8">
 												    <div class="eff-8"></div>
-												    <a class="johnbtn" onclick='counselEnd();'>상담 완료</a>
+												    <a class="johnbtn" onclick='counselEnd();'>완료</a>
 												  </div>	
 				<!-- <button type="button" class="exBtn btn btn-outline-success my-2 my-sm-0" onclick='counselEnd();'>상담 완료</button> -->
 				</c:if>
 				<c:if test="${eb.expertBoardMemberend == 0}">
 				  								<div class="button-8">
 												    <div class="eff-8"></div>
-												    <a class="johnbtn" onclick="alert('상담 받는 유저가 고민 해결 버튼을 클릭 후\n상담 종료가 가능합니다.');">상담 진행중</a>
+												    <a class="johnbtn" onclick="alert('상담 받는 유저가 고민 해결 버튼을 클릭 후\n상담 종료가 가능합니다.');">상담중</a>
 												  </div>	
 				<!-- <button type="button" class="exBtn btn btn-outline-danger my-2 my-sm-0" onclick="alert('상담 받는 유저가 고민 해결 버튼을 클릭 후\n상담 종료가 가능합니다.');">상담 진행중</button> -->
 				</c:if>
@@ -352,21 +352,21 @@ textarea {
 			
 													<div class="button-7">
 												    <div class="eff-7"></div>
-												    <a class="johnbtn"  onclick='onoff();'>캠 온오프</a>
+												    <a class="johnbtn"  onclick='onoff();'>카메라</a>
 												  </div>	
 			
 				<!-- <button type="button" class="memBtn btn btn-outline-success my-2 my-sm-0" onclick='onoff();'>캠 온오프</button> -->
 				<c:if test="${eb.expertBoardMemberend == 0}">
 						<div class="button-7">
 												    <div class="eff-7"></div>
-												    <a class="johnbtn"  onclick='counselMemberEnd();'>고민 해결</a>
+												    <a class="johnbtn"  onclick='counselMemberEnd();'>해결</a>
 												  </div>	
 				<!-- <button type="button" class="memBtn btn btn-outline-success my-2 my-sm-0" onclick='counselMemberEnd();'>고민 해결</button> -->
 				</c:if>
 				<c:if test="${eb.expertBoardMemberend == 1}">
 												<div class="button-8">
 												    <div class="eff-8"></div>
-												    <a class="johnbtn"  onclick="alert('상담사 분이 상담 완료를 누르면 상담이 정상 종료됩니다.');">상담 종료중</a>
+												    <a class="johnbtn"  onclick="alert('상담사 분이 상담 완료를 누르면 상담이 정상 종료됩니다.');">종료중</a>
 												  </div>	
 					<!-- <button type="button" class="memBtn btn btn-outline-danger my-2 my-sm-0" onclick="alert('상담사 분이 상담 완료를 누르면 상담이 정상 종료됩니다.');">상담 종료중</button> -->
 				</c:if>
@@ -629,8 +629,12 @@ textarea {
 				}else if(content.type == 'MEMEND'){
 					console.log(" === 분기 MEMEND === ");
 					let experthtml = "";
-					experthtml += "<button type='button' class='exBtn btn btn-outline-success my-2 my-sm-0' onclick='counselEnd();'>상담 완료</button>";
-					experthtml += "<button type='button' class='exBtn btn btn-outline-success my-2 my-sm-0' onclick='memInfoView();'>회원 정보 보기</button>";
+					
+					experthtml += "<div class='button-8'> <div class='eff-8'></div><a class='johnbtn' onclick='counselEnd();'>완료</a></div>";
+					experthtml += "<div class='button-7'><div class='eff-7'></div><a class='johnbtn' onclick='memInfoView();'>정보</a></div>";
+					
+					//experthtml += "<button type='button' class='exBtn btn btn-outline-success my-2 my-sm-0' onclick='counselEnd();'>상담 완료</button>";
+					//experthtml += "<button type='button' class='exBtn btn btn-outline-success my-2 my-sm-0' onclick='memInfoView();'>회원 정보 보기</button>";
 					$("#buttonDiv").html(experthtml);
 				}
 			};
@@ -899,14 +903,20 @@ textarea {
 						console.log("data : "+data);
 						if(data == '1'){
 							let memhtml="";
-							memhtml += "<button type='button' class='memBtn btn btn-outline-success my-2 my-sm-0' onclick='onoff();'>캠 온오프</button>";
-							memhtml += "<button type='button' class='memBtn btn btn-outline-danger my-2 my-sm-0' onclick='alert('상담사 분이 상담 완료를 누르면 상담이 정상 종료됩니다.');'>상담 종료중</button>";
-							memhtml += "<button type='button' class='memBtn btn btn-outline-success my-2 my-sm-0' onclick='memInfoView();'>상담사 정보 보기</button>";
+						
+							memhtml += "<div class='button-7'><div class='eff-7'></div><a class='johnbtn' onclick='onoff();'>카메라</a></div>";
+							memhtml += "<div class='button-8'><div class='eff-8'></div><a class='johnbtn' onclick='endAlert();'>종료중</a></div>";
+							memhtml += "<div class='button-7'><div class='eff-7'></div><a class='johnbtn' onclick='memInfoView();'>정보</a></div>";
+							
+							//memhtml += "<button type='button' class='memBtn btn btn-outline-success my-2 my-sm-0' onclick='onoff();'>캠 온오프</button>";
+							//memhtml += "<button type='button' class='memBtn btn btn-outline-danger my-2 my-sm-0' onclick='alert('상담사 분이 상담 완료를 누르면 상담이 정상 종료됩니다.');'>상담 종료중</button>";
+							//memhtml += "<button type='button' class='memBtn btn btn-outline-success my-2 my-sm-0' onclick='memInfoView();'>상담사 정보 보기</button>";
+							
 							$("#buttonDiv").html(memhtml);
 							sendMessage(new ExboardMsg("MEMEND","${loginMember.memClass}", "유저 종료"));
 							console.log("성공");
 						}else{
-							
+								
 							console.log("실패");
 						}
 					}
@@ -933,6 +943,11 @@ textarea {
 				 $("#edit").css({'padding':'1%'});
 			}
 
+			
+			function endAlert(){
+				let st = '상담사 분이 상담 완료를 누르면 상담이 정상 종료됩니다.';
+				alert(st);
+			}
 
 	
 </script>
