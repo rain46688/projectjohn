@@ -35,7 +35,10 @@
 	<websocket:handlers>
 		<websocket:mapping handler="boardList" path="/list"/>	
 		<websocket:mapping handler="boardChat" path="/chat"/>
-		<websocket:sockjs/>
+		<websocket:handshake-interceptors>
+			<beans:bean class="org.springframework.web.socket.server.support.HttpSessionHandshakeInterceptor"/>
+		</websocket:handshake-interceptors>
+		<websocket:sockjs session-cookie-needed="true"/>
 	</websocket:handlers>
 	
 	<websocket:handlers>
