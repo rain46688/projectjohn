@@ -492,6 +492,25 @@ public class ExboardController {
 		return mv;
 	}
 
+	@RequestMapping("/member/myPage/expertInfoModify2")
+	public ModelAndView expertInfoModify2(HttpSession session) throws Exception {
+		log.info(" ===== expertInfoModify2 실행 ===== ");
+		ModelAndView mv = new ModelAndView("/exboard/expertInfoModify2");
+		try {
+			mv.addObject("expert",
+					service.selectExpertMem("" + ((Member) session.getAttribute("loginMember")).getUsid()));
+			mv.addObject("license",
+					service.selectExpertLicense("" + ((Member) session.getAttribute("loginMember")).getUsid()));
+			mv.addObject("mem", service.selectMember("" + ((Member) session.getAttribute("loginMember")).getUsid()));
+			mv.addObject("likindList", service.selectLicenseKind());
+			mv.addObject("coukindList", service.selectCounselKind());
+			mv.addObject("comkindList", service.selectCompanyKind());
+		} catch (Exception e) {
+			// TODO: handle exception
+		}
+		return mv;
+	}
+
 	// 전문가 수정 첫번째 페이지 자격증 아님
 	@ResponseBody
 	@RequestMapping("/expert/modifyEx")

@@ -204,7 +204,8 @@ html, body, div, span, applet, object, iframe, h1, h2, h3, h4, h5, h6, p, blockq
 	width: 100%;
 	top: 0;
 	left: 0;
-	opacity: 0;
+	opacity: 1;
+	/* opacity: 0;  */
 	transition: opacity .5s;
 	color: black;
 	display: flex;
