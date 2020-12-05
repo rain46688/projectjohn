@@ -1,4 +1,4 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+ <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
@@ -408,7 +408,7 @@ html, body, div, span, applet, object, iframe, h1, h2, h3, h4, h5, h6, p, blockq
 /* 버튼 */
 .button-8{
   width:100%;
-  height:40%;
+  height:30%;
   border:2px solid #00316D;
   text-align:center;
   cursor:pointer;
@@ -437,8 +437,8 @@ html, body, div, span, applet, object, iframe, h1, h2, h3, h4, h5, h6, p, blockq
 
 .eff-8{
   width:100%;
-  height:50px;
-  border:70px solid #00316D;
+  height:100%;
+  border:90px solid #00316D;
   position:absolute;
   transition:all .5s ease;
   z-index:1;
@@ -482,12 +482,10 @@ html, body, div, span, applet, object, iframe, h1, h2, h3, h4, h5, h6, p, blockq
 													<span class="fa fa-star"></span>
 												</c:forEach>
 											</div>
-
-											<%-- 			
-											<div class="exCounselArea"><p>카운트 : ${(expert['ex'].expertReviewCount)}</p></div>
+														
+											<%-- <div class="exCounselArea"><p>카운트 : ${count}</p></div>
 											<div class="exCounselArea"><p>점수 : ${(expert['ex'].expertRating)}</p></div>
-											<div class="exCounselArea">	<p>확ㅇ : ${Math.round((expert['ex'].expertRating)/(expert['ex'].expertReviewCount))}</p></div>
-											 --%>
+											<div class="exCounselArea">	<p>확ㅇ : ${Math.round((expert['ex'].expertRating)/(count))}</p></div> --%>
 
 											<div class="exCounselArea">분야 : ${expert['ex'].expertCounselArea}</div>
 											

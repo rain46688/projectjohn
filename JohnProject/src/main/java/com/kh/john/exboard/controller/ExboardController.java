@@ -547,7 +547,7 @@ public class ExboardController {
 			et.setExpertCounselStartTime(fistTime);
 			et.setExpertCounselEndTime(seTime);
 			et.setExpertGreetings(modiText);
-			et.setExpertProfile(career);
+			et.setExpertProfile(career + "년");
 			service.updateExInfoModify(et);
 			result = "1";
 		} catch (Exception e) {
