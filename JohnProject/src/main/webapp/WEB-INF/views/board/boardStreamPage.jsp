@@ -220,6 +220,7 @@ hr {
 .userCon {
   display:flex;
   height:2em;
+  align-items:center;
 }
 
 .userNick {
@@ -234,6 +235,10 @@ hr {
   height:25px;
   border-radius:25px;
   overflow:hidden;
+  display:flex;
+  justify-content:center;
+  align-items:center;
+  margin-left:0.3em;
 }
 
 .userImg {
@@ -460,7 +465,7 @@ hr {
         </div>
         <div id="commentInsertArea">
           <input type="text" id="commentText" maxlength="30">
-          <button id="commentTextBtn">전송</button>
+          <button id="commentTextBtn" onclick="fn_chatInsert();">전송</button>
         </div>
     </div>
   </div>
@@ -540,13 +545,97 @@ hr {
 <script>
 'use strict'
 
-const chatSocket = new SockJS("https://localhost:8443${path}/chat");
+let chatList = [];
+
+const chatSocket = new SockJS("https://172.30.1.18:8443${path}/chat");
 
 chatSocket.onopen = function(e){
-  let user = {boardId:${currBoard.BOARD_ID},
-              usid:${loginMember.usid}};
-	chatSocket.send(JSON.stringify(user));
+  	let user = {boardId:${currBoard.BOARD_ID},
+              usid:${loginMember.usid},
+  				message:'안녕하세요'};
+	chatSocket.send('chat:'+JSON.stringify(user));
+	}
+chatSocket.onmessage = function(e){
+	console.log(JSON.parse(e.data));
+	chatList = JSON.parse(e.data);
+	
+	console.log(typeof JSON.parse(e.data))
+	
+	//사용자 숫자를 알기 위한 배열
+	let tempList= [];
+
+	chatList.forEach(function(item,index){
+		//동일한 usid가 있는지 확인
+		if(!tempList.includes(item.usid))tempList.push(item.usid);
+	})
+	
+	//usid 리스트
+	console.log(tempList);
+
+  document.getElementById('commentPrint').innerHTML = "";
+
+  chatList = chatList.sort((a,b) => (a.unrollDate > b.unrollDate) ? 1 : -1);
+
+  let realChatList = [];
+  chatList.forEach(function(item,index){
+    let idx = 0;
+    if(realChatList.length<tempList.length){
+      if(realChatList.length==0){
+        realChatList.push(item);
+      }
+      else {
+        if(item.usid!=realChatList[idx].usid){
+        	console.log('item', item.usid);
+        	console.log(realChatList[idx].usid);
+          realChatList.push(item);
+          idx++;
+        }
+      }
+    }
+  })
+
+  console.log('real! : ');
+  console.log(realChatList);
+
+  realChatList.forEach(function(item, index){
+    let user = document.createElement('div');
+    user.className = 'user';
+    let userCon = document.createElement('div');
+    userCon.className = 'userCon';
+    let userImgCon = document.createElement('div');
+    userImgCon.className = 'userImgCon';
+    let userImg = document.createElement('img');
+    userImg.className = 'userImg';
+    userImg.setAttribute('src','${path}/resources/profile_images/'+item.userImg);
+    userImgCon.appendChild(userImg);
+    let userNick = document.createElement('div');
+    userNick.className = 'userNick';
+    userNick.innerHTML = item.userNick;
+    userCon.appendChild(userImgCon);
+    userCon.appendChild(userNick);
+    let userComment = document.createElement('div');
+    userComment.className = 'userComment';
+    userComment.innerHTML = item.message;
+    user.appendChild(userCon);
+    user.appendChild(userComment);
+    document.getElementById('commentPrint').appendChild(user);
+    })
 }
+
+function fn_chatInsert(){
+  let val = document.getElementById('commentText').value;
+  document.getElementById('commentText').value = "";
+  let chat = {boardId:${currBoard.BOARD_ID},
+          usid:${loginMember.usid},
+          message:val};
+  chatSocket.send('chat:'+JSON.stringify(chat));
+}
+
+
+/* chatSocket.onclose = function(e){
+	let boardId = {boardId:${currBoard.BOARD_ID}};
+	chatSocket.send('close:'+JSON.stringify(boardId));
+} */
 
 
 //좋아요 기능
