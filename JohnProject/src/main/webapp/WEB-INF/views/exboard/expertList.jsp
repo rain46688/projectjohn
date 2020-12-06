@@ -487,14 +487,7 @@ html, body, div, span, applet, object, iframe, h1, h2, h3, h4, h5, h6, p, blockq
 												</c:forEach>
 											</div>
 
-											<%-- <div class="exCounselArea"><p>카운트 : ${count}</p></div>
-											<div class="exCounselArea"><p>점수 : ${(expert['ex'].expertRating)}</p></div>
-											<div class="exCounselArea">	<p>확ㅇ : ${Math.round((expert['ex'].expertRating)/(count))}</p></div> --%>
-
 											<div class="exCounselArea">분야 : ${expert['ex'].expertCounselArea}</div>
-
-											<%-- <button type="button" class="btn btn-outline-primary" onclick="counsel('${expert['mem'].usid}','${expert['mem'].memNickname}');">상담
-												신청</button> --%>
 
 											<div class="button-8">
 												<div class="eff-8"></div>
