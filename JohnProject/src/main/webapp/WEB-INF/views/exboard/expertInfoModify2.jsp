@@ -31,145 +31,133 @@ html, body, div, span, applet, object, iframe, h1, h2, h3, h4, h5, h6, p, blockq
 	font-family: 'Noto Serif KR', serif;
 }
 
-#headerAndContent {
-	background-color: #062449;
-}
-
 #content * {
-	  /* border: 1px solid red;  */
+	/*  border: 1px solid red; */
+	/* font-family: 'Noto Serif KR', serif; */
+	
 }
 
+
+#headerAndContent{
+	background-color:#062449;
+}
+
+/* 기본 배경 */
 #content {
-	background-color: #062449;
 	display: flex;
 	justify-content: center;
-	align-items: center;
-	width: 100%;
-	height: 100%;
-	padding: 0 0 10% 0;
-
+	padding-top: 1vh;
+	background-color:#062449;
 }
 
-#contentDiv {
+/*  */
+/*  */
+/*  */
+/* 전문가 정보 영역 */
+/*  */
+/*  */
+/*  */
+#mainDiv {
 	width: 60%;
-	height:100%;
-}
-
-#mainDiv{
-	height:auto;
-	width:100%;
+	height: 98%;
+	/* border: 1px solid #C6C5C5; */
+	border-radius: 1em;
+	/* 	background-color: #BACADE; */
 	background-color: white;
 	border: 10px solid #FFCC66;
-	border-radius:2%;
-	margin: 3% 0 3% 0;
 }
-
-#licenseModifyDiv{
-	height:auto;
-	width:100%;
-	background-color: white;
-	border: 10px solid #FFCC66;
-	border-radius:2%;
-	margin: 3% 0 3% 0;
-}
-
-/* 일반 버튼  */
-.button-7{
-  width:20%;
-  height:60%;
-  border:2px solid #00316D;
-  display:flex;
-  justify-content:center;
-  align-items:center;
-  cursor:pointer;
-  position:relative;
-  box-sizing:border-box;
-  overflow:hidden;
-  margin:2%;
-}
-
-.button-7 .johnbtn{
-  font-size:2vh;
-  color:#FFCC66;
-  text-decoration:none;
-  line-height:50px;
-  transition:all .5s ease;
-  z-index:2;
-  position:relative;
-       /*  */
-  width:100%;
-  height:100%;
-  display:flex;
-   justify-content:center;
-  align-items:center;
-}
-
-.eff-7{
-  width:100%;
-  height:50px;
-  border:90px solid #00316D;
-  position:absolute;
-  transition:all .5s ease;
-  z-index:1;
-  box-sizing:border-box;
-}
-
-.button-7:hover .eff-7{
-  border:0px solid #00316D;
-}
-
-.button-7:hover .johnbtn{
-  color:#00316D;
-}
-
-
-</style>
-
-<section id="content">
-
-<style>
 
 /* 위 영역 제목 부분*/
 #upDiv {
-	height: 10%;
+	height: 15%;
 	width: 100%;
+	/* background-color: #0054BA; */
 	background-color: #003478;
 	padding: 1.5%;
 	display: flex;
-}
-
-/* 제목 */
-#upDiv>h2 {
-	font-size: 3vh;
-	height: 100%;
-	width: 50%;
-	font-weight: bold;
-	color: white;
+	border: 1px solid #C6C5C5;
+	border-radius: 1em 1em 0 0;
 }
 
 /* 프로필 영역 중간부분 */
 #profileDiv {
+	margin-top: 1%;
 	width: 100%;
 	height: 30%;
 	display: flex;
-	padding-left:1%;
+	padding: 0 0 0 3%;
 	margin: 3% 0 0 0;
 }
 
 /* 아래부분 인사말 */
 #downDiv {
 	width: 100%;
-	height: 40%;
-	margin: 3% 1% 0 1%;
+	height: 45%;
+	margin: 1% 1% 0 1%;
 	padding: 0 4% 0 1%;
+}
+
+/* 제목 */
+#upDiv>h2 {
+	font-size: 5vh;
+	height: 100%;
+	width: 50%;
+	font-weight: bold;
+	color: white;
+}
+
+/* 누르면 자격증으로 넘어가는거 */
+#upFlag {
+	width: 50%;
+	height: 100%;
+	display: flex;
+	justify-content: flex-end;
+	align-items: flex-end;
+	color: white;
+}
+
+#upFlag>p {
+	cursor: pointer;
+}
+
+/* 프로필 이미지 영역 */
+#imgDiv {
+	z-index: 0;
+	width: 40%;
+	height: 100%;
+	background-color: rgba(255, 255, 255, 1);
+	border-radius: 2%;
+	border: 1px solid #AEAEAE;
+}
+
+#mirrorimgDiv {
+	z-index: 1;
+	width: 40%;
+	height: 100%;
+	display: none;
+	justify-content: center;
+	align-items: center;
+	background-color: rgba(255, 255, 255, 1);
+	position: relative;
+	cursor: pointer;
+}
+
+#mirrorimgDiv>p {
+	font-size: 10vh;
+	color: black;
+}
+
+#imgProfile {
+	width: 100%;
+	height: 100%;
 }
 
 /* 중간 오른쪽 영역  */
 #upRightDiv {
-	width: 100%;
+	width: 60%;
 	height: 100%;
-	margin: 0 2% 2% 0;
-	/* border: 1px solid #AEAEAE; */
+	margin: 0 2% 2% 2%;
+	border: 1px solid #AEAEAE;
 	border-radius: 1%;
 	display: flex;
 	/*위에서 아래로 수직 배치*/
@@ -179,7 +167,7 @@ html, body, div, span, applet, object, iframe, h1, h2, h3, h4, h5, h6, p, blockq
 
 .rowDiv {
 	width: 100%;
-	height: 50%;
+	height: 30%;
 	display: flex;
 }
 
@@ -216,6 +204,15 @@ html, body, div, span, applet, object, iframe, h1, h2, h3, h4, h5, h6, p, blockq
 	width: 50%;
 	height: 100%;
 }
+
+/* 시간 주의사항 */
+/* #timeWarning {
+	text-align:center;
+	font-size:1.5vh;
+	color:black;
+	font-weight:bold;
+	font-style:italic;
+} */
 
 .rightDiv {
 	width: 50%;
@@ -285,86 +282,145 @@ textarea:focus {
 	outline: none;
 }
 
-
 /* 버튼 */
 #buttonDiv {
 	display: flex;
 	justify-content: center;
 	/* align-items: flex-end; */
 	align-items: center;
-	height: 10%;
+	height: 50%;
 	width: 100%;
 }
+
+/*  */
+/* 일반 버튼  */
+.button-7{
+  width:20%;
+  height:30%;
+  border:2px solid #00316D;
+  display:flex;
+  justify-content:center;
+  align-items:center;
+  cursor:pointer;
+  position:relative;
+  box-sizing:border-box;
+  overflow:hidden;
+  margin:2%;
+}
+
+.button-7 .johnbtn{
+  font-size:2vh;
+  color:#FFCC66;
+  text-decoration:none;
+  line-height:50px;
+  transition:all .5s ease;
+  z-index:2;
+  position:relative;
+       /*  */
+  width:100%;
+  height:100%;
+  display:flex;
+   justify-content:center;
+  align-items:center;
+}
+
+.eff-7{
+  width:100%;
+  height:50px;
+  border:90px solid #00316D;
+  position:absolute;
+  transition:all .5s ease;
+  z-index:1;
+  box-sizing:border-box;
+}
+
+.button-7:hover .eff-7{
+  border:0px solid #00316D;
+}
+
+.button-7:hover .johnbtn{
+  color:#00316D;
+}
+
 </style>
-
-	<div id="contentDiv">
-	
-		<div id="mainDiv">
-			<!-- up -->
-			<div id="upDiv">
-				<h2>전문가 정보 수정</h2>
-			</div>
-			<!-- profile -->
-			<div id="profileDiv">
-				<div id="upRightDiv">
-					<div class="rowDiv">
-						<div class="leftDiv">
-							<p>경력</p>
-							<div id="careerleftDiv">
-								<div id="exinput">
-									<input type="number" name="career" class="form-control short" min="1" max="99" value="${expert.expertProfile }" />
-								</div>
-								<div id="exinput2">
-									<h6>년</h6>
-								</div>
-							</div>
-						</div>
-						<div class="rightDiv">
-							<p>전문 분야</p>
-							<select id="counselSelect" name="counselSelect" required class="form-control short">
-								<c:forEach items="${coukindList }" var="counselList" varStatus="status">
-									<option value="${counselList}" ${expert.expertCounselArea == counselList ? 'selected="selected"' : '' }>${counselList}</option>
-								</c:forEach>
-							</select>
-						</div>
-					</div>
-
-					<div class="rowDiv">
-						<div class="timeleftDiv">
-							<p>상담 가능 시간</p>
-							<div id="time">
-								<input name="fistTime" type="time" class="form-control times" value="${expert.expertCounselStartTime }">
-								<p>~</p>
-								<input name="seTime" type="time" class="form-control times" value="${expert.expertCounselEndTime }">
-							</div>
-						</div>
-					</div>
-				</div>
-			</div>
-			<!-- downDiv -->
-			<div id="downDiv">
-				<div id="textArearowDiv">
-					<div id="textAreaDiv">
-						<p>인사말</p>
-						<textarea id="exTextArea" name="modiText">${expert.expertGreetings}</textarea>
-					</div>
-				</div>
-
-					<!-- <button class="btn btn-outline-success" onclick="modify();">수정완료</button> -->
-					<input id="profileUpload" type="file" style="display: none;">
-					<!-- style="display: none;" -->
-				</div>
-			<div id="buttonDiv">
-					<div class="button-7">
-						<div class="eff-7"></div>
-						<a class="johnbtn" onclick="modify();">수정 완료</a>
-					</div>
+<section id="content">
+	<div id="mainDiv">
+		<!-- up -->
+		<div id="upDiv">
+			<h2>전문가 정보 수정</h2>
+			<div id="upFlag">
+				<p>자격증 정보 수정</p>
 			</div>
 		</div>
-		
-		<!-- ------------------------------------------------------------------------------------------- -->
-		
-			<style>
+		<!-- <hr> -->
+		<!-- profile -->
+		<div id="profileDiv">
+			<div id="imgDiv">
+				<img src="${path }/resources/profile_images/${mem.profilePic}" id="imgProfile" class="img-thumbnail" />
+			</div>
+			<div id="mirrorimgDiv">
+				<p>+</p>
+			</div>
+			<!-- <div id="mirrorimgDiv2"></div> -->
+			<div id="upRightDiv">
+
+				<div class="rowDiv">
+					<div class="leftDiv">
+						<p>경력</p>
+						<div id="careerleftDiv">
+							<div id="exinput">
+								<input type="number" name="career" class="form-control short" min="1" max="99" value="${expert.expertProfile }" />
+							</div>
+							<div id="exinput2">
+								<h6>년</h6>
+							</div>
+						</div>
+					</div>
+					<div class="rightDiv">
+						<p>전문 분야</p>
+						<select id="counselSelect" name="counselSelect" required class="form-control short">
+							<c:forEach items="${coukindList }" var="counselList" varStatus="status">
+								<option value="${counselList}" ${expert.expertCounselArea == counselList ? 'selected="selected"' : '' }>${counselList}</option>
+							</c:forEach>
+						</select>
+					</div>
+				</div>
+
+				<div class="rowDiv">
+					<div class="timeleftDiv">
+						<p>상담 가능 시간</p>
+						<div id="time">
+							<input name="fistTime" type="time" class="form-control times" value="${expert.expertCounselStartTime }">
+							<p>~</p>
+							<input name="seTime" type="time" class="form-control times" value="${expert.expertCounselEndTime }">
+						</div>
+					</div>
+				</div>
+				<!-- 	<div id="timeWarning">주말 공휴일 제외</div> -->
+			</div>
+		</div>
+		<!-- downDiv -->
+		<div id="downDiv">
+			<div id="textArearowDiv">
+				<div id="textAreaDiv">
+					<p>인사말</p>
+					<textarea id="exTextArea" name="modiText">${expert.expertGreetings}</textarea>
+				</div>
+			</div>
+			<div id="buttonDiv">
+													 <div class="button-7">
+												    <div class="eff-7"></div>
+												    <a class="johnbtn" onclick="modify();">수정 완료</a>
+												  </div>	
+												  
+				<!-- <button class="btn btn-outline-success" onclick="modify();">수정완료</button> -->
+				<input id="profileUpload" type="file" style="display: none;">
+				<!-- style="display: none;" -->
+			</div>
+		</div>
+	</div>
+
+	<style>
 
 /*  */
 /*  */
@@ -373,17 +429,33 @@ textarea:focus {
 /*  */
 /*  */
 /*  */
+#licenseModifyDiv {
+	width: 60%;
+	height: 99%;
+/* 	border: 1px solid #C6C5C5; */
+	border: 10px solid #FFCC66;
+	border-radius: 1em;
+	/* 	background-color: #BACADE; */
+	background-color: white;
+	/*  */
+	display: none;
+	opacity: 0;
+	padding-bottom: 2%;
+}
 
 #licenseupDiv {
-	height: 10%;
+	height: 15%;
 	width: 100%;
+	/* background-color: #0054BA; */
 	background-color: #003478;
 	padding: 1.5%;
 	display: flex;
+	border: 1px solid #C6C5C5;
+	border-radius: 1em 1em 0 0;
 }
 
 #licenseupDiv>h2 {
-	font-size: 3vh;
+	font-size: 5vh;
 	height: 100%;
 	width: 50%;
 	font-weight: bold;
@@ -492,17 +564,21 @@ textarea:focus {
 
 /* 수정완료 버튼 */
 #licenseButtonDiv .button-7{
-height:70%;
-	margin-bottom:1.5%;
+height:100%;
+	margin:0;
 }
 
 </style>
-		
-		<div id="licenseModifyDiv">
+
+	<div id="licenseModifyDiv">
 		<div id="licenseupDiv">
 			<h2>자격증 정보 수정</h2>
+			<div id="licenseupFlag">
+				<p>전문가 정보 수정</p>
+			</div>
 		</div>
 		<div id="licenseDownDiv">
+
 			<c:forEach items="${license }" var="license" varStatus="status">
 				<input type="hidden" value="${license.licenseId }" class="licenseIdInput" />
 				<div class="licenseDiv">
@@ -613,12 +689,13 @@ height:70%;
 				<!-- style="display: none;" -->
 			</div>
 		</div>
+
 	</div>
-		<br><br><br>
-	</div>
 	
 	
-	
+</section>
+
+
 <script>
 
 'use strict;'
@@ -806,28 +883,3 @@ function fileViewUpload(f,w,h,im,up){
 		}
 }
 </script>
-	
-	
-</section>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

@@ -30,6 +30,11 @@ html, body, div, span, applet, object, iframe, h1, h2, h3, h4, h5, h6, p, blockq
 		font-family: 'Noto Serif KR', serif;
 }
 
+.container *{
+		font-family: 'Noto Serif KR', serif;
+}
+
+
 body * {
 	/* border: 1px solid red; */
 }
