@@ -441,29 +441,26 @@ textarea {
 		}
 		
 		//---------------------------- 드래그 파일 전송 -------------------------------------
-		console.log(" =============== ");
+		
 		let formData = new FormData();
 		$.each(uploadFiles, function(i, file) {
 		console.log("파일 이름 : "+file.name);
 		
 		let f = (file.name).substring((file.name).lastIndexOf('.'),(file.name).length);
 		
-	/* 	console.log("f : "+f); */
-		 
+		console.log("f : "+f);
 		
 		if(f != '.png' && f != '.jpg' && f != '.jpeg' && f != '.gif'){
 			console.log("업로드 안됨 파일 이름 : "+file.name);
 			alert('이미지 파일만 업로드 가능합니다.');
 		}else{
-			//formData.append('upFile', file, file.name);
-			console.log("file : "+file);
+			formData.append('upFile', file, file.name);
 			console.log("업로드 됨 파일 이름 : "+file.name);
-			socketUpload(file);
 		}
 		
 		});
-
- 	 /* 	$.ajax({
+		
+	 	$.ajax({
 			url : '${path}/expert/upload',
 			data : formData,
 			type : 'post',
@@ -484,22 +481,10 @@ textarea {
 				//배열 초기화 안그러면 계속 들어감..
 				uploadFiles = [];
 			}
-		}); */
-	 	
-		console.log("보냄");
-	 	
+		});
 	});
-	
-	function socketUpload(file){
-		let fileReader = new FileReader();
-		/* conn.binaryType="arrayBuffer" */
-		    fileReader.onload = function() {
-            let arrayBuffer = this.result;
-            conn.send(arrayBuffer);
-        };
-        fileReader.readAsArrayBuffer(file);
-	};
 
+	
 	function imgDivPrint(msg){
 		console.log("msg : "+msg);
 		let list = msg.split('|');

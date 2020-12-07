@@ -1,12 +1,19 @@
 package com.kh.john.exboard.socket;
 
+import java.io.File;
 import java.io.IOException;
+import java.nio.ByteBuffer;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
+import org.springframework.mock.web.MockMultipartFile;
+import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.socket.BinaryMessage;
 import org.springframework.web.socket.CloseStatus;
 import org.springframework.web.socket.TextMessage;
 import org.springframework.web.socket.WebSocketSession;
@@ -38,7 +45,8 @@ public class ExpertHandler extends TextWebSocketHandler {
 	public void handleTextMessage(WebSocketSession session, TextMessage message)
 			throws InterruptedException, IOException {
 
-		// log.info("handleTextMessage 실행 시그널링 서버");
+		log.info("handleTextMessage 실행 시그널링 서버");
+
 		ExboardMsg msg = objectMapper.readValue(message.getPayload(), ExboardMsg.class);
 		Map<String, Object> map = session.getAttributes();
 		SessionVo sv = (SessionVo) map.get("loginnedMember");
@@ -68,6 +76,37 @@ public class ExpertHandler extends TextWebSocketHandler {
 			}
 		}
 
+		//
+	}
+
+	private static final String FILE_UPLOAD_PATH = "E:/tt";
+
+	@Override
+	protected void handleBinaryMessage(WebSocketSession session, BinaryMessage message) {
+		// TODO Auto-generated method stub
+		log.debug("handleBinaryMessage 실행");
+		ByteBuffer byteBuffer = message.getPayload();
+		byte[] byteArray = byteBuffer.array();
+		MultipartFile multipartFile = new MockMultipartFile("file", "OriginalName.png", "text/plain", byteArray);
+		log.debug("자료형 확인 : " + multipartFile.getClass().getName());
+		log.debug("사이즈 : " + multipartFile.getSize());
+		log.debug("이름 : " + multipartFile.getOriginalFilename());
+		log.debug("이름2 : " + multipartFile.getName());// tmp.png
+		log.debug("타입 : " + multipartFile.getContentType());
+		log.debug("리소스 : " + multipartFile.getResource());
+
+		String originalFileName = multipartFile.getOriginalFilename();
+		String ext = originalFileName.substring(originalFileName.lastIndexOf(".") + 1);
+		SimpleDateFormat sdf = new SimpleDateFormat("yyyy_MM_dd_HHmmssSSS");
+		int rndNum = (int) (Math.random() * 1000);
+		String renamedFileName = sdf.format(new Date(System.currentTimeMillis())) + "_" + rndNum + "." + ext;
+		try {
+			// renamedFileName 으로 파일을 저장하기 -> transferTo(파일)
+			multipartFile.transferTo(new File(FILE_UPLOAD_PATH + "/" + renamedFileName));
+		} catch (Exception e) {
+			// TODO: handle exception
+			e.printStackTrace();
+		}
 	}
 
 	@Override

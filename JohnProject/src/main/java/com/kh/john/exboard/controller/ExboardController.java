@@ -360,6 +360,10 @@ public class ExboardController {
 	@RequestMapping("/expert/upload")
 	public String expertuUploadll(MultipartFile[] upFile, HttpServletRequest request) {
 		log.debug("expertuUploadll 실행");
+
+		log.debug("upFile : " + upFile);
+		log.debug("자료형 확인 : " + upFile);
+
 		String result = "";
 		String path = request.getServletContext().getRealPath("/resources/upload_images");
 		List<String> list = new ArrayList<String>();
