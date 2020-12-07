@@ -215,6 +215,10 @@ $("#check").click(e => {
 
 //알람 읽은것으로 처리
 $("#delete").click(e=>{
+	
+	var result = confirm("현재 탭의 알람을 읽음 처리하시겠습니까?");
+	if(result){
+	
 	console.log("del");
 	let readList = [];
 	let ataghtml = matchAtagHtml();
@@ -224,8 +228,13 @@ $("#delete").click(e=>{
 								readList.push(e);
 			}
 	});
+	if(readList.length == 0){
+		console.log("읽음 처리할 알람 없음");
+	}
 	alsocket.send(JSON.stringify(readList));
 	alsocket.send('list');
+	}
+	
 });
 
 
