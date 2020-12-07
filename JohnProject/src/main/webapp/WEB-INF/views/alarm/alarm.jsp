@@ -328,6 +328,9 @@ function typeifprint(e,type){
 	return print2;
 }
 
+//알람부분 정리해보기~~~~~~~~~~
+//알람부분 정리해보기~~~~~~~~~~
+
 //프린트html 상담
 function expertPrintHtml(e){
 	let print ="";

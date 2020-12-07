@@ -200,7 +200,7 @@ html, body, div, span, applet, object, iframe, h1, h2, h3, h4, h5, h6, p, blockq
 /* 카테고리 제목 */
 .counsel-title {
 	cursor: pointer;
-	font-size: 2.5em;
+	font-size: 2em;
 	font-weight: bold;
 	text-decoration: none;
 	z-index: 1;
@@ -424,7 +424,7 @@ html, body, div, span, applet, object, iframe, h1, h2, h3, h4, h5, h6, p, blockq
 }
 
 .button-8 .johnbtn {
-	font-size: 2.5vh;
+	font-size: 2vh;
 	color: #FFCC66;
 	text-decoration: none;
 	line-height: 50px;
