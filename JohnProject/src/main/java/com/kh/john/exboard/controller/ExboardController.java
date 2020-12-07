@@ -49,6 +49,8 @@ public class ExboardController {
 	@Autowired
 	private AES256Util aes;
 
+	private static String pathzz;
+
 	// 전문가 페이지 임시 메인
 	@RequestMapping("/expert")
 	public ModelAndView expertPage(HttpSession session) {
@@ -249,8 +251,10 @@ public class ExboardController {
 
 	// 채팅창 입장
 	@RequestMapping("/expert/expertRoom")
-	public ModelAndView expertRoom(@RequestParam("bno") String bnum, HttpSession session) {
+	public ModelAndView expertRoom(@RequestParam("bno") String bnum, HttpSession session, HttpServletRequest request) {
 		log.debug("expertRoom 실행");
+		pathzz = request.getServletContext().getRealPath("/resources/upload_images");
+		log.debug("pathzz : " + pathzz);
 		ModelAndView mv = new ModelAndView("/exboard/exchatRoom");
 		Member m = (Member) session.getAttribute("loginMember");
 		SessionVo s = new SessionVo();
@@ -355,11 +359,32 @@ public class ExboardController {
 		return "redirect:/msg";
 	}
 
+	// 웹소켓 파일 업로드 하기
+	public String socketUploadImg(MultipartFile upFile) {
+		log.debug("socketUploadImg실행");
+		String originalFileName = upFile.getOriginalFilename();
+		String ext = originalFileName.substring(originalFileName.lastIndexOf(".") + 1);
+		SimpleDateFormat sdf = new SimpleDateFormat("yyyy_MM_dd_HHmmssSSS");
+		int rndNum = (int) (Math.random() * 1000);
+		String renamedFileName = sdf.format(new Date(System.currentTimeMillis())) + "_" + rndNum + "." + ext;
+		try {
+			upFile.transferTo(new File(pathzz + "/" + renamedFileName));
+		} catch (Exception e) {
+			// TODO: handle exception
+			e.printStackTrace();
+		}
+		return renamedFileName;
+	}
+
 	// 파일 업로드용 전문가 상담
 	@ResponseBody
 	@RequestMapping("/expert/upload")
 	public String expertuUploadll(MultipartFile[] upFile, HttpServletRequest request) {
 		log.debug("expertuUploadll 실행");
+
+		log.debug("upFile : " + upFile);
+		log.debug("자료형 확인 : " + upFile);
+
 		String result = "";
 		String path = request.getServletContext().getRealPath("/resources/upload_images");
 		List<String> list = new ArrayList<String>();

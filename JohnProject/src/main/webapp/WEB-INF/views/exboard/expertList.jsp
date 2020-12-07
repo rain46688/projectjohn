@@ -42,8 +42,8 @@ html, body, div, span, applet, object, iframe, h1, h2, h3, h4, h5, h6, p, blockq
 
 }
 
-#content *{
-		font-family: 'Noto Serif KR', serif;
+.exName, .exCounselArea, .johnbtn, .exBottm, .empty, #reviewDivTitle, .reviewInnerUpDiv, .userReview, .emptyReview, #categoryDiv{
+	font-family: 'Noto Serif KR', serif;
 }
 
 #headerAndContent {
@@ -456,6 +456,7 @@ html, body, div, span, applet, object, iframe, h1, h2, h3, h4, h5, h6, p, blockq
 .button-8:hover .johnbtn {
 	color: #00316D;
 }
+
 </style>
 
 <section id="content">

@@ -441,28 +441,26 @@ textarea {
 		}
 		
 		//---------------------------- 드래그 파일 전송 -------------------------------------
-		console.log(" =============== ");
+		
 		let formData = new FormData();
 		$.each(uploadFiles, function(i, file) {
 		console.log("파일 이름 : "+file.name);
 		
 		let f = (file.name).substring((file.name).lastIndexOf('.'),(file.name).length);
 		
-	/* 	console.log("f : "+f); */
+		console.log("f : "+f);
 		
 		if(f != '.png' && f != '.jpg' && f != '.jpeg' && f != '.gif'){
 			console.log("업로드 안됨 파일 이름 : "+file.name);
 			alert('이미지 파일만 업로드 가능합니다.');
 		}else{
-			//formData.append('upFile', file, file.name);
-			console.log("file : "+file);
+			formData.append('upFile', file, file.name);
 			console.log("업로드 됨 파일 이름 : "+file.name);
-			socketUpload(file);
 		}
 		
 		});
-
- 	 /* 	$.ajax({
+		
+	 	$.ajax({
 			url : '${path}/expert/upload',
 			data : formData,
 			type : 'post',
@@ -483,24 +481,11 @@ textarea {
 				//배열 초기화 안그러면 계속 들어감..
 				uploadFiles = [];
 			}
-		}); */
-		uploadFiles = [];
-		console.log("보냄");
-	 	
+		});
 	});
-	
-	//소켓 이미지 업로드
-	function socketUpload(file){
-		let fileReader = new FileReader();
-		    fileReader.onload = function() {
-            let arrayBuffer = this.result;
-            conn.send(arrayBuffer);
-        };
-        fileReader.readAsArrayBuffer(file);
-	};
 
-	//업로드 일반용 나중에 보고 지우기
-/* 	function imgDivPrint(msg){
+	
+	function imgDivPrint(msg){
 		console.log("msg : "+msg);
 		let list = msg.split('|');
 		let imgprint = "";
@@ -524,23 +509,6 @@ textarea {
 		list="";
 		imgprint="";
 		console.log("msg2 : "+msg);
-	} */
-	
-	//웹소켓용
-	function imgDivPrint2(msg){
-		let imgprint = "";
-		imgprint+="<img  class='upload' src='${path}/resources/upload_images/"+msg+"' title='"+msg+"' onclick='imgView(event);' style='cursor: pointer'/>";
-		
-		if($("#imgDiv").children().html() != ''){
-			console.log("빔");
-			$("#imgDiv").html("");
-		}
-		
-		let con = $("#imgDiv").html()+imgprint;
-		$("#imgDiv").html("");
-		$("#imgDiv").html(con);
-		$("#imgDiv").scrollTop($("#imgDiv")[0].scrollHeight);
-		imgprint="";
 	}
 	
 	//---------------------------- 사진 크게 보기 -------------------------------------
@@ -550,8 +518,9 @@ textarea {
 	};
 	
 	
-	//---------------------------- 상담 마이크 비디오 설정 -------------------------------------
+	//---------------------------- 상담 설정 -------------------------------------
 
+	//마이크 비디오 설정
 	const video1 = document.getElementById('video1');
 	const video2 = document.getElementById('video2');
 	let flag = true;
@@ -650,14 +619,8 @@ textarea {
 					}
 				} else if (content.type == 'FILE') {
 					console.log(" === 분기 FILE === ");
-					//업로드 일반용 나중에 보고 지우기
 					console.log("content : " + content.msg);
 					imgDivPrint(content.msg);
-				} else if (content.type == 'FILE2') {
-					console.log(" === 분기 FILE2 === ");
-					//웹소켓 업로드 일반용 다음 구현한거
-					console.log("content : " + content.msg);
-					imgDivPrint2(content.msg);
 				} else if (content.type == 'END') {
 					console.log(" === 분기 END === ");
 					/* 	exit(); */
@@ -684,13 +647,14 @@ textarea {
 				console.log("메세지 보내는 함수 sendMessage");
 			};
 
-			//---------------------------- 비디오 적합 여부 설정 -------------------------------------
+			//---------------------------- 비디오 설정 -------------------------------------
 
 		
 		const constraints = {
 					  video: {width: {exact: 1280}, height: {exact: 720}},
 				    audio : true
 				}; 
+			
 			
 			if (navigator.getUserMedia) {
 				console.log("getUserMedia");
@@ -809,7 +773,7 @@ textarea {
 						candidate : event.candidate.candidate
 					});
 				} else {
-					console.log('handleIceCandidate 탐색 종료');
+					console.log(' handleIceCandidate 탐색 종료 ');
 				}
 			};
 

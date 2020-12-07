@@ -386,7 +386,7 @@ ion-icon#likeButton {
           <textarea id="commentContent"></textarea>
         </div>
         <div id="textBtnCon">
-          <button onclick="fn_commentInsert();" type="button" class="btn btn-primary">
+          <button id="textInsertBtn" onclick="fn_commentInsert();" type="button" class="btn btn-primary">
             댓글쓰기
           </button>
         </div>
@@ -514,6 +514,13 @@ $(document).ready(function(){
 	fn_commentList();
 	hasLiked();
 })
+
+document.getElementById('commentContent').onkeypress = function(e){
+	if(e.keyCode == 13){
+		document.getElementById('textInsertBtn').click();
+	}
+}
+
 //댓글 리스트 불러오기
 function fn_commentList(){
 	$.ajax({
