@@ -146,6 +146,7 @@
 		</dependency>
 
 
+
 		<!-- 마이바티스 -->
 	<!-- DB관련 라이브러리 가져오기 -->
 		<dependency>
@@ -257,6 +258,14 @@
 			<artifactId>nextrtc-signaling-server</artifactId>
 			<version>1.0.0-RC6</version>
 		</dependency>
+
+		<!-- https://mvnrepository.com/artifact/org.springframework/spring-messaging -->
+		<dependency>
+		    <groupId>org.springframework</groupId>
+		    <artifactId>spring-messaging</artifactId>
+		    <version>5.2.11.RELEASE</version>
+		</dependency>
+		
 
 		<!-- 시큐리티 모듈 가져오기 -->
 

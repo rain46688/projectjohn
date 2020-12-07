@@ -19,6 +19,10 @@
 			<beans:bean class="com.kh.john.common.interceptor.LoginCheckInterceptor"/>
 		</interceptor>
 		<interceptor>
+			<mapping path="/board/*"/>
+			<beans:bean class="com.kh.john.common.interceptor.MemberInterceptor"/>
+		</interceptor>
+		<interceptor>
 			<mapping path="/report/*"/>
 			<beans:bean class="com.kh.john.common.interceptor.CustomerInterceptor"/>
 		</interceptor>
@@ -29,7 +33,7 @@
 		
 		<interceptor>
 			<mapping path="/expert/*" />
-			<beans:bean class=" com.kh.john.common.interceptor.ExpertRoomInterceptor" />
+			<beans:bean class="com.kh.john.common.interceptor.ExpertRoomInterceptor" />
 		</interceptor>
 		
 		<!--회원-->
