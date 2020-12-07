@@ -1,3 +1,4 @@
+
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
@@ -38,33 +39,39 @@ html, body, div, span, applet, object, iframe, h1, h2, h3, h4, h5, h6, p, blockq
 	-webkit-user-select: none;
 	-khtml-user-select: none;
 	user-select: none;
-	font-family: 'Noto Serif KR', serif;
+
 }
 
-#headerAndContent{
-	background-color:#062449;
+#content *{
+		font-family: 'Noto Serif KR', serif;
 }
 
-#content{
-	background-color:#062449;
-	padding-bottom:1%;
+#headerAndContent {
+	background-color: #062449;
+}
+
+#content {
+	background-color: #062449;
+	padding-bottom: 1%;
 }
 
 /* 위 div */
 #upDiv * {
-	/* border: 1px solid red; */
+	/* 	border: 1px solid red; */
+	
 }
 
 /* 아래 div */
 #downDiv * {
-	 /* border: 1px solid red; */
+	/* border: 1px solid red;  */
+	
 }
 
 /* 위 div */
 #upDiv {
 	width: 100%;
-	height: 60%;
-/* 	display:flex;
+	height: 58%;
+	/* 	display:flex;
 	justify-content:center; */
 }
 
@@ -74,6 +81,7 @@ html, body, div, span, applet, object, iframe, h1, h2, h3, h4, h5, h6, p, blockq
 	height: 40%;
 	display: flex;
 	/* border-top: 1px solid #C6C5C5; */
+	padding: 0 5vh 0 5vh;
 }
 
 /* 리뷰 div */
@@ -81,27 +89,34 @@ html, body, div, span, applet, object, iframe, h1, h2, h3, h4, h5, h6, p, blockq
 	height: 100%;
 	width: 50%;
 	/* border-right: 1px solid #C6C5C5; */
-	margin:0 2% 0 3%;
+	padding-right: 1vh;
 }
 
 /* 카테고리 div */
 #categoryDiv {
-	height: 110%;
+	height: 105.45%;
 	width: 50%;
-	background-color:white;
-	margin:0 3% 0 0;
+	background-color: white;
+	/* margin:0 3% 0 0; */
+	border: 10px solid #FFCC66;
+	padding-left: 1vh;
 }
 
 /* 가로 슬라이드 */
 .splide {
 	height: 100%;
-
 }
 
-.splide__track{
-/* 수정 */
-	background-color:white;
+#reviewDiv .splide__track {
+	width: 100%;
+	height: 100%;
+}
+
+.splide__track {
+	/* 수정 */
+	background-color: white;
 	/* border-radius:2%; */
+	border: 10px solid #FFCC66;
 }
 
 .splide__track * {
@@ -114,7 +129,6 @@ html, body, div, span, applet, object, iframe, h1, h2, h3, h4, h5, h6, p, blockq
 	font-size: 20px;
 	margin: 10px;
 	display: inline-block;
-
 }
 
 #upDiv .splide__list .splide__slide {
@@ -167,6 +181,7 @@ html, body, div, span, applet, object, iframe, h1, h2, h3, h4, h5, h6, p, blockq
 	display: grid;
 	/* grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); */
 	grid-template-columns: repeat(auto-fill, minmax(20vh, 1fr));
+	/* 간격 */
 	grid-gap: 1em;
 }
 
@@ -194,7 +209,8 @@ html, body, div, span, applet, object, iframe, h1, h2, h3, h4, h5, h6, p, blockq
 	width: 100%;
 	top: 0;
 	left: 0;
-	opacity: 0;
+	opacity: 1;
+	/* opacity: 0;  */
 	transition: opacity .5s;
 	color: black;
 	display: flex;
@@ -247,7 +263,8 @@ html, body, div, span, applet, object, iframe, h1, h2, h3, h4, h5, h6, p, blockq
 	display: inline-block;
 	height: 50%;
 	width: 50%;
-	padding-left: 3%;
+	padding: 0 0 0 3%;
+	margin: 3% 0 3% 0;
 }
 
 /* 카드 오른쪽 이름  */
@@ -302,7 +319,7 @@ html, body, div, span, applet, object, iframe, h1, h2, h3, h4, h5, h6, p, blockq
 	height: 10%;
 	width: 100%;
 	display: flex;
-	font-size:90%;
+	font-size: 90%;
 }
 
 /* 리뷰한사람 닉네임  */
@@ -378,16 +395,66 @@ html, body, div, span, applet, object, iframe, h1, h2, h3, h4, h5, h6, p, blockq
 	display: flex;
 	justify-content: center;
 	align-items: center;
-	background-color:white;
+	background-color: white;
+	border: 10px solid #FFCC66;
 }
 
 .emptyReview {
 	width: 100%;
-	height: 110%;
+	height: 105%;
 	font-size: 3vh;
 	padding-top: 15vh;
 	text-align: center;
-	background-color:white;
+	background-color: white;
+	border: 10px solid #FFCC66;
+}
+
+/* 버튼 */
+.button-8 {
+	width: 100%;
+	height: 30%;
+	border: 2px solid #00316D;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	cursor: pointer;
+	position: relative;
+	box-sizing: border-box;
+	overflow: hidden;
+}
+
+.button-8 .johnbtn {
+	font-size: 2.5vh;
+	color: #FFCC66;
+	text-decoration: none;
+	line-height: 50px;
+	transition: all .5s ease;
+	z-index: 2;
+	position: relative;
+	/*  */
+	width: 100%;
+	height: 100%;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+}
+
+.eff-8 {
+	width: 100%;
+	height: 100%;
+	border: 90px solid #00316D;
+	position: absolute;
+	transition: all .5s ease;
+	z-index: 1;
+	box-sizing: border-box;
+}
+
+.button-8:hover .eff-8 {
+	border: 0px solid #00316D;
+}
+
+.button-8:hover .johnbtn {
+	color: #00316D;
 }
 </style>
 
@@ -420,15 +487,13 @@ html, body, div, span, applet, object, iframe, h1, h2, h3, h4, h5, h6, p, blockq
 												</c:forEach>
 											</div>
 
-											<%-- 			
-											<div class="exCounselArea"><p>카운트 : ${(expert['ex'].expertReviewCount)}</p></div>
-											<div class="exCounselArea"><p>점수 : ${(expert['ex'].expertRating)}</p></div>
-											<div class="exCounselArea">	<p>확ㅇ : ${Math.round((expert['ex'].expertRating)/(expert['ex'].expertReviewCount))}</p></div>
-											 --%>
-
 											<div class="exCounselArea">분야 : ${expert['ex'].expertCounselArea}</div>
-											<button type="button" class="btn btn-outline-primary" onclick="counsel('${expert['mem'].usid}','${expert['mem'].memNickname}');">상담
-												신청</button>
+
+											<div class="button-8">
+												<div class="eff-8"></div>
+												<a class="johnbtn" onclick="counsel('${expert['mem'].usid}','${expert['mem'].memNickname}');">상담 신청</a>
+											</div>
+
 										</div>
 										<div class="exBottm">
 											<c:if test="${empty (expert['ex'].expertGreetings)}">

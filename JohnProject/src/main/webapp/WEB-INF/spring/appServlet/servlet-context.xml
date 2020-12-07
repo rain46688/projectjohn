@@ -30,9 +30,15 @@
 	<!-- 게시판 리스트용 웹소켓 핸들러 등록 -->
 	<beans:bean id="boardList" class="com.kh.john.board.controller.BoardListSocket"></beans:bean>
 	
+	<!-- 게시판 채팅용 웹소켓 핸들러 등록 -->
+	<beans:bean id="boardChat" class="com.kh.john.board.controller.BoardChatSocket"></beans:bean>
 	<websocket:handlers>
 		<websocket:mapping handler="boardList" path="/list"/>	
-		<websocket:sockjs/>
+		<websocket:mapping handler="boardChat" path="/chat"/>
+		<websocket:handshake-interceptors>
+			<beans:bean class="org.springframework.web.socket.server.support.HttpSessionHandshakeInterceptor"/>
+		</websocket:handshake-interceptors>
+		<websocket:sockjs session-cookie-needed="true"/>
 	</websocket:handlers>
 	
 	<websocket:handlers>

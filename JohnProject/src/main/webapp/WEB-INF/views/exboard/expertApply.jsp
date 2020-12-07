@@ -30,6 +30,11 @@ html, body, div, span, applet, object, iframe, h1, h2, h3, h4, h5, h6, p, blockq
 		font-family: 'Noto Serif KR', serif;
 }
 
+.container *{
+		font-family: 'Noto Serif KR', serif;
+}
+
+
 body * {
 	/* border: 1px solid red; */
 }
@@ -52,6 +57,57 @@ textarea {
 #exbtn{
 	display:flex;
 	justify-content:center;
+}
+
+body{
+	background-color: #062449;
+}
+
+.card{
+	border: 10px solid #FFCC66;
+}
+
+/* 일반 버튼  */
+.button-7{
+  width:30%;
+  height:70%;
+  border:2px solid #00316D;
+  display:flex;
+  justify-content:center;
+  align-items:center;
+  cursor:pointer;
+  position:relative;
+  box-sizing:border-box;
+  overflow:hidden;
+  margin:2%;
+}
+
+.button-7 .johnbtn{
+  font-size:2vh;
+  color:#FFCC66;
+  text-decoration:none;
+  line-height:50px;
+  transition:all .5s ease;
+  z-index:2;
+  position:relative;
+}
+
+.eff-7{
+  width:100%;
+  height:50px;
+  border:70px solid #00316D;
+  position:absolute;
+  transition:all .5s ease;
+  z-index:1;
+  box-sizing:border-box;
+}
+
+.button-7:hover .eff-7{
+  border:0px solid #00316D;
+}
+
+.button-7:hover .johnbtn{
+  color:#00316D;
 }
 
 
@@ -146,10 +202,18 @@ textarea {
 									<hr />
 									<div id="exbtn">
 										<c:if test="${requestIsDuplicate != true}">
-											<button class="btn btn-outline-success" onclick="expertRequest();">상담 신청하기</button>
+													<div class="button-7">
+												    <div class="eff-7"></div>
+												    <a  class="johnbtn"  onclick="expertRequest();">상담 신청하기</a>
+												  </div>	 
+											<!-- <button class="btn btn-outline-success" onclick="expertRequest();">상담 신청하기</button> -->
 										</c:if>
 										<c:if test="${requestIsDuplicate == true}">
-											<button class="btn btn-outline-success" onclick="expertRequestCancel();">상담 취소하기</button>
+											<div class="button-7">
+												    <div class="eff-7"></div>
+												    <a  class="johnbtn"  onclick="expertRequestCancel();">상담 취소하기</a>
+												  </div>	
+											<!-- <button class="btn btn-outline-success" onclick="expertRequestCancel();">상담 취소하기</button> -->
 										</c:if>
 									</div>
 

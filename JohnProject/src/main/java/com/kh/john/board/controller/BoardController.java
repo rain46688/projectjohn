@@ -140,9 +140,15 @@ public class BoardController {
 		
 		Map m = service.boardSelectOne(boardNo);
 		
-		mv.addObject("currBoard", m);
-		mv.setViewName("/board/boardPage");
+		System.out.println(m.get("BIG_CATEGORY"));
 		
+		if(m.get("BIG_CATEGORY").equals("음성게시판")) {
+			mv.setViewName("/board/boardStreamPage");
+		}else {
+			mv.setViewName("/board/boardPage");
+		}
+		
+		mv.addObject("currBoard", m);
 		return mv;
 	}
 	
