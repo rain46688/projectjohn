@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ include file="/WEB-INF/views/common/header.jsp"%>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/stomp.js/2.3.3/stomp.min.js"></script>
 <style>
 	#video-grid {
         display:grid;
@@ -255,7 +256,7 @@ hr {
   padding-right:1em;
   color:black;
   min-height:1.7em;
-  max-height:3em;
+  max-height:3.5em;
   display:flex;
   align-items:center;
 }
@@ -379,7 +380,7 @@ hr {
               Nickname
             </div>
             <div id="writerComment">
-              <input type="text" value="방장의 한마디" id="writerComIn">
+              <input type="text" value="방장의 한마디" id="writerComIn" placeholder="Enter를 누르면 입력됩니다.">
             </div>
           </div>
           <div class="box1">
@@ -464,9 +465,18 @@ hr {
           </div>
         </div>
         <div id="commentInsertArea">
-          <input type="text" id="commentText" maxlength="30">
+          <input type="text" id="commentText" maxlength="20">
           <button id="commentTextBtn" onclick="fn_chatInsert();">전송</button>
         </div>
+        <c:if test="${loginMember.usid eq currBoard.WRITER_USID }">
+        	<style>
+        		#commentInsertArea {
+        			display:none;
+        		}
+        	</style>
+        </c:if>
+        <input type="file" id="fileUp">
+        <button onclick="fn_fileUp();">업로드</button>
     </div>
   </div>
                     <%-- <button onclick="location.href = '${path}/board/boardModify'">수정하기</button>
@@ -547,19 +557,42 @@ hr {
 
 let chatList = [];
 
-const chatSocket = new SockJS("https://172.30.1.18:8443${path}/chat");
+const chatSocket = new WebSocket("wss://172.30.1.16:8443${path}/chat");
+
+/* const chatImageSocket = new WebSocket("wss://172.30.1.16:8443${path}/image"); */
+
+/* const stompImage = Stomp.over(chatImageSocket); */
+
+
+function fn_fileUp(){
+	let value = document.getElementById('fileUp').files[0];
+	console.log(value);
+	handleFileDrop(value)
+}
+
+function handleFileDrop(file){
+	var fileReader = new FileReader();
+	let rowData=new ArrayBuffer();
+	chatSocket.binaryType="arraybuffer";
+	fileReader.onload = function(e) {
+	    rowData = e.target.result;
+	    console.log('전송됨');
+	    chatSocket.send('image:'+JSON.stringify(file.name));
+	    chatSocket.send(rowData); //파일 소켓 전송
+	};
+	fileReader.readAsArrayBuffer(document.getElementById('fileUp').files[0]);
+} 
+
 
 chatSocket.onopen = function(e){
   	let user = {boardId:${currBoard.BOARD_ID},
               usid:${loginMember.usid},
   				message:'안녕하세요'};
 	chatSocket.send('chat:'+JSON.stringify(user));
-	}
+}
+
 chatSocket.onmessage = function(e){
-	console.log(JSON.parse(e.data));
 	chatList = JSON.parse(e.data);
-	
-	console.log(typeof JSON.parse(e.data))
 	
 	//사용자 숫자를 알기 위한 배열
 	let tempList= [];
@@ -585,8 +618,6 @@ chatSocket.onmessage = function(e){
       }
       else {
         if(item.usid!=realChatList[idx].usid){
-        	console.log('item', item.usid);
-        	console.log(realChatList[idx].usid);
           realChatList.push(item);
           idx++;
         }
@@ -594,34 +625,55 @@ chatSocket.onmessage = function(e){
     }
   })
 
-  console.log('real! : ');
-  console.log(realChatList);
-
   realChatList.forEach(function(item, index){
-    let user = document.createElement('div');
-    user.className = 'user';
-    let userCon = document.createElement('div');
-    userCon.className = 'userCon';
-    let userImgCon = document.createElement('div');
-    userImgCon.className = 'userImgCon';
-    let userImg = document.createElement('img');
-    userImg.className = 'userImg';
-    userImg.setAttribute('src','${path}/resources/profile_images/'+item.userImg);
-    userImgCon.appendChild(userImg);
-    let userNick = document.createElement('div');
-    userNick.className = 'userNick';
-    userNick.innerHTML = item.userNick;
-    userCon.appendChild(userImgCon);
-    userCon.appendChild(userNick);
-    let userComment = document.createElement('div');
-    userComment.className = 'userComment';
-    userComment.innerHTML = item.message;
-    user.appendChild(userCon);
-    user.appendChild(userComment);
-    document.getElementById('commentPrint').appendChild(user);
-    })
+	if(item.usid==${currBoard.WRITER_USID}){
+		let writerComIn = document.getElementById('writerComIn');
+		writerComIn.value = item.message;
+		writerComIn.style.color = '#00316d';
+		writerComIn.style.fontWeight = '900';
+	}else{
+	    let user = document.createElement('div');
+	    user.className = 'user';
+	    let userCon = document.createElement('div');
+	    userCon.className = 'userCon';
+	    let userImgCon = document.createElement('div');
+	    userImgCon.className = 'userImgCon';
+	    let userImg = document.createElement('img');
+	    userImg.className = 'userImg';
+	    userImg.setAttribute('src','${path}/resources/profile_images/'+item.userImg);
+	    userImgCon.appendChild(userImg);
+	    let userNick = document.createElement('div');
+	    userNick.className = 'userNick';
+	    userNick.innerHTML = item.userNick;
+	    userCon.appendChild(userImgCon);
+	    userCon.appendChild(userNick);
+	    let userComment = document.createElement('div');
+	    userComment.className = 'userComment';
+	    userComment.innerHTML = item.message;
+	    user.appendChild(userCon);
+	    user.appendChild(userComment);
+	    document.getElementById('commentPrint').appendChild(user);
+    }
+  })
 }
 
+//채팅창 엔터에 반응하기
+document.getElementById('commentText').onkeypress = function(e){
+	if(e.keyCode == 13){
+		document.getElementById('commentTextBtn').click();
+	}
+}
+
+//방장의 한마디 엔터에 반응하기
+document.getElementById('writerComIn').onkeypress = function(e){
+	document.getElementById('writerComIn').style.color = 'black';
+	if(e.keyCode == 13){
+		document.getElementById('commentText').value = document.getElementById('writerComIn').value;
+		document.getElementById('commentTextBtn').click();
+	}
+}
+
+//채팅입력하기
 function fn_chatInsert(){
   let val = document.getElementById('commentText').value;
   document.getElementById('commentText').value = "";
@@ -630,12 +682,23 @@ function fn_chatInsert(){
           message:val};
   chatSocket.send('chat:'+JSON.stringify(chat));
 }
+document.ondrop = function(e){
+
+	console.log('드랍됨');
+  handleFileDrop(e.dataTransfer.files[0]);
+  
+  return false;
+}
+document.ondragover = function(e) {
+ e.preventDefault();
+ document.body.style.backgroundColor = "#66FF00";
+}
+
+document.ondragleave = function(e) {
+ document.body.style.backgroundColor = "#660000";
+}
 
 
-/* chatSocket.onclose = function(e){
-	let boardId = {boardId:${currBoard.BOARD_ID}};
-	chatSocket.send('close:'+JSON.stringify(boardId));
-} */
 
 
 //좋아요 기능
@@ -762,6 +825,17 @@ function fn_judge(judge) {
 		})
 	}
 }
+
+function createObjectURL (blob) {
+ if ( window.webkitURL ) {
+  return window.webkitURL.createObjectURL( blob );
+ } else if ( window.URL && window.URL.createObjectURL ) {
+  return window.URL.createObjectURL( blob );
+ } else {
+  return null;
+ }
+}
+
 
 //*** This code is copyright 2002-2016 by Gavin Kistner, !@phrogz.net
 //*** It is covered under the license viewable at http://phrogz.net/JS/_ReuseLicense.txt
