@@ -73,6 +73,57 @@
 	div.msgDiv{
 		margin: 5px;
 	}
+	input#newNick{
+		width: 100%;
+		outline: none;
+        border: black solid 1px;
+        background-color: white;
+        width: 60%;
+        height: 2.5rem;
+        margin: 10px 20%;
+		margin-bottom: 5px;
+        padding: 5px;
+        box-sizing: border-box;
+        font-size: 1rem;
+	}
+	div.result{
+		overflow: auto;
+		clear: both;
+		padding: 0.5rem;
+		border: 1px black solid;
+		display: grid;
+		grid-template-columns: 5rem 15rem 3rem;
+		column-gap: 0.5rem;
+		text-align: center;
+		justify-items: center;
+		margin-bottom: 0.5rem;
+	}
+	div.searchPic{
+		overflow: auto;
+		margin-left: 2rem;
+	}
+	img.picImg{
+		height: 3rem;
+		width: 3rem;
+		max-width: 100%;
+		border-radius: 15px;
+	}
+	div.searchNick{
+		text-align: left;
+		min-width: 15rem;
+		font-size: 1.2rem;
+		padding: 0.6rem;
+	}
+	div.searchRadio{
+		min-width: 3rem;
+		margin-right: 1rem;
+		padding: 0.8rem;
+	}
+	input[type="radio"]{
+		font-size: 1.5rem;
+		width: 1.5rem;
+		height: 1.5rem;
+	}
 </style>
 <section id="content">
 	<div id="newChatContainer">
@@ -95,7 +146,7 @@
 					</button>
 				</div>
 				<div class="modal-body">
-					<input type="text" id="newNick" placeholder="닉네임">
+					<input type="text" id="newNick" placeholder="닉네임을 입력해주세요.">
 					<div id="searchResult"></div>
 				</div>
 				<div class="modal-footer">
@@ -118,14 +169,15 @@
 			dataType:"json",
 			success:function(data){
 				if(data.length>0){
-					let container=$("<div/>")
+					let container=$("<div/>").attr("class","container");
 					$.each(data,function(i,v){
 						let div=$("<div/>").attr("class","result");
-						let otherProfilePic=$("<div/>").html($("<img/>").attr("src","${path}/resources/profile_images/"+v['profilePic']));
-						let otherNick=$("<div/>").html(v['memNickname']);
-						let radioBtn=$("<div/>").html($("<input/>").attr({"type":"radio","name":"selectMember","value":v['memNickname']}));
+						let otherProfilePic=$("<div/>").attr("class","searchPic").html($("<img/>").attr({"src":"${path}/resources/profile_images/"+v['profilePic'],"class":"picImg"}));
+						let otherNick=$("<div/>").attr({"class":"searchNick"}).html(v['memNickname']);
+						let radioBtn=$("<div/>").attr("class","searchRadio").html($("<input/>").attr({"type":"radio","name":"selectMember","value":v['memNickname']}));
 						div.append(otherProfilePic).append(otherNick).append(radioBtn);
 						container.append(div);
+						console.log(v['memNickname']);
 					})
 					$("#searchResult").html(container);
 				}else{
@@ -138,7 +190,7 @@
 		$.ajax({
 			url:"${path}/member/selectMessageMember",
 			type:"post",
-			data:{"otherNick":$("input[name=selectMember]").val()},
+			data:{"otherNick":$('input[name="selectMember"]:checked').val()},
 			dataType:"json",
 			success:function(data){
 				location.href="${path}/member/myPage/message?usid=${loginMember.usid}&otherUsid="+data.usid;
@@ -160,7 +212,6 @@
 			$.each(data, function(i,v){
 				msgList[i]=v;
 			})
-			console.log(msgList);
 			let usidList=new Array();
 			$.each(msgList,function(i,v){
 				let firstUsid=v['mchatFirstUsid'];
