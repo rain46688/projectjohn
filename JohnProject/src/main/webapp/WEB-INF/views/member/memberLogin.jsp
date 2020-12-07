@@ -9,61 +9,52 @@
 <head>
 <meta charset="UTF-8">
 <title>재판하는존경장님</title>
-<!-- Latest compiled and minified CSS -->
-<!-- <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
-    Popper JS
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
-    Latest compiled JavaScript
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script> -->
 <!--jQuery library-->
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 <!-- 파비콘 -->
 <link rel="icon" type="image/png" href="${path }/resources/images/favicon.ico">
+<link rel="stylesheet" href="${path }/resources/css/admin/memberLogin.css">
+<link href="https://fonts.googleapis.com/css2?family=Black+Han+Sans&display=swap" rel="stylesheet">
 </head>
-
-	<link rel="stylesheet" href="${path }/resources/css/admin/memberLogin.css">
-    <link href="https://fonts.googleapis.com/css2?family=Black+Han+Sans&display=swap" rel="stylesheet">
-    <style>
-        img.ham {
-        animation: target_image 0.5s; 
-        animation-iteration-count: 7;
-        transform-origin: 100% 25%;
-        position: absolute;
-        margin-left:39%;
-       
-        }
- 
-        @keyframes target_image {
-        0% { transform: rotate(-10deg); }
-        50% { transform: rotate(25deg); }
-        100% { transform: rotate(-10deg); }
-        }
-
-        .blink {
-        animation-name: blink;
-        animation-iteration-count: 9;
-        animation-timing-function:ease;
-        animation-duration: 0.4s;
-        position: absolute;
-        margin-left:33%;
-        
-        }
-
-        @keyframes blink {
-        from { opacity: 1.0; }
-        to { opacity: 0.0; }
-        }
-
-        
-
-    </style>
+<style>
+    img.ham {
+    animation: target_image 0.5s; 
+    animation-iteration-count: 7;
+    transform-origin: 100% 25%;
+    position: absolute;
+    margin-left:39%;
     
-<body>
-  <div class = "container projects">
-        <!-- <h1>재판하는 존경장님</h1> -->
-        
-        <h1>
+    }
 
+    @keyframes target_image {
+    0% { transform: rotate(-10deg); }
+    50% { transform: rotate(20deg); }
+    100% { transform: rotate(-10deg); }
+    }
+
+    .blink {
+    animation-name: blink;
+    animation-iteration-count: 7;
+    animation-timing-function:ease;
+    animation-delay: 0.05s;
+    animation-duration: 0.5s;
+    position: absolute;
+    margin-left:33%;
+    
+    }
+
+    @keyframes blink {
+    from { opacity: 1.0; }
+    to { opacity: 0.0; }
+    }
+
+    
+
+</style>
+<body>
+    <div class = "container projects">
+        <!-- <h1>재판하는 존경장님</h1> -->
+        <h1>
             <!--망치이미지-->
             <div>
                 <img src="${path}/resources/images/admin/09.png" class="ham" height="110px" width="110px">
@@ -71,17 +62,13 @@
             <div>
                 <img src="${path}/resources/images/admin/tang.png" class="blink" height="80px" width="80px">
             </div>
-            
             <!--로고사진-->
             <img src="${path}/resources/images/admin/logo_long_black (1).png">
-        
-            <div id="form_wrapper">
-                
+            <div id="form_wrapper"> 
                 <!--폼 왼쪽의 로고사진-->
                 <div id="form_left">
                     <img src="${path}/resources/images/admin/logo_john-2.png" alt="">
                 </div>
-
                 <!--폼 오른쪽 로그인폼-->
                 <div id="form_right">
                     <form id="loginForm" action="${path}/memberLoginEnd" method="POST">
@@ -99,121 +86,111 @@
                         <button type="button" id="input_submit" class="input_field" onclick="fn_login()">Login</button>
                     </form>
 
-					<!-- 임시입장 나중에 수정하셈  -->
-					<button type="button" onclick="location.href='${path}/board/boardList'">임시입장임시입장</button>
-
                     <span id="find_password">까먹었다&nbsp;<a onclick="fn_findIdPage();">아이디</a>&nbsp;<a onclick="fn_findPwPage();">비밀번호</a></span>
 
                     <span id="create_account">
                         <a onclick="fn_signUp();">★회원가입★</a>
                     </span>
-
                 </div>
             </div>
-
         </h1>
-		
         <div class="overlay"></div>
- 
-    
-        </div>
-        <script>
-            //아이디 저장
-            $(document).ready(function(){
-                //쿠키에 저장된 아이디를 불러와서 넣기
-                var savedId=getCookie("savedId");
-                if(savedId!=null){
-                    $("#mem_email").val(savedId);
-                }
-                
-                if($("#mem_email").val()!=""){
-                    $("#saveId").attr("checked",true);
-                }
+    </div>
+    <script>
+        //아이디 저장
+        $(document).ready(function(){
+            //쿠키에 저장된 아이디를 불러와서 넣기
+            var savedId=getCookie("savedId");
+            if(savedId!=null){
+                $("#mem_email").val(savedId);
+            }
+            
+            if($("#mem_email").val()!=""){
+                $("#saveId").attr("checked",true);
+            }
 
-                $("#saveId").change(function(){
-                    if($("#saveId").is(":checked")){
-                        setCookie("savedId",$("#mem_email").val(),7);
-                    }else{
-                        deleteCookie("savedId");
-                    }
-                });
-
-                $("#mem_email").keyup(function(){
-                    if($("#saveId").is(":checked")){
-                        setCookie("savedId",$("#mem_email").val(),7);
-                    }
-                })
+            $("#saveId").change(function(){
+                if($("#saveId").is(":checked")){
+                    setCookie("savedId",$("#mem_email").val(),7);
+                }else{
+                    deleteCookie("savedId");
+                }
             });
 
-            //쿠키 관련 세팅들
-            function setCookie(cookieName, value, exdays){
-                var exdate = new Date();
-                exdate.setDate(exdate.getDate() + exdays);
-                var cookieValue = escape(value) + ((exdays==null) ? "" : "; expires=" + exdate.toGMTString());
-                document.cookie = cookieName + "=" + cookieValue;
-            }
-            
-            function deleteCookie(cookieName){
-                var expireDate = new Date();
-                expireDate.setDate(expireDate.getDate() - 1);
-                document.cookie = cookieName + "= " + "; expires=" + expireDate.toGMTString();
-            }
-            
-            function getCookie(cookieName) {
-                cookieName = cookieName + '=';
-                var cookieData = document.cookie;
-                var start = cookieData.indexOf(cookieName);
-                var cookieValue = '';
-                if(start != -1){
-                    start += cookieName.length;
-                    var end = cookieData.indexOf(';', start);
-                    if(end == -1)end = cookieData.length;
-                    cookieValue = cookieData.substring(start, end);
+            $("#mem_email").keyup(function(){
+                if($("#saveId").is(":checked")){
+                    setCookie("savedId",$("#mem_email").val(),7);
                 }
-                return unescape(cookieValue);
-            }
+            })
+        });
 
-            //로그인 버튼 클릭시
-            function fn_login(){
-                $("#loginForm").submit();
-            };
-
-            //엔터로 입장하기
-            $('#memPwd').on('keypress', function(e){
-	            if(e.keyCode==13) {
-                    $("#input_submit").click();
-                }
-            });  
-
-            //아이디 찾기
-            function fn_findIdPage(){
-                const url="${path }/findIdPage";
-                const title="findIdPage";
-                const status="left=500, top=100, width=500, height=500";
-
-                open(url, title, status);
-            }
-
-            //비밀번호 찾기
-            function fn_findPwPage(){
-                const url="${path }/findPwPage";
-                const title="findPwPage";
-                const status="left=500, top=100, width=500, height=500";
-
-                open(url, title, status);
-            }
-
-            //회원가입으로 가는 길
-            function fn_signUp(){
-                const url="${path }/signUp";
-                const title="signUp";
-                const status="left=500, top=100, width=800, height=800";
-
-                open(url,title,status);
-            }
-        </script>
+        //쿠키 관련 세팅들
+        function setCookie(cookieName, value, exdays){
+            var exdate = new Date();
+            exdate.setDate(exdate.getDate() + exdays);
+            var cookieValue = escape(value) + ((exdays==null) ? "" : "; expires=" + exdate.toGMTString());
+            document.cookie = cookieName + "=" + cookieValue;
+        }
         
-    
+        function deleteCookie(cookieName){
+            var expireDate = new Date();
+            expireDate.setDate(expireDate.getDate() - 1);
+            document.cookie = cookieName + "= " + "; expires=" + expireDate.toGMTString();
+        }
+        
+        function getCookie(cookieName) {
+            cookieName = cookieName + '=';
+            var cookieData = document.cookie;
+            var start = cookieData.indexOf(cookieName);
+            var cookieValue = '';
+            if(start != -1){
+                start += cookieName.length;
+                var end = cookieData.indexOf(';', start);
+                if(end == -1)end = cookieData.length;
+                cookieValue = cookieData.substring(start, end);
+            }
+            return unescape(cookieValue);
+        }
+
+        //로그인 버튼 클릭시
+        function fn_login(){
+            $("#loginForm").submit();
+        };
+
+        //엔터로 입장하기
+        $('#memPwd').on('keypress', function(e){
+            if(e.keyCode==13) {
+                $("#input_submit").click();
+            }
+        });  
+
+        //아이디 찾기
+        function fn_findIdPage(){
+            const url="${path }/findIdPage";
+            const title="findIdPage";
+            const status="left=500, top=100, width=500, height=500";
+
+            open(url, title, status);
+        }
+
+        //비밀번호 찾기
+        function fn_findPwPage(){
+            const url="${path }/findPwPage";
+            const title="findPwPage";
+            const status="left=500, top=100, width=500, height=500";
+
+            open(url, title, status);
+        }
+
+        //회원가입으로 가는 길
+        function fn_signUp(){
+            const url="${path }/signUp";
+            const title="signUp";
+            const status="left=500, top=100, width=800, height=800";
+
+            open(url,title,status);
+        }
+    </script>
 </body>
 </html>
 

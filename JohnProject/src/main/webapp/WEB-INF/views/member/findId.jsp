@@ -8,12 +8,25 @@
 <html>
 <head>
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+	<link rel="preconnect" href="https://fonts.gstatic.com">
+	<link href="https://fonts.googleapis.com/css2?family=Noto+Serif+KR&display=swap" rel="stylesheet">
 </head>
+<style>
+	body{
+		background-image: url("${path}/resources/images/findPaper.png");
+		background-color: #00316D;
+	}
+	body *{
+		font-family: 'Noto Serif KR', serif;
+	}
+</style>
 <body>
 	<c:choose>
 		<c:when test="${empty findMember }">
 			<form id="findIdForm" action="${path}/findId" method="POST">
-				<div>ㅠㅇㅠ아이디 찾기ㅠㅇㅠ</div>
+				<div>
+					아이디 찾기
+				</div>
 				<div>
 					<input type="text" name="memName" id="memName" placeholder="이름을 입력해주세요">
 				</div>
