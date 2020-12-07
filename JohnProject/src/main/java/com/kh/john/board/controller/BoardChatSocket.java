@@ -36,11 +36,11 @@ public class BoardChatSocket extends AbstractWebSocketHandler{
 
 	private Map <Member, WebSocketSession> allUsers = new HashMap<Member, WebSocketSession>();
 	
-	private Multimap<Integer, WebSocketSession> rooms = ArrayListMultimap.create();
+	private Multimap<Integer, Member> rooms = ArrayListMultimap.create();
 	
 	private Multimap<Integer, BoardChat> roomChat = ArrayListMultimap.create();
 	
-	private Map <WebSocketSession, String> imageFileName = new HashMap();
+	private Map <Member, String> imageFileName = new HashMap();
 	
 	private ObjectMapper mapper = new ObjectMapper();
 	
@@ -51,6 +51,7 @@ public class BoardChatSocket extends AbstractWebSocketHandler{
 		Map<String, Object> map = session.getAttributes();
 		Member member = (Member)map.get("loginMember");
 		allUsers.put(member, session);
+		System.out.println(roomChat);
 	}
 	
 	@Override
@@ -65,8 +66,9 @@ public class BoardChatSocket extends AbstractWebSocketHandler{
 	
 	@Override
 	protected void handleBinaryMessage(WebSocketSession session, BinaryMessage message) {
+		Member member = (Member)session.getAttributes().get("loginMember");
 		ByteBuffer payload = (ByteBuffer)message.getPayload();
-		String fileName = imageFileName.get(session);
+		String fileName = imageFileName.get(member);
 		String extension =fileName.substring(fileName.lastIndexOf('.'), fileName.length()-1);
 		FileOutputStream fos = null;
 		if(message.isLast()) {
@@ -90,15 +92,14 @@ public class BoardChatSocket extends AbstractWebSocketHandler{
 		}
 		try {
 			int roomNum = 0;
-			for(Map.Entry<Integer, WebSocketSession> room : rooms.entries()) {
-				System.out.println(room);
-				if(room.getValue().equals(session)) {
+			for(Map.Entry<Integer, Member> room : rooms.entries()) {
+				if(allUsers.get(room.getValue()).equals(session)) {
 					roomNum = room.getKey();
 					break;
 				}
 			}
-			for(WebSocketSession sess : rooms.get(roomNum)) {
-				sess.sendMessage(new TextMessage("image:"+fileName));
+			for(Member mem : rooms.get(roomNum)) {
+				allUsers.get(mem).sendMessage(new TextMessage("image:"+fileName));
 			}
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
@@ -131,11 +132,11 @@ public class BoardChatSocket extends AbstractWebSocketHandler{
 			roomChat.put(boardId, msgFromClient);
 			
 			if(!rooms.keySet().contains(boardId)) {
-				rooms.put(boardId, allUsers.get(member));
+				rooms.put(boardId, member);
 			}else {
-				for(WebSocketSession sess : rooms.get(boardId)) {
-					if(session!=sess) {
-						rooms.put(boardId, session);
+				for(Member mem : rooms.get(boardId)) {
+					if(member!=allUsers.get(mem)) {
+						rooms.put(boardId, member);
 						break;
 					}
 				}
@@ -145,14 +146,14 @@ public class BoardChatSocket extends AbstractWebSocketHandler{
 			
 			System.out.println(rooms);
 			
-			for(WebSocketSession sess : rooms.get((Integer)result.get("boardId"))) {
+			for(Member mem : rooms.get((Integer)result.get("boardId"))) {
 				for(BoardChat chat : roomChat.get((Integer)result.get("boardId"))) {
 					chatList.add(chat);
 				}
-				sess.sendMessage(new TextMessage(mapper.writeValueAsString(chatList)));
+				allUsers.get(mem).sendMessage(new TextMessage(mapper.writeValueAsString(chatList)));
 			}
-		}else if(messageKey.equals("image")) {
-			imageFileName.put(session, messageValue);
+		}else {
+			imageFileName.put(member, messageValue);
 		}
 	}
 //		
@@ -183,10 +184,10 @@ public class BoardChatSocket extends AbstractWebSocketHandler{
 		outerloop:
 		while(it.hasNext()) {
 			int boardId = (Integer)it.next();
-			for(WebSocketSession sess : rooms.get(boardId)) {
-				if(session.equals(sess)) {
+			for(Member mem : rooms.get(boardId)) {
+				if(member.equals(mem)) {
 					board = boardId;
-					rooms.remove(boardId, sess);
+					rooms.remove(boardId, member);
 					break outerloop;
 				}
 			}
@@ -207,11 +208,11 @@ public class BoardChatSocket extends AbstractWebSocketHandler{
 		
 		
 		System.out.println("************************"+board);
-		for(WebSocketSession sess : rooms.get(board)) {
+		for(Member mem : rooms.get(board)) {
 			for(BoardChat chat : roomChat.get(board)) {
 				chatList.add(chat);
 			}
-			sess.sendMessage(new TextMessage(mapper.writeValueAsString(chatList)));
+			allUsers.get(mem).sendMessage(new TextMessage(mapper.writeValueAsString(chatList)));
 		}
 		
 		allUsers.remove(member);
