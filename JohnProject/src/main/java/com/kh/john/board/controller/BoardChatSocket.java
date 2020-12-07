@@ -82,21 +82,27 @@ public class BoardChatSocket extends AbstractWebSocketHandler{
 				realPath = realPath + "/resources/images/" + fileName;
 				fos = new FileOutputStream(new File(realPath));
 				FileChannel channel = fos.getChannel();
-//				ByteBuffer buf = ByteBuffer.allocate(1024);
-//				buf.clear();
-//				buf.put(payload);
-//				
-//				buf.flip();
-//				
-//				while(buf.hasRemaining()) {
-//					channel.write(buf);
-//				}
 				channel.write(payload);
-				
 			} catch (IOException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
+		}
+		try {
+			int roomNum = 0;
+			for(Map.Entry<Integer, WebSocketSession> room : rooms.entries()) {
+				System.out.println(room);
+				if(room.getValue().equals(session)) {
+					roomNum = room.getKey();
+					break;
+				}
+			}
+			for(WebSocketSession sess : rooms.get(roomNum)) {
+				sess.sendMessage(new TextMessage("image:"+fileName));
+			}
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
 		}
 	}
 	
@@ -108,13 +114,13 @@ public class BoardChatSocket extends AbstractWebSocketHandler{
 		String messageKey = messageFromClient.substring(0,messageFromClient.indexOf(":"));
 		String messageValue = messageFromClient.substring(messageFromClient.indexOf(":")+1);
 		
-		
 		if(messageKey.equals("chat")) {
 			Map<String,Object> result = mapper.readValue(messageValue, HashMap.class);
 			
 			BoardChat msgFromClient = new BoardChat();
 			
 			int boardId = (Integer)result.get("boardId");
+			log.debug(""+boardId);
 			msgFromClient.setBoardId(boardId);
 			msgFromClient.setUsid(member.getUsid());
 			msgFromClient.setMessage((String)result.get("message"));
@@ -129,7 +135,8 @@ public class BoardChatSocket extends AbstractWebSocketHandler{
 			}else {
 				for(WebSocketSession sess : rooms.get(boardId)) {
 					if(session!=sess) {
-						
+						rooms.put(boardId, session);
+						break;
 					}
 				}
 			}

@@ -286,7 +286,7 @@ hr {
   text-align:right;
 }
 
-.box1 {
+#box1 {
   width: 90%;
   box-sizing: border-box;
   position: relative;
@@ -304,7 +304,7 @@ hr {
   background-color:white;
 }
 
-.box1 .inform {
+#box1 .inform {
   /* position:absolute; */
   /* border:1px red solid; */
 }
@@ -383,7 +383,7 @@ hr {
               <input type="text" value="방장의 한마디" id="writerComIn" placeholder="Enter를 누르면 입력됩니다.">
             </div>
           </div>
-          <div class="box1">
+          <div id="box1">
             <div class="wifi-symbol">
                 <div class="wifi-circle first"></div>
                 <div class="wifi-circle second"></div>
@@ -475,8 +475,6 @@ hr {
         		}
         	</style>
         </c:if>
-        <input type="file" id="fileUp">
-        <button onclick="fn_fileUp();">업로드</button>
     </div>
   </div>
                     <%-- <button onclick="location.href = '${path}/board/boardModify'">수정하기</button>
@@ -563,11 +561,23 @@ const chatSocket = new WebSocket("wss://172.30.1.16:8443${path}/chat");
 
 /* const stompImage = Stomp.over(chatImageSocket); */
 
+document.ondrop = function(e){
+	e.preventDefault();
+}
 
-function fn_fileUp(){
-	let value = document.getElementById('fileUp').files[0];
-	console.log(value);
-	handleFileDrop(value)
+document.ondragover = function(e) {
+ e.preventDefault();
+ document.body.style.backgroundColor = "#66FF00";
+}
+
+document.ondragleave = function(e) {
+ document.body.style.backgroundColor = "#660000";
+}
+
+document.getElementById('box1').ondrop = function(e){
+	e.preventDefault();
+	handleFileDrop(e.dataTransfer.files[0]);
+  	return false;
 }
 
 function handleFileDrop(file){
@@ -580,7 +590,7 @@ function handleFileDrop(file){
 	    chatSocket.send('image:'+JSON.stringify(file.name));
 	    chatSocket.send(rowData); //파일 소켓 전송
 	};
-	fileReader.readAsArrayBuffer(document.getElementById('fileUp').files[0]);
+	fileReader.readAsArrayBuffer(file);
 } 
 
 
@@ -682,24 +692,6 @@ function fn_chatInsert(){
           message:val};
   chatSocket.send('chat:'+JSON.stringify(chat));
 }
-document.ondrop = function(e){
-
-	console.log('드랍됨');
-  handleFileDrop(e.dataTransfer.files[0]);
-  
-  return false;
-}
-document.ondragover = function(e) {
- e.preventDefault();
- document.body.style.backgroundColor = "#66FF00";
-}
-
-document.ondragleave = function(e) {
- document.body.style.backgroundColor = "#660000";
-}
-
-
-
 
 //좋아요 기능
 document.getElementById('likeButton').addEventListener('click', function(){
