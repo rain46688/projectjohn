@@ -1,16 +1,14 @@
 package com.kh.john.exboard.socket;
 
-import java.io.File;
 import java.io.IOException;
 import java.nio.ByteBuffer;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.mock.web.MockMultipartFile;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.socket.BinaryMessage;
@@ -20,6 +18,7 @@ import org.springframework.web.socket.WebSocketSession;
 import org.springframework.web.socket.handler.TextWebSocketHandler;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.kh.john.exboard.controller.ExboardController;
 import com.kh.john.exboard.model.vo.ExboardMsg;
 import com.kh.john.exboard.model.vo.SessionVo;
 
@@ -30,6 +29,9 @@ public class ExpertHandler extends TextWebSocketHandler {
 
 	private Map<SessionVo, WebSocketSession> users = new HashMap<SessionVo, WebSocketSession>();
 	private ObjectMapper objectMapper = new ObjectMapper();
+
+	@Autowired
+	private ExboardController con;
 
 	@Override
 	public void afterConnectionEstablished(WebSocketSession session) throws Exception {
@@ -79,8 +81,6 @@ public class ExpertHandler extends TextWebSocketHandler {
 		//
 	}
 
-	private static final String FILE_UPLOAD_PATH = "E:/tt";
-
 	@Override
 	protected void handleBinaryMessage(WebSocketSession session, BinaryMessage message) {
 		// TODO Auto-generated method stub
@@ -91,22 +91,33 @@ public class ExpertHandler extends TextWebSocketHandler {
 		log.debug("자료형 확인 : " + multipartFile.getClass().getName());
 		log.debug("사이즈 : " + multipartFile.getSize());
 		log.debug("이름 : " + multipartFile.getOriginalFilename());
-		log.debug("이름2 : " + multipartFile.getName());// tmp.png
+		log.debug("이름2 : " + multipartFile.getName());
 		log.debug("타입 : " + multipartFile.getContentType());
 		log.debug("리소스 : " + multipartFile.getResource());
 
-		String originalFileName = multipartFile.getOriginalFilename();
-		String ext = originalFileName.substring(originalFileName.lastIndexOf(".") + 1);
-		SimpleDateFormat sdf = new SimpleDateFormat("yyyy_MM_dd_HHmmssSSS");
-		int rndNum = (int) (Math.random() * 1000);
-		String renamedFileName = sdf.format(new Date(System.currentTimeMillis())) + "_" + rndNum + "." + ext;
-		try {
-			// renamedFileName 으로 파일을 저장하기 -> transferTo(파일)
-			multipartFile.transferTo(new File(FILE_UPLOAD_PATH + "/" + renamedFileName));
-		} catch (Exception e) {
-			// TODO: handle exception
-			e.printStackTrace();
+		String renamedFileName = con.socketUploadImg(multipartFile);
+
+		Map<String, Object> map = session.getAttributes();
+		SessionVo sv = (SessionVo) map.get("loginnedMember");
+
+		Iterator<SessionVo> it = users.keySet().iterator();
+		while (it.hasNext()) {
+			SessionVo key = it.next();
+			// 같은 방의 인원만
+			if (key.getCurRoomBid().equals(sv.getCurRoomBid())) {
+				ExboardMsg msg = new ExboardMsg();
+				msg.setType("FILE2");
+				msg.setMsg(renamedFileName);
+				try {
+					log.debug("이미지 발송");
+					users.get(key).sendMessage(new TextMessage(objectMapper.writeValueAsString(msg)));
+				} catch (IOException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+			}
 		}
+
 	}
 
 	@Override
