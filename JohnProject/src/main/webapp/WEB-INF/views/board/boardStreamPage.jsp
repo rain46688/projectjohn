@@ -380,7 +380,11 @@ hr {
               Nickname
             </div>
             <div id="writerComment">
-              <input type="text" value="방장의 한마디" id="writerComIn" placeholder="Enter를 누르면 입력됩니다.">
+              <input type="text" value="방장의 한마디" id="writerComIn"
+              <c:if test="${loginMember.usid ne currBoard.WRITER_USID }">
+	        	readonly
+	        	</c:if>
+               placeholder="Enter를 누르면 입력됩니다.">
             </div>
           </div>
           <div id="box1">

@@ -298,6 +298,7 @@ ion-icon#likeButton {
       <div id="boardContent">
         ${currBoard.CONTENT }
         ${currBoard}
+        <button onclick="location.href='${path}/report/customerReport?boardId=${currBoard.WRITER_USID }&nick=${currBoard.WRITER_NICKNAME }'">신고하기</button>
       </div>
       <hr>
       <div id="judgeCon">
