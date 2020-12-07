@@ -136,13 +136,14 @@ html, body, div, span, applet, object, iframe, h1, h2, h3, h4, h5, h6, p, blockq
 			<li class="nav-item"><a class="nav-link active">상담</a></li>
 			<li class="nav-item"><a class="nav-link">게시판</a></li>
 			<li class="nav-item"><a class="nav-link">신고</a></li>
-			<li class="nav-item"><a class="nav-link">테스트</a></li>
+			<!-- <li class="nav-item"><a class="nav-link">테스트</a></li> -->
 		</ul>
 		<div class="alarmPrintDiv"></div>
 	</div>
 </div>
 <script>
 
+//나중에 추가?
 'use strict';
 
  let newURL = window.location.pathname;
@@ -174,6 +175,7 @@ $(".nav-link").click(e =>{
 		printalfunc(alarmList, item);
 		console.log("change : "+item);
 	}
+	//나중에 추가?
 });
 
 //현재 선택된 nav 아이템 탐색
@@ -206,6 +208,7 @@ function matchAtagHtml(){
 	}else if(item === '신고'){
 		return 'report';
 	}
+	//나중에 추가?
 }
 
 $("#check").click(e => {
@@ -320,6 +323,7 @@ function typeifprint(e,type){
 		console.log("re");
 		print2 += reportPrintHtml(e);
 	}else if(type == 'test'){
+		//나중에 추가?
 	}
 	return print2;
 }
@@ -356,6 +360,7 @@ function expertEndPrintHtml(e){
 	return print;
 };
 
+//상담 리뷰 작성
 function writereview(bno){
 	console.log("bno : "+bno);
 	window.open("","popForm","width=500, height=500, toolbar=no, menubar=no, scrollbars=no, resizable=no");
@@ -372,6 +377,7 @@ function writereview(bno){
 	forms.target = "popForm";
 	forms.submit();
 }
+
 
 //프린트html 게시판
 function boardPrintHtml(e){
@@ -402,6 +408,7 @@ function reportPrintHtml(e){
 	print += "게시판 알람입니다.<br></div></div>";
 	return print;
 };
+
 
 //알람 객체
 function Alarm(alarmId,alarmSendMemUsid, alarmReceiveMemUsid,
