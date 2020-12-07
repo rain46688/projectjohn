@@ -88,18 +88,15 @@ public class ExpertHandler extends TextWebSocketHandler {
 		ByteBuffer byteBuffer = message.getPayload();
 		byte[] byteArray = byteBuffer.array();
 		MultipartFile multipartFile = new MockMultipartFile("file", "OriginalName.png", "text/plain", byteArray);
-		log.debug("자료형 확인 : " + multipartFile.getClass().getName());
-		log.debug("사이즈 : " + multipartFile.getSize());
-		log.debug("이름 : " + multipartFile.getOriginalFilename());
-		log.debug("이름2 : " + multipartFile.getName());
-		log.debug("타입 : " + multipartFile.getContentType());
-		log.debug("리소스 : " + multipartFile.getResource());
-
+//		log.debug("자료형 확인 : " + multipartFile.getClass().getName());
+//		log.debug("사이즈 : " + multipartFile.getSize());
+//		log.debug("이름 : " + multipartFile.getOriginalFilename());
+//		log.debug("이름2 : " + multipartFile.getName());
+//		log.debug("타입 : " + multipartFile.getContentType());
+//		log.debug("리소스 : " + multipartFile.getResource());
 		String renamedFileName = con.socketUploadImg(multipartFile);
-
 		Map<String, Object> map = session.getAttributes();
 		SessionVo sv = (SessionVo) map.get("loginnedMember");
-
 		Iterator<SessionVo> it = users.keySet().iterator();
 		while (it.hasNext()) {
 			SessionVo key = it.next();
@@ -117,7 +114,6 @@ public class ExpertHandler extends TextWebSocketHandler {
 				}
 			}
 		}
-
 	}
 
 	@Override

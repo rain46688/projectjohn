@@ -361,16 +361,13 @@ public class ExboardController {
 
 	// 웹소켓 파일 업로드 하기
 	public String socketUploadImg(MultipartFile upFile) {
-		log.debug("socketUploadImg실실");
-		log.debug("pathzz : " + pathzz);
-
+		log.debug("socketUploadImg실행");
 		String originalFileName = upFile.getOriginalFilename();
 		String ext = originalFileName.substring(originalFileName.lastIndexOf(".") + 1);
 		SimpleDateFormat sdf = new SimpleDateFormat("yyyy_MM_dd_HHmmssSSS");
 		int rndNum = (int) (Math.random() * 1000);
 		String renamedFileName = sdf.format(new Date(System.currentTimeMillis())) + "_" + rndNum + "." + ext;
 		try {
-			// renamedFileName 으로 파일을 저장하기 -> transferTo(파일)
 			upFile.transferTo(new File(pathzz + "/" + renamedFileName));
 		} catch (Exception e) {
 			// TODO: handle exception

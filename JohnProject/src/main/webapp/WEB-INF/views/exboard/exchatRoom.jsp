@@ -489,9 +489,9 @@ textarea {
 	 	
 	});
 	
+	//소켓 이미지 업로드
 	function socketUpload(file){
 		let fileReader = new FileReader();
-		/* conn.binaryType="arrayBuffer" */
 		    fileReader.onload = function() {
             let arrayBuffer = this.result;
             conn.send(arrayBuffer);
@@ -499,7 +499,8 @@ textarea {
         fileReader.readAsArrayBuffer(file);
 	};
 
-	function imgDivPrint(msg){
+	//업로드 일반용 나중에 보고 지우기
+/* 	function imgDivPrint(msg){
 		console.log("msg : "+msg);
 		let list = msg.split('|');
 		let imgprint = "";
@@ -523,8 +524,9 @@ textarea {
 		list="";
 		imgprint="";
 		console.log("msg2 : "+msg);
-	}
+	} */
 	
+	//웹소켓용
 	function imgDivPrint2(msg){
 		let imgprint = "";
 		imgprint+="<img  class='upload' src='${path}/resources/upload_images/"+msg+"' title='"+msg+"' onclick='imgView(event);' style='cursor: pointer'/>";
@@ -648,10 +650,12 @@ textarea {
 					}
 				} else if (content.type == 'FILE') {
 					console.log(" === 분기 FILE === ");
+					//업로드 일반용 나중에 보고 지우기
 					console.log("content : " + content.msg);
 					imgDivPrint(content.msg);
 				} else if (content.type == 'FILE2') {
 					console.log(" === 분기 FILE2 === ");
+					//웹소켓 업로드 일반용 다음 구현한거
 					console.log("content : " + content.msg);
 					imgDivPrint2(content.msg);
 				} else if (content.type == 'END') {

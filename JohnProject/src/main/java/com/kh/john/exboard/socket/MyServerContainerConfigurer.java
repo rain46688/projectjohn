@@ -6,6 +6,7 @@ import org.springframework.web.socket.server.standard.ServletServerContainerFact
 
 @Configuration
 public class MyServerContainerConfigurer {
+	// 파일 업로드용
 	@Bean
 	public ServletServerContainerFactoryBean createWebSocketContainer() {
 		ServletServerContainerFactoryBean container = new ServletServerContainerFactoryBean();
