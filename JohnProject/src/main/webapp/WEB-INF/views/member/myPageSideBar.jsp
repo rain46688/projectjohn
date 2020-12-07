@@ -124,7 +124,7 @@
 			</div>
 		</a>
 		<c:if test="${loginMember.getMemClass() eq '전문가'}">
-			<a class="menuLink nav-link" href="${path}/member/expertPage/counselingHistory?usid=${loginMember.usid}">
+			<a class="menuLink nav-link" href="${path}/member/myPage/exCounselingHistory?usid=${loginMember.usid}">
 				<div class="menuContainer">
 					<ion-icon name="clipboard-sharp" class="sideBarIcon"></ion-icon>
 					상담한 내역

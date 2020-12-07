@@ -736,7 +736,7 @@ public class MemberController {
 	}
 	
 //	전문가가 상담한 내역
-	@RequestMapping("/member/expertPage/counselingHistory")
+	@RequestMapping("/member/myPage/exCounselingHistory")
 	public ModelAndView expertHistory(ModelAndView mv,@SessionAttribute("loginMember") Member loginMember,
 			@RequestParam(value ="cPage", required = false, defaultValue = "1") int cPage,
 			@RequestParam(value ="numPerPage", required = false, defaultValue = "10") int numPerPage) {

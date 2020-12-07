@@ -189,7 +189,7 @@ div.board button{
 					<div class="boardTitle">
 						상담한 내역
 					</div>
-					<button type="button" class="btn btn-outline-dark btn-sm" onclick="location.href='${path}/member/expertPage/counselingHistory?usid=${loginMember.usid}'">이동하기</button>
+					<button type="button" class="btn btn-outline-dark btn-sm" onclick="location.href='${path}/member/myPage/exCounselingHistory?usid=${loginMember.usid}'">이동하기</button>
 				</div>
 			</c:if>
 			<div class="board">
