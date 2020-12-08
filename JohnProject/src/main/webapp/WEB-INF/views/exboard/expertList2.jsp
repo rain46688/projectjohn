@@ -281,8 +281,8 @@ html, body, div, span, applet, object, iframe, h1, h2, h3, h4, h5, h6, p, blockq
 
 /* 카드 오른쪽 점수  */
 .exRating {
-	height: 14%;
-	font-size: 2vh;
+	height: 16%;
+	font-size: 2.5vh;
 	display: flex;
 	align-items: center;
 	overflow: hidden;
@@ -544,6 +544,11 @@ html, body, div, span, applet, object, iframe, h1, h2, h3, h4, h5, h6, p, blockq
 		window.onunload = function() { 
 			pop.close(); 
 		}
+		
+		 function counsel(no,nic){
+			 console.log("no : "+no+" nic : "+nic);
+			 window.open("${path}/expert/expertApply?no="+no+"&nic="+nic,'회원','width=800, height=800, toolbar=no, menubar=no, scrollbars=no, resizable=yes');
+		 }
 
 		// 전체 배열
 		let newexboardList = [];
@@ -622,7 +627,7 @@ html, body, div, span, applet, object, iframe, h1, h2, h3, h4, h5, h6, p, blockq
 							tempprinthtml += "<div class='exRating'>"+printStar(Math.round(e['expertRating']/count),false)+printStar(5 - (Math.round(e['expertRating']/count)),true)+"</div>";
 							tempprinthtml += "<div class='exCounselArea'>분야 : "+e['expertCounselArea']+"</div>";
 							tempprinthtml += "<div class='button-8'><div class='eff-8'></div>";
-							tempprinthtml += "<a class='johnbtn' onclick='counselStart(\""+e['usid']+"\",\""+e['memNickname']+"\");'>상담 신청</a></div></div>";
+							tempprinthtml += "<a class='johnbtn' onclick='counsel(\""+e['usid']+"\",\""+e['memNickname']+"\");'>상담 신청</a></div></div>";
 							tempprinthtml += "<div class='exBottm'>"+Greetings+"</div></div></li>";
 					}
 				});

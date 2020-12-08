@@ -117,6 +117,54 @@ textarea {
 	padding-top:8%;
 }
 
+/* 버튼 */
+.button-8 {
+	width: 30%;
+	height: 120%;
+	border: 2px solid #00316D;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	cursor: pointer;
+	position: relative;
+	box-sizing: border-box;
+	overflow: hidden;
+}
+
+.button-8 .johnbtn {
+	font-size: 3.2vh;
+	color: #FFCC66;
+	text-decoration: none;
+	line-height: 50px;
+	transition: all .5s ease;
+	z-index: 2;
+	position: relative;
+	/*  */
+	width: 100%;
+	height: 100%;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+}
+
+.eff-8 {
+	width: 100%;
+	height: 100%;
+	border: 90px solid #00316D;
+	position: absolute;
+	transition: all .5s ease;
+	z-index: 1;
+	box-sizing: border-box;
+}
+
+.button-8:hover .eff-8 {
+	border: 0px solid #00316D;
+}
+
+.button-8:hover .johnbtn {
+	color: #00316D;
+}
+
 </style>
 <section id="reviewContent">
 
@@ -134,7 +182,11 @@ textarea {
 			<textarea id="reviewTextArea" name="reText" placeholder="솔직한 후기를 적어주세요"></textarea>
 			</div>
 			<div id="rebottomDiv">
-			<button type="text" class="btn btn-outline-success" onclick="reviewWrite();">작성 완료</button>
+													<div class="button-8">
+												    <div class="eff-8"></div>
+												    <a  class="johnbtn"  onclick="reviewWrite();">작성 완료</a>
+												  </div>	
+			<!-- <button type="text" class="btn btn-outline-success" onclick="reviewWrite();">작성 완료</button> -->
 			</div>
 		</div>
 	</div>
@@ -159,7 +211,20 @@ if("${duplicate}" != 0){//0이 평점 기본이기때문에 0이아니면 평점
 
 //리뷰 작성
 function reviewWrite(){
-	console.log("ㅋㅋㅋ");
+ 	if(startcount() == 0){
+		alert("별점을 입력해주세요");
+		return;
+	}
+	 
+	if($("#reviewTextArea").val() == ""){
+		alert("후기를 입력해주세요");
+		return;
+	}
+	 
+	if($("#reviewTextArea").val().length < 20){
+		alert("20글자 이상 입력해주세요");
+		return;
+	}
 	
 	$.ajax({
 		url : '${path}/expert/expertReviewWriteEnd',
@@ -179,6 +244,8 @@ function reviewWrite(){
 			window.close(); 
 		}
 	});
+	
+	
 };
 
 $('.starRev span').click(function(){
