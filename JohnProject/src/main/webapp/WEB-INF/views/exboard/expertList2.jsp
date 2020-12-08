@@ -471,7 +471,7 @@ html, body, div, span, applet, object, iframe, h1, h2, h3, h4, h5, h6, p, blockq
 		<div class="splide">
 			<div id="upListDiv" class="splide__track">
 				<ul id="upListUl" class="splide__list">
-
+						<!-- 상단 리스트  -->
 				</ul>
 			</div>
 		</div>
@@ -482,12 +482,14 @@ html, body, div, span, applet, object, iframe, h1, h2, h3, h4, h5, h6, p, blockq
 			<div class="splide2">
 				<div class="splide__track">
 					<ul id="downListUl" class="splide__list">
+						<!-- 하단 리스트  -->
 					</ul>
 				</div>
 			</div>
 		</div>
 
 		<div id="categoryDiv">
+			<!-- 히든  -->
 			<input type="hidden" id="categoryHidden" name="categoryHidden" value="직장 상담">
 			<div class="child-page-listing">
 				<div class="grid-container">
@@ -529,14 +531,13 @@ html, body, div, span, applet, object, iframe, h1, h2, h3, h4, h5, h6, p, blockq
 					</article>
 				</div>
 			</div>
-
 		</div>
 	</div>
 </section>
 
-
 <script>
-	'use strict';
+
+		'use strict';
 	
 		//부모창이 종료되면 자식창도 종료
 		let pop;
@@ -546,13 +547,9 @@ html, body, div, span, applet, object, iframe, h1, h2, h3, h4, h5, h6, p, blockq
 
 		// 전체 배열
 		let newexboardList = [];
-		// 백업용 배열
-		let newbackupList = [];
 		
 		// 전체 배열
 		let newexReviewList = [];
-		// 백업용 배열
-		let newReviewbackupList = [];
 		
 		const exboardListConn = new WebSocket('wss://192.168.219.105${path}/exlistSocket');
 		
@@ -571,14 +568,7 @@ html, body, div, span, applet, object, iframe, h1, h2, h3, h4, h5, h6, p, blockq
 				newexReviewList = JSON.parse(msg.data);
 				printDownExpertList();
 			}
-			
-		/* 	newexboardList.forEach((e, i)=>{
-				console.log(e['memName']+ ", "+e['expertCounselArea']);		
-			});
-			
-			newexReviewList.forEach((e, i)=>{
-				console.log(e['bexpertCounselArea'] + ", "+e['expertBoardUsid']);	
-			}); */
+			//슬라이드 함수 실행
 			slide();
 		}
 		
@@ -591,13 +581,15 @@ html, body, div, span, applet, object, iframe, h1, h2, h3, h4, h5, h6, p, blockq
 		 $(".counsel-title").click(e => {
 			 	let cate = $(e.target).html();
 				console.log(cate);//직장 상담 등등 출력
-				$("#categoryHidden").val(cate);
+				$("#categoryHidden").val(cate);//히든 인풋에 카테고리 입력, 파라미터 대신
+				//리스트 출력
 				printUpExpertList();
 				printDownExpertList();
+				//슬라이드 함수 실행
 				slide();
 		 });
 		
-		//위 리스트
+		//위 리스트 출력
 		function printUpExpertList(){
 			console.log("printUpExpertList 실행");
 			let tempprinthtml = "";
@@ -634,6 +626,7 @@ html, body, div, span, applet, object, iframe, h1, h2, h3, h4, h5, h6, p, blockq
 							tempprinthtml += "<div class='exBottm'>"+Greetings+"</div></div></li>";
 					}
 				});
+				//플래그에 따라 등록된게 없다는 표시를 구분함 
 				if(flag){
 					console.log("1");
 					$("#upDiv").html(tempprinthtml);
@@ -645,7 +638,7 @@ html, body, div, span, applet, object, iframe, h1, h2, h3, h4, h5, h6, p, blockq
 	
 		}
 		
-		//아래 리스트
+		//아래 리뷰 리스트 출력
 		function printDownExpertList(){
 			let tempprinthtml = "";
 				tempprinthtml = "<div class='emptyReview'><h1>등록된 리뷰가 없습니다.</h1></div>";
@@ -674,20 +667,16 @@ html, body, div, span, applet, object, iframe, h1, h2, h3, h4, h5, h6, p, blockq
 						tempprinthtml += "<div class='userReview'>"+content+"</div></div></li>";
 					}
 				});
-				console.log("옴옴옴");
+				//플래그에 따라 등록된게 없다는 표시를 구분함 
 				if(flag){
-					console.log("3");
 					$("#reviewDiv").html(tempprinthtml);
 				}else{
-					console.log("4");
-					//console.log(tempprinthtml);
 					$("#reviewDiv").html("<div class='splide2'><div class='splide__track'><ul id='downListUl' class='splide__list'></ul></div></div>");
 					$("#downListUl").html(tempprinthtml);
 				}
-				
 		}
 		
-		//별찍기
+		//별 찍기, 끝나는 숫자를 end로 입력하고 빈별인지 꽉찬별인지 두번째 파라미터로 구분
 		function printStar(end, emptystar){
 			let starhtml = "";
 			for(let i = 1; i <= end; i++){
@@ -700,11 +689,9 @@ html, body, div, span, applet, object, iframe, h1, h2, h3, h4, h5, h6, p, blockq
 			return starhtml;
 		}
 
-		
-		
-		
-	 
-function slide(){
+	 //슬라이드 생성하기 
+	 // 요소들을 생성한후 실행해줘야 슬라이드가 제대로 먹힘
+	function slide(){
 			// 가로 슬라이드
 			new Splide('.splide', {
 				perPage : 4,
