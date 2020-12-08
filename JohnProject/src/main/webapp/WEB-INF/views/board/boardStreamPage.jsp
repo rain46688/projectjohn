@@ -608,7 +608,8 @@ function handleFileDrop(file){
 chatSocket.onopen = function(e){
   	let user = {boardId:${currBoard.BOARD_ID},
               usid:${loginMember.usid},
-  				message:'안녕하세요'};
+  				message:'안녕하세요',
+  				isFirst:true};
 	chatSocket.send('chat:'+JSON.stringify(user));
 }
 
@@ -627,7 +628,7 @@ chatSocket.onmessage = function(e){
 		box1.appendChild(img);
 	}else{
 	chatList = JSON.parse(e.data);
-	
+	console.log(chatList);
 	//사용자 숫자를 알기 위한 배열
 	let tempList= [];
 
@@ -641,8 +642,10 @@ chatSocket.onmessage = function(e){
 
   document.getElementById('commentPrint').innerHTML = "";
 
-  chatList = chatList.sort((a,b) => (a.unrollDate > b.unrollDate) ? 1 : -1);
+  chatList = chatList.sort((a,b) => (a.enrollDate > b.enrollDate) ? -1 : 1);
 
+  console.log('afterSort');
+  console.log(chatList);
   let realChatList = [];
   chatList.forEach(function(item,index){
     let idx = 0;
