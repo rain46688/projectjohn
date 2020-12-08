@@ -13,6 +13,7 @@ import com.kh.john.common.exception.ExpertReviewException;
 import com.kh.john.common.exception.RequestDuplicateException;
 import com.kh.john.exboard.model.dao.ExboardDao;
 import com.kh.john.exboard.model.vo.ExpertBoard;
+import com.kh.john.exboard.model.vo.ExpertBoardListVo;
 import com.kh.john.exboard.model.vo.ExpertRequest;
 import com.kh.john.member.model.vo.Expert;
 import com.kh.john.member.model.vo.License;
@@ -296,6 +297,18 @@ public class ExboardServiceImpl implements ExboardService {
 		log.debug("result3 : " + result);
 
 		return result;
+	}
+
+	@Override
+	public List<ExpertBoardListVo> selectExpertBoardList() throws Exception {
+		// TODO Auto-generated method stub
+		return dao.selectExpertBoardList(session);
+	}
+
+	@Override
+	public List<ExpertBoard> selectExpertReviewList() throws Exception {
+		// TODO Auto-generated method stub
+		return dao.selectExpertReviewList(session);
 	}
 
 }

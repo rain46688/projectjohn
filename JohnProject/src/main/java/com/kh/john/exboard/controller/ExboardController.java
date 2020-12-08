@@ -80,13 +80,23 @@ public class ExboardController {
 		return mv;
 	}
 
-	// ============================================================
-
-	// 전문가 페이지 임시 메인
-	@RequestMapping("/expert")
-	public ModelAndView expertPage(HttpSession session) {
-		log.debug("expertPage 실행");
-		ModelAndView mv = new ModelAndView("/exboard/exboardMain");
+	// 전문가 정보 수정 페이지 기존 정보 가져와서 뿌려주기
+	@RequestMapping("/member/myPage/expertInfoModify")
+	public ModelAndView expertInfoModify(HttpSession session) throws Exception {
+		log.info(" ===== expertInfoModify 실행 ===== ");
+		ModelAndView mv = new ModelAndView("/exboard/expertInfoModify");
+		try {
+			mv.addObject("expert",
+					service.selectExpertMem("" + ((Member) session.getAttribute("loginMember")).getUsid()));
+			mv.addObject("license",
+					service.selectExpertLicense("" + ((Member) session.getAttribute("loginMember")).getUsid()));
+			mv.addObject("mem", service.selectMember("" + ((Member) session.getAttribute("loginMember")).getUsid()));
+			mv.addObject("likindList", service.selectLicenseKind());
+			mv.addObject("coukindList", service.selectCounselKind());
+			mv.addObject("comkindList", service.selectCompanyKind());
+		} catch (Exception e) {
+			// TODO: handle exception
+		}
 		return mv;
 	}
 
@@ -108,6 +118,16 @@ public class ExboardController {
 			e.printStackTrace();
 			log.error("전문가 리스트 불러오기 실패");
 		}
+		return mv;
+	}
+
+	// ============================================================
+
+	// 전문가 페이지 임시 메인
+	@RequestMapping("/expert")
+	public ModelAndView expertPage(HttpSession session) {
+		log.debug("expertPage 실행");
+		ModelAndView mv = new ModelAndView("/exboard/exboardMain");
 		return mv;
 	}
 
@@ -526,26 +546,6 @@ public class ExboardController {
 			result = "0";
 		}
 		return result;
-	}
-
-	// 전문가 정보 수정 페이지 기존 정보 가져와서 뿌려주기
-	@RequestMapping("/member/myPage/expertInfoModify")
-	public ModelAndView expertInfoModify(HttpSession session) throws Exception {
-		log.info(" ===== expertInfoModify 실행 ===== ");
-		ModelAndView mv = new ModelAndView("/exboard/expertInfoModify");
-		try {
-			mv.addObject("expert",
-					service.selectExpertMem("" + ((Member) session.getAttribute("loginMember")).getUsid()));
-			mv.addObject("license",
-					service.selectExpertLicense("" + ((Member) session.getAttribute("loginMember")).getUsid()));
-			mv.addObject("mem", service.selectMember("" + ((Member) session.getAttribute("loginMember")).getUsid()));
-			mv.addObject("likindList", service.selectLicenseKind());
-			mv.addObject("coukindList", service.selectCounselKind());
-			mv.addObject("comkindList", service.selectCompanyKind());
-		} catch (Exception e) {
-			// TODO: handle exception
-		}
-		return mv;
 	}
 
 	// 전문가 수정 첫번째 페이지 자격증 아님

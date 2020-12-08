@@ -39,10 +39,9 @@ html, body, div, span, applet, object, iframe, h1, h2, h3, h4, h5, h6, p, blockq
 	-webkit-user-select: none;
 	-khtml-user-select: none;
 	user-select: none;
-
 }
 
-.exName, .exCounselArea, .johnbtn, .exBottm, .empty, #reviewDivTitle, .reviewInnerUpDiv, .userReview, .emptyReview, #categoryDiv{
+.exName, .exCounselArea, .johnbtn, .exBottm, .empty, #reviewDivTitle, .reviewInnerUpDiv, .userReview, .emptyReview, #categoryDiv {
 	font-family: 'Noto Serif KR', serif;
 }
 
@@ -57,7 +56,7 @@ html, body, div, span, applet, object, iframe, h1, h2, h3, h4, h5, h6, p, blockq
 
 /* 위 div */
 #upDiv * {
-	/* 	border: 1px solid red; */
+	/* border: 1px solid red; */
 	
 }
 
@@ -126,8 +125,6 @@ html, body, div, span, applet, object, iframe, h1, h2, h3, h4, h5, h6, p, blockq
 .splide__slide>div {
 	width: 100%;
 	height: 100%;
-	font-size: 20px;
-	margin: 10px;
 	display: inline-block;
 }
 
@@ -152,6 +149,10 @@ html, body, div, span, applet, object, iframe, h1, h2, h3, h4, h5, h6, p, blockq
 	height: 100%;
 	/* 수정 */
 	/* border-left: 1px solid #C6C5C5; */
+}
+
+.splide__pagination {
+	display: none;
 }
 
 .splide__slide>img {
@@ -263,8 +264,13 @@ html, body, div, span, applet, object, iframe, h1, h2, h3, h4, h5, h6, p, blockq
 	display: inline-block;
 	height: 50%;
 	width: 50%;
-	padding: 0 0 0 3%;
-	margin: 3% 0 3% 0;
+	/* 	padding: 0 0 0 3%;
+	margin: 3% 0 3% 0; */
+	margin-left: 3%;
+}
+
+.exRight * {
+	margin-top: 2%;
 }
 
 /* 카드 오른쪽 이름  */
@@ -275,8 +281,10 @@ html, body, div, span, applet, object, iframe, h1, h2, h3, h4, h5, h6, p, blockq
 
 /* 카드 오른쪽 점수  */
 .exRating {
-	height: 20%;
+	height: 14%;
 	font-size: 2vh;
+	display: flex;
+	align-items: center;
 	overflow: hidden;
 }
 
@@ -456,128 +464,31 @@ html, body, div, span, applet, object, iframe, h1, h2, h3, h4, h5, h6, p, blockq
 .button-8:hover .johnbtn {
 	color: #00316D;
 }
-
 </style>
 
 <section id="content">
 	<div id="upDiv">
+		<div class="splide">
+			<div id="upListDiv" class="splide__track">
+				<ul id="upListUl" class="splide__list">
 
-
-
-		<c:choose>
-			<c:when test="${fn:length(list) > 0}">
-				<div class="splide">
-					<div class="splide__track">
-						<ul class="splide__list">
-							<c:forEach items="${list }" var="expert">
-
-								<!-- =========== -->
-								<li class="splide__slide">
-									<div class="card-body">
-										<img class="expertimg" alt="전문가" src="${path }/resources/profile_images/${expert['mem'].profilePic}">
-										<div class="exRight">
-											<div class="exName">${expert['mem'].memName}</div>
-											<c:set var="count" value="${((expert['ex'].expertReviewCount) == 0)?1:(expert['ex'].expertReviewCount)}" />
-											<div class="exRating">
-												평점 :
-												<c:forEach var="i" begin="1" end="${Math.round((expert['ex'].expertRating)/(count))}">
-													<span class="fa fa-star checked"></span>
-												</c:forEach>
-												<c:forEach var="i" begin="1" end="${5 - (Math.round((expert['ex'].expertRating)/(count)))}">
-													<span class="fa fa-star"></span>
-												</c:forEach>
-											</div>
-
-											<div class="exCounselArea">분야 : ${expert['ex'].expertCounselArea}</div>
-
-											<div class="button-8">
-												<div class="eff-8"></div>
-												<a class="johnbtn" onclick="counsel('${expert['mem'].usid}','${expert['mem'].memNickname}');">상담 신청</a>
-											</div>
-
-										</div>
-										<div class="exBottm">
-											<c:if test="${empty (expert['ex'].expertGreetings)}">
-										인사말 없음.
-										</c:if>
-											<c:if test="${not empty (expert['ex'].expertGreetings)}">
-										${expert['ex'].expertGreetings}
-										</c:if>
-										</div>
-									</div>
-								</li>
-								<!-- =========== -->
-
-							</c:forEach>
-						</ul>
-					</div>
-				</div>
-			</c:when>
-			<c:otherwise>
-				<div id="emptyupdiv">
-					<div class="empty">
-						<h1>등록된 상담사가 없습니다.</h1>
-					</div>
-				</div>
-			</c:otherwise>
-		</c:choose>
-
-
-
-
+				</ul>
+			</div>
+		</div>
 	</div>
 
 	<div id="downDiv">
 		<div id="reviewDiv">
-
-			<c:choose>
-				<c:when test="${fn:length(exbolist) > 0}">
-					<div class="splide2">
-						<div class="splide__track">
-							<ul class="splide__list">
-								<c:forEach items="${exbolist }" var="review">
-
-
-									<!-- =========== -->
-									<li class="splide__slide">
-										<div class="reviewDiv">
-											<div id="reviewDivTitle">
-												<h1 id="reviewTitleH1">베스트 상담 후기</h1>
-											</div>
-											<div class="reviewInnerUpDiv">
-												<div class="userNickName">닉네임 : ${review.expertBoardMemNick }</div>
-												<div class="counselDate">날짜 : ${review.expertBoardDate }</div>
-												<div class="counselAreaReview">분야 : ${param.ca }</div>
-											</div>
-											<div class="userRating">
-												평점 :
-												<c:forEach var="i" begin="1" end="${review.expertBoardRating}">
-													<span class="fa fa-star checked"></span>
-												</c:forEach>
-												<c:forEach var="i" begin="1" end="${5 - (review.expertBoardRating)}">
-													<span class="fa fa-star"></span>
-												</c:forEach>
-											</div>
-											<div class="userReview">${review.expertBoardReview}</div>
-										</div>
-									</li>
-									<!-- =========== -->
-								</c:forEach>
-							</ul>
-						</div>
-					</div>
-				</c:when>
-				<c:otherwise>
-					<div class="emptyReview">
-						<h1>등록된 리뷰가 없습니다.</h1>
-					</div>
-				</c:otherwise>
-			</c:choose>
-
-
+			<div class="splide2">
+				<div class="splide__track">
+					<ul id="downListUl" class="splide__list">
+					</ul>
+				</div>
+			</div>
 		</div>
-		<div id="categoryDiv">
 
+		<div id="categoryDiv">
+			<input type="hidden" id="categoryHidden" name="categoryHidden" value="직장 상담">
 			<div class="child-page-listing">
 				<div class="grid-container">
 					<article id="3685" class="counsel-listing">
@@ -631,34 +542,185 @@ html, body, div, span, applet, object, iframe, h1, h2, h3, h4, h5, h6, p, blockq
 		let pop;
 		window.onunload = function() { 
 			pop.close(); 
-		  
+		}
+
+		// 전체 배열
+		let newexboardList = [];
+		// 백업용 배열
+		let newbackupList = [];
+		
+		// 전체 배열
+		let newexReviewList = [];
+		// 백업용 배열
+		let newReviewbackupList = [];
+		
+		const exboardListConn = new WebSocket('wss://192.168.219.105${path}/exlistSocket');
+		
+		exboardListConn.onopen = function() {
+			console.log("onopen");
+			exboardListsendMessage("start2");
+			exboardListsendMessage("start3");
 		}
 		
-	 function counsel(no,nic){
-		 console.log("no : "+no+" nic : "+nic);
-		 window.open("${path}/expert/expertApply?no="+no+"&nic="+nic,'회원','width=800, height=800, toolbar=no, menubar=no, scrollbars=no, resizable=yes');
-	 }
-	 
-	 $(".counsel-title").click(e => {
-			console.log($(e.target).html());
-			location.href="${path}/expert/expertPrintList?ca="+$(e.target).html();
-	 });
-	 
-	// 가로 슬라이드
-	new Splide('.splide', {
-		perPage : 4,
-		rewind : true,
-		autoplay : true,
-		type : 'loop'
-	}).mount();
+		exboardListConn.onmessage = function(msg) {
+			console.log("onmessage");
+			if(newexboardList.length == 0){
+				newexboardList = JSON.parse(msg.data);
+				printUpExpertList();
+			}else{
+				newexReviewList = JSON.parse(msg.data);
+				printDownExpertList();
+			}
+			
+		/* 	newexboardList.forEach((e, i)=>{
+				console.log(e['memName']+ ", "+e['expertCounselArea']);		
+			});
+			
+			newexReviewList.forEach((e, i)=>{
+				console.log(e['bexpertCounselArea'] + ", "+e['expertBoardUsid']);	
+			}); */
+			slide();
+		}
+		
+		function exboardListsendMessage(message) {
+			exboardListConn.send(message);
+			console.log("exboardListsendMessage");
+		};
+		
+		//카테고리 클릭 이벤트		
+		 $(".counsel-title").click(e => {
+			 	let cate = $(e.target).html();
+				console.log(cate);//직장 상담 등등 출력
+				$("#categoryHidden").val(cate);
+				printUpExpertList();
+				printDownExpertList();
+				slide();
+		 });
+		
+		//위 리스트
+		function printUpExpertList(){
+			console.log("printUpExpertList 실행");
+			let tempprinthtml = "";
+			let flag = true;
+			const cate = $("#categoryHidden").val();
+			console.log("출력전 카테고리 : "+cate);
+			console.log("길이 : "+newexboardList.length );
+				tempprinthtml = "<div id='emptyupdiv'><div class='empty'><h1>등록된 상담사가 없습니다.</h1></div></div>";
+				
+				newexboardList.forEach((e, i)=>{
+					if(e['expertCounselArea'] == cate){
+						
+							if(flag == true){
+								console.log("한번 실행");
+								tempprinthtml ="";
+								flag = false;
+							}
+							
+							let count = 1;
+							if(e['expertReviewCount'] > 0){
+								count = e['expertReviewCount'];
+							}
+							let Greetings = "인사말 없음.";
+							if(e['expertGreetings'] != null){
+								Greetings = e['expertGreetings'];
+							}
+							tempprinthtml += "<li class='splide__slide'><div class='card-body'>";
+							tempprinthtml += "<img class='expertimg' alt='전문가' src='${path }/resources/profile_images/"+e['profilePic']+"'><div class='exRight'>";
+							tempprinthtml += "<div class='exName'>"+e['memName']+"</div>";
+							tempprinthtml += "<div class='exRating'>"+printStar(Math.round(e['expertRating']/count),false)+printStar(5 - (Math.round(e['expertRating']/count)),true)+"</div>";
+							tempprinthtml += "<div class='exCounselArea'>분야 : "+e['expertCounselArea']+"</div>";
+							tempprinthtml += "<div class='button-8'><div class='eff-8'></div>";
+							tempprinthtml += "<a class='johnbtn' onclick='counselStart(\""+e['usid']+"\",\""+e['memNickname']+"\");'>상담 신청</a></div></div>";
+							tempprinthtml += "<div class='exBottm'>"+Greetings+"</div></div></li>";
+					}
+				});
+				if(flag){
+					console.log("1");
+					$("#upDiv").html(tempprinthtml);
+				}else{
+					console.log("2");
+					$("#upDiv").html("<div class='splide'><div id='upListDiv' class='splide__track'><ul id='upListUl' class='splide__list'></ul></div></div>");
+					$("#upListUl").html(tempprinthtml);
+				}
+	
+		}
+		
+		//아래 리스트
+		function printDownExpertList(){
+			let tempprinthtml = "";
+				tempprinthtml = "<div class='emptyReview'><h1>등록된 리뷰가 없습니다.</h1></div>";
+				let flag = true;
+				const cate = $("#categoryHidden").val();
+				console.log("리뷰 출력전 카테고리 : "+cate);
+				console.log("리뷰 길이 : "+newexReviewList.length );
+				newexReviewList.forEach((e, i)=>{
+					if(e['bexpertCounselArea'] == cate){
+						let content="내용 없음";
+						if(flag == true){
+							console.log("한번 실행2");
+							tempprinthtml ="";
+							flag = false;
+						}
+						
+						if(e['expertBoardReview'] != null){
+							content = e['expertBoardReview'];
+						}
+						
+						tempprinthtml += "<li class='splide__slide'><div class='reviewDiv'><div id='reviewDivTitle'><h1 id='reviewTitleH1'>베스트 상담 후기</h1></div>";
+						tempprinthtml += "<div class='reviewInnerUpDiv'><div class='userNickName'>닉네임 : "+e['expertBoardMemNick']+"</div>";
+						tempprinthtml += "<div class='counselDate'>날짜 : "+e['expertBoardDateString']+"</div>";
+						tempprinthtml += "<div class='counselAreaReview'>분야 : "+cate+"</div></div>";
+						tempprinthtml += "<div class='userRating'>"+printStar(e['expertBoardRating'])+printStar(5 - (e['expertBoardRating']))+"</div>";
+						tempprinthtml += "<div class='userReview'>"+content+"</div></div></li>";
+					}
+				});
+				console.log("옴옴옴");
+				if(flag){
+					console.log("3");
+					$("#reviewDiv").html(tempprinthtml);
+				}else{
+					console.log("4");
+					//console.log(tempprinthtml);
+					$("#reviewDiv").html("<div class='splide2'><div class='splide__track'><ul id='downListUl' class='splide__list'></ul></div></div>");
+					$("#downListUl").html(tempprinthtml);
+				}
+				
+		}
+		
+		//별찍기
+		function printStar(end, emptystar){
+			let starhtml = "";
+			for(let i = 1; i <= end; i++){
+				if(emptystar == true){
+					starhtml += "<span class='fa fa-star'></span>";
+				}else{
+					starhtml += "<span class='fa fa-star checked'></span>";
+				}
+			}
+			return starhtml;
+		}
 
-	// 세로 슬라이드
-	new Splide('.splide2', {
-		direction : 'ttb',
-		height : "33vh",
-		rewind : true,
-		autoplay : true,
-		type : 'loop'
-	}).mount();
+		
+		
+		
+	 
+function slide(){
+			// 가로 슬라이드
+			new Splide('.splide', {
+				perPage : 4,
+				rewind : true,
+				autoplay : true,
+				type : 'loop'
+			}).mount();
+
+			// 세로 슬라이드
+			new Splide('.splide2', {
+				direction : 'ttb',
+				height : "33vh",
+				rewind : true,
+				autoplay : true,
+				type : 'loop'
+			}).mount();
+	 }
 	 
 </script>

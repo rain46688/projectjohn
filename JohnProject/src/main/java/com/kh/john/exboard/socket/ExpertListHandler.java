@@ -18,6 +18,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.kh.john.exboard.controller.ExboardController;
 import com.kh.john.exboard.model.service.ExboardService;
 import com.kh.john.exboard.model.vo.ExpertBoard;
+import com.kh.john.exboard.model.vo.ExpertBoardListVo;
 import com.kh.john.exboard.model.vo.ExpertRequest;
 import com.kh.john.member.model.vo.Member;
 
@@ -95,8 +96,32 @@ public class ExpertListHandler extends TextWebSocketHandler {
 					Member key = it.next();
 					users.get(key).sendMessage(new TextMessage(objectMapper.writeValueAsString(list)));
 				}
-			} else if (message.getPayload().equals("2")) {
+			} else if (message.getPayload().equals("start2")) {
 				// 추가 예정
+				log.debug("start2");
+				List<ExpertBoardListVo> list = service.selectExpertBoardList();
+				Iterator<Member> it = users.keySet().iterator();
+				while (it.hasNext()) {
+					Member key = it.next();
+					users.get(key).sendMessage(new TextMessage(objectMapper.writeValueAsString(list)));
+				}
+			} else if (message.getPayload().equals("start3")) {
+				// 추가 예정
+				log.debug("start3");
+				List<ExpertBoard> list = service.selectExpertReviewList();
+
+				for (ExpertBoard eb : list) {
+
+					SimpleDateFormat format1 = new SimpleDateFormat("yyyy-MM-dd");
+					String extime_ = format1.format(eb.getExpertBoardDate());
+					eb.setExpertBoardDateString(extime_);
+				}
+
+				Iterator<Member> it = users.keySet().iterator();
+				while (it.hasNext()) {
+					Member key = it.next();
+					users.get(key).sendMessage(new TextMessage(objectMapper.writeValueAsString(list)));
+				}
 			}
 		} catch (Exception e) {
 			// TODO: handle exception
