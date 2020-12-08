@@ -5,6 +5,8 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.OutputStream;
 import java.io.PrintWriter;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.UUID;
 
 import javax.servlet.http.HttpServletRequest;
@@ -15,6 +17,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
@@ -36,13 +39,27 @@ public class CustomerReportController {
 
 	//신고하기 글쓰기 페이지
 	@RequestMapping("/report/customerReport")
-	public String customerReport() {
-		return "/report/customerReport";
+	public ModelAndView customerReport(ModelAndView mv, @RequestParam(value="boardId", required=false) int boardId) {
+		
+	
+		Board b = service.selectBoard(boardId);
+		System.out.println("b::::"+b);
+		mv.addObject("b",b);
+		
+		
+//		Map<String,Object> param = new HashMap();
+//		param.put("boardId", boardId);
+//		param.put("usid", usid);
+//		param.put("nick", nick);
+		
+		mv.setViewName("report/customerReport");
+		return mv;
 	}
 	
 	//신고하기 글쓰기 완료
 	@RequestMapping(value="/report/customerReportEnd")
 	public ModelAndView customerReportEnd(Report report, ModelAndView mv, HttpServletRequest request) {
+		
 //		String saveDir = request.getServletContext().getRealPath("resources/upload/report");
 //		File dir = new File(saveDir);
 //		if(!dir.exists()) {
@@ -84,6 +101,7 @@ public class CustomerReportController {
 //	}
 		
 		int result = service.insertReport(report);
+		
 		
 		if(result>0) {
 			mv.addObject("msg","신고 완료!");

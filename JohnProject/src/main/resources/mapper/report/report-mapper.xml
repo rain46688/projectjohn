@@ -37,6 +37,21 @@
 		<result property="reportId" column="report_id"/>
 		<result property="reportFileName" column="report_file_name"/>
 	</resultMap>
+		<resultMap type="board" id="boardMap">
+		<result property="boardId" column="board_id"/>
+		<result property="writerUsid" column="writer_usid"/>
+		<result property="writerNickname" column="writer_nickname"/>
+		<result property="title" column="title"/>
+		<result property="content" column="content"/>
+		<result property="enrollDate" column="enroll_date"/>
+		<result property="hit" column="hit"/>
+		<result property="bigCategory" column="big_category"/>
+		<result property="smallCategory" column="small_category"/>
+		<result property="isclose" column="isclose"/>
+		<result property="maxMems" column="max_mems"/>
+		<result property="agreeName" column="agree_name"/>
+		<result property="disagreeName" column="disagree_name"/>
+	</resultMap>
 	<!-- customer -->
 	<insert id="insertReport" parameterType="report" >
 		INSERT INTO REPORT VALUES(SEQ_REPORT_NO.NEXTVAL,#{reportBoardId},#{reportWriterUsid},#{reportTargetUsid},
@@ -49,6 +64,10 @@
 		<selectKey keyProperty="reportId" resultType="_int" order="BEFORE">SELECT SEQ_REPORT_NO.CURRVAL FROM DUAL</selectKey>
 		
 	</insert>
+	
+	<select id="selectBoard" resultMap="boardMap">
+		SELECT * FROM BOARD WHERE BOARD_ID=#{boardId}
+	</select>
 	
 	<!-- admin -->
 	<select id="selectReportList" resultMap="reportMap">

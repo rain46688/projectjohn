@@ -7,6 +7,7 @@ import org.apache.ibatis.session.SqlSession;
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.stereotype.Repository;
 
+import com.kh.john.board.model.vo.Board;
 import com.kh.john.member.model.vo.Member;
 import com.kh.john.report.model.vo.Report;
 import com.kh.john.report.model.vo.ReportFile;
@@ -23,6 +24,11 @@ public class ReportDaoImpl implements ReportDao {
 	@Override
 	public int insertReportFile(SqlSession session, ReportFile file) {
 		return session.insert("report.insertReportFile",file);
+	}
+	
+	@Override
+	public Board selectBoard(SqlSession session, int boardId) {
+		return session.selectOne("report.selectBoard",boardId);
 	}
 
 	//admin
@@ -75,6 +81,8 @@ public class ReportDaoImpl implements ReportDao {
 	public int insertReportAnswer(SqlSessionTemplate session, Report r) {
 		return session.insert("report.insertReportAnswer",r);
 	}
+
+	
 	
 	
 

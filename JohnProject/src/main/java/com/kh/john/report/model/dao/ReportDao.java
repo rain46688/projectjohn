@@ -5,6 +5,7 @@ import java.util.List;
 import org.apache.ibatis.session.SqlSession;
 import org.mybatis.spring.SqlSessionTemplate;
 
+import com.kh.john.board.model.vo.Board;
 import com.kh.john.member.model.vo.Member;
 import com.kh.john.report.model.vo.Report;
 import com.kh.john.report.model.vo.ReportFile;
@@ -16,6 +17,8 @@ public interface ReportDao {
 	
 	int insertReportFile(SqlSession session, ReportFile file);
 
+	Board selectBoard(SqlSession session, int boardId);
+	
 	//admin
 	List<Report> selectReportList(SqlSessionTemplate session, int cPage, int numPerPage);
 	

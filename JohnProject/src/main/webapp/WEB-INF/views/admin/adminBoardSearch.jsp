@@ -366,8 +366,8 @@ appearance: none;
 			<select name="searchType" class="form-control" >
 				<option value="${param.searchType }" disabled selected>검색타입</option> 
 				
-				<option value="memName" <c:if test="${param.searchType eq 'memName'}">selected</c:if>>이름</option>
-				<option value="memEmail" <c:if test="${param.searchType eq 'memEmail'}">selected</c:if>>이메일</option>
+				<option value="mem_name" <c:if test="${param.searchType eq 'mem_name'}">selected</c:if>>이름</option>
+				<option value="mem_email" <c:if test="${param.searchType eq 'mem_email'}">selected</c:if>>이메일</option>
 				<option value="title" ${param.searchType eq 'title'?"selected":"" }>제목</option>	
 					
 			</select>
@@ -397,18 +397,19 @@ appearance: none;
 			<div id="seven">
 			
 			<label>
-			<input type="checkbox" name="isclose" value="0" <c:if test="${param.isclose eq '0'}">checked</c:if>>
+			<input type="checkbox" name="isclose" value="0" ${param.isclose eq '0'?"checked":""}>
 			진행중인 게시글<br></label><br>
 			
 			<label>
-			<input type="checkbox" name="isclose" value="1" <c:if test="${param.isclose eq '1'}">checked</c:if>>
+			<%-- <input type="checkbox" name="isclose" value="1" <c:if test="${param.isclose eq '1'}">checked</c:if>>
+			종료된 게시글</label> --%>
+			<input type="checkbox" name="isclose" value="1" ${param.isclose eq '1'?"checked":""}>
 			종료된 게시글</label>
-			
 			</div>
 		</div>	
 			
 			<div id="eight">
-			<button type="submit" class="btn btn-default" id="bbtn">검색</button>
+			<button type="submit" class="btn btn-default" id="bbtn" >검색</button>
 			<button type="button" class="btn btn-default"
 											data-dismiss="modal" id="bbtn">
 											취소</button>
@@ -464,7 +465,7 @@ appearance: none;
 		</div>
 	</div>
 
-	<div id="pageBar">${pageBar }</div>
+	<div id="pageBar" >${pageBar }</div>
 
  </section>
  
@@ -477,7 +478,6 @@ appearance: none;
 	 
  } */
 
- 
 
  </script>
 

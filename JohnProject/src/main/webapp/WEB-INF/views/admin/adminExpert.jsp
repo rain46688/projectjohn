@@ -53,15 +53,15 @@ ul.tabs li { /*승인탭*/
     border: 1px solid #eee;
     border-left: none;
     font-weight: bold;
-    background: #f8f8ff;
+    background: white;
     overflow: hidden;
     position: relative;
     margin-top:5%;
 }
 ul.tabs li.active {/*미승인탭*/
-    background: #f8f8ff;
-    border-bottom: 1px solid #f8f8ff;
-	border: 3px solid #f8f8ff;
+    background: white;
+    border-bottom: 1px solid white;
+	border: 3px solid white;
     margin-top:5%;
 }
 .tab_container {
@@ -70,7 +70,7 @@ ul.tabs li.active {/*미승인탭*/
     clear: both;
     float: left;
     width: 100%;
-    background: #f8f8ff;
+    background: white;
     margin-top:5%;
 }
 .tab_content {
@@ -416,22 +416,22 @@ a:hover {
 				
 				<div id="five">
 				
-				<label><input type="radio" name="gender" value='M'>남</label>&nbsp;&nbsp;&nbsp;&nbsp;
-				<label><input type="radio" name="gender" value='F'>여</label>
+				<label><input type="radio" name="gender" value='M'<c:if test="${param.gender eq 'M'}">checked</c:if>>남</label>&nbsp;&nbsp;&nbsp;&nbsp;
+				<label><input type="radio" name="gender" value='F'<c:if test="${param.gender eq 'F'}">checked</c:if>>여</label>
 				</div>
 				
 				<br>
 				
 				<div id="seven">
-				<label><input type="checkbox" name="leaveMem" value="0">현직 전문가</label>&nbsp;&nbsp;&nbsp;&nbsp;
-				<label><input type="checkbox" name="leaveMem" value="1">퇴사 전문가</label>
+				<label><input type="checkbox" name="leaveMem" value="0"<c:if test="${param.leaveMem eq '0'}">checked</c:if>>현직 전문가</label>&nbsp;&nbsp;&nbsp;&nbsp;
+				<label><input type="checkbox" name="leaveMem" value="1"<c:if test="${param.leaveMem eq '1'}">checked</c:if>>퇴사 전문가</label>
 				</div>
 				
 				<br>
 				
 			<div id="five">	
-			<label><input type="radio" name="order" value='ascend'>오름차순</label>&nbsp;&nbsp;&nbsp;&nbsp;
-			<label><input type="radio" name="order" value='descend'>내림차순</label> 
+			<label><input type="radio" name="order" value='ascend'<c:if test="${param.order eq 'ascend'}">checked</c:if>>오름차순</label>&nbsp;&nbsp;&nbsp;&nbsp;
+			<label><input type="radio" name="order" value='descend'<c:if test="${param.order eq 'descend'}">checked</c:if>>내림차순</label> 
 			</div>
 			
 			<div id="six">
@@ -458,54 +458,6 @@ a:hover {
 						</div>
 
 
-
-
-
-
-<%-- 	<div id="search-container">
-			<form action="${path }/admin/adminExpertSearch" method="post">
-			
-				<select name="searchType" required>
-					<option value=" " disabled selected>검색타입</option> 
-					
-					<option value="mem_name" <c:if test="${param.searchType eq 'mem_name'}">selected</c:if>>이름</option>
-					<option value="mem_email" <c:if test="${param.searchType eq 'mem_email'}">selected</c:if>>이메일</option>
-					<option value="mem_nickname" ${param.searchType eq 'mem_nickname'?"selected":"" }>닉네임</option>	
-										
-				
-				</select>
-				
-				<input type="search" name="keyword"
-				value="${param.keyword }"/> 
-				
-				<br>
-				
-				<label>성별</label>
-				<label><input type="radio" name="gender" value='M'>남</label>
-				<label><input type="radio" name="gender" value='F'>여</label>
-				
-				<br>
-				
-				<input type="checkbox" name="leave_mem" value="0">현직 전문가
-				<input type="checkbox" name="leave_mem" value="1">퇴사 전문가
-	
-				<br>
-				
-			<label><input type="radio" name="order" value='ascend'>오름차순</label>
-			<label><input type="radio" name="order" value='descend'>내림차순</label> 
-			
-			<select name="searchType2" required>
-				<option value=" " disabled selected>선택</option> 
-				<option value="enroll_date" <c:if test="${param.searchType2 eq 'enroll_date'}">selected</c:if>>입사날짜</option>
-				<option value="expert_rating" <c:if test="${param.searchType eq 'expert_rating'}">selected</c:if>>등급순</option>
-				<option value="expert_counsel_start_time" ${param.searchType eq 'expert_counsel_start_time'?"selected":"" }>상담시간순</option>	
-			</select>
-							
-				<input type="submit" value="검색">
-			</form>
-		</div> --%>
-		
-		
 		
 		
 		

@@ -367,27 +367,28 @@ appearance: none;
 			<select name="searchType" class="form-control" >
 				<option value=" " disabled selected>검색타입</option> 
 				
-				<option value="memName" <c:if test="${param.searchType eq 'memName'}">selected</c:if>>이름</option>
-				<option value="memEmail" <c:if test="${param.searchType eq 'memEmail'}">selected</c:if>>이메일</option>
+				<option value="mem_name" <c:if test="${param.searchType eq 'mem_name'}">selected</c:if>>이름</option>
+				<option value="mem_email" <c:if test="${param.searchType eq 'mem_email'}">selected</c:if>>이메일</option>
 				<option value="title" ${param.searchType eq 'title'?"selected":"" }>제목</option>	
 					
 			</select>
 		</div>
 			
 			<div id="four">
-			<input type="search" name="keyword" class="form-control" placeholder="Search"
+			<input type="search" name="keyword" class="form-control" placeholder="Search" 
 			value="${param.keyword }"/> 
+			
 			</div>	
 		</div>	
 		<div id="totalthree">
 			<div id="five">
- 			<label id="five-1"><input type="radio" name="order" value='ascend' >오름차순</label>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-			<label id="five-1"><input type="radio" name="order" value='descend' >내림차순</label> 
+ 			<label id="five-1"><input type="radio" name="order" value='ascend' <c:if test="${param.order eq 'ascend'}">checked</c:if>>오름차순</label>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+			<label id="five-1"><input type="radio" name="order" value='descend' <c:if test="${param.order eq 'descend'}">checked</c:if>>내림차순</label> 
 			</div>
 			
 			<div id="six">
 			<select name="searchType2" class="form-control" >
-				<option value=" " disabled selected>선택하세요</option> 
+				<option value="${param.searchType2 }" disabled selected>선택하세요</option> 
 				<option value="enroll_date" <c:if test="${param.searchType2 eq 'enroll_date'}">selected</c:if>>날짜</option>
 				<option value="board_id" <c:if test="${param.searchType2 eq 'board_id'}">selected</c:if>>글번호</option>
 				<option value="hit" ${param.searchType2 eq 'hit'?"selected":"" }>조회수</option>	
@@ -398,18 +399,18 @@ appearance: none;
 			<div id="seven">
 			
 			<label>
-			<input type="checkbox" name="isclose" value="0" >
+			<input type="checkbox" name="isclose" value="0" <c:if test="${param.isclose eq '0'}">checked</c:if>>
 			진행중인 게시글<br></label><br>
 			
 			<label>
-			<input type="checkbox" name="isclose" value="1">
+			<input type="checkbox" name="isclose" value="1" <c:if test="${param.isclose eq '1'}">checked</c:if>>
 			종료된 게시글</label>
 			
 			</div>
 		</div>	
 			
 			<div id="eight">
-			<button type="submit" class="btn btn-default" id="bbtn">검색</button>
+			<button type="submit" class="btn btn-default" id="bbtn" onclick="fn_selectBoard();">검색</button>
 			<button type="button" class="btn btn-default"
 											data-dismiss="modal" id="bbtn">
 											취소</button>
@@ -422,109 +423,6 @@ appearance: none;
 						</div>
 
 
-<%-- 
-									<form action="${path }/member/memberLogin.do" method="post">
-										<div class="modal-body">
-											<input type="text" class="form-control" name="userId"
-											placeholder="아이디" required/><br/>
-											<input type="password" class="form-control" name="password"
-											placeholder="비밀번호" required/>
-										</div>
-										<div class="modal-footer">
-											<button type="submit" class="btn btn-outline-success">
-											검색</button>
-											<button type="button" class="btn btn-outline-success"
-											data-dismiss="modal">
-											취소</button>
-										</div>
-									</form>
- --%>
-
-
-
-
-
-<%-- 	<div id="search-container">
-		<form  id="myForm" action="${path }/admin/adminBoardSearch" method="post">
-		
-		
-		<input type="hidden" id="type" name="type" value="${param.type }" readonly="readonly"/>
-		<input type="hidden" id="keyword" name="keyword" value="${param.keyword }" readonly="readonly"/>
-		<input type="hidden" id="keyword2" name="keyword2" value="${param.keyword2 }" readonly="readonly"/>
-		<input type="hidden" id="type2" name="type2" value="${param.type2 }" readonly="readonly"/>
-		<input type="hidden" id="bigCategory" name="bigCategory" value="${param.big_category }" readonly="readonly"/>
-		<input type="hidden" id="smallCategory" name="smallCategory" value="${param.small_category }" readonly="readonly"/>
-		<input type="hidden" id="isclose" name="isclose" value="${param.isclose }" readonly="readonly"/>
-		<input type="hidden" id="order" name="order" value="${param.order }" readonly="readonly"/>
-		<div id="totalone">
-		<div id="one">
-		 <select class="form-control" name="bigCategory" id="s0" required>
-		 		<option>대분류</option>
-				<option value="연애상담" <c:if test="${param.big_category eq '연애상담'}">selected</c:if>>연애상담</option> 
-				<option value="일반게시판" <c:if test="${param.big_category eq '일반게시판'}">selected</c:if>>일반게시판</option> 
-				<option value="음성게시판" <c:if test="${param.big_category eq '음성게시판'}">selected</c:if>>음성게시판</option> 
-	    </select>
-		</div>
-
-		<div id="two">
-	    <select class="form-control" id="s1" name="smallCategory">
-	        <option>소분류</option>
-	    </select>
-		</div>	
-		</div>	
-			<select name="big_category"  required>
-		
-				<option value="연애상담" <c:if test="${param.big_category eq '연애상담'}">selected</c:if>>연애상담</option> 
-				<option value="일반게시판" <c:if test="${param.big_category eq '일반게시판'}">selected</c:if>>일반게시판</option> 
-				<option value="음성게시판" <c:if test="${param.big_category eq '음성게시판'}">selected</c:if>>음성게시판</option> 
-				
-			</select>	
-		<div id="totaltwo">
-		<div id="three"> 
-			<select name="searchType" class="form-control" required>
-				<option value=" " disabled selected>검색타입</option> 
-				
-				<option value="mem_name" <c:if test="${param.searchType eq 'mem_name'}">selected</c:if>>이름</option>
-				<option value="mem_email" <c:if test="${param.searchType eq 'mem_email'}">selected</c:if>>이메일</option>
-				<option value="title" ${param.searchType eq 'title'?"selected":"" }>제목</option>	
-					
-			</select>
-		</div>
-			
-			<div id="four">
-			<input type="search" name="keyword" class="form-control" placeholder="Search"
-			value="${param.keyword }"/> 
-			</div>	
-		</div>	
-		<div id="totalthree">
-			<div id="five">
- 			<label id="five-1"><input type="radio" name="order" value='ascend'>오름차순</label>
-			<label id="five-1"><input type="radio" name="order" value='descend'>내림차순</label> 
-			</div>
-			
-			<div id="six">
-			<select name="searchType2" class="form-control" required>
-				<option value=" " disabled selected>선택하세요</option> 
-				<option value="enroll_date" <c:if test="${param.searchType eq 'enroll_date'}">selected</c:if>>날짜</option>
-				<option value="board_id" <c:if test="${param.searchType eq 'board_id'}">selected</c:if>>글번호</option>
-				<option value="hit" ${param.searchType eq 'hit'?"selected":"" }>조회수</option>	
-			</select>
-			</div>
-		</div>
-		<div id="totalfour">	
-			<div id="seven">
-			<label class="radio-inline"><input type="checkbox" name="isclose" value="0" id="checkbox">
-			진행중인 게시글<br></label><br>
-			<label class="radio-inline"><input type="checkbox" name="isclose" value="1" id="checkbox">
-			종료된 게시글</label>
-			</div>
-		</div>	
-			
-			<div id="eight">
-			<input type="submit" value="검색">
-			</div>
-		</form>
-	</div> --%>
 	
 
 	<div class="board_list_wrap">
@@ -565,6 +463,38 @@ appearance: none;
 
  </section>
  
+ 
+ <script>
+ 
+/*  function fn_selectBoard(){
+		$.ajax({
+			url:"${path}/admin/adminBoardSearch",
+			type:"post",
+			data:{"searchType":$('input[name="searchType"]:checked').val(),
+			"keyword":$('input[name="keyword"]:checked').val(),
+			"keyword2":$('input[name="keyword2"]:checked').val(),
+			"searchType2":$('input[name="searchType2"]:checked').val(),
+			"bigCategory":$('input[name="bigCategory"]:checked').val(),
+			"smallCategory":$('input[name="smallCategory"]:checked').val(),
+			"order":$('input[name="order"]:checked').val(),
+			"isclose":$('input[name="isclose"]:checked').val()},
+			
+			dataType:"json",
+			success:function(data){
+				location.href="${path}/admin/adminBoardSearch?searchType="+data.searchType
+				"&keyword="+data.keyword
+				"&keyword2="+data.keyword2
+				"&searchType2="+data.searchType2
+				"&bigCategory="+data.bigCategory
+				"&smallCategory="+data.smallCategory
+				"&order="+data.order
+				"&idclose="+data.isclose
+			}
+		})
+		
+		console.log("검색실행됨")''
+	}; */
+ </script>
  
 
 
