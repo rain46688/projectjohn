@@ -18,12 +18,11 @@
 <!-- Splide library -->
 <script src="https://cdn.jsdelivr.net/npm/@splidejs/splide@latest/dist/js/splide.min.js"></script>
 <link rel="stylesheet" href="${path }/resources/css/splide.min.css">
-<%-- <link rel="stylesheet" href="${path }/resources/css/splide-core.min.css"> --%>
-<%-- <link rel="stylesheet" href="${path }/resources/css/splide-default.min.css"> --%>
 <link rel="stylesheet" href="${path }/resources/css/splide-sea-green.min.css">
-<%-- <link rel="stylesheet" href="${path }/resources/css/splide-skyblue.min.css"> --%>
 
 <style>
+
+/* 초기화 */
 html, body, div, span, applet, object, iframe, h1, h2, h3, h4, h5, h6, p, blockquote, pre, a, abbr, acronym, address, big, cite, code, del, dfn, em,
 	ins, kbd, q, s, samp, small, strike, strong, sub, sup, tt, var, b, u, i, center, dl, dt, dd, ol, ul, li, fieldset, form, label, legend, table,
 	caption, tbody, tfoot, thead, tr, th, td, article, aside, canvas, details, embed, figure, figcaption, footer, header, hgroup, menu, nav, output, ruby,
@@ -41,10 +40,12 @@ html, body, div, span, applet, object, iframe, h1, h2, h3, h4, h5, h6, p, blockq
 	user-select: none;
 }
 
+/* 폰트 설정 */
 .exName, .exCounselArea, .johnbtn, .exBottm, .empty, #reviewDivTitle, .reviewInnerUpDiv, .userReview, .emptyReview, #categoryDiv {
 	font-family: 'Noto Serif KR', serif;
 }
 
+/* 배경 설정 */
 #headerAndContent {
 	background-color: #062449;
 }
@@ -70,8 +71,6 @@ html, body, div, span, applet, object, iframe, h1, h2, h3, h4, h5, h6, p, blockq
 #upDiv {
 	width: 100%;
 	height: 58%;
-	/* 	display:flex;
-	justify-content:center; */
 }
 
 /* 아래 div */
@@ -79,7 +78,6 @@ html, body, div, span, applet, object, iframe, h1, h2, h3, h4, h5, h6, p, blockq
 	width: 100%;
 	height: 40%;
 	display: flex;
-	/* border-top: 1px solid #C6C5C5; */
 	padding: 0 5vh 0 5vh;
 }
 
@@ -87,7 +85,6 @@ html, body, div, span, applet, object, iframe, h1, h2, h3, h4, h5, h6, p, blockq
 #reviewDiv {
 	height: 100%;
 	width: 50%;
-	/* border-right: 1px solid #C6C5C5; */
 	padding-right: 1vh;
 }
 
@@ -96,7 +93,6 @@ html, body, div, span, applet, object, iframe, h1, h2, h3, h4, h5, h6, p, blockq
 	height: 105.45%;
 	width: 50%;
 	background-color: white;
-	/* margin:0 3% 0 0; */
 	border: 10px solid #FFCC66;
 	padding-left: 1vh;
 }
@@ -112,9 +108,7 @@ html, body, div, span, applet, object, iframe, h1, h2, h3, h4, h5, h6, p, blockq
 }
 
 .splide__track {
-	/* 수정 */
 	background-color: white;
-	/* border-radius:2%; */
 	border: 10px solid #FFCC66;
 }
 
@@ -147,8 +141,6 @@ html, body, div, span, applet, object, iframe, h1, h2, h3, h4, h5, h6, p, blockq
 .splide__slide {
 	width: 100%;
 	height: 100%;
-	/* 수정 */
-	/* border-left: 1px solid #C6C5C5; */
 }
 
 .splide__pagination {
@@ -264,8 +256,6 @@ html, body, div, span, applet, object, iframe, h1, h2, h3, h4, h5, h6, p, blockq
 	display: inline-block;
 	height: 50%;
 	width: 50%;
-	/* 	padding: 0 0 0 3%;
-	margin: 3% 0 3% 0; */
 	margin-left: 3%;
 }
 
@@ -306,7 +296,7 @@ html, body, div, span, applet, object, iframe, h1, h2, h3, h4, h5, h6, p, blockq
 .exBottm {
 	padding-top: 2vh;
 	height: 50%;
-	/* 줄 넘치면 ..으로 처리 */
+	/* 줄 넘치면 ..으로 처리  안되! */
 	display: -webkit-box;
 	-webkit-line-clamp: 9;
 	text-overflow: ellipsis;
@@ -379,7 +369,7 @@ html, body, div, span, applet, object, iframe, h1, h2, h3, h4, h5, h6, p, blockq
 	font-style: italic;
 	color: gray;
 	font-size: 2vh;
-	/* 줄 넘치면 ..으로 처리 */
+	/* 줄 넘치면 ..으로 처리 안되 시발! */
 	display: -webkit-box;
 	-webkit-line-clamp: 6;
 	text-overflow: ellipsis;
@@ -545,6 +535,7 @@ html, body, div, span, applet, object, iframe, h1, h2, h3, h4, h5, h6, p, blockq
 			pop.close(); 
 		}
 		
+		// 상담 신청 버튼
 		 function counsel(no,nic){
 			 console.log("no : "+no+" nic : "+nic);
 			 window.open("${path}/expert/expertApply?no="+no+"&nic="+nic,'회원','width=800, height=800, toolbar=no, menubar=no, scrollbars=no, resizable=yes');
@@ -556,6 +547,7 @@ html, body, div, span, applet, object, iframe, h1, h2, h3, h4, h5, h6, p, blockq
 		// 전체 배열
 		let newexReviewList = [];
 		
+		//소켓 실행
 		const exboardListConn = new WebSocket('wss://192.168.219.105${path}/exlistSocket');
 		
 		exboardListConn.onopen = function() {
@@ -608,7 +600,6 @@ html, body, div, span, applet, object, iframe, h1, h2, h3, h4, h5, h6, p, blockq
 					if(e['expertCounselArea'] == cate){
 						
 							if(flag == true){
-								console.log("한번 실행");
 								tempprinthtml ="";
 								flag = false;
 							}
@@ -633,10 +624,8 @@ html, body, div, span, applet, object, iframe, h1, h2, h3, h4, h5, h6, p, blockq
 				});
 				//플래그에 따라 등록된게 없다는 표시를 구분함 
 				if(flag){
-					console.log("1");
 					$("#upDiv").html(tempprinthtml);
 				}else{
-					console.log("2");
 					$("#upDiv").html("<div class='splide'><div id='upListDiv' class='splide__track'><ul id='upListUl' class='splide__list'></ul></div></div>");
 					$("#upListUl").html(tempprinthtml);
 				}
@@ -655,7 +644,6 @@ html, body, div, span, applet, object, iframe, h1, h2, h3, h4, h5, h6, p, blockq
 					if(e['bexpertCounselArea'] == cate){
 						let content="내용 없음";
 						if(flag == true){
-							console.log("한번 실행2");
 							tempprinthtml ="";
 							flag = false;
 						}
@@ -681,7 +669,7 @@ html, body, div, span, applet, object, iframe, h1, h2, h3, h4, h5, h6, p, blockq
 				}
 		}
 		
-		//별 찍기, 끝나는 숫자를 end로 입력하고 빈별인지 꽉찬별인지 두번째 파라미터로 구분
+		//별점 찍기, 끝나는 숫자를 end로 입력하고 빈별인지 꽉찬별인지 두번째 파라미터로 구분
 		function printStar(end, emptystar){
 			let starhtml = "";
 			for(let i = 1; i <= end; i++){
@@ -695,7 +683,7 @@ html, body, div, span, applet, object, iframe, h1, h2, h3, h4, h5, h6, p, blockq
 		}
 
 	 //슬라이드 생성하기 
-	 // 요소들을 생성한후 실행해줘야 슬라이드가 제대로 먹힘
+	 // 요소들을 생성한후 실행해줘야 슬라이드가 제대로 먹힘 삽질함 ㅋㅋ
 	function slide(){
 			// 가로 슬라이드
 			new Splide('.splide', {

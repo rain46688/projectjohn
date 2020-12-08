@@ -12,7 +12,6 @@
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 
 <style>
-
 html, body, div, span, applet, object, iframe, h1, h2, h3, h4, h5, h6, p, blockquote, pre, a, abbr, acronym, address, big, cite, code, del, dfn, em,
 	ins, kbd, q, s, samp, small, strike, strong, sub, sup, tt, var, b, u, i, center, dl, dt, dd, ol, ul, li, fieldset, form, label, legend, table,
 	caption, tbody, tfoot, thead, tr, th, td, article, aside, canvas, details, embed, figure, figcaption, footer, header, hgroup, menu, nav, output, ruby,
@@ -31,9 +30,9 @@ html, body, div, span, applet, object, iframe, h1, h2, h3, h4, h5, h6, p, blockq
 	font-family: 'Noto Serif KR', serif;
 }
 
-
 #reviewContent * {
 	/*  border: 1px red solid;  */
+	
 }
 
 #reviewContent {
@@ -53,10 +52,10 @@ html, body, div, span, applet, object, iframe, h1, h2, h3, h4, h5, h6, p, blockq
 #reviewCenterDiv {
 	width: 100%;
 	height: 60%;
-	display:flex;
-	flex-direction:column;
-	border:1px solid gray;
-	padding:3%;
+	display: flex;
+	flex-direction: column;
+	border: 1px solid gray;
+	padding: 3%;
 }
 
 textarea:focus {
@@ -64,7 +63,7 @@ textarea:focus {
 }
 
 textarea {
-    resize: none;
+	resize: none;
 }
 
 /* 별 */
@@ -72,49 +71,49 @@ textarea {
 	color: orange;
 }
 
-.fa-star{
-	cursor:pointer;
-	font-size:8vh;
+.fa-star {
+	cursor: pointer;
+	font-size: 8vh;
 }
 
-.starRev{
-	width:100%;
-	height:30%;
-	display:flex;
-	justify-content:center;
+.starRev {
+	width: 100%;
+	height: 30%;
+	display: flex;
+	justify-content: center;
 }
 
-.starRev>span{
-	display:flex;
-	align-items:center;
+.starRev>span {
+	display: flex;
+	align-items: center;
 }
 
-#reviewText{
-	width:100%;
-	height:60%;
+#reviewText {
+	width: 100%;
+	height: 60%;
 }
 
-#reviewText>p{
-	font-size:4vh;
-	font-weight:bold;
+#reviewText>p {
+	font-size: 4vh;
+	font-weight: bold;
 }
 
-#reviewTextArea{
-	width:100%;
-	height:90%;
-	padding:2%;
-	font-size:3vh;
-	font-weight:bold;
-	font-style:italic;
+#reviewTextArea {
+	width: 100%;
+	height: 90%;
+	padding: 2%;
+	font-size: 3vh;
+	font-weight: bold;
+	font-style: italic;
 }
 
-#rebottomDiv{
-	width:100%;
-	height:20%;
-	display:flex;
-	justify-content:center;
-	align-items:center;
-	padding-top:8%;
+#rebottomDiv {
+	width: 100%;
+	height: 20%;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	padding-top: 8%;
 }
 
 /* 버튼 */
@@ -164,29 +163,25 @@ textarea {
 .button-8:hover .johnbtn {
 	color: #00316D;
 }
-
 </style>
 <section id="reviewContent">
 
 	<div id="reivewMainDiv">
 		<div id="reviewCenterDiv">
 			<div class="starRev">
-				<span class="fa fa-star"></span>
-				<span class="fa fa-star"></span>
-				<span class="fa fa-star"></span>
-				<span class="fa fa-star"></span>
-				<span class="fa fa-star"></span>
+				<span class="fa fa-star"></span> <span class="fa fa-star"></span> <span class="fa fa-star"></span> <span class="fa fa-star"></span> <span
+					class="fa fa-star"></span>
 			</div>
 			<div id="reviewText">
-			<p>상담 후기 입력</p>
-			<textarea id="reviewTextArea" name="reText" placeholder="솔직한 후기를 적어주세요"></textarea>
+				<p>상담 후기 입력</p>
+				<textarea id="reviewTextArea" name="reText" placeholder="솔직한 후기를 적어주세요"></textarea>
 			</div>
 			<div id="rebottomDiv">
-													<div class="button-8">
-												    <div class="eff-8"></div>
-												    <a  class="johnbtn"  onclick="reviewWrite();">작성 완료</a>
-												  </div>	
-			<!-- <button type="text" class="btn btn-outline-success" onclick="reviewWrite();">작성 완료</button> -->
+				<div class="button-8">
+					<div class="eff-8"></div>
+					<a class="johnbtn" onclick="reviewWrite();">작성 완료</a>
+				</div>
+				<!-- <button type="text" class="btn btn-outline-success" onclick="reviewWrite();">작성 완료</button> -->
 			</div>
 		</div>
 	</div>
@@ -194,82 +189,76 @@ textarea {
 </section>
 
 <script>
+	'use strict';
 
-'use strict';
+	//화면 크기 고정
+	$(this).resize(fixedSize);
+	function fixedSize() {
+		this.resizeTo(500, 500);
+	};
 
-//화면 크기 고정
-$(this).resize(fixedSize);
-function fixedSize() {
-	this.resizeTo(500, 500);
-};
-
-if("${duplicate}" != 0){//0이 평점 기본이기때문에 0이아니면 평점이 작성된것
-	console.log("이미 작성한 리뷰");
-	alert("이미 작성한 후기입니다.");
-	window.close(); 
-}
-
-//리뷰 작성
-function reviewWrite(){
- 	if(startcount() == 0){
-		alert("별점을 입력해주세요");
-		return;
+	if ("${duplicate}" != 0) {//0이 평점 기본이기때문에 0이아니면 평점이 작성된것
+		console.log("이미 작성한 리뷰");
+		alert("이미 작성한 후기입니다.");
+		window.close();
 	}
-	 
-	if($("#reviewTextArea").val() == ""){
-		alert("후기를 입력해주세요");
-		return;
-	}
-	 
-	if($("#reviewTextArea").val().length < 20){
-		alert("20글자 이상 입력해주세요");
-		return;
-	}
-	
-	$.ajax({
-		url : '${path}/expert/expertReviewWriteEnd',
-		data : {
+
+	//리뷰 작성
+	function reviewWrite() {
+		if (startcount() == 0) {
+			alert("별점을 입력해주세요");
+			return;
+		}
+
+		if ($("#reviewTextArea").val() == "") {
+			alert("후기를 입력해주세요");
+			return;
+		}
+
+		if ($("#reviewTextArea").val().length < 20) {
+			alert("20글자 이상 입력해주세요");
+			return;
+		}
+
+		$.ajax({
+			url : '${path}/expert/expertReviewWriteEnd',
+			data : {
 				'bno' : '${bno}',
 				'review' : $("#reviewTextArea").val(),
 				'rating' : startcount()
 			},
-		dataType : 'json',
-		success : function(data){
-		console.log(data);
-			if(data == 1){
-				alert("성공적으로 등록되었습니다.");
-			}else{
-				alert("등록에 실패하였습니다. 관리자에게 문의하세요");
+			dataType : 'json',
+			success : function(data) {
+				console.log(data);
+				if (data == 1) {
+					alert("성공적으로 등록되었습니다.");
+				} else {
+					alert("등록에 실패하였습니다. 관리자에게 문의하세요");
+				}
+				window.close();
 			}
-			window.close(); 
-		}
-	});
-	
-	
-};
+		});
 
-$('.starRev span').click(function(){
-	  $(this).parent().children('span').removeClass('checked');
-	  $(this).addClass('checked').prevAll('span').addClass('checked');
-	  console.log("스타 카운트 : "+startcount());
-	  return false;
+	};
+
+	$('.starRev span').click(function() {
+		$(this).parent().children('span').removeClass('checked');
+		$(this).addClass('checked').prevAll('span').addClass('checked');
+		console.log("스타 카운트 : " + startcount());
+		return false;
 	});
 
-function startcount(){
-	
-	let star = $(".fa-star");
-	let count = 0;
-	for(let i = 0; i<star.length; i++){
-		if($(star[i]).hasClass('checked')){
-			count++;
+	function startcount() {
+
+		let star = $(".fa-star");
+		let count = 0;
+		for (let i = 0; i < star.length; i++) {
+			if ($(star[i]).hasClass('checked')) {
+				count++;
+			}
 		}
-	}
-	return count;	
-};
-
-
-
-
+		return count;
+	};
 </script>
 
 

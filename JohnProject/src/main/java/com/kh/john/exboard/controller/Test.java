@@ -2,6 +2,11 @@ package com.kh.john.exboard.controller;
 
 import java.util.Random;
 
+/**
+ * @Author : cms
+ * @Date : 2020. 12. 8.
+ * @explain : 랜덤 이름 닉네임 생일 생성용으로 만듬, MEMBER INSERT문으로 자동 생성됨 쓸사람 쓰셈 아무도 안쓰겠지만 ㅋㅋ
+ */
 public class Test {
 
 	public static void main(String[] args) {
