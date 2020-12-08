@@ -240,25 +240,6 @@ $("#delete").click(e=>{
 	
 });
 
-
-/* $('.nav-item').hover(function() {
-	console.log("z")
-	if(!$(this).children().hasClass('active')){
-		$(this).children().css('color', '#FECC66');
-	}
-}, function() {
-	console.log("z2")
-	if(!$(this).children().hasClass('active')){
-		$(this).children().css('color', 'white');
-	}
-});
- */
-
-/* $(".form-check-input").click(e =>{
-	console.log("체크 여부 : "+$("input:checkbox[name=checkbox]").is(":checked"));
-}); */
-
-
 function printBell(list){
 	$("#number").html("");
 	let count = 0;
@@ -312,56 +293,44 @@ function typeifprint(e,type){
 	let print2="";
 	if(type == 'expert'){
 		console.log("ex");
-		print2 += expertPrintHtml(e);
+		let extitle = "1 : 1 영상 상담 요청이있습니다.";
+		let excontent= "안녕하세요 상담사 "+e['alarmSendMemNickname']+"입니다.<br> 아래 링크로 바로 접속하셔서 상담 진행하시면됩니다.<br><a href='${path }/expert/expertRoom?bno="+e['alarmMsgContent']+"'>-클릭해서 상담 접속-</a>";
+		print2 += printAlarmBoardContent(e,extitle,excontent);
 	}else if(type == 'expertend'){
 		console.log("exe");
-		print2 += expertEndPrintHtml(e);	
+		let extitle = "후기를 작성해주세요 완료된 상담이 있습니다.";
+		let excontent="안녕하세요 존경장님 상담은 만족스러우신가요? <br>더 나은 서비스에 대해 상담 결과에 대해 <br>아래 링크로 바로 접속하셔서 후기를 <br>작성해주시면 감사하겠습니다.<br>";
+		excontent += "<a style='cursor:pointer;' onclick='writereview("+e['alarmMsgContent']+");'>-클릭해서 후기 작성-</a>";
+		print2 += printAlarmBoardContent(e,extitle,excontent);
 	}else if(type == 'board'){
 		console.log("bo");
-		print2 += boardPrintHtml(e);
+		let extitle = "TEST용 게시글 알람 사용자한테 보여질 제목입니다.";
+		let excontent = "TEST용 게시글 알람 사용자한테 보여질 내용입니다.";
+		print2 += printAlarmBoardContent(e,extitle,excontent);
 	}else if(type == 'report'){
 		console.log("re");
-		print2 += reportPrintHtml(e);
+		let extitle = "TEST용 신고 알람 사용자한테 보여질 제목입니다.";
+		let excontent = "TEST용 신고 알람 사용자한테 보여질 내용입니다.";
+		print2 += printAlarmBoardContent(e,extitle,excontent);
 	}else if(type == 'test'){
 		//나중에 추가?
 	}
 	return print2;
 }
 
-//알람부분 정리해보기~~~~~~~~~~
-//알람부분 정리해보기~~~~~~~~~~
-
-//프린트html 상담
-function expertPrintHtml(e){
+//알람 제목 컨텐츠 작성 후 출력 메소드
+function printAlarmBoardContent(e, title, content){
 	let print ="";
 	print += "<div class='divRowAl' style='cursor: pointer'>";
 	print += "<input type='hidden' value='"+e['alarmId']+"'>";
 	if(e['alarmIscheked'] == false){
-		print += "<div class='divCellAl'> 1 : 1 영상 상담 요청이있습니다.<div class='date'>"+e['alarmDate']+"</div></div></div>";
+		print += "<div class='divCellAl'>"+title+"<div class='date'>"+e['alarmDate']+"</div></div></div>";
 	}else{
-		print += "<div class='divCellAl fontgray'> 1 : 1 영상 상담 요청이있습니다.<div class='date'>"+e['alarmDate']+"</div></div></div>";
+		print += "<div class='divCellAl fontgray'>"+title+"<div class='date'>"+e['alarmDate']+"</div></div></div>";
 	}
-	print += "<div class='al'><div class='alContent'>"
-	print += "안녕하세요 상담사 "+e['alarmSendMemNickname']+"입니다.<br> 아래 링크로 바로 접속하셔서 상담 진행하시면됩니다.<br>" 
-	print += "<a href='${path }/expert/expertRoom?bno="+e['alarmMsgContent']+"'>-클릭해서 상담 접속-</a></div></div>"
-	return print;
-};
-
-//상담 후기
-function expertEndPrintHtml(e){
-	let print ="";
-	print += "<div class='divRowAl' style='cursor: pointer'>";
-	print += "<input type='hidden' value='"+e['alarmId']+"'>";
-	if(e['alarmIscheked'] == false){
-		print += "<div class='divCellAl'> 후기를 작성해주세요 완료된 상담이 있습니다. <div class='date'>"+e['alarmDate']+"</div></div></div>";
-	}else{
-		print += "<div class='divCellAl fontgray'> 후기를 작성해주세요 완료된 상담이 있습니다. <div class='date'>"+e['alarmDate']+"</div></div></div>";
-	}
-	print += "<div class='al'><div class='alContent'>"
-	print += "안녕하세요 존경장님 상담은 만족스러우신가요? <br>더 나은 서비스에 대해 상담 결과에 대해 <br>아래 링크로 바로 접속하셔서 후기를 <br>작성해주시면 감사하겠습니다.<br>" 
-	print += "<a style='cursor:pointer;' onclick='writereview("+e['alarmMsgContent']+");'>-클릭해서 후기 작성-</a></div></div>"
-	return print;
-};
+		print += "<div class='al'><div class='alContent'>"+content+"</div></div>";
+		return print;
+}
 
 //상담 리뷰 작성
 function writereview(bno){
@@ -380,38 +349,6 @@ function writereview(bno){
 	forms.target = "popForm";
 	forms.submit();
 }
-
-
-//프린트html 게시판
-function boardPrintHtml(e){
-	let print ="";
-	print += "<div class='divRowAl' style='cursor: pointer'>";
-	print += "<input type='hidden' value='"+e['alarmId']+"'>";
-	if(e['alarmIscheked'] == false){
-		print += "<div class='divCellAl'> "+e['alarmType']+" 게시판 알람입니다.<div class='date'>"+e['alarmDate']+"</div></div></div>";
-	}else{
-		print += "<div class='divCellAl fontgray'> "+e['alarmType']+" 게시판 알람입니다.<div class='date'>"+e['alarmDate']+"</div></div></div>";
-	}
-	print += "<div class='al'><div class='alContent'>";
-	print += "게시판 알람입니다.<br></div></div>";
-	return print;
-};
-
-//프린트html 신고
-function reportPrintHtml(e){
-	let print ="";
-	print += "<div class='divRowAl' style='cursor: pointer'>";
-	print += "<input type='hidden' value='"+e['alarmId']+"'>";
-	if(e['alarmIscheked'] == false){
-		print += "<div class='divCellAl'> "+e['alarmType']+" 게시판 알람입니다.<div class='date'>"+e['alarmDate']+"</div></div></div>";
-	}else{
-		print += "<div class='divCellAl fontgray'> "+e['alarmType']+" 게시판 알람입니다.<div class='date'>"+e['alarmDate']+"</div></div></div>";
-	}
-	print += "<div class='al'><div class='alContent'>";
-	print += "게시판 알람입니다.<br></div></div>";
-	return print;
-};
-
 
 //알람 객체
 function Alarm(alarmId,alarmSendMemUsid, alarmReceiveMemUsid,
