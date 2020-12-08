@@ -355,6 +355,11 @@ hr {
     Opacity: 1; /* end state transparency is 1*/
   }
 }
+
+#box1 img {
+	width:100%em;
+	height:20em;;
+}
 	
 	
 </style>
@@ -380,7 +385,11 @@ hr {
               Nickname
             </div>
             <div id="writerComment">
-              <input type="text" value="방장의 한마디" id="writerComIn" placeholder="Enter를 누르면 입력됩니다.">
+              <input type="text" value="방장의 한마디" id="writerComIn"
+              <c:if test="${loginMember.usid ne currBoard.WRITER_USID }">
+	        	readonly
+	        	</c:if>
+               placeholder="Enter를 누르면 입력됩니다.">
             </div>
           </div>
           <div id="box1">
@@ -576,7 +585,9 @@ document.ondragleave = function(e) {
 
 document.getElementById('box1').ondrop = function(e){
 	e.preventDefault();
+	<c:if test="${loginMember.usid eq currBoard.WRITER_USID }">
 	handleFileDrop(e.dataTransfer.files[0]);
+	</c:if>
   	return false;
 }
 
@@ -602,6 +613,19 @@ chatSocket.onopen = function(e){
 }
 
 chatSocket.onmessage = function(e){
+	if(e.data.substring(0,5) == 'image'){
+		console.log(e.data);
+		let fileName = e.data.substring(6,e.data.length);
+		console.log(fileName);
+		
+		let box1 = document.getElementById('box1');
+		box1.innerHTML = "";
+		
+		let img = document.createElement('img');
+		img.setAttribute('src','${path}/resources/images/'+fileName);
+		
+		box1.appendChild(img);
+	}else{
 	chatList = JSON.parse(e.data);
 	
 	//사용자 숫자를 알기 위한 배열
@@ -665,6 +689,7 @@ chatSocket.onmessage = function(e){
 	    document.getElementById('commentPrint').appendChild(user);
     }
   })
+ }
 }
 
 //채팅창 엔터에 반응하기
