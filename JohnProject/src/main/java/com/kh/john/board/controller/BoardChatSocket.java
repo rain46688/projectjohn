@@ -5,15 +5,17 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.nio.ByteBuffer;
 import java.nio.channels.FileChannel;
-import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Collections;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
+import java.util.Map.Entry;
 import java.util.UUID;
 
 import org.springframework.web.socket.BinaryMessage;
@@ -27,6 +29,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.google.common.collect.ArrayListMultimap;
 import com.google.common.collect.Multimap;
 import com.kh.john.board.model.vo.BoardChat;
+import com.kh.john.board.model.vo.RoomDate;
 import com.kh.john.member.model.vo.Member;
 
 import lombok.extern.slf4j.Slf4j;
@@ -34,13 +37,18 @@ import lombok.extern.slf4j.Slf4j;
 @Slf4j
 public class BoardChatSocket extends AbstractWebSocketHandler{
 
+	//접속한 모든 유저
 	private Map <Member, WebSocketSession> allUsers = new HashMap<Member, WebSocketSession>();
-	
+	//방에 따라 나눠진 유저목록
 	private Multimap<Integer, Member> rooms = ArrayListMultimap.create();
-	
+	//해당 방의 채팅목록
 	private Multimap<Integer, BoardChat> roomChat = ArrayListMultimap.create();
-	
+	//유저가 올린 이미지파일 이름 저장
 	private Map <Member, String> imageFileName = new HashMap();
+	//해당 방의 이미지 파일 이름
+	private Map <Integer, String> roomImageFileName = new HashMap();
+	//새로고침시 메시지 유지를 위한 채팅리스트
+	private Multimap<RoomDate, BoardChat> tempDumpChat = ArrayListMultimap.create();
 	
 	private ObjectMapper mapper = new ObjectMapper();
 	
@@ -51,7 +59,7 @@ public class BoardChatSocket extends AbstractWebSocketHandler{
 		Map<String, Object> map = session.getAttributes();
 		Member member = (Member)map.get("loginMember");
 		allUsers.put(member, session);
-		System.out.println(roomChat);
+		System.out.println(tempDumpChat);
 	}
 	
 	@Override
@@ -73,8 +81,6 @@ public class BoardChatSocket extends AbstractWebSocketHandler{
 		FileOutputStream fos = null;
 		if(message.isLast()) {
 			String path = BoardImageSocket.class.getResource("/").getPath();
-			System.out.println(path);
-			System.out.println(path.substring(0,path.lastIndexOf("/target/"))+"/src/main/webapp/resources/images");
 			String realPath = path.substring(0,path.lastIndexOf("/target/"))+"/src/main/webapp/";
 			Path basePath = Paths.get(realPath, "resources/images", UUID.randomUUID().toString() + extension);
 			try {
@@ -98,6 +104,8 @@ public class BoardChatSocket extends AbstractWebSocketHandler{
 					break;
 				}
 			}
+			imageFileName.clear();
+			roomImageFileName.put(roomNum, fileName);
 			for(Member mem : rooms.get(roomNum)) {
 				allUsers.get(mem).sendMessage(new TextMessage("image:"+fileName));
 			}
@@ -121,15 +129,74 @@ public class BoardChatSocket extends AbstractWebSocketHandler{
 			BoardChat msgFromClient = new BoardChat();
 			
 			int boardId = (Integer)result.get("boardId");
-			log.debug(""+boardId);
-			msgFromClient.setBoardId(boardId);
-			msgFromClient.setUsid(member.getUsid());
-			msgFromClient.setMessage((String)result.get("message"));
-			msgFromClient.setUserImg(member.getProfilePic());
-			msgFromClient.setUserNick(member.getMemNickname());
-			msgFromClient.setEnrollDate(new Date());
 			
-			roomChat.put(boardId, msgFromClient);
+			//임시 메시지 있는지 확인
+			if(tempDumpChat!=null) {
+				dumpChatManager(tempDumpChat, boardId);
+				//해당 방의 사라진 메세지 다시 받기
+				log.debug("널이 아닙니다");
+				Iterator it = tempDumpChat.entries().iterator();
+				while(it.hasNext()) {
+					Map.Entry<RoomDate, BoardChat> tempChat = (Map.Entry<RoomDate, BoardChat>)it.next();
+					if(tempChat.getKey().getBoardId() == boardId) {
+						log.debug("for문에 들어감"+tempChat);
+						roomChat.put(boardId, tempChat.getValue());
+						log.debug(""+roomChat);
+						it.remove();
+						//tempDumpChat.remove(tempChat.getKey(), tempChat.getValue());
+					}
+				}
+//				for(Map.Entry<RoomDate, BoardChat> tempChat : chats) {
+//					if(tempChat.getKey().getBoardId() == boardId) {
+//						log.debug("for문에 들어감"+tempChat);
+//						roomChat.put(boardId, tempChat.getValue());
+//						tempDumpChat.remove(tempChat.getKey(), tempChat.getValue());
+//					}
+//				}
+			}
+			boolean isFirst = false;
+			if(result.get("isFirst")!=null) {
+				isFirst = (boolean)result.get("isFirst");
+			}
+			System.out.println("isFirst: "+isFirst);
+			boolean hasSaid = false;
+			for(BoardChat chat : roomChat.get(boardId)) {
+				if(chat.getUsid() == member.getUsid()) {
+					hasSaid = true;
+					break;
+				}
+			}
+			
+			if(isFirst) {
+				System.out.println("hasSaid: "+hasSaid);
+				if(hasSaid) {
+					
+				}else {
+					msgFromClient.setBoardId(boardId);
+					msgFromClient.setUsid(member.getUsid());
+					msgFromClient.setMessage((String)result.get("message"));
+					msgFromClient.setUserImg(member.getProfilePic());
+					msgFromClient.setUserNick(member.getMemNickname());
+					msgFromClient.setEnrollDate(new Date());
+					
+					roomChat.put(boardId, msgFromClient);
+				}
+				if(roomImageFileName.get(boardId)!=null) {
+					for(Member mem : rooms.get(boardId)) {
+						allUsers.get(mem).sendMessage(new TextMessage("image:"+roomImageFileName.get(boardId)));
+					}
+				}
+			}else {
+				System.out.println("hasSaid: "+hasSaid);
+				msgFromClient.setBoardId(boardId);
+				msgFromClient.setUsid(member.getUsid());
+				msgFromClient.setMessage((String)result.get("message"));
+				msgFromClient.setUserImg(member.getProfilePic());
+				msgFromClient.setUserNick(member.getMemNickname());
+				msgFromClient.setEnrollDate(new Date());
+				
+				roomChat.put(boardId, msgFromClient);
+			}
 			
 			if(!rooms.keySet().contains(boardId)) {
 				rooms.put(boardId, member);
@@ -144,33 +211,18 @@ public class BoardChatSocket extends AbstractWebSocketHandler{
 			
 			List<BoardChat> chatList = new ArrayList();
 			
-			System.out.println(rooms);
-			
 			for(Member mem : rooms.get((Integer)result.get("boardId"))) {
 				for(BoardChat chat : roomChat.get((Integer)result.get("boardId"))) {
 					chatList.add(chat);
 				}
 				allUsers.get(mem).sendMessage(new TextMessage(mapper.writeValueAsString(chatList)));
+				break;
 			}
+			System.out.println("chatList: "+chatList);
 		}else {
 			imageFileName.put(member, messageValue);
 		}
 	}
-//		
-//		Map<Member, WebSocketSession> user = new HashMap();
-//		user.put(member, allUsers.get(member));
-//		
-//		rooms.put((Integer)result.get("boardId"), user);
-//		
-//		rooms.get((Integer)result.get("boardId"));
-//		
-//		
-//		
-//		for(Map<Member, WebSocketSession> users : rooms.get((Integer)result.get("boardId"))) {
-//			for(Map.Entry<Member, WebSocketSession> sess : users.entrySet()) {
-//				sess.getValue().sendMessage(new TextMessage(mapper.writeValueAsString(rooms.asMap().get((Integer)result.get("boardId")).toString())));
-//			}
-//		} 
 	
 	@Override
 	public void afterConnectionClosed(WebSocketSession session, CloseStatus status) throws Exception {
@@ -198,6 +250,7 @@ public class BoardChatSocket extends AbstractWebSocketHandler{
 			int boardId = (Integer)it2.next();
 			for(BoardChat chat : roomChat.get(boardId)) {
 				if(member.getUsid() == chat.getUsid()) {
+					tempDumpChat.put(new RoomDate(boardId, new Date()), chat);
 					roomChat.remove(boardId, chat);
 					break;
 				}
@@ -206,8 +259,6 @@ public class BoardChatSocket extends AbstractWebSocketHandler{
 		
 		List<BoardChat> chatList = new ArrayList();
 		
-		
-		System.out.println("************************"+board);
 		for(Member mem : rooms.get(board)) {
 			for(BoardChat chat : roomChat.get(board)) {
 				chatList.add(chat);
@@ -217,5 +268,19 @@ public class BoardChatSocket extends AbstractWebSocketHandler{
 		
 		allUsers.remove(member);
 		System.out.println(member.getMemNickname() + "연결 종료");
+	}
+	
+	private void dumpChatManager(Multimap<RoomDate, BoardChat> tempDumpChat, int boardId) {
+		Date now = new Date();
+		Iterator it = tempDumpChat.entries().iterator();
+		while(it.hasNext()) {
+			System.out.println("오는거야?");
+			Map.Entry<RoomDate, BoardChat> chats = (Map.Entry<RoomDate, BoardChat>)it.next();
+			if(chats.getKey().getBoardId() == boardId) {
+				if(now.getTime() - chats.getKey().getDate().getTime() > 10000) {
+					it.remove();
+				}
+			}
+		}
 	}
 }
