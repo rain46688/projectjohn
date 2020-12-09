@@ -191,19 +191,28 @@ textarea {
 <script>
 	'use strict';
 
+	// ============================
 	//화면 크기 고정
+	// ============================
 	$(this).resize(fixedSize);
 	function fixedSize() {
 		this.resizeTo(500, 500);
 	};
 
-	if ("${duplicate}" != 0) {//0이 평점 기본이기때문에 0이아니면 평점이 작성된것
+	// ============================
+	// 평점이 이미 작성되있으면 얼럿 띄우고 팝업창 꺼버리기!
+	//0이 평점 기본이기때문에 0이아니면 평점이 작성된것
+	// 
+	// ============================
+	if ("${duplicate}" != 0) {
 		console.log("이미 작성한 리뷰");
 		alert("이미 작성한 후기입니다.");
 		window.close();
 	}
 
+	// ============================
 	//리뷰 작성
+	// ============================
 	function reviewWrite() {
 		if (startcount() == 0) {
 			alert("별점을 입력해주세요");
@@ -241,6 +250,9 @@ textarea {
 
 	};
 
+	// ============================
+	// 별 누를시 별 꽉차게 보이거나 지우기
+	// ============================
 	$('.starRev span').click(function() {
 		$(this).parent().children('span').removeClass('checked');
 		$(this).addClass('checked').prevAll('span').addClass('checked');
@@ -248,8 +260,10 @@ textarea {
 		return false;
 	});
 
+	// ============================
+	// 별 갯수 몇개 찍혀있는지 갯수 반환함
+	// ============================
 	function startcount() {
-
 		let star = $(".fa-star");
 		let count = 0;
 		for (let i = 0; i < star.length; i++) {
