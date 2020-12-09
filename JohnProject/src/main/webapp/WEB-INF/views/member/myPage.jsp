@@ -98,6 +98,10 @@ div.board{
 ion-icon.pageIcon{
 	font-size: 5rem;
 }
+img.pageIcon{
+	width: 5rem;
+	height: 5rem;
+}
 div.boardTitle{
 	font-size: 1.2rem;
 	margin: 1rem;
@@ -154,14 +158,14 @@ div.board button{
 		</div>
 		<div id="boards">
 			<div class="board">
-				<ion-icon name="chatbubbles-sharp" class="pageIcon"></ion-icon>
+				<img src="${path}/resources/images/chat.png" class="pageIcon">
 				<div class="boardTitle">
 					서신함
 				</div>
 				<button type="button" class="btn btn-outline-dark btn-sm" onclick="location.href='${path}/member/myPage/messageList?usid=${loginMember.usid}'">이동하기</button>
 			</div>
 			<div class="board">
-				<ion-icon name="build-sharp" class="pageIcon"></ion-icon>
+				<img src="${path}/resources/images/build.png" class="pageIcon">
 				<div class="boardTitle">
 					회원정보 수정하기
 				</div>
@@ -169,59 +173,59 @@ div.board button{
 			</div>
 			<c:if test="${loginMember.getMemClass() eq '전문가'}">
 				<div class="board">
-					<ion-icon name="build-sharp" class="pageIcon"></ion-icon>
+					<img src="${path}/resources/images/build.png" class="pageIcon">
 					<div class="boardTitle">
 						전문가 정보 수정하기
 					</div>
 					<button type="button" class="btn btn-outline-dark btn-sm" onclick="location.href='${path}/member/myPage/expertInfoModify?usid=${loginMember.usid}'">이동하기</button>
 				</div>
 			</c:if>
-			<div class="board">
-				<ion-icon name="clipboard-sharp" class="pageIcon"></ion-icon>
-				<div class="boardTitle">
-					상담 신청 내역
-				</div>
-				<button type="button" class="btn btn-outline-dark btn-sm" onclick="location.href='${path}/member/myPage/counselingRequest?usid=${loginMember.usid}'">이동하기</button>
-			</div>
 			<c:if test="${loginMember.getMemClass() eq '전문가'}">
 				<div class="board">
-					<ion-icon name="clipboard-sharp" class="pageIcon"></ion-icon>
+					<img src="${path}/resources/images/clipboard.png" class="pageIcon">
 					<div class="boardTitle">
-						상담한 내역
+						상담 신청받은 내역
 					</div>
-					<button type="button" class="btn btn-outline-dark btn-sm" onclick="location.href='${path}/member/myPage/exCounselingHistory?usid=${loginMember.usid}'">이동하기</button>
+					<button type="button" class="btn btn-outline-dark btn-sm" onclick="location.href='${path}/expert/expertRequestPrintList?usid=${loginMember.usid}'">이동하기</button>
 				</div>
 			</c:if>
 			<div class="board">
-				<ion-icon name="clipboard-sharp" class="pageIcon"></ion-icon>
+				<img src="${path}/resources/images/clipboard.png" class="pageIcon">
+				<div class="boardTitle">
+					상담 신청한 내역
+				</div>
+				<button type="button" class="btn btn-outline-dark btn-sm" onclick="location.href='${path}/member/myPage/counselingRequest?usid=${loginMember.usid}'">이동하기</button>
+			</div>
+			<div class="board">
+				<img src="${path}/resources/images/clipboard.png" class="pageIcon">
 				<div class="boardTitle">
 					상담 받은 내역
 				</div>
 				<button type="button" class="btn btn-outline-dark btn-sm" onclick="location.href='${path}/member/myPage/counselingHistory?usid=${loginMember.usid}'">이동하기</button>
 			</div>
 			<div class="board">
-				<ion-icon name="list-sharp" class="pageIcon"></ion-icon>
+				<img src="${path}/resources/images/list.png" class="pageIcon">
 				<div class="boardTitle">
 					나의 게시물 내역
 				</div>
 				<button type="button" class="btn btn-outline-dark btn-sm" onclick="location.href='${path}/member/myPage/myBoard?usid=${loginMember.usid}'">이동하기</button>
 			</div>
 			<div class="board">
-				<ion-icon name="heart-sharp" class="pageIcon"></ion-icon>
+				<img src="${path}/resources/images/heart.png" class="pageIcon">
 				<div class="boardTitle">
 					좋아요 한 게시물
 				</div>
 				<button type="button" class="btn btn-outline-dark btn-sm" onclick="location.href='${path}/member/myPage/liked?usid=${loginMember.usid}'">이동하기</button>
 			</div>
 			<div class="board">
-				<ion-icon name="skull-sharp" class="pageIcon"></ion-icon>
+				<img src="${path}/resources/images/skull.png" class="pageIcon">
 				<div class="boardTitle">
 					내 신고 내역
 				</div>
 				<button type="button" class="btn btn-outline-dark btn-sm" onclick="location.href='${path}/member/myPage/myReport?usid=${loginMember.usid}'">이동하기</button>
 			</div>
 			<div class="board">
-				<ion-icon src="${path}/resources/images/licenseIcon.svg" class="pageIcon"></ion-icon>
+				<img src="${path}/resources/images/driver-license.png" class="pageIcon">
 				<div class="boardTitle">
 					전문가 신청하기	
 				</div>

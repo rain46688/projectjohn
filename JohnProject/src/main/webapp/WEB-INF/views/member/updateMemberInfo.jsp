@@ -215,6 +215,19 @@
 			</form>
 		</div>
 	</div>
+	<div class="field">
+		<div class="titleContainer">
+			회원 탈퇴하기
+		</div>
+		<hr class="infoHr">
+		<div class="formContainer">
+			<form action="${path}/member/goodBye" id="goodBye" method="POST">
+				정말 탈퇴하시겠습니까?<br>
+				<button type="button" class="formBtn btn btn-outline-dark" onclick="fn_goodBye()" style="width: 10rem;">네, 탈퇴하겠습니다.</button>
+				<input type="text" name="goodByeUsid" value="${loginMember.usid}" readonly style="display: none;">
+			</form>
+		</div>
+	</div>
 </section>
 <script>
 	//비밀번호 제약조건
@@ -416,6 +429,10 @@
 		}else{
 			$("#updatePhoneForm").submit();
 		};
+	}
+
+	function fn_goodBye(){
+		$("#goodBye").submit();
 	}
 </script>
 

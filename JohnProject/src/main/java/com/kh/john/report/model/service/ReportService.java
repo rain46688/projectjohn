@@ -2,6 +2,7 @@ package com.kh.john.report.model.service;
 
 import java.util.List;
 
+import com.kh.john.board.model.vo.Board;
 import com.kh.john.member.model.vo.Member;
 import com.kh.john.report.model.vo.Report;
 import com.kh.john.report.model.vo.ReportFile;
@@ -11,6 +12,8 @@ public interface ReportService {
 	//customer
 	//int insertReport(Report r, List<ReportFile> files);
 	int insertReport(Report r);
+	
+	Board selectBoard(int boardId);
 	
 	//admin
 	List<Report> selectReportList(int cPage, int numPerPage);

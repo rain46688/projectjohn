@@ -180,33 +180,39 @@ public class MemberController {
 			loc = "/memberLogin";
 			path = "common/msg";			
 		}else {
-			List<Subscribe> list = bService.boardSubList(loginMember.getUsid());
-			m.addAttribute("subList", list);
-			if (!encoder.matches((String) param.get("memPwd"), loginMember.getMemPwd())) {
-				msg = "아이디나 비밀번호를 확인해주세요.";
+			if(loginMember.isLeaveMem()==true) {
+				msg = "탈퇴한 회원입니다.";
 				loc = "/memberLogin";
 				path = "common/msg";
-			} else {
-				if (session.getAttribute("bnum") != null) {
-					String bo = (String) session.getAttribute("bnum");
-					log.debug("bo : " + bo);
-					session.removeAttribute("bnum");
-					
-					m.addAttribute("loginMember", loginMember);
-					redirectAttributes.addAttribute("bno", bo);
-					return "redirect:/expert/expertRoom"; 
+			}else {		
+				List<Subscribe> list = bService.boardSubList(loginMember.getUsid());
+				m.addAttribute("subList", list);
+				if (!encoder.matches((String) param.get("memPwd"), loginMember.getMemPwd())) {
+					msg = "아이디나 비밀번호를 확인해주세요.";
+					loc = "/memberLogin";
+					path = "common/msg";
 				} else {
-					//임시비번알림
-					if(loginMember.getPwIsUuid()==1) {
-						msg="임시 비밀번호를 사용 중입니다. 비밀번호를 변경해주세요.";
-						loc="/board/boardList";
-						path = "common/msg";
-						m.addAttribute("loginMember", loginMember);	
-					}else {
-						path = "/board/boardList";
-						m.addAttribute("loginMember", loginMember);						
-					}
-				}	
+					if (session.getAttribute("bnum") != null) {
+						String bo = (String) session.getAttribute("bnum");
+						log.debug("bo : " + bo);
+						session.removeAttribute("bnum");
+						
+						m.addAttribute("loginMember", loginMember);
+						redirectAttributes.addAttribute("bno", bo);
+						return "redirect:/expert/expertRoom"; 
+					} else {
+						//임시비번알림
+						if(loginMember.getPwIsUuid()==1) {
+							msg="임시 비밀번호를 사용 중입니다. 비밀번호를 변경해주세요.";
+							loc="/board/boardList";
+							path = "common/msg";
+							m.addAttribute("loginMember", loginMember);	
+						}else {
+							path = "/board/boardList";
+							m.addAttribute("loginMember", loginMember);						
+						}
+					}	
+				}
 			}
 		}
 		m.addAttribute("msg", msg);
@@ -764,6 +770,28 @@ public class MemberController {
 		mv.addObject("totalData", totalData);
 		mv.addObject("requestList", requestList);
 		mv.setViewName("member/counselingRequest");
+		return mv;
+	}
+	
+//	회원 탈퇴하기
+	@RequestMapping("/member/goodBye")
+	public ModelAndView goodBye(ModelAndView mv,@RequestParam("goodByeUsid") int usid, HttpSession session, SessionStatus status) {
+		int result=service.goodBye(usid);
+		String msg="";
+		String loc="";
+		if(result>0) {
+			if (!status.isComplete()) {
+				status.setComplete();
+			}
+			msg="회원 탈퇴에 성공했습니다.";
+			loc="/memberLogin";
+		}else {
+			msg="회원 탈퇴에 실패했습니다.";
+			loc="/member/myPage";
+		}
+		mv.addObject("msg", msg);
+		mv.addObject("loc",loc);
+		mv.setViewName("common/msg");
 		return mv;
 	}
 	

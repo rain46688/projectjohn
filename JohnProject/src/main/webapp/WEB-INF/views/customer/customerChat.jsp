@@ -242,7 +242,11 @@
 							var date = new Date();
 							
 								sendChat('${loginMember.usid}', '${adminInfo.usid}', txt, date, "");
+								
+								
+								 
 								$('#inputMessage').val("");
+								
 								
 						}
 					});
@@ -275,6 +279,8 @@
 	adminsocket.onclose = function() {
 		console.log('onclose 실행');
 	};
+	
+	
 	
 </script>
 

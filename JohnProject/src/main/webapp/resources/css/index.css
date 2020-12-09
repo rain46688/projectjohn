@@ -15,9 +15,11 @@ div.title .third { opacity: 0; animation: moveUp 1.2s forwards; animation-delay:
 /* scale */
 .scale img {width: 100%;}
 .scale {
-    position: absolute; left: 50%;
+    position: absolute;
+    left: 50%;
+    top: 50px;
     transform: translateX(-50%);
-    max-width: 400px;
+    max-width: 300px;
     width: 80%;
 }
 .scale .scale-2{
