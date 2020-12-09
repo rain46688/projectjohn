@@ -8,13 +8,13 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 
-<jsp:include page="/WEB-INF/views/common/header.jsp" >
-<jsp:param name="title" value=" "/>
+<jsp:include page="/WEB-INF/views/common/header.jsp">
+	<jsp:param name="title" value=" " />
 </jsp:include>
 
 <style>
 
-<style>
+/* 초기화 */
 html, body, div, span, applet, object, iframe, h1, h2, h3, h4, h5, h6, p, blockquote, pre, a, abbr, acronym, address, big, cite, code, del, dfn, em,
 	ins, kbd, q, s, samp, small, strike, strong, sub, sup, tt, var, b, u, i, center, dl, dt, dd, ol, ul, li, fieldset, form, label, legend, table,
 	caption, tbody, tfoot, thead, tr, th, td, article, aside, canvas, details, embed, figure, figcaption, footer, header, hgroup, menu, nav, output, ruby,
@@ -30,60 +30,57 @@ html, body, div, span, applet, object, iframe, h1, h2, h3, h4, h5, h6, p, blockq
 	-webkit-user-select: none;
 	-khtml-user-select: none;
 	user-select: none;
-font-family: 'Noto Serif KR', serif;
+	font-family: 'Noto Serif KR', serif;
 }
 
-#headerAndContent{
-	 background-color:#062449; 
+/* 배경 */
+#headerAndContent {
+	background-color: #062449;
 }
 
-#content{
+#content {
 	/* background-color: #F1F3F3;  */
-	 background-color: #062449;
+	background-color: #062449;
 }
 
-#content *{
-		/* 	border:1px solid red; */
+#content * {
+	/* 	border:1px solid red; */
+	
 }
 
+/*  div 테이블 구조 css */
 .divList {
 	display: table;
 	width: 100%;
 	height: 20%;
 	text-align: center;
-	/* padding:0 5% 0 5%; */
 	padding: 0 3% 0 3%;
-	 background-color:#062449; 
-	  
+	background-color: #062449;
 }
 
 .divRow {
 	display: table-row;
-	
 }
 
 .divRowTitle {
 	display: table-row;
 	font-size: 2vh;
 	font-weight: bold;
-	/* text-shadow: -1px 0 #BFBFBF, 0 0.5px #BFBFBF, 0.5px 0 #BFBFBF, 0 -1px #BFBFBF; */
 	width: 100%;
 }
 
 h1 {
 	font-weight: bold;
-	/* text-shadow: -1px 0 #BFBFBF, 0 0.5px #BFBFBF, 0.5px 0 #BFBFBF, 0 -1px #BFBFBF; */
 	margin: 2% 0 3% 3%;
-	font-size:5vh;
-	 background-color:white; 
-	 display:inline-block;
-	 padding:1%;
-	 border: 10px solid #FFCC66;
+	font-size: 5vh;
+	background-color: white;
+	display: inline-block;
+	padding: 1%;
+	border: 10px solid #FFCC66;
 }
 
 .active {
 	font-weight: bold;
-		/* text-shadow: -1px 0 #BFBFBF, 0 0.5px #BFBFBF, 0.5px 0 #BFBFBF, 0 -1px #BFBFBF; */
 }
 
 .divRow .divCell {
@@ -91,28 +88,25 @@ h1 {
 	display: table-cell;
 	padding: 2vh 3vh;
 	width: 16.67%;
-	font-size:  2vh;
+	font-size: 2vh;
 }
 
-.divRowTitle{
-	border-radius:2%;
-	/* background-color: #0054BA; */
+.divRowTitle {
+	border-radius: 2%;
 	background-color: #003478;
 	color: white;
-	
 }
 
-.divRowTitle .divCell{
-	height:30%;
+.divRowTitle .divCell {
+	height: 30%;
 	padding: 2vh 3vh;
 	display: table-cell;
 	border-bottom: 1px #AEAEAE solid;
-
 }
 
 .divListBody {
 	display: table-row-group;
-	background-color:white;
+	background-color: white;
 }
 
 .empty {
@@ -124,287 +118,285 @@ h1 {
 	font-size: 3vh;
 }
 
-#middelDiv{
-	width:100%;
-	height:20%;
-	margin-bottom:2%;
+/* 검색 부분 div */
+#middelDiv {
+	width: 100%;
+	height: 20%;
+	margin-bottom: 2%;
 }
 
-#searchDiv{
-	width:100%;
-	height:80%;
-	display:flex;
-	justify-content:center;
+#searchDiv {
+	width: 100%;
+	height: 80%;
+	display: flex;
+	justify-content: center;
 }
 
-#sortDiv{
-	width:100%;
-	height:20%;
-	display:flex;
-	justify-content:flex-end;
-	margin-top:1%;
-	padding-right:4%;
+#sortDiv {
+	width: 100%;
+	height: 20%;
+	display: flex;
+	justify-content: flex-end;
+	margin-top: 1%;
+	padding-right: 4%;
 }
 
-#sortDiv *{
-	margin-right:1%;
+#sortDiv * {
+	margin-right: 1%;
 }
 
-#innerSearchDiv{
-	width:50%;
-	height:100%;
-	display:flex;
-	justify-content:center;
-	align-items:center;
-	border:1px solid #AEAEAE;
-	background-color:white;
-	 border: 5px solid #FFCC66;
+#innerSearchDiv {
+	width: 50%;
+	height: 100%;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	border: 1px solid #AEAEAE;
+	background-color: white;
+	border: 5px solid #FFCC66;
 }
 
-#innerSearchDiv select{
-	width:18%;
-	height:30%;
-	margin-right:2%;
+#innerSearchDiv select {
+	width: 18%;
+	height: 30%;
+	margin-right: 2%;
 }
 
-#innerSearchDiv img{
-	width:6%;
-	height:30%;
-	margin-right:1%;
+#innerSearchDiv img {
+	width: 6%;
+	height: 30%;
+	margin-right: 1%;
 }
 
-#innerSearchDiv input{
-	width:40%;
-	height:30%;
-	
+#innerSearchDiv input {
+	width: 40%;
+	height: 30%;
 }
 
-#innerSearchDiv button{
-	width:10%;
-	height:30%;
-	margin-left:1%;
-	font-size:100%;
+#innerSearchDiv button {
+	width: 10%;
+	height: 30%;
+	margin-left: 1%;
+	font-size: 100%;
 }
 
 /* 빈값 */
-
-.empty{
-	font-size:4vh;
-	margin:0;
-	width:100%;
+.empty {
+	font-size: 4vh;
+	margin: 0;
+	width: 100%;
 }
 
+<<<<<<< HEAD
 /* hr{
 	border-top:1px solid #AEAEAE; 
 } */
+=======
+hr {
+	border-top: 1px solid #AEAEAE;
+}
+>>>>>>> 77a07337ea9e3e92d62965728dfbb190cb9e4512
 
-.divCell form{
-	width:100%;
-	height:100%;
+.divCell form {
+	width: 100%;
+	height: 100%;
 }
 
-.divCell button{
-	width:70%;
-	height:100%;
-	font-size:2vh;
-	font-weight:bold;
+.divCell button {
+	width: 70%;
+	height: 100%;
+	font-size: 2vh;
+	font-weight: bold;
 }
 
 /* 검색 버튼  */
-.button-8{
-  width:10%;
-  height:40%;
-  border:2px solid #00316D;
-  cursor:pointer;
-  position:relative;
-  box-sizing:border-box;
-  overflow:hidden;
-  margin:2%;
-  /*  */
-   display:flex;
-   justify-content:center;
-  align-items:center;
+.button-8 {
+	width: 10%;
+	height: 40%;
+	border: 2px solid #00316D;
+	cursor: pointer;
+	position: relative;
+	box-sizing: border-box;
+	overflow: hidden;
+	margin: 2%;
+	/*  */
+	display: flex;
+	justify-content: center;
+	align-items: center;
 }
 
-.button-8 .johnbtn{
-  font-size:2vh;
-  color:#FFCC66;
-  text-decoration:none;
-  line-height:50px;
-  transition:all .5s ease;
-  z-index:2;
-  position:relative;
-   /*  */
-  width:100%;
-  height:100%;
-  display:flex;
-   justify-content:center;
-  align-items:center;
+.button-8 .johnbtn {
+	font-size: 2vh;
+	color: #FFCC66;
+	text-decoration: none;
+	line-height: 50px;
+	transition: all .5s ease;
+	z-index: 2;
+	position: relative;
+	/*  */
+	width: 100%;
+	height: 100%;
+	display: flex;
+	justify-content: center;
+	align-items: center;
 }
 
-.eff-8{
-  width:100%;
-  height:100%;
-  border:90px solid #00316D;
-  position:absolute;
-  transition:all .5s ease;
-  z-index:1;
-  box-sizing:border-box;
+.eff-8 {
+	width: 100%;
+	height: 100%;
+	border: 90px solid #00316D;
+	position: absolute;
+	transition: all .5s ease;
+	z-index: 1;
+	box-sizing: border-box;
 }
 
-.button-8:hover .eff-8{
-  border:0px solid #00316D;
+.button-8:hover .eff-8 {
+	border: 0px solid #00316D;
 }
 
-.button-8:hover .johnbtn{
-  color:#00316D;
+.button-8:hover .johnbtn {
+	color: #00316D;
 }
 /* 일반 버튼  */
-.button-7{
-  width:100%;
-  height:70%;
-  border:2px solid #00316D;
-  display:flex;
-  justify-content:center;
-  align-items:center;
-  cursor:pointer;
-  position:relative;
-  box-sizing:border-box;
-  overflow:hidden;
-  margin:2%;
-
+.button-7 {
+	width: 100%;
+	height: 70%;
+	border: 2px solid #00316D;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	cursor: pointer;
+	position: relative;
+	box-sizing: border-box;
+	overflow: hidden;
+	margin: 2%;
 }
 
-.button-7 .johnbtn{
-  font-size:2vh;
-  color:#FFCC66;
-  text-decoration:none;
-  line-height:50px;
-  transition:all .5s ease;
-  z-index:2;
-  position:relative;
-    /*  */
-  width:100%;
-  height:100%;
-  display:flex;
-   justify-content:center;
-  align-items:center;
+.button-7 .johnbtn {
+	font-size: 2vh;
+	color: #FFCC66;
+	text-decoration: none;
+	line-height: 50px;
+	transition: all .5s ease;
+	z-index: 2;
+	position: relative;
+	/*  */
+	width: 100%;
+	height: 100%;
+	display: flex;
+	justify-content: center;
+	align-items: center;
 }
 
-.eff-7{
-  width:100%;
-  height:70px;
-  border:90px solid #00316D;
-  position:absolute;
-  transition:all .5s ease;
-  z-index:1;
-  box-sizing:border-box;
+.eff-7 {
+	width: 100%;
+	height: 70px;
+	border: 90px solid #00316D;
+	position: absolute;
+	transition: all .5s ease;
+	z-index: 1;
+	box-sizing: border-box;
 }
 
-.button-7:hover .eff-7{
-  border:0px solid #00316D;
+.button-7:hover .eff-7 {
+	border: 0px solid #00316D;
 }
 
-.button-7:hover .johnbtn{
-  color:#00316D;
+.button-7:hover .johnbtn {
+	color: #00316D;
 }
 /* 빨강 버튼 */
-.button-6{
-  width:100%;
-  height:70%;
-  border:2px solid #DC3545;
-  display:flex;
-  justify-content:center;
-  align-items:center;
-  cursor:pointer;
-  position:relative;
-  box-sizing:border-box;
-  overflow:hidden;
-  margin:2%;
- 
+.button-6 {
+	width: 100%;
+	height: 70%;
+	border: 2px solid #DC3545;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	cursor: pointer;
+	position: relative;
+	box-sizing: border-box;
+	overflow: hidden;
+	margin: 2%;
 }
 
-.button-6 .johnbtn{
-  font-size:2vh;
-  color:#FFCC66;
-  text-decoration:none;
-  line-height:50px;
-  transition:all .5s ease;
-  z-index:2;
-  position:relative;
-        /*  */
-  width:100%;
-  height:100%;
-  display:flex;
-   justify-content:center;
-  align-items:center;
+.button-6 .johnbtn {
+	font-size: 2vh;
+	color: #FFCC66;
+	text-decoration: none;
+	line-height: 50px;
+	transition: all .5s ease;
+	z-index: 2;
+	position: relative;
+	/*  */
+	width: 100%;
+	height: 100%;
+	display: flex;
+	justify-content: center;
+	align-items: center;
 }
 
-.eff-6{
-  width:100%;
-  height:70px;
-  border:90px solid #DC3545;
-  position:absolute;
-  transition:all .5s ease;
-  z-index:1;
-  box-sizing:border-box;
-
+.eff-6 {
+	width: 100%;
+	height: 70px;
+	border: 90px solid #DC3545;
+	position: absolute;
+	transition: all .5s ease;
+	z-index: 1;
+	box-sizing: border-box;
 }
 
-.button-6:hover .eff-6{
-  border:0px solid #DC3545;
+.button-6:hover .eff-6 {
+	border: 0px solid #DC3545;
 }
 
-.button-6:hover .johnbtn{
-  color:#DC3545;
+.button-6:hover .johnbtn {
+	color: #DC3545;
 }
-
 </style>
 
 <section id="content">
-<br><br><br>
+	<br> <br> <br>
 	<!-- <h1>상담 신청 확인 게시판</h1> -->
 	<!-- <hr/> -->
-	
+
 	<!-- 검색 및 정렬 할수있는 Div -->
 	<div id="middelDiv">
 		<div id="searchDiv">
-					<div id="innerSearchDiv">
-					<select id="searchSelect" name="searchSelect" required>
-						<option value="nic"  selected>상담 신청자</option> 
-						<option value="date" >신청 날짜</option>
-						<option value="time" >원하는 상담 시간</option>
-					</select>
-					<img src="${path}/resources/images/search.png" alt="" width="30px" height="30px">
-					<input type="text" name="search" id="searchInput" onkeypress="searchkey();">
-					
-							 				 <div class="button-8">
-												    <div class="eff-8"></div>
-												    <a  class="johnbtn"  id="searchBtn22">검색</a>
-												  </div>	 
-					
-					
-				<!-- <button id="searchBtn22"class="btn btn-outline-success" >검색</button> -->
-				
+			<div id="innerSearchDiv">
+				<select id="searchSelect" name="searchSelect" required>
+					<option value="nic" selected>상담 신청자</option>
+					<option value="date">신청 날짜</option>
+					<option value="time">원하는 상담 시간</option>
+				</select> <img src="${path}/resources/images/search.png" alt="" width="30px" height="30px"> <input type="text" name="search" id="searchInput"
+					onkeypress="searchkey();">
+
+				<div class="button-8">
+					<div class="eff-8"></div>
+					<a class="johnbtn" id="searchBtn22">검색</a>
 				</div>
+
+
+				<!-- <button id="searchBtn22"class="btn btn-outline-success" >검색</button> -->
+
+			</div>
 		</div>
-		<div id="sortDiv" >
+		<div id="sortDiv">
 			<select id="counselSelect" name="counselSelect" required>
-						<option value="req"  selected>요청 상담</option> 
-						<option value="on" >진행중 상담</option>
-						<option value="off" >종료된 상담</option>
-					</select>
-					<select id="sortSelect" name="sortSelect" required>
-						<option value="expertDate"  selected>신청 날짜 순</option> 
-						<option value="expertCounselTime" >상담 시간순</option>
-						<option value="expertRequestMemNick" >신청자 이름순</option>
-					</select>
-					<select id="sortType" name="sortType" required>
-						<option value="desc" selected>내림차순</option>
-						<option value="asc"  >오름차순</option> 
-					</select>
+				<option value="req" selected>요청 상담</option>
+				<option value="on">진행중 상담</option>
+				<option value="off">종료된 상담</option>
+			</select> <select id="sortSelect" name="sortSelect" required>
+				<option value="expertDate" selected>신청 날짜 순</option>
+				<option value="expertCounselTime">상담 시간순</option>
+				<option value="expertRequestMemNick">신청자 이름순</option>
+			</select> <select id="sortType" name="sortType" required>
+				<option value="desc" selected>내림차순</option>
+				<option value="asc">오름차순</option>
+			</select>
 		</div>
-	<!-- 현재 페이지 -->
+		<!-- 현재 페이지 -->
 		<input id="cPageInput" type="hidden" value="1">
 	</div>
 	<!-- <hr/> -->
@@ -414,16 +406,16 @@ h1 {
 	</div>
 	<!-- 페이징 처리 Div -->
 	<div id="pagingDiv"></div>
-	<br>
-	<br>
-	<br>
+	<br> <br> <br>
 	<script>
 	'use strict'
 	
+	// ============================
+	// 필요한 변수 등록 
+	// 전체 배열, 백업용 배열,  소켓
+	// ============================
 	const exlistconn = new WebSocket('wss://192.168.219.105${path}/exlistSocket');
-	// 전체 배열
 	let exboardList = [];
-	// 백업용 배열
 	let backupList = [];
 	
 	exlistconn.onopen = function() {
@@ -441,7 +433,10 @@ h1 {
 		backupList = JSON.parse(msg.data);
 		setting();
 	}
-	
+
+	// ============================
+	// 전체 배열, 백업용
+	// ============================
 	function setting(){
 		// 기본 속성으로 리스트 정렬
 		search($("#searchSelect").val(),$("#searchInput").val());
@@ -455,7 +450,10 @@ h1 {
 		console.log("exListsendMessage");
 	};
 	
+	
+	// ============================
 	//리스트 출력
+	// ============================
 	function listPrint(list){
 		console.log("리스트 길이 : "+list.length);
 		let pbhtml = "";
@@ -470,18 +468,14 @@ h1 {
 					if(e['endCounsel'] == false){
 							if(e['startCounsel']== false){
 								//end start 둘다 false이면 요청 온 상태
-								
 									pbhtml +=	 "<div class='button-7'><div class='eff-7'></div><a  class='johnbtn' onclick='counselStart(\""+e['expertRequestMemUsid']+"\",\""+e['expertRequestMemNick']+"\");'>상담 시작</a></div>";	 
-								//pbhtml += "<button class='btn btn-outline-success' onclick='counselStart(\""+e['expertRequestMemUsid']+"\",\""+e['expertRequestMemNick']+"\");'>상담 시작</button>";
 							}else{
 								//end false에서 start true면 진행중인 상태
 								pbhtml +=	 "<div class='button-6'><div class='eff-6'></div><a  class='johnbtn' onclick='counselConn(\""+e['expertRequestMemUsid']+"\",\""+e['expertRequestMemNick']+"\");'>채팅 접속</a></div>";
-								//pbhtml += "<button class='btn btn-outline-danger' onclick='counselConn(\""+e['expertRequestMemUsid']+"\",\""+e['expertRequestMemNick']+"\");'>채팅 접속</button>";
 							}
 					}else{
 						pbhtml +="상담 완료";
 					}
-					//pbhtml += "</div><div class='divCell'><form  name='form' ><input type='hidden' name='usid' value='${loginMember.usid}'><input type='hidden' name='musid' value='"+e['expertRequestMemUsid']+"'><button class='btn btn-outline-success' onclick='exmemInfo(this.form);'>회원 정보</button></form></div></div>";
 					pbhtml +=	 "</div><div class='divCell'><div class='button-7'><div class='eff-7'></div><a  class='johnbtn' onclick='exmemInfo(\""+"${loginMember.usid}"+"\",\""+e['expertRequestMemUsid']+"\");'>회원 정보</a></div></div></div>";	 
 				}
 			});
@@ -491,7 +485,10 @@ h1 {
 		$(".divListBody").html(pbhtml);
 	}
 	
-	// 액션 취할시 리스트 가져옴
+	
+	// ============================
+	// 정렬 라디오 액션 취할시 리스트 가져옴
+	// ============================
 	$("#sortSelect").on('change', e => {
 		let keyword = $(e.target).val();
 		console.log("sort : "+keyword);
@@ -501,7 +498,10 @@ h1 {
 		listPrint(exboardList);
 	});
 	
-	//정렬
+	
+	// ============================
+	//정렬 하기
+	// ============================
 	$("#sortType").on('change', e => {
 		let keyword = $(e.target).val();
 		console.log("type : "+keyword);
@@ -513,7 +513,9 @@ h1 {
 	
 
 	
-	//정렬
+	// ============================
+	//정렬 하기 2
+	// ============================
 	let excompare = function(list, field, type){
 		console.log(" field : "+field+" type : "+type);
 		if(type == 'desc'){
@@ -531,16 +533,19 @@ h1 {
 		}
 	}
 
+	// ============================
 	//시험용 출력
+	// ============================
 	function listTestConsolelog(list,type){
 		list.forEach((e, i)=>{
 			console.log(e['expertRequestMemNick']);	
-			//console.log(e['expertCounselTime']);
-			//console.log(e['expertDate']);	
 		});
 	}
 	
-	//검색 키보드
+	
+	// ============================
+	//검색 키보드 엔터
+	// ============================
 	function searchkey(){
 		if(window.event.keyCode == 13) {
 			console.log("search 엔터 버튼 클릭");
@@ -549,12 +554,18 @@ h1 {
 		return false;
 	};
 	
+	// ============================
+	//검색 버튼
+	// ============================
 	$("#searchBtn22").click(e => {
 		console.log("검색");
 		search($("#searchSelect").val(),$("#searchInput").val());
 	});
 
+	
+	// ============================
 	//검색 함수
+	// ============================
 	function search(keyword, inputval){
 		console.log("search 버튼 클릭");
 		
@@ -581,15 +592,15 @@ h1 {
 		}		
 	}
 	
-	//검색검색!
+	
+	// ============================
+	//검색검색!검색검색!검색검색!검색검색!
+	// ============================
 	function findKeyword(list, keyword,val){
 		console.log("keyword : "+keyword+" val : "+val);
 		let tmpList = [];
 		list.forEach((e,i) => {
-			//console.log("비교 : "+e[keyword].includes(val));
 			if(e[keyword].includes(val)){
-				//console.log("닉 : "+e[keyword]);
-				//console.log("값 : "+val);
 				tmpList.push(e);				
 			}
 		});
@@ -625,13 +636,18 @@ h1 {
 		return tmpListCounsel;
 	}
 	
+	
+	// ============================
 	//부모창이 종료되면 자식창도 종료
+	// ============================
 	let pop;
 	window.onunload = function() { 
 		pop.close(); 
 	}
 	
-	// 상담 시작
+	// ============================
+	// 상담시작
+	// ============================
 	let bno = "";
 	function counselStart(num,nick){
 		console.log("num : "+num);
@@ -656,13 +672,18 @@ h1 {
 		}
 	};
 	
+	
+	// ============================
 	//상담 재연결 -> 채팅방 입장 , 이미 방은 생성되있는 상태
+	// ============================
 	function counselConn(num,nick){
 		console.log("num : "+num);
 		location.replace('${path}/expert/counselConn?no='+num+"&nick="+nick);
 	}
 	
+	// ============================
 	//회원 상세보기
+	// ============================
 	function exmemInfo(usid,musid){
 		console.log(usid, musid);
 		 window.open("${path}/expert/memInfo?usid="+usid+"&musid="+musid,'회원','width=600, height=600, toolbar=no, menubar=no, scrollbars=no, resizable=no');

@@ -16,7 +16,11 @@ public class AlarmController {
 	@Autowired
 	private AlarmService service;
 
-	// 알람 리스트 뿌려주기 웹소켓으로 처리
+	/**
+	 * @Author : cms
+	 * @Date : 2020. 12. 8.
+	 * @explain : 알람 리스트 뿌려주기 웹소켓으로 처리
+	 */
 	@RequestMapping("/alarm/alarmList")
 	public ModelAndView alarmList(int usid) {
 		log.info("alarmList 실행");

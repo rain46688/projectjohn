@@ -12,7 +12,7 @@ import com.kh.john.member.model.vo.Member;
 
 public interface ExboardService {
 
-	List<Map<String, Object>> selectExpert(String ca) throws Exception;
+	// List<Member> selectExpert(SqlSessionTemplate session) throws Exception;
 
 	Expert selectExpertMem(String no) throws Exception;
 
@@ -44,7 +44,7 @@ public interface ExboardService {
 
 	void updateCounselMemberEnd(String bno) throws Exception;
 
-	List<ExpertBoard> selectExboardListCategory(String ca) throws Exception;
+	// List<ExpertBoard> selectExboardListCategory(String ca) throws Exception;
 
 	List<License> selectExpertLicense(String no) throws Exception;
 

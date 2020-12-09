@@ -15,7 +15,6 @@ import org.springframework.web.socket.WebSocketSession;
 import org.springframework.web.socket.handler.TextWebSocketHandler;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.kh.john.exboard.controller.ExboardController;
 import com.kh.john.exboard.model.service.ExboardService;
 import com.kh.john.exboard.model.vo.ExpertBoard;
 import com.kh.john.exboard.model.vo.ExpertBoardListVo;
@@ -24,16 +23,30 @@ import com.kh.john.member.model.vo.Member;
 
 import lombok.extern.slf4j.Slf4j;
 
+/**
+ * @Author : cms
+ * @Date : 2020. 12. 8.
+ * @explain : 전문가 상담 게시판 소켓으로 리스트 뿌려주는 핸들러
+ */
 @Slf4j
 public class ExpertListHandler extends TextWebSocketHandler {
 
-	@Autowired
-	private ExboardService service;
-	@Autowired
-	private ExboardController controller;
+	/**
+	 * @Author : cms
+	 * @Date : 2020. 12. 8.
+	 * @explain : 세션 접속 유저를 담기 위한 맵 설정 & 잭슨 매퍼 생성 & 서비스 주입
+	 */
 	private Map<Member, WebSocketSession> users = new HashMap<Member, WebSocketSession>();
 	private ObjectMapper objectMapper = new ObjectMapper();
 
+	@Autowired
+	private ExboardService service;
+
+	/**
+	 * @Author : cms
+	 * @Date : 2020. 12. 8.
+	 * @explain : 온 오픈 실행시 메소드 실행 맵에 세션을 집어넣는 과정
+	 */
 	@Override
 	public void afterConnectionEstablished(WebSocketSession session) throws Exception {
 		log.debug(" === afterConnectionEstablished 실행 === ");
@@ -44,6 +57,11 @@ public class ExpertListHandler extends TextWebSocketHandler {
 		log.info("닉네임 : " + m.getMemNickname());
 	}
 
+	/**
+	 * @Author : cms
+	 * @Date : 2020. 12. 8.
+	 * @explain : 온 메세지 실행시 리스트 뿌려줌 start는 expertRequestList, start2는 expertList
+	 */
 	@Override
 	public void handleTextMessage(WebSocketSession session, TextMessage message)
 			throws InterruptedException, IOException {
@@ -129,6 +147,11 @@ public class ExpertListHandler extends TextWebSocketHandler {
 
 	}
 
+	/**
+	 * @Author : cms
+	 * @Date : 2020. 12. 8.
+	 * @explain : 메소드 종료될때 실행
+	 */
 	@Override
 	public void afterConnectionClosed(WebSocketSession session, CloseStatus status) throws Exception {
 		log.debug(" === afterConnectionClosed 실행 === ");

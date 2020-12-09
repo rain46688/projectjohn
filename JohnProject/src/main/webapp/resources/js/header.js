@@ -9,11 +9,17 @@
 				//const alsocket = new WebSocket("wss://192.168.120.31path/alsocket");
 				const alsocket = new WebSocket("wss://192.168.219.105/john/alsocket");
 
+				//============================
+				// 소켓 오픈 하면서 알람 리스트 가져오기
+				//============================
 				alsocket.onopen = function() {
 					console.log('오픈');
 					alsocket.send('list');
 				};
 
+				//============================
+				// 메세지에서 분기 처리 알람이 오면 RequestPrintList 바로 갱신해주기위해 분기 넣음
+				//============================
 				alsocket.onmessage = function(msg) {
 					console.log("onmessage 실행됨");
 					let aldata = JSON.parse(msg.data);
@@ -27,15 +33,23 @@
 					if(window.location.pathname == '/john/expert/expertRequestPrintList'){
 						console.log("헤더 분기 1");
 						exListsendMessage("start");
+					}else{
+						//추가 가능.
 					}
 				};
 
+				//============================
+				// 알람 발송 함수
+				//============================
 				function sendAlarm(send_usid, receive_usid, type, msg,
 						send_nick) {
 					alsocket.send(JSON.stringify(new Alarm(send_usid,
 							receive_usid, type, msg, send_nick)));
 				};
 
+				//============================
+				// 알람 객체 
+				//============================
 				function Alarm(alarmSendMemUsid, alarmReceiveMemUsid,
 						alarmType, alarmMsgContent,
 						alarmSendMemNickname, alarmDate,

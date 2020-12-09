@@ -1,5 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <style>
+
+/* 초기화 */
 html, body, div, span, applet, object, iframe, h1, h2, h3, h4, h5, h6, p, blockquote, pre, a, abbr, acronym, address, big, cite, code, del, dfn, em,
 	ins, kbd, q, s, samp, small, strike, strong, sub, sup, tt, var, b, u, i, center, dl, dt, dd, ol, ul, li, fieldset, form, label, legend, table,
 	caption, tbody, tfoot, thead, tr, th, td, article, aside, canvas, details, embed, figure, figcaption, footer, header, hgroup, menu, nav, output, ruby,
@@ -17,25 +19,12 @@ html, body, div, span, applet, object, iframe, h1, h2, h3, h4, h5, h6, p, blockq
 	user-select: none;
 }
 
-/* #alcontent {
-	display:flex;
-	align-items:center;
-	justify-content:center;
-	width:50%;
-	height:auto;
-	padding:2%;
-	background-color:white;
-	border-radius:1%;
-} */
-.divListBodyAl {
-	display: table-row-group;
-}
-
+/* 배경 색깔 header.jsp에 있음 */
 #alarmDropdownDiv{
  	background-color: #062449;
- 	
 }
 
+/* 리스트 div */
 .divListAl {
 	display: table;
 	width: 100%;
@@ -43,7 +32,11 @@ html, body, div, span, applet, object, iframe, h1, h2, h3, h4, h5, h6, p, blockq
 	text-align: center;
 	background-color: white;
 	border: 10px solid #FFCC66;
+}
 
+/* div 리스트에 관한 css */
+.divListBodyAl {
+	display: table-row-group;
 }
 
 .divRowAl {
@@ -52,9 +45,6 @@ html, body, div, span, applet, object, iframe, h1, h2, h3, h4, h5, h6, p, blockq
 
 .divCellAl, .divTableHeadAl {
 	border-bottom: 1px #DEE2E6 solid;
-	/* 	border-bottom: 1px #DEE2E6 solid;
-	border-right: 1px #DEE2E6 solid;
-	border-left: 1px #DEE2E6 solid; */
 	display: table-cell;
 	padding: 3% 1%;
 	width: 16.67%;
@@ -64,13 +54,10 @@ html, body, div, span, applet, object, iframe, h1, h2, h3, h4, h5, h6, p, blockq
 
 .divListAl .nav {
 	background-color: #003478;
-	/* border-radius: 10% 2% 2%; */
-
 }
 
 .divListAl .nav-link {
 	cursor: pointer;
-	/* background-color: white; */
 	color: white;
 	font-weight: bold;
 	text-decoration: none;
@@ -97,6 +84,7 @@ html, body, div, span, applet, object, iframe, h1, h2, h3, h4, h5, h6, p, blockq
 	height: auto;
 }
 
+/* 알람 비어있는 경우 */
 .emptyAl {
 	margin-top: 20px;
 	font-weight: bold;
@@ -107,6 +95,7 @@ html, body, div, span, applet, object, iframe, h1, h2, h3, h4, h5, h6, p, blockq
 	height:200px;
 }
 
+/* 맨위 휴지통이랑 모두 보기 체크 부분 */
 #sideDiv {
 	float: right;
 	padding: 1%;
@@ -122,9 +111,11 @@ html, body, div, span, applet, object, iframe, h1, h2, h3, h4, h5, h6, p, blockq
 	font-size: 1.5vh;
 }
 
+/* 읽은 알람 표시 색 변경 */
 .fontgray {
 	color: gray;
 }
+
 </style>
 <div class="divListAl">
 	<div id="sideDiv">
@@ -143,7 +134,6 @@ html, body, div, span, applet, object, iframe, h1, h2, h3, h4, h5, h6, p, blockq
 </div>
 <script>
 
-//나중에 추가?
 'use strict';
 
  let newURL = window.location.pathname;
@@ -151,7 +141,9 @@ console.log(newURL);
 //			/john/alarm/alarmList
 let alarmList = [];
 
+// ============================
 //메뉴 클릭시 이벤트
+// ============================
 $(".nav-link").click(e =>{
 	let alli = $(e.target).parents().parents().children('li');
 	let item;
@@ -191,7 +183,10 @@ $(".nav-link").click(e =>{
 	return sel;
 }
  */
+ 
+// ============================
 //디비 content에 맞게 변경
+// ============================
 function matchAtagHtml(){
 	let item;
 	let allnav = $(".nav-link");
@@ -216,7 +211,9 @@ $("#check").click(e => {
 	printalfunc(alarmList,matchAtagHtml());
 });
 
+// ============================
 //알람 읽은것으로 처리
+// ============================
 $("#delete").click(e=>{
 	
 	var result = confirm("현재 탭의 알람을 읽음 처리하시겠습니까?");
@@ -240,6 +237,9 @@ $("#delete").click(e=>{
 	
 });
 
+//============================
+// 종 모양 출력 ! 넣어주기
+//============================
 function printBell(list){
 	$("#number").html("");
 	let count = 0;
@@ -255,7 +255,9 @@ function printBell(list){
 	}
 }
 
+// ============================
 //알람 프린트
+// ============================
 function printalfunc(list, type){
 	let print="";
 	console.log("printalfunc 실행 리스트 길이 : "+list.length+" 타입 : "+type);
@@ -288,7 +290,9 @@ function printalfunc(list, type){
 	divhover();
 };
 
+// ============================
 //출력관련 로직 함수로 정의함
+// ============================
 function typeifprint(e,type){
 	let print2="";
 	if(type == 'expert'){
@@ -318,7 +322,9 @@ function typeifprint(e,type){
 	return print2;
 }
 
+// ============================
 //알람 제목 컨텐츠 작성 후 출력 메소드
+// ============================
 function printAlarmBoardContent(e, title, content){
 	let print ="";
 	print += "<div class='divRowAl' style='cursor: pointer'>";
@@ -332,7 +338,10 @@ function printAlarmBoardContent(e, title, content){
 		return print;
 }
 
+// ============================
 //상담 리뷰 작성
+// ============================
+
 function writereview(bno){
 	console.log("bno : "+bno);
 	window.open("","popForm","width=500, height=500, toolbar=no, menubar=no, scrollbars=no, resizable=no");
@@ -350,7 +359,10 @@ function writereview(bno){
 	forms.submit();
 }
 
+// ============================
 //알람 객체
+// ============================
+
 function Alarm(alarmId,alarmSendMemUsid, alarmReceiveMemUsid,
 		alarmType, alarmMsgContent,
 		alarmSendMemNickname, tmpDate,
@@ -365,13 +377,17 @@ function Alarm(alarmId,alarmSendMemUsid, alarmReceiveMemUsid,
 	this.alarmIscheked = alarmIscheked;
 };
 
+// ============================
 //토글 박스 내려갔다 올라갔다하는것
+// ============================
 $(function(){
 	$(".al").slideToggle('fast', function() {
 		  });
 });
 
+// ============================
 //리스트 뿌린후 한번 실행시켜줘야 호버 작동함!
+// ============================
 function divhover(){
 	$(".divRowAl").click(e=>{
 		   $(e.target).parent().next().slideToggle('fast', function() {

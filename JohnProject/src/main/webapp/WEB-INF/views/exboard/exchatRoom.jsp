@@ -1,10 +1,11 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ include file="/WEB-INF/views/common/header.jsp"%>
-<%-- <script type="text/javascript" src="${pageContext.request.contextPath }/resources/js/ckeditor/ckeditor.js"></script> --%>
 <!-- <script src="https://cdn.ckeditor.com/ckeditor5/23.1.0/classic/ckeditor.js"></script> -->
 <script src="https://cdn.ckeditor.com/ckeditor5/23.1.0/decoupled-document/ckeditor.js"></script>
+
 <style>
 
+/* 초기화 */
 html, body, div, span, applet, object, iframe, h1, h2, h3, h4, h5, h6, p, blockquote, pre, a, abbr, acronym, address, big, cite, code, del, dfn, em,
 	ins, kbd, q, s, samp, small, strike, strong, sub, sup, tt, var, b, u, i, center, dl, dt, dd, ol, ul, li, fieldset, form, label, legend, table,
 	caption, tbody, tfoot, thead, tr, th, td, article, aside, canvas, details, embed, figure, figcaption, footer, header, hgroup, menu, nav, output, ruby,
@@ -22,16 +23,17 @@ html, body, div, span, applet, object, iframe, h1, h2, h3, h4, h5, h6, p, blockq
 	user-select: none;
 }
 
-#headerAndContent{
-	background-color:#062449;
+/* 배경 */
+#headerAndContent {
+	background-color: #062449;
 }
 
-#content{
+#content {
 	/* background-color: #F1F3F3;  */
-	background-color: #062449; 
+	background-color: #062449;
 }
 
-#content *{
+#content * {
 	/* border:1px solid red; */
 	font-family: 'Noto Serif KR', serif;
 }
@@ -49,7 +51,7 @@ html, body, div, span, applet, object, iframe, h1, h2, h3, h4, h5, h6, p, blockq
 	z-index: 1;
 	width: 100%;
 	height: 100%;
-/* 	border: 2px solid #FFCC66; */
+	/* 	border: 2px solid #FFCC66; */
 }
 
 /* 상단 영역 비디오 자신 뷰*/
@@ -57,8 +59,8 @@ html, body, div, span, applet, object, iframe, h1, h2, h3, h4, h5, h6, p, blockq
 	z-index: 2;
 	/* position: relative; */
 	position: absolute;
-	left:53%;
-	top:60%;
+	left: 53%;
+	top: 60%;
 	object-fit: cover;
 	border: 2px solid #FFCC66;
 	width: 25vh;
@@ -66,7 +68,7 @@ html, body, div, span, applet, object, iframe, h1, h2, h3, h4, h5, h6, p, blockq
 
 /* 상단 영역 비디오 div */
 #videoDiv {
-	padding:1%;
+	padding: 1%;
 	height: 100%;
 	width: 60%;
 	background-color: white;
@@ -81,9 +83,7 @@ html, body, div, span, applet, object, iframe, h1, h2, h3, h4, h5, h6, p, blockq
 	width: 40%;
 	background-color: white;
 	border-radius: 8px;
-/* 	padding: 1%; */
 	border: 10px solid #FFCC66;
-
 }
 
 /* 상단 텍스트 영역 */
@@ -110,21 +110,21 @@ textarea:focus {
 }
 
 textarea {
-    resize: none;
+	resize: none;
 }
 
 /* 드래그 드롭용 div 영역 */
- #dragImg {
+#dragImg {
 	width: 100%;
 	height: 100%;
-	display: none; 
+	display: none;
 	border-radius: 8px;
 	background-image: url(${path }/resources/images/expertimg3.png);
 	background-repeat: no-repeat;
 	background-size: 100%;
 	z-index: 2;
 	padding-top: 20%;
-	background-color:#E2E2E8;
+	background-color: #E2E2E8;
 }
 
 /* ------------------------------------------ */
@@ -133,7 +133,6 @@ textarea {
 #bottomDiv {
 	height: 15%;
 	display: flex;
-	
 }
 
 /* 왼쪽 버튼 영역 div */
@@ -141,172 +140,170 @@ textarea {
 	height: 100%;
 	width: 30%;
 	text-align: right;
-	padding-right:1%;
-	display:flex;
+	padding-right: 1%;
+	display: flex;
 }
 
 /* 전문가 버튼 영역 div */
-#buttonDiv>.exBtn{
-	display:inline-block;
-	width:48%;
-	height:100%;
+#buttonDiv>.exBtn {
+	display: inline-block;
+	width: 48%;
+	height: 100%;
 	border-radius: 8px;
-	 font-size:30px;
-	font-weight: bold; 
+	font-size: 30px;
+	font-weight: bold;
 }
 
 /* 유저 버튼 영역 div */
-#buttonDiv>.memBtn{
-	display:inline-block;
-	width:32%;
-	height:100%;
+#buttonDiv>.memBtn {
+	display: inline-block;
+	width: 32%;
+	height: 100%;
 	border-radius: 8px;
-	 font-size:30px;
-	font-weight: bold; 
+	font-size: 30px;
+	font-weight: bold;
 }
 
 /* 이미지 영역 div */
 #imgDiv {
 	border: 2vh solid white;
 	border-radius: 8px;
-	background-color:white;
+	background-color: white;
 	height: 100%;
 	width: 77%;
 	margin: 0% 1% 1%;
-	display:inline-block;
+	display: inline-block;
 	overflow-x: hidden;
 	-ms-overflow-style: none;
-	padding-top:2%;
+	padding-top: 2%;
 	border: 10px solid #FFCC66;
 }
 
-#imgDiv>p{
- font-size:100%;
- color:black;
- text-align:center;
+#imgDiv>p {
+	font-size: 100%;
+	color: black;
+	text-align: center;
 }
 
-.upload{
-	width:10%;
-	height:100%;
-	margin:1%;
+.upload {
+	width: 10%;
+	height: 100%;
+	margin: 1%;
 }
 
 /* 전문가 빨강 버튼 */
-
-.button-8{
-  width:50%;
-  height:100%;
-  border:2px solid #DC3545;
-  text-align:center;
-  cursor:pointer;
-  position:relative;
-  box-sizing:border-box;
-  overflow:hidden;
-  display:flex;
-  justify-content:center;
-  align-items:center;
-  margin: 0 1%; 
+.button-8 {
+	width: 50%;
+	height: 100%;
+	border: 2px solid #DC3545;
+	text-align: center;
+	cursor: pointer;
+	position: relative;
+	box-sizing: border-box;
+	overflow: hidden;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	margin: 0 1%;
 }
 
-.button-8 .johnbtn{
-  font-size:3vh;
-  font-weight:bold;
-  color:#FFCC66;
-  text-decoration:none;
-  line-height:50px;
-  transition:all .5s ease;
-  z-index:2;
-  position:relative;
-   /*  */
-  width:100%;
-  height:100%;
-  display:flex;
-   justify-content:center;
-  align-items:center;
+.button-8 .johnbtn {
+	font-size: 3vh;
+	font-weight: bold;
+	color: #FFCC66;
+	text-decoration: none;
+	line-height: 50px;
+	transition: all .5s ease;
+	z-index: 2;
+	position: relative;
+	/*  */
+	width: 100%;
+	height: 100%;
+	display: flex;
+	justify-content: center;
+	align-items: center;
 }
 
-.eff-8{
-  width:100%;
-  height:100%;
-  border:90px solid #DC3545;
-  position:absolute;
-  transition:all .5s ease;
-  z-index:1;
-  box-sizing:border-box;
+.eff-8 {
+	width: 100%;
+	height: 100%;
+	border: 90px solid #DC3545;
+	position: absolute;
+	transition: all .5s ease;
+	z-index: 1;
+	box-sizing: border-box;
 }
 
-.button-8:hover .eff-8{
-  border:0px solid #DC3545;
+.button-8:hover .eff-8 {
+	border: 0px solid #DC3545;
 }
-.button-8:hover .johnbtn{
-  color: #DC3545;
+
+.button-8:hover .johnbtn {
+	color: #DC3545;
 }
 
 /* 전문가 초록 버튼 */
-.button-7{
-  width:50%;
-  height:100%;
-  border:2px solid #28A745;
-  text-align:center;
-  cursor:pointer;
-  position:relative;
-  box-sizing:border-box;
-  overflow:hidden;
-  display:flex;
-  justify-content:center;
-  align-items:center;
-  margin: 0 1%; 
+.button-7 {
+	width: 50%;
+	height: 100%;
+	border: 2px solid #28A745;
+	text-align: center;
+	cursor: pointer;
+	position: relative;
+	box-sizing: border-box;
+	overflow: hidden;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	margin: 0 1%;
 }
 
-.button-7 .johnbtn{
-  font-size:3vh;
-  font-weight:bold;
-  color:#FFCC66;
-  text-decoration:none;
-  line-height:50px;
-  transition:all .5s ease;
-  z-index:2;
-  position:relative;
-     /*  */
-  width:100%;
-  height:100%;
-  display:flex;
-   justify-content:center;
-  align-items:center;
+.button-7 .johnbtn {
+	font-size: 3vh;
+	font-weight: bold;
+	color: #FFCC66;
+	text-decoration: none;
+	line-height: 50px;
+	transition: all .5s ease;
+	z-index: 2;
+	position: relative;
+	/*  */
+	width: 100%;
+	height: 100%;
+	display: flex;
+	justify-content: center;
+	align-items: center;
 }
 
-.eff-7{
-  width:100%;
-  height:100%;
-  border:90px solid #28A745;
-  position:absolute;
-  transition:all .5s ease;
-  z-index:1;
-  box-sizing:border-box;
+.eff-7 {
+	width: 100%;
+	height: 100%;
+	border: 90px solid #28A745;
+	position: absolute;
+	transition: all .5s ease;
+	z-index: 1;
+	box-sizing: border-box;
 }
 
-.button-7:hover .eff-7{
-  border:0px solid #28A745;
+.button-7:hover .eff-7 {
+	border: 0px solid #28A745;
 }
-.button-7:hover .johnbtn{
-  color: #28A745;
+
+.button-7:hover .johnbtn {
+	color: #28A745;
 }
 
 /*  */
-
-#edit{
-	width:100%;
-	height:92.8%;
-	 /* background-color:red;  */
-			overflow-x: hidden;
+#edit {
+	width: 100%;
+	height: 92.8%;
+	overflow-x: hidden;
 	-ms-overflow-style: none;
 }
 
-#toolbar-container{
-	width:100%;	
+#toolbar-container {
+	width: 100%;
 }
-
 </style>
 
 <div id="content">
@@ -319,61 +316,63 @@ textarea {
 		<div id="textAreaDiv">
 			<div id="dragImg"></div>
 			<div id="toolbar-container"></div>
-				<div id="edit"></div>
+			<div id="edit"></div>
 		</div>
 	</div>
-<!--  -->
+	<!--  -->
 
 	<div id="bottomDiv">
-	<div id="imgDiv"><p> 왼쪽 상단 박스에 드래그하여 이미지를 전송 후  이 박스에 표시되며 클릭하여 이미지를 확대할수있습니다.</p></div>
+		<div id="imgDiv">
+			<p>왼쪽 상단 박스에 드래그하여 이미지를 전송 후 이 박스에 표시되며 클릭하여 이미지를 확대할수있습니다.</p>
+		</div>
 		<div id="buttonDiv">
 			<c:if test="${loginMember.memClass == '전문가'}">
 				<c:if test="${eb.expertBoardMemberend == 1}">
-													<div class="button-8">
-												    <div class="eff-8"></div>
-												    <a class="johnbtn" onclick='counselEnd();'>완료</a>
-												  </div>	
-				<!-- <button type="button" class="exBtn btn btn-outline-success my-2 my-sm-0" onclick='counselEnd();'>상담 완료</button> -->
+					<div class="button-8">
+						<div class="eff-8"></div>
+						<a class="johnbtn" onclick='counselEnd();'>완료</a>
+					</div>
+					<!-- <button type="button" class="exBtn btn btn-outline-success my-2 my-sm-0" onclick='counselEnd();'>상담 완료</button> -->
 				</c:if>
 				<c:if test="${eb.expertBoardMemberend == 0}">
-				  								<div class="button-8">
-												    <div class="eff-8"></div>
-												    <a class="johnbtn" onclick="alert('상담 받는 유저가 고민 해결 버튼을 클릭 후\n상담 종료가 가능합니다.');">상담중</a>
-												  </div>	
-				<!-- <button type="button" class="exBtn btn btn-outline-danger my-2 my-sm-0" onclick="alert('상담 받는 유저가 고민 해결 버튼을 클릭 후\n상담 종료가 가능합니다.');">상담 진행중</button> -->
+					<div class="button-8">
+						<div class="eff-8"></div>
+						<a class="johnbtn" onclick="alert('상담 받는 유저가 고민 해결 버튼을 클릭 후\n상담 종료가 가능합니다.');">상담중</a>
+					</div>
+					<!-- <button type="button" class="exBtn btn btn-outline-danger my-2 my-sm-0" onclick="alert('상담 받는 유저가 고민 해결 버튼을 클릭 후\n상담 종료가 가능합니다.');">상담 진행중</button> -->
 				</c:if>
-													<div class="button-7">
-												    <div class="eff-7"></div>
-												    <a class="johnbtn"  onclick='memInfoView();'>정보</a>
-												  </div>	
+				<div class="button-7">
+					<div class="eff-7"></div>
+					<a class="johnbtn" onclick='memInfoView();'>정보</a>
+				</div>
 				<!-- <button type="button" class="exBtn btn btn-outline-success my-2 my-sm-0" onclick='memInfoView();'>회원 정보</button> -->
 			</c:if>
 			<c:if test="${loginMember.memClass != '전문가'}">
-			
-													<div class="button-7">
-												    <div class="eff-7"></div>
-												    <a class="johnbtn"  onclick='onoff();'>카메라</a>
-												  </div>	
-			
+
+				<div class="button-7">
+					<div class="eff-7"></div>
+					<a class="johnbtn" onclick='onoff();'>카메라</a>
+				</div>
+
 				<!-- <button type="button" class="memBtn btn btn-outline-success my-2 my-sm-0" onclick='onoff();'>캠 온오프</button> -->
 				<c:if test="${eb.expertBoardMemberend == 0}">
-						<div class="button-7">
-												    <div class="eff-7"></div>
-												    <a class="johnbtn"  onclick='counselMemberEnd();'>해결</a>
-												  </div>	
-				<!-- <button type="button" class="memBtn btn btn-outline-success my-2 my-sm-0" onclick='counselMemberEnd();'>고민 해결</button> -->
+					<div class="button-7">
+						<div class="eff-7"></div>
+						<a class="johnbtn" onclick='counselMemberEnd();'>해결</a>
+					</div>
+					<!-- <button type="button" class="memBtn btn btn-outline-success my-2 my-sm-0" onclick='counselMemberEnd();'>고민 해결</button> -->
 				</c:if>
 				<c:if test="${eb.expertBoardMemberend == 1}">
-												<div class="button-8">
-												    <div class="eff-8"></div>
-												    <a class="johnbtn"  onclick="alert('상담사 분이 상담 완료를 누르면 상담이 정상 종료됩니다.');">종료중</a>
-												  </div>	
+					<div class="button-8">
+						<div class="eff-8"></div>
+						<a class="johnbtn" onclick="alert('상담사 분이 상담 완료를 누르면 상담이 정상 종료됩니다.');">종료중</a>
+					</div>
 					<!-- <button type="button" class="memBtn btn btn-outline-danger my-2 my-sm-0" onclick="alert('상담사 분이 상담 완료를 누르면 상담이 정상 종료됩니다.');">상담 종료중</button> -->
 				</c:if>
 				<div class="button-7">
-												    <div class="eff-7"></div>
-												    <a class="johnbtn"  onclick='memInfoView();'>정보</a>
-												  </div>	
+					<div class="eff-7"></div>
+					<a class="johnbtn" onclick='memInfoView();'>정보</a>
+				</div>
 				<!-- <button type="button" class="memBtn btn btn-outline-success my-2 my-sm-0" onclick='memInfoView();'>상담사 정보</button> -->
 			</c:if>
 		</div>
@@ -386,9 +385,16 @@ textarea {
 	
 	//---------------------------- 드래그 파일 -------------------------------------
 	
+	// ============================
+	//드래그 파일을 담기 위한 배열
+	//드래그 위치 ckeditor DIV
+	// ============================
 	let uploadFiles = [];
 	let $drop = $("#edit");
 	
+	// ============================
+	//드래그 이벤트 
+	// ============================
 	$drop.on("dragenter", function(e) {
 		$(this).addClass('drag-over');
 		$("#toolbar-container").css({
@@ -402,6 +408,10 @@ textarea {
 		});
 	});
 	
+	
+	// ============================
+	//드래그 후 보여지는 드래그 이미지 호버 이거없으면 와리가리만함
+	// ============================
 	let $drop2 = $("#dragImg");
 	
 	$drop2.on("dragenter", function(e) {
@@ -440,15 +450,14 @@ textarea {
 			console.log("확인 : "+file);
 		}
 		
-		//---------------------------- 드래그 파일 전송 -------------------------------------
-		console.log(" =============== ");
+		// ============================
+		// 드래그 파일 전송
+		// ============================
 		let formData = new FormData();
 		$.each(uploadFiles, function(i, file) {
 		console.log("파일 이름 : "+file.name);
 		
 		let f = (file.name).substring((file.name).lastIndexOf('.'),(file.name).length);
-		
-	/* 	console.log("f : "+f); */
 		
 		if(f != '.png' && f != '.jpg' && f != '.jpeg' && f != '.gif'){
 			console.log("업로드 안됨 파일 이름 : "+file.name);
@@ -457,39 +466,23 @@ textarea {
 			//formData.append('upFile', file, file.name);
 			console.log("file : "+file);
 			console.log("업로드 됨 파일 이름 : "+file.name);
+			// ============================
+			// 소켓을 이용해서 이미지 전송
+			// ============================
 			socketUpload(file);
 		}
 		
 		});
 
- 	 /* 	$.ajax({
-			url : '${path}/expert/upload',
-			data : formData,
-			type : 'post',
-			contentType : false,
-			processData : false,
-			dataType : "json",
-			success : function(data) {
-				console.log("파일 업로드 완료 data : " + data);
-				let msg = "";
-				$.each(data, function(i, item) {
-					console.log("i : " + i + ", item : " + item);
-					msg += item + "|";
-				});
-				console.log(msg);
-				sendMessage(new ExboardMsg("FILE", "", msg));
-				$("#previewImg").html("");
-				imgDivPrint(msg);
-				//배열 초기화 안그러면 계속 들어감..
-				uploadFiles = [];
-			}
-		}); */
+		// ============================
+		//마지막에 비워줘야 기존 전송했던 이미지 내역이 사라짐
+		// ============================
 		uploadFiles = [];
-		console.log("보냄");
-	 	
 	});
 	
-	//소켓 이미지 업로드
+	// ============================
+	// 소켓 이미지 업로드 웹소켓에 바이너리로 전송하는것 
+	// ============================
 	function socketUpload(file){
 		let fileReader = new FileReader();
 		    fileReader.onload = function() {
@@ -498,35 +491,10 @@ textarea {
         };
         fileReader.readAsArrayBuffer(file);
 	};
-
-	//업로드 일반용 나중에 보고 지우기
-/* 	function imgDivPrint(msg){
-		console.log("msg : "+msg);
-		let list = msg.split('|');
-		let imgprint = "";
-		for(let i in list){
-			console.log(list[i]);
-			if(i == list.length-1){
-				break;
-			}
-			imgprint+="<img  class='upload' src='${path}/resources/upload_images/"+list[i]+"' title='"+list[i]+"' onclick='imgView(event);' style='cursor: pointer'/>";
-		}
-		
-		if($("#imgDiv").children().html() != ''){
-			console.log("빔");
-			$("#imgDiv").html("");
-		}
-		
-		let con = $("#imgDiv").html()+imgprint;
-		$("#imgDiv").html("");
-		$("#imgDiv").html(con);
-		$("#imgDiv").scrollTop($("#imgDiv")[0].scrollHeight);
-		list="";
-		imgprint="";
-		console.log("msg2 : "+msg);
-	} */
 	
-	//웹소켓용
+	// ============================
+	// 웹소켓용 하단에 전송후 수신자 송신자 둘다 이미지 출력 
+	// ============================
 	function imgDivPrint2(msg){
 		let imgprint = "";
 		imgprint+="<img  class='upload' src='${path}/resources/upload_images/"+msg+"' title='"+msg+"' onclick='imgView(event);' style='cursor: pointer'/>";
@@ -543,15 +511,18 @@ textarea {
 		imgprint="";
 	}
 	
-	//---------------------------- 사진 크게 보기 -------------------------------------
-	
+	// ============================
+	// 사진 크게 보기
+	// ============================
 	function imgView(e){
 		window.open('${path}/resources/upload_images/'+$(e.target).attr( 'title' ),'이미지','width=800, height=700, toolbar=no, menubar=no, scrollbars=no, resizable=yes');
 	};
 	
-	
 	//---------------------------- 상담 마이크 비디오 설정 -------------------------------------
 
+	// ============================
+	// 필요한 변수 등록
+	// ============================
 	const video1 = document.getElementById('video1');
 	const video2 = document.getElementById('video2');
 	let flag = true;
@@ -561,18 +532,12 @@ textarea {
 	let rtc_peer_connection = null;
 	let rtc_session_description = null;
 	let get_user_media = null;
-	//let user_cam=null;
 	let user_usid;
 	let counselText="";
 
-	/* 		let cam = _.once = function(func){
-				console.log("once");
-				return false;
-			}; 
-			user_cam = cam();
-			console.log("user_cam : "+user_cam); */
-
-	//TURN & STUN 서버 등록
+	// ============================
+	// TURN & STUN 서버 등록
+	// ============================
 	const configuration = {
 		'iceServers' : [ {
 			'urls' : 'stun:stun.l.google.com:19302'
@@ -584,9 +549,14 @@ textarea {
 	};
 	
 			//---------------------------- signaling 서버 -------------------------------------
-
-			//const conn = new WebSocket('wss://192.168.120.31${path}/ertc');
+			
+			// ============================
+			// 핸들러 위치
+			// package com.kh.john.exboard.socket.ExpertHandler
+			// ============================
+				
 			const conn = new WebSocket('wss://192.168.219.105${path}/ertc');
+			//const conn = new WebSocket('wss://192.168.120.31${path}/ertc');
 			//const conn = new WebSocket('wss://localhost${path}/ertc');
 
 			conn.onopen = function() {
@@ -598,6 +568,9 @@ textarea {
 				}
 			};
 
+			// ============================
+			// 받은 메세지를 분기 처리해서 나눔
+			// ============================
 			conn.onmessage = function(msg) {
 				console.log("onmessage => 메세지 출력 : " + msg);
 				let content = JSON.parse(msg.data);
@@ -629,30 +602,17 @@ textarea {
 					console.log(" === 분기 SYS === ");
 					start();
 					user_usid = content.id;
-					//$("#expertTextDiv").html("<p>"+content.nick + "님이 접속하셨습니다.</p><br>");
 				} else if (content.type == 'TXT') {
 					console.log(" === 분기 TXT === ");
 					$("#edit").html(content.msg);
 					$("#edit").scrollTop($("#edit")[0].scrollHeight);
-					//$("#extext").val(content.msg);
-				/* 	$("#expertTextDiv").html($("#expertTextDiv").html()+"<p>"+content.msg+"</p>");
-					$("#expertTextDiv").scrollTop($("#expertTextDiv")[0].scrollHeight); */
 				} else if (content.type == 'CAM') {
 					console.log(" === 분기 CAM === ");
 					if (content.msg === 'off') {
 						video2.srcObject = null;
-						//$("#expertTextDiv").html($("#expertTextDiv").html() + "<br><p>유저가 카메라를 끄셨습니다.</p>");
-						//user_cam = false;
 					} else {
 						video2.srcObject = remoteStream;
-						//$("#expertTextDiv").html($("#expertTextDiv").html() + "<br><p>유저가 카메라를 키셨습니다.</p>");
-						//user_cam = true;
 					}
-				} else if (content.type == 'FILE') {
-					console.log(" === 분기 FILE === ");
-					//업로드 일반용 나중에 보고 지우기
-					console.log("content : " + content.msg);
-					imgDivPrint(content.msg);
 				} else if (content.type == 'FILE2') {
 					console.log(" === 분기 FILE2 === ");
 					//웹소켓 업로드 일반용 다음 구현한거
@@ -660,7 +620,6 @@ textarea {
 					imgDivPrint2(content.msg);
 				} else if (content.type == 'END') {
 					console.log(" === 분기 END === ");
-					/* 	exit(); */
 					location.replace('${path}/board/boardList');
 				}else if(content.type == 'MEMEND'){
 					console.log(" === 분기 MEMEND === ");
@@ -668,9 +627,6 @@ textarea {
 					
 					experthtml += "<div class='button-8'> <div class='eff-8'></div><a class='johnbtn' onclick='counselEnd();'>완료</a></div>";
 					experthtml += "<div class='button-7'><div class='eff-7'></div><a class='johnbtn' onclick='memInfoView();'>정보</a></div>";
-					
-					//experthtml += "<button type='button' class='exBtn btn btn-outline-success my-2 my-sm-0' onclick='counselEnd();'>상담 완료</button>";
-					//experthtml += "<button type='button' class='exBtn btn btn-outline-success my-2 my-sm-0' onclick='memInfoView();'>회원 정보 보기</button>";
 					$("#buttonDiv").html(experthtml);
 				}
 			};
@@ -686,12 +642,17 @@ textarea {
 
 			//---------------------------- 비디오 적합 여부 설정 -------------------------------------
 
-		
+		// ============================
+		// 비디오 오디오 설정, 막 설정하면 안되고 지원이 되는지 보고 높여야된다.
+		// ============================
 		const constraints = {
 					  video: {width: {exact: 1280}, height: {exact: 720}},
 				    audio : true
 				}; 
 			
+		// ============================
+		// 브라우저 적합성 확인
+		// ============================
 			if (navigator.getUserMedia) {
 				console.log("getUserMedia");
 				get_user_media = navigator.getUserMedia.bind(navigator);
@@ -719,6 +680,9 @@ textarea {
 				flag = false;
 			}
 
+			// ============================
+			// 오디오나 비디오 사용여부 확인 NOT FOUND가 뜨면 장치 설정에 문제가 있을수있다. 드라이버를 다시 받아보거나 삽질해보기
+			// ============================
 		 	function videoStart() {
 				console.log("constraints : "+constraints);
 				console.log("get_user_media : "+get_user_media);
@@ -741,6 +705,9 @@ textarea {
 	
 			//---------------------------- P2P 연결 로직 -------------------------------------
 
+			// ============================
+			// 상담이 시작될때 실행되는 메소드
+			// ============================
 			function start() {
 				if (flag && typeof localStream !== 'undefined') {
 					console.log("peer 연결 부분 분기 진입");
@@ -752,6 +719,9 @@ textarea {
 				}
 			};
 
+			// ============================
+			// PeerConnection객체를 생성하고 Media Capability 정보를 교환 sdp(Session Description Protocol) 형식을 따르는 blob인 offer와 answer를 주고 받으며 교환함
+			// ============================
 			function createPeerConnection() {
 				console.log("createPeerConnection 실행");
 				try {
@@ -770,6 +740,9 @@ textarea {
 				}
 			};
 
+			// ============================
+			// createPeerConnection 함수에서 호출함
+			// ============================
 			function handleRemoteStreamAdded(event) {
 				console.log("RemoteStream 추가됨");
 				//원격 스트림에 스트림을 넣어줌
@@ -785,19 +758,28 @@ textarea {
 				 */
 			};
 
+			// ============================
+			// start 함수에서 호출함
+			// ============================
 			function doCall() {
 				console.log("createOff 함수를 통해서 통신 요청");
 				pc.createOffer(setLocalAndSendMessage, handleCreateOfferError);
 			};
 
+			// ============================
+			// 소켓 메세지 에서 분기 처리로 호출함
+			// ============================
 			function doAnswer() {
 				console.log('peer에게 응답 보내기.');
 				pc.createAnswer().then(setLocalAndSendMessage,
 						onCreateSessionDescriptionError);
 			};
 
+		
+			// ============================
 			//핸들러 후보 상대방 탐색
 			//ICE : Interactive Connectivity Establishment의 약자로 두 단말이 서로 통신할수 있는 최적의 경로를 찾을수있도록 도와주는 프레임워크임.
+			// ============================
 			function handleIceCandidate(event) {
 				console.log('icecandidate 실행 event : ' + event);
 				if (event.candidate) {
@@ -824,18 +806,6 @@ textarea {
 				sendMessage(sessionDescription);
 			};
 
-			//연결 끊기
-			function exit() {
-				stop();
-				console.log('연결 종료 응답 보내기 ');
-				sendMessage(new ExboardMsg("END"));
-			};
-
-			function stop() {
-				console.log('연결 종료');
-				pc = null;
-			};
-
 			//---------------------------- 잡다한 메소드 -------------------------------------
 
 			function handleCreateOfferError(event) {
@@ -847,7 +817,9 @@ textarea {
 						+ error.toString());
 			}
 
-			//메세지 객체
+			// ============================
+			// ExboardMsg 메세지 객체
+			// ============================
 			function ExboardMsg(type, nick, msg, id, sdp, label, candidate) {
 				this.type = type;
 				this.nick = nick;
@@ -858,7 +830,9 @@ textarea {
 				this.candidate = candidate;
 			};
 
+			// ============================
 			//엔터키 입력시 메세지 발송
+			// ============================
 			$("#edit").keyup(function(key) {
 				if (key.keyCode == 13) {
 					let txt = $("#edit").html();
@@ -872,7 +846,9 @@ textarea {
 				}
 			});
 
+			// ============================
 			//상담 종료 해당 텍스트 에어리어의 기록 디비에 저장하고 종료
+			// ============================
 			function counselEnd() {
 				console.log("user_usid : " + user_usid);
 				let result = confirm("해당 회원과 상담을 종료 하시겠습니까?");
@@ -905,10 +881,11 @@ textarea {
 				}
 			}
 
+			// ============================
+			//캠 온 오프 기능
+			// ============================
 			function onoff() {
-
 				if (video1.srcObject != null) {
-					//캠 켜있다.
 					video1.srcObject = null;
 					sendMessage(new ExboardMsg("CAM", "", "off"));
 				} else {
@@ -919,11 +896,16 @@ textarea {
 	
 			//---------------------------- 회원 정보 보기 -------------------------------------
 			
+			// ============================
+			// 회원 정보 보기 실행 오른쪽 하단 버튼 , 전문가는 회원의 회원은 전문가의 정보를 볼수있음
+			// ============================
 			function memInfoView(e){
 				window.open('${path}/expert/memInfo?bno=${bno}&usid=${loginMember.usid}&musid='+user_usid,'회원','width=800, height=550, toolbar=no, menubar=no, scrollbars=no, resizable=no');
 			};
 	
-			
+			// ============================
+			// 고민해결 버튼 이걸 눌러야 상담사가 상담을 끝낼수있음
+			// ============================
 			function counselMemberEnd(){
 				
 				let result = confirm("고민 해결을 완료하시면 상담사 분이 확인 후 종료됩니다.\n한번 완료하시면 취소가 불가능합니다.");
@@ -943,10 +925,6 @@ textarea {
 							memhtml += "<div class='button-8'><div class='eff-8'></div><a class='johnbtn' onclick='endAlert();'>종료중</a></div>";
 							memhtml += "<div class='button-7'><div class='eff-7'></div><a class='johnbtn' onclick='memInfoView();'>정보</a></div>";
 							
-							//memhtml += "<button type='button' class='memBtn btn btn-outline-success my-2 my-sm-0' onclick='onoff();'>캠 온오프</button>";
-							//memhtml += "<button type='button' class='memBtn btn btn-outline-danger my-2 my-sm-0' onclick='alert('상담사 분이 상담 완료를 누르면 상담이 정상 종료됩니다.');'>상담 종료중</button>";
-							//memhtml += "<button type='button' class='memBtn btn btn-outline-success my-2 my-sm-0' onclick='memInfoView();'>상담사 정보 보기</button>";
-							
 							$("#buttonDiv").html(memhtml);
 							sendMessage(new ExboardMsg("MEMEND","${loginMember.memClass}", "유저 종료"));
 							console.log("성공");
@@ -957,12 +935,12 @@ textarea {
 					}
 				})
 				}
-				
-				
-			}
+			};
 
+			// ============================
+			// 에디터 설정 라이브러리 전문가냐 일반 유저냐에 따라 다르게
+			// ============================
 			if("${loginMember.memClass}" == "전문가"){
-				console.log("참?");
 		        DecoupledEditor
 		        .create( document.querySelector( '#edit' ) )
 		        .then( editor => {
@@ -974,11 +952,12 @@ textarea {
 		            console.error( error );
 		        } );
 			}else{
-				console.log("거짓?");
 				 $("#edit").css({'padding':'1%'});
 			}
 
-			
+			// ============================
+			// counselMemberEnd에서 onclick 호출로 alert이 이상하게 안되서 함수를 만듬 ㅅㅂ ㅋㅋㅋㅋ;
+			// ============================
 			function endAlert(){
 				let st = '상담사 분이 상담 완료를 누르면 상담이 정상 종료됩니다.';
 				alert(st);

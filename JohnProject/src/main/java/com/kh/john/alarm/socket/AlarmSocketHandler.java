@@ -20,15 +20,30 @@ import com.kh.john.member.model.vo.Member;
 
 import lombok.extern.slf4j.Slf4j;
 
+/**
+ * @Author : cms
+ * @Date : 2020. 12. 8.
+ * @explain : 알람 컨텐츠 소켓으로 리스트 뿌려주는 핸들러
+ */
 @Slf4j
 public class AlarmSocketHandler extends TextWebSocketHandler {
+
+	/**
+	 * @Author : cms
+	 * @Date : 2020. 12. 8.
+	 * @explain : 세션 접속 유저를 담기 위한 맵 설정 & 잭슨 매퍼 생성 & 서비스 주입
+	 */
+	private Map<Member, WebSocketSession> users = new HashMap<Member, WebSocketSession>();
+	private ObjectMapper objectMapper = new ObjectMapper();
 
 	@Autowired
 	private AlarmService service;
 
-	private Map<Member, WebSocketSession> users = new HashMap<Member, WebSocketSession>();
-	private ObjectMapper objectMapper = new ObjectMapper();
-
+	/**
+	 * @Author : cms
+	 * @Date : 2020. 12. 8.
+	 * @explain : 온 오픈 실행시 메소드 실행 맵에 세션을 집어넣는 과정
+	 */
 	@Override
 	public void afterConnectionEstablished(WebSocketSession session) throws Exception {
 		// TODO Auto-generated method stub
@@ -44,8 +59,12 @@ public class AlarmSocketHandler extends TextWebSocketHandler {
 		}
 	}
 
-//알람 목록 호버하면 나오는 리스트에 시간 초까지 제대로 보이게 수정해보기
-// 알람 보내면 상대방한테 제대로 바로 알람 갱신되는지 확인해보기
+	/**
+	 * @Author : cms
+	 * @Date : 2020. 12. 8.
+	 * @explain : 알람 상대방한테 발송해주는것 리스트 뽑아오는것도 같이함 세션에 접속해있지 않아도 디비에는 넣어야됨! 사용자가 사이트에
+	 *          접속안되어있어도 알람은 보내야되니깐.
+	 */
 	@Override
 	protected void handleTextMessage(WebSocketSession session, TextMessage message) throws Exception {
 		// TODO Auto-generated method stub
@@ -79,8 +98,6 @@ public class AlarmSocketHandler extends TextWebSocketHandler {
 				Alarm almsg = objectMapper.readValue(message.getPayload(), Alarm.class);
 				log.debug("알람 디비 넣기");
 				log.debug("almsg : " + almsg);
-				// 세션에 접속해있지 않아도 디비에는 넣어야됨!
-				// 사용자가 사이트에없어도 알람은 보내야되니깐.
 				service.insertExpertAlarm(almsg);
 				Iterator<Member> it = users.keySet().iterator();
 				while (it.hasNext()) {
@@ -95,6 +112,11 @@ public class AlarmSocketHandler extends TextWebSocketHandler {
 		}
 	}
 
+	/**
+	 * @Author : cms
+	 * @Date : 2020. 12. 8.
+	 * @explain : 메소드 종료될때 실행
+	 */
 	@Override
 	public void afterConnectionClosed(WebSocketSession session, CloseStatus status) throws Exception {
 		// TODO Auto-generated method stub
@@ -112,6 +134,11 @@ public class AlarmSocketHandler extends TextWebSocketHandler {
 		}
 	}
 
+	/**
+	 * @Author : cms
+	 * @Date : 2020. 12. 8.
+	 * @explain : 리스트 발송하는 메소드 따로 빼놓음
+	 */
 	private void sendList(Member m) {
 		log.debug("sendList 메소드 실행");
 		List<Alarm> list = null;

@@ -12,6 +12,8 @@
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 
 <style>
+
+/* 초기화 */
 html, body, div, span, applet, object, iframe, h1, h2, h3, h4, h5, h6, p, blockquote, pre, a, abbr, acronym, address, big, cite, code, del, dfn, em,
 	ins, kbd, q, s, samp, small, strike, strong, sub, sup, tt, var, b, u, i, center, dl, dt, dd, ol, ul, li, fieldset, form, label, legend, table,
 	caption, tbody, tfoot, thead, tr, th, td, article, aside, canvas, details, embed, figure, figcaption, footer, header, hgroup, menu, nav, output, ruby,
@@ -30,6 +32,7 @@ html, body, div, span, applet, object, iframe, h1, h2, h3, h4, h5, h6, p, blockq
 	font-weight:bold;
 }
 
+/* 폰트 */
 .d-block{
 		font-family: 'Noto Serif KR', serif;
 }
@@ -57,6 +60,7 @@ textarea {
     resize: none;
 }
 
+/* 버튼 */
 #exbtn{
 	display:flex;
 	justify-content:center;
@@ -267,20 +271,19 @@ body{
 
 <script>
 
-//헤더jsp가 없기 때문에 알람 헤어.js랑 연결해야됨 그래서 세션 스토리지에 정보 넣는것
-//안넣어도됨 수정
 	'use strict';
-/* 	sessionStorage.clear();
-		sessionStorage.setItem('lousid', "${loginMember.usid}");
-		sessionStorage.setItem('path', "${path}"); */
 
-		//사이즈 조절
+	// ============================
+	// 사이즈 조절
+	// ============================
 	$(this).resize(fixedSize);
 	function fixedSize() {
 		this.resizeTo(800, 800);
 	}
 
-	//상담 신청
+	// ============================
+	// 상담 신청
+	// ============================
 	function expertRequest() {
 		console.log("상담 신청, ${mem.usid}");
 
@@ -325,7 +328,9 @@ body{
 				});
 	};
 
-	//상담 신청 취소
+	// ============================
+	// 상담 신청 취소
+	// ============================
 	function expertRequestCancel() {
 		console.log("상담 취소, ${mem.usid}");
 		$

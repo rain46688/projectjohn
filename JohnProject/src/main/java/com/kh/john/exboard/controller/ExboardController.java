@@ -36,9 +36,21 @@ import com.kh.john.member.model.vo.Member;
 
 import lombok.extern.slf4j.Slf4j;
 
+/**
+ * @Author : cms
+ * @Date : 2020. 12. 8.
+ * @explain : 전문가 컨트롤러
+ */
+
 @Controller
 @Slf4j
 public class ExboardController {
+
+	/**
+	 * @Author : cms
+	 * @Date : 2020. 12. 8.
+	 * @explain : 의존성 주입 및 파일 업로드 PATH 설정
+	 */
 
 	@Autowired
 	private ExboardService service;
@@ -51,36 +63,23 @@ public class ExboardController {
 
 	private static String pathzz;
 
-	// 삭제 예정============================================================
-
-	@RequestMapping("/member/myPage/expertInfoModify2")
-	public ModelAndView expertInfoModify2(HttpSession session) throws Exception {
-		log.info(" ===== expertInfoModify2 실행 ===== ");
-		ModelAndView mv = new ModelAndView("/exboard/expertInfoModify2");
-		try {
-			mv.addObject("expert",
-					service.selectExpertMem("" + ((Member) session.getAttribute("loginMember")).getUsid()));
-			mv.addObject("license",
-					service.selectExpertLicense("" + ((Member) session.getAttribute("loginMember")).getUsid()));
-			mv.addObject("mem", service.selectMember("" + ((Member) session.getAttribute("loginMember")).getUsid()));
-			mv.addObject("likindList", service.selectLicenseKind());
-			mv.addObject("coukindList", service.selectCounselKind());
-			mv.addObject("comkindList", service.selectCompanyKind());
-		} catch (Exception e) {
-			// TODO: handle exception
-		}
-		return mv;
-	}
-
-	// 전문가 리스트들 불러오기
-	@RequestMapping("/expert/expertPrintList2")
-	public ModelAndView expertPrintList2() {
+	/**
+	 * @Author : cms
+	 * @Date : 2020. 12. 9.
+	 * @explain : 전문가 리스트들 불러오기
+	 */
+	@RequestMapping("/expert/expertPrintList")
+	public ModelAndView expertPrintList() {
 		log.debug("expertPrintList2 실행");
-		ModelAndView mv = new ModelAndView("/exboard/expertList2");
+		ModelAndView mv = new ModelAndView("/exboard/expertList");
 		return mv;
 	}
 
-	// 전문가 정보 수정 페이지 기존 정보 가져와서 뿌려주기
+	/**
+	 * @Author : cms
+	 * @Date : 2020. 12. 9.
+	 * @explain : 전문가 정보 수정 페이지 기존 정보 가져와서 뿌려주기
+	 */
 	@RequestMapping("/member/myPage/expertInfoModify")
 	public ModelAndView expertInfoModify(HttpSession session) throws Exception {
 		log.info(" ===== expertInfoModify 실행 ===== ");
@@ -100,30 +99,11 @@ public class ExboardController {
 		return mv;
 	}
 
-	// 전문가 리스트들 불러오기
-	@RequestMapping("/expert/expertPrintList")
-	public ModelAndView expertPrintList(@RequestParam(required = false) String ca) {
-		log.debug("expertPrintList 실행");
-		log.debug("ca : " + ca);
-		ModelAndView mv = new ModelAndView("/exboard/expertList");
-		try {
-			List<Map<String, Object>> list = service.selectExpert(ca);
-			for (Map<String, Object> mm : list) {
-				log.debug(mm.get("mem").toString());
-			}
-			mv.addObject("list", list);
-			mv.addObject("exbolist", service.selectExboardListCategory(ca));
-		} catch (Exception e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-			log.error("전문가 리스트 불러오기 실패");
-		}
-		return mv;
-	}
-
-	// ============================================================
-
-	// 전문가 페이지 임시 메인
+	/**
+	 * @Author : cms
+	 * @Date : 2020. 12. 8.
+	 * @explain : 전문가 페이지 임시 메인
+	 */
 	@RequestMapping("/expert")
 	public ModelAndView expertPage(HttpSession session) {
 		log.debug("expertPage 실행");
@@ -131,7 +111,11 @@ public class ExboardController {
 		return mv;
 	}
 
-	// 전문가가 자신한테 유저들이 신청한 리스트 출력하기
+	/**
+	 * @Author : cms
+	 * @Date : 2020. 12. 8.
+	 * @explain : 전문가가 자신한테 유저들이 신청한 리스트 출력하기
+	 */
 	@RequestMapping("/member/myPage/expertRequestPrintList")
 	public ModelAndView expertRequestPrintList(HttpSession session) {
 		log.debug("expertRequestPrintList 실행");
@@ -139,7 +123,11 @@ public class ExboardController {
 		return mv;
 	}
 
-	// 전문가 상세 프로필 보는곳 여기서 상담 신청 가능
+	/**
+	 * @Author : cms
+	 * @Date : 2020. 12. 8.
+	 * @explain : 전문가 상세 프로필 보는곳 여기서 상담 신청 가능
+	 */
 	@RequestMapping("/expert/expertApply")
 	public ModelAndView expertApply(String no, String nic, HttpSession session) {
 		log.debug("expertApply 실행");
@@ -174,7 +162,11 @@ public class ExboardController {
 		return mv;
 	}
 
-	// 상담 신청 버튼 눌렀을때
+	/**
+	 * @Author : cms
+	 * @Date : 2020. 12. 8.
+	 * @explain : 상담 신청 버튼 눌렀을때
+	 */
 	@ResponseBody
 	@RequestMapping("/expert/expertRequest")
 	public String expertRequest(String no, String nic, String time, String applyText, HttpSession session) {
@@ -228,7 +220,11 @@ public class ExboardController {
 
 	}
 
-	// 상담 신청 취소 버튼 눌렀을때
+	/**
+	 * @Author : cms
+	 * @Date : 2020. 12. 8.
+	 * @explain : 상담 신청 취소 버튼 눌렀을때
+	 */
 	@ResponseBody
 	@RequestMapping("/expert/expertRequestCancel")
 	public String expertRequestCancel(String no, String nic, HttpSession session) {
@@ -249,7 +245,11 @@ public class ExboardController {
 		return result;
 	}
 
-	// 전문가 게시판을 생성하고 해당 게시판의 ID값을 가져와서 반환함
+	/**
+	 * @Author : cms
+	 * @Date : 2020. 12. 8.
+	 * @explain : 전문가 게시판을 생성하고 해당 게시판의 ID값을 가져와서 반환함
+	 */
 	@ResponseBody
 	@RequestMapping("/expert/selectExpertBno")
 	public String selectExpertBno(HttpSession session, String no, String nic) {
@@ -265,8 +265,11 @@ public class ExboardController {
 		return result;
 	}
 
-	// 상담 게시판 개설
-	// 처음에 유저랑 상담사가 상담 할때 한번 실행되고 나머진 연결로만됨
+	/**
+	 * @Author : cms
+	 * @Date : 2020. 12. 8.
+	 * @explain : 상담 게시판 개설, 처음에 유저랑 상담사가 상담 할때 한번 실행되고 나머진 연결로만됨
+	 */
 	@RequestMapping("/expert/counselStart")
 	public String counselStart(HttpServletRequest req, String no, String nic, String bno,
 			RedirectAttributes redirectAttributes) {
@@ -300,7 +303,11 @@ public class ExboardController {
 		return "redirect:/expert/expertRoom";
 	}
 
-	// 채팅창 입장
+	/**
+	 * @Author : cms
+	 * @Date : 2020. 12. 8.
+	 * @explain : 채팅창 입장
+	 */
 	@RequestMapping("/expert/expertRoom")
 	public ModelAndView expertRoom(@RequestParam("bno") String bnum, HttpSession session, HttpServletRequest request) {
 		log.debug("expertRoom 실행");
@@ -356,7 +363,11 @@ public class ExboardController {
 		return mv;
 	}
 
-	// 상담 게시판 접속
+	/**
+	 * @Author : cms
+	 * @Date : 2020. 12. 8.
+	 * @explain : 전문가가 상담 게시판 접속 이미 생성된 상태에서 접속하는것
+	 */
 	@RequestMapping("/expert/counselConn")
 	public String counselConnction(HttpSession session, String no, String nick, RedirectAttributes redirectAttributes) {
 		log.debug("counselConnction 실행");
@@ -374,7 +385,11 @@ public class ExboardController {
 		return "redirect:/expert/expertRoom";
 	}
 
-	// 에러 메세지 매핑용
+	/**
+	 * @Author : cms
+	 * @Date : 2020. 12. 8.
+	 * @explain : 에러 메세지 매핑용
+	 */
 	@RequestMapping(value = "/msg")
 	public ModelAndView error() throws Exception {
 		log.info(" ===== error 실행 ===== ");
@@ -382,7 +397,11 @@ public class ExboardController {
 		return mv;
 	}
 
-	// 에러 메세지용 메소드
+	/**
+	 * @Author : cms
+	 * @Date : 2020. 12. 8.
+	 * @explain : 에러 메세지용 메소드
+	 */
 	public ModelAndView gotoMsg(ModelAndView mv, String loc, String msg) {
 		mv = new ModelAndView("/common/msg");
 		mv.addObject("loc", loc);
@@ -390,7 +409,11 @@ public class ExboardController {
 		return mv;
 	}
 
-	// 상담 종료
+	/**
+	 * @Author : cms
+	 * @Date : 2020. 12. 8.
+	 * @explain : 상담 종료
+	 */
 	@RequestMapping(value = "/expert/counselEnd")
 	public String counselEnd(String extext, String bno, RedirectAttributes redirectAttributes) throws Exception {
 		log.info(" ===== counselEnd 실행 ===== ");
@@ -410,7 +433,11 @@ public class ExboardController {
 		return "redirect:/msg";
 	}
 
-	// 웹소켓 파일 업로드 하기
+	/**
+	 * @Author : cms
+	 * @Date : 2020. 12. 8.
+	 * @explain : 웹소켓 파일 업로드 하기
+	 */
 	public String socketUploadImg(MultipartFile upFile) {
 		log.debug("socketUploadImg실행");
 		String originalFileName = upFile.getOriginalFilename();
@@ -427,7 +454,11 @@ public class ExboardController {
 		return renamedFileName;
 	}
 
-	// 파일 업로드용 전문가 상담
+	/**
+	 * @Author : cms
+	 * @Date : 2020. 12. 8.
+	 * @explain : 파일 업로드용 전문가 상담
+	 */
 	@ResponseBody
 	@RequestMapping("/expert/upload")
 	public String expertuUploadll(MultipartFile[] upFile, HttpServletRequest request) {
@@ -479,7 +510,11 @@ public class ExboardController {
 		return result;
 	}
 
-	// 회원 정보보기, 회원이 상담사 보기 , 상담사가 회원 보기 둘다 이걸로 실행됨
+	/**
+	 * @Author : cms
+	 * @Date : 2020. 12. 8.
+	 * @explain : 회원 정보보기, 회원이 상담사 보기 , 상담사가 회원 보기 둘다 이걸로 실행됨
+	 */
 	@RequestMapping(value = "/expert/memInfo")
 	public ModelAndView memInfo(@RequestParam(required = false) String usid, @RequestParam(required = false) String bno,
 			@RequestParam(required = false) String musid) throws Exception {
@@ -531,7 +566,11 @@ public class ExboardController {
 		return mv;
 	}
 
-	// 유저가 고민 해결을 누르면 실행됨 그 다음에 상담사가 상담 종료 가능
+	/**
+	 * @Author : cms
+	 * @Date : 2020. 12. 8.
+	 * @explain : 유저가 고민 해결을 누르면 실행됨 그 다음에 상담사가 상담 종료 가능
+	 */
 	@ResponseBody
 	@RequestMapping("/expert/counselMemberEnd")
 	public String counselMemberEnd(String bno) {
@@ -548,7 +587,11 @@ public class ExboardController {
 		return result;
 	}
 
-	// 전문가 수정 첫번째 페이지 자격증 아님
+	/**
+	 * @Author : cms
+	 * @Date : 2020. 12. 8.
+	 * @explain : 전문가 수정 첫번째 페이지 자격증 아님
+	 */
 	@ResponseBody
 	@RequestMapping("/expert/modifyEx")
 	public String expertModifyEx(MultipartFile[] upFile, HttpServletRequest request, String career,
@@ -613,7 +656,11 @@ public class ExboardController {
 		return result;
 	}
 
-	// 전문가 자격증 수정 두번째 페이지임
+	/**
+	 * @Author : cms
+	 * @Date : 2020. 12. 8.
+	 * @explain : 전문가 자격증 수정 두번째 페이지임
+	 */
 	@ResponseBody
 	@RequestMapping("/expert/modifyLicense")
 	public String expertModifyLicense(MultipartFile[] upFile, HttpServletRequest request,
@@ -685,7 +732,11 @@ public class ExboardController {
 		return result;
 	}
 
-	// 리뷰작성 페이지
+	/**
+	 * @Author : cms
+	 * @Date : 2020. 12. 8.
+	 * @explain : 리뷰작성 페이지
+	 */
 	@RequestMapping("/expert/expertReviewWrite")
 	public ModelAndView expertReviewWrite(String bno) {
 		ModelAndView mv = new ModelAndView("/exboard/expertReviewWrite");
@@ -695,15 +746,17 @@ public class ExboardController {
 		} catch (Exception e) {
 			// TODO: handle exception
 		}
-		// 이따 확인해봐야됨!!!
-		// 후기 작성해도 얼럿뜸
 		log.debug("result : " + result);
 		mv.addObject("duplicate", result);
 		mv.addObject("bno", bno);
 		return mv;
 	}
 
-	// 리뷰작성 완료 페이지
+	/**
+	 * @Author : cms
+	 * @Date : 2020. 12. 8.
+	 * @explain : 리뷰작성 완료 페이지
+	 */
 	@ResponseBody
 	@RequestMapping("/expert/expertReviewWriteEnd")
 	public String expertReviewWriteEnd(String bno, String review, String rating, HttpSession session) {

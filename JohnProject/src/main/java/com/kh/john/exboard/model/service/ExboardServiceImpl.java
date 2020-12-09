@@ -1,6 +1,5 @@
 package com.kh.john.exboard.model.service;
 
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -21,6 +20,11 @@ import com.kh.john.member.model.vo.Member;
 
 import lombok.extern.slf4j.Slf4j;
 
+/**
+ * @Author : cms
+ * @Date : 2020. 12. 8.
+ * @explain : 전문가 서비스
+ */
 @Service
 @Slf4j
 public class ExboardServiceImpl implements ExboardService {
@@ -31,38 +35,22 @@ public class ExboardServiceImpl implements ExboardService {
 	@Autowired
 	private SqlSessionTemplate session;
 
-	// 전문가인 멤버 리스트 가져오기
-	@Override
-	public List<Map<String, Object>> selectExpert(String ca) throws Exception {
-		// TODO Auto-generated method stub
-		List<Map<String, Object>> maplist = new ArrayList<Map<String, Object>>();
-
-		// 전문가 리스트를 가져옴
-		List<Member> list = dao.selectExpert(session);
-		for (Member m : list) {
-			// 전문가 리스트로 전문가 정보를 가져옴
-			Map<String, Object> temp = new HashMap<String, Object>();
-			// 리스트 안에 넣을 맵을 선언하고 전문가 정보 객체를 가져옴
-			Expert exx = dao.selectExpertMem(session, "" + m.getUsid());
-			// 카테고리랑 맞는지 비교후 맞는 사람들만 맵에 넣음
-			if (exx != null && exx.getExpertCounselArea().equals(ca)) {
-				temp.put("mem", m);
-				temp.put("ex", exx);
-				maplist.add(temp);
-			}
-			// temp.put("exLicense", dao.selectExpertLicense(session, "" + m.getUsid()));
-		}
-		return maplist;
-	}
-
-	// 전문가 한명 정보 가져오기
+	/**
+	 * @Author : cms
+	 * @Date : 2020. 12. 8.
+	 * @explain : 전문가 한명 정보 가져오기
+	 */
 	@Override
 	public Expert selectExpertMem(String no) throws Exception {
 		// TODO Auto-generated method stub
 		return dao.selectExpertMem(session, no);
 	}
 
-	// 전문가한테 상담 신청 등록하기
+	/**
+	 * @Author : cms
+	 * @Date : 2020. 12. 8.
+	 * @explain : 전문가한테 상담 신청 등록하기
+	 */
 	@Override
 	public int insertExpertMemRequest(Map<String, String> map) throws Exception {
 		// TODO Auto-generated method stub
@@ -79,14 +67,22 @@ public class ExboardServiceImpl implements ExboardService {
 		}
 	}
 
-	// 닉네임으로 유저 한명 가져오기
+	/**
+	 * @Author : cms
+	 * @Date : 2020. 12. 8.
+	 * @explain : 닉네임으로 유저 한명 가져오기
+	 */
 	@Override
 	public Member selectMember(String no) throws Exception {
 		// TODO Auto-generated method stub
 		return dao.selectMember(session, no);
 	}
 
-	// 같은 전문가한테 상담 중복 신청 여부 확인하기
+	/**
+	 * @Author : cms
+	 * @Date : 2020. 12. 8.
+	 * @explain : 같은 전문가한테 상담 중복 신청 여부 확인하기
+	 */
 	@Override
 	public Boolean selectIsDuplicateReq(Map<String, String> map) throws Exception {
 		// TODO Auto-generated method stub
@@ -100,21 +96,33 @@ public class ExboardServiceImpl implements ExboardService {
 		}
 	}
 
-	// 상담 신청 취소하기
+	/**
+	 * @Author : cms
+	 * @Date : 2020. 12. 8.
+	 * @explain : 상담 신청 취소하기
+	 */
 	@Override
 	public int deleteExpertMemRequest(Member expert, Member mem) throws Exception {
 		// TODO Auto-generated method stub
 		return dao.deleteExpertMemRequest(session, expert, mem);
 	}
 
-	// 해당 전문가한테 온 상담 신청 리스트 출력하기
+	/**
+	 * @Author : cms
+	 * @Date : 2020. 12. 8.
+	 * @explain : 해당 전문가한테 온 상담 신청 리스트 출력하기
+	 */
 	@Override
 	public List<ExpertRequest> selectExpertRequest(Member mem) throws Exception {
 		// TODO Auto-generated method stub
 		return dao.selectExpertRequest(session, mem);
 	}
 
-	// 상담 게시판 개설하기
+	/**
+	 * @Author : cms
+	 * @Date : 2020. 12. 8.
+	 * @explain : 상담 게시판 개설하기
+	 */
 	@Override
 	public int insertExpertBoard(String memusid, String memnic, Member expertmem) throws Exception {
 		// TODO Auto-generated method stub
@@ -129,30 +137,47 @@ public class ExboardServiceImpl implements ExboardService {
 		} else {
 			return 0;
 		}
-
 	}
 
-	// 상담 게시판 리스트 가져오기 이미 상담 개설된 유저인지 판별용
+	/**
+	 * @Author : cms
+	 * @Date : 2020. 12. 8.
+	 * @explain : 상담 게시판 리스트 가져오기 이미 상담 개설된 유저인지 판별용
+	 */
 	@Override
 	public List<ExpertBoard> selectExpertBoard(Member mem) throws Exception {
 		// TODO Auto-generated method stub
 		return dao.selectExpertBoard(session, mem);
 	}
 
-	// 방 번호 가져오기
+	/**
+	 * @Author : cms
+	 * @Date : 2020. 12. 8.
+	 * @explain : 상담 방에 접속할때 해당 방의 번호를 알아오는 메소드
+	 */
 	@Override
 	public int selectExBoardNum(Member expertmem, String memusid) throws Exception {
 		// TODO Auto-generated method stub
 		return dao.selectExBoardNum(session, expertmem, memusid);
 	}
 
-	// 전문가 상담 채팅 게시판 유저들 판별을 위해 가져오기
+	/**
+	 * @Author : cms
+	 * @Date : 2020. 12. 8.
+	 * @explain : 전문가 상담 채팅 게시판 유저들 판별을 위해 가져오기 방에 접속할때 확인하는것, 없는 방에 접속하거나 이미 만료된 방에
+	 *          접속하거나
+	 */
 	@Override
 	public ExpertBoard selectExpertBoard(String bnum) throws Exception {
 		// TODO Auto-generated method stub
 		return dao.selectExpertBoard(session, bnum);
 	}
 
+	/**
+	 * @Author : cms
+	 * @Date : 2020. 12. 8.
+	 * @explain : 상담 종료될때 상담 결과를 업데이트하는것
+	 */
 	@Override
 	public int updateCounselResult(String extext, String bno) throws Exception {
 		// TODO Auto-generated method stub
@@ -173,72 +198,118 @@ public class ExboardServiceImpl implements ExboardService {
 		return result;
 	}
 
+	/**
+	 * @Author : cms
+	 * @Date : 2020. 12. 8.
+	 * @explain : 전문가 아이디랑 방번호로 해당 상담의 유저 usid를 알아오는것 유저나 전문가가 서로 정보를 볼때 씀 memInfo
+	 */
 	@Override
 	public String selectMemExboard(Map<String, String> map) throws Exception {
 		// TODO Auto-generated method stub
 		return dao.selectMemExboard(session, map);
 	}
 
+	/**
+	 * @Author : cms
+	 * @Date : 2020. 12. 8.
+	 * @explain : 위랑 비슷한데 전문가의 usid를 알아오는것 서로 정보를 볼때 씀 memInfo
+	 */
 	@Override
 	public String selectExpertExboard(Map<String, String> map) throws Exception {
 		// TODO Auto-generated method stub
 		return dao.selectExpertExboard(session, map);
 	}
 
+	/**
+	 * @Author : cms
+	 * @Date : 2020. 12. 8.
+	 * @explain : memInfo에서 방번호 가져오기 usid 사용함
+	 */
 	@Override
 	public String selectExBoardNumUsid(Map<String, String> bomap) throws Exception {
 		// TODO Auto-generated method stub
 		return dao.selectExBoardNumUsid(session, bomap);
 	}
 
+	/**
+	 * @Author : cms
+	 * @Date : 2020. 12. 8.
+	 * @explain : 유저가 해결완료를 누르면 expertBoardMemberend의 값을 1로 바꾸기
+	 */
 	@Override
 	public void updateCounselMemberEnd(String bno) throws Exception {
 		// TODO Auto-generated method stub
 		dao.updateCounselMemberEnd(session, bno);
 	}
 
-	@Override
-	public List<ExpertBoard> selectExboardListCategory(String ca) throws Exception {
-		// TODO Auto-generated method stub
+	/*
+	 * @Override public List<ExpertBoard> selectExboardListCategory(String ca)
+	 * throws Exception { // TODO Auto-generated method stub
+	 * 
+	 * List<ExpertBoard> list = dao.selectExboardListCategory(session, ca); return
+	 * list; }
+	 */
 
-		List<ExpertBoard> list = dao.selectExboardListCategory(session, ca);
-//		for (ExpertBoard eb : list) {
-//			// 여기 수정좀 해야됨 expertBoardMemNick 추가했으니
-//			eb.setExpertBoardMemNick(dao.selectMember(session, "" + eb.getExpertBoardMemUsid()).getMemNickname());
-//		}
-		return list;
-	}
-
+	/**
+	 * @Author : cms
+	 * @Date : 2020. 12. 8.
+	 * @explain : expertApply에서 자격증 정보 넘기기
+	 */
 	@Override
 	public List<License> selectExpertLicense(String exusid) throws Exception {
 		// TODO Auto-generated method stub
 		return dao.selectExpertLicense(session, exusid);
 	}
 
+	/**
+	 * @Author : cms
+	 * @Date : 2020. 12. 8.
+	 * @explain : ExpertListHandler에서 전문가가 자기한테 온 내역들 보고 관리하는곳 리스트 소켓으로 가져오기
+	 */
 	@Override
 	public List<ExpertRequest> selectExRequestList(Member m) throws Exception {
 		// TODO Auto-generated method stub
 		return dao.selectExRequestList(session, m);
 	}
 
+	/**
+	 * @Author : cms
+	 * @Date : 2020. 12. 8.
+	 * @explain : 자격증의 종류 디비에서 가져오기 (john 디비에 정의해놓은 풀에서 가져옴)
+	 */
 	@Override
 	public List<String> selectLicenseKind() throws Exception {
 		// TODO Auto-generated method stub
 		return dao.selectLicenseKind(session);
 	}
 
+	/**
+	 * @Author : cms
+	 * @Date : 2020. 12. 8.
+	 * @explain : 상담의 종류 디비에서 가져오기 (john 디비에 정의해놓은 풀에서 가져옴)
+	 */
 	@Override
 	public List<String> selectCounselKind() throws Exception {
 		// TODO Auto-generated method stub
 		return dao.selectCounselKind(session);
 	}
 
+	/**
+	 * @Author : cms
+	 * @Date : 2020. 12. 8.
+	 * @explain : 자격증 인증 기관 종류 디비에서 가져오기 (john 디비에 정의해놓은 풀에서 가져옴)
+	 */
 	@Override
 	public List<String> selectCompanyKind() throws Exception {
 		// TODO Auto-generated method stub
 		return dao.selectCompanyKind(session);
 	}
 
+	/**
+	 * @Author : cms
+	 * @Date : 2020. 12. 8.
+	 * @explain : 자격증 정보 수정 전문가 수정 게시판
+	 */
 	@Override
 	public void updateLicenseModify(List<License> paramlist) throws Exception {
 		// TODO Auto-generated method stub
@@ -260,12 +331,22 @@ public class ExboardServiceImpl implements ExboardService {
 
 	}
 
+	/**
+	 * @Author : cms
+	 * @Date : 2020. 12. 8.
+	 * @explain : 전문가 정보 수정
+	 */
 	@Override
 	public void updateExInfoModify(Expert et) throws Exception {
 		// TODO Auto-generated method stub
 		dao.updateExInfoModify(session, et);
 	}
 
+	/**
+	 * @Author : cms
+	 * @Date : 2020. 12. 8.
+	 * @explain : 리뷰 작성 하면 expertboard 부분 수정
+	 */
 	@Override
 	public void updateExpertBoardReview(Map<String, String> map) throws Exception {
 		// TODO Auto-generated method stub
@@ -283,6 +364,11 @@ public class ExboardServiceImpl implements ExboardService {
 		dao.updateExpertInfoReview(session, map);
 	}
 
+	/**
+	 * @Author : cms
+	 * @Date : 2020. 12. 8.
+	 * @explain : 리뷰 작성했는지 먼저 확인하는 작업
+	 */
 	@Override
 	public int expertReviewWriteCheck(String bno) throws Exception {
 		// TODO Auto-generated method stub
@@ -299,12 +385,22 @@ public class ExboardServiceImpl implements ExboardService {
 		return result;
 	}
 
+	/**
+	 * @Author : cms
+	 * @Date : 2020. 12. 8.
+	 * @explain : 상담원 리스트 보는 게시판 전문가 리스트 가져오기 member랑 expert_info에서 가져옴
+	 */
 	@Override
 	public List<ExpertBoardListVo> selectExpertBoardList() throws Exception {
 		// TODO Auto-generated method stub
 		return dao.selectExpertBoardList(session);
 	}
 
+	/**
+	 * @Author : cms
+	 * @Date : 2020. 12. 8.
+	 * @explain : 상담원 리스트 보는 게시판 리뷰 리스트 가져오기 expertboard
+	 */
 	@Override
 	public List<ExpertBoard> selectExpertReviewList() throws Exception {
 		// TODO Auto-generated method stub
