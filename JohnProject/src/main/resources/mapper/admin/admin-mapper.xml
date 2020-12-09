@@ -173,7 +173,7 @@
 
 	<!-- 게시판관련 -->
 	<select id="selectBoardList" resultMap="boardMap">
-		SELECT * FROM BOARD
+		SELECT * FROM BOARD ORDER BY BOARD_ID
 	</select>
 	<select id="selectBoardCount" resultType="_int">
 		SELECT COUNT(*) FROM BOARD

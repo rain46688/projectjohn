@@ -441,7 +441,7 @@ appearance: none;
 		</div>
 		<c:forEach items="${list }" var="b">
 			<div class="board_list_body">
-			<a href="#" class="alink">
+			<a href="${path}/board/boardPage?boardNo=${b.boardId}" class="alink">
 			<div class="item">
 				<div class="col"><c:out value="${b.boardId }" /></div>
 				<div class="col"><c:out value="${b.writerUsid }" /></div>
@@ -451,7 +451,11 @@ appearance: none;
 				<div class="col"><c:out value="${b.hit}" /></div>
 				<div class="col"><c:out value="${b.bigCategory }" /></div>
 				<div class="col"><c:out value="${b.smallCategory }" /></div>
-				<div class="col"><c:out value="${b.isclose }" /></div>
+				<div class="col" style="font-weight:bold">
+					<c:choose>
+						<c:when test="${b.isclose eq false }">진행중</c:when>
+						<c:otherwise>종료</c:otherwise>
+					</c:choose></div>
 			</div>
 			</a>
 		</div>

@@ -432,7 +432,7 @@ appearance: none;
 			<div class="col">아이디</div>
 			<div class="col">닉네임</div>
 			<div class="col">제목</div>
-			<div class="col">날짜</div>
+			<div class="colDate">날짜</div>
 			<div class="col">조회수</div>
 			<div class="col">대분류</div>
 			<div class="col">소분류</div>
@@ -446,17 +446,22 @@ appearance: none;
 		<c:if test="${not empty list }">
 			<c:forEach var="b" items="${list }">
 				<div class="board_list_body">
-			<a href="#" class="alink">
+			<a href="${path}/board/boardPage?boardNo=${b['boardId']}" class="alink">
 			<div class="item">
 					<div class="col"><c:out value="${b['boardId']}" /></div>
 					<div class="col"><c:out value="${b['writerUsid']}" /></div>
 					<div class="col"><c:out value="${b['writerNickname']}" /></div>
 					<div class="col"><c:out value="${b['title']}" /></div>
-					<div class="col"><c:out value="${b['enrollDate']}" /></div>
+					<div class="colDate"><c:out value="${b['enrollDate']}" /></div>
 					<div class="col"><c:out value="${b['hit']}" /></div>
 					<div class="col"><c:out value="${b['bigCategory']}" /></div>
 					<div class="col"><c:out value="${b['smallCategory']}" /></div>
-					<div class="col"><c:out value="${b['isclose']}" /></div>
+					<div class="col" style="font-weight:bold">
+					<c:choose>
+						<c:when test="${b['isclose'] eq false }">진행중</c:when>
+						<c:otherwise>종료</c:otherwise>
+					</c:choose>
+					</div>
 				</div>
 			</a>
 		</div>

@@ -192,6 +192,11 @@ a:hover {
 .pagination a:hover:not(.active) { /*호버*/
 	background-color: #ffcc66;
 }
+
+.pagination{
+padding-bottom: 3%;
+}
+
 </style>
 	<section id="content">
 		<div class="tabs">
@@ -230,7 +235,14 @@ a:hover {
 				<div class="col"><c:out value="${ex.expertRequestMemUsid }" /></div>
 				<div class="col"><c:out value="${ex.expertRequetExNick }" /></div>
 				<div class="col"><c:out value="${ex.expertRequestMemNick }" /></div>
-				<div class="col"><c:out value="${ex.expertIscounsel}"/></div>
+				<div class="col" style="color:blue">
+					<c:choose>
+						<c:when test="${ex.expertIscounsel eq 0 }">진행중</c:when>
+						<c:otherwise>종료</c:otherwise>
+					</c:choose></div>
+				
+					
+					
 				<div class="col"><c:out value="${ex.expertDate}" /></div>
 				<div class="col"><c:out value="${ex.expertCounselTime }" /></div>
 				<div class="col"><c:out value="${ex.expertCounselRequire }" /></div>
