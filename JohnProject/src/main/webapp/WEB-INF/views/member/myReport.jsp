@@ -83,6 +83,9 @@
 		background-color: #ffcc66;
 		color: #003478;
 	}
+	.textInner a{
+		color: black;
+	}
 </style>
 <section id="content">
 	<div id="container">
@@ -138,12 +141,5 @@
 		</div>
 	</div>
 </section>
-
-
-
-
-
-
-
-
-
+</body>
+</html>

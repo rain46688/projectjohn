@@ -435,12 +435,5 @@
 		$("#goodBye").submit();
 	}
 </script>
-
-
-
-
-
-
-
-
-
+</body>
+</html>

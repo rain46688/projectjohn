@@ -795,4 +795,18 @@ public class MemberController {
 		return mv;
 	}
 	
+//	포인트 충전하기
+	@RequestMapping("/member/chargePoint")
+	public ModelAndView chargePoint(ModelAndView mv, @RequestParam("point") int point, @RequestParam("usid") int usid) {
+		Member member=new Member();
+		member.setUsid(usid);
+		member=service.selectMemberByUsid(member);
+		int crtPoint=member.getPoint();
+		int newPoint=crtPoint+point;
+		member.setPoint(newPoint);
+		int result=service.chargePoint(member);
+		
+		return mv;
+	}
+	
 }
