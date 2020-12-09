@@ -71,19 +71,19 @@
 	
 	<!-- admin -->
 	<select id="selectReportList" resultMap="reportMap">
-		SELECT * FROM REPORT WHERE REPORT_ISCHECK=0
+		SELECT * FROM REPORT WHERE REPORT_ISCHECK=0 ORDER BY REPORT_ID
 	</select>
 	
 	<select id="selectReportCount" resultType="_int">
-		SELECT COUNT(*) FROM REPORT WHERE REPORT_ISCHECK=0
+		SELECT COUNT(*) FROM REPORT WHERE REPORT_ISCHECK=0 ORDER BY REPORT_ID
 	</select>
 	
 	<select id="selectReportListAfter" resultMap="reportMap">
-		SELECT * FROM REPORT WHERE REPORT_ISCHECK=1
+		SELECT * FROM REPORT WHERE REPORT_ISCHECK=1 ORDER BY REPORT_ID
 	</select>
 	
 	<select id="selectReportCountAfter" resultType="_int">
-		SELECT COUNT(*) FROM REPORT WHERE REPORT_ISCHECK=1
+		SELECT COUNT(*) FROM REPORT WHERE REPORT_ISCHECK=1 ORDER BY REPORT_ID
 	</select>
 	
 	<select id="selectOneReport" parameterType="_int" resultType="report" resultMap="reportMap">
@@ -98,20 +98,22 @@
 		DELETE FROM REPORT WHERE REPORT_ID=#{reportId}
 	</delete>
 	
-	<insert id="reportWarn" parameterType="report">
+	<update id="reportWarn" parameterType="report">
 		UPDATE REPORT R
-		SET REPORT_ISWARNING=(REPORT_ISWARNING+1) WHERE EXISTS (
+		SET REPORT_ISWARNING=(REPORT_ISWARNING+1),
+        REPORT_ISCHECK=(REPORT_ISCHECK+1) 
+        WHERE EXISTS (
 		SELECT USID
 		FROM MEMBER M
 		WHERE R.REPORT_TARGET_USID = M.USID AND R.REPORT_TARGET_USID=#{reportTargetUsid})
 		
-	</insert>
+	</update>
 	
 	<update id="reportWarnOut" parameterType="member">
 		<!-- DELETE FROM MEMBER M WHERE
 		M.USID = (SELECT R.REPORT_TARGET_USID FROM REPORT R WHERE REPORT_ISWARNING = '3') -->
 		UPDATE MEMBER M SET LEAVE_MEM=1 WHERE EXISTS 
-		(SELECT REPORT_ TRATGET_USID FROM REPORT R WHERE M.USID=R.REPORT_TARGET_USID
+		(SELECT REPORT_TRATGET_USID FROM REPORT R WHERE M.USID=R.REPORT_TARGET_USID
 		AND REPORT_ISWARNING='3')
 	</update>
 	

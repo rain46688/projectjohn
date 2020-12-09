@@ -62,7 +62,7 @@
 }
 
 .board_list .col {
-    width: 7.7%; 
+    width: 8.5%; 
     padding-top:1%;
     padding-bottom:1%;
     font-size:16px; /*헤드글자크기*/
@@ -384,7 +384,6 @@ appearance: none;
 					<div class="col">탈퇴여부</div>
 					<div class="col">구분</div>
 					<div class="col">전화번호</div>
-					<div class="col">경고횟수</div>
 				</div>
 				<c:forEach items="${list }" var="m">
 					<div class="board_list_body">
@@ -417,7 +416,10 @@ appearance: none;
 								<c:out value="${m.point}" />
 							</div>
 							<div class="col">
-								<c:out value="${m.leaveMem}" />
+									<c:choose>
+										<c:when test="${m.leaveMem eq false }">X</c:when>
+										<c:otherwise>O</c:otherwise>
+									</c:choose>
 							</div>
 							<div class="col">
 								<c:out value="${m.memClass}" />
@@ -425,10 +427,7 @@ appearance: none;
 							<div class="col">
 								<c:out value="${m.tel}" />
 							</div>
-							<div class="col">
-								<c:out value="" />
-							</div>
-							<%-- <td><c:out value="${report.report_iswarning}"/></td>  --%>
+							
 						</div>
 						</a>
 					</div>

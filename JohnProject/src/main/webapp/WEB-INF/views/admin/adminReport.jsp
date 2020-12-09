@@ -58,9 +58,9 @@ ul.tabs li { /*승인탭*/
     margin-top:7%;
 }
 ul.tabs li.active { /*미승인탭*/
-    background:  #f8f8ff ;
-    border-bottom: 1px solid  #f8f8ff  ;
-	border: 3px solid #f8f8ff  ;
+    background:  white ;
+    border-bottom: 1px solid  white  ;
+	border: 3px solid white  ;
     margin-top:7%;
 }
 .tab_container {
@@ -69,7 +69,7 @@ ul.tabs li.active { /*미승인탭*/
     clear: both;
     float: left;
     width: 100%;
-    background:  #f8f8ff  ;
+    background: white;
     margin-top:7%;
 
 
@@ -191,6 +191,11 @@ a:hover {
 .pagination a:hover:not(.active) { /*호버*/
 	background-color: #ffcc66;
 }
+
+.pagination{
+padding-bottom: 3%;
+}
+
 </style>	
 	<section id="content">
 	
@@ -228,7 +233,10 @@ a:hover {
             		<div class="col"><c:out value="${r.reportType }"/></div> 
             		<div class="col"><c:out value="${r.reportTitle }"/></div> 
             		<div class="col"><c:out value="${r.reportDate }"/></div> 
-            		<div class="col"><c:out value="${r.reportIscheck }"/></div> 
+            		<div class="col" style="color:blue"><c:choose>
+						<c:when test="${r.reportIscheck eq false }">처리전</c:when>
+						<c:otherwise>처리완료</c:otherwise>
+					</c:choose></div> 
             		<div class="col"><c:out value="${r.reportUserNickname }"/></div> 
             		<div class="col"><c:out value="${r.reportTargetNickname }"/></div> 
             		<div class="col"><c:out value="${r.reportIswarning }"/></div> 
