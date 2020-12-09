@@ -12,6 +12,8 @@ import com.kh.john.member.model.vo.Member;
 
 public interface ExboardService {
 
+	// List<Member> selectExpert(SqlSessionTemplate session) throws Exception;
+
 	Expert selectExpertMem(String no) throws Exception;
 
 	Member selectMember(String usid) throws Exception;

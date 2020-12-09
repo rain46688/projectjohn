@@ -13,6 +13,8 @@
 </jsp:include>
 
 <style>
+
+/* 초기화 */
 html, body, div, span, applet, object, iframe, h1, h2, h3, h4, h5, h6, p, blockquote, pre, a, abbr, acronym, address, big, cite, code, del, dfn, em,
 	ins, kbd, q, s, samp, small, strike, strong, sub, sup, tt, var, b, u, i, center, dl, dt, dd, ol, ul, li, fieldset, form, label, legend, table,
 	caption, tbody, tfoot, thead, tr, th, td, article, aside, canvas, details, embed, figure, figcaption, footer, header, hgroup, menu, nav, output, ruby,
@@ -31,14 +33,17 @@ html, body, div, span, applet, object, iframe, h1, h2, h3, h4, h5, h6, p, blockq
 	font-family: 'Noto Serif KR', serif;
 }
 
+/* 배경 */
 #headerAndContent {
 	background-color: #062449;
 }
 
 #content * {
-	  /* border: 1px solid red;  */
+	/* border: 1px solid red;  */
+	
 }
 
+/* 전체적인 div 구조 css */
 #content {
 	background-color: #062449;
 	display: flex;
@@ -47,87 +52,92 @@ html, body, div, span, applet, object, iframe, h1, h2, h3, h4, h5, h6, p, blockq
 	width: 100%;
 	height: 100%;
 	padding: 0 0 10% 0;
-
 }
 
 #contentDiv {
 	width: 60%;
-	height:100%;
+	height: 100%;
 }
 
-#mainDiv{
-	height:auto;
-	width:100%;
+#mainDiv {
+	height: auto;
+	width: 100%;
 	background-color: white;
 	border: 10px solid #FFCC66;
-	border-radius:2%;
+	border-radius: 2%;
 	margin: 3% 0 3% 0;
 }
 
-#licenseModifyDiv{
-	height:auto;
-	width:100%;
+#licenseModifyDiv {
+	height: auto;
+	width: 100%;
 	background-color: white;
 	border: 10px solid #FFCC66;
-	border-radius:2%;
+	border-radius: 2%;
 	margin: 3% 0 3% 0;
 }
 
 /* 일반 버튼  */
-.button-7{
-  width:20%;
-  height:60%;
-  border:2px solid #00316D;
-  display:flex;
-  justify-content:center;
-  align-items:center;
-  cursor:pointer;
-  position:relative;
-  box-sizing:border-box;
-  overflow:hidden;
-  margin:2%;
+.button-7 {
+	width: 20%;
+	height: 60%;
+	border: 2px solid #00316D;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	cursor: pointer;
+	position: relative;
+	box-sizing: border-box;
+	overflow: hidden;
+	margin: 2%;
 }
 
-.button-7 .johnbtn{
-  font-size:2vh;
-  color:#FFCC66;
-  text-decoration:none;
-  line-height:50px;
-  transition:all .5s ease;
-  z-index:2;
-  position:relative;
-       /*  */
-  width:100%;
-  height:100%;
-  display:flex;
-   justify-content:center;
-  align-items:center;
+.button-7 .johnbtn {
+	font-size: 2vh;
+	color: #FFCC66;
+	text-decoration: none;
+	line-height: 50px;
+	transition: all .5s ease;
+	z-index: 2;
+	position: relative;
+	/*  */
+	width: 100%;
+	height: 100%;
+	display: flex;
+	justify-content: center;
+	align-items: center;
 }
 
-.eff-7{
-  width:100%;
-  height:50px;
-  border:90px solid #00316D;
-  position:absolute;
-  transition:all .5s ease;
-  z-index:1;
-  box-sizing:border-box;
+.eff-7 {
+	width: 100%;
+	height: 50px;
+	border: 90px solid #00316D;
+	position: absolute;
+	transition: all .5s ease;
+	z-index: 1;
+	box-sizing: border-box;
 }
 
-.button-7:hover .eff-7{
-  border:0px solid #00316D;
+.button-7:hover .eff-7 {
+	border: 0px solid #00316D;
 }
 
-.button-7:hover .johnbtn{
-  color:#00316D;
+.button-7:hover .johnbtn {
+	color: #00316D;
 }
-
-
 </style>
 
 <section id="content">
 
-<style>
+	<style>
+
+/*  */
+/*  */
+/*  */
+/* 상단 전문가 정보 div 구조 css */
+/*  */
+/*  */
+/*  */
 
 /* 위 영역 제목 부분*/
 #upDiv {
@@ -152,7 +162,7 @@ html, body, div, span, applet, object, iframe, h1, h2, h3, h4, h5, h6, p, blockq
 	width: 100%;
 	height: 30%;
 	display: flex;
-	padding-left:1%;
+	padding-left: 1%;
 	margin: 3% 0 0 0;
 }
 
@@ -193,7 +203,7 @@ html, body, div, span, applet, object, iframe, h1, h2, h3, h4, h5, h6, p, blockq
 }
 
 .timeleftDiv {
-	padding-top:2%;
+	padding-top: 2%;
 	width: 100%;
 	height: 100%;
 }
@@ -207,9 +217,9 @@ html, body, div, span, applet, object, iframe, h1, h2, h3, h4, h5, h6, p, blockq
 	width: 40%;
 }
 
-#time p{
-	width:8%;
-	height:100%:
+#time p {
+	width: 8%;
+	height: 100%:
 }
 
 .timeleftDiv input {
@@ -221,7 +231,7 @@ html, body, div, span, applet, object, iframe, h1, h2, h3, h4, h5, h6, p, blockq
 	width: 50%;
 	height: 100%;
 	padding-right: 9%;
-	padding-left:2%;
+	padding-left: 2%;
 }
 
 #careerleftDiv {
@@ -266,7 +276,7 @@ h6 {
 	font-size: 2vh;
 	font-weight: bold;
 	padding: 1% 0 0 3%;
-	margin:0 2% 0 1.2%;
+	margin: 0 2% 0 1.2%;
 	border: 1px solid #AEAEAE;
 }
 
@@ -285,7 +295,6 @@ textarea:focus {
 	outline: none;
 }
 
-
 /* 버튼 */
 #buttonDiv {
 	display: flex;
@@ -298,7 +307,7 @@ textarea:focus {
 </style>
 
 	<div id="contentDiv">
-	
+
 		<div id="mainDiv">
 			<!-- up -->
 			<div id="upDiv">
@@ -350,30 +359,31 @@ textarea:focus {
 					</div>
 				</div>
 
-					<!-- <button class="btn btn-outline-success" onclick="modify();">수정완료</button> -->
-					<input id="profileUpload" type="file" style="display: none;">
-					<!-- style="display: none;" -->
-				</div>
+				<!-- <button class="btn btn-outline-success" onclick="modify();">수정완료</button> -->
+				<input id="profileUpload" type="file" style="display: none;">
+				<!-- style="display: none;" -->
+			</div>
 			<div id="buttonDiv">
-					<div class="button-7">
-						<div class="eff-7"></div>
-						<a class="johnbtn" onclick="modify();">수정 완료</a>
-					</div>
+				<div class="button-7">
+					<div class="eff-7"></div>
+					<a class="johnbtn" onclick="modify();">수정 완료</a>
+				</div>
 			</div>
 		</div>
-		
+
 		<!-- ------------------------------------------------------------------------------------------- -->
-		
-			<style>
+
+		<style>
 
 /*  */
 /*  */
 /*  */
-/* 라이센스 영역 */
+/* 하단 라이센스 영역  div 구조 css */
 /*  */
 /*  */
 /*  */
 
+/* 아래 div */
 #licenseupDiv {
 	height: 10%;
 	width: 100%;
@@ -382,6 +392,7 @@ textarea:focus {
 	display: flex;
 }
 
+/* 제목 */
 #licenseupDiv>h2 {
 	font-size: 3vh;
 	height: 100%;
@@ -399,11 +410,13 @@ textarea:focus {
 	color: white;
 }
 
+/* p 태그 */
 #licenseupFlag>p {
 	cursor: pointer;
 	font-weight: bold;
 }
 
+/* 자격증 표시 부분 div */
 #licenseDownDiv {
 	height: 85%;
 	width: 100%;
@@ -477,7 +490,7 @@ textarea:focus {
 	position: relative;
 	cursor: pointer;
 	background-color: white;
-	border:1px solid gray;
+	border: 1px solid gray;
 }
 
 .licenseImgView>p {
@@ -491,140 +504,141 @@ textarea:focus {
 }
 
 /* 수정완료 버튼 */
-#licenseButtonDiv .button-7{
-height:70%;
-	margin-bottom:1.5%;
+#licenseButtonDiv .button-7 {
+	height: 70%;
+	margin-bottom: 1.5%;
 }
-
 </style>
-		
+
 		<div id="licenseModifyDiv">
-		<div id="licenseupDiv">
-			<h2>자격증 정보 수정</h2>
-		</div>
-		<div id="licenseDownDiv">
-			<c:forEach items="${license }" var="license" varStatus="status">
-				<input type="hidden" value="${license.licenseId }" class="licenseIdInput" />
-				<div class="licenseDiv">
-					<div class="licenseImg" id="licenseImg${status.count}">
-						<img src="${path }/resources/upload/upload_license/${license.licenseFileName }" id="imgLicense${status.count}" class="img-thumbnail licenseImgs" />
-					</div>
-					<div class="licenseImgView" id="licenseImgView${status.count}">
-						<p>+</p>
-					</div>
-					<div class="licenseInfo">
-						<div class="licenseType">
-							<div class="licenseTitle">
-								<p>자격증 타입</p>
+			<div id="licenseupDiv">
+				<h2>자격증 정보 수정</h2>
+			</div>
+			<div id="licenseDownDiv">
+				<c:forEach items="${license }" var="license" varStatus="status">
+					<input type="hidden" value="${license.licenseId }" class="licenseIdInput" />
+					<div class="licenseDiv">
+						<div class="licenseImg" id="licenseImg${status.count}">
+							<img src="${path }/resources/upload/upload_license/${license.licenseFileName }" id="imgLicense${status.count}"
+								class="img-thumbnail licenseImgs" />
+						</div>
+						<div class="licenseImgView" id="licenseImgView${status.count}">
+							<p>+</p>
+						</div>
+						<div class="licenseInfo">
+							<div class="licenseType">
+								<div class="licenseTitle">
+									<p>자격증 타입</p>
+								</div>
+								<div class="licenseContent">
+									<select id="licenseTypeSelect${status.count}" name="licenseTypeSelect${status.count}" required class="form-control short licenseTypeSelect">
+										<c:forEach items="${likindList }" var="lity">
+											<option value="${lity}" ${license.licenseType == lity ? 'selected="selected"' : '' }>${lity}</option>
+										</c:forEach>
+									</select>
+								</div>
 							</div>
-							<div class="licenseContent">
-								<select id="licenseTypeSelect${status.count}" name="licenseTypeSelect${status.count}" required class="form-control short licenseTypeSelect">
-									<c:forEach items="${likindList }" var="lity">
-										<option value="${lity}" ${license.licenseType == lity ? 'selected="selected"' : '' }>${lity}</option>
-									</c:forEach>
-								</select>
+							<div class="licenseDate">
+								<div class="licenseTitle">
+									<p>자격증 발급 날짜</p>
+								</div>
+								<div class="licenseContent">
+									<input name="licenseTime${status.count}" id="licenseTime${status.count}" type="date" class="form-control times licenseTime"
+										value="${license.licenseDate}">
+								</div>
+							</div>
+							<div class="licenseCompany">
+								<div class="licenseTitle">
+									<p>자격증 발급 기관</p>
+								</div>
+								<div class="licenseContent">
+									<select id="licenseCompanySelect${status.count}" name="licenseCompanySelect${status.count}" required
+										class="form-control short licenseCompanySelect">
+										<c:forEach items="${comkindList }" var="comli" varStatus="status">
+											<option value="${comli}" ${license.licenseCompany == comli ? 'selected="selected"' : '' }>${comli}</option>
+										</c:forEach>
+									</select>
+								</div>
 							</div>
 						</div>
-						<div class="licenseDate">
-							<div class="licenseTitle">
-								<p>자격증 발급 날짜</p>
-							</div>
-							<div class="licenseContent">
-								<input name="licenseTime${status.count}" id="licenseTime${status.count}" type="date" class="form-control times licenseTime"
-									value="${license.licenseDate}">
-							</div>
+					</div>
+				</c:forEach>
+
+				<c:set var="num" value="${fn:length(license) + 1}" />
+				<c:forEach var="i" begin="1" end="${3 - (fn:length(license))}">
+
+					<div class="licenseDiv">
+						<div class="licenseImg" id="licenseImg${num}">
+							<img src="${path }/resources/upload/upload_license/nolicense.png" id="imgLicense${num}" class="img-thumbnail licenseImgs" />
 						</div>
-						<div class="licenseCompany">
-							<div class="licenseTitle">
-								<p>자격증 발급 기관</p>
+						<div class="licenseImgView" id="licenseImgView${num}">
+							<p>+</p>
+						</div>
+						<div class="licenseInfo">
+							<div class="licenseType">
+								<div class="licenseTitle">
+									<p>자격증 타입</p>
+								</div>
+								<div class="licenseContent">
+									<select id="licenseTypeSelect${num}" name="licenseTypeSelect${num}" required class="form-control short licenseTypeSelect">
+										<option value="선택 안함" selected>선택 안함</option>
+										<c:forEach items="${likindList }" var="lity" varStatus="status">
+											<option value="${lity}">${lity}</option>
+										</c:forEach>
+									</select>
+								</div>
 							</div>
-							<div class="licenseContent">
-								<select id="licenseCompanySelect${status.count}" name="licenseCompanySelect${status.count}" required
-									class="form-control short licenseCompanySelect">
-									<c:forEach items="${comkindList }" var="comli" varStatus="status">
-										<option value="${comli}" ${license.licenseCompany == comli ? 'selected="selected"' : '' }>${comli}</option>
-									</c:forEach>
-								</select>
+							<div class="licenseDate">
+								<div class="licenseTitle">
+									<p>자격증 발급 날짜</p>
+								</div>
+								<div class="licenseContent">
+									<input name="licenseTime${num}" id="licenseTime${num}" type="date" class="form-control times licenseTime">
+								</div>
+							</div>
+							<div class="licenseCompany">
+								<div class="licenseTitle">
+									<p>자격증 발급 기관</p>
+								</div>
+								<div class="licenseContent">
+									<select id="licenseCompanySelect${num}" name="licenseCompanySelect${num}" required class="form-control short licenseCompanySelect">
+										<option value="선택 안함" selected>선택 안함</option>
+										<c:forEach items="${comkindList }" var="comli" varStatus="status">
+											<option value="${comli}">${comli}</option>
+										</c:forEach>
+									</select>
+								</div>
 							</div>
 						</div>
 					</div>
+					<c:set var="num" value="${num + 1}" />
+				</c:forEach>
+
+				<div id="licenseButtonDiv">
+					<div class="button-7">
+						<div class="eff-7"></div>
+						<a class="johnbtn" onclick="modify();">수정 완료</a>
+					</div>
+					<!-- <button class="btn btn-outline-success" onclick="modifyLicense();">수정완료</button> -->
+					<!-- ${fn:length(license) + 1}/${3 - (fn:length(license))} -->
+					<input id="licenseUpload1" type="file" class="licenseUpload" style="display: none;"> <input id="licenseUpload2" type="file"
+						class="licenseUpload" style="display: none;"> <input id="licenseUpload3" type="file" class="licenseUpload" style="display: none;">
+					<!-- style="display: none;" -->
 				</div>
-			</c:forEach>
-
-			<c:set var="num" value="${fn:length(license) + 1}" />
-			<c:forEach var="i" begin="1" end="${3 - (fn:length(license))}">
-
-				<div class="licenseDiv">
-					<div class="licenseImg" id="licenseImg${num}">
-						<img src="${path }/resources/upload/upload_license/nolicense.png" id="imgLicense${num}" class="img-thumbnail licenseImgs" />
-					</div>
-					<div class="licenseImgView" id="licenseImgView${num}">
-						<p>+</p>
-					</div>
-					<div class="licenseInfo">
-						<div class="licenseType">
-							<div class="licenseTitle">
-								<p>자격증 타입</p>
-							</div>
-							<div class="licenseContent">
-								<select id="licenseTypeSelect${num}" name="licenseTypeSelect${num}" required class="form-control short licenseTypeSelect">
-									<option value="선택 안함" selected>선택 안함</option>
-									<c:forEach items="${likindList }" var="lity" varStatus="status">
-										<option value="${lity}">${lity}</option>
-									</c:forEach>
-								</select>
-							</div>
-						</div>
-						<div class="licenseDate">
-							<div class="licenseTitle">
-								<p>자격증 발급 날짜</p>
-							</div>
-							<div class="licenseContent">
-								<input name="licenseTime${num}" id="licenseTime${num}" type="date" class="form-control times licenseTime">
-							</div>
-						</div>
-						<div class="licenseCompany">
-							<div class="licenseTitle">
-								<p>자격증 발급 기관</p>
-							</div>
-							<div class="licenseContent">
-								<select id="licenseCompanySelect${num}" name="licenseCompanySelect${num}" required class="form-control short licenseCompanySelect">
-									<option value="선택 안함" selected>선택 안함</option>
-									<c:forEach items="${comkindList }" var="comli" varStatus="status">
-										<option value="${comli}">${comli}</option>
-									</c:forEach>
-								</select>
-							</div>
-						</div>
-					</div>
-				</div>
-				<c:set var="num" value="${num + 1}" />
-			</c:forEach>
-
-			<div id="licenseButtonDiv">
-					 <div class="button-7">
-												    <div class="eff-7"></div>
-												    <a class="johnbtn" onclick="modify();">수정 완료</a>
-												  </div>	
-				<!-- <button class="btn btn-outline-success" onclick="modifyLicense();">수정완료</button> -->
-				<!-- ${fn:length(license) + 1}/${3 - (fn:length(license))} -->
-				<input id="licenseUpload1" type="file" class="licenseUpload" style="display: none;"> <input id="licenseUpload2" type="file"
-					class="licenseUpload" style="display: none;"> <input id="licenseUpload3" type="file" class="licenseUpload" style="display: none;">
-				<!-- style="display: none;" -->
 			</div>
 		</div>
+		<br> <br> <br>
 	</div>
-		<br><br><br>
-	</div>
-	
-	
-	
-<script>
+
+
+
+	<script>
 
 'use strict;'
 
-//이미지 h w 값 변수 생성
-
+	// ============================
+	// 이미지 h w 값 변수 생성
+	// ============================
 let proWith;
 let proHeight;
 let liWith1;
@@ -634,8 +648,10 @@ let liHeight2;
 let liWith3;
 let liHeight3;
 
-//가운데 화면 스위칭
 
+	// ============================
+	//가운데 화면 스위칭
+	// ============================
 $("#upFlag").click(e=>{
 	$("#mainDiv").stop(true).animate({'opacity': 0}, 300, function() {
         $(this).css({'display': 'none'})
@@ -651,8 +667,10 @@ $("#licenseupFlag").click(e=>{
 });
 
 
-// 자격증 수정 완료 버튼
 
+	// ============================
+	// 자격증 수정 완료 버튼
+	// ============================
 function modifyLicense(){
 	console.log("자격증 수정 완료");
 	let formData = new FormData();
@@ -703,8 +721,10 @@ function modifyLicense(){
 	});
 }
 
-// 수정완료 버튼
 
+	// ============================
+	// 수정완료 버튼
+	// ============================
 function modify(){
 	console.log("수정 완료");
 	let frm2 = $("#profileUpload")[0].files[0];
@@ -749,7 +769,10 @@ function modify(){
 	});
 }
 
-//호버 이미지 섬네일 변경 & 업로드
+
+	// ============================
+	//호버 이미지 섬네일 변경 & 업로드
+	// ============================
 for(let i = 1; i < 4; i++){
 	$('#licenseImg'+i).hover(function(){
 		liWith1 =  $("#imgLicense"+i).width();
@@ -786,28 +809,31 @@ for(let i = 1; i < 4; i++){
 }
 
 
-function fileViewUpload(f,w,h,im,up){
-	if(f != '.png' && f != '.jpg' && f != '.jpeg' && f != '.gif'){
-		alert('이미지 파일만 업로드 가능합니다.');
-		return false;
-		}else{
-		let file = up.files[0];
-	    reader = new FileReader();
-	    reader.onload = function (event) {
-	        let img = new Image();
-	        img.src = event.target.result;
-	        img.width = w;
-	        img.height = h;
-	        im.empty();
-	        im.append(img);
-	    };
-	    reader.readAsDataURL(file);
-	    return false;
-		}
-}
+	// ============================
+	// 파일 업로드 함수
+	// ============================
+	function fileViewUpload(f,w,h,im,up){
+		if(f != '.png' && f != '.jpg' && f != '.jpeg' && f != '.gif'){
+			alert('이미지 파일만 업로드 가능합니다.');
+			return false;
+			}else{
+			let file = up.files[0];
+		    reader = new FileReader();
+		    reader.onload = function (event) {
+		        let img = new Image();
+		        img.src = event.target.result;
+		        img.width = w;
+		        img.height = h;
+		        im.empty();
+		        im.append(img);
+		    };
+		    reader.readAsDataURL(file);
+		    return false;
+			}
+	}
 </script>
-	
-	
+
+
 </section>
 
 

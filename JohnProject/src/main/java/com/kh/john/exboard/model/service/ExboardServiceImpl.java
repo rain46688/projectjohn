@@ -22,13 +22,8 @@ import lombok.extern.slf4j.Slf4j;
 
 /**
  * @Author : cms
- * @Date : 2020. 12. 9.
- * @explain : 
- */
-/**
- * @Author : cms
- * @Date : 2020. 12. 9.
- * @explain :
+ * @Date : 2020. 12. 8.
+ * @explain : 전문가 서비스
  */
 @Service
 @Slf4j
@@ -142,7 +137,6 @@ public class ExboardServiceImpl implements ExboardService {
 		} else {
 			return 0;
 		}
-
 	}
 
 	/**
@@ -256,36 +250,66 @@ public class ExboardServiceImpl implements ExboardService {
 	 * list; }
 	 */
 
+	/**
+	 * @Author : cms
+	 * @Date : 2020. 12. 8.
+	 * @explain : expertApply에서 자격증 정보 넘기기
+	 */
 	@Override
 	public List<License> selectExpertLicense(String exusid) throws Exception {
 		// TODO Auto-generated method stub
 		return dao.selectExpertLicense(session, exusid);
 	}
 
+	/**
+	 * @Author : cms
+	 * @Date : 2020. 12. 8.
+	 * @explain : ExpertListHandler에서 전문가가 자기한테 온 내역들 보고 관리하는곳 리스트 소켓으로 가져오기
+	 */
 	@Override
 	public List<ExpertRequest> selectExRequestList(Member m) throws Exception {
 		// TODO Auto-generated method stub
 		return dao.selectExRequestList(session, m);
 	}
 
+	/**
+	 * @Author : cms
+	 * @Date : 2020. 12. 8.
+	 * @explain : 자격증의 종류 디비에서 가져오기 (john 디비에 정의해놓은 풀에서 가져옴)
+	 */
 	@Override
 	public List<String> selectLicenseKind() throws Exception {
 		// TODO Auto-generated method stub
 		return dao.selectLicenseKind(session);
 	}
 
+	/**
+	 * @Author : cms
+	 * @Date : 2020. 12. 8.
+	 * @explain : 상담의 종류 디비에서 가져오기 (john 디비에 정의해놓은 풀에서 가져옴)
+	 */
 	@Override
 	public List<String> selectCounselKind() throws Exception {
 		// TODO Auto-generated method stub
 		return dao.selectCounselKind(session);
 	}
 
+	/**
+	 * @Author : cms
+	 * @Date : 2020. 12. 8.
+	 * @explain : 자격증 인증 기관 종류 디비에서 가져오기 (john 디비에 정의해놓은 풀에서 가져옴)
+	 */
 	@Override
 	public List<String> selectCompanyKind() throws Exception {
 		// TODO Auto-generated method stub
 		return dao.selectCompanyKind(session);
 	}
 
+	/**
+	 * @Author : cms
+	 * @Date : 2020. 12. 8.
+	 * @explain : 자격증 정보 수정 전문가 수정 게시판
+	 */
 	@Override
 	public void updateLicenseModify(List<License> paramlist) throws Exception {
 		// TODO Auto-generated method stub
@@ -307,12 +331,22 @@ public class ExboardServiceImpl implements ExboardService {
 
 	}
 
+	/**
+	 * @Author : cms
+	 * @Date : 2020. 12. 8.
+	 * @explain : 전문가 정보 수정
+	 */
 	@Override
 	public void updateExInfoModify(Expert et) throws Exception {
 		// TODO Auto-generated method stub
 		dao.updateExInfoModify(session, et);
 	}
 
+	/**
+	 * @Author : cms
+	 * @Date : 2020. 12. 8.
+	 * @explain : 리뷰 작성 하면 expertboard 부분 수정
+	 */
 	@Override
 	public void updateExpertBoardReview(Map<String, String> map) throws Exception {
 		// TODO Auto-generated method stub
@@ -330,6 +364,11 @@ public class ExboardServiceImpl implements ExboardService {
 		dao.updateExpertInfoReview(session, map);
 	}
 
+	/**
+	 * @Author : cms
+	 * @Date : 2020. 12. 8.
+	 * @explain : 리뷰 작성했는지 먼저 확인하는 작업
+	 */
 	@Override
 	public int expertReviewWriteCheck(String bno) throws Exception {
 		// TODO Auto-generated method stub
@@ -346,12 +385,22 @@ public class ExboardServiceImpl implements ExboardService {
 		return result;
 	}
 
+	/**
+	 * @Author : cms
+	 * @Date : 2020. 12. 8.
+	 * @explain : 상담원 리스트 보는 게시판 전문가 리스트 가져오기 member랑 expert_info에서 가져옴
+	 */
 	@Override
 	public List<ExpertBoardListVo> selectExpertBoardList() throws Exception {
 		// TODO Auto-generated method stub
 		return dao.selectExpertBoardList(session);
 	}
 
+	/**
+	 * @Author : cms
+	 * @Date : 2020. 12. 8.
+	 * @explain : 상담원 리스트 보는 게시판 리뷰 리스트 가져오기 expertboard
+	 */
 	@Override
 	public List<ExpertBoard> selectExpertReviewList() throws Exception {
 		// TODO Auto-generated method stub

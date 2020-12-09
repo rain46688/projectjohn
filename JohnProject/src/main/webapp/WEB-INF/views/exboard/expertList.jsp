@@ -529,25 +529,40 @@ html, body, div, span, applet, object, iframe, h1, h2, h3, h4, h5, h6, p, blockq
 
 		'use strict';
 	
-		//부모창이 종료되면 자식창도 종료
+		
+	// ============================
+	//부모창이 종료되면 자식창도 종료
+	// ============================
 		let pop;
 		window.onunload = function() { 
 			pop.close(); 
 		}
 		
-		// 상담 신청 버튼
+		
+	// ============================
+	// 상담 신청 버튼
+	// ============================
 		 function counsel(no,nic){
 			 console.log("no : "+no+" nic : "+nic);
 			 window.open("${path}/expert/expertApply?no="+no+"&nic="+nic,'회원','width=800, height=800, toolbar=no, menubar=no, scrollbars=no, resizable=yes');
 		 }
 
-		// 전체 배열
+		
+	// ============================
+	// 전체 배열
+	// ============================
 		let newexboardList = [];
 		
-		// 전체 배열
+		
+	// ============================
+	// 전체 배열
+	// ============================
 		let newexReviewList = [];
 		
-		//소켓 실행
+		
+	// ============================
+	//소켓 실행
+	// ============================
 		const exboardListConn = new WebSocket('wss://192.168.219.105${path}/exlistSocket');
 		
 		exboardListConn.onopen = function() {
@@ -574,7 +589,10 @@ html, body, div, span, applet, object, iframe, h1, h2, h3, h4, h5, h6, p, blockq
 			console.log("exboardListsendMessage");
 		};
 		
-		//카테고리 클릭 이벤트		
+		
+	// ============================
+	//카테고리 클릭 이벤트		
+	// ============================
 		 $(".counsel-title").click(e => {
 			 	let cate = $(e.target).html();
 				console.log(cate);//직장 상담 등등 출력
@@ -586,7 +604,10 @@ html, body, div, span, applet, object, iframe, h1, h2, h3, h4, h5, h6, p, blockq
 				slide();
 		 });
 		
-		//위 리스트 출력
+		
+	// ============================
+	//위 리스트 출력		
+	// ============================
 		function printUpExpertList(){
 			console.log("printUpExpertList 실행");
 			let tempprinthtml = "";
@@ -632,7 +653,10 @@ html, body, div, span, applet, object, iframe, h1, h2, h3, h4, h5, h6, p, blockq
 	
 		}
 		
-		//아래 리뷰 리스트 출력
+		
+	// ============================
+	//아래 리뷰 리스트 출력		
+	// ============================
 		function printDownExpertList(){
 			let tempprinthtml = "";
 				tempprinthtml = "<div class='emptyReview'><h1>등록된 리뷰가 없습니다.</h1></div>";
@@ -669,7 +693,10 @@ html, body, div, span, applet, object, iframe, h1, h2, h3, h4, h5, h6, p, blockq
 				}
 		}
 		
-		//별점 찍기, 끝나는 숫자를 end로 입력하고 빈별인지 꽉찬별인지 두번째 파라미터로 구분
+		
+	// ============================
+	//별점 찍기, 끝나는 숫자를 end로 입력하고 빈별인지 꽉찬별인지 두번째 파라미터로 구분		
+	// ============================
 		function printStar(end, emptystar){
 			let starhtml = "";
 			for(let i = 1; i <= end; i++){
@@ -682,8 +709,11 @@ html, body, div, span, applet, object, iframe, h1, h2, h3, h4, h5, h6, p, blockq
 			return starhtml;
 		}
 
+
+	 // ============================
 	 //슬라이드 생성하기 
-	 // 요소들을 생성한후 실행해줘야 슬라이드가 제대로 먹힘 삽질함 ㅋㅋ
+	 // 요소들을 생성한후 실행해줘야 슬라이드가 제대로 먹힘 삽질함 ㅅㅂ ㅋㅋ		
+	// ============================
 	function slide(){
 			// 가로 슬라이드
 			new Splide('.splide', {

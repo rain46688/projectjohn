@@ -23,6 +23,7 @@ html, body, div, span, applet, object, iframe, h1, h2, h3, h4, h5, h6, p, blockq
 	user-select: none;
 }
 
+/* 배경 */
 #headerAndContent {
 	background-color: #062449;
 }
