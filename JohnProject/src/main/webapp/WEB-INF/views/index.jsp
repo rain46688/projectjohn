@@ -30,9 +30,23 @@ pageEncoding="UTF-8"%>
 </head>
 <body>
     <div class="wrapper">
+        <div class="first title">
+            당신의
+        </div>
+        <div class="second title">
+            고민을
+        </div>
+        <div class="third title">
+            재판해드립니다.
+        </div>
+        <div class="enter title" onclick="location.href='${path}/memberLogin'">
+            &gt; &gt; 입장하기
+        </div>
         <div class="scale">
             <!--저울대-->
-            <img src="${path}/resources/images/scale1.png" alt="">
+            <div class="scale-1">
+                <img src="${path}/resources/images/scale1.png" alt="">
+            </div>
             
             <!--저울 봉-->
             <div class="scale-2">
@@ -47,20 +61,23 @@ pageEncoding="UTF-8"%>
             <div class="scale-right">
                 <img src="${path}/resources/images/scale3.png" alt="">
             </div>
-        </div>
-        <div class="title">
-            <p class="first">
-                당신의
-            </p>
-            <p class="second">
-                고민을
-            </p>
-            <p class="third">
-                재판해드립니다.
-            </p>
-        </div>
-        <div class="enter" onclick="location.href='${path}/memberLogin'">
-            <p>&gt; &gt; 입장하기</p>
+
+            <!--하트-->
+            <div class="hearts" id="heart1">
+                <img src="${path}/resources/images/heart-red.png">
+            </div>
+            <div class="hearts" id="heart2">
+                <img src="${path}/resources/images/heart-pk.png">
+            </div>
+            <div class="hearts" id="heart3">
+                <img src="${path}/resources/images/heart-red.png">
+            </div>
+            <div class="hearts" id="heart4">
+                <img src="${path}/resources/images/heart.png">
+            </div>
+            <div class="hearts" id="heart5">
+                <img src="${path}/resources/images/heart-wh.png">
+            </div>
         </div>
     </div>
 
