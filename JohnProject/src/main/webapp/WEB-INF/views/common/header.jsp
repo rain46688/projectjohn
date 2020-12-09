@@ -97,7 +97,7 @@
     padding-right: 0;
     min-width: 7rem;
     left: -110%;
-    top: 125%;
+    top: 103%;
 }
 
 .dropdown-content a {
