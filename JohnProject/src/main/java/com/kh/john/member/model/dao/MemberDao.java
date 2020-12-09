@@ -94,6 +94,8 @@ public interface MemberDao {
 
 	int requestListCount(SqlSessionTemplate session, int usid);
 
+	int goodBye(SqlSessionTemplate session, int usid);
+
 
 
 }

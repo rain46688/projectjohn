@@ -9,6 +9,7 @@ import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.stereotype.Repository;
 
 import com.kh.john.exboard.model.vo.ExpertBoard;
+import com.kh.john.exboard.model.vo.ExpertBoardListVo;
 import com.kh.john.exboard.model.vo.ExpertRequest;
 import com.kh.john.member.model.vo.Expert;
 import com.kh.john.member.model.vo.License;
@@ -205,6 +206,18 @@ public class ExboardDaoImpl implements ExboardDao {
 	public int expertReviewWriteCheck(SqlSessionTemplate session, String bno) throws Exception {
 		// TODO Auto-generated method stub
 		return session.selectOne("expert.expertReviewWriteCheck", bno);
+	}
+
+	@Override
+	public List<ExpertBoardListVo> selectExpertBoardList(SqlSessionTemplate session) throws Exception {
+		// TODO Auto-generated method stub
+		return session.selectList("expert.selectExpertBoardList");
+	}
+
+	@Override
+	public List<ExpertBoard> selectExpertReviewList(SqlSessionTemplate session) throws Exception {
+		// TODO Auto-generated method stub
+		return session.selectList("expert.selectExpertReviewList");
 	}
 
 }

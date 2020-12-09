@@ -60,9 +60,9 @@ ul.tabs li { /*승인탭*/
     margin-top:7%;
 }
 ul.tabs li.active { /*미승인탭*/
-    background:  #f8f8ff ;
-    border-bottom: 1px solid  #f8f8ff  ;
-	border: 3px solid #f8f8ff  ;
+    background:  white ;
+    border-bottom: 1px solid  white  ;
+	border: 3px solid white  ;
     margin-top:7%;
 }
 .tab_container {
@@ -71,7 +71,7 @@ ul.tabs li.active { /*미승인탭*/
     clear: both;
     float: left;
     width: 100%;
-    background:  #f8f8ff  ;
+    background:  white  ;
     margin-top:7%;
 
 
@@ -271,6 +271,7 @@ a:hover {
 		</div>
 
 	</div>
+
 
 </section>
 

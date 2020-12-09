@@ -384,9 +384,9 @@ appearance: none;
 	
 		</div>
 		</div>
+		
 
-
-		<div id="pageBar" class="paging">${pageBar2 }</div>
+		<div id="pageBar" class="paging">${pageBar }</div>
 
 
 

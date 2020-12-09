@@ -28,6 +28,7 @@ label, input {
 	<p>패스 : ${pageContext.request.requestURI}</p>
 	<br>
 	<button class="btn btn-outline-success" onclick="location.href='${path}/expert/expertPrintList?ca=직장 상담'">유저가 전문가 리스트 보기</button>
+	<button class="btn btn-outline-success" onclick="location.href='${path}/expert/expertPrintList2'">유저가 전문가 리스트 보기2</button>
 	<c:if test="${loginMember.memClass == '전문가'}">
 		<button class="btn btn-outline-success" onclick="location.href='${path}/expert/expertRequestPrintList'">전문가가 상담할 유저 리스트 보기</button>
 		<button class="btn btn-outline-success" onclick="location.href='${path}/member/myPage/expertInfoModify?usid=${loginMember.usid }'">전문가 정보 수정하기</button>
@@ -43,7 +44,7 @@ label, input {
 	<input type="text" class="form-control short" name="usid" placeholder="받는사람 usid"/>
 	<input type="text" class="form-control short" name="type" placeholder="타입"/>
 	<input type="text" class="form-control short" name="content" placeholder="내용"/>
-	<button class="btn btn-outline-success" onclick="sendAlarm('${loginMember.usid}',$('input[name=usid]').val(),$('input[name=type]').val(),$('input[name=content]').val(),'${loginMember.memNickname}');">알람 보내기</button>
+	<button class="btn btn-outline-success" onclick="sendAlarm('${loginMember.usid}',$('input[name=usid]').val(),$('input[name=type]').val(),$('input[name=content]').val(),'',${loginMember.memNickname}');">알람 보내기</button>
 	
 	<!-- 
 	

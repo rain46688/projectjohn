@@ -117,14 +117,14 @@ a.menuLink:hover{
 			<a href="${path}/report/customerReport" id="aa" class="menuLink"> 
 		<div class="menusOnSide">
 			<img src="${path }/resources/images/admin/siren (1).png"
-				class="menuImages"> 신고하기
+				class="menuImages">신고하기
 		</div>
 			</a>
 			
 			<a href="${path}/customer/customerNotice" id="aa" class="menuLink"> 
 		<div class="menusOnSide">
 			<img src="${path }/resources/images/admin/notice(1).png"
-				class="menuImages"> 공지사항
+				class="menuImages">공지사항
 		</div>
 			</a>
 			
@@ -135,10 +135,10 @@ a.menuLink:hover{
 		</div>
 			</a>
 		
-			<a href="${path}/customer/customerChat?adminUsid=31&myUsid=${loginMember.usid }" class="menuLink"> 
+			<a href="${path}/customer/customerChat?adminUsid=31&myUsid=${loginMember.usid }" id="aa" class="menuLink"> 
 		<div class="menusOnSide">
 			<img class="menuImages"
-				src="${path }/resources/images/admin/message.png"/> 1:1문의하기
+				src="${path }/resources/images/admin/message.png"/>1:1문의하기
 		</div>
 			</a>
 

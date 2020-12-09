@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.kh.john.admin.model.vo.NoticeFile;
+import com.kh.john.board.model.vo.Board;
 import com.kh.john.member.model.vo.Member;
 import com.kh.john.report.model.dao.ReportDao;
 import com.kh.john.report.model.vo.Report;
@@ -42,7 +43,11 @@ public class ReportServiceImpl implements ReportService {
 		return dao.insertReport(session, r);
 	}
 
-
+	
+	@Override
+	public Board selectBoard(int boardId) {
+		return dao.selectBoard(session, boardId);
+	}
 	
 	
 	//admin
@@ -96,6 +101,12 @@ public class ReportServiceImpl implements ReportService {
 	public int insertReportAnswer(Report r) {
 		return dao.insertReportAnswer(session, r);
 	}
+
+
+
+
+
+
 	
 	
 	

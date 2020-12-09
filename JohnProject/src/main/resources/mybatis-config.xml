@@ -27,6 +27,7 @@
 	<typeAlias type="com.kh.john.board.model.vo.Subscribe" alias="subscribe"/>
 	<typeAlias type="com.kh.john.member.model.vo.ExpertObjects" alias="expertObjects"/>
 	<typeAlias type="com.kh.john.admin.model.vo.AdminMessage" alias="adminMessage"/>
+	<typeAlias type="com.kh.john.exboard.model.vo.ExpertBoardListVo" alias="exboardListVo"/>
  </typeAliases>
  
 

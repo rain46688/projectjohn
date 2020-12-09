@@ -200,7 +200,7 @@ html, body, div, span, applet, object, iframe, h1, h2, h3, h4, h5, h6, p, blockq
 /* 카테고리 제목 */
 .counsel-title {
 	cursor: pointer;
-	font-size: 2.5em;
+	font-size: 2em;
 	font-weight: bold;
 	text-decoration: none;
 	z-index: 1;
@@ -276,7 +276,7 @@ html, body, div, span, applet, object, iframe, h1, h2, h3, h4, h5, h6, p, blockq
 /* 카드 오른쪽 점수  */
 .exRating {
 	height: 20%;
-	font-size: 2vh;
+	font-size: 1.8vh;
 	overflow: hidden;
 }
 
@@ -424,7 +424,7 @@ html, body, div, span, applet, object, iframe, h1, h2, h3, h4, h5, h6, p, blockq
 }
 
 .button-8 .johnbtn {
-	font-size: 2.5vh;
+	font-size: 2vh;
 	color: #FFCC66;
 	text-decoration: none;
 	line-height: 50px;
@@ -479,7 +479,6 @@ html, body, div, span, applet, object, iframe, h1, h2, h3, h4, h5, h6, p, blockq
 											<div class="exName">${expert['mem'].memName}</div>
 											<c:set var="count" value="${((expert['ex'].expertReviewCount) == 0)?1:(expert['ex'].expertReviewCount)}" />
 											<div class="exRating">
-												평점 :
 												<c:forEach var="i" begin="1" end="${Math.round((expert['ex'].expertRating)/(count))}">
 													<span class="fa fa-star checked"></span>
 												</c:forEach>

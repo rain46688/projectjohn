@@ -2,7 +2,7 @@ package com.kh.john.admin.controller;
 
 public class AdminPageBar {
 	public static String getPageBar(int totalData, int cPage, int numPerPage, String uri, 
-			String searchType,String searchType2,String keyword, String gender) {
+			String searchType,String searchType2,String keyword, String gender, String k, String l) {
 		
 		String pageBar = "";
 
@@ -61,8 +61,8 @@ public class AdminPageBar {
 				"+'&searchType2='+"+searchType2+
 				"+'&keyword='+"+keyword+
 				"+'&gender='+"+gender+
-//				"'&memClass='+"+memClass+
-//				"+'&leaveMem='+"+leaveMem+	
+				"+'&memClass='+"+k+
+				"+'&leaveMem='+"+l+	
 				";";
 		//pageBar += "location.href='" + uri + "?cPage='+cPage;";
 

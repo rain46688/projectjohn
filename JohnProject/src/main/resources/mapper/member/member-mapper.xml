@@ -75,11 +75,11 @@
 </select>
 
 <select id="liked" parameterType="map" resultMap="boardMap">
-	SELECT * FROM BOARD B WHERE B.BOARD_ID IN (SELECT L.LIKE_BOARD_ID FROM LIKE_DISLIKE L WHERE L.LIKE_USID=#{usid} AND LIKE_ISDISLIKE=1)
+	SELECT * FROM BOARD B WHERE B.BOARD_ID IN (SELECT L.LIKE_BOARD_ID FROM LIKE_DISLIKE L WHERE L.LIKE_USID=#{usid})
 </select>
 
 <select id="likedCount" parameterType="_int" resultType="_int">
-	SELECT COUNT(*) FROM LIKE_DISLIKE WHERE LIKE_USID=#{usid} AND LIKE_ISDISLIKE=1
+	SELECT COUNT(*) FROM LIKE_DISLIKE WHERE LIKE_USID=#{usid}
 </select>
 
 <select id="myReport" parameterType="map" resultMap="reportMap">
@@ -163,11 +163,14 @@
 	SELECT COUNT(*) FROM EXPERT_REQUEST WHERE EXPERT_REQUEST_MEM_USID=#{usid}
 </select>
 
+<update id="goodBye" parameterType="_int">
+	UPDATE MEMBER SET LEAVE_MEM=1 WHERE USID=#{usid}
+</update>
 
 <resultMap type="exrequest" id="exrequestMap">
 	<id column="EXPERT_REQUET_EX_USID" property="expertRequetExUsid" />
 	<id column="EXPERT_REQUEST_MEM_USID" property="expertRequestMemUsid" />
-	<id column="EXPERT_REQUET_EX_NICK" property="expertRequetExNick" />
+	<id column="EXPERT_REQUEST_EX_NICK" property="expertRequetExNick" />
 	<id column="EXPERT_REQUEST_MEM_NICK" property="expertRequestMemNick" />
 	<id column="EXPERT_ISCOUNSEL" property="expertIscounsel" />
 	<id column="EXPERT_DATE" property="expertDate" />

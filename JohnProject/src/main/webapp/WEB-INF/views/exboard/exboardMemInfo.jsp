@@ -63,7 +63,7 @@ body{
 							<c:if test="${not empty expert}">
 								<h2 class="d-block" style="font-size: 1.5rem; font-weight: bold">${mem.memName } 상담사님</h2>
 								<c:set var="count" value="${((expert.expertReviewCount) == 0)?1:(expert.expertReviewCount)}" />
-								<h6 class="d-block">평점 :
+								<h6 class="d-block">
 									<c:forEach var="i" begin="1" end="${Math.round((expert.expertRating)/(count))}">
 												<span class="fa fa-star checked"></span>
 											</c:forEach>
@@ -151,7 +151,7 @@ body{
 										<div class="col-sm-3 col-md-3 col-5">
 											<label style="font-weight: bold;">상담 경력</label>
 										</div>
-										<div class="col-md-7 col-6">${expert.expertProfile}</div>
+										<div class="col-md-7 col-6">${expert.expertProfile} 년</div>
 									</div>
 									<hr />
 

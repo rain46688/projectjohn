@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.Map;
 
 import com.kh.john.exboard.model.vo.ExpertBoard;
+import com.kh.john.exboard.model.vo.ExpertBoardListVo;
 import com.kh.john.exboard.model.vo.ExpertRequest;
 import com.kh.john.member.model.vo.Expert;
 import com.kh.john.member.model.vo.License;
@@ -62,5 +63,9 @@ public interface ExboardService {
 	void updateExpertBoardReview(Map<String, String> map) throws Exception;
 
 	int expertReviewWriteCheck(String bno) throws Exception;
+
+	List<ExpertBoardListVo> selectExpertBoardList() throws Exception;
+
+	List<ExpertBoard> selectExpertReviewList() throws Exception;
 
 }

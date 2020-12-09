@@ -27,13 +27,16 @@ html, body, div, span, applet, object, iframe, h1, h2, h3, h4, h5, h6, p, blockq
 	-webkit-user-select: none;
 	-khtml-user-select: none;
 	user-select: none;
+	font-weight:bold;
+}
+
+.d-block{
 		font-family: 'Noto Serif KR', serif;
 }
 
-.container *{
+#downDiv *{
 		font-family: 'Noto Serif KR', serif;
 }
-
 
 body * {
 	/* border: 1px solid red; */
@@ -131,14 +134,12 @@ body{
 							<div class="userData ml-3">
 								<h2 class="d-block" style="font-size: 1.5rem; font-weight: bold">${mem.memName } 상담사님</h2>
 								<c:set var="count" value="${((expert.expertReviewCount) == 0)?1:(expert.expertReviewCount)}" />
-								<h6 class="d-block">평점 :
 									<c:forEach var="i" begin="1" end="${Math.round((expert.expertRating)/(count))}">
 												<span class="fa fa-star checked"></span>
 											</c:forEach>
 											<c:forEach var="i" begin="1" end="${5 - (Math.round((expert.expertRating)/(count)))}">
 												<span class="fa fa-star"></span>
 											</c:forEach>
-								</h6>
 								<h6 class="d-block">분야 :${expert.expertCounselArea}</h6>
 								<h6 class="d-block">가입 날짜 : ${mem.enrollDate }</h6>
 								<h6 class="d-block">이메일 : ${mem.memEmail }</h6>
@@ -147,7 +148,7 @@ body{
 						</div>
 					</div>
 
-					<div class="row">
+					<div class="row" id="downDiv">
 						<div class="col-12">
 							<ul class="nav nav-tabs mb-4" id="myTab" role="tablist">
 								<li class="nav-item"><a class="nav-link active" id="basicInfo-tab" data-toggle="tab" href="#basicInfo" role="tab"
@@ -168,7 +169,7 @@ body{
 										<div class="col-sm-3 col-md-3 col-5">
 											<label style="font-weight: bold;">상담 경력</label>
 										</div>
-										<div class="col-md-7 col-6">${expert.expertProfile}</div>
+										<div class="col-md-7 col-6">${expert.expertProfile} 년</div>
 									</div>
 									<hr />
 

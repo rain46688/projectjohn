@@ -120,7 +120,7 @@ a.menuLink:hover{
 			<a href="${path}/admin/adminBeforeExpert"id="aa" class="menuLink">
 		<div class="menusOnSide">
 			<img src="${path }/resources/images/admin/expert(1).png"
-			class="menuImages"> 전문가관리
+			class="menuImages">전문가관리
 		</div>
 			</a>
 			<a href="${path}/admin/adminExpertCounsel0"id="aa" class="menuLink"> 

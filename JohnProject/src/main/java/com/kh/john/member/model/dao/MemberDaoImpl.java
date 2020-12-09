@@ -215,5 +215,10 @@ public class MemberDaoImpl implements MemberDao {
 		return session.selectOne("member.requestListCount",usid);
 	}
 
+	@Override
+	public int goodBye(SqlSessionTemplate session, int usid) {
+		return session.update("member.goodBye",usid);
+	}
+
 
 }

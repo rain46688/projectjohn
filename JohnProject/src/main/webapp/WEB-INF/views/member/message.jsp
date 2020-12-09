@@ -16,6 +16,14 @@
 	#content *{
 		font-family: 'Noto Serif KR', serif;
 	}
+	div#msgContainer{
+		overflow: auto;
+		background-color: #003478;
+		width: 80%;
+		margin-left: 10%;
+		margin-top: 2rem;
+		border-radius: 10px;
+	}
 	div#savedContainer{
 		overflow: auto;
 		margin: 5% auto;
@@ -40,8 +48,8 @@
 	}
 	div.msgRight{
 		width: 40%;
-		background-color: #003478;
-		color: white;
+		background-color: #ffcc66;
+		color: #003478;
 		border-radius: 15px;
 		margin-bottom: 15px;
 		text-align: right;
@@ -85,25 +93,28 @@
 		clear: both;
 	}
 	div#textingContainer{
-		margin: 50px auto;
+		margin: 5% auto;
 		clear: both;
-		width: 60%;
-		text-align: center;
+		width: 70%;
 		vertical-align: middle;
 	}
 	input#message{
 		border: none;
 		padding: 7px;
-		width: 80%;
-		margin: 10px;
+		width: 90%;
+		margin-left: 0px;
+		margin-right: 5px;
 	}
 	div#textingContainer button{
-		margin: 10px;
-		margin-bottom: 15px;
+		background-color: white;
+		float: right;
+	}
+	div#textingContainer button:hover{
+		background-color: black;
 	}
 </style>
 <section id="content">
-	<div>
+	<div id="msgContainer">
 		<div id="savedContainer"></div>
 		<div id="textingContainer">
 			<input type="text" id="message" placeholder="메세지를 입력하세요.">

@@ -17,4 +17,6 @@ public class ExpertBoard {
 	private int expertBoardMemberend;
 	private int expertBoardExpertend;
 	private String expertBoardMemNick;// 어디서 썻던거지??
+	private String bexpertCounselArea;
+	private String expertBoardDateString;
 }

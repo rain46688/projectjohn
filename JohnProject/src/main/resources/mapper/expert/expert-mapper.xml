@@ -127,6 +127,15 @@
 	SELECT EXPERT_BOARD_RATING FROM EXPERT_BOARD WHERE EXPERT_BOARD_ID = #{bno}
 </select>
 
+<select id="selectExpertBoardList" resultMap = "expertListMap">
+	SELECT M.USID,M.MEM_NAME,M.MEM_NICKNAME,M.PROFILE_PIC,E.* FROM MEMBER M JOIN EXPERT_INFO E ON USID = EXPERT_USID WHERE MEM_CLASS LIKE '전문가' ORDER BY EXPERT_RATING DESC
+</select>
+
+<select id="selectExpertReviewList" resultMap = "exboardMap">
+	SELECT e.expert_counsel_area,B.* FROM EXPERT_BOARD B JOIN EXPERT_INFO E ON EXPERT_BOARD_USID = EXPERT_USID ORDER BY EXPERT_BOARD_DATE DESC
+</select>
+
+
 
 	<resultMap type="exboard" id="exboardMap">
 		<id column="EXPERT_BOARD_ID" property="expertBoardId" />
@@ -140,6 +149,7 @@
 		<id column="EXPERT_BOARD_MEMBEREND" property="expertBoardMemberend" />
 		<id column="EXPERT_BOARD_EXPERTEND" property="expertBoardExpertend" />
 		<id column="EXPERT_BOARD_MEM_NICK" property="expertBoardMemNick" />
+		<result property="bexpertCounselArea" column="expert_counsel_area"/>
 	</resultMap>
 	
 	<resultMap type="exrequest" id="exrequestMap">
@@ -188,6 +198,22 @@
 	    <result property="licenseDate" column="license_date"/>
 	    <result property="licenseType" column="license_type"/>
 	    <result property="licenseCompany" column="license_company"/>
+	</resultMap>
+	
+	
+		<resultMap id="expertListMap" type="exboardListVo">
+		 <result property="usid" column="usid"/>
+		 <result property="memName" column="mem_name"/>
+	    <result property="memNickname" column="mem_nickname"/>
+	    <result property="profilePic" column="profile_pic"/>
+	    <result property="expertUsid" column="expert_usid"/>
+	    <result property="expertRating" column="expert_rating"/>
+	    <result property="expertGreetings" column="expert_greetings"/>
+	    <result property="expertProfile" column="expert_profile"/>
+	    <result property="expertCounselArea" column="expert_counsel_area"/>
+	    <result property="expertCounselStartTime" column="expert_counsel_start_time"/>
+	 	<result property="expertCounselEndTime" column="expert_counsel_end_time"/>
+	 	<result property="expertReviewCount" column="expert_review_count"/>
 	</resultMap>
 
 

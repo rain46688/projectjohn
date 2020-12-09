@@ -3,21 +3,57 @@ body{
 }
 
 /* title */
-div.title *{
+div.title{
+    position: absolute;
+    left: 20%;
     color: white;
     font-weight: bold;
     font-size: 60px;
+    width: 450px;
+    z-index: 3;
 }
-div.title .first { opacity: 0; animation: moveRight 1.2s forwards;}
-div.title .second { opacity: 0; animation: moveLeft 1.2s forwards; animation-delay: 1s;}
-div.title .third { opacity: 0; animation: moveUp 1.2s forwards; animation-delay: 2s;}
+div.first {
+    opacity: 0;
+    animation: moveRight 1.2s forwards;
+    position: absolute;
+    top: 15%;
+}
+div.second {
+    opacity: 0; 
+    animation: moveLeft 1.2s forwards; 
+    animation-delay: 1s;
+    position: absolute;
+    top: 25%;
+}
+div.third { 
+    opacity: 0; 
+    animation: moveUp 1.2s forwards; 
+    animation-delay: 2s;
+    position: absolute;
+    top:35%;
+}
+
+/* enter */
+div.enter{
+    cursor: pointer;
+    opacity: 0;
+    color: white; 
+    font-size: 60px; 
+    color: white;
+    animation: enter 1.5s forwards;
+    animation-delay: 3s;
+    position: absolute;
+    top:45%;
+}
 
 /* scale */
 .scale img {width: 100%;}
 .scale {
-    position: absolute; left: 50%;
-    transform: translateX(-50%);
-    max-width: 400px;
+    position: absolute;
+    left: 60%;
+    top: 50px;
+    transform: translateX(-20%);
+    max-width: 300px;
     width: 80%;
 }
 .scale .scale-2{
@@ -26,8 +62,9 @@ div.title .third { opacity: 0; animation: moveUp 1.2s forwards; animation-delay:
     left: -14%;
     width: 128%;
     z-index: 1;
-    animation: scale-2 2s linear infinite alternate both;
+    animation: scale-2 1.5s linear forwards;
     transform-origin: 50% 10%; 
+    animation-delay: 1s;
 }
 .scale .scale-left{
     position: absolute;
@@ -35,23 +72,58 @@ div.title .third { opacity: 0; animation: moveUp 1.2s forwards; animation-delay:
     left: -32.5%;
     width: 60%;
     z-index: 2;
-    animation: scale-left 2s linear infinite alternate both;
+    animation: scale-left 1.5s linear forwards;
+    animation-delay: 1s;
 }
 .scale .scale-right{
     position: absolute;
     top: 22%;
-    left: 74%;
+    left: 73%;
     width: 60%;
     z-index: 2;
-    animation: scale-right 2s linear infinite alternate both;
+    animation: scale-right 1.5s linear forwards;
+    animation-delay: 1s;
 }
-
-/* enter */
-div.enter{
-    cursor: pointer;
+.scale .hearts{
+    position: absolute;
+    width: 12%;
+    z-index: 1;
 }
-div.enter p{ opacity: 0.5; color: white; font-size: 60px; color: white; }
-
+.scale #heart1{
+    top: 45%;
+    left: 85%;
+    opacity: 0;
+    animation: opa 1.5s linear forwards;
+    animation-delay: 1s;
+}
+.scale #heart2{
+    top: 45%;
+    left: 98%;
+    opacity: 0;
+    animation: opa 1.5s linear forwards;
+    animation-delay: 1s;
+}
+.scale #heart3{
+    top: 45%;
+    left: 111%;
+    opacity: 0;
+    animation: opa 1.5s linear forwards;
+    animation-delay: 1s;
+}
+.scale #heart4{
+    top: 47%;
+    left: 82%;
+    opacity: 0;
+    animation: heart-bk 1.5s linear forwards;
+    animation-delay: 1s;
+}
+.scale #heart5{
+    top: 47%;
+    left: 95%;
+    opacity: 0;
+    animation: heart-wh 1.5s linear forwards;
+    animation-delay: 1s;
+}
 
 /*keyframes*/
 @keyframes moveUp { 
@@ -66,16 +138,32 @@ div.enter p{ opacity: 0.5; color: white; font-size: 60px; color: white; }
 0% { opacity: 0; transform: translateX(-30px) } 
 100% { opacity: 1; transform: translateX(0) } 
 }
+@keyframes enter{
+0%{ opacity: 0; }
+100%{ opacity: 0.5; }
+}
+@keyframes opa{
+0%{ opacity: 0; transform: translate(0%); }
+100%{ opacity: 1; transform: translate(-73%,100%); }  
+}
 
 @keyframes scale-2{
-    0%{transform: rotate(0deg);}
-    100%{transform: rotate(15deg);}
+0%{transform: rotate(0deg);}
+100%{transform: rotate(15deg);}
 }
 @keyframes scale-left{
-    0%{transform: translate(0%);}
-    100%{transform: translate(-6.5%,-17%);}
+0%{transform: translate(0%);}
+100%{transform: translate(-6.5%,-17%);}
 }
 @keyframes scale-right{
-    0%{transform: translate(-1%);}
-    100%{transform: translate(-14%,17%);}
+0%{transform: translate(0%);}
+100%{transform: translate(-14%,17%);}
+}
+@keyframes heart-bk{
+0%{opacity: 0; transform: translateY(-50px);}
+100%{opacity: 1;transform: translateY(0);}
+}
+@keyframes heart-wh{
+0%{opacity: 0; transform: translateY(-100px);}
+100%{opacity: 1; transform: translateY(0);}
 }
