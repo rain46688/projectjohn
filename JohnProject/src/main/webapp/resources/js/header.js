@@ -30,7 +30,7 @@
 					console.log("리스트 길이 : "+alarmList.length);
 					printalfunc(alarmList,matchAtagHtml());
 					//각각 페이지에 따라 분기 처리 
-					if(window.location.pathname == '/john/expert/expertRequestPrintList'){
+					if(window.location.pathname == '/john/member/myPage/expertRequestPrintList'){
 						console.log("헤더 분기 1");
 						exListsendMessage("start");
 					}else{

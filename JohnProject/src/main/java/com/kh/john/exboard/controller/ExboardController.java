@@ -424,10 +424,10 @@ public class ExboardController {
 
 		if (result == 1) {// 1이면 정상 종료
 			log.debug("extext : 정상종료");
-			return "redirect:/expert/expertRequestPrintList";
+			return "redirect:/member/myPage/expertRequestPrintList";
 		}
 		// 아니면 비정상 종료
-		redirectAttributes.addAttribute("loc", "/expert/expertRequestPrintList");
+		redirectAttributes.addAttribute("loc", "/member/myPage/expertRequestPrintList");
 		redirectAttributes.addAttribute("msg", "잘못된 종료 관리자에게 문의하세요");
 		log.debug("extext : 비정상종료");
 		return "redirect:/msg";

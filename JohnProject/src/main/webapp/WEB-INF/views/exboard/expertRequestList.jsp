@@ -418,10 +418,16 @@ h1 {
 	}
 
 	exlistconn.onmessage = function(msg) {
-		console.log("onmessage");
-		exboardList = JSON.parse(msg.data);
-		backupList = JSON.parse(msg.data);
-		setting();
+		console.log("onmessage리퀘스트 리스트");
+		let check = (msg.data).includes("Request");
+		console.log("포함 여부2 : "+check);
+		
+		if(check){
+			exboardList = JSON.parse(msg.data);
+			backupList = JSON.parse(msg.data);
+			setting();
+		}
+
 	}
 
 	// ============================
@@ -429,6 +435,7 @@ h1 {
 	// ============================
 	function setting(){
 		// 기본 속성으로 리스트 정렬
+		console.log("셋팅 실행");
 		search($("#searchSelect").val(),$("#searchInput").val());
 		exboardList = excompare(exboardList, $("#sortSelect").val(),$("#sortType").val());
 		// 뿌려줌
@@ -445,7 +452,7 @@ h1 {
 	//리스트 출력
 	// ============================
 	function listPrint(list){
-		console.log("리스트 길이 : "+list.length);
+		console.log("리스트 길이ㅋ : "+list.length);
 		let pbhtml = "";
 		let num = 3;
 		if(list.length > 0){
@@ -656,7 +663,7 @@ h1 {
 			 		 //알람 발송 - 상담이 진행됬다는 알람 - 페이지가 넘어가기때문에 바로 변경해줄 사항 없음
 			 		 sendAlarm("${loginMember.usid}",num,"expert",bno,"${loginMember.memNickname}");
 			 		 console.log("${loginMember.usid} "+"num : "+num+"bno : "+bno+" ${loginMember.memNickname}");
-					//location.replace('${path}/expert/counselStart?no='+num+"&nic="+nick+"&bno="+bno);
+					location.replace('${path}/expert/counselStart?no='+num+"&nic="+nick+"&bno="+bno);
 			 	   }
 			    }); 
 		}

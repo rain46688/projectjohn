@@ -303,10 +303,9 @@ body{
 							$("input[name=time]").val("");
 							$("textarea[name=applyText]").val("");
 							$("#exbtn").html("");
-							$("#exbtn")
-									.html(
-											$("#exbtn").html()
-													+ "<button class='btn btn-outline-success' onclick='expertRequestCancel();''>상담 취소하기</button>");
+							//$("#exbtn").html($("#exbtn").html()+ "<button class='btn btn-outline-success' onclick='expertRequestCancel();''>상담 취소하기</button>");
+							$("#exbtn").html($("#exbtn").html()+ "<div class='button-7'> <div class='eff-7'></div> <a  class='johnbtn'  onclick='expertRequestCancel();'>상담 취소하기</a> </div>");
+							
 							//알람 발송 - 상담이 추가됬다는 알람 - 해당 전문가가 보는 상담 내역을 갱신해줘야됨
 						sendAlarm("${loginMember.usid}","${mem.usid}","expertApply"," ","${loginMember.memNickname}");
 						} else if (data == 2) {
@@ -348,9 +347,8 @@ body{
 							//알람 발송 - 상담이 삭제됬다는 알람 - 해당 전문가가 보는 상담 내역을 갱신해줘야됨
 							sendAlarm("${loginMember.usid}","${mem.usid}","expertApplyCancel"," ","${loginMember.memNickname}");
 							$("#exbtn").html("");
-							$("#exbtn")
-									.html(
-											"<button class='btn btn-outline-success' onclick='expertRequest();''>상담 신청하기</button>");
+							//$("#exbtn").html("<button class='btn btn-outline-success' onclick='expertRequest();''>상담 신청하기</button>");
+							$("#exbtn").html("<div class='button-7'> <div class='eff-7'></div> <a  class='johnbtn'  onclick='expertRequest();'>상담 신청하기</a></div>");
 						} else {
 							console.log("상담 취소 실패");
 							alert("상담 취소 실패");
