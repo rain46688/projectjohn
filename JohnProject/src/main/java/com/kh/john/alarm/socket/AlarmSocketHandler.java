@@ -103,10 +103,10 @@ public class AlarmSocketHandler extends TextWebSocketHandler {
 				while (it.hasNext()) {
 					Member key = it.next();
 					// 세션에 접속해있는 사람한테 리스트 발송
-					if (almsg.getAlarmReceiveMemUsid() == key.getUsid()) {
-						log.debug("알람 전송");
-						sendList(key);
-					}
+					// if (almsg.getAlarmReceiveMemUsid() == key.getUsid()) {
+					log.debug("알람 전송zzz");
+					sendList(key);
+					// }
 				}
 			}
 		}

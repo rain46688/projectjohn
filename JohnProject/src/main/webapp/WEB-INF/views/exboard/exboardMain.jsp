@@ -29,7 +29,7 @@ label, input {
 	<br>
 	<button class="btn btn-outline-success" onclick="location.href='${path}/expert/expertPrintList'">유저가 전문가 리스트 보기</button>
 	<c:if test="${loginMember.memClass == '전문가'}">
-		<button class="btn btn-outline-success" onclick="location.href='${path}/member/myPage/expertRequestPrintList'">전문가가 상담할 유저 리스트 보기</button>
+		<button class="btn btn-outline-success" onclick="location.href='${path}/member/myPage/expertRequestPrintList?usid=${loginMember.usid}'">전문가가 상담할 유저 리스트 보기</button>
 		<button class="btn btn-outline-success" onclick="location.href='${path}/member/myPage/expertInfoModify?usid=${loginMember.usid }'">전문가 정보 수정하기</button>
 		<button type="button" class="exBtn btn btn-outline-success my-2 my-sm-0" onclick='memInfoView();'>회원 정보</button>
 	</c:if>

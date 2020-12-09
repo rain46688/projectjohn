@@ -415,7 +415,8 @@ public class ExboardController {
 	 * @explain : 상담 종료
 	 */
 	@RequestMapping(value = "/expert/counselEnd")
-	public String counselEnd(String extext, String bno, RedirectAttributes redirectAttributes) throws Exception {
+	public String counselEnd(String extext, String bno, RedirectAttributes redirectAttributes, HttpSession session)
+			throws Exception {
 		log.info(" ===== counselEnd 실행 ===== ");
 
 		log.debug("extext : " + extext + "bno : " + bno);
@@ -424,6 +425,7 @@ public class ExboardController {
 
 		if (result == 1) {// 1이면 정상 종료
 			log.debug("extext : 정상종료");
+			redirectAttributes.addAttribute("usid", ((Member) session.getAttribute("loginMember")).getUsid());
 			return "redirect:/member/myPage/expertRequestPrintList";
 		}
 		// 아니면 비정상 종료
