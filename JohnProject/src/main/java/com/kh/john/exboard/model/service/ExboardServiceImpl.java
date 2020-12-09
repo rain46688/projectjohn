@@ -1,6 +1,5 @@
 package com.kh.john.exboard.model.service;
 
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -31,38 +30,22 @@ public class ExboardServiceImpl implements ExboardService {
 	@Autowired
 	private SqlSessionTemplate session;
 
-	// 전문가인 멤버 리스트 가져오기
-	@Override
-	public List<Map<String, Object>> selectExpert(String ca) throws Exception {
-		// TODO Auto-generated method stub
-		List<Map<String, Object>> maplist = new ArrayList<Map<String, Object>>();
-
-		// 전문가 리스트를 가져옴
-		List<Member> list = dao.selectExpert(session);
-		for (Member m : list) {
-			// 전문가 리스트로 전문가 정보를 가져옴
-			Map<String, Object> temp = new HashMap<String, Object>();
-			// 리스트 안에 넣을 맵을 선언하고 전문가 정보 객체를 가져옴
-			Expert exx = dao.selectExpertMem(session, "" + m.getUsid());
-			// 카테고리랑 맞는지 비교후 맞는 사람들만 맵에 넣음
-			if (exx != null && exx.getExpertCounselArea().equals(ca)) {
-				temp.put("mem", m);
-				temp.put("ex", exx);
-				maplist.add(temp);
-			}
-			// temp.put("exLicense", dao.selectExpertLicense(session, "" + m.getUsid()));
-		}
-		return maplist;
-	}
-
-	// 전문가 한명 정보 가져오기
+	/**
+	 * @Author : cms
+	 * @Date : 2020. 12. 8.
+	 * @explain : 전문가 한명 정보 가져오기
+	 */
 	@Override
 	public Expert selectExpertMem(String no) throws Exception {
 		// TODO Auto-generated method stub
 		return dao.selectExpertMem(session, no);
 	}
 
-	// 전문가한테 상담 신청 등록하기
+	/**
+	 * @Author : cms
+	 * @Date : 2020. 12. 8.
+	 * @explain : 전문가한테 상담 신청 등록하기
+	 */
 	@Override
 	public int insertExpertMemRequest(Map<String, String> map) throws Exception {
 		// TODO Auto-generated method stub
@@ -79,14 +62,22 @@ public class ExboardServiceImpl implements ExboardService {
 		}
 	}
 
-	// 닉네임으로 유저 한명 가져오기
+	/**
+	 * @Author : cms
+	 * @Date : 2020. 12. 8.
+	 * @explain : 닉네임으로 유저 한명 가져오기
+	 */
 	@Override
 	public Member selectMember(String no) throws Exception {
 		// TODO Auto-generated method stub
 		return dao.selectMember(session, no);
 	}
 
-	// 같은 전문가한테 상담 중복 신청 여부 확인하기
+	/**
+	 * @Author : cms
+	 * @Date : 2020. 12. 8.
+	 * @explain : 같은 전문가한테 상담 중복 신청 여부 확인하기
+	 */
 	@Override
 	public Boolean selectIsDuplicateReq(Map<String, String> map) throws Exception {
 		// TODO Auto-generated method stub
@@ -100,21 +91,33 @@ public class ExboardServiceImpl implements ExboardService {
 		}
 	}
 
-	// 상담 신청 취소하기
+	/**
+	 * @Author : cms
+	 * @Date : 2020. 12. 8.
+	 * @explain : 상담 신청 취소하기
+	 */
 	@Override
 	public int deleteExpertMemRequest(Member expert, Member mem) throws Exception {
 		// TODO Auto-generated method stub
 		return dao.deleteExpertMemRequest(session, expert, mem);
 	}
 
-	// 해당 전문가한테 온 상담 신청 리스트 출력하기
+	/**
+	 * @Author : cms
+	 * @Date : 2020. 12. 8.
+	 * @explain : 해당 전문가한테 온 상담 신청 리스트 출력하기
+	 */
 	@Override
 	public List<ExpertRequest> selectExpertRequest(Member mem) throws Exception {
 		// TODO Auto-generated method stub
 		return dao.selectExpertRequest(session, mem);
 	}
 
-	// 상담 게시판 개설하기
+	/**
+	 * @Author : cms
+	 * @Date : 2020. 12. 8.
+	 * @explain : 상담 게시판 개설하기
+	 */
 	@Override
 	public int insertExpertBoard(String memusid, String memnic, Member expertmem) throws Exception {
 		// TODO Auto-generated method stub

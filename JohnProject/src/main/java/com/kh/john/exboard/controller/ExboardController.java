@@ -63,36 +63,23 @@ public class ExboardController {
 
 	private static String pathzz;
 
-	/** 삭제 예정============================================================ */
-
-	@RequestMapping("/member/myPage/expertInfoModify2")
-	public ModelAndView expertInfoModify2(HttpSession session) throws Exception {
-		log.info(" ===== expertInfoModify2 실행 ===== ");
-		ModelAndView mv = new ModelAndView("/exboard/expertInfoModify2");
-		try {
-			mv.addObject("expert",
-					service.selectExpertMem("" + ((Member) session.getAttribute("loginMember")).getUsid()));
-			mv.addObject("license",
-					service.selectExpertLicense("" + ((Member) session.getAttribute("loginMember")).getUsid()));
-			mv.addObject("mem", service.selectMember("" + ((Member) session.getAttribute("loginMember")).getUsid()));
-			mv.addObject("likindList", service.selectLicenseKind());
-			mv.addObject("coukindList", service.selectCounselKind());
-			mv.addObject("comkindList", service.selectCompanyKind());
-		} catch (Exception e) {
-			// TODO: handle exception
-		}
-		return mv;
-	}
-
-	// 전문가 리스트들 불러오기
-	@RequestMapping("/expert/expertPrintList2")
-	public ModelAndView expertPrintList2() {
+	/**
+	 * @Author : cms
+	 * @Date : 2020. 12. 9.
+	 * @explain : 전문가 리스트들 불러오기
+	 */
+	@RequestMapping("/expert/expertPrintList")
+	public ModelAndView expertPrintList() {
 		log.debug("expertPrintList2 실행");
-		ModelAndView mv = new ModelAndView("/exboard/expertList2");
+		ModelAndView mv = new ModelAndView("/exboard/expertList");
 		return mv;
 	}
 
-	// 전문가 정보 수정 페이지 기존 정보 가져와서 뿌려주기
+	/**
+	 * @Author : cms
+	 * @Date : 2020. 12. 9.
+	 * @explain : 전문가 정보 수정 페이지 기존 정보 가져와서 뿌려주기
+	 */
 	@RequestMapping("/member/myPage/expertInfoModify")
 	public ModelAndView expertInfoModify(HttpSession session) throws Exception {
 		log.info(" ===== expertInfoModify 실행 ===== ");
@@ -111,29 +98,6 @@ public class ExboardController {
 		}
 		return mv;
 	}
-
-	// 전문가 리스트들 불러오기
-	@RequestMapping("/expert/expertPrintList")
-	public ModelAndView expertPrintList(@RequestParam(required = false) String ca) {
-		log.debug("expertPrintList 실행");
-		log.debug("ca : " + ca);
-		ModelAndView mv = new ModelAndView("/exboard/expertList");
-		try {
-			List<Map<String, Object>> list = service.selectExpert(ca);
-			for (Map<String, Object> mm : list) {
-				log.debug(mm.get("mem").toString());
-			}
-			mv.addObject("list", list);
-			mv.addObject("exbolist", service.selectExboardListCategory(ca));
-		} catch (Exception e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-			log.error("전문가 리스트 불러오기 실패");
-		}
-		return mv;
-	}
-
-	/** 삭제 예정============================================================ */
 
 	/**
 	 * @Author : cms

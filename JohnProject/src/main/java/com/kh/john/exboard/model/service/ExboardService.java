@@ -12,8 +12,6 @@ import com.kh.john.member.model.vo.Member;
 
 public interface ExboardService {
 
-	List<Map<String, Object>> selectExpert(String ca) throws Exception;
-
 	Expert selectExpertMem(String no) throws Exception;
 
 	Member selectMember(String usid) throws Exception;
