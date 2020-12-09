@@ -366,7 +366,7 @@ public class ExboardController {
 	/**
 	 * @Author : cms
 	 * @Date : 2020. 12. 8.
-	 * @explain : 상담 게시판 접속
+	 * @explain : 전문가가 상담 게시판 접속 이미 생성된 상태에서 접속하는것
 	 */
 	@RequestMapping("/expert/counselConn")
 	public String counselConnction(HttpSession session, String no, String nick, RedirectAttributes redirectAttributes) {

@@ -42,7 +42,7 @@ public interface ExboardService {
 
 	void updateCounselMemberEnd(String bno) throws Exception;
 
-	List<ExpertBoard> selectExboardListCategory(String ca) throws Exception;
+	// List<ExpertBoard> selectExboardListCategory(String ca) throws Exception;
 
 	List<License> selectExpertLicense(String no) throws Exception;
 
