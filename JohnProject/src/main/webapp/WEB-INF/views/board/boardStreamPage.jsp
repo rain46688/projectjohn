@@ -282,6 +282,10 @@ hr {
   width:17%
 }
 
+ion-icon#likeButton {
+	cursor:pointer;
+}
+
 #boardDate {
   text-align:right;
 }
@@ -364,16 +368,16 @@ hr {
 	
 </style>
 <script>
-	const ROOM_ID = "${currBoard.boardId}";
+	const ROOM_ID = "${currBoard.BOARD_ID}";
 </script>
-<!-- <script defer src="http://localhost:82/socket.io/socket.io.js"></script> -->
+
 <div id="content1">
     <div id="wrapper">
       <div id="boardContent">
       <div id="titleAndLikes">
         <div id="title"><!-- ${currBoard.TITLE } -->TITLE</div>
         <div id="likeAndHits">
-          <span><ion-icon id="likeButton" name="heart-outline"></ion-icon> 좋아요 <span id="likeCount">3<!-- ${currBoard.LIKE_NUM } -->
+          <span><ion-icon id="likeButton" name="heart-outline"></ion-icon> 좋아요 <span id="likeCount">${currBoard.LIKE_NUM }</span> 조회수 ${currBoard.HIT }</span>
         </div>
       </div>
           <hr id="titleHr">
@@ -392,6 +396,9 @@ hr {
                placeholder="Enter를 누르면 입력됩니다.">
             </div>
           </div>
+          <div id="video-grid">
+          	
+          </div>
           <div id="box1">
             <div class="wifi-symbol">
                 <div class="wifi-circle first"></div>
@@ -409,10 +416,10 @@ hr {
             <button onclick="fn_judge('agree');" id="agree" type="button" class="btn btn-primary">
               <ion-icon name="thumbs-up-outline"></ion-icon>
               <br>
-              찬성<!-- ${currBoard.AGREE_NAME } --></button>
+              ${currBoard.AGREE_NAME }</button>
           </div>
           <div class="countCon">
-            <div id="agreeNum">100<!-- ${currBoard.AGREE_NUM } --></div>
+            <div id="agreeNum">${currBoard.AGREE_NUM }</div>
           </div>
         </div>
         <div class="judgeBtns" id="disagreeBtn">
@@ -420,11 +427,11 @@ hr {
             <button onclick="fn_judge('disagree');" id="disagree" type="button" class="btn btn-primary">
               <ion-icon name="thumbs-down-outline"></ion-icon>
               <br>
-              <!-- ${currBoard.DISAGREE_NAME } -->
-            반대</button>
+              ${currBoard.DISAGREE_NAME }
+            </button>
           </div>
           <div class="countCon">
-          	<div id="disagreeNum">100<!-- ${currBoard.DISAGREE_NUM } --></div>
+          	<div id="disagreeNum">${currBoard.DISAGREE_NUM }</div>
           	</div>
         </div>
       </div>
@@ -433,46 +440,8 @@ hr {
         </div>
         <div id="commentSection">
           <div id="commentPrint">
-            <div class="user">
-            <div class="userCon">
-              <div class="userImgCon">
-                <img src="#" class="userImg">
-              </div>
-              <div class="userNick">
-                다람쥐1
-              </div>
-            </div>
-              <div class="userComment">
-                안녕하세요
-              </div>
+            
           </div>
-            <div class="user">
-            <div class="userCon">
-              <div class="userImgCon">
-                <img src="#" class="userImg">
-              </div>
-              <div class="userNick">
-                다람쥐2
-              </div>
-            </div>
-              <div class="userComment">
-                안녕하세요
-              </div>
-          </div>
-          <div class="user">
-            <div class="userCon">
-              <div class="userImgCon">
-                <img src="#" class="userImg">
-              </div>
-              <div class="userNick">
-                다람쥐3
-              </div>
-            </div>
-              <div class="userComment">
-                안녕하세요
-              </div>
-          </div>
-        </div>
         <div id="commentInsertArea">
           <input type="text" id="commentText" maxlength="20">
           <button id="commentTextBtn" onclick="fn_chatInsert();">전송</button>
@@ -503,51 +472,79 @@ hr {
             </div>
         </div>
     </div>
-<script src="${path }/resources/js/peerJS.js"></script>
-<!-- <script>
+<script src="https://unpkg.com/peerjs@1.3.1/dist/peerjs.min.js"></script>
+<script defer src="https://172.30.1.16:83/socket.io/socket.io.js"></script>
+<script>
 	$(document).ready(function() {
-		var socket = io("http://localhost:82");
+		const userId = uuidv4()+":"+${loginMember.usid};
+		var socket = io("https://172.30.1.16:83");
 		const videoGrid = document.getElementById('video-grid')
 		const myPeer = new Peer(undefined, {
 			host: '/',
-			port: '3001'
+			port: '3000',
+			secure:true,
+			debug:3
 		});
-
-		const myVideo = document.createElement('video')
+		const dataConnection = myPeer.connect(myPeer.id, {
+			metadata:${loginMember.usid}
+		})
+		
+		console.log(dataConnection.metadata);
+		let myVideo = document.createElement('video')
 		myVideo.muted = true;
-
+		
+		const peers = {};
+		
+		console.log(peers);
+		
 		navigator.mediaDevices.getUserMedia({
 			video:true,
 			audio:true
 		}).then(stream => {
 			addVideoStream(myVideo, stream)
-
+			
 			myPeer.on('call', call => {
+				console.log('call 받음')
 				call.answer(stream)
+				console.log('call 받음2222')
 				const video = document.createElement('video')
 				call.on('stream', userVideoStream => {
 					addVideoStream(video, userVideoStream)
 				})
 			})
-
+			
+			//새로운 유저가 들어왔을 때
 			socket.on('user-connected', userId => {
+				console.log('새로운 유저가 들어옴')
 				connectToNewUser(userId, stream)
 			})
+		}, function(err) {
+			  console.log('Failed to get local stream' ,err);
+		})
+		
+		socket.on('user-disconnected', userId => {
+			console.log('유저가 나감')
+			if(peers[userId])peers[userId].close();
 		})
 
 		myPeer.on('open', id => {
+			console.log('룸에 조인함')
 			socket.emit('join-room', ROOM_ID, id);
 		})
 
 		function connectToNewUser(userId, stream){
 			const call = myPeer.call(userId, stream)
 			const video = document.createElement('video');
+			
+			console.log(userId+"로 부터 들어옴");
 			call.on('stream', userVideoStream => {
-				addVideoStream(userVideoStream);
+				addVideoStream(video, userVideoStream);
 			})
 			call.on('close',()=>{
 				video.remove();
 			})
+			
+			peers[userId] = call;
 		}
 		
 		function addVideoStream(video, stream) {
@@ -555,10 +552,11 @@ hr {
 			video.addEventListener('loadedmetadata', () => {
 				video.play();
 			})
-			videoGrid.append(video);
+			videoGrid.appendChild(video);
+			console.log(video);
 		}
 	});
-</script> -->
+</script>
 <script>
 'use strict'
 
@@ -597,7 +595,6 @@ function handleFileDrop(file){
 	chatSocket.binaryType="arraybuffer";
 	fileReader.onload = function(e) {
 	    rowData = e.target.result;
-	    console.log('전송됨');
 	    chatSocket.send('image:'+JSON.stringify(file.name));
 	    chatSocket.send(rowData); //파일 소켓 전송
 	};
@@ -615,9 +612,7 @@ chatSocket.onopen = function(e){
 
 chatSocket.onmessage = function(e){
 	if(e.data.substring(0,5) == 'image'){
-		console.log(e.data);
 		let fileName = e.data.substring(6,e.data.length);
-		console.log(fileName);
 		
 		let box1 = document.getElementById('box1');
 		box1.innerHTML = "";
@@ -628,7 +623,7 @@ chatSocket.onmessage = function(e){
 		box1.appendChild(img);
 	}else{
 	chatList = JSON.parse(e.data);
-	console.log(chatList);
+	/* console.log(chatList); */
 	//사용자 숫자를 알기 위한 배열
 	let tempList= [];
 
@@ -638,29 +633,39 @@ chatSocket.onmessage = function(e){
 	})
 	
 	//usid 리스트
-	console.log(tempList);
+	/* console.log(tempList); */
 
   document.getElementById('commentPrint').innerHTML = "";
 
   chatList = chatList.sort((a,b) => (a.enrollDate > b.enrollDate) ? -1 : 1);
 
-  console.log('afterSort');
-  console.log(chatList);
   let realChatList = [];
-  chatList.forEach(function(item,index){
-    let idx = 0;
+  
+  //방장 채팅부터 넣어주기
+  for(let i = 0; i < chatList.length; i++){
+	  if(chatList[i].usid==${currBoard.WRITER_USID}){
+		  realChatList.push(chatList[i]);
+		  break;
+	  }
+  }
+  let idx = 0;
+  
+  for(let i = 0; i < chatList.length; i++){
+	  if(chatList[i].usid!=realChatList[idx].usid){
+		  realChatList.push(chatList[i]);
+		  idx++;
+	  }
+	  if(tempList.length==realChatList.length)break;
+  }
+  
+  /* chatList.forEach(function(item,index){
     if(realChatList.length<tempList.length){
-      if(realChatList.length==0){
+      if(item.usid!=realChatList[idx].usid){
         realChatList.push(item);
-      }
-      else {
-        if(item.usid!=realChatList[idx].usid){
-          realChatList.push(item);
-          idx++;
-        }
+        idx++;
       }
     }
-  })
+  }) */
 
   realChatList.forEach(function(item, index){
 	if(item.usid==${currBoard.WRITER_USID}){
@@ -878,6 +883,13 @@ Date.prototype.customFormat = function(formatString){
   ss=(s=this.getSeconds())<10?('0'+s):s;
   return formatString.replace("#hhhh#",hhhh).replace("#hhh#",hhh).replace("#hh#",hh).replace("#h#",h).replace("#mm#",mm).replace("#m#",m).replace("#ss#",ss).replace("#s#",s).replace("#ampm#",ampm).replace("#AMPM#",AMPM);
 };
+
+function uuidv4() {
+	  return 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function(c) {
+	    var r = Math.random() * 16 | 0, v = c == 'x' ? r : (r & 0x3 | 0x8);
+	    return v.toString(16);
+	  });
+	}
 </script>
 </body>
 </html>

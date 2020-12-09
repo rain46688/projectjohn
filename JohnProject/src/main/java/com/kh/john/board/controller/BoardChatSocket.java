@@ -59,7 +59,6 @@ public class BoardChatSocket extends AbstractWebSocketHandler{
 		Map<String, Object> map = session.getAttributes();
 		Member member = (Member)map.get("loginMember");
 		allUsers.put(member, session);
-		System.out.println(tempDumpChat);
 	}
 	
 	@Override
@@ -134,31 +133,20 @@ public class BoardChatSocket extends AbstractWebSocketHandler{
 			if(tempDumpChat!=null) {
 				dumpChatManager(tempDumpChat, boardId);
 				//해당 방의 사라진 메세지 다시 받기
-				log.debug("널이 아닙니다");
 				Iterator it = tempDumpChat.entries().iterator();
 				while(it.hasNext()) {
 					Map.Entry<RoomDate, BoardChat> tempChat = (Map.Entry<RoomDate, BoardChat>)it.next();
 					if(tempChat.getKey().getBoardId() == boardId) {
-						log.debug("for문에 들어감"+tempChat);
 						roomChat.put(boardId, tempChat.getValue());
-						log.debug(""+roomChat);
 						it.remove();
 						//tempDumpChat.remove(tempChat.getKey(), tempChat.getValue());
 					}
 				}
-//				for(Map.Entry<RoomDate, BoardChat> tempChat : chats) {
-//					if(tempChat.getKey().getBoardId() == boardId) {
-//						log.debug("for문에 들어감"+tempChat);
-//						roomChat.put(boardId, tempChat.getValue());
-//						tempDumpChat.remove(tempChat.getKey(), tempChat.getValue());
-//					}
-//				}
 			}
 			boolean isFirst = false;
 			if(result.get("isFirst")!=null) {
 				isFirst = (boolean)result.get("isFirst");
 			}
-			System.out.println("isFirst: "+isFirst);
 			boolean hasSaid = false;
 			for(BoardChat chat : roomChat.get(boardId)) {
 				if(chat.getUsid() == member.getUsid()) {
@@ -168,7 +156,6 @@ public class BoardChatSocket extends AbstractWebSocketHandler{
 			}
 			
 			if(isFirst) {
-				System.out.println("hasSaid: "+hasSaid);
 				if(hasSaid) {
 					
 				}else {
@@ -187,7 +174,6 @@ public class BoardChatSocket extends AbstractWebSocketHandler{
 					}
 				}
 			}else {
-				System.out.println("hasSaid: "+hasSaid);
 				msgFromClient.setBoardId(boardId);
 				msgFromClient.setUsid(member.getUsid());
 				msgFromClient.setMessage((String)result.get("message"));
@@ -211,14 +197,15 @@ public class BoardChatSocket extends AbstractWebSocketHandler{
 			
 			List<BoardChat> chatList = new ArrayList();
 			
+			log.debug("roomChat size : "+roomChat.size());
+			
 			for(Member mem : rooms.get((Integer)result.get("boardId"))) {
 				for(BoardChat chat : roomChat.get((Integer)result.get("boardId"))) {
 					chatList.add(chat);
 				}
 				allUsers.get(mem).sendMessage(new TextMessage(mapper.writeValueAsString(chatList)));
-				break;
+				chatList.clear();
 			}
-			System.out.println("chatList: "+chatList);
 		}else {
 			imageFileName.put(member, messageValue);
 		}
@@ -267,14 +254,12 @@ public class BoardChatSocket extends AbstractWebSocketHandler{
 		}
 		
 		allUsers.remove(member);
-		System.out.println(member.getMemNickname() + "연결 종료");
 	}
 	
 	private void dumpChatManager(Multimap<RoomDate, BoardChat> tempDumpChat, int boardId) {
 		Date now = new Date();
 		Iterator it = tempDumpChat.entries().iterator();
 		while(it.hasNext()) {
-			System.out.println("오는거야?");
 			Map.Entry<RoomDate, BoardChat> chats = (Map.Entry<RoomDate, BoardChat>)it.next();
 			if(chats.getKey().getBoardId() == boardId) {
 				if(now.getTime() - chats.getKey().getDate().getTime() > 10000) {
