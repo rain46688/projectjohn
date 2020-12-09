@@ -194,9 +194,9 @@ h1 {
 	width:100%;
 }
 
-hr{
+/* hr{
 	border-top:1px solid #AEAEAE; 
-}
+} */
 
 .divCell form{
 	width:100%;

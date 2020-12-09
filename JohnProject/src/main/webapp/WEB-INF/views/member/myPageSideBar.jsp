@@ -72,7 +72,7 @@
 		font-family: 'Noto Serif KR', serif;
 	}
 	div.menuContainer:hover {
-		background-color: #0054BA;
+		background-color: rgb(255,255,255,0.1);
 	}
 	a.menuLink{
 		color: white;
@@ -118,7 +118,7 @@
 		</c:if>
 		<hr>
 		<c:if test="${loginMember.getMemClass() eq '전문가'}">
-			<a class="menuLink nav-link" href="${path}/expert/expertRequestPrintList?usid=${loginMember.usid}">
+			<a class="menuLink nav-link" href="${path}/member/myPage/expertRequestPrintList?usid=${loginMember.usid}">
 				<div class="menuContainer">
 					<img src="${path}/resources/images/clipboard-wh.png" class="sideIcon">
 					상담 신청받은 내역

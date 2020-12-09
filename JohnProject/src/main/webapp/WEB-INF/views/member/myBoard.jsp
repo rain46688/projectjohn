@@ -109,7 +109,7 @@
 					<c:out value="${boardList.smallCategory}"/>
 				</div>
 				<div class="textInner">
-					<a href="${path}/board/boardPage?boardNo=$(boardList.boardId}">
+					<a href="${path}/board/boardPage?boardNo=${boardList.boardId}">
 						<c:out value="${boardList.title}"/>
 					</a>
 				</div>

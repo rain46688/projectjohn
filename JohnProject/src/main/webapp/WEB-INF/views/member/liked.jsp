@@ -109,7 +109,7 @@
 					<c:out value="${liked.bigCategory}"/>
 				</div>
 				<div class="textInner">
-					<a href="${path}/board/boardPage?boardNo=$(liked.boardId}">
+					<a href="${path}/board/boardPage?boardNo=${liked.boardId}">
 						<c:out value="${liked.title}"/>
 					</a>
 				</div>

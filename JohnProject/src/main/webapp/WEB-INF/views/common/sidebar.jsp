@@ -8,14 +8,14 @@
 		스크롤시 로고 fixed
 	 */
 	#side {
-		background-image: url("${path}/resources/images/side_back.png");
-		background-repeated: repeated;
+		background-image: url("${path}/resources/images/sideBarPattern.png");
+		background-repeat: repeated;
 	    /* border-bottom-left-radius: 25px;
 	    border-top-left-radius: 25px; */
 	    overflow: auto;
 	    width: 18%;
 	    height: 100%;
-	    /* background-color:#00316d; */
+	    background-color:#00316D;
 	    display: flex;
 	    flex-direction: column;
 	    align-items: center;

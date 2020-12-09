@@ -132,7 +132,7 @@ public class ExboardController {
 	}
 
 	// 전문가가 자신한테 유저들이 신청한 리스트 출력하기
-	@RequestMapping("/expert/expertRequestPrintList")
+	@RequestMapping("/member/myPage/expertRequestPrintList")
 	public ModelAndView expertRequestPrintList(HttpSession session) {
 		log.debug("expertRequestPrintList 실행");
 		ModelAndView mv = new ModelAndView("/exboard/expertRequestList");
