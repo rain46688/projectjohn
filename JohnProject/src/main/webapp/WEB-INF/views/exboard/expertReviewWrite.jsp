@@ -274,8 +274,3 @@ textarea {
 		return count;
 	};
 </script>
-
-
-<!-- 
-
- -->
