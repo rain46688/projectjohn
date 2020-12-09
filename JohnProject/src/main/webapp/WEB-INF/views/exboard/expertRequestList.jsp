@@ -187,16 +187,6 @@ h1 {
 	width: 100%;
 }
 
-<<<<<<< HEAD
-/* hr{
-	border-top:1px solid #AEAEAE; 
-} */
-=======
-hr {
-	border-top: 1px solid #AEAEAE;
-}
->>>>>>> 77a07337ea9e3e92d62965728dfbb190cb9e4512
-
 .divCell form {
 	width: 100%;
 	height: 100%;
