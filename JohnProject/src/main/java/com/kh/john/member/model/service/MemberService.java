@@ -125,6 +125,9 @@ public interface MemberService {
 	//insert후 list 불러오기
 	List<MemberChat> reloadChatList(MemberChat memberChat);
 
+	//회원탈퇴
+	int goodBye(int usid);
+
 
 	
 

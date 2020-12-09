@@ -171,13 +171,15 @@
 				if(data.length>0){
 					let container=$("<div/>").attr("class","container");
 					$.each(data,function(i,v){
-						let div=$("<div/>").attr("class","result");
-						let otherProfilePic=$("<div/>").attr("class","searchPic").html($("<img/>").attr({"src":"${path}/resources/profile_images/"+v['profilePic'],"class":"picImg"}));
-						let otherNick=$("<div/>").attr({"class":"searchNick"}).html(v['memNickname']);
-						let radioBtn=$("<div/>").attr("class","searchRadio").html($("<input/>").attr({"type":"radio","name":"selectMember","value":v['memNickname']}));
-						div.append(otherProfilePic).append(otherNick).append(radioBtn);
-						container.append(div);
-						console.log(v['memNickname']);
+						if(v['usid']!='${loginMember.usid}'){
+							let div=$("<div/>").attr("class","result");
+							let otherProfilePic=$("<div/>").attr("class","searchPic").html($("<img/>").attr({"src":"${path}/resources/profile_images/"+v['profilePic'],"class":"picImg"}));
+							let otherNick=$("<div/>").attr({"class":"searchNick"}).html(v['memNickname']);
+							let radioBtn=$("<div/>").attr("class","searchRadio").html($("<input/>").attr({"type":"radio","name":"selectMember","value":v['memNickname']}));
+							div.append(otherProfilePic).append(otherNick).append(radioBtn);
+							container.append(div);
+							console.log(v['memNickname']);
+						}
 					})
 					$("#searchResult").html(container);
 				}else{

@@ -273,6 +273,12 @@ public class MemberServiceImpl implements MemberService {
 		return allChatList;
 	}
 
+	@Override
+	public int goodBye(int usid) {
+		int result=dao.goodBye(session, usid);
+		return result;
+	}
+
 
 	
 

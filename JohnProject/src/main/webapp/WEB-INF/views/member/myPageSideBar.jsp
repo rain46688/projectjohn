@@ -55,11 +55,11 @@
 		cursor: pointer;
 		margin: 5px 10%;
 	}
-	ion-icon.sideBarIcon{
-		font-size: 1.5em;
-		color: white;
-		margin-left: 1.5em;
-		margin-right: 1.5em;
+	img.sideIcon{
+		width: 1.5rem;
+		height: 1.5rem;
+		margin-left: 2.5rem;
+		margin-right: 2rem;
 	}
 	div.menuContainer{
 		display: flex;
@@ -97,69 +97,69 @@
 	<div id="menu">
 		<a class="menuLink nav-link" href="${path}/member/myPage/messageList?usid=${loginMember.usid}">
 			<div class="menuContainer">
-				<ion-icon name="chatbubbles-sharp" class="sideBarIcon"></ion-icon>
+				<img src="${path}/resources/images/chat-wh.png" class="sideIcon">
 				서신함
 			</div>
 		</a>
 			<hr>
 		<a class="menuLink nav-link menuContainer" href="${path}/member/myPage/updateMemberInfo?usid=${loginMember.usid}">
 			<div class="menuContainer">
-				<ion-icon name="build-sharp" class="sideBarIcon"></ion-icon>
+				<img src="${path}/resources/images/build-wh.png" class="sideIcon">
 				회원정보 수정하기
 			</div>
 		</a>
 		<c:if test="${loginMember.getMemClass() eq '전문가'}">
 			<a class="menuLink nav-link" href="${path}/member/myPage/expertInfoModify?usid=${loginMember.usid}">
 				<div class="menuContainer">
-					<ion-icon name="build-sharp" class="sideBarIcon"></ion-icon>
+					<img src="${path}/resources/images/build-wh.png" class="sideIcon">
 					전문가 정보 수정하기
 				</div>
 			</a>
 		</c:if>
 		<hr>
-		<a class="menuLink nav-link" href="${path}/member/myPage/counselingRequest?usid=${loginMember.usid}">
-			<div class="menuContainer">
-				<ion-icon name="clipboard-sharp" class="sideBarIcon"></ion-icon>
-				상담 신청 내역
-			</div>
-		</a>
 		<c:if test="${loginMember.getMemClass() eq '전문가'}">
-			<a class="menuLink nav-link" href="${path}/member/myPage/exCounselingHistory?usid=${loginMember.usid}">
+			<a class="menuLink nav-link" href="${path}/expert/expertRequestPrintList?usid=${loginMember.usid}">
 				<div class="menuContainer">
-					<ion-icon name="clipboard-sharp" class="sideBarIcon"></ion-icon>
-					상담한 내역
+					<img src="${path}/resources/images/clipboard-wh.png" class="sideIcon">
+					상담 신청받은 내역
 				</div>
 			</a>
 		</c:if>
+		<a class="menuLink nav-link" href="${path}/member/myPage/counselingRequest?usid=${loginMember.usid}">
+			<div class="menuContainer">
+				<img src="${path}/resources/images/clipboard-wh.png" class="sideIcon">
+				상담 신청한 내역
+			</div>
+		</a>
 		<a class="menuLink nav-link" href="${path}/member/myPage/counselingHistory?usid=${loginMember.usid}">
 			<div class="menuContainer">
-				<ion-icon name="clipboard-sharp" class="sideBarIcon"></ion-icon>
+				<img src="${path}/resources/images/clipboard-wh.png" class="sideIcon">
 				상담 받은 내역
 			</div>
 		</a>
 		<hr>
 		<a class="menuLink nav-link" href="${path}/member/myPage/myBoard?usid=${loginMember.usid}">
 			<div class="menuContainer">
-				<ion-icon name="list-sharp" class="sideBarIcon"></ion-icon>
+				<img src="${path}/resources/images/list-wh.png" class="sideIcon">
 				나의 게시물 내역
 			</div>
 		</a>
 		<a class="menuLink nav-link" href="${path}/member/myPage/liked?usid=${loginMember.usid}">
 			<div class="menuContainer">
-				<ion-icon name="heart-sharp" class="sideBarIcon"></ion-icon>
+				<img src="${path}/resources/images/heart-wh.png" class="sideIcon">
 				좋아요 한 게시물
 			</div>
 		</a>
 		<a class="menuLink nav-link" href="${path}/member/myPage/myReport?usid=${loginMember.usid}">
 			<div class="menuContainer">
-				<ion-icon name="skull-sharp" class="sideBarIcon"></ion-icon>
+				<img src="${path}/resources/images/skull-wh.png" class="sideIcon">
 				내 신고 내역
 			</div>
 		</a>
 		<hr>
 		<a class="menuLink nav-link" href="${path}/member/myPage/applyExpertPage?usid=${loginMember.usid}">
 			<div class="menuContainer">
-				<ion-icon src="${path}/resources/images/licenseIcon.svg" class="sideBarIcon"></ion-icon>
+				<img src="${path}/resources/images/driver-license-wh.png" class="sideIcon">
 				전문가 신청하기
 			</div>
 		</a>
