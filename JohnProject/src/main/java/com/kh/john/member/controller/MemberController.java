@@ -208,8 +208,9 @@ public class MemberController {
 							path = "common/msg";
 							m.addAttribute("loginMember", loginMember);	
 						}else {
-							path = "/board/boardList";
+							//로그인 성공하면 리다이렉트
 							m.addAttribute("loginMember", loginMember);						
+							return "redirect:/board/boardList";
 						}
 					}	
 				}
@@ -792,6 +793,20 @@ public class MemberController {
 		mv.addObject("msg", msg);
 		mv.addObject("loc",loc);
 		mv.setViewName("common/msg");
+		return mv;
+	}
+	
+//	포인트 충전하기
+	@RequestMapping("/member/chargePoint")
+	public ModelAndView chargePoint(ModelAndView mv, @RequestParam("point") int point, @RequestParam("usid") int usid) {
+		Member member=new Member();
+		member.setUsid(usid);
+		member=service.selectMemberByUsid(member);
+		int crtPoint=member.getPoint();
+		int newPoint=crtPoint+point;
+		member.setPoint(newPoint);
+		int result=service.chargePoint(member);
+		
 		return mv;
 	}
 	

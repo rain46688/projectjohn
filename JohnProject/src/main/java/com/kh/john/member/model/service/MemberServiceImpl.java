@@ -279,6 +279,12 @@ public class MemberServiceImpl implements MemberService {
 		return result;
 	}
 
+	@Override
+	public int chargePoint(Member member) {
+		int result=dao.chargePoint(session, member);
+		return result;
+	}
+
 
 	
 

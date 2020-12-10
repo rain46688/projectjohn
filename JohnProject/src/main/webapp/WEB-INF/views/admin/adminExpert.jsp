@@ -279,6 +279,9 @@ appearance: none;
 	background-color: #ffcc66;
 }
 
+.pagination{
+padding-bottom: 3%;
+}
 
 
 
@@ -341,7 +344,7 @@ a:hover {
 }
 
 .board_list .col {
-	width: 8.3%;
+	width: 10%;
 	padding-top: 1%;
 	padding-bottom: 1%;
 	font-size: 15px; /*헤드글자크기*/
@@ -492,8 +495,7 @@ a:hover {
 						<div class="col">퇴사여부</div>
 						<div class="col">구분</div>
 						<div class="col">전화번호</div>
-						<div class="col">전문가 별점</div>
-						<div class="col">전문가 분야</div>
+						
 					</div>
 					<c:forEach items="${list }" var="m">
 						<div class="board_list_body">
@@ -520,20 +522,18 @@ a:hover {
 									<c:out value="${m.enrollDate}" />
 								</div>
 								<div class="col">
-									<c:out value="${m.leaveMem}" />
+									<c:choose>
+										<c:when test="${m.leaveMem eq true }">X</c:when>
+										<c:otherwise>O</c:otherwise>
+									</c:choose>
 								</div>
-								<div class="col">
+								<div class="col" style="color:red">
 									<c:out value="${m.memClass}" />
 								</div>
-								<%--  <div class="col">
+								<div class="col">
 								 <c:out value="${m.tel}"/>
 								 </div>
-								<div class="col">
-								<c:out value="${m.expert_rating}"/>
-								</div>
-								<div class="col">
-								<c:out value="${m.expert_counsel_area}"/>
-								</div> --%>
+								
 							</div>
 						</div>
 					</c:forEach> 

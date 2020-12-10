@@ -96,6 +96,8 @@ public interface MemberDao {
 
 	int goodBye(SqlSessionTemplate session, int usid);
 
+	int chargePoint(SqlSessionTemplate session, Member member);
+
 
 
 }

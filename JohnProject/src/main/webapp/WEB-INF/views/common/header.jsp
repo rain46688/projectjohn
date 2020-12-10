@@ -7,6 +7,8 @@
 <html>
 <head>
 <meta charset="UTF-8">
+<meta http-equiv="Cache-Control" content="No-Cache"> 
+<meta http-equiv="Pragma" content="No-Cache"> 
 <title>재판하는존경장님</title>
 <link rel="icon" type="image/png" href="${path }/resources/images/favicon.ico">
 <!-- Latest compiled and minified CSS -->

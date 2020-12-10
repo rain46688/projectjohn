@@ -127,7 +127,7 @@
 </style>
 <section id="content">
 	<div id="newChatContainer">
-		<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal">
+		<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#newChat">
 			<ion-icon name="add-circle" id="newChatIcon"></ion-icon>
 			<div>
 				새로운 채팅
@@ -136,7 +136,7 @@
 	</div>
 	
 	<!-- Modal -->
-	<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+	<div class="modal fade" id="newChat" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
 		<div class="modal-dialog modal-dialog-scrollable">
 			<div class="modal-content">
 				<div class="modal-header">
@@ -178,7 +178,6 @@
 							let radioBtn=$("<div/>").attr("class","searchRadio").html($("<input/>").attr({"type":"radio","name":"selectMember","value":v['memNickname']}));
 							div.append(otherProfilePic).append(otherNick).append(radioBtn);
 							container.append(div);
-							console.log(v['memNickname']);
 						}
 					})
 					$("#searchResult").html(container);
@@ -299,12 +298,5 @@
 		console.log('onclose실행');
 	}
 </script>
-
-
-
-
-
-
-
-
-
+</body>
+</html>

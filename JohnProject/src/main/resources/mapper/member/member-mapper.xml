@@ -167,6 +167,11 @@
 	UPDATE MEMBER SET LEAVE_MEM=1 WHERE USID=#{usid}
 </update>
 
+<update id="chargePoint" parameterType="member">
+	UPDATE MEMBER SET POINT=#{point} WHERE USID=#{usid}
+</update>
+
+
 <resultMap type="exrequest" id="exrequestMap">
 	<id column="EXPERT_REQUET_EX_USID" property="expertRequetExUsid" />
 	<id column="EXPERT_REQUEST_MEM_USID" property="expertRequestMemUsid" />

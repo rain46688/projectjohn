@@ -483,7 +483,7 @@ ion-icon#likeButton {
 			host: '/',
 			port: '3000',
 			secure:true,
-			debug:3
+			/* debug:3 */
 		});
 		const dataConnection = myPeer.connect(myPeer.id, {
 			metadata:${loginMember.usid}
@@ -564,7 +564,7 @@ let chatList = [];
 
 const chatSocket = new WebSocket("wss://172.30.1.16:8443${path}/chat");
 
-/* const chatImageSocket = new WebSocket("wss://172.30.1.16:8443${path}/image"); */
+const chatImageSocket = new WebSocket("wss://172.30.1.16:8443${path}/image");
 
 /* const stompImage = Stomp.over(chatImageSocket); */
 
