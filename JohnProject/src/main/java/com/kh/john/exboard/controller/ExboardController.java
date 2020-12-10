@@ -237,11 +237,11 @@ public class ExboardController {
 
 		String result = "";
 		try {
-			service.deleteExpertMemRequest(expert, mem);
-			result = "1";
+			result = "" + service.deleteExpertMemRequest(expert, mem);
 		} catch (Exception e) {
-			result = "0";
+			result = "1";
 		}
+		log.debug("zzre : " + result);
 		return result;
 	}
 

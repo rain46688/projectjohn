@@ -351,7 +351,10 @@ body{
 							$("#exbtn").html("");
 							//$("#exbtn").html("<button class='btn btn-outline-success' onclick='expertRequest();''>상담 신청하기</button>");
 							$("#exbtn").html("<div class='button-7'> <div class='eff-7'></div> <a  class='johnbtn'  onclick='expertRequest();'>상담 신청하기</a></div>");
-						} else {
+						} else if(data == -1) {
+							console.log("상담이 이미 진행중이라 취소 불가합니다.");
+							alert("상담이 이미 진행중이라 취소 불가합니다.");
+						}else{
 							console.log("상담 취소 실패");
 							alert("상담 취소 실패");
 						}
