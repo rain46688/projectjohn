@@ -241,10 +241,16 @@ $("#delete").click(e=>{
 // 종 모양 출력 ! 넣어주기
 //============================
 function printBell(list){
+	console.log("printBell 알람.jsp");
 	$("#number").html("");
 	let count = 0;
+	console.log(" ================ ")
 	list.forEach((e, i)=>{
-		if(e['alarmIscheked'] == false){//안 읽은 알람을 탐색해서 카운트를 증가시킴
+		//console.log("alarmReceiveMemUsid : "+e['alarmReceiveMemUsid']);
+		//console.log("alarmType : "+e['alarmType']);
+		//console.log("alarmIscheked : "+e['alarmIscheked'])
+		//e['alarmReceiveMemUsid'] == "${loginMember.usid}" &&
+		if(e['alarmType'] != 'expertApplyCancel' && e['alarmIscheked'] == false){//안 읽은 알람을 탐색해서 카운트를 증가시킴
 			count++;
 		}
 	});
@@ -305,6 +311,11 @@ function typeifprint(e,type){
 		let extitle = "후기를 작성해주세요 완료된 상담이 있습니다.";
 		let excontent="안녕하세요 존경장님 상담은 만족스러우신가요? <br>더 나은 서비스에 대해 상담 결과에 대해 <br>아래 링크로 바로 접속하셔서 후기를 <br>작성해주시면 감사하겠습니다.<br>";
 		excontent += "<a style='cursor:pointer;' onclick='writereview("+e['alarmMsgContent']+");'>-클릭해서 후기 작성-</a>";
+		print2 += printAlarmBoardContent(e,extitle,excontent);
+	}else if(type == 'expertApply'){
+		console.log("exe");
+		let extitle = e['alarmSendMemNickname']+"님이 상담 신청하셨습니다.";
+		let excontent="안녕하세요 상담사님 아래 링크로 접속해서 내역을 확인해주세요<br><a href='${path }/member/myPage/expertRequestPrintList?usid=${loginMember.usid}'>-클릭해서 확인-</a>";
 		print2 += printAlarmBoardContent(e,extitle,excontent);
 	}else if(type == 'board'){
 		console.log("bo");
