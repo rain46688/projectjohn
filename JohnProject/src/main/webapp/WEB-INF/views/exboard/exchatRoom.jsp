@@ -337,7 +337,7 @@ textarea {
 				<c:if test="${eb.expertBoardMemberend == 0}">
 					<div class="button-8">
 						<div class="eff-8"></div>
-						<a class="johnbtn" onclick="alert('상담 받는 유저가 고민 해결 버튼을 클릭 후\n상담 종료가 가능합니다.');">상담중</a>
+						<a class="johnbtn" onclick="alert('상담 받는 유저가 해결 버튼을 클릭 후\n상담 종료가 가능합니다.');">상담중</a>
 					</div>
 					<!-- <button type="button" class="exBtn btn btn-outline-danger my-2 my-sm-0" onclick="alert('상담 받는 유저가 고민 해결 버튼을 클릭 후\n상담 종료가 가능합니다.');">상담 진행중</button> -->
 				</c:if>
@@ -365,7 +365,7 @@ textarea {
 				<c:if test="${eb.expertBoardMemberend == 1}">
 					<div class="button-8">
 						<div class="eff-8"></div>
-						<a class="johnbtn" onclick="alert('상담사 분이 상담 완료를 누르면 상담이 정상 종료됩니다.');">종료중</a>
+						<a class="johnbtn" onclick="alert('상담사 분이 완료를 누르면 상담이 정상 종료됩니다.');">종료중</a>
 					</div>
 					<!-- <button type="button" class="memBtn btn btn-outline-danger my-2 my-sm-0" onclick="alert('상담사 분이 상담 완료를 누르면 상담이 정상 종료됩니다.');">상담 종료중</button> -->
 				</c:if>
@@ -908,7 +908,7 @@ textarea {
 			// ============================
 			function counselMemberEnd(){
 				
-				let result = confirm("고민 해결을 완료하시면 상담사 분이 확인 후 종료됩니다.\n한번 완료하시면 취소가 불가능합니다.");
+				let result = confirm("해결 버튼을 누르시면 상담사 분이 확인 후 상담이 종료됩니다.\n한번 완료하시면 취소가 불가능합니다.");
 				
 				if(result){
 				$.ajax({
@@ -959,7 +959,7 @@ textarea {
 			// counselMemberEnd에서 onclick 호출로 alert이 이상하게 안되서 함수를 만듬 ㅅㅂ ㅋㅋㅋㅋ;
 			// ============================
 			function endAlert(){
-				let st = '상담사 분이 상담 완료를 누르면 상담이 정상 종료됩니다.';
+				let st = '상담사 분이 완료를 누르면 상담이 정상 종료됩니다.';
 				alert(st);
 			}
 
