@@ -287,6 +287,8 @@ body{
 	function expertRequest() {
 		console.log("상담 신청, ${mem.usid}");
 
+		let result = confirm("상담 신청을 하시겠습니까?\n 전문가가 상담 시작후에는 취소가 불가합니다.");
+		
 		$.ajax({
 					type : "GET",
 					data : {

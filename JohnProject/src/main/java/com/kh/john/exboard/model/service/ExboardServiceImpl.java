@@ -104,6 +104,10 @@ public class ExboardServiceImpl implements ExboardService {
 	@Override
 	public int deleteExpertMemRequest(Member expert, Member mem) throws Exception {
 		// TODO Auto-generated method stub
+
+		// 상담 게시판이 이미 생성됬는지 확인하고 생성되있으면 특정 넘버를 반환 이미 상담이 시작되어있으니 취소 못하도록 설정
+		int exxbno = dao.selectExBoardNum(session, expert, "" + mem.getUsid());
+
 		return dao.deleteExpertMemRequest(session, expert, mem);
 	}
 
