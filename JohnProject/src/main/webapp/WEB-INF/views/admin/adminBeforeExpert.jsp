@@ -182,7 +182,12 @@ a:hover {
 .pagination-sm .page-link { /*한칸한칸크기*/
 	padding: 10px 20px;
 	margin: 0;
+	
 }
+
+.pagination{
+
+padding-bottom: 3%;}
 
 .pagination a:hover:not(.active) { /*호버*/
 	background-color: #ffcc66;
@@ -251,13 +256,17 @@ a:hover {
 									<c:out value="${m.enrollDate}" />
 								</div>
 								<div class="col">
-									<c:out value="${m.leaveMem}" />
+									<c:choose>
+										<c:when test="${m.leaveMem eq false }">X</c:when>
+										<c:otherwise>O</c:otherwise>
+									</c:choose>
 								</div>
-								<div class="col">
+								<div class="col" style="color:blue">
 									<c:out value="${m.memClass}" />
 								</div>
-								<%-- <td><c:out value="${m.tel}"/></td> --%>
-							
+								<div class="col">
+								<c:out value="${m.tel}"/> 
+								</div>
 							</div>
 							</a>
 						</div>

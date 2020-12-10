@@ -15,52 +15,89 @@
 <style>
 	#content *{
 		font-family: 'Noto Serif KR', serif;
-		border: 1px red solid;
+	}
+	div#reportWrapper{
+		overflow: auto;
+		margin: 100px auto;
+		text-align: left;
 	}
 	div#reportTitle{
+		width: 70%;
+		margin: 0 auto;
 		display: grid;
-		grid-template-columns: ;
+		grid-template-columns: 20% 80%;
+		grid-auto-rows: minmax(20px, auto);
+		row-gap: 5px;
 	}
-	div.left{
+	div.reportLeft{
+		padding: 0.5rem;
 		background-color: #003478;
-		color: white;
+		color: #ffcc66;
+		padding-left: 1rem;
+		border-top-left-radius: 0.5rem;
+		border-bottom-left-radius: 0.5rem;
 	}
-	div.right{
+	div.reportRight{
+		padding: 0.5rem;
 		background-color: white;
 		color: #003478;
+		padding-left: 1rem;
+		border-top-right-radius: 0.5rem;
+		border-bottom-right-radius: 0.5rem;
+	}
+	div#reportText{
+		width: 70%;
+		margin: 0 auto;
+	}
+	div.reportTop{
+		margin-top: 5px;
+		padding: 0.5rem;
+		background-color: #003478;
+		color: #ffcc66;
+		padding-left: 1rem;
+		border-top-left-radius: 0.5rem;
+		border-top-right-radius: 0.5rem;
+	}
+	div.reportBottom{
+		padding: 0.5rem;
+		background-color: white;
+		color: #003478;
+		padding-left: 1rem;
+		border-bottom-left-radius: 0.5rem;
+		border-bottom-right-radius: 0.5rem;
 	}
 </style>
 <section id="content">
 	<div id="reportWrapper">
 		<div id="reportTitle">
-			<div class="left">
+			<div class="reportLeft">
 				신고 타입
 			</div>
-			<div class="right">
+			<div class="reportRight">
 				${report.reportType}
 			</div>
-			<div class="left">
+			<div class="reportLeft">
 				신고 제목
 			</div>
-			<div class="right">
+			<div class="reportRight">
 				${report.reportTitle}
 			</div>
-			<div class="left">
+			<div class="reportLeft">
 				신고 대상
 			</div>
-			<div class="right">
+			<div class="reportRight">
 				${report.reportTargetNickname}
 			</div>
-			<div class="left">
+			<div class="reportLeft">
 				신고 날짜
 			</div>
-			<div class="right">
-				${report.reportDate}
+			<div class="reportRight">
+				<fmt:formatDate value="${report.reportDate}" pattern="yyyy-MM-dd HH:mm"/>
 			</div>
-			<div class="left">
+			<div class="reportLeft">
 				신고 처리 여부
 			</div>
-			<div class="right">
+			<div class="reportRight">
 				<c:choose>
 					<c:when test="${report.reportIscheck eq true}">처리</c:when>
 					<c:otherwise>미처리</c:otherwise>
@@ -68,28 +105,20 @@
 			</div>
 		</div>
 		<div id="reportText">
-			<div>
+			<div class="reportTop">
 				신고 내용
 			</div>
-			<div>
+			<div class="reportBottom">
 				${report.reportContent}
 			</div>
-			<div>
+			<div class="reportTop">
 				관리자 답변
 			</div>
-			<div>
+			<div class="reportBottom">
 				${report.reportAnswer}
 			</div>
 		</div>
 	</div>
 </section>
-<jsp:include page="/WEB-INF/views/common/footer.jsp"/>
-
-
-
-
-
-
-
-
-
+</body>
+</html>

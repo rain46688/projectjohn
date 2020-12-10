@@ -128,6 +128,9 @@ public interface MemberService {
 	//회원탈퇴
 	int goodBye(int usid);
 
+	//포인트 충전
+	int chargePoint(Member member);
+
 
 	
 

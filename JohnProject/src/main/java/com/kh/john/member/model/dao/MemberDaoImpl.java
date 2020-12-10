@@ -220,5 +220,10 @@ public class MemberDaoImpl implements MemberDao {
 		return session.update("member.goodBye",usid);
 	}
 
+	@Override
+	public int chargePoint(SqlSessionTemplate session, Member member) {
+		return session.update("member.chargePoint", member);
+	}
+
 
 }

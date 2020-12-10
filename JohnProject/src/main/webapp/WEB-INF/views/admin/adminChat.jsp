@@ -20,7 +20,7 @@
     margin-left:5%;
     margin-top:2%;
     border-radius:20px;
-    height:93%;
+    height:100%;
 }
 
 #messageWindow {
@@ -28,19 +28,24 @@
 	color: greenyellow;
 }
 #inputMessage {
-	width: 90%;
-	height: 40px;
+	width: 85%;
+	height: 5%;
 	border: none;
 	background-color:#eeeeee;
 	border-radius:10px;
+	margin-left:0.5%;
+
 }
 #btn-submit{
 	border-color: #ffcc66;
     color: white; 
     background-color: #003478;
-    width:70px;
-    height:40px;
+    width:10%;
+    height:5%;
     border-radius:10px;
+    margin-left:1%;
+
+
 
 }
 
@@ -70,13 +75,16 @@
 	border: none;
 	border-radius:30px;
 	margin: 10px;
-	min-height: 600px;
-	max-height: 600px;
+	min-height: 85%;
+	max-height: 85%;
 	/* overflow: scroll; */
 	overflow-y:scroll;
 	overflow-x: hidden;
 	background: #003478;
-	width:100%;
+	background-image:url("${path}/resources/images/admin/chatbot.png");
+	background-repeat:no-repeat;background-position: center;
+	padding:10px;
+
 
 }
  ::-webkit-scrollbar{
@@ -115,6 +123,7 @@
 }
 #bottom-container {
 	margin: 10px;
+	width:100%;
 }
 .chat-info {
 	color: #eeeeee;
@@ -150,7 +159,6 @@
     font-size: 25px; /*본문글자크기*/
     font-weight: 600;
 }
-
 
 </style>
 

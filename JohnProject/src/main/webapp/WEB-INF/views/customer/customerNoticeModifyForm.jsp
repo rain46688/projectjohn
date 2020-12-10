@@ -165,7 +165,7 @@ border-color: #ffcc66;
 		id="frm" method="post" enctype="multipart/form-data">
 		   
 		<input type="hidden" value="${notice.noticeId }" name="noticeId" id="noticeId"/>
-		<input type="hidden" value="${notice.noticeTitle }" name="noticeTitle" id="noticeTitle"/>
+		<%-- <input type="hidden" value="${notice.noticeTitle }" name="noticeTitle" id="noticeTitle"/> --%>
 		<input type="hidden" value="${notice.noticeAdminNickname }" name="noticeAdminNickname" id="noticeAdminNickname"/>
 		
 		<div class="input-group marginTop3">

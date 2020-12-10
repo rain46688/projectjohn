@@ -62,7 +62,7 @@
 }
 
 .board_list .col {
-    width: 7.7%; 
+    width: 8.5%; 
     padding-top:1%;
     padding-bottom:1%;
     font-size:16px; /*헤드글자크기*/
@@ -344,7 +344,7 @@ appearance: none;
 			<div class="board_list">
 				<div class="board_list_head">
 				<div class="col">번호</div>
-				<div class="col">이메일</div>
+				<div class="colE">이메일</div>
 				<div class="col">이름</div>
 				<div class="col">닉네임</div>
 				<div class="col">성별</div>
@@ -373,9 +373,12 @@ appearance: none;
 					<div class="col"><c:out value="${m['birthday']}"/></div>
 					<div class="col"><c:out value="${m['enrollDate']}"/></div>
 					<div class="col"><c:out value="${m['point']}"/></div>
-					<div class="col"><c:out value="${m['leaveMem']}"/></div>
+					<div class="col"><c:choose>
+										<c:when test="${m['leaveMem'] eq true }">X</c:when>
+										<c:otherwise>O</c:otherwise>
+									</c:choose></div>
 					<div class="col"><c:out value="${m['memClass']}"/></div>
-					<%-- <div class="col"><c:out value="${m['tel']}"/></div> --%>
+					<div class="col"><c:out value="${m['tel']}"/></div>
 				</div>
 						</a>
 					</div>

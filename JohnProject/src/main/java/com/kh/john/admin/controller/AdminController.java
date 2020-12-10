@@ -116,6 +116,7 @@ public class AdminController {
 	// 멤버 검색
 	@RequestMapping("/admin/adminMemberSearch")
 	public ModelAndView adminMemberSearch(ModelAndView mv, HttpServletRequest request,
+			@RequestParam(value = "tel", required = false) String tel,
 			@RequestParam(value = "searchType", required = false) String searchType,
 			@RequestParam(value = "keyword", required = false) String keyword,
 			@RequestParam(value = "gender", required = false) String gender,
@@ -217,14 +218,19 @@ public class AdminController {
 
 		for (Member a : list) {
 			String memberId;
+			String tele;
 			try {
 				memberId = aes.decrypt(a.getMemEmail());
+				tele = aes.decrypt(a.getTel());
 			} catch (Exception e) {
 				memberId = a.getMemEmail();
+				tele = a.getTel();
 			}
 			a.setMemEmail(memberId);
+			a.setTel(tele);
 		}
 
+		
 		mv.addObject("totalData", totalData);
 		System.out.println("토탈데이터:" + totalData);
 		mv.addObject("list", list);
@@ -405,12 +411,16 @@ public class AdminController {
 
 		for (Member a : list) {
 			String memberId;
+			String tele;
 			try {
 				memberId = aes.decrypt(a.getMemEmail());
+				tele = aes.decrypt(a.getTel());
 			} catch (Exception e) {
 				memberId = a.getMemEmail();
+				tele = a.getTel();
 			}
 			a.setMemEmail(memberId);
+			a.setTel(tele);
 		}
 
 		mv.addObject("pageBar", PageBarFactory.getPageBar(totalData, cPage, numPerPage, "adminExpert"));
@@ -432,12 +442,16 @@ public class AdminController {
 
 		for (Member a : list) {
 			String memberId;
+			String tele;
 			try {
 				memberId = aes.decrypt(a.getMemEmail());
+				tele = aes.decrypt(a.getTel());
 			} catch (Exception e) {
 				memberId = a.getMemEmail();
+				tele = a.getTel();
 			}
 			a.setMemEmail(memberId);
+			a.setTel(tele);
 		}
 
 		mv.addObject("pageBar", PageBarFactory.getPageBar(totalData, cPage, numPerPage, "adminBeforeExpert"));
@@ -598,12 +612,16 @@ public class AdminController {
 
 		for (Member a : list) {
 			String memberId;
+			String tele;
 			try {
 				memberId = aes.decrypt(a.getMemEmail());
+				tele = aes.decrypt(a.getTel());
 			} catch (Exception e) {
 				memberId = a.getMemEmail();
+				tele = a.getTel();
 			}
 			a.setMemEmail(memberId);
+			a.setTel(tele);
 		}
 
 		//mv.addObject("pageBar", PageBarFactory.getPageBar(totalData, cPage, numPerPage, "adminExpertSearch"));
