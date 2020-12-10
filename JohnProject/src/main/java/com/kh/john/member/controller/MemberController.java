@@ -208,8 +208,9 @@ public class MemberController {
 							path = "common/msg";
 							m.addAttribute("loginMember", loginMember);	
 						}else {
-							path = "/board/boardList";
+							//로그인 성공하면 리다이렉트
 							m.addAttribute("loginMember", loginMember);						
+							return "redirect:/board/boardList";
 						}
 					}	
 				}

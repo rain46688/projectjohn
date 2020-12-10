@@ -110,11 +110,12 @@ public class BoardController {
 		return mv;
 	}
 
-	@RequestMapping("board/boardPage")
+	@RequestMapping(value="board/boardPage", method=RequestMethod.GET)
 	public ModelAndView boardPage(ModelAndView mv, int boardNo, HttpServletResponse response, HttpServletRequest request) {
 		Cookie[] myCookies = request.getCookies();
 		String boardHistory = "";
 		boolean hasRead = false;
+		
 		
 		//조회수 처리
 		if(myCookies!=null) {
