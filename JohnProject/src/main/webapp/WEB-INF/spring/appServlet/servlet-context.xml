@@ -36,6 +36,9 @@
 	<!-- 게시판 채팅용 웹소켓 핸들러 등록 -->
 	<beans:bean id="boardChat" class="com.kh.john.board.controller.BoardChatSocket"></beans:bean>
 	
+	<!-- 게시판 이미지 공유용 웹소켓 핸들러 등록 -->
+	<beans:bean id="boardImage" class="com.kh.john.board.controller.BoardImageSocket"></beans:bean>
+	
 	<beans:bean class="org.springframework.web.socket.server.standard.ServletServerContainerFactoryBean">
 		<beans:property name="maxBinaryMessageBufferSize" value="10485760"></beans:property>
 	</beans:bean>
@@ -50,7 +53,8 @@
 	
 	
 	<websocket:handlers>
-		<websocket:mapping handler="boardChat" path="/chat"/>
+		<websocket:mapping handler="boardImage" path="/image"/>
+ 		<websocket:mapping handler="boardChat" path="/chat"/>
 		<websocket:mapping handler="expertHandler" path="/ertc"/>
 		<websocket:mapping handler="alarmHandler" path="/alsocket"/>
 		<websocket:mapping handler="adminHandler" path="/adminsocket"/>

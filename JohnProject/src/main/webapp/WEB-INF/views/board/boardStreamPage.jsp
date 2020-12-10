@@ -480,7 +480,7 @@ ion-icon#likeButton {
 		var socket = io("https://172.30.1.16:83");
 		const videoGrid = document.getElementById('video-grid')
 		const myPeer = new Peer(undefined, {
-			host: '/',
+			host: '/172.30.1.16',
 			port: '3000',
 			secure:true,
 			/* debug:3 */
@@ -524,7 +524,11 @@ ion-icon#likeButton {
 		
 		socket.on('user-disconnected', userId => {
 			console.log('유저가 나감')
-			if(peers[userId])peers[userId].close();
+			if(peers[userId]){
+				peers[userId].close();
+				console.log('close 실행')
+			}
+			console.log(peers);
 		})
 
 		myPeer.on('open', id => {
@@ -538,9 +542,11 @@ ion-icon#likeButton {
 			
 			console.log(userId+"로 부터 들어옴");
 			call.on('stream', userVideoStream => {
+				console.log('stream 실행')
 				addVideoStream(video, userVideoStream);
 			})
 			call.on('close',()=>{
+				console.log('close 실행')
 				video.remove();
 			})
 			
