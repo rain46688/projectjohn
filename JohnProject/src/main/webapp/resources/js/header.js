@@ -3,11 +3,16 @@
  */
  
 				'use strict';
+				
+				//============================
+				// 소켓 아이피 일괄 변경 (내가 한부분만 변경)
+				//expertList.jsp
+				//expertRequestList.jsp
+				//exchatRoom.jsp
+				//============================
+				const johnip = "192.168.219.105";
 
-				// 서버 주소 잘 확인하기!
-				//const alsocket = new WebSocket("wss://localhost/john/alsocket");
-				//const alsocket = new WebSocket("wss://192.168.120.31path/alsocket");
-				const alsocket = new WebSocket("wss://192.168.219.105/john/alsocket");
+				const alsocket = new WebSocket("wss://"+johnip+"/john/alsocket");
 
 				//============================
 				// 소켓 오픈 하면서 알람 리스트 가져오기

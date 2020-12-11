@@ -332,20 +332,17 @@ textarea {
 						<div class="eff-8"></div>
 						<a class="johnbtn" onclick='counselEnd();'>완료</a>
 					</div>
-					<!-- <button type="button" class="exBtn btn btn-outline-success my-2 my-sm-0" onclick='counselEnd();'>상담 완료</button> -->
 				</c:if>
 				<c:if test="${eb.expertBoardMemberend == 0}">
 					<div class="button-8">
 						<div class="eff-8"></div>
-						<a class="johnbtn" onclick="alert('상담 받는 유저가 해결 버튼을 클릭 후\n상담 종료가 가능합니다.');">상담중</a>
+						<a class="johnbtn" onclick="alert('유저가 해결 버튼을 클릭 후\n상담 종료가 가능합니다.');">상담중</a>
 					</div>
-					<!-- <button type="button" class="exBtn btn btn-outline-danger my-2 my-sm-0" onclick="alert('상담 받는 유저가 고민 해결 버튼을 클릭 후\n상담 종료가 가능합니다.');">상담 진행중</button> -->
 				</c:if>
 				<div class="button-7">
 					<div class="eff-7"></div>
 					<a class="johnbtn" onclick='memInfoView();'>정보</a>
 				</div>
-				<!-- <button type="button" class="exBtn btn btn-outline-success my-2 my-sm-0" onclick='memInfoView();'>회원 정보</button> -->
 			</c:if>
 			<c:if test="${loginMember.memClass != '전문가'}">
 
@@ -354,26 +351,22 @@ textarea {
 					<a class="johnbtn" onclick='onoff();'>카메라</a>
 				</div>
 
-				<!-- <button type="button" class="memBtn btn btn-outline-success my-2 my-sm-0" onclick='onoff();'>캠 온오프</button> -->
 				<c:if test="${eb.expertBoardMemberend == 0}">
 					<div class="button-7">
 						<div class="eff-7"></div>
 						<a class="johnbtn" onclick='counselMemberEnd();'>해결</a>
 					</div>
-					<!-- <button type="button" class="memBtn btn btn-outline-success my-2 my-sm-0" onclick='counselMemberEnd();'>고민 해결</button> -->
 				</c:if>
 				<c:if test="${eb.expertBoardMemberend == 1}">
 					<div class="button-8">
 						<div class="eff-8"></div>
 						<a class="johnbtn" onclick="alert('상담사 분이 완료를 누르면 상담이 정상 종료됩니다.');">종료중</a>
 					</div>
-					<!-- <button type="button" class="memBtn btn btn-outline-danger my-2 my-sm-0" onclick="alert('상담사 분이 상담 완료를 누르면 상담이 정상 종료됩니다.');">상담 종료중</button> -->
 				</c:if>
 				<div class="button-7">
 					<div class="eff-7"></div>
 					<a class="johnbtn" onclick='memInfoView();'>정보</a>
 				</div>
-				<!-- <button type="button" class="memBtn btn btn-outline-success my-2 my-sm-0" onclick='memInfoView();'>상담사 정보</button> -->
 			</c:if>
 		</div>
 	</div>
@@ -555,9 +548,7 @@ textarea {
 			// package com.kh.john.exboard.socket.ExpertHandler
 			// ============================
 				
-			const conn = new WebSocket('wss://192.168.219.105${path}/ertc');
-			//const conn = new WebSocket('wss://192.168.120.31${path}/ertc');
-			//const conn = new WebSocket('wss://localhost${path}/ertc');
+			const conn = new WebSocket('wss://'+johnip+'${path}/ertc');
 
 			conn.onopen = function() {
 				console.log("onopen => signaling server 연결");
