@@ -271,7 +271,7 @@ function printalfunc(list, type){
 	console.log("체크 여부 : "+allselectflag);
 	if(list.length > 0){
 	list.forEach((e, i)=>{
-		console.log(e['alarmType']+" : "+e['alarmType'].includes(type));
+		//console.log(e['alarmType']+" : "+e['alarmType'].includes(type));
 		if(allselectflag == true && e['alarmType'].includes(type)){
 			//모두 보기가 체크된 경우
 			print += typeifprint(e,e['alarmType']);

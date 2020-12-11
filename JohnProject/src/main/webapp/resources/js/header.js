@@ -4,15 +4,8 @@
  
 				'use strict';
 				
-				//============================
-				// 소켓 아이피 일괄 변경 (내가 한부분만 변경)
-				//expertList.jsp
-				//expertRequestList.jsp
-				//exchatRoom.jsp
-				//============================
-				const johnip = "192.168.219.105";
 
-				const alsocket = new WebSocket("wss://"+johnip+"/john/alsocket");
+				const alsocket = new WebSocket("wss://192.168.219.105/john/alsocket");
 
 				//============================
 				// 소켓 오픈 하면서 알람 리스트 가져오기
@@ -27,19 +20,29 @@
 				//============================
 				alsocket.onmessage = function(msg) {
 					console.log("알람 온 메세지 onmessage 실행됨");
+					
+
 					//각각 페이지에 따라 분기 처리 
 					if(window.location.pathname == '/john/member/myPage/expertRequestPrintList'){
 						console.log("헤더 분기 1");
+						alsetting(msg);
 						exListsendMessage("start");
 					}else if(window.location.pathname != '/john/expert/expertApply'){
-						let aldata = JSON.parse(msg.data);
+						alsetting(msg);
+					}
+				};
+
+				//============================
+				// 알람 셋팅
+				//============================
+				function alsetting(msg){
 						// 알람 리스트에 값을 넣어주고 새로 갱신해줌 기본이 상담 리스트를 뿌려줌
+						let aldata = JSON.parse(msg.data);
 						alarmList = aldata;
 						//알람 종 표시
 						printBell(alarmList);
 						console.log("리스트 길이 : "+alarmList.length);
 						printalfunc(alarmList,matchAtagHtml());
-					}
 				};
 
 				//============================
