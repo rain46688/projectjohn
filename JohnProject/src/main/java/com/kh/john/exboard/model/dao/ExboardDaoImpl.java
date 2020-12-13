@@ -220,4 +220,11 @@ public class ExboardDaoImpl implements ExboardDao {
 		return session.selectList("expert.selectExpertReviewList");
 	}
 
+	@Override
+	public ExpertRequest selectIsExpertReq(SqlSessionTemplate session, Map<String, String> mm) throws Exception {
+		// TODO Auto-generated method stub
+		// 이미 있는 매퍼 사용함 전문가 유저 usid 확인 후 ExpertRequest 반환함
+		return session.selectOne("expert.selectIsDuplicateReq", mm);
+	}
+
 }

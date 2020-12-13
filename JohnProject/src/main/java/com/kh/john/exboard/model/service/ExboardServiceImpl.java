@@ -423,4 +423,15 @@ public class ExboardServiceImpl implements ExboardService {
 		return dao.selectExpertReviewList(session);
 	}
 
+	/**
+	 * @Author : cms
+	 * @Date : 2020. 12. 11.
+	 * @explain : 상담사가 유저 정보 볼때 요청 사항도 같이 보기
+	 */
+	@Override
+	public ExpertRequest selectIsExpertReq(Map<String, String> mm) throws Exception {
+		// TODO Auto-generated method stub
+		return dao.selectIsExpertReq(session, mm);
+	}
+
 }

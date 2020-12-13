@@ -139,6 +139,16 @@ body{
 										</div>
 									</div>
 									<hr />
+									
+										<div class="row">
+										<div class="col-sm-3 col-md-3 col-5">
+											<label style="font-weight: bold;">요청 사항</label>
+										</div>
+										<div class="col-md-7 col-6">
+												 ${expertRequest.expertCounselRequire }
+										</div>
+									</div>
+									<hr />
 									</c:if>
 									
 									<c:if test="${not empty expert}">

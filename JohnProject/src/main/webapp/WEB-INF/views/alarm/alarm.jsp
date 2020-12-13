@@ -126,7 +126,7 @@ html, body, div, span, applet, object, iframe, h1, h2, h3, h4, h5, h6, p, blockq
 		<ul class="nav nav-tabs">
 			<li class="nav-item"><a class="nav-link active">상담</a></li>
 			<li class="nav-item"><a class="nav-link">게시판</a></li>
-			<li class="nav-item"><a class="nav-link">신고</a></li>
+			<!-- <li class="nav-item"><a class="nav-link">신고</a></li> -->
 			<!-- <li class="nav-item"><a class="nav-link">테스트</a></li> -->
 		</ul>
 		<div class="alarmPrintDiv"></div>
@@ -169,20 +169,6 @@ $(".nav-link").click(e =>{
 	}
 	//나중에 추가?
 });
-
-//현재 선택된 nav 아이템 탐색
-/* function selectliItem(){
-	let sel;
-	let allnav = $(".nav-link");
-	for(let i=0; i < allnav.length; i++){
-		if($(allnav[i]).hasClass('active')){
-			 sel = $(allnav[i]).html();
-			console.log("선택된것 : "+sel);
-		}
-	};
-	return sel;
-}
- */
  
 // ============================
 //디비 content에 맞게 변경
@@ -246,10 +232,6 @@ function printBell(list){
 	let count = 0;
 	console.log(" ================ ")
 	list.forEach((e, i)=>{
-		//console.log("alarmReceiveMemUsid : "+e['alarmReceiveMemUsid']);
-		//console.log("alarmType : "+e['alarmType']);
-		//console.log("alarmIscheked : "+e['alarmIscheked'])
-		//e['alarmReceiveMemUsid'] == "${loginMember.usid}" &&
 		if(e['alarmType'] != 'expertApplyCancel' && e['alarmIscheked'] == false){//안 읽은 알람을 탐색해서 카운트를 증가시킴
 			count++;
 		}
@@ -268,10 +250,10 @@ function printalfunc(list, type){
 	let print="";
 	console.log("printalfunc 실행 리스트 길이 : "+list.length+" 타입 : "+type);
 	let allselectflag = $("#check").is(":checked");
-	console.log("체크 여부 : "+allselectflag);
+	//console.log("체크 여부 : "+allselectflag);
 	if(list.length > 0){
 	list.forEach((e, i)=>{
-		console.log(e['alarmType']+" : "+e['alarmType'].includes(type));
+		//console.log(e['alarmType']+" : "+e['alarmType'].includes(type));
 		if(allselectflag == true && e['alarmType'].includes(type)){
 			//모두 보기가 체크된 경우
 			print += typeifprint(e,e['alarmType']);
@@ -292,7 +274,7 @@ function printalfunc(list, type){
 	}
 	console.log("html 프린트");
 	$(".alarmPrintDiv").html(print);
-	//ajax 후 함수 실행
+	//ajax 후 호버 함수 실행 / 안하면 호버 적용안됨!
 	divhover();
 };
 
@@ -403,17 +385,12 @@ function divhover(){
 	$(".divRowAl").click(e=>{
 		   $(e.target).parent().next().slideToggle('fast', function() {
 		     });
-		  // $(this).removeClass( 'shadow p-3 mb-5 bg-white rounded' );
 		});
 		$('.divRowAl').hover(function() {
-			//console.log("온");
 			$(this).css('color', '#FFC107');
 			$(this).addClass('shadow p-3 mb-5 bg-white rounded');
-			//$(this).removeClass('shadow p-3 mb-5 bg-white rounded');
 		}, function() {
-			//console.log("오프");
 			$(this).css('color', 'black');
-			//$(this).addClass('shadow p-3 mb-5 bg-white rounded');
 			$(this).removeClass('shadow p-3 mb-5 bg-white rounded');
 		});
 };

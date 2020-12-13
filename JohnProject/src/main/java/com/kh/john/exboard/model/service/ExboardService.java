@@ -68,4 +68,6 @@ public interface ExboardService {
 
 	List<ExpertBoard> selectExpertReviewList() throws Exception;
 
+	ExpertRequest selectIsExpertReq(Map<String, String> mm) throws Exception;
+
 }
