@@ -40,12 +40,16 @@ label, input {
 	<input type="text" class="form-control short" name="usid" placeholder="받는사람 usid"/>
 	<input type="text" class="form-control short" name="type" placeholder="타입"/>
 	<input type="text" class="form-control short" name="content" placeholder="내용"/>
-	<button class="btn btn-outline-success" onclick="sendAlarm('${loginMember.usid}',$('input[name=usid]').val(),$('input[name=type]').val(),$('input[name=content]').val(),'',${loginMember.memNickname}');">알람 보내기</button>
+	<button class="btn btn-outline-success" onclick="sendAlarm(
+	'${loginMember.usid}',
+	$('input[name=usid]').val(),
+	$('input[name=type]').val(),
+	$('input[name=content]').val(),
+	'${loginMember.memNickname}');">알람 보내기</button>
+	
+	<%-- <button class="btn btn-outline-success" onclick="sendAlarm('${loginMember.usid}',$('input[name=usid]').val(),$('input[name=type]').val(),$('input[name=content]').val(),'',${loginMember.memNickname}');">알람 보내기</button> --%>
 	
 	<!-- 
-	
-	
-	sendAlarm("${loginMember.usid}",num,"expert",bno,"${loginMember.memNickname}");
 	
 	진행 순서
 	

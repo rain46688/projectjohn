@@ -553,6 +553,10 @@ public class ExboardController {
 			log.debug("noboard" + noboard);
 			noboard.setMemEmail(aes.decrypt(noboard.getMemEmail()));
 			mv.addObject("mem", noboard);
+			Map<String, String> mm = new HashMap<String, String>();
+			mm.put("exusid", "" + enterMem.getUsid());
+			mm.put("memusid", "" + noboard.getUsid());
+			mv.addObject("expertRequest", service.selectIsExpertReq(mm));
 		} else if (enterMem.getMemClass().equals("일반유저")) {
 			map.put("memusid", "" + enterMem.getUsid());
 			map.put("bno", bno);
