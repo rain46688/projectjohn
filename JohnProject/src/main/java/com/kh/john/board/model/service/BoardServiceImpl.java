@@ -24,7 +24,7 @@ public class BoardServiceImpl implements BoardService {
 	SqlSession session;
 	
 	@Override
-	public List<Board> boardList() {
+	public List<Map> boardList() {
 		// TODO Auto-generated method stub
 		return dao.boardList(session);
 	}

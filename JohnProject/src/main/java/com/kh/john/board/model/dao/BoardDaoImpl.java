@@ -15,7 +15,7 @@ import com.kh.john.board.model.vo.Subscribe;
 public class BoardDaoImpl implements BoardDao{
 	
 	@Override
-	public List<Board> boardList(SqlSession session) {
+	public List<Map> boardList(SqlSession session) {
 		// TODO Auto-generated method stub
 		return session.selectList("board.boardList");
 	}

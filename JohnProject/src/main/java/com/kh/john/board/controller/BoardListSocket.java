@@ -2,6 +2,7 @@ package com.kh.john.board.controller;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.socket.CloseStatus;
@@ -37,11 +38,11 @@ public class BoardListSocket extends TextWebSocketHandler  {
 		// TODO Auto-generated method stub
 		String messageFromClient = message.getPayload();
 		if(messageFromClient.equals("boardList")) {
-			List<Board> list = service.boardList();
+			List<Map> list = service.boardList();
 			session.sendMessage(new TextMessage(mapper.writeValueAsString(list)));
 		}
 		if(messageFromClient.equals("boardInsertSuccess")) {
-			List<Board> list = service.boardList();
+			List<Map> list = service.boardList();
 			for(WebSocketSession sess : sessions) {
 				sess.sendMessage(new TextMessage(mapper.writeValueAsString(list)));
 			}

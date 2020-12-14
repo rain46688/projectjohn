@@ -306,6 +306,7 @@ ion-icon#likeButton {
   align-items:center;
   border-radius:15px;
   background-color:white;
+  overflow:hidden;
 }
 
 #box1 .inform {
@@ -490,7 +491,7 @@ ion-icon#likeButton {
 		})
 		
 		console.log(dataConnection.metadata);
-		let myVideo = document.createElement('video')
+		let myVideo = document.createElement('audio')
 		myVideo.muted = true;
 		
 		const peers = {};
@@ -498,7 +499,7 @@ ion-icon#likeButton {
 		console.log(peers);
 		
 		navigator.mediaDevices.getUserMedia({
-			video:true,
+			video:false,
 			audio:true
 		}).then(stream => {
 			addVideoStream(myVideo, stream)
@@ -507,7 +508,7 @@ ion-icon#likeButton {
 				console.log('call 받음')
 				call.answer(stream)
 				console.log('call 받음2222')
-				const video = document.createElement('video')
+				const video = document.createElement('audio')
 				call.on('stream', userVideoStream => {
 					addVideoStream(video, userVideoStream)
 				})
@@ -515,7 +516,7 @@ ion-icon#likeButton {
 			
 			//새로운 유저가 들어왔을 때
 			socket.on('user-connected', userId => {
-				console.log('새로운 유저가 들어옴')
+				console.log('새로운 유저가 들어옴:'+userId)
 				connectToNewUser(userId, stream)
 			})
 		}, function(err) {
@@ -530,7 +531,20 @@ ion-icon#likeButton {
 			}
 			console.log(peers);
 		})
+		
+		myPeer.on('call', call => {
+			console.log('call 받음')
+			const video = document.createElement('audio')
+			console.log(call);
+			call.on('stream', userVideoStream => {
+				console.log(userVideoStream)
+				addVideoStream(video, userVideoStream)
+			})
+		}, function(err) {
+			  console.log(err);
+		})
 
+		
 		myPeer.on('open', id => {
 			console.log('룸에 조인함')
 			socket.emit('join-room', ROOM_ID, id);
@@ -538,7 +552,7 @@ ion-icon#likeButton {
 
 		function connectToNewUser(userId, stream){
 			const call = myPeer.call(userId, stream)
-			const video = document.createElement('video');
+			const video = document.createElement('audio');
 			
 			console.log(userId+"로 부터 들어옴");
 			call.on('stream', userVideoStream => {
@@ -554,6 +568,7 @@ ion-icon#likeButton {
 		}
 		
 		function addVideoStream(video, stream) {
+			console.log('둘둘둘ㄷ룯');
 			video.srcObject = stream;
 			video.addEventListener('loadedmetadata', () => {
 				video.play();
@@ -570,7 +585,7 @@ let chatList = [];
 
 const chatSocket = new WebSocket("wss://172.30.1.16:8443${path}/chat");
 
-const chatImageSocket = new WebSocket("wss://172.30.1.16:8443${path}/image");
+/* const chatImageSocket = new WebSocket("wss://172.30.1.16:8443${path}/image"); */
 
 /* const stompImage = Stomp.over(chatImageSocket); */
 

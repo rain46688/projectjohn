@@ -9,7 +9,7 @@ import com.kh.john.board.model.vo.Comment;
 import com.kh.john.board.model.vo.Subscribe;
 
 public interface BoardService {
-	List<Board> boardList();
+	List<Map> boardList();
 	List<Board> boardSelectCate(String boardTitle);
 	int boardInsert(Board b);
 	Map boardSelectOne(int boardNo);

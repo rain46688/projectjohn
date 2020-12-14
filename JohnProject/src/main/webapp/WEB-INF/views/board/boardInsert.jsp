@@ -109,47 +109,14 @@
 				<option value="pet">반려견문제</option>
 			</select>
 			</div>
-			<select class="custom-select custom-select-sm marginTop" name="" id="">
-				<option value="" >채널을 선택하세요 (수정예정)</option>
-				<option value="1">1</option>
-				<option value="2">2</option>
-				<option value="3">3</option>
-				<option value="4">4</option>
-				<option value="5">5</option>
-			</select>
 			<div class="input-group marginTop">
 			<input class="form-control" type="text" name="title" id="titleInput" placeholder="제목을 입력하세요">
 			</div>
 			<div class="input-group marginTop">	
-			<!-- <input class="form-control" type="text" name="price" id="price" placeholder="가격">
-			<select class="custom-select custom-select-md" name="maxMems" id="maxMems">
-				<option value="" selected>희망 참여 인원</option>
-				<option value="2">2</option>
-				<option value="3">3</option>
-				<option value="4">4</option>
-				<option value="5">5</option>
-				<option value="6">6</option>
-				<option value="7">7</option>
-				<option value="8">8</option>
-				<option value="9">9</option>
-				<option value="10">10</option>
-				<option value="11">11</option>
-				<option value="12">12</option>
-				<option value="13">13</option>
-				<option value="14">14</option>
-				<option value="15">15</option>
-			</select> -->
 			</div>
 			<div id="textEditor" class="marginTop">
 				<textarea cols="80" id="editor1" name="content" rows="10" data-sample-short placeholder='내용을 입력해주세요'></textarea>
 			</div>
-			<!-- <div id="imageUpload" class="marginTop">
-				<label id="uploadBtn" class="btn btn-lg btn-outline-secondary" for="file"><p>이미지</p>업로드</label>
-				<input style="display: none;" type="file" name="upFiles" id="file" multiple="true">
-				<div id="image-prev">
-					이미지 미리보기
-				</div>
-			</div> -->
 			<div class="input-group marginTop">	
 			<input class="form-control" type="text" name="agreeName" id="agreeName" placeholder="찬성 이름">
 			<input class="form-control" type="text" name="disagreeName" id="disagreeName" placeholder="반대 이름">

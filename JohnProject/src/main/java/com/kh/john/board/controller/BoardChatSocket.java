@@ -168,11 +168,6 @@ public class BoardChatSocket extends AbstractWebSocketHandler{
 					
 					roomChat.put(boardId, msgFromClient);
 				}
-				if(roomImageFileName.get(boardId)!=null) {
-					for(Member mem : rooms.get(boardId)) {
-						allUsers.get(mem).sendMessage(new TextMessage("image:"+roomImageFileName.get(boardId)));
-					}
-				}
 			}else {
 				msgFromClient.setBoardId(boardId);
 				msgFromClient.setUsid(member.getUsid());
@@ -192,6 +187,12 @@ public class BoardChatSocket extends AbstractWebSocketHandler{
 						rooms.put(boardId, member);
 						break;
 					}
+				}
+			}
+			
+			if(roomImageFileName.get(boardId)!=null) {
+				for(Member mem : rooms.get(boardId)) {
+					allUsers.get(mem).sendMessage(new TextMessage("image:"+roomImageFileName.get(boardId)));
 				}
 			}
 			

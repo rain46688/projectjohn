@@ -12,7 +12,7 @@ import com.kh.john.board.model.vo.Subscribe;
 
 
 public interface BoardDao {
-	List<Board> boardList(SqlSession session);
+	List<Map> boardList(SqlSession session);
 	List<Board> boardSelectCate(SqlSession session, String boardTitle);
 	int boardInsert(SqlSession session, Board b);
 	int boardInsertFiles(SqlSession session, BoardFile file);
