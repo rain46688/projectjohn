@@ -115,7 +115,10 @@ h1 {
 	margin-top: 3vh;
 	margin-left: 200%;
 	width: 100%;
+	height:22vh;
 	font-size: 3vh;
+	display:flex;
+	justify-content:center;
 }
 
 /* 검색 부분 div */
@@ -426,6 +429,10 @@ h1 {
 			exboardList = JSON.parse(msg.data);
 			backupList = JSON.parse(msg.data);
 			setting();
+		}else{
+			console.log("상담 신청이 없다~~~~!!!");
+			let pbhtml = "<div class='divRow '><div class='divCell'><div><img id='noli' src='${path}/resources/images/noli.png' alt='' width='150px' height='150px'></div><div class='empty'>상담 신청이 없습니다.</div></div></div>";
+			$(".divListBody").html(pbhtml);
 		}
 
 	}
@@ -477,7 +484,8 @@ h1 {
 				}
 			});
 		}else{
-			pbhtml = "<div class='divRow '><div class='divCell'><div class='empty'>상담 신청이 없습니다.</div></div></div>";
+			console.log("상담 신청이 없다~~~~");
+			pbhtml = "<div class='divRow '><div class='divCell'><div><img id='noli' src='${path}/resources/images/noli.png' alt='' width='150px' height='150px'></div><div class='empty'>상담 신청이 없습니다.</div></div></div>";
 		}
 		$(".divListBody").html(pbhtml);
 	}

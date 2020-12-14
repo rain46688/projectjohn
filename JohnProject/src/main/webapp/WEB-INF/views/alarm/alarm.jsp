@@ -93,6 +93,7 @@ html, body, div, span, applet, object, iframe, h1, h2, h3, h4, h5, h6, p, blockq
 	font-size: 25px;
 	padding: 5% 0 5% 0;
 	height:200px;
+	color:#585858;
 }
 
 /* 맨위 휴지통이랑 모두 보기 체크 부분 */
@@ -153,19 +154,19 @@ $(".nav-link").click(e =>{
 	};
 	$(e.target).addClass('active');
 	item = $(e.target).html();
-	console.log("item : "+item);
+	//console.log("item : "+item);
 	if(item === '상담'){
 		item = 'expert';
 		printalfunc(alarmList, item);
-		console.log("change : "+item);
+		//console.log("change : "+item);
 	}else if(item === '게시판'){
 		item = 'board';
 		printalfunc(alarmList, item);
-		console.log("change : "+item);
+		//console.log("change : "+item);
 	}else if(item === '신고'){
 		item = 'report';
 		printalfunc(alarmList, item);
-		console.log("change : "+item);
+		//console.log("change : "+item);
 	}
 	//나중에 추가?
 });
@@ -265,12 +266,13 @@ function printalfunc(list, type){
 	});
 	console.log("반복 끝");
 	if(print == ''){
-		print = "<div class='emptyAl'>알람이 없습니다.</div>";
+		console.log("빔1")
+		print = "<div class='emptyAl'><div><img id='nome' src='${path}/resources/images/nome.png' alt='' width='100px' height='100px'></div>알람 메세지가 없습니다.</div>";
 	}
 	//리스트 0개 아닐때
 	}else{
 		console.log("빔2");
-		print = "<div class='emptyAl'>알람이 없습니다.</div>";
+		print = "<div class='emptyAl'><div><img id='nome' src='${path}/resources/images/nome.png' alt='' width='100px' height='100px'></div>알람 메세지가 없습니다!!</div>";
 	}
 	console.log("html 프린트");
 	$(".alarmPrintDiv").html(print);

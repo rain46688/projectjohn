@@ -53,7 +53,6 @@ public class ExpertListHandler extends TextWebSocketHandler {
 		Map<String, Object> map = session.getAttributes();
 		Member m = (Member) map.get("loginMember");
 		users.put(m, session);
-		log.debug("m : " + m);
 		log.info("닉네임 : " + m.getMemNickname());
 	}
 
@@ -69,8 +68,9 @@ public class ExpertListHandler extends TextWebSocketHandler {
 		try {
 			Map<String, Object> map = session.getAttributes();
 			Member m = (Member) map.get("loginMember");
+			// expertRequestPrintList에 리스트 뿌려주기!
 			if (message.getPayload().equals("start")) {
-				log.debug("handleTextMessage 리스트 뽑아오기!");
+				log.debug(" === start 분기 === ");
 				List<ExpertRequest> list = service.selectExRequestList(m);
 				List<ExpertBoard> blist = service.selectExpertBoard(m);
 
@@ -80,19 +80,23 @@ public class ExpertListHandler extends TextWebSocketHandler {
 					String extime_ = format1.format(er.getExpertDate());
 					er.setExpertDateTmp(extime_);
 
+					// expertBoard가 DB에 하나도 생성이 안되있는 경우
 					if (blist.size() == 0) {
 						er.setStartCounsel(false);// 신청 내역이 없는 상태 전부 false로 만들어줌
 						er.setEndCounsel(false);
 					} else {
+						// expertBoard가 DB에 생성이 되어있는 경우
 						for (ExpertBoard eb : blist) {
+							// 상담을 시작했다는것 experBoard가 생성되잇음
 							if (er.getExpertRequestMemUsid() == eb.getExpertBoardMemUsid()) {
 								// expert_board가 있는 상태
 								er.setStartCounsel(true);
-
+								// expertRequest랑 expertBoard의 상담 종료 flag값이 모두 true이면
 								if (er.getExpertIscounsel() == 1 && eb.getExpertBoardExpertend() == 1) {
 									// 상담 끝난 상태
 									er.setEndCounsel(true);
 								} else {
+									// 상담 아직 안끝난 상태
 									er.setEndCounsel(false);
 								}
 
@@ -100,29 +104,24 @@ public class ExpertListHandler extends TextWebSocketHandler {
 								// 상담 시작 안했다는것 expert_board가 없는 상태
 								er.setEndCounsel(false);
 								er.setStartCounsel(false);
+								// false로 설정
 							}
 						}
 					}
 				}
 
-				for (ExpertRequest er : list) {
-					log.debug("확인용 : " + er);
-				}
+				/*
+				 * for (ExpertRequest er : list) { log.debug("확인용 : " + er); }
+				 */
+				SendExpertList(list);
 
-				Iterator<Member> it = users.keySet().iterator();
-				while (it.hasNext()) {
-					Member key = it.next();
-					users.get(key).sendMessage(new TextMessage(objectMapper.writeValueAsString(list)));
-				}
 			} else if (message.getPayload().equals("start2")) {
 				// 추가 예정
 				log.debug("start2");
 				List<ExpertBoardListVo> list = service.selectExpertBoardList();
-				Iterator<Member> it = users.keySet().iterator();
-				while (it.hasNext()) {
-					Member key = it.next();
-					users.get(key).sendMessage(new TextMessage(objectMapper.writeValueAsString(list)));
-				}
+
+				SendExpertList(list);
+
 			} else if (message.getPayload().equals("start3")) {
 				// 추가 예정
 				log.debug("start3");
@@ -135,16 +134,22 @@ public class ExpertListHandler extends TextWebSocketHandler {
 					eb.setExpertBoardDateString(extime_);
 				}
 
-				Iterator<Member> it = users.keySet().iterator();
-				while (it.hasNext()) {
-					Member key = it.next();
-					users.get(key).sendMessage(new TextMessage(objectMapper.writeValueAsString(list)));
-				}
+				SendExpertList(list);
+
 			}
 		} catch (Exception e) {
 			// TODO: handle exception
+			log.debug(" === handleTextMessage 에러 === " + e);
 		}
 
+	}
+
+	public void SendExpertList(List list) throws Exception {
+		Iterator<Member> it = users.keySet().iterator();
+		while (it.hasNext()) {
+			Member key = it.next();
+			users.get(key).sendMessage(new TextMessage(objectMapper.writeValueAsString(list)));
+		}
 	}
 
 	/**
@@ -164,6 +169,7 @@ public class ExpertListHandler extends TextWebSocketHandler {
 			}
 		}
 		for (Member listkey : keyList) {
+			log.debug(" === ExpertListHandler 세션 List 삭제 === ");
 			users.remove(listkey);
 		}
 	}
