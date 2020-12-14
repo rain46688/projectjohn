@@ -572,16 +572,21 @@ html, body, div, span, applet, object, iframe, h1, h2, h3, h4, h5, h6, p, blockq
 		}
 		
 		exboardListConn.onmessage = function(msg) {
-			console.log("onmessage");
-			if(newexboardList.length == 0){
-				newexboardList = JSON.parse(msg.data);
-				printUpExpertList();
-			}else{
-				newexReviewList = JSON.parse(msg.data);
-				printDownExpertList();
+			console.log("onmessage 그냥 리스트");
+			let check = (msg.data).includes("Request");
+			console.log("포함 여부 : "+check);
+			
+			if(!check){
+				if(newexboardList.length == 0){
+					newexboardList = JSON.parse(msg.data);
+					printUpExpertList();
+				}else{
+					newexReviewList = JSON.parse(msg.data);
+					printDownExpertList();
+				}
+				//슬라이드 함수 실행
+				slide();
 			}
-			//슬라이드 함수 실행
-			slide();
 		}
 		
 		function exboardListsendMessage(message) {

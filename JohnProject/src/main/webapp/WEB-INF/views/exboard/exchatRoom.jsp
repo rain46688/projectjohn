@@ -332,20 +332,17 @@ textarea {
 						<div class="eff-8"></div>
 						<a class="johnbtn" onclick='counselEnd();'>완료</a>
 					</div>
-					<!-- <button type="button" class="exBtn btn btn-outline-success my-2 my-sm-0" onclick='counselEnd();'>상담 완료</button> -->
 				</c:if>
 				<c:if test="${eb.expertBoardMemberend == 0}">
 					<div class="button-8">
 						<div class="eff-8"></div>
-						<a class="johnbtn" onclick="alert('상담 받는 유저가 고민 해결 버튼을 클릭 후\n상담 종료가 가능합니다.');">상담중</a>
+						<a class="johnbtn" onclick="alert('유저가 해결 버튼을 클릭 후\n상담 종료가 가능합니다.');">상담중</a>
 					</div>
-					<!-- <button type="button" class="exBtn btn btn-outline-danger my-2 my-sm-0" onclick="alert('상담 받는 유저가 고민 해결 버튼을 클릭 후\n상담 종료가 가능합니다.');">상담 진행중</button> -->
 				</c:if>
 				<div class="button-7">
 					<div class="eff-7"></div>
 					<a class="johnbtn" onclick='memInfoView();'>정보</a>
 				</div>
-				<!-- <button type="button" class="exBtn btn btn-outline-success my-2 my-sm-0" onclick='memInfoView();'>회원 정보</button> -->
 			</c:if>
 			<c:if test="${loginMember.memClass != '전문가'}">
 
@@ -354,26 +351,22 @@ textarea {
 					<a class="johnbtn" onclick='onoff();'>카메라</a>
 				</div>
 
-				<!-- <button type="button" class="memBtn btn btn-outline-success my-2 my-sm-0" onclick='onoff();'>캠 온오프</button> -->
 				<c:if test="${eb.expertBoardMemberend == 0}">
 					<div class="button-7">
 						<div class="eff-7"></div>
 						<a class="johnbtn" onclick='counselMemberEnd();'>해결</a>
 					</div>
-					<!-- <button type="button" class="memBtn btn btn-outline-success my-2 my-sm-0" onclick='counselMemberEnd();'>고민 해결</button> -->
 				</c:if>
 				<c:if test="${eb.expertBoardMemberend == 1}">
 					<div class="button-8">
 						<div class="eff-8"></div>
-						<a class="johnbtn" onclick="alert('상담사 분이 상담 완료를 누르면 상담이 정상 종료됩니다.');">종료중</a>
+						<a class="johnbtn" onclick="alert('상담사 분이 완료를 누르면 상담이 정상 종료됩니다.');">종료중</a>
 					</div>
-					<!-- <button type="button" class="memBtn btn btn-outline-danger my-2 my-sm-0" onclick="alert('상담사 분이 상담 완료를 누르면 상담이 정상 종료됩니다.');">상담 종료중</button> -->
 				</c:if>
 				<div class="button-7">
 					<div class="eff-7"></div>
 					<a class="johnbtn" onclick='memInfoView();'>정보</a>
 				</div>
-				<!-- <button type="button" class="memBtn btn btn-outline-success my-2 my-sm-0" onclick='memInfoView();'>상담사 정보</button> -->
 			</c:if>
 		</div>
 	</div>
@@ -410,7 +403,7 @@ textarea {
 	
 	
 	// ============================
-	//드래그 후 보여지는 드래그 이미지 호버 이거없으면 와리가리만함
+	//드래그 처리
 	// ============================
 	let $drop2 = $("#dragImg");
 	
@@ -556,8 +549,6 @@ textarea {
 			// ============================
 				
 			const conn = new WebSocket('wss://192.168.219.105${path}/ertc');
-			//const conn = new WebSocket('wss://192.168.120.31${path}/ertc');
-			//const conn = new WebSocket('wss://localhost${path}/ertc');
 
 			conn.onopen = function() {
 				console.log("onopen => signaling server 연결");
@@ -908,7 +899,7 @@ textarea {
 			// ============================
 			function counselMemberEnd(){
 				
-				let result = confirm("고민 해결을 완료하시면 상담사 분이 확인 후 종료됩니다.\n한번 완료하시면 취소가 불가능합니다.");
+				let result = confirm("해결 버튼을 누르시면 상담사 분이 확인 후 상담이 종료됩니다.\n한번 완료하시면 취소가 불가능합니다.");
 				
 				if(result){
 				$.ajax({
@@ -959,7 +950,7 @@ textarea {
 			// counselMemberEnd에서 onclick 호출로 alert이 이상하게 안되서 함수를 만듬 ㅅㅂ ㅋㅋㅋㅋ;
 			// ============================
 			function endAlert(){
-				let st = '상담사 분이 상담 완료를 누르면 상담이 정상 종료됩니다.';
+				let st = '상담사 분이 완료를 누르면 상담이 정상 종료됩니다.';
 				alert(st);
 			}
 

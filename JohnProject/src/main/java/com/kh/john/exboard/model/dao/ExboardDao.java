@@ -78,4 +78,6 @@ public interface ExboardDao {
 
 	List<ExpertBoard> selectExpertReviewList(SqlSessionTemplate session) throws Exception;
 
+	ExpertRequest selectIsExpertReq(SqlSessionTemplate session, Map<String, String> mm) throws Exception;
+
 }

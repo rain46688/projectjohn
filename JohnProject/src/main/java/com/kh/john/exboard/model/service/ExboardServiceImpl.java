@@ -104,7 +104,23 @@ public class ExboardServiceImpl implements ExboardService {
 	@Override
 	public int deleteExpertMemRequest(Member expert, Member mem) throws Exception {
 		// TODO Auto-generated method stub
-		return dao.deleteExpertMemRequest(session, expert, mem);
+		log.debug("deleteExpertMemRequest");
+		// 상담 게시판이 이미 생성됬는지 확인하고 생성되있으면 특정 넘버를 반환 이미 상담이 시작되어있으니 취소 못하도록 설정
+		int result = 0;
+		int exxbno = 0;
+		try {
+			exxbno = dao.selectExBoardNum(session, expert, "" + mem.getUsid());
+			log.debug("exxbno : " + exxbno);
+			log.debug("방이 생성되있다.");
+			result = -1;
+		} catch (Exception e) {
+			// TODO: handle exception
+			log.debug("exxbno2 : " + exxbno);
+			log.debug("방이 생성되있지 않다.");
+			result = dao.deleteExpertMemRequest(session, expert, mem);
+		}
+
+		return result;
 	}
 
 	/**
@@ -405,6 +421,17 @@ public class ExboardServiceImpl implements ExboardService {
 	public List<ExpertBoard> selectExpertReviewList() throws Exception {
 		// TODO Auto-generated method stub
 		return dao.selectExpertReviewList(session);
+	}
+
+	/**
+	 * @Author : cms
+	 * @Date : 2020. 12. 11.
+	 * @explain : 상담사가 유저 정보 볼때 요청 사항도 같이 보기
+	 */
+	@Override
+	public ExpertRequest selectIsExpertReq(Map<String, String> mm) throws Exception {
+		// TODO Auto-generated method stub
+		return dao.selectIsExpertReq(session, mm);
 	}
 
 }

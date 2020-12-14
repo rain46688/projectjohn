@@ -237,11 +237,11 @@ public class ExboardController {
 
 		String result = "";
 		try {
-			service.deleteExpertMemRequest(expert, mem);
-			result = "1";
+			result = "" + service.deleteExpertMemRequest(expert, mem);
 		} catch (Exception e) {
-			result = "0";
+			result = "1";
 		}
+		log.debug("zzre : " + result);
 		return result;
 	}
 
@@ -415,7 +415,8 @@ public class ExboardController {
 	 * @explain : 상담 종료
 	 */
 	@RequestMapping(value = "/expert/counselEnd")
-	public String counselEnd(String extext, String bno, RedirectAttributes redirectAttributes) throws Exception {
+	public String counselEnd(String extext, String bno, RedirectAttributes redirectAttributes, HttpSession session)
+			throws Exception {
 		log.info(" ===== counselEnd 실행 ===== ");
 
 		log.debug("extext : " + extext + "bno : " + bno);
@@ -424,10 +425,11 @@ public class ExboardController {
 
 		if (result == 1) {// 1이면 정상 종료
 			log.debug("extext : 정상종료");
-			return "redirect:/expert/expertRequestPrintList";
+			redirectAttributes.addAttribute("usid", ((Member) session.getAttribute("loginMember")).getUsid());
+			return "redirect:/member/myPage/expertRequestPrintList";
 		}
 		// 아니면 비정상 종료
-		redirectAttributes.addAttribute("loc", "/expert/expertRequestPrintList");
+		redirectAttributes.addAttribute("loc", "/member/myPage/expertRequestPrintList");
 		redirectAttributes.addAttribute("msg", "잘못된 종료 관리자에게 문의하세요");
 		log.debug("extext : 비정상종료");
 		return "redirect:/msg";
@@ -551,6 +553,10 @@ public class ExboardController {
 			log.debug("noboard" + noboard);
 			noboard.setMemEmail(aes.decrypt(noboard.getMemEmail()));
 			mv.addObject("mem", noboard);
+			Map<String, String> mm = new HashMap<String, String>();
+			mm.put("exusid", "" + enterMem.getUsid());
+			mm.put("memusid", "" + noboard.getUsid());
+			mv.addObject("expertRequest", service.selectIsExpertReq(mm));
 		} else if (enterMem.getMemClass().equals("일반유저")) {
 			map.put("memusid", "" + enterMem.getUsid());
 			map.put("bno", bno);

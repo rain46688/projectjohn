@@ -52,10 +52,9 @@ public class AlarmSocketHandler extends TextWebSocketHandler {
 		Member m = (Member) map.get("loginMember");
 		if (m != null) {
 			users.put(m, session);
-			log.debug("알람 서버 오픈 접속 닉네임 : " + m.getMemNickname());
-
+			log.debug(" === 알람 서버 오픈 접속 닉네임 : " + m.getMemNickname() + " === ");
 		} else {
-			log.debug("m이 null임.");
+			log.debug(" === m 객체 null === ");
 		}
 	}
 
@@ -72,41 +71,41 @@ public class AlarmSocketHandler extends TextWebSocketHandler {
 		Map<String, Object> map = session.getAttributes();
 		Member m = (Member) map.get("loginMember");
 		log.info("알람 서버 메세지 접속 닉네임 : " + m.getMemNickname());
-		//
+
+		// 알람 리스트 뽑아오는것 드롭 다운 알람
 		if (message.getPayload().equals("list")) {
-			log.debug("알람 리스트 뽑아오기");
+			log.debug(" === list 부분 분기 실행 === ");
 			Iterator<Member> lit = users.keySet().iterator();
 			while (lit.hasNext()) {
 				Member key = lit.next();
 				if (m.getUsid() == key.getUsid()) {
-					log.debug("자기 usid로 도착한 알람 리스트 자신한테만 뿌려주기");
+					log.debug(" === <m.getUsid() == key.getUsid()> 부분 분기 실행 === ");
 					sendList(key);
 				}
 			}
 		} else {
+			log.debug(" === else 부분 분기 실행 === ");
 			Object oo = objectMapper.readValue(message.getPayload(), Object.class);
-			log.debug("자료형 확인 : " + oo.getClass().getName());
+			log.debug("넘어온 자료형 확인 : " + oo.getClass().getName());
 
 			if (oo.getClass().getName().equals("java.util.ArrayList")) {
-				log.debug("리스트인 경우");
+				log.debug(" === java.util.ArrayList인 경우 분기 === ");
 				List<Alarm> ll = objectMapper.readValue(message.getPayload(), new TypeReference<List<Alarm>>() {
 				});
+				// 읽음 처리로 만들기
 				service.updateAlarmRead(ll);
-
+				log.debug(" === 읽음 처리 === ");
 			} else if (oo.getClass().getName().equals("java.util.LinkedHashMap")) {
-				log.debug("다른 객체인 경우");
+				log.debug(" === java.util.LinkedHashMap인 경우 분기 === ");
 				Alarm almsg = objectMapper.readValue(message.getPayload(), Alarm.class);
-				log.debug("알람 디비 넣기");
-				log.debug("almsg : " + almsg);
+				log.debug("알람 객체 : " + almsg);
+				log.debug(" === 알람 디비 넣기 === ");
 				service.insertExpertAlarm(almsg);
 				Iterator<Member> it = users.keySet().iterator();
 				while (it.hasNext()) {
 					Member key = it.next();
-					// 세션에 접속해있는 사람한테 리스트 발송
-					if (almsg.getAlarmReceiveMemUsid() == key.getUsid()) {
-						log.debug("알람 전송");
-						sendList(key);
-					}
+					log.debug(" === 알람 전송 === ");
+					sendList(key);
 				}
 			}
 		}
@@ -140,14 +139,14 @@ public class AlarmSocketHandler extends TextWebSocketHandler {
 	 * @explain : 리스트 발송하는 메소드 따로 빼놓음
 	 */
 	private void sendList(Member m) {
-		log.debug("sendList 메소드 실행");
+		log.debug(" === sendList 메소드 실행 === ");
 		List<Alarm> list = null;
 		try {
 			list = service.selectAlarmList(m.getUsid());
 			users.get(m).sendMessage(new TextMessage(objectMapper.writeValueAsString(list)));
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
-			e.printStackTrace();
+			log.debug(" === sendList 에러 === ");
 		}
 	}
 
