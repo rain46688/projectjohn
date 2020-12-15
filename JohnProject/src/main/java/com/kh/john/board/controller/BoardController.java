@@ -54,6 +54,9 @@ public class BoardController {
 		
 		Member m = (Member) request.getSession().getAttribute("loginMember");
 		
+		List<Map> popularList = service.boardPopularList();
+		List<Map> newList = service.boardNewList();
+		
 		List<Subscribe> list = service.boardSubList(m.getUsid());
 		
 		mv.addObject("subList", list);

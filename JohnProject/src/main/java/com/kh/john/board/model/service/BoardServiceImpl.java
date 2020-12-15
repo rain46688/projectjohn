@@ -1,17 +1,20 @@
 package com.kh.john.board.model.service;
 
+import java.sql.Connection;
 import java.util.List;
 import java.util.Map;
 
+import org.apache.ibatis.session.Configuration;
+import org.apache.ibatis.session.ExecutorType;
 import org.apache.ibatis.session.SqlSession;
+import org.apache.ibatis.session.SqlSessionFactory;
+import org.apache.ibatis.session.TransactionIsolationLevel;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.kh.john.board.model.dao.BoardDao;
 import com.kh.john.board.model.vo.Board;
-import com.kh.john.board.model.vo.BoardFile;
-import com.kh.john.board.model.vo.Comment;
 import com.kh.john.board.model.vo.Subscribe;
 
 @Service
