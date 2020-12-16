@@ -527,6 +527,7 @@ textarea:focus {
 						</div>
 						<div class="licenseInfo">
 							<div class="licenseType">
+							<!-- 데이터 베이스에 있는 타입 발급 기관 이름이랑 넘어오는 값이 똑같아야됨!! -->
 								<div class="licenseTitle">
 									<p>자격증 타입</p>
 								</div>
@@ -547,6 +548,7 @@ textarea:focus {
 										value="${license.licenseDate}">
 								</div>
 							</div>
+							<!-- 데이터 베이스에 있는 타입 발급 기관 이름이랑 넘어오는 값이 똑같아야됨!! -->
 							<div class="licenseCompany">
 								<div class="licenseTitle">
 									<p>자격증 발급 기관</p>
