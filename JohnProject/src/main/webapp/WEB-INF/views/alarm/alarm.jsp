@@ -126,7 +126,7 @@ html, body, div, span, applet, object, iframe, h1, h2, h3, h4, h5, h6, p, blockq
 	<div class="divListBodyAl">
 		<ul class="nav nav-tabs">
 			<li class="nav-item"><a class="nav-link active">상담</a></li>
-			<li class="nav-item"><a class="nav-link">게시판</a></li>
+			<!-- <li class="nav-item"><a class="nav-link">게시판</a></li> -->
 			<!-- <li class="nav-item"><a class="nav-link">신고</a></li> -->
 			<!-- <li class="nav-item"><a class="nav-link">테스트</a></li> -->
 		</ul>
