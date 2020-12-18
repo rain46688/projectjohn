@@ -96,7 +96,15 @@ public class BoardController {
 		list = service.boardHistoryList(cPage,numPerPage,m.getUsid());
 		}else {
 		//카테고리별
-			title=(String)param.get("cate");
+			switch(key) {
+			case "family": title="가족문제";break;
+			case "work": title="회사문제";break;
+			case "friend": title="친구문제";break;
+			case "pet": title="반려견문제";break;
+			case "love": title="연애상담";break;
+			}
+			totalData = service.boardCateCount(key);
+			list = service.boardCateList(cPage, numPerPage, key);
 		}
 		mv.addObject("pageBar", BoardPageBar.getPageBar(totalData, cPage, numPerPage, "boardListSmall?key="+key));
 		mv.addObject("title", title);

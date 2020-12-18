@@ -18,6 +18,8 @@ public interface BoardService {
 	int boardLikedCount(int usid);
 	List<Map> boardHistoryList(int cPage, int numPerPage, int usid);
 	int boardHistoryCount(int usid);
+	List<Map> boardCateList(int cPage, int numPerPage, String key);
+	int boardCateCount(String key);
 	List<Board> boardSelectCate(String boardTitle);
 	int boardInsert(Board b);
 	Map boardSelectOne(int boardNo);

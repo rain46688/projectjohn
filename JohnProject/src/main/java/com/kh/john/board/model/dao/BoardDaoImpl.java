@@ -69,6 +69,18 @@ public class BoardDaoImpl implements BoardDao{
 	}
 	
 	@Override
+	public List<Map> boardCateList(SqlSession session, int cPage, int numPerPage, String key) {
+		// TODO Auto-generated method stub
+		return session.selectList("board.boardCateList", key, new RowBounds((cPage-1)*numPerPage, numPerPage));
+	}
+	
+	@Override
+	public int boardCateCount(SqlSession session, String key) {
+		// TODO Auto-generated method stub
+		return session.selectOne("board.boardCateCount", key);
+	}
+	
+	@Override
 	public int boardInsert(SqlSession session, Board b) {
 		// TODO Auto-generated method stub
 		return session.insert("board.boardInsert", b);

@@ -263,10 +263,6 @@ a {
 	height:40%;
 }
 
-#sidebarHome {
-	background-color: rgb(255,255,255,0.1);
-}
-
 hr { display: block; height: 1px;
     border: 0; border-top: 1px solid #ccc;
     margin: 1em 0; padding: 0; }
@@ -280,16 +276,69 @@ hr { display: block; height: 1px;
 	height: 4em;
 	color:gray;
 }
-
-<c:if test="${title == '인기'}">
-#sidebarHome {
-	background-color:transparent;
+div.menuContainer {
+		background-color: transparent;
 }
+<c:choose>
+<c:when test="${title == '인기'}">
 
 #sidebarPopular{
 background-color: rgb(255,255,255,0.1);
 }
-</c:if>
+</c:when>
+
+<c:when test="${title == '최신'}">
+
+#sidebarㅜㄷ{
+background-color: rgb(255,255,255,0.1);
+}
+</c:when>
+
+<c:when test="${title == '좋아한 게시물'}">
+
+#sidebarLiked{
+background-color: rgb(255,255,255,0.1);
+}
+</c:when>
+
+<c:when test="${title == '내 기록'}">
+
+#sidebarHistory{
+background-color: rgb(255,255,255,0.1);
+}
+</c:when>
+<c:otherwise>
+	div.cate {
+		display:flex;
+	}
+	<c:if test="${title=='가족문제'}">
+	#family {
+		background-color: rgb(255,255,255,0.1);
+	}
+	</c:if>
+	<c:if test="${title=='회사문제'}">
+	#work {
+		background-color: rgb(255,255,255,0.1);
+	}
+	</c:if>
+	<c:if test="${title=='친구문제'}">
+	#friend {
+		background-color: rgb(255,255,255,0.1);
+	}
+	</c:if>
+	<c:if test="${title=='반려견문제'}">
+	#pet {
+		background-color: rgb(255,255,255,0.1);
+	}
+	</c:if>
+	<c:if test="${title=='연애상담'}">
+	#love {
+		background-color: rgb(255,255,255,0.1);
+	}
+	</c:if>
+</c:otherwise>
+
+</c:choose>
 </style>
 <script src="${path }/resources/js/glider.js"></script>
 <link rel="stylesheet" type="text/css" href="${path }/resources/css/glider.css">

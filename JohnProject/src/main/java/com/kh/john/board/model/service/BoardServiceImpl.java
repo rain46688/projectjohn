@@ -81,6 +81,18 @@ public class BoardServiceImpl implements BoardService {
 	}
 	
 	@Override
+	public List<Map> boardCateList(int cPage, int numPerPage, String key) {
+		// TODO Auto-generated method stub
+		return dao.boardCateList(session, cPage, numPerPage, key);
+	}
+	
+	@Override
+	public int boardCateCount(String key) {
+		// TODO Auto-generated method stub
+		return dao.boardCateCount(session, key);
+	}
+	
+	@Override
 	@Transactional
 	public int boardInsert(Board b) {
 		// TODO Auto-generated method stub

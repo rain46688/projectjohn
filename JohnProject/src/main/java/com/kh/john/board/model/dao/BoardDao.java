@@ -21,6 +21,8 @@ public interface BoardDao {
 	int boardLikedCount(SqlSession session, int usid);
 	List<Map> boardHistoryList(SqlSession session, int cPage, int numPerPage, int usid);
 	int boardHistoryCount(SqlSession session, int usid);
+	List<Map> boardCateList(SqlSession session, int cPage, int numPerPage, String key);
+	int boardCateCount(SqlSession session, String key);
 	List<Board> boardSelectCate(SqlSession session, String boardTitle);
 	int boardInsert(SqlSession session, Board b);
 	int boardInsertFiles(SqlSession session, BoardFile file);
