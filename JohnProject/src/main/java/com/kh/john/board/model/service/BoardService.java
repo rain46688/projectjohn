@@ -10,6 +10,14 @@ import com.kh.john.board.model.vo.Subscribe;
 
 public interface BoardService {
 	List<Map> boardList();
+	List<Map> boardPopularList();
+	List<Map> boardPopularList(int cPage, int numPerPage);
+	List<Map> boardNewList();
+	List<Map> boardNewList(int cPage, int numPerPage);
+	List<Map> boardLikedList(int cPage, int numPerPage, int usid);
+	int boardLikedCount(int usid);
+	List<Map> boardHistoryList(int cPage, int numPerPage, int usid);
+	int boardHistoryCount(int usid);
 	List<Board> boardSelectCate(String boardTitle);
 	int boardInsert(Board b);
 	Map boardSelectOne(int boardNo);

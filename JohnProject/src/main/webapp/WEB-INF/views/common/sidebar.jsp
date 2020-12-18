@@ -96,6 +96,7 @@
 		font-weight: bold;
 		color: white;
 		font-family: 'Noto Serif KR', serif;
+		cursor:pointer;
 	}
 	div.menuContainer:hover {
 		background-color: rgb(255,255,255,0.1);
@@ -114,31 +115,37 @@
 	</div>
 	
 	<div id="menu">
-		<div class="menuContainer">
+		<div class="menuContainer" id="sidebarHome" onclick="location.href='${path}/board/boardList'">
 			<ion-icon name="home-outline"></ion-icon>
 			<a class="menuLink nav-link" href="#">
 				HOME
 			</a>
 		</div>
-		<div class="menuContainer">
+		<div class="menuContainer" id="sidebarPopular" onclick="location.href='${path}/board/boardListSmall?key=popular'">
 			<ion-icon name="flame-outline"></ion-icon>
 			<a class="menuLink nav-link" href="#">
 				인기
 			</a>
 		</div>
-		<div class="menuContainer">
+		<div class="menuContainer" id="sidebarLiked" onclick="location.href='${path}/board/boardListSmall?key=liked'">
 			<ion-icon name="heart-outline"></ion-icon>
 			<a class="menuLink nav-link" href="#">
 				좋아한 게시물
 			</a>
 		</div>
-		<div class="menuContainer">
+		<div class="menuContainer" id="sidebarHistory" onclick="location.href='${path}/board/boardListSmall?key=history'">
 			<ion-icon name="folder-open-outline"></ion-icon>
 			<a class="menuLink nav-link" href="#">
 				내 기록
 			</a>
 		</div>
-		<div class="menuContainer">
+		<div class="menuContainer" id="sidebarVerbal">
+			<ion-icon name="mic-outline"></ion-icon>
+			<a class="menuLink nav-link" href="#">
+				음성 재판소
+			</a>
+		</div>
+		<div class="menuContainer" id="sidebarEx">
 			<ion-icon name="people-outline"></ion-icon>
 			<a class="menuLink nav-link" href="${path }/expert/expertPrintList?ca=직장 상담">
 				전문가와 상담하기
@@ -160,18 +167,10 @@
 			<img class="menuImages" src="${path}/resources/images/expert_menu.png">
 			전문가와 상담하기
 		</div> --%>
-		<hr>
-		<div class="menuContainer">
-			<ion-icon name="add-circle-outline"></ion-icon>
-			<a class="menuLink nav-link" href="#">
-				구독한 채널
-			</a>
-		</div>
 		<%-- <div id="subList" class="menusOnSide">
 			<img class="menuImages" src="${path}/resources/images/sub.png">
 			구독한 채널
 		</div> --%>
-		<hr>
 		<div class="menuContainer">
 			<ion-icon name="list-outline"></ion-icon>
 			<a class="menuLink nav-link" href="#">

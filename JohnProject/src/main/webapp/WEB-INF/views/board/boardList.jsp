@@ -140,12 +140,6 @@
   font-size:24px;
   width:10%;
 }
-ion-icon[name=mic-outline]{
-color:#00316d;
-}
-ion-icon[name=brush-outline] {
-color:#ffc55b;
-}
 ion-icon[name=thumbs-up-outline]{
 color:orange;
 }
@@ -220,6 +214,7 @@ a {
     scroll-snap-align: start;
     clear: both;
     position: relative;
+    cursor:pointer;
 }
 
 .card1:focus-within~.card1, .card1:hover~.card1 {
@@ -236,7 +231,7 @@ a {
 
 
 .card1-header {
-    margin-bottom: auto;
+    margin-bottom: 0.5em;
 }
 
 .card1-header p {
@@ -255,8 +250,44 @@ a {
     cursor: pointer;
 }
 
-.card1-header h2:hover {
+.card1-content p {
+	font-size: 16px;
+    text-decoration: none;
+    color: inherit;
+    border: 0;
+    display: inline-block;
+    cursor: pointer;
+    text-overflow:eclipse;
+    height:30%;
+}
+
+.card1-content {
+	text-overflow:eclipse;
+	white-space: nowrap;
+ 	 overflow: hidden;
+	height:4rem;
+	margin-bottom:0;
+	border:1px red solid;
+}
+
+/* .card1-header h2:hover {
     background: linear-gradient(90deg,#ff8a00,#e52e71);
+    text-shadow: none;
+    -webkit-text-fill-color: transparent;
+    -webkit-background-clip: text;
+    background-clip: text;
+} */
+
+.card1:hover > .card1-header>h2{
+	background: linear-gradient(90deg,#ff8a00,#e52e71);
+    text-shadow: none;
+    -webkit-text-fill-color: transparent;
+    -webkit-background-clip: text;
+    background-clip: text;
+}
+
+.card1:hover > .card1-content>p{
+	background: linear-gradient(90deg,#ff8a00,#e52e71);
     text-shadow: none;
     -webkit-text-fill-color: transparent;
     -webkit-background-clip: text;
@@ -269,6 +300,7 @@ a {
     grid-template-columns: 75px 1fr;
     align-items: center;
     position: relative;
+    margin-top:0.5rem;
 }
 
 .author-avatar {
@@ -341,295 +373,106 @@ a {
     background-clip: text;
     border-color: white;
 }
+
+#sidebarHome {
+	background-color: rgb(255,255,255,0.1);
+}
 </style>
 <script src="${path }/resources/js/glider.js"></script>
 <link rel="stylesheet" type="text/css" href="${path }/resources/css/glider.css">
 	<div id="content">
 					<!-- 내용 -->
-                    
-					<!-- <div id="result"> -->
+					<div id="result">
 						<div class="popular">
-							<h1 class='subListTitle'>인기 <a href="#">View More</a></h1>
-							<hr>
+							<h1 class='subListTitle'>인기 <a href="${path }/board/boardListSmall?key=popular">View More</a></h1>
 							<div id='popularList' class='subListBigCon'>
+								<div class="glider-contain">
+	<div class="card-list glider">
+	
+	<c:forEach var="popular" items="${popularList }" varStatus="status">
+      <div class="card1" onclick="location.href='${path}/board/boardPage?boardNo=${popular.BOARD_ID }'">
+        <div class="card1-header">
+          <p><fmt:formatDate value="${popular.ENROLL_DATE}" pattern="yyyy년 MM월 dd일"/></p>
+          <h2>${popular.TITLE }</h2>
+        </div>
+		<div class="icons">
+			<div class="judge">
+				<ion-icon name="thumbs-up-outline"></ion-icon> ${popular.AGREE_NUM }
+				<ion-icon name="thumbs-down-outline"></ion-icon> ${popular.DISAGREE_NUM }
+			</div>
+		</div>
+        <div class="card-author">
+          <a class="author-avatar" href="#">
+          	<c:if test="${popular.WRITER_PROFILE eq null}">
+            <img src="${path }/resources/images/avatar.png" />
+            </c:if>
+            <c:if test="${popular.WRITER_PROFILE ne null}">
+            <img src="${path }/resources/images/${popular.WRITER_PROFILE}" />
+            </c:if>
+          </a>
+          <svg class="half-circle" viewBox="0 0 106 57">
+            <path d="M102 4c0 27.1-21.9 49-49 49S4 31.1 4 4"></path>
+          </svg>
 
+          <div class="author-name">
+            <div class="author-name-prefix">글쓴이</div>
+            ${popular.WRITER_NICKNAME }
+          </div>
+        </div>
+      </div>
+      </c:forEach>
+ </div>
+      <div role="tablist" class="dots"></div>
+ </div>
 							</div>
 						</div>
-						<!-- <div class="new">
-							<h1 class='subListTitle'>최신 <a href="#">View More</a></h1>
-							<hr>
+						<hr>
+						<div class="new">
+							<h1 class='subListTitle'>최신 <a href="${path }/board/boardListSmall?key=new">View More</a></h1>
 							<div id='newList' class='subListBigCon'>
+								<div class="glider-contain">
+	<div class="card-list glider1">
+      <c:forEach var="new1" items="${newList }" varStatus="status">
+      <div class="card1" onclick="location.href='${path}/board/boardPage?boardNo=${new1.BOARD_ID }'">
+        <div class="card1-header">
+          <p><fmt:formatDate value="${new1.ENROLL_DATE}" pattern="yyyy년 MM월 dd일"/></p>
+          <h2>${new1.TITLE }</h2>
+        </div>
+        <div class="icons">
+			<div class="judge">
+				<ion-icon name="thumbs-up-outline"></ion-icon> ${new1.AGREE_NUM }
+				<ion-icon name="thumbs-down-outline"></ion-icon> ${new1.DISAGREE_NUM }
+			</div>
+		</div>
+        <div class="card-author">
+          <a class="author-avatar" href="#">
+          	<c:if test="${new1.WRITER_PROFILE eq null}">
+            <img src="${path }/resources/images/avatar.png" />
+            </c:if>
+            <c:if test="${new1.WRITER_PROFILE ne null}">
+            <img src="${path }/resources/images/${new1.WRITER_PROFILE}" />
+            </c:if>
+          </a>
+          <svg class="half-circle" viewBox="0 0 106 57">
+            <path d="M102 4c0 27.1-21.9 49-49 49S4 31.1 4 4"></path>
+          </svg>
 
+          <div class="author-name">
+            <div class="author-name-prefix">글쓴이</div>
+            ${new1.WRITER_NICKNAME }
+          </div>
+        </div>
+      </div>
+      </c:forEach>
+      </div>
+      <div role="tablist" class="dots1"></div>
+ </div>
+ </div>
 							</div>
 							<hr style="border-top:1px solid rgba(0,0,0,.1)">
-						</div> -->
-					<!-- </div> -->
-	<div class="glider-contain">
-	<div class="card-list glider">
-      <div class="card1">
-        <div class="card1-header">
-          <p>Sep 11th 2020</p>
-          <h2>Never forget</h2>
-        </div>
-
-        <div class="card-author">
-          <a class="author-avatar" href="#">
-            <img src="${path }/resources/images/avatar.png" />
-          </a>
-          <svg class="half-circle" viewBox="0 0 106 57">
-            <path d="M102 4c0 27.1-21.9 49-49 49S4 31.1 4 4"></path>
-          </svg>
-
-          <div class="author-name">
-            <div class="author-name-prefix">Author</div>
-            Jeff Delaney
-          </div>
-        </div>
-      </div>
-
-      <div class="card1">
-        <header class="card1-header">
-          <p>Sep 11th 2020</p>
-          <h2>Card Tricks are fun!</h2>
-        </header>
-
-        <div class="card-author">
-          <a class="author-avatar" href="#">
-            <img src="https://api.adorable.io/avatars/172/a.png" />
-          </a>
-          <svg class="half-circle" viewBox="0 0 106 57">
-            <path d="M102 4c0 27.1-21.9 49-49 49S4 31.1 4 4"></path>
-          </svg>
-
-          <div class="author-name">
-            <div class="author-name-prefix">Pirate</div>
-            Zheng Zhilong
-          </div>
-        </div>
-      </div>
-
-      <div class="card1">
-        <header class="card1-header">
-          <p>2020년 11월 30일</p>
-          <h2>Card Tricks are fun!</h2>
-        </header>
-
-        <div class="card-author">
-          <a class="author-avatar" href="#">
-            <img src="https://api.adorable.io/avatars/172/b.png" />
-          </a>
-          <svg class="half-circle" viewBox="0 0 106 57">
-            <path d="M102 4c0 27.1-21.9 49-49 49S4 31.1 4 4"></path>
-          </svg>
-
-          <div class="author-name">
-            <div class="author-name-prefix">Pirate</div>
-            Francis Drake
-          </div>
-        </div>
-      </div>
-
-      <div class="card1">
-        <header class="card1-header">
-          <p>Sep 11th 2020</p>
-          <h2>Card Tricks are fun!</h2>
-        </header>
-
-        <div class="card-author">
-          <a class="author-avatar" href="#">
-            <img src="https://api.adorable.io/avatars/172/c.png" />
-          </a>
-          <svg class="half-circle" viewBox="0 0 106 57">
-            <path d="M102 4c0 27.1-21.9 49-49 49S4 31.1 4 4"></path>
-          </svg>
-
-          <div class="author-name">
-            <div class="author-name-prefix">Pirate</div>
-            Edward Teach
-          </div>
-        </div>
-      </div>
-
-      <div class="card1">
-        <div class="card1-header">
-          <p>Sep 11th 2020</p>
-          <h2>Card Tricks are fun!</h2>
-        </div>
-
-        <div class="card-author">
-          <a class="author-avatar" href="#">
-            <img src="https://api.adorable.io/avatars/172/d.png" />
-          </a>
-          <svg class="half-circle" viewBox="0 0 106 57">
-            <path d="M102 4c0 27.1-21.9 49-49 49S4 31.1 4 4"></path>
-          </svg>
-
-          <div class="author-name">
-            <div class="author-name-prefix">Pirate</div>
-            William Kidd
-          </div>
-        </div>
-      </div>
-
-      <div class="card1">
-        <header class="card1-header">
-          <p>Sep 11th 2020</p>
-          <h2>Card Tricks are fun!</h2>
-        </header>
-
-        <div class="card-author">
-          <a class="author-avatar" href="#">
-            <img src="https://api.adorable.io/avatars/172/d.png" />
-          </a>
-          <svg class="half-circle" viewBox="0 0 106 57">
-            <path d="M102 4c0 27.1-21.9 49-49 49S4 31.1 4 4"></path>
-          </svg>
-
-          <div class="author-name">
-            <div class="author-name-prefix">Pirate</div>
-            William Kidd
-          </div>
-        </div>
-      </div>
- </div>
- <button aria-label="Previous" class="glider-prev">«</button>
-  <button aria-label="Next" class="glider-next">»</button>
-  <div role="tablist" class="dots"></div>
- </div>
- <section class="card-list">
-      <div class="card1">
-        <div class="card1-header">
-          <p>Sep 11th 2020</p>
-          <h2>Never forget</h2>
-        </div>
-
-        <div class="card-author">
-          <a class="author-avatar" href="#">
-            <img src="avatar.png" />
-          </a>
-          <svg class="half-circle" viewBox="0 0 106 57">
-            <path d="M102 4c0 27.1-21.9 49-49 49S4 31.1 4 4"></path>
-          </svg>
-
-          <div class="author-name">
-            <div class="author-name-prefix">Author</div>
-            Jeff Delaney
-          </div>
-        </div>
-      </div>
-
-
-
-      <div class="card1">
-        <header class="card1-header">
-          <p>Sep 11th 2020</p>
-          <h2>Card Tricks are fun!</h2>
-        </header>
-
-        <div class="card-author">
-          <a class="author-avatar" href="#">
-            <img src="https://api.adorable.io/avatars/172/a.png" />
-          </a>
-          <svg class="half-circle" viewBox="0 0 106 57">
-            <path d="M102 4c0 27.1-21.9 49-49 49S4 31.1 4 4"></path>
-          </svg>
-
-          <div class="author-name">
-            <div class="author-name-prefix">Pirate</div>
-            Zheng Zhilong
-          </div>
-        </div>
-      </div>
-
-
-
-
-      <div class="card1">
-        <header class="card1-header">
-          <p>2020년 11월 30일</p>
-          <h2>Card Tricks are fun!</h2>
-        </header>
-
-        <div class="card-author">
-          <a class="author-avatar" href="#">
-            <img src="https://api.adorable.io/avatars/172/b.png" />
-          </a>
-          <svg class="half-circle" viewBox="0 0 106 57">
-            <path d="M102 4c0 27.1-21.9 49-49 49S4 31.1 4 4"></path>
-          </svg>
-
-          <div class="author-name">
-            <div class="author-name-prefix">Pirate</div>
-            Francis Drake
-          </div>
-        </div>
-      </div>
-
-      <div class="card1">
-        <header class="card1-header">
-          <p>Sep 11th 2020</p>
-          <h2>Card Tricks are fun!</h2>
-        </header>
-
-        <div class="card-author">
-          <a class="author-avatar" href="#">
-            <img src="https://api.adorable.io/avatars/172/c.png" />
-          </a>
-          <svg class="half-circle" viewBox="0 0 106 57">
-            <path d="M102 4c0 27.1-21.9 49-49 49S4 31.1 4 4"></path>
-          </svg>
-
-          <div class="author-name">
-            <div class="author-name-prefix">Pirate</div>
-            Edward Teach
-          </div>
-        </div>
-      </div>
-
-
-      <div class="card1">
-        <header class="card1-header">
-          <p>Sep 11th 2020</p>
-          <h2>Card Tricks are fun!</h2>
-        </header>
-
-        <div class="card-author">
-          <a class="author-avatar" href="#">
-            <img src="https://api.adorable.io/avatars/172/d.png" />
-          </a>
-          <svg class="half-circle" viewBox="0 0 106 57">
-            <path d="M102 4c0 27.1-21.9 49-49 49S4 31.1 4 4"></path>
-          </svg>
-
-          <div class="author-name">
-            <div class="author-name-prefix">Pirate</div>
-            William Kidd
-          </div>
-        </div>
-      </div>
-
-      <div class="card1">
-        <header class="card1-header">
-          <p>Sep 11th 2020</p>
-          <h2>Card Tricks are fun!</h2>
-        </header>
-
-        <div class="card-author">
-          <a class="author-avatar" href="#">
-            <img src="https://api.adorable.io/avatars/172/d.png" />
-          </a>
-          <svg class="half-circle" viewBox="0 0 106 57">
-            <path d="M102 4c0 27.1-21.9 49-49 49S4 31.1 4 4"></path>
-          </svg>
-
-          <div class="author-name">
-            <div class="author-name-prefix">Pirate</div>
-            William Kidd
-          </div>
-        </div>
-      </div>
-
- </section>
+						</div>
+					</div>
+	
                 </div>
             </div>
         </div>
@@ -637,26 +480,25 @@ a {
 <script defer>
 	'use strict'
 	
-	function myfun(){
-     // Write your business logic here
-     console.log('hello');
-	}		
-	
-	window.onbeforeunload = function(){
-	  myfun();
-	  confirm('나갈거야?');
-	  return 'Are you sure you want to leave?';
-	};
-	
 	window.addEventListener('load', function(){
 	  new Glider(document.querySelector('.glider'), {
-		  slidesToShow: 3,
-		  slidesToScroll: 3,
+		  slidesToShow: 4,
+		  slidesToScroll: 4,
 		  draggable: true,
 		  dots: '.dots',
 		  arrows: {
 		    prev: '.glider-prev',
 		    next: '.glider-next'
+		  }
+	  })
+	  new Glider(document.querySelector('.glider1'), {
+		  slidesToShow: 4,
+		  slidesToScroll: 4,
+		  draggable: true,
+		  dots: '.dots1',
+		  arrows: {
+		    prev: '.glider-prev1',
+		    next: '.glider-next1'
 		  }
 	  })
 	})

@@ -33,6 +33,54 @@ public class BoardServiceImpl implements BoardService {
 	}
 	
 	@Override
+	public List<Map> boardPopularList() {
+		// TODO Auto-generated method stub
+		return dao.boardPopularList(session);
+	}
+	
+	@Override
+	public List<Map> boardPopularList(int cPage, int numPerPage) {
+		// TODO Auto-generated method stub
+		return dao.boardPopularList(cPage, numPerPage, session);
+	}
+	
+	@Override
+	public List<Map> boardNewList() {
+		// TODO Auto-generated method stub
+		return dao.boardNewList(session);
+	}
+	
+	@Override
+	public List<Map> boardNewList(int cPage, int numPerPage) {
+		// TODO Auto-generated method stub
+		return dao.boardNewList(cPage, numPerPage, session);
+	}
+	
+	@Override
+	public List<Map> boardLikedList(int cPage, int numPerPage, int usid) {
+		// TODO Auto-generated method stub
+		return dao.boardLikedList(session, cPage, numPerPage, usid);
+	}
+	
+	@Override
+	public int boardLikedCount(int usid) {
+		// TODO Auto-generated method stub
+		return dao.boardLikedCount(session, usid);
+	}
+	
+	@Override
+	public List<Map> boardHistoryList(int cPage, int numPerPage, int usid) {
+		// TODO Auto-generated method stub
+		return dao.boardHistoryList(session, cPage, numPerPage, usid);
+	}
+	
+	@Override
+	public int boardHistoryCount(int usid) {
+		// TODO Auto-generated method stub
+		return dao.boardHistoryCount(session, usid);
+	}
+	
+	@Override
 	@Transactional
 	public int boardInsert(Board b) {
 		// TODO Auto-generated method stub

@@ -5,8 +5,8 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.OutputStream;
 import java.io.PrintWriter;
+import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 import java.util.UUID;
@@ -33,7 +33,6 @@ import com.fasterxml.jackson.databind.JsonMappingException;
 import com.google.gson.JsonObject;
 import com.kh.john.board.model.service.BoardService;
 import com.kh.john.board.model.vo.Board;
-import com.kh.john.board.model.vo.Subscribe;
 import com.kh.john.member.model.vo.Member;
 
 import lombok.extern.slf4j.Slf4j;
@@ -49,19 +48,61 @@ public class BoardController {
 	private BoardService service;
 	
 	@RequestMapping("/board/boardList")
-	public ModelAndView boardList(ModelAndView mv, HttpServletRequest request) {
+	public ModelAndView boardList(ModelAndView mv) {
 		//list페이지에서 subList 보내줘야함
-		
-		Member m = (Member) request.getSession().getAttribute("loginMember");
 		
 		List<Map> popularList = service.boardPopularList();
 		List<Map> newList = service.boardNewList();
 		
-		List<Subscribe> list = service.boardSubList(m.getUsid());
-		
-		mv.addObject("subList", list);
+		mv.addObject("popularList", popularList);
+		mv.addObject("newList", newList);
 		
 		mv.setViewName("board/boardList");
+		return mv;
+	}
+	
+	@RequestMapping("/board/boardListSmall")
+	public ModelAndView boardList(ModelAndView mv, @RequestParam Map param, HttpServletRequest request) {
+		
+		Member m = (Member)request.getSession().getAttribute("loginMember");
+		String key = "";
+		int cPage = 1;
+		int numPerPage = 8;
+		int totalData = 40;
+		if((String)param.get("key")!=null)key=(String)param.get("key");
+		if(param.get("cPage")!=null)cPage = Integer.parseInt((String)param.get("cPage"));
+		if(param.get("numPerPage")!=null)cPage = Integer.parseInt((String)param.get("numPerPage"));
+		
+		String title = "";
+		List<Map> list = new ArrayList();
+		
+		if(key.equals("popular")) {
+		//인기 리스트
+		title="인기";
+		list = service.boardPopularList(cPage, numPerPage);
+		}else if(key.equals("new")) {
+		//최신 리스트
+		title="최신";
+		list = service.boardNewList(cPage, numPerPage);
+		}else if(key.equals("liked")) {
+		//좋아한 게시물 리스트
+		title="좋아한 게시물";
+		totalData = service.boardLikedCount(m.getUsid());
+		list = service.boardLikedList(cPage,numPerPage,m.getUsid());
+		}else if(key.equals("history")) {
+		//내 기록
+		title="내 기록";
+		totalData = service.boardHistoryCount(m.getUsid());
+		list = service.boardHistoryList(cPage,numPerPage,m.getUsid());
+		}else {
+		//카테고리별
+			title=(String)param.get("cate");
+		}
+		mv.addObject("pageBar", BoardPageBar.getPageBar(totalData, cPage, numPerPage, "boardListSmall?key="+key));
+		mv.addObject("title", title);
+		mv.addObject("list",list);
+		mv.setViewName("board/boardListSmall");
+		
 		return mv;
 	}
 	
@@ -211,19 +252,6 @@ public class BoardController {
 		return ajaxResult;
 	}
 	
-	//작은 카테고리 조회
-	@RequestMapping("/board/boardListSmall")
-	public ModelAndView boardListSmall(String boardTitle, ModelAndView mv) {
-		
-		log.debug(boardTitle);
-		
-		List<Board> list = service.boardSelectCate(boardTitle);
-		
-		mv.addObject("list", list);
-		mv.setViewName("/board/boardListSmall");
-		
-		return mv;
-	}
 	
 	//좋아요 넣기
 	@RequestMapping("/board/boardLikeInsert")
