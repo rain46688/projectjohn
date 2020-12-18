@@ -3,21 +3,81 @@ package com.kh.john.board.model.dao;
 import java.util.List;
 import java.util.Map;
 
+import org.apache.ibatis.session.RowBounds;
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.stereotype.Repository;
 
 import com.kh.john.board.model.vo.Board;
 import com.kh.john.board.model.vo.BoardFile;
-import com.kh.john.board.model.vo.Comment;
 import com.kh.john.board.model.vo.Subscribe;
 
 @Repository
 public class BoardDaoImpl implements BoardDao{
 	
 	@Override
-	public List<Board> boardList(SqlSession session) {
+	public List<Map> boardList(SqlSession session) {
 		// TODO Auto-generated method stub
 		return session.selectList("board.boardList");
+	}
+	
+	@Override
+	public List<Map> boardPopularList(SqlSession session) {
+		// TODO Auto-generated method stub
+		return session.selectList("board.boardPopularList");
+	}
+	
+	@Override
+	public List<Map> boardPopularList(int cPage, int numPerPage, SqlSession session) {
+		// TODO Auto-generated method stub
+		return session.selectList("board.boardPopularListSmall",null,new RowBounds((cPage-1)*numPerPage,numPerPage));
+	}
+	
+	@Override
+	public List<Map> boardNewList(SqlSession session) {
+		// TODO Auto-generated method stub
+		return session.selectList("board.boardNewList");
+	}
+	
+	@Override
+	public List<Map> boardNewList(int cPage, int numPerPage, SqlSession session) {
+		// TODO Auto-generated method stub
+		return session.selectList("board.boardNewListSmall",null,new RowBounds((cPage-1)*numPerPage,numPerPage));
+	}
+	
+	@Override
+	public List<Map> boardLikedList(SqlSession session, int cPage, int numPerPage, int usid) {
+		// TODO Auto-generated method stub
+		return session.selectList("board.boardLikedList",usid, new RowBounds((cPage-1)*numPerPage,numPerPage));
+	}
+	
+	@Override
+	public int boardLikedCount(SqlSession session, int usid) {
+		// TODO Auto-generated method stub
+		return session.selectOne("board.boardLikedCount", usid);
+	}
+	
+	@Override
+	public List<Map> boardHistoryList(SqlSession session, int cPage, int numPerPage, int usid) {
+		// TODO Auto-generated method stub
+		return session.selectList("board.boardHistoryList",usid, new RowBounds((cPage-1)*numPerPage, numPerPage));
+	}
+	
+	@Override
+	public int boardHistoryCount(SqlSession session, int usid) {
+		// TODO Auto-generated method stub
+		return session.selectOne("board.boardHistoryCount", usid);
+	}
+	
+	@Override
+	public List<Map> boardCateList(SqlSession session, int cPage, int numPerPage, String key) {
+		// TODO Auto-generated method stub
+		return session.selectList("board.boardCateList", key, new RowBounds((cPage-1)*numPerPage, numPerPage));
+	}
+	
+	@Override
+	public int boardCateCount(SqlSession session, String key) {
+		// TODO Auto-generated method stub
+		return session.selectOne("board.boardCateCount", key);
 	}
 	
 	@Override

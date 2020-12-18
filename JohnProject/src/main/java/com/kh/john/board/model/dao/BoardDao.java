@@ -12,7 +12,17 @@ import com.kh.john.board.model.vo.Subscribe;
 
 
 public interface BoardDao {
-	List<Board> boardList(SqlSession session);
+	List<Map> boardList(SqlSession session);
+	List<Map> boardPopularList(SqlSession session);
+	List<Map> boardPopularList(int cPage, int numPerPage, SqlSession session);
+	List<Map> boardNewList(SqlSession session);
+	List<Map> boardNewList(int cPage, int numPerPage, SqlSession session);
+	List<Map> boardLikedList(SqlSession session, int cPage, int numPerPage, int usid);
+	int boardLikedCount(SqlSession session, int usid);
+	List<Map> boardHistoryList(SqlSession session, int cPage, int numPerPage, int usid);
+	int boardHistoryCount(SqlSession session, int usid);
+	List<Map> boardCateList(SqlSession session, int cPage, int numPerPage, String key);
+	int boardCateCount(SqlSession session, String key);
 	List<Board> boardSelectCate(SqlSession session, String boardTitle);
 	int boardInsert(SqlSession session, Board b);
 	int boardInsertFiles(SqlSession session, BoardFile file);
