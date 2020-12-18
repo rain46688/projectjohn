@@ -551,7 +551,16 @@ public class ExboardController {
 			log.debug("musid" + musid);
 			Member noboard = service.selectMember(musid);
 			log.debug("noboard" + noboard);
-			noboard.setMemEmail(aes.decrypt(noboard.getMemEmail()));
+
+			try {
+				noboard.setMemEmail(aes.decrypt(noboard.getMemEmail()));
+				noboard.setTel(aes.decrypt(noboard.getTel()));
+			} catch (Exception e) {
+				// TODO: handle exception
+				noboard.setMemEmail(noboard.getMemEmail());
+				noboard.setTel(noboard.getTel());
+			}
+
 			mv.addObject("mem", noboard);
 			Map<String, String> mm = new HashMap<String, String>();
 			mm.put("exusid", "" + enterMem.getUsid());
