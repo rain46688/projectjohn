@@ -77,23 +77,28 @@ public class BoardController {
 		List<Map> list = new ArrayList();
 		
 		if(key.equals("popular")) {
-		//인기 리스트
-		title="인기";
-		list = service.boardPopularList(cPage, numPerPage);
+			//인기 리스트
+			title="인기";
+			list = service.boardPopularList(cPage, numPerPage);
 		}else if(key.equals("new")) {
-		//최신 리스트
-		title="최신";
-		list = service.boardNewList(cPage, numPerPage);
+			//최신 리스트
+			title="최신";
+			list = service.boardNewList(cPage, numPerPage);
 		}else if(key.equals("liked")) {
-		//좋아한 게시물 리스트
-		title="좋아한 게시물";
-		totalData = service.boardLikedCount(m.getUsid());
-		list = service.boardLikedList(cPage,numPerPage,m.getUsid());
+			//좋아한 게시물 리스트
+			title="좋아한 게시물";
+			totalData = service.boardLikedCount(m.getUsid());
+			list = service.boardLikedList(cPage,numPerPage,m.getUsid());
 		}else if(key.equals("history")) {
-		//내 기록
-		title="내 기록";
-		totalData = service.boardHistoryCount(m.getUsid());
-		list = service.boardHistoryList(cPage,numPerPage,m.getUsid());
+			//내 기록
+			title="내 기록";
+			totalData = service.boardHistoryCount(m.getUsid());
+			list = service.boardHistoryList(cPage,numPerPage,m.getUsid());
+		}else if(key.equals("voice")) {
+			title="음성재판소";
+			mv.addObject("title", title);
+			mv.setViewName("board/boardVoiceList");
+			return mv;
 		}else {
 		//카테고리별
 			switch(key) {

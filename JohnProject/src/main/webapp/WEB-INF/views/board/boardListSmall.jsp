@@ -92,7 +92,8 @@ a {
 
 .card1 {
     height: 18rem;
-    width: 19rem;
+    min-width:13rem;
+    width: 18rem;
     padding: 1.5rem;
     border-radius: 16px;
     background: white;
@@ -140,6 +141,7 @@ a {
     text-decoration: none;
     color: inherit;
     border: 0;
+ 	overflow: hidden;
 }
 
 .card1-content {
@@ -289,7 +291,7 @@ background-color: rgb(255,255,255,0.1);
 
 <c:when test="${title == '최신'}">
 
-#sidebarㅜㄷ{
+#sidebarNew{
 background-color: rgb(255,255,255,0.1);
 }
 </c:when>
@@ -337,8 +339,29 @@ background-color: rgb(255,255,255,0.1);
 	}
 	</c:if>
 </c:otherwise>
-
 </c:choose>
+
+div#pageBar{
+	width: 20%;
+	margin: 0 auto;
+	display: grid;
+}
+/*페이지바*/
+.page-item.active .page-link { /*현재페이지*/
+	background-color: #003478;
+	color: #ffcc66;
+	border: none;
+}
+.page-link{
+	color: #003478;
+}
+.pagination a:hover:not(.active) { /*호버*/
+	background-color: #ffcc66;
+	color: #003478;
+}
+.textInner a{
+	color: black;
+}
 </style>
 <script src="${path }/resources/js/glider.js"></script>
 <link rel="stylesheet" type="text/css" href="${path }/resources/css/glider.css">

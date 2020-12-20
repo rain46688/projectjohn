@@ -139,7 +139,7 @@
 			</a>
 		</div>
 		<div class="menuContainer" id="sidebarNew" onclick="location.href='${path}/board/boardListSmall?key=new'">
-			<ion-icon name="flame-outline"></ion-icon>
+			<ion-icon name="flash-outline"></ion-icon>
 			<a class="menuLink nav-link" href="#">
 				최신
 			</a>
@@ -156,7 +156,7 @@
 				내 기록
 			</a>
 		</div>
-		<div class="menuContainer" id="sidebarVerbal">
+		<div class="menuContainer" id="sidebarVerbal" onclick="location.href='${path}/board/boardListSmall?key=voice'">
 			<ion-icon name="mic-outline"></ion-icon>
 			<a class="menuLink nav-link" href="#">
 				음성 재판소
@@ -168,26 +168,6 @@
 				전문가와 상담하기
 			</a>
 		</div>
-		<%-- <div id="popular" class="menusOnSide">
-			<img class="menuImages" src="${path}/resources/images/popular.png">
-			인기
-		</div>
-		<div id="liked" class="menusOnSide">
-			<img class="menuImages" src="${path}/resources/images/like.png">
-			좋아한 게시물
-		</div>
-		<div id="history" class="menusOnSide">
-			<img class="menuImages" src="${path}/resources/images/history.png">
-			내 기록
-		</div>
-		<div id="expert" class="menusOnSide" onclick="location.href='${path}/expert'">
-			<img class="menuImages" src="${path}/resources/images/expert_menu.png">
-			전문가와 상담하기
-		</div> --%>
-		<%-- <div id="subList" class="menusOnSide">
-			<img class="menuImages" src="${path}/resources/images/sub.png">
-			구독한 채널
-		</div> --%>
 		<div id="big_cate">
 			<div class="menuContainer">
 				<ion-icon name="list-outline"></ion-icon>
@@ -196,7 +176,7 @@
 				</a>
 			</div>
 			<div class="menuContainer cate" id="family" onclick="location.href='${path}/board/boardListSmall?key=family'">
-				<ion-icon name="people-outline"></ion-icon>
+				<ion-icon name="storefront-outline"></ion-icon>
 				<a class="menuLink nav-link" href="#">
 					가족문제
 				</a>
@@ -226,9 +206,5 @@
 				</a>
 			</div>
 		</div>
-		<%-- <div id="cates" class="menusOnSide">
-			<img class="menuImages" src="${path}/resources/images/cate.png">
-			큰 카테고리들
-		</div> --%>
 	</div>
 </div>
