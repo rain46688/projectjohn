@@ -547,7 +547,7 @@ function commentListPrint(commentList) {
 			time = new Date(time);
 			time = time.customFormat("#YYYY#/#MM#/#DD# #hh#:#mm#");
 			let comment = document.createElement('div');
-			if(item.COM_WRITER_NICKNAME == '${currBoard.WRITER_USID}') comment.className = 'commentFromWriter';
+			if(item.COM_WRITER_USID == '${currBoard.WRITER_USID}') comment.className = 'commentFromWriter';
 			else comment.className = 'comment';
 
 			let commentProfileCon = document.createElement('div');
