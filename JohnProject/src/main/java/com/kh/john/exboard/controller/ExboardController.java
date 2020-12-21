@@ -63,6 +63,20 @@ public class ExboardController {
 
 	private static String pathzz;
 
+	@RequestMapping("/expert/1")
+	public ModelAndView test1() {
+		log.debug("에러");
+		ModelAndView mv = new ModelAndView("/common/1");
+		return mv;
+	}
+
+	@RequestMapping("/expert/2")
+	public ModelAndView test2() {
+		log.debug("에러");
+		ModelAndView mv = new ModelAndView("/common/2");
+		return mv;
+	}
+
 	/**
 	 * @Author : cms
 	 * @Date : 2020. 12. 9.
