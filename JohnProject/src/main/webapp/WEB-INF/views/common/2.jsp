@@ -61,7 +61,7 @@ body {
 }
 
 .neon {
-	font-size:14vh;
+	font-size:12vh;
   color: #fff;
   text-shadow:
     0 0 5px #fff,
@@ -76,14 +76,11 @@ body {
 }
 
 #img{
-
-width:35%;
-height:50%;
-margin-bottom:1%;
+width:70vh;
+height:50vh;
 background-image: url("${path}/resources/images/zzz.jpg");
 background-repeat: no-repeat;
 background-size: 100%;
-border:2px solid #062449;
 }
 
 
