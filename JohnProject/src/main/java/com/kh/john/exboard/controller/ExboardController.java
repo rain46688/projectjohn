@@ -63,6 +63,20 @@ public class ExboardController {
 
 	private static String pathzz;
 
+	@RequestMapping("/expert/1")
+	public ModelAndView test1() {
+		log.debug("에러");
+		ModelAndView mv = new ModelAndView("/exboard/1");
+		return mv;
+	}
+
+	@RequestMapping("/expert/2")
+	public ModelAndView test2() {
+		log.debug("에러");
+		ModelAndView mv = new ModelAndView("/exboard/2");
+		return mv;
+	}
+
 	/**
 	 * @Author : cms
 	 * @Date : 2020. 12. 9.
@@ -551,7 +565,16 @@ public class ExboardController {
 			log.debug("musid" + musid);
 			Member noboard = service.selectMember(musid);
 			log.debug("noboard" + noboard);
-			noboard.setMemEmail(aes.decrypt(noboard.getMemEmail()));
+
+			try {
+				noboard.setMemEmail(aes.decrypt(noboard.getMemEmail()));
+				noboard.setTel(aes.decrypt(noboard.getTel()));
+			} catch (Exception e) {
+				// TODO: handle exception
+				noboard.setMemEmail(noboard.getMemEmail());
+				noboard.setTel(noboard.getTel());
+			}
+
 			mv.addObject("mem", noboard);
 			Map<String, String> mm = new HashMap<String, String>();
 			mm.put("exusid", "" + enterMem.getUsid());

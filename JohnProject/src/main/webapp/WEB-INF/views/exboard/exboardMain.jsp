@@ -36,6 +36,8 @@ label, input {
 		<c:if test="${loginMember.memClass != '전문가'}">
 	<button type="button" class="memBtn btn btn-outline-success my-2 my-sm-0" onclick='memInfoView();'>상담사 정보</button>
 	</c:if>
+	<button class="btn btn-outline-success" onclick="location.href='${path}/expert/1'">1</button>
+	<button class="btn btn-outline-success" onclick="location.href='${path}/expert/2'">2</button>
 	<br><br>
 	<input type="text" class="form-control short" name="usid" placeholder="받는사람 usid"/>
 	<input type="text" class="form-control short" name="type" placeholder="타입"/>
