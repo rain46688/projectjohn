@@ -401,10 +401,10 @@ div#pageBar{
 	        <div class="card-author">
 	          <a class="author-avatar" href="#">
 	          	<c:if test="${item.WRITER_PROFILE eq null}">
-	            <img src="${path }/resources/images/avatar.png" />
+	            <img src="${path }/resources/profile_images/avatar.png" />
 	            </c:if>
 	            <c:if test="${item.WRITER_PROFILE ne null}">
-	            <img src="${path }/resources/images/${item.WRITER_PROFILE}" />
+	            <img src="${path }/resources/profile_images/${item.WRITER_PROFILE}" />
 	            </c:if>
 	          </a>
 	          <svg class="half-circle" viewBox="0 0 106 57">
@@ -448,10 +448,10 @@ div#pageBar{
 	        <div class="card-author">
 	          <a class="author-avatar" href="#">
 	          	<c:if test="${item.WRITER_PROFILE eq null}">
-	            <img src="${path }/resources/images/avatar.png" />
+	            <img src="${path }/resources/profile_images/avatar.png" />
 	            </c:if>
 	            <c:if test="${item.WRITER_PROFILE ne null}">
-	            <img src="${path }/resources/images/${item.WRITER_PROFILE}" />
+	            <img src="${path }/resources/profile_images/${item.WRITER_PROFILE}" />
 	            </c:if>
 	          </a>
 	          <svg class="half-circle" viewBox="0 0 106 57">

@@ -201,7 +201,7 @@
 	<insert id="boardInsert" parameterType="board" >
 		INSERT INTO BOARD VALUES(
 		SEQ_BOARD_NO.NEXTVAL, #{writerUsid}, #{writerNickname}, #{title}, #{content}, SYSDATE, default, #{bigCategory}, #{smallCategory}, 0, default, #{agreeName}, #{disagreeName}
-		)
+		, #{profilePic})
 	</insert>
 	
 	<insert id="boardInsertFile" parameterType="boardFile">
@@ -210,6 +210,10 @@
 			SELECT SEQ_BOARD_NO.CURRVAL FROM DUAL
 		</selectKey>
 	</insert>
+	
+	<select id="boardCurrBoard" resultType="string">
+		SELECT SEQ_BOARD_NO.CURRVAL FROM DUAL
+	</select>
 	
 	<update id="boardModify" parameterType="map">
 		UPDATE BOARD SET TITLE = #{title}, CONTENT = #{content}, SMALL_CATEGORY = #{smallCate}, AGREE_NAME = #{agreeName}, DISAGREE_NAME = #{disagreeName}

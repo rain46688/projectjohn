@@ -83,6 +83,7 @@
 			enctype="multipart/form-data">
 			<input type="hidden" value="${loginMember.usid }" name="writerUsid">
 			<input type="hidden" value="${loginMember.memNickname }" name="writerNickname">
+			<input type="hidden" value="${loginMember.profilePic }" name="profilePic">
 			<div class="input-group marginTop">
 			<select class="custom-select custom-select-sm" name="bigCategory" id="boardType">
 				<option value="" >게시글 타입을 선택하세요</option>

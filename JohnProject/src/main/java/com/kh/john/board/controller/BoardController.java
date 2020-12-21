@@ -152,12 +152,13 @@ public class BoardController {
 	}
 	
 	@RequestMapping(value="/board/boardInsertEnd")
-	public ModelAndView boardInsertEnd(Board b, ModelAndView mv, HttpServletRequest request) {
+	public ModelAndView boardInsertEnd(Board b, ModelAndView mv, HttpServletRequest request, RedirectAttributes redirectAttribute) {
 		
 		int result = service.boardInsert(b);
 		
 		if(result>0) {
-			mv.setViewName("/board/boardInsertSuccess");
+			redirectAttribute.addAttribute("boardNo", result);
+			mv.setViewName("redirect:/board/boardPage");
 		}else {
 			mv.addObject("msg", "글 등록에 실패했습니다");
 			mv.addObject("loc", "/board/boardList");
@@ -201,6 +202,21 @@ public class BoardController {
 			mv.setViewName("redirect:/board/boardList");
 		}else {
 			mv.addObject("msg", "글 삭제에 실패했습니다");
+			mv.addObject("loc", "/board/boardList");
+			mv.setViewName("common/msg");
+		}
+		return mv;
+	}
+	
+	@RequestMapping("board/boardExit")
+	public ModelAndView boardExit(ModelAndView mv, int boardId) {
+		
+		int result = service.boardDelete(boardId);
+		
+		if(result > 0) {
+			mv.setViewName("redirect:/board/boardList");
+		}else {
+			mv.addObject("msg", "대화방 삭제에 실패했습니다");
 			mv.addObject("loc", "/board/boardList");
 			mv.setViewName("common/msg");
 		}

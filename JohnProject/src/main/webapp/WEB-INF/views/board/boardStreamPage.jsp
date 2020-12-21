@@ -365,6 +365,23 @@ ion-icon#likeButton {
 	width:100%em;
 	height:20em;;
 }
+
+#exitBtn {
+	margin-top:0.5em;
+	float:right;
+	background-color:orange;
+	color:white;
+	border:1px orange solid;
+	border-radius:5px;
+	transition: .2s;
+	width:7em;
+}
+
+#exitBtn:hover {
+	border:1px orange solid;
+	background-color:white;
+	color:black;
+}
 	
 	
 </style>
@@ -407,7 +424,12 @@ ion-icon#likeButton {
                 <div class="wifi-circle third"></div>
             </div>
             <div class="inform">
-              이 곳에 사진을 공유해보세요
+            <c:if test="${currBoard.ISCLOSE eq 1}">
+            	대화가 끝난 채팅방입니다.
+            </c:if>
+            <c:if test="${currBoard.ISCLOSE eq 0}">
+            	이 곳에 사진을 공유해보세요
+            </c:if>
             </div>
         </div>
       <hr>
@@ -438,6 +460,9 @@ ion-icon#likeButton {
       </div>
       <hr>
     </div>
+    <c:if test="${currBoard.WRITER_USID eq loginMember.usid }">
+    <button id="exitBtn" onclick="fn_exit();">대화 종료</button>
+    </c:if>
         </div>
         <div id="commentSection">
           <div id="commentPrint">
@@ -473,9 +498,18 @@ ion-icon#likeButton {
             </div>
         </div>
     </div>
+<c:if test="${currBoard.ISCLOSE eq 0 }">
 <script src="https://unpkg.com/peerjs@1.3.1/dist/peerjs.min.js"></script>
 <script defer src="https://172.30.1.16:83/socket.io/socket.io.js"></script>
 <script>
+	function fn_exit(){
+		
+		if(confirm('정말 대화방을 종료하시겠습니까?')){
+			location.href="${path}/board/boardExit?boardId=${currBoard.BOARD_ID}";
+		}
+		
+	}
+
 	$(document).ready(function() {
 		const userId = uuidv4()+":"+${loginMember.usid};
 		var socket = io("https://172.30.1.16:83");
@@ -568,7 +602,6 @@ ion-icon#likeButton {
 		}
 		
 		function addVideoStream(video, stream) {
-			console.log('둘둘둘ㄷ룯');
 			video.srcObject = stream;
 			video.addEventListener('loadedmetadata', () => {
 				video.play();
@@ -746,6 +779,7 @@ function fn_chatInsert(){
           message:val};
   chatSocket.send('chat:'+JSON.stringify(chat));
 }
+</c:if>
 
 //좋아요 기능
 document.getElementById('likeButton').addEventListener('click', function(){

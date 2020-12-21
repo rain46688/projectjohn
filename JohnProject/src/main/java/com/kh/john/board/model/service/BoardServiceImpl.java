@@ -110,6 +110,8 @@ public class BoardServiceImpl implements BoardService {
 		// TODO Auto-generated method stub
 		int result = dao.boardInsert(session, b);
 		
+		result = dao.boardCurrBoard(session);
+		
 		return result;
 	}
 	

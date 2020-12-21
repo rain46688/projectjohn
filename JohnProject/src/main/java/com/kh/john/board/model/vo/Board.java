@@ -20,5 +20,5 @@ public class Board {
 	private String maxMems;
 	private String agreeName;
 	private String disagreeName;
-	
+	private String profilePic;
 }
