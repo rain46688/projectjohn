@@ -13,6 +13,8 @@ import com.kh.john.board.model.vo.Subscribe;
 
 public interface BoardDao {
 	List<Map> boardList(SqlSession session);
+	List<Map> boardSearch(SqlSession session, String keyword, int cPage, int numPerPage);
+	int boardSearchCount(SqlSession session, String keyword);
 	List<Map> boardPopularList(SqlSession session);
 	List<Map> boardPopularList(int cPage, int numPerPage, SqlSession session);
 	List<Map> boardNewList(SqlSession session);
@@ -26,6 +28,8 @@ public interface BoardDao {
 	List<Board> boardSelectCate(SqlSession session, String boardTitle);
 	int boardInsert(SqlSession session, Board b);
 	int boardInsertFiles(SqlSession session, BoardFile file);
+	int boardModify(SqlSession session, Map param);
+	int boardDelete(SqlSession session, int boardId);
 	Map boardSelectOne(SqlSession session, int boardNo);
 	List<Map> commentSelectList(SqlSession session, int currBoardNo);
 	int boardCommentInsert(SqlSession session, Map param);

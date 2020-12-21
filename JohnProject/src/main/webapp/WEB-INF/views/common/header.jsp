@@ -226,6 +226,14 @@
 	display:flex;
 }
 
+#profileCon {
+	pointer:cursor;
+}
+
+#searchBtn {
+	pointer:cursor;
+}
+
 </style>
 <body>
 	<div class="containerJohn">
@@ -251,7 +259,7 @@
 					<!-- 알람 및 마이페이지 버튼 -->
 					<div id="search">
 						<input type="text" id="searchText">
-						<div id="searchBtn">
+						<div id="searchBtn" onclick="fn_search();">
 							<ion-icon name="search-circle-outline"></ion-icon>
 						</div>
 					</div>
@@ -286,5 +294,17 @@
 						</li>
 					</ul>
 				</div>
-
+<script>
+	function fn_search(){
+		let keyword = document.getElementById('searchText').value;
+		document.getElementById('searchText').value = "";
+		location.href='${path}/board/boardSearch?keyword='+keyword;
+	}
+	
+	document.getElementById('searchText').addEventListener("keypress", function(event){
+		if(event.keyCode===13){
+			document.getElementById('searchBtn').click();
+		}
+	})
+</script>
 

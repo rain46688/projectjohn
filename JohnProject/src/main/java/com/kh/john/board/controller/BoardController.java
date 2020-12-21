@@ -27,6 +27,7 @@ import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
 import org.springframework.web.servlet.ModelAndView;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.fasterxml.jackson.core.JsonGenerationException;
 import com.fasterxml.jackson.databind.JsonMappingException;
@@ -58,6 +59,29 @@ public class BoardController {
 		mv.addObject("newList", newList);
 		
 		mv.setViewName("board/boardList");
+		return mv;
+	}
+	
+	@RequestMapping("/board/boardSearch")
+	public ModelAndView boardSearch(ModelAndView mv, @RequestParam Map param) {
+		String keyword = (String)param.get("keyword");
+		
+		int cPage = 1;
+		int numPerPage = 8;
+		int totalData = 40;
+		String title = "";
+		
+		if(param.get("cPage")!=null)cPage = Integer.parseInt((String)param.get("cPage"));
+		if(param.get("numPerPage")!=null)cPage = Integer.parseInt((String)param.get("numPerPage"));
+		
+		totalData = service.boardSearchCount(keyword);
+		List<Map> list = service.boardSearch(keyword,cPage,numPerPage);
+		title = "\"" + keyword + "\"에 대한 검색결과";
+		mv.addObject("pageBar", BoardPageBar.getPageBar(totalData, cPage, numPerPage, "boardSearch?keyword="+keyword));
+		mv.addObject("title", title);
+		mv.addObject("list",list);
+		mv.setViewName("board/boardListSmall");
+		
 		return mv;
 	}
 	
@@ -137,8 +161,49 @@ public class BoardController {
 		}else {
 			mv.addObject("msg", "글 등록에 실패했습니다");
 			mv.addObject("loc", "/board/boardList");
+			mv.setViewName("common/msg");
 		}
 		
+		return mv;
+	}
+	
+	@RequestMapping(value="board/boardModify", method=RequestMethod.POST)
+	public ModelAndView boardModify(ModelAndView mv, @RequestParam Map<String, Object> param) {
+		
+		log.debug(""+param);
+		
+		mv.addObject("param", param);
+		mv.setViewName("board/boardModify");
+		
+		return mv;
+	}
+	
+	@RequestMapping(value="board/boardModifyEnd", method=RequestMethod.POST)
+	public ModelAndView boardModifyEnd(ModelAndView mv, @RequestParam Map param, RedirectAttributes redirectAttribute) {
+		
+		int result = service.boardModify(param);
+		
+		if(result > 0) {
+			redirectAttribute.addAttribute("boardNo", param.get("boardId"));
+			mv.setViewName("redirect:/board/boardPage");
+		}else {
+			mv.addObject("msg", "글 수정에 실패했습니다");
+			mv.addObject("loc", "/board/boardList");
+			mv.setViewName("common/msg");
+		}
+		return mv;
+	}
+	
+	@RequestMapping("board/boardDelete")
+	public ModelAndView boardDelete(ModelAndView mv, int boardId) {
+		int result = service.boardDelete(boardId);
+		if(result > 0) {
+			mv.setViewName("redirect:/board/boardList");
+		}else {
+			mv.addObject("msg", "글 삭제에 실패했습니다");
+			mv.addObject("loc", "/board/boardList");
+			mv.setViewName("common/msg");
+		}
 		return mv;
 	}
 

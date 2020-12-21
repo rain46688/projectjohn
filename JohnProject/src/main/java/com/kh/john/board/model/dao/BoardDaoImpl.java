@@ -21,6 +21,18 @@ public class BoardDaoImpl implements BoardDao{
 	}
 	
 	@Override
+	public List<Map> boardSearch(SqlSession session, String keyword, int cPage, int numPerPage) {
+		// TODO Auto-generated method stub
+		return session.selectList("board.boardSearch", keyword, new RowBounds((cPage-1)*numPerPage,numPerPage));
+	}
+	
+	@Override
+	public int boardSearchCount(SqlSession session, String keyword) {
+		// TODO Auto-generated method stub
+		return session.selectOne("board.boardSearchCount", keyword);
+	}
+	
+	@Override
 	public List<Map> boardPopularList(SqlSession session) {
 		// TODO Auto-generated method stub
 		return session.selectList("board.boardPopularList");
@@ -90,6 +102,18 @@ public class BoardDaoImpl implements BoardDao{
 	public int boardInsertFiles(SqlSession session, BoardFile file) {
 		// TODO Auto-generated method stub
 		return session.insert("board.boardInsertFile", file);
+	}
+	
+	@Override
+	public int boardModify(SqlSession session, Map param) {
+		// TODO Auto-generated method stub
+		return session.update("board.boardModify", param);
+	}
+	
+	@Override
+	public int boardDelete(SqlSession session, int boardId) {
+		// TODO Auto-generated method stub
+		return session.update("board.boardDelete", boardId);
 	}
 	
 	@Override

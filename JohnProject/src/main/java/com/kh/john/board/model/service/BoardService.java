@@ -10,6 +10,8 @@ import com.kh.john.board.model.vo.Subscribe;
 
 public interface BoardService {
 	List<Map> boardList();
+	List<Map> boardSearch(String keyword, int cPage, int numPerPage);
+	int boardSearchCount(String keyword);
 	List<Map> boardPopularList();
 	List<Map> boardPopularList(int cPage, int numPerPage);
 	List<Map> boardNewList();
@@ -22,6 +24,8 @@ public interface BoardService {
 	int boardCateCount(String key);
 	List<Board> boardSelectCate(String boardTitle);
 	int boardInsert(Board b);
+	int boardModify(Map param);
+	int boardDelete(int boardId);
 	Map boardSelectOne(int boardNo);
 	List<Map> commentSelectList(int currBoardNo);
 	int boardCommentInsert(Map param);

@@ -315,6 +315,7 @@ background-color: rgb(255,255,255,0.1);
 	}
 	<c:if test="${title=='가족문제'}">
 	#family {
+		
 		background-color: rgb(255,255,255,0.1);
 	}
 	</c:if>
@@ -338,6 +339,9 @@ background-color: rgb(255,255,255,0.1);
 		background-color: rgb(255,255,255,0.1);
 	}
 	</c:if>
+	div.cate {
+		display:none;
+	}
 </c:otherwise>
 </c:choose>
 

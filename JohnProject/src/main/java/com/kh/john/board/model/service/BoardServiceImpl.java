@@ -33,6 +33,18 @@ public class BoardServiceImpl implements BoardService {
 	}
 	
 	@Override
+	public List<Map> boardSearch(String keyword, int cPage, int numPerPage) {
+		// TODO Auto-generated method stub
+		return dao.boardSearch(session, keyword, cPage, numPerPage);
+	}
+	
+	@Override
+	public int boardSearchCount(String keyword) {
+		// TODO Auto-generated method stub
+		return dao.boardSearchCount(session, keyword);
+	}
+	
+	@Override
 	public List<Map> boardPopularList() {
 		// TODO Auto-generated method stub
 		return dao.boardPopularList(session);
@@ -99,6 +111,18 @@ public class BoardServiceImpl implements BoardService {
 		int result = dao.boardInsert(session, b);
 		
 		return result;
+	}
+	
+	@Override
+	public int boardModify(Map param) {
+		// TODO Auto-generated method stub
+		return dao.boardModify(session, param);
+	}
+	
+	@Override
+	public int boardDelete(int boardId) {
+		// TODO Auto-generated method stub
+		return dao.boardDelete(session, boardId);
 	}
 	
 	@Override
