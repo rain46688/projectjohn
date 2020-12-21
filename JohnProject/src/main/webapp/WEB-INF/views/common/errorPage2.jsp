@@ -4,7 +4,7 @@
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
 <c:set var="path" value="${pageContext.request.contextPath }"/>
-<title>404</title>
+<title>500</title>
 <style>
 
 body{
@@ -111,7 +111,7 @@ document.addEventListener("DOMContentLoaded",function(){
 	 <div class="text">
         <div style="font-size: 50px; color: #fff;"><img src="${path }/resources/images/admin/siren (1).png" height="40px" width="40px"> ERROR <img src="${path }/resources/images/admin/siren (1).png" height="40px" width="40px">
         </div>
-        <div class="h1">404</div>
+        <div class="h1">500</div>
         <hr>
         <div style="font-size: 30px; color: #fff;">Sorry, this page isn't available</div>
       </div>

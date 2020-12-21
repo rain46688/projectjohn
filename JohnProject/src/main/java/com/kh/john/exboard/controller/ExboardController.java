@@ -66,14 +66,14 @@ public class ExboardController {
 	@RequestMapping("/expert/1")
 	public ModelAndView test1() {
 		log.debug("에러");
-		ModelAndView mv = new ModelAndView("/common/1");
+		ModelAndView mv = new ModelAndView("/exboard/1");
 		return mv;
 	}
 
 	@RequestMapping("/expert/2")
 	public ModelAndView test2() {
 		log.debug("에러");
-		ModelAndView mv = new ModelAndView("/common/2");
+		ModelAndView mv = new ModelAndView("/exboard/2");
 		return mv;
 	}
 
