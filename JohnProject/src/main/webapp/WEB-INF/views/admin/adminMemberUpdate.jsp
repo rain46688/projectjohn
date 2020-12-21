@@ -492,10 +492,10 @@ if ($thisCell.hasClass('is-collapsed')) {
 }
 });
 
-$cell.find('.expand__close').click(function() {
+/* $cell.find('.expand__close').click(function() {
 var $thisCell = $(this).closest('.image__cell');
 $thisCell.removeClass('is-expanded').addClass('is-collapsed');
-});
+}); */
 
 
 </script>
