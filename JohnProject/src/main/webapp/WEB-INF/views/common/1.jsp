@@ -46,19 +46,6 @@ html, body, div, span, applet, object, iframe, h1, h2, h3, h4, h5, h6, p, blockq
 	user-select: none;
 }
 
-/* body {
-  margin: 0;
-  padding: 0;
-  width: 100%;
-  min-height: 50vh;
-  background-image: url("${path}/resources/images/special_back.jpg");
-  background-repeat: no-repeat;
-  background-attachment: fixed;
-  background-size: cover;
-  font-family: 'Noto Serif KR', serif;
-} */
-
-
 body {
     display: flex;
     justify-content: center;
