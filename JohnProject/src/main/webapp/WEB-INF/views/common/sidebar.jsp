@@ -55,34 +55,6 @@
 		background-color: #05135C;
 	}
 	
-	/* .menusOnSide {
-		cursor:pointer;
-		padding-bottom: 0.5em;
-		padding-top: 0.5em;
-		width:100%;
-		/* border:1px solid red; */
-	}
-	
-	/* .menusOnSide:hover {
-		background-color: #0054BA;
-	}
-	
-	.menuImages {
-		width:1.5em;
-		height:1.5em;
-		margin-right:2em;
-		margin-left:2em;
-		margin-top:0;
-		padding-bottom:0.1em;
-		/* border:1px solid red; */
-	} */
-	
-	ion-icon{
-		font-size: 2em;
-		color: white;
-		margin-left: 1.5em;
-		margin-right: 1.5em;
-	}
 	.menuContainer{
 		display: flex;
 		flex-direction: row;

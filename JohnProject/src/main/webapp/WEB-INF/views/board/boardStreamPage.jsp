@@ -618,7 +618,7 @@ ion-icon#likeButton {
 
 let chatList = [];
 
-const chatSocket = new WebSocket("wss://172.30.1.31:8443${path}/chat");
+let chatSocket = new WebSocket("wss://172.30.1.31:8443${path}/chat");
 
 /* const chatImageSocket = new WebSocket("wss://172.30.1.16:8443${path}/image"); */
 
@@ -657,6 +657,27 @@ function handleFileDrop(file){
 	fileReader.readAsArrayBuffer(file);
 } 
 
+$(document).ready( function() {
+	window.addEventListener("beforeunload", function(event) {
+		event.preventDefault();
+		console.log("화면 종료");
+		chatSocket.close();
+	});
+});
+
+chatSocket.onerror = function(e) {
+	
+	console.log(e);
+}
+
+chatSocket.onclose = function(e) {
+	console.log('???????');
+	console.log(e);
+}
+
+if(chatSocket.readyState==3){
+	chatSocket.close();
+}
 
 chatSocket.onopen = function(e){
   	let user = {boardId:${currBoard.BOARD_ID},
@@ -665,6 +686,11 @@ chatSocket.onopen = function(e){
   				isFirst:true};
 	chatSocket.send('chat:'+JSON.stringify(user));
 }
+
+chatSocket.onclose = function(e) {
+	chatSocket.close();
+	chatSocket = new WebSocket("wss://172.30.1.31:8443${path}/chat");
+};
 
 chatSocket.onmessage = function(e){
 	if(e.data.substring(0,5) == 'image'){
@@ -679,7 +705,7 @@ chatSocket.onmessage = function(e){
 		box1.appendChild(img);
 	}else{
 	chatList = JSON.parse(e.data);
-	/* console.log(chatList); */
+	console.log(chatList);
 	//사용자 숫자를 알기 위한 배열
 	let tempList= [];
 
@@ -763,6 +789,8 @@ document.getElementById('commentText').onkeypress = function(e){
 	}
 }
 
+
+
 //방장의 한마디 엔터에 반응하기
 document.getElementById('writerComIn').onkeypress = function(e){
 	document.getElementById('writerComIn').style.color = 'black';
@@ -771,6 +799,8 @@ document.getElementById('writerComIn').onkeypress = function(e){
 		document.getElementById('commentTextBtn').click();
 	}
 }
+
+
 
 //채팅입력하기
 function fn_chatInsert(){
