@@ -182,12 +182,13 @@ public class BoardChatSocket extends AbstractWebSocketHandler{
 			if(!rooms.keySet().contains(boardId)) {
 				rooms.put(boardId, member);
 			}else {
-				for(Member mem : rooms.get(boardId)) {
-					if(member!=allUsers.get(mem)) {
-						rooms.put(boardId, member);
-						break;
-					}
-				}
+//				for(Member mem : rooms.get(boardId)) {
+//					if(member!=allUsers.get(mem)) {
+//						rooms.put(boardId, member);
+//						break;
+//					}
+//				}
+				if(!rooms.containsValue(member))rooms.put(boardId, member);
 			}
 			
 			if(roomImageFileName.get(boardId)!=null) {
@@ -199,7 +200,7 @@ public class BoardChatSocket extends AbstractWebSocketHandler{
 			List<BoardChat> chatList = new ArrayList();
 			
 			log.debug("roomChat size : "+roomChat.size());
-			
+			log.debug("room size : "+rooms.get((Integer)result.get("boardId")).size());
 			for(Member mem : rooms.get((Integer)result.get("boardId"))) {
 				for(BoardChat chat : roomChat.get((Integer)result.get("boardId"))) {
 					chatList.add(chat);
@@ -221,6 +222,7 @@ public class BoardChatSocket extends AbstractWebSocketHandler{
 		
 		int board = 0;
 		
+		//방에서 유저 삭제
 		outerloop:
 		while(it.hasNext()) {
 			int boardId = (Integer)it.next();
@@ -233,28 +235,33 @@ public class BoardChatSocket extends AbstractWebSocketHandler{
 			}
 		}
 		
-		Iterator it2 = roomChat.keySet().iterator();
+		log.debug("방번호 확인: "+board);
+		
+		//채팅 목록에서 유저가 작성한 목록 삭제
+		Iterator it2 = roomChat.entries().iterator();
 		while(it2.hasNext()) {
-			int boardId = (Integer)it2.next();
-			for(BoardChat chat : roomChat.get(boardId)) {
-				if(member.getUsid() == chat.getUsid()) {
-					tempDumpChat.put(new RoomDate(boardId, new Date()), chat);
-					roomChat.remove(boardId, chat);
-					break;
-				}
+			Map.Entry<Integer, BoardChat> chats = (Map.Entry<Integer, BoardChat>)it2.next();
+			int boardId = (Integer)chats.getKey();
+			BoardChat chat = chats.getValue();
+			if(member.getUsid() == chat.getUsid()) {
+				tempDumpChat.put(new RoomDate(boardId, new Date()), chat);
+				if(chat.equals(chats.getValue()))it2.remove();
 			}
 		}
+		//접속한 유저 중 삭제
+		allUsers.remove(member);
 		
 		List<BoardChat> chatList = new ArrayList();
 		
+		//나간 유저를 제외한 모든 유저들에게 메세지 전송
 		for(Member mem : rooms.get(board)) {
 			for(BoardChat chat : roomChat.get(board)) {
 				chatList.add(chat);
 			}
-			allUsers.get(mem).sendMessage(new TextMessage(mapper.writeValueAsString(chatList)));
+			if(allUsers.get(mem)!=null)allUsers.get(mem).sendMessage(new TextMessage(mapper.writeValueAsString(chatList)));
+			chatList.clear();
 		}
-		
-		allUsers.remove(member);
+		log.debug("afterConnectionClosed 완료");
 	}
 	
 	private void dumpChatManager(Multimap<RoomDate, BoardChat> tempDumpChat, int boardId) {
