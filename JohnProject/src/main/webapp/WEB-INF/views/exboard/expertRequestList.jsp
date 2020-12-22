@@ -407,7 +407,7 @@ h1 {
 	// 필요한 변수 등록 
 	// 전체 배열, 백업용 배열,  소켓
 	// ============================
-	const exlistconn = new WebSocket('wss://192.168.219.105${path}/exlistSocket');
+	const exlistconn = new WebSocket('wss://172.30.1.31:8443${path}/exlistSocket');
 	let exboardList = [];
 	let backupList = [];
 	

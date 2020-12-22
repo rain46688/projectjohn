@@ -124,7 +124,7 @@
 </section>
 <script>
 	//소켓 시작
-	const memberSocket=new WebSocket("wss://localhost${path}/memberSocket");
+	const memberSocket=new WebSocket("wss://172.30.1.31:8443${path}/memberSocket");
 
 	//소켓이 열림
 	memberSocket.onopen=function(){
@@ -134,7 +134,7 @@
 	//메세지 보냄
 	function fn_sendMessage(){
 		let message=$("#message").val();
-		if(message!=null){
+		if(message!=""){
 			sendChat("${loginMember.usid}","${otherInfo.usid}",message,"","");
 			$("#message").val('');
 		}
