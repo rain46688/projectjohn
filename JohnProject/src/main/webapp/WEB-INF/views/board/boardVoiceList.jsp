@@ -334,7 +334,7 @@ div.glider {
 	}); */
 	
 	//소켓연결
-	const socket = new SockJS("https://172.30.1.16:8443${path}/list");
+	const socket = new SockJS("https://172.30.1.31:8443${path}/list");
 	let message = ''; 
 	socket.onopen = function(e){
 		socket.send('boardList');

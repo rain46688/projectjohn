@@ -44,6 +44,11 @@ ion-icon[name=thumbs-down-outline]{
 color:silver;
 }
 
+ion-icon[name=volume-high-outline]{
+color:blue;
+}
+
+
 .heart{
 color:darkred;
 }
@@ -145,9 +150,9 @@ a {
 }
 
 .card1-content {
-	text-overflow:eclipse;
+ 	overflow: hidden;
 	white-space: nowrap;
- 	 overflow: hidden;
+	text-overflow:ellipsis;
 	margin-bottom:0.5rem;
 	height:60%;
 }
@@ -382,6 +387,9 @@ div#pageBar{
 	        <div class="card1-header">
 	          <p><fmt:formatDate value="${item.ENROLL_DATE}" pattern="yyyy년 MM월 dd일"/>
 	          <span class="hits">
+	          		<c:if test="${item.BIG_CATEGORY eq '음성게시판' }">
+	          		<ion-icon name="volume-high-outline"></ion-icon>
+	          		</c:if>
 					<ion-icon class="heart" name="heart-outline"></ion-icon> ${item.LIKE_NUM }
 				</span></p>
 	          <h2>${item.TITLE }</h2>
@@ -481,6 +489,14 @@ div#pageBar{
     </div>
 <script defer>
 	'use strict'
+	let imgs = document.querySelectorAll('.card1-content img');
+	console.log(imgs);
+	imgs.forEach(element => {
+		element.removeAttribute("style");
+		element.style.width = '30px';
+		element.style.height = '30px';
+		element.style.float = 'left';
+	})
 	
 	
 </script>

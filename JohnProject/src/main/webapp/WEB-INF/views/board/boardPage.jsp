@@ -288,6 +288,14 @@ ion-icon#likeButton {
 #boardFuncs a {
 	color:rgb(0,0,0,0.8);
 }
+
+#textInsertBtn {
+	background-color:#00316d;
+}
+
+#textInsertBtn:hover {
+	background-color:rgb(0,49,109,0.9);
+}
 	
 </style>
 <script>

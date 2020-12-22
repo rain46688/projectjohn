@@ -34,6 +34,7 @@ hr {
 }
 
 #writerInfo {
+height:1.9em;
   display:flex;
 }
 
@@ -43,8 +44,8 @@ hr {
 }
 
 #writerImg {
-  width:25px;
-  height:25px;
+  width:30px;
+  height:30px;
 }
 
 #writerNick {
@@ -53,6 +54,8 @@ hr {
   align-items:center;
   margin-left:2.5px;
   margin-right:5px;
+  min-width:3em;
+  max-width:6em;
 }
 
 #writerComment{
@@ -401,10 +404,10 @@ ion-icon#likeButton {
           <hr id="titleHr">
           <div id="writerInfo">
             <div id="writerProfile">
-              <img src="" id="writerImg">
+              <img src="${path }/resources/profile_images/${currBoard.WRITER_PROFILE}" id="writerImg">
             </div>
             <div id="writerNick">
-              Nickname
+              ${currBoard.WRITER_NICKNAME }
             </div>
             <div id="writerComment">
               <input type="text" value="방장의 한마디" id="writerComIn"
@@ -500,7 +503,7 @@ ion-icon#likeButton {
     </div>
 <c:if test="${currBoard.ISCLOSE eq 0 }">
 <script src="https://unpkg.com/peerjs@1.3.1/dist/peerjs.min.js"></script>
-<script defer src="https://172.30.1.16:83/socket.io/socket.io.js"></script>
+<!-- <script defer src="https://172.30.1.31:83/socket.io/socket.io.js"></script> -->
 <script>
 	function fn_exit(){
 		
@@ -510,15 +513,14 @@ ion-icon#likeButton {
 		
 	}
 
-	$(document).ready(function() {
+	/* $(document).ready(function() {
 		const userId = uuidv4()+":"+${loginMember.usid};
-		var socket = io("https://172.30.1.16:83");
+		var socket = io("https://172.30.1.31:83");
 		const videoGrid = document.getElementById('video-grid')
 		const myPeer = new Peer(undefined, {
-			host: '/172.30.1.16',
+			host: '/172.30.1.31',
 			port: '3000',
 			secure:true,
-			/* debug:3 */
 		});
 		const dataConnection = myPeer.connect(myPeer.id, {
 			metadata:${loginMember.usid}
@@ -609,14 +611,14 @@ ion-icon#likeButton {
 			videoGrid.appendChild(video);
 			console.log(video);
 		}
-	});
+	}); */
 </script>
 <script>
 'use strict'
 
 let chatList = [];
 
-const chatSocket = new WebSocket("wss://172.30.1.16:8443${path}/chat");
+const chatSocket = new WebSocket("wss://172.30.1.31:8443${path}/chat");
 
 /* const chatImageSocket = new WebSocket("wss://172.30.1.16:8443${path}/image"); */
 
