@@ -10,11 +10,11 @@
 <script>
 	alert("정상적으로 등록되었습니다.");
 	
-	let socket = SockJS("http://localhost:9090${path}/list")
+	let socket = SockJS("https://172.30.1.31:8443${path}/list")
 	
 	socket.onopen = function() {
 		socket.send("boardInsertSuccess");
-		location.href = '${path}/board/boardList';
+		location.href = '${path}/board/boardPage?boardNo=${boardId}';
 	}
 	
 </script>

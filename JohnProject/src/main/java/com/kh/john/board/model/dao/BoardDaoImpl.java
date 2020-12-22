@@ -105,6 +105,13 @@ public class BoardDaoImpl implements BoardDao{
 	}
 	
 	@Override
+	public int boardCurrBoard(SqlSession session) {
+		// TODO Auto-generated method stub
+		int result = Integer.parseInt(session.selectOne("board.boardCurrBoard"));
+		return result;
+	}
+	
+	@Override
 	public int boardModify(SqlSession session, Map param) {
 		// TODO Auto-generated method stub
 		return session.update("board.boardModify", param);

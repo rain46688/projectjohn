@@ -28,6 +28,7 @@ public interface BoardDao {
 	List<Board> boardSelectCate(SqlSession session, String boardTitle);
 	int boardInsert(SqlSession session, Board b);
 	int boardInsertFiles(SqlSession session, BoardFile file);
+	int boardCurrBoard(SqlSession session);
 	int boardModify(SqlSession session, Map param);
 	int boardDelete(SqlSession session, int boardId);
 	Map boardSelectOne(SqlSession session, int boardNo);

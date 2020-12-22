@@ -404,10 +404,10 @@ a {
         <div class="card-author">
           <a class="author-avatar" href="#">
           	<c:if test="${popular.WRITER_PROFILE eq null}">
-            <img src="${path }/resources/images/avatar.png" />
+            <img src="${path }/resources/profile_images/avatar.png" />
             </c:if>
             <c:if test="${popular.WRITER_PROFILE ne null}">
-            <img src="${path }/resources/images/${popular.WRITER_PROFILE}" />
+            <img src="${path }/resources/profile_images/${popular.WRITER_PROFILE}" />
             </c:if>
           </a>
           <svg class="half-circle" viewBox="0 0 106 57">
@@ -447,10 +447,10 @@ a {
         <div class="card-author">
           <a class="author-avatar" href="#">
           	<c:if test="${new1.WRITER_PROFILE eq null}">
-            <img src="${path }/resources/images/avatar.png" />
+            <img src="${path }/resources/profile_images/avatar.png" />
             </c:if>
             <c:if test="${new1.WRITER_PROFILE ne null}">
-            <img src="${path }/resources/images/${new1.WRITER_PROFILE}" />
+            <img src="${path }/resources/profile_images/${new1.WRITER_PROFILE}" />
             </c:if>
           </a>
           <svg class="half-circle" viewBox="0 0 106 57">

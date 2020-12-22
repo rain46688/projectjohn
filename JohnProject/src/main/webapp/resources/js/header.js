@@ -5,7 +5,7 @@
 				'use strict';
 				
 
-				const alsocket = new WebSocket("wss://192.168.219.105/john/alsocket");
+				const alsocket = new WebSocket("wss://172.30.1.31:8443/john/alsocket");
 
 				//============================
 				// 소켓 오픈 하면서 알람 리스트 가져오기
