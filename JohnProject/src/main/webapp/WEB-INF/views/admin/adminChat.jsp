@@ -251,9 +251,10 @@
 							let txt = $("#inputMessage").val();
 							var date = new Date();
 							
+							if(txt!=""){
 								sendChat('${loginMember.usid}', '${memberInfo.usid}', txt, date, "");
 								$('#inputMessage').val("");
-								
+							}
 						}
 					});
 		     
