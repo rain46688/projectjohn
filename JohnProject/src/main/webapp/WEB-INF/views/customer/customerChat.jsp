@@ -248,14 +248,12 @@
 					function(key) {
 						if (key.keyCode == 13) {
 							let txt = $("#inputMessage").val();
-							var date = new Date();
-							
+							var date = new Date();		
+					
+							if(txt!=""){
 								sendChat('${loginMember.usid}', '${adminInfo.usid}', txt, date, "");
-								
-								
-								 
 								$('#inputMessage').val("");
-								
+							}
 								
 						}
 					});
