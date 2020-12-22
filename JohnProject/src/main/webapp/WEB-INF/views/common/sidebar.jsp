@@ -83,7 +83,7 @@
 		margin-left: 1.5em;
 		margin-right: 1.5em;
 	}
-	div.menuContainer{
+	.menuContainer{
 		display: flex;
 		flex-direction: row;
 		justify-content: flex-start;
@@ -96,6 +96,7 @@
 		font-weight: bold;
 		color: white;
 		font-family: 'Noto Serif KR', serif;
+		cursor:pointer;
 	}
 	div.menuContainer:hover {
 		background-color: rgb(255,255,255,0.1);
@@ -103,6 +104,17 @@
 	
 	div.menuContainer a {
 		color:white;
+	}
+	
+	.cate {
+		font-size:0.9em;
+		display:none;
+	}
+	div.cate {
+		padding-left:4em;
+	}
+	#big_cate:hover div.cate {
+		display:flex;
 	}
 	
 </style>
@@ -114,73 +126,85 @@
 	</div>
 	
 	<div id="menu">
-		<div class="menuContainer">
+		<div class="menuContainer" id="sidebarHome" onclick="location.href='${path}/board/boardList'">
 			<ion-icon name="home-outline"></ion-icon>
 			<a class="menuLink nav-link" href="#">
 				HOME
 			</a>
 		</div>
-		<div class="menuContainer">
+		<div class="menuContainer" id="sidebarPopular" onclick="location.href='${path}/board/boardListSmall?key=popular'">
 			<ion-icon name="flame-outline"></ion-icon>
 			<a class="menuLink nav-link" href="#">
 				인기
 			</a>
 		</div>
-		<div class="menuContainer">
+		<div class="menuContainer" id="sidebarNew" onclick="location.href='${path}/board/boardListSmall?key=new'">
+			<ion-icon name="flash-outline"></ion-icon>
+			<a class="menuLink nav-link" href="#">
+				최신
+			</a>
+		</div>
+		<div class="menuContainer" id="sidebarLiked" onclick="location.href='${path}/board/boardListSmall?key=liked'">
 			<ion-icon name="heart-outline"></ion-icon>
 			<a class="menuLink nav-link" href="#">
 				좋아한 게시물
 			</a>
 		</div>
-		<div class="menuContainer">
+		<div class="menuContainer" id="sidebarHistory" onclick="location.href='${path}/board/boardListSmall?key=history'">
 			<ion-icon name="folder-open-outline"></ion-icon>
 			<a class="menuLink nav-link" href="#">
 				내 기록
 			</a>
 		</div>
-		<div class="menuContainer">
+		<div class="menuContainer" id="sidebarVerbal" onclick="location.href='${path}/board/boardListSmall?key=voice'">
+			<ion-icon name="mic-outline"></ion-icon>
+			<a class="menuLink nav-link" href="#">
+				음성 재판소
+			</a>
+		</div>
+		<div class="menuContainer" id="sidebarEx">
 			<ion-icon name="people-outline"></ion-icon>
 			<a class="menuLink nav-link" href="${path }/expert/expertPrintList?ca=직장 상담">
 				전문가와 상담하기
 			</a>
 		</div>
-		<%-- <div id="popular" class="menusOnSide">
-			<img class="menuImages" src="${path}/resources/images/popular.png">
-			인기
+		<div id="big_cate">
+			<div class="menuContainer">
+				<ion-icon name="list-outline"></ion-icon>
+				<a class="menuLink nav-link" href="#">
+					큰 카테고리들
+				</a>
+			</div>
+			<div class="menuContainer cate" id="family" onclick="location.href='${path}/board/boardListSmall?key=family'">
+				<ion-icon name="storefront-outline"></ion-icon>
+				<a class="menuLink nav-link" href="#">
+					가족문제
+				</a>
+			</div>
+			<div class="menuContainer cate" id="work" onclick="location.href='${path}/board/boardListSmall?key=work'">
+				<ion-icon name="newspaper-outline"></ion-icon>
+				<a class="menuLink nav-link" href="#">
+					회사문제
+				</a>
+			</div>
+			<div class="menuContainer cate" id="friend" onclick="location.href='${path}/board/boardListSmall?key=friend'">
+				<ion-icon name="accessibility-outline"></ion-icon>
+				<a class="menuLink nav-link" href="#">
+					친구문제
+				</a>
+			</div>
+			<div class="menuContainer cate" id="pet" onclick="location.href='${path}/board/boardListSmall?key=pet'">
+				<ion-icon name="logo-github"></ion-icon>
+				<a class="menuLink nav-link" href="#">
+					반려견문제
+				</a>
+			</div>
+			<div class="menuContainer cate" id="love" onclick="location.href='${path}/board/boardListSmall?key=love'">
+				<ion-icon name="heart-half-outline"></ion-icon>
+				<a class="menuLink nav-link" href="#">
+					연애상담
+				</a>
+			</div>
 		</div>
-		<div id="liked" class="menusOnSide">
-			<img class="menuImages" src="${path}/resources/images/like.png">
-			좋아한 게시물
-		</div>
-		<div id="history" class="menusOnSide">
-			<img class="menuImages" src="${path}/resources/images/history.png">
-			내 기록
-		</div>
-		<div id="expert" class="menusOnSide" onclick="location.href='${path}/expert'">
-			<img class="menuImages" src="${path}/resources/images/expert_menu.png">
-			전문가와 상담하기
-		</div> --%>
-		<hr>
-		<div class="menuContainer">
-			<ion-icon name="add-circle-outline"></ion-icon>
-			<a class="menuLink nav-link" href="#">
-				구독한 채널
-			</a>
-		</div>
-		<%-- <div id="subList" class="menusOnSide">
-			<img class="menuImages" src="${path}/resources/images/sub.png">
-			구독한 채널
-		</div> --%>
-		<hr>
-		<div class="menuContainer">
-			<ion-icon name="list-outline"></ion-icon>
-			<a class="menuLink nav-link" href="#">
-				큰 카테고리들
-			</a>
-		</div>
-		<%-- <div id="cates" class="menusOnSide">
-			<img class="menuImages" src="${path}/resources/images/cate.png">
-			큰 카테고리들
-		</div> --%>
 	</div>
 </div>

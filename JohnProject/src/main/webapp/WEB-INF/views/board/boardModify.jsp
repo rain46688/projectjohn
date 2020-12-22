@@ -76,19 +76,17 @@
 </style>
 <div id="content">
   <div id="wrapper">
-	<div id="title"><h4>글쓰기</h4></div>
+	<div id="title"><h4>글 수정하기</h4></div>
 	<hr color="black">
 	<div id="editor">
-		<form id="frm" action="${path }/board/boardInsertEnd" method="POST"
+		<form id="frm" action="${path }/board/boardModifyEnd" method="POST"
 			enctype="multipart/form-data">
 			<input type="hidden" value="${loginMember.usid }" name="writerUsid">
 			<input type="hidden" value="${loginMember.memNickname }" name="writerNickname">
-			<input type="hidden" value="${loginMember.profilePic }" name="profilePic">
+			<input type="hidden" value="${param.boardId }" name="boardId">
 			<div class="input-group marginTop">
-			<select class="custom-select custom-select-sm" name="bigCategory" id="boardType">
-				<option value="" >게시글 타입을 선택하세요</option>
+			<select class="custom-select custom-select-sm" name="bigCategory" id="boardType" >
 				<option value="일반게시판">일반게시판</option>
-				<option value="음성게시판">음성게시판</option>
 			</select>
 			<select class="custom-select custom-select-sm" name="maxMems" id="maxMems">
 				<option value="" >최대 수용인원을 선택하세요</option>
@@ -101,9 +99,9 @@
 				<option value="7">7</option>
 				<option value="8">8</option>
 			</select>
-			<select class="custom-select custom-select-sm" name="smallCategory" id="">
+			<select class="custom-select custom-select-sm" name="smallCategory" id="smallCate">
 				<option value="" >큰 카테고리를 선택하세요</option>
-				<option value="love">연애상담</option>
+				<option value="love" >연애상담</option>
 				<option value="family">가족문제</option>
 				<option value="work">회사문제</option>
 				<option value="friend">친구문제</option>
@@ -111,19 +109,21 @@
 			</select>
 			</div>
 			<div class="input-group marginTop">
-			<input class="form-control" type="text" name="title" id="titleInput" placeholder="제목을 입력하세요">
+			<input class="form-control" type="text" name="title" id="titleInput" placeholder="제목을 입력하세요" value="${param.title }">
 			</div>
 			<div class="input-group marginTop">	
 			</div>
 			<div id="textEditor" class="marginTop">
-				<textarea cols="80" id="editor1" name="content" rows="10" data-sample-short placeholder='내용을 입력해주세요'></textarea>
+				<textarea cols="80" id="editor1" name="content" rows="10" data-sample-short placeholder='내용을 입력해주세요'>
+				${param.content }
+				</textarea>
 			</div>
 			<div class="input-group marginTop">	
-			<input class="form-control" type="text" name="agreeName" id="agreeName" placeholder="찬성 이름">
-			<input class="form-control" type="text" name="disagreeName" id="disagreeName" placeholder="반대 이름">
+			<input class="form-control" type="text" name="agreeName" id="agreeName" placeholder="찬성 이름" value="${param.agreeName }">
+			<input class="form-control" type="text" name="disagreeName" id="disagreeName" placeholder="반대 이름" value="${param.disagreeName }">
 			</div>
 			<div id="submitBtn">
-				<button class="marginTop btn btn-outline-secondary" type="button" onclick="fn_submit();">글 등록</button>
+				<button class="marginTop btn btn-outline-secondary" type="button" onclick="fn_submit();">글 수정</button>
 				</div>
 			</form>
 		</div>
@@ -168,6 +168,27 @@
 		let value = CKEDITOR.instances.editor1.getData();
 		
 		document.getElementById('editor1').value = value;
+		
+		if(document.getElementById('smallCate').value == ""){
+			alert('카테고리를 선택해주세요');
+			return;
+		}
+		if(document.getElementById('titleInput').value == ""){
+			alert('제목을 입력해주세요');
+			return;
+		}
+		if(document.getElementById('editor1').value == ""){
+			alert('내용을 입력해주세요');
+			return;
+		}
+		if(document.getElementById('agreeName').value == ""){
+			alert('찬성이름을 입력해주세요');
+			return;
+		}
+		if(document.getElementById('disagreeName').value == ""){
+			alert('반대이름을 선택해주세요');
+			return;
+		}
 		
 		document.getElementById('frm').submit();
 	}

@@ -169,8 +169,11 @@ textarea {
 	<div id="reivewMainDiv">
 		<div id="reviewCenterDiv">
 			<div class="starRev">
-				<span class="fa fa-star"></span> <span class="fa fa-star"></span> <span class="fa fa-star"></span> <span class="fa fa-star"></span> <span
-					class="fa fa-star"></span>
+				<span class="fa fa-star"></span> 
+				<span class="fa fa-star"></span> 
+				<span class="fa fa-star"></span> 
+				<span class="fa fa-star"></span> 
+				<span class="fa fa-star"></span>
 			</div>
 			<div id="reviewText">
 				<p>상담 후기 입력</p>

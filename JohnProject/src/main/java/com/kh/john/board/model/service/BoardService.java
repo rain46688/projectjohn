@@ -9,9 +9,23 @@ import com.kh.john.board.model.vo.Comment;
 import com.kh.john.board.model.vo.Subscribe;
 
 public interface BoardService {
-	List<Board> boardList();
+	List<Map> boardList();
+	List<Map> boardSearch(String keyword, int cPage, int numPerPage);
+	int boardSearchCount(String keyword);
+	List<Map> boardPopularList();
+	List<Map> boardPopularList(int cPage, int numPerPage);
+	List<Map> boardNewList();
+	List<Map> boardNewList(int cPage, int numPerPage);
+	List<Map> boardLikedList(int cPage, int numPerPage, int usid);
+	int boardLikedCount(int usid);
+	List<Map> boardHistoryList(int cPage, int numPerPage, int usid);
+	int boardHistoryCount(int usid);
+	List<Map> boardCateList(int cPage, int numPerPage, String key);
+	int boardCateCount(String key);
 	List<Board> boardSelectCate(String boardTitle);
 	int boardInsert(Board b);
+	int boardModify(Map param);
+	int boardDelete(int boardId);
 	Map boardSelectOne(int boardNo);
 	List<Map> commentSelectList(int currBoardNo);
 	int boardCommentInsert(Map param);

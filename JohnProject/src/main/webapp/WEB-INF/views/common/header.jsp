@@ -226,6 +226,14 @@
 	display:flex;
 }
 
+#profileCon {
+	pointer:cursor;
+}
+
+#searchBtn {
+	pointer:cursor;
+}
+
 </style>
 <body>
 	<div class="containerJohn">
@@ -251,7 +259,7 @@
 					<!-- 알람 및 마이페이지 버튼 -->
 					<div id="search">
 						<input type="text" id="searchText">
-						<div id="searchBtn">
+						<div id="searchBtn" onclick="fn_search();">
 							<ion-icon name="search-circle-outline"></ion-icon>
 						</div>
 					</div>
@@ -286,35 +294,17 @@
 						</li>
 					</ul>
 				</div>
+<script>
+	function fn_search(){
+		let keyword = document.getElementById('searchText').value;
+		document.getElementById('searchText').value = "";
+		location.href='${path}/board/boardSearch?keyword='+keyword;
+	}
+	
+	document.getElementById('searchText').addEventListener("keypress", function(event){
+		if(event.keyCode===13){
+			document.getElementById('searchBtn').click();
+		}
+	})
+</script>
 
-
-				<!-- 이게 인생이냐
-					10대 ~ 50대, 싱글
-					
-					세상에 이런 일이
-					 - 억울해요
-					 - 신기한 일
-					 - 개념 상실한 인간덜
-					 - 이게 나라냐
-					
-					이게 사랑이냐
-					 - 남편 대 아내
-					 - 남자들끼리
-					 - 여자들끼리
-					 - 결혼/시집/친정
-					 - 임신/출산/육아
-					
-					이게 회사냐
-					 - 취업/면접
-					 - 알바 경험당
-					 - 나는 백수다
-					
-					이게 집사냐
-					 - 강아지 집사방
-					 - 고양이 집사방
-					
-					이게 코리아 뷰티다
-					 - 뷰티/스타일
-					 - 건강/다이어트
-					 - 여행추천
-                 -->

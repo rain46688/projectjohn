@@ -279,6 +279,15 @@ ion-icon#likeButton {
 #boardDate {
 	text-align:right;
 }
+
+#boardFuncs {
+	margin-top:1em;
+	font-size:13px;
+}
+
+#boardFuncs a {
+	color:rgb(0,0,0,0.8);
+}
 	
 </style>
 <script>
@@ -297,9 +306,14 @@ ion-icon#likeButton {
       <div id="boardDate">${currBoard.WRITER_NICKNAME } <fmt:formatDate value="${currBoard.ENROLL_DATE}" pattern="yyyy.MM.dd HH:mm"/></div>
       <div id="boardContent">
         ${currBoard.CONTENT }
-        ${currBoard}
-        <button onclick="location.href='${path}/report/customerReport?boardId=${currBoard.WRITER_USID }&nick=${currBoard.WRITER_NICKNAME }'">신고하기</button>
       </div>
+	  <div id="boardFuncs">
+	  	<a href="location.href='${path}/report/customerReport?boardId=${currBoard.WRITER_USID }&nick=${currBoard.WRITER_NICKNAME }'">신고하기</a>
+	  	<c:if test="${currBoard.WRITER_USID eq loginMember.usid }">
+	  	<a href="#" onclick='fn_modify();'>수정하기</a>
+	  	<a href="#" onclick="fn_delete();">삭제하기</a>
+	  	</c:if>
+	  </div>
       <hr>
       <div id="judgeCon">
         <div class="judgeBtns" id="agreeBtn">
@@ -394,19 +408,6 @@ ion-icon#likeButton {
       </div>
     </div>
   </div>
-                    <%-- <button onclick="location.href = '${path}/board/boardModify'">수정하기</button>
-                    <button onclick="location.href = '${path}/board/boardDelete'">삭제하기</button> --%>
-                    <!-- <div id="commentSection">
-				      <div id="commentInsert">
-				          <input type="text" name="commentContent" class="commentContent" id="commentContent" size="48">
-				          <input type="hidden" name="commentLevel" id="commentLevel" value="1">
-				          <button class="commentInsertBtn" id="commentInsertBtn" onclick="fn_commentInsert();">댓글입력</button>
-				      </div>
-				    <div id="Comments">
-				      <ul class="comment_list">
-				        댓글이 들어갈 곳
-				      </ul>
-				    </div> -->
                 </div>
             </div>
         </div>
@@ -469,6 +470,53 @@ ion-icon#likeButton {
 </script> -->
 <script>
 'use strict'
+
+function fn_modify(){
+	
+	let form = document.createElement('form');
+	form.setAttribute('action','${path}/board/boardModify');
+	form.setAttribute('method','POST');
+	form.style.display = 'none';
+	
+	let title = document.createElement('input');
+	title.setAttribute('name','title');
+	title.value = '${currBoard.TITLE}';
+	form.appendChild(title);
+	
+	let boardId = document.createElement('input');
+	boardId.setAttribute('name','boardId');
+	boardId.value = ${currBoard.BOARD_ID};
+	form.appendChild(boardId);
+	
+	const content = document.createElement('input');
+	content.setAttribute('name','content');
+	content.value = `${currBoard.CONTENT}`;
+	form.appendChild(content);
+	
+	let smallCate = document.createElement('input');
+	smallCate.setAttribute('name','smallCate');
+	smallCate.value = '${currBoard.SMALL_CATEGORY}';
+	form.appendChild(smallCate);
+	
+	let agreeName = document.createElement('input');
+	agreeName.setAttribute('name','agreeName');
+	agreeName.value = '${currBoard.AGREE_NAME}';
+	form.appendChild(agreeName);
+	
+	let disagreeName = document.createElement('input');
+	disagreeName.setAttribute('name','disagreeName');
+	disagreeName.value = '${currBoard.DISAGREE_NAME}';
+	form.appendChild(disagreeName);
+	
+	document.getElementById('content').appendChild(form);
+	form.submit();
+}
+
+function fn_delete(){
+	
+	if(confirm('정말 삭제하시겠습니까?'))location.href='${path}/board/boardDelete?boardId=${currBoard.BOARD_ID }';
+}
+
 document.getElementById('likeButton').addEventListener('click', function(){
 	if(this.name=='heart-outline'){
 		$.ajax({
@@ -547,7 +595,7 @@ function commentListPrint(commentList) {
 			time = new Date(time);
 			time = time.customFormat("#YYYY#/#MM#/#DD# #hh#:#mm#");
 			let comment = document.createElement('div');
-			if(item.COM_WRITER_NICKNAME == '${currBoard.WRITER_USID}') comment.className = 'commentFromWriter';
+			if(item.COM_WRITER_USID == '${currBoard.WRITER_USID}') comment.className = 'commentFromWriter';
 			else comment.className = 'comment';
 
 			let commentProfileCon = document.createElement('div');

@@ -32,11 +32,20 @@ import lombok.extern.slf4j.Slf4j;
 
 @Slf4j
 @Controller
+
 public class CustomerReportController {
 	
 	@Autowired
 	private ReportService service;
 
+	
+	//임시임시임시 에러페이지확인
+	@RequestMapping("/report/customerReportJsp")
+	public String customerReportJsp() {
+		return "/common/errorPage";
+
+	}
+	
 	//신고하기 글쓰기 페이지
 	@RequestMapping("/report/customerReport")
 	public ModelAndView customerReport(ModelAndView mv, @RequestParam(value="boardId", required=false) int boardId) {

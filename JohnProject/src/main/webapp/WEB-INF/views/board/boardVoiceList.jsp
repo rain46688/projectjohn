@@ -15,6 +15,7 @@
 	font-family: 'Noto Serif KR', serif;
  	scroll-behavior:smooth;
  	display:flex;
+ 	height:37em;
  	flex-direction:column;
 }
 
@@ -23,6 +24,7 @@
 	margin-left:1em;
 	font-weight: 800;
 	font-size: 1.75em;
+	font-family: 'Noto Serif KR', serif;
 }
 
 .subListTitle a {
@@ -69,10 +71,9 @@ a {
 .card-list {
     display: flex;
    	justify-content:center;
-    padding: 1rem 3rem;
-    padding-right:0;
     width:100%;
-    height:100%;
+    padding:2em;
+    padding-right:0;
 }
 
 .card-list::-webkit-scrollbar {
@@ -91,9 +92,8 @@ a {
 
 
 .card1 {
-    height: 18rem;
-    min-width:13rem;
-    width: 18rem;
+    height: 14rem;
+    width: 19rem;
     padding: 1.5rem;
     border-radius: 16px;
     background: white;
@@ -118,7 +118,6 @@ a {
 
 .card1:hover {
     transform: scale(1.09);
-    height:17.5rem;
 }
 
 .card1:hover > .card1-content {
@@ -141,7 +140,6 @@ a {
     text-decoration: none;
     color: inherit;
     border: 0;
- 	overflow: hidden;
 }
 
 .card1-content {
@@ -279,210 +277,169 @@ hr { display: block; height: 1px;
 	color:gray;
 }
 div.menuContainer {
-		background-color: transparent;
+	background-color: transparent;
 }
-<c:choose>
-<c:when test="${title == '인기'}">
 
-#sidebarPopular{
-background-color: rgb(255,255,255,0.1);
+#sidebarVerbal {
+	background-color: rgb(255,255,255,0.1);
 }
-</c:when>
 
-<c:when test="${title == '최신'}">
+div.glider {
+}
 
-#sidebarNew{
-background-color: rgb(255,255,255,0.1);
+.glider-prev {
+	left:100px;
+	bottom: 38%;
 }
-</c:when>
 
-<c:when test="${title == '좋아한 게시물'}">
+.glider-next {
+	right:100px;
+	bottom: 38%;
+}
 
-#sidebarLiked{
-background-color: rgb(255,255,255,0.1);
-}
-</c:when>
-
-<c:when test="${title == '내 기록'}">
-
-#sidebarHistory{
-background-color: rgb(255,255,255,0.1);
-}
-</c:when>
-<c:otherwise>
-	div.cate {
-		display:flex;
-	}
-	<c:if test="${title=='가족문제'}">
-	#family {
-		
-		background-color: rgb(255,255,255,0.1);
-	}
-	</c:if>
-	<c:if test="${title=='회사문제'}">
-	#work {
-		background-color: rgb(255,255,255,0.1);
-	}
-	</c:if>
-	<c:if test="${title=='친구문제'}">
-	#friend {
-		background-color: rgb(255,255,255,0.1);
-	}
-	</c:if>
-	<c:if test="${title=='반려견문제'}">
-	#pet {
-		background-color: rgb(255,255,255,0.1);
-	}
-	</c:if>
-	<c:if test="${title=='연애상담'}">
-	#love {
-		background-color: rgb(255,255,255,0.1);
-	}
-	</c:if>
-	div.cate {
-		display:none;
-	}
-</c:otherwise>
-</c:choose>
-
-div#pageBar{
-	width: 20%;
-	margin: 0 auto;
-	display: grid;
-}
-/*페이지바*/
-.page-item.active .page-link { /*현재페이지*/
-	background-color: #003478;
-	color: #ffcc66;
-	border: none;
-}
-.page-link{
-	color: #003478;
-}
-.pagination a:hover:not(.active) { /*호버*/
-	background-color: #ffcc66;
-	color: #003478;
-}
-.textInner a{
-	color: black;
-}
 </style>
 <script src="${path }/resources/js/glider.js"></script>
 <link rel="stylesheet" type="text/css" href="${path }/resources/css/glider.css">
 	<div id="content">
 	<!-- 내용 -->
-	<div id="result">
-		<h1 class='subListTitle'>${title }</h1>
+	<h1 class='subListTitle'><ion-icon name="mic-outline"></ion-icon> ${title }</h1>
 		<hr>
-		<div class="card-list">
+	<div class="glider-contain">
+	<div id="result" class="glider">
 		
-		<c:forEach var="item" items="${list }" varStatus="status">
-			<c:if test="${status.index < 4 }">
-			<div class="card1" onclick="location.href='${path}/board/boardPage?boardNo=${item.BOARD_ID }'">
-	        <div class="card1-header">
-	          <p><fmt:formatDate value="${item.ENROLL_DATE}" pattern="yyyy년 MM월 dd일"/>
-	          <span class="hits">
-					<ion-icon class="heart" name="heart-outline"></ion-icon> ${item.LIKE_NUM }
-				</span></p>
-	          <h2>${item.TITLE }</h2>
-	        </div>
-	        
-	        <div class="card1-content">
-				${item.CONTENT }
-			</div>
-			
-			<div class="icons">
-				<div class="judge">
-					<ion-icon name="thumbs-up-outline"></ion-icon> ${item.AGREE_NUM }
-					<ion-icon name="thumbs-down-outline"></ion-icon> ${item.DISAGREE_NUM }
-				</div>
-			</div>
-			
-	        <div class="card-author">
-	          <a class="author-avatar" href="#">
-	          	<c:if test="${item.WRITER_PROFILE eq null}">
-	            <img src="${path }/resources/profile_images/avatar.png" />
-	            </c:if>
-	            <c:if test="${item.WRITER_PROFILE ne null}">
-	            <img src="${path }/resources/profile_images/${item.WRITER_PROFILE}" />
-	            </c:if>
-	          </a>
-	          <svg class="half-circle" viewBox="0 0 106 57">
-	            <path d="M102 4c0 27.1-21.9 49-49 49S4 31.1 4 4"></path>
-	          </svg>
-	
-	          <div class="author-name">
-	            <div class="author-name-prefix">글쓴이</div>
-	            ${item.WRITER_NICKNAME }
-	          </div>
-	        </div>
-	      </div>
-	      </c:if>
-		</c:forEach>
-	      </div>
-	      
-	      <div class="card-list">
-	      
-	      <c:forEach var="item" items="${list }" varStatus="status">
-			<c:if test="${status.index >= 4 }">
-			<div class="card1" onclick="location.href='${path}/board/boardPage?boardNo=${item.BOARD_ID }'">
-	        <div class="card1-header">
-	          <p><fmt:formatDate value="${item.ENROLL_DATE}" pattern="yyyy년 MM월 dd일"/>
-	          <span class="hits">
-					<ion-icon class="heart" name="heart-outline"></ion-icon> ${item.LIKE_NUM }
-				</span></p>
-	          <h2>${item.TITLE }</h2>
-	        </div>
-	        
-	        <div class="card1-content">
-				${item.CONTENT }
-			</div>
-			
-			<div class="icons">
-				<div class="judge">
-					<ion-icon name="thumbs-up-outline"></ion-icon> ${item.AGREE_NUM }
-					<ion-icon name="thumbs-down-outline"></ion-icon> ${item.DISAGREE_NUM }
-				</div>
-			</div>
-			
-	        <div class="card-author">
-	          <a class="author-avatar" href="#">
-	          	<c:if test="${item.WRITER_PROFILE eq null}">
-	            <img src="${path }/resources/profile_images/avatar.png" />
-	            </c:if>
-	            <c:if test="${item.WRITER_PROFILE ne null}">
-	            <img src="${path }/resources/profile_images/${item.WRITER_PROFILE}" />
-	            </c:if>
-	          </a>
-	          <svg class="half-circle" viewBox="0 0 106 57">
-	            <path d="M102 4c0 27.1-21.9 49-49 49S4 31.1 4 4"></path>
-	          </svg>
-	
-	          <div class="author-name">
-	            <div class="author-name-prefix">글쓴이</div>
-	            ${item.WRITER_NICKNAME }
-	          </div>
-	        </div>
-	      </div>
-	      </c:if>
-		</c:forEach>
-	 	</div>
-	 	${pageBar }
 	 </div>
+	 <button aria-label="Previous" class="glider-prev" style="left:50px;">«</button>
+	  <button aria-label="Next" class="glider-next" style="right:50px;">»</button>
+	  <div role="tablist" class="dots"></div>
+	  </div>
 									</div>
  								</div>
 							</div>
 						</div>
 					</div>
-	
                 </div>
             </div>
         </div>
     </div>
 <script defer>
 	'use strict'
+	/* new Glider(document.querySelector('.glider'), {
+	  slidesToShow: 1,
+	  dots: '.dots',
+	  draggable: true,
+	  arrows: {
+	    prev: '.glider-prev',
+	    next: '.glider-next'
+	  }
+	}); */
 	
+	//소켓연결
+	const socket = new SockJS("https://172.30.1.16:8443${path}/list");
+	let message = ''; 
+	socket.onopen = function(e){
+		socket.send('boardList');
+	}
 	
+	socket.onmessage = function(e){
+		console.log(JSON.parse(e.data));
+		let voiceList = JSON.parse(e.data);
+		let html = "";
+		for(let i = 0; i < voiceList.length; i++){
+			if(i%8==0)html += "<div class='sliderCon'>";
+			if(i%4==0)html += "<div class='card-list'>";
+			html += mkCard(voiceList[i]);
+			if(i%4==3)html += "</div>";
+			if(i%8==7)html += "</div>";
+
+			if(i==voiceList.length-1){
+				if(i%4==3&&i%8!=7) html += "</div>";
+				else html += "</div></div>";
+			}
+		}
+		document.getElementById('result').innerHTML = html;
+		new Glider(document.querySelector('.glider'), {
+			  slidesToShow: 1,
+			  dots: '.dots',
+			  draggable: true,
+			  arrows: {
+			    prev: '.glider-prev',
+			    next: '.glider-next'
+			  }
+			});
+	}
+	
+	function mkCard(item){
+
+		if(item!=null){
+		
+		let time = parseInt(item.ENROLL_DATE);
+		time = new Date(time);
+		time = time.customFormat("#YYYY#년 #MM#월 #DD#일");
+		item.ENROLL_DATE = time;
+			
+		let html = "";
+
+		html = "<div class=\"card1\" onclick=\"location.href='${path}/board/boardPage?boardNo="+item.BOARD_ID+"'\">";
+	    html += "<div class=\"card1-header\">";
+		html += "<p>"+item.ENROLL_DATE+" ";
+		html += "<span class=\"hits\">";
+		html += "<ion-icon class=\"heart\" name=\"heart-outline\"></ion-icon> "+item.LIKE_NUM+" ";
+		html += "</span></p>";
+		html += "<h2>"+item.TITLE+"</h2>";
+		html += "</div>";
+
+		html += "<div class=\"card1-content\">";
+		html += item.CONTENT;
+		html += "</div>";
+
+		html += "<div class=\"icons\">";
+		html += "<div class=\"judge\">";
+		html += "<ion-icon name=\"thumbs-up-outline\"></ion-icon> "+item.AGREE_NUM +" ";
+		html += "<ion-icon name=\"thumbs-down-outline\"></ion-icon> "+item.DISAGREE_NUM +" ";
+		html += "</div>";
+		html += "</div>";
+
+		html += "<div class=\"card-author\">";
+		html += "<a class=\"author-avatar\" href=\"#\">";
+		if(item.WRITER_PROFILE==null){
+			html += "<img src=\"${path }/resources/profile_images/avatar.png\" />";
+		}else {
+			html += "<img src=\"${path }/resources/profile_images/"+item.WRITER_PROFILE+"\" />";
+		}
+		html += "</a>";
+		html += "<svg class=\"half-circle\" viewBox=\"0 0 106 57\">";
+		html += "<path d=\"M102 4c0 27.1-21.9 49-49 49S4 31.1 4 4\"></path>";
+		html += "</svg>";
+
+		html += "<div class=\"author-name\">";
+		html += "<div class=\"author-name-prefix\"\">글쓴이</div>";
+		html += item.WRITER_NICKNAME;
+		html += "</div>";
+		html += "</div>";
+		html += "</div>";
+		return html;
+		}
+	}
+	
+	Date.prototype.customFormat = function(formatString){
+		  var YYYY,YY,MMMM,MMM,MM,M,DDDD,DDD,DD,D,hhhh,hhh,hh,h,mm,m,ss,s,ampm,AMPM,dMod,th;
+		  YY = ((YYYY=this.getFullYear())+"").slice(-2);
+		  MM = (M=this.getMonth()+1)<10?('0'+M):M;
+		  MMM = (MMMM=["January","February","March","April","May","June","July","August","September","October","November","December"][M-1]).substring(0,3);
+		  DD = (D=this.getDate())<10?('0'+D):D;
+		  DDD = (DDDD=["Sunday","Monday","Tuesday","Wednesday","Thursday","Friday","Saturday"][this.getDay()]).substring(0,3);
+		  th=(D>=10&&D<=20)?'th':((dMod=D%10)==1)?'st':(dMod==2)?'nd':(dMod==3)?'rd':'th';
+		  formatString = formatString.replace("#YYYY#",YYYY).replace("#YY#",YY).replace("#MMMM#",MMMM).replace("#MMM#",MMM).replace("#MM#",MM).replace("#M#",M).replace("#DDDD#",DDDD).replace("#DDD#",DDD).replace("#DD#",DD).replace("#D#",D).replace("#th#",th);
+		  h=(hhh=this.getHours());
+		  if (h==0) h=24;
+		  if (h>12) h-=12;
+		  hh = h<10?('0'+h):h;
+		  hhhh = hhh<10?('0'+hhh):hhh;
+		  AMPM=(ampm=hhh<12?'am':'pm').toUpperCase();
+		  mm=(m=this.getMinutes())<10?('0'+m):m;
+		  ss=(s=this.getSeconds())<10?('0'+s):s;
+		  return formatString.replace("#hhhh#",hhhh).replace("#hhh#",hhh).replace("#hh#",hh).replace("#h#",h).replace("#mm#",mm).replace("#m#",m).replace("#ss#",ss).replace("#s#",s).replace("#ampm#",ampm).replace("#AMPM#",AMPM);
+		};
 </script>
 </body>
 </html>

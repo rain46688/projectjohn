@@ -685,7 +685,7 @@ html, body, div, span, applet, object, iframe, h1, h2, h3, h4, h5, h6, p, blockq
 						tempprinthtml += "<div class='reviewInnerUpDiv'><div class='userNickName'>닉네임 : "+e['expertBoardMemNick']+"</div>";
 						tempprinthtml += "<div class='counselDate'>날짜 : "+e['expertBoardDateString']+"</div>";
 						tempprinthtml += "<div class='counselAreaReview'>분야 : "+cate+"</div></div>";
-						tempprinthtml += "<div class='userRating'>"+printStar(e['expertBoardRating'])+printStar(5 - (e['expertBoardRating']))+"</div>";
+						tempprinthtml += "<div class='userRating'>"+printStar(e['expertBoardRating'],false)+printStar(5 - (e['expertBoardRating']),true)+"</div>";
 						tempprinthtml += "<div class='userReview'>"+content+"</div></div></li>";
 					}
 				});

@@ -5,8 +5,8 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.OutputStream;
 import java.io.PrintWriter;
+import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 import java.util.UUID;
@@ -27,13 +27,13 @@ import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
 import org.springframework.web.servlet.ModelAndView;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.fasterxml.jackson.core.JsonGenerationException;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import com.google.gson.JsonObject;
 import com.kh.john.board.model.service.BoardService;
 import com.kh.john.board.model.vo.Board;
-import com.kh.john.board.model.vo.Subscribe;
 import com.kh.john.member.model.vo.Member;
 
 import lombok.extern.slf4j.Slf4j;
@@ -49,16 +49,97 @@ public class BoardController {
 	private BoardService service;
 	
 	@RequestMapping("/board/boardList")
-	public ModelAndView boardList(ModelAndView mv, HttpServletRequest request) {
+	public ModelAndView boardList(ModelAndView mv) {
 		//list페이지에서 subList 보내줘야함
 		
-		Member m = (Member) request.getSession().getAttribute("loginMember");
+		List<Map> popularList = service.boardPopularList();
+		List<Map> newList = service.boardNewList();
 		
-		List<Subscribe> list = service.boardSubList(m.getUsid());
-		
-		mv.addObject("subList", list);
+		mv.addObject("popularList", popularList);
+		mv.addObject("newList", newList);
 		
 		mv.setViewName("board/boardList");
+		return mv;
+	}
+	
+	@RequestMapping("/board/boardSearch")
+	public ModelAndView boardSearch(ModelAndView mv, @RequestParam Map param) {
+		String keyword = (String)param.get("keyword");
+		
+		int cPage = 1;
+		int numPerPage = 8;
+		int totalData = 40;
+		String title = "";
+		
+		if(param.get("cPage")!=null)cPage = Integer.parseInt((String)param.get("cPage"));
+		if(param.get("numPerPage")!=null)cPage = Integer.parseInt((String)param.get("numPerPage"));
+		
+		totalData = service.boardSearchCount(keyword);
+		List<Map> list = service.boardSearch(keyword,cPage,numPerPage);
+		title = "\"" + keyword + "\"에 대한 검색결과";
+		mv.addObject("pageBar", BoardPageBar.getPageBar(totalData, cPage, numPerPage, "boardSearch?keyword="+keyword));
+		mv.addObject("title", title);
+		mv.addObject("list",list);
+		mv.setViewName("board/boardListSmall");
+		
+		return mv;
+	}
+	
+	@RequestMapping("/board/boardListSmall")
+	public ModelAndView boardList(ModelAndView mv, @RequestParam Map param, HttpServletRequest request) {
+		
+		Member m = (Member)request.getSession().getAttribute("loginMember");
+		String key = "";
+		int cPage = 1;
+		int numPerPage = 8;
+		int totalData = 40;
+		if((String)param.get("key")!=null)key=(String)param.get("key");
+		if(param.get("cPage")!=null)cPage = Integer.parseInt((String)param.get("cPage"));
+		if(param.get("numPerPage")!=null)cPage = Integer.parseInt((String)param.get("numPerPage"));
+		
+		String title = "";
+		List<Map> list = new ArrayList();
+		
+		if(key.equals("popular")) {
+			//인기 리스트
+			title="인기";
+			list = service.boardPopularList(cPage, numPerPage);
+		}else if(key.equals("new")) {
+			//최신 리스트
+			title="최신";
+			list = service.boardNewList(cPage, numPerPage);
+		}else if(key.equals("liked")) {
+			//좋아한 게시물 리스트
+			title="좋아한 게시물";
+			totalData = service.boardLikedCount(m.getUsid());
+			list = service.boardLikedList(cPage,numPerPage,m.getUsid());
+		}else if(key.equals("history")) {
+			//내 기록
+			title="내 기록";
+			totalData = service.boardHistoryCount(m.getUsid());
+			list = service.boardHistoryList(cPage,numPerPage,m.getUsid());
+		}else if(key.equals("voice")) {
+			title="음성재판소";
+			mv.addObject("title", title);
+			mv.setViewName("board/boardVoiceList");
+			return mv;
+		}else {
+		//카테고리별
+			switch(key) {
+			case "family": title="가족문제";break;
+			case "work": title="회사문제";break;
+			case "friend": title="친구문제";break;
+			case "pet": title="반려견문제";break;
+			case "love": title="연애상담";break;
+			}
+			totalData = service.boardCateCount(key);
+			list = service.boardCateList(cPage, numPerPage, key);
+		}
+		mv.addObject("pageBar", BoardPageBar.getPageBar(totalData, cPage, numPerPage, "boardListSmall?key="+key));
+		mv.addObject("title", title);
+		mv.addObject("list",list);
+		mv.setViewName("board/boardListSmall");
+		
 		return mv;
 	}
 	
@@ -71,42 +152,74 @@ public class BoardController {
 	}
 	
 	@RequestMapping(value="/board/boardInsertEnd")
-	public ModelAndView boardInsertEnd(Board b, ModelAndView mv, HttpServletRequest request) {
+	public ModelAndView boardInsertEnd(Board b, ModelAndView mv, HttpServletRequest request, RedirectAttributes redirectAttribute) {
 		
-//		String saveDir = request.getServletContext().getRealPath("resources/upload_images/board");
-//		File dir = new File(saveDir);
-//		if(!dir.exists()) {
-//			dir.mkdirs();
-//		}
-//		
-//		List<BoardFile> files = new ArrayList();
-//		for(MultipartFile f : upFiles) {
-//			if(!f.isEmpty()) {
-//				String originalFilename = f.getOriginalFilename();
-//				String ext = originalFilename.substring(originalFilename.lastIndexOf('.')+1);
-//				
-//				SimpleDateFormat sdf = new SimpleDateFormat("yyyy_MM_ddHHmmssSSS");
-//				int rndNum = (int)(Math.random()*1000);
-//				String renamedFilename = sdf.format(new Date(System.currentTimeMillis())) + "_" + rndNum + "_john." + ext;
-//				try {
-//					f.transferTo(new File(saveDir + "/" + renamedFilename));
-//				}catch(IOException e) {
-//					e.printStackTrace();
-//				}
-//				BoardFile boardFile = new BoardFile();
-//				boardFile.setBoardFileName(renamedFilename);
-//				files.add(boardFile);
-//			}
-//		}
 		int result = service.boardInsert(b);
 		
 		if(result>0) {
-			mv.setViewName("/board/boardInsertSuccess");
+			redirectAttribute.addAttribute("boardNo", result);
+			mv.setViewName("redirect:/board/boardPage");
 		}else {
 			mv.addObject("msg", "글 등록에 실패했습니다");
 			mv.addObject("loc", "/board/boardList");
+			mv.setViewName("common/msg");
 		}
 		
+		return mv;
+	}
+	
+	@RequestMapping(value="board/boardModify", method=RequestMethod.POST)
+	public ModelAndView boardModify(ModelAndView mv, @RequestParam Map<String, Object> param) {
+		
+		log.debug(""+param);
+		
+		mv.addObject("param", param);
+		mv.setViewName("board/boardModify");
+		
+		return mv;
+	}
+	
+	@RequestMapping(value="board/boardModifyEnd", method=RequestMethod.POST)
+	public ModelAndView boardModifyEnd(ModelAndView mv, @RequestParam Map param, RedirectAttributes redirectAttribute) {
+		
+		int result = service.boardModify(param);
+		
+		if(result > 0) {
+			redirectAttribute.addAttribute("boardNo", param.get("boardId"));
+			mv.setViewName("redirect:/board/boardPage");
+		}else {
+			mv.addObject("msg", "글 수정에 실패했습니다");
+			mv.addObject("loc", "/board/boardList");
+			mv.setViewName("common/msg");
+		}
+		return mv;
+	}
+	
+	@RequestMapping("board/boardDelete")
+	public ModelAndView boardDelete(ModelAndView mv, int boardId) {
+		int result = service.boardDelete(boardId);
+		if(result > 0) {
+			mv.setViewName("redirect:/board/boardList");
+		}else {
+			mv.addObject("msg", "글 삭제에 실패했습니다");
+			mv.addObject("loc", "/board/boardList");
+			mv.setViewName("common/msg");
+		}
+		return mv;
+	}
+	
+	@RequestMapping("board/boardExit")
+	public ModelAndView boardExit(ModelAndView mv, int boardId) {
+		
+		int result = service.boardDelete(boardId);
+		
+		if(result > 0) {
+			mv.setViewName("redirect:/board/boardList");
+		}else {
+			mv.addObject("msg", "대화방 삭제에 실패했습니다");
+			mv.addObject("loc", "/board/boardList");
+			mv.setViewName("common/msg");
+		}
 		return mv;
 	}
 
@@ -140,8 +253,6 @@ public class BoardController {
 		}
 		
 		Map m = service.boardSelectOne(boardNo);
-		
-		System.out.println(m.get("BIG_CATEGORY"));
 		
 		if(m.get("BIG_CATEGORY").equals("음성게시판")) {
 			mv.setViewName("/board/boardStreamPage");
@@ -235,19 +346,6 @@ public class BoardController {
 		return ajaxResult;
 	}
 	
-	//작은 카테고리 조회
-	@RequestMapping("/board/boardListSmall")
-	public ModelAndView boardListSmall(String boardTitle, ModelAndView mv) {
-		
-		log.debug(boardTitle);
-		
-		List<Board> list = service.boardSelectCate(boardTitle);
-		
-		mv.addObject("list", list);
-		mv.setViewName("/board/boardListSmall");
-		
-		return mv;
-	}
 	
 	//좋아요 넣기
 	@RequestMapping("/board/boardLikeInsert")
