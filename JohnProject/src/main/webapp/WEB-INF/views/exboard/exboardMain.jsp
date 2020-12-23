@@ -102,7 +102,18 @@ label, input {
 //https://www.cssscript.com/accessible-star-rating-system-pure-css/
 	
 
+	cd .\Downloads\
+	
+	pscp -P 21578 .\20AM_john.war team1@rclass.iptime.org:/home/apache-tomcat-8.5.45/webapps/
+	
+	team11
+
+	wss://rclass.iptime.org:9999
+
+	
 -->
+
+<%-- let socket=new WebSocket("ws://rclass.iptime.org:9999<%=request.getContextPath()%>/socket"); --%>
 
 <script>
 

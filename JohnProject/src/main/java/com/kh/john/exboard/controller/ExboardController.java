@@ -628,7 +628,7 @@ public class ExboardController {
 			HttpSession session) {
 		log.debug("expertModifyEx 실행");
 		log.debug("업 파일 : " + upFile + " 업파일 길이 : " + upFile.length);
-		log.debug("파람 : " + career + " " + counselSelect + " " + fistTime + " " + seTim e + " " + modiText);
+		log.debug("파람 : " + career + " " + counselSelect + " " + fistTime + " " + seTime + " " + modiText);
 
 		if (upFile.length == 0) {
 			log.debug("기존 프로필 이름 ; " + beforeProfile);
