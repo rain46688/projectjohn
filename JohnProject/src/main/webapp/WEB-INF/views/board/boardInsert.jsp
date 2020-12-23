@@ -101,7 +101,7 @@
 				<option value="7">7</option>
 				<option value="8">8</option>
 			</select>
-			<select class="custom-select custom-select-sm" name="smallCategory" id="">
+			<select class="custom-select custom-select-sm" name="smallCategory" id="smallCate">
 				<option value="" >큰 카테고리를 선택하세요</option>
 				<option value="love">연애상담</option>
 				<option value="family">가족문제</option>
@@ -168,6 +168,31 @@
 		let value = CKEDITOR.instances.editor1.getData();
 		
 		document.getElementById('editor1').value = value;
+		
+		if(document.getElementById('boardType').value == ""){
+			alert('게시판 타입을 설정해주세요.');
+			return;
+		}
+		
+		if(document.getElementById('smallCate').value == ""){
+			alert('카테고리를 설정해주세요.');
+			return;
+		}
+		
+		if(document.getElementById('titleInput').value == ""){
+			alert('제목을 입력해주세요.');
+			return;
+		}
+		
+		if(document.getElementById('agreeName').value == ""){
+			alert('찬성이름을 설정해주세요.');
+			return;
+		}
+		
+		if(document.getElementById('disagreeName').value == ""){
+			alert('반대이름을 설정해주세요.');
+			return;
+		}
 		
 		document.getElementById('frm').submit();
 	}
