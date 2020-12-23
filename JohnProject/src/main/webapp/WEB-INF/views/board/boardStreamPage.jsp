@@ -508,6 +508,7 @@ ion-icon#likeButton {
 	function fn_exit(){
 		
 		if(confirm('정말 대화방을 종료하시겠습니까?')){
+			chatSocket.send("leave:"+"${currBoard.BOARD_ID}");
 			location.href="${path}/board/boardExit?boardId=${currBoard.BOARD_ID}";
 		}
 		
@@ -520,7 +521,7 @@ ion-icon#likeButton {
 		const myPeer = new Peer(undefined, {
 			host: '/172.30.1.31',
 			port: '3000',
-			secure:true,
+			secure:true
 		});
 		const dataConnection = myPeer.connect(myPeer.id, {
 			metadata:${loginMember.usid}
@@ -587,11 +588,13 @@ ion-icon#likeButton {
 		})
 
 		function connectToNewUser(userId, stream){
-			const call = myPeer.call(userId, stream)
+			const call = myPeer.call(userId, stream, {
+				metadata:${loginMember.usid}
+			});
 			const video = document.createElement('audio');
-			
 			console.log(userId+"로 부터 들어옴");
 			call.on('stream', userVideoStream => {
+				console.log(userVideoStream.metadata);
 				console.log('stream 실행')
 				addVideoStream(video, userVideoStream);
 			})
@@ -601,10 +604,14 @@ ion-icon#likeButton {
 			})
 			
 			peers[userId] = call;
+			if(${currBoard.WRITER_USID} == ${loginMember.usid}){
+				location.reload(true);
+			}
 		}
 		
 		function addVideoStream(video, stream) {
 			video.srcObject = stream;
+			console.log(stream.metadata);
 			video.addEventListener('loadedmetadata', () => {
 				video.play();
 			})
@@ -703,6 +710,9 @@ chatSocket.onmessage = function(e){
 		img.setAttribute('src','${path}/resources/images/'+fileName);
 		
 		box1.appendChild(img);
+	}else if(e.data == 'leave') {
+		alert('방장이 대화를 종료하였습니다.');
+		location.href = "${path}/board/boardList";
 	}else{
 	chatList = JSON.parse(e.data);
 	console.log(chatList);

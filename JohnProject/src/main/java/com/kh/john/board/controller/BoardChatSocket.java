@@ -16,8 +16,17 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
+
+import javax.servlet.http.HttpServletRequest;
+
 import java.util.UUID;
 
+import org.apache.commons.lang.StringUtils;
+import org.apache.commons.lang.exception.ExceptionUtils;
+import org.springframework.http.HttpEntity;
+import org.springframework.http.HttpStatus;
+import org.springframework.web.bind.annotation.ExceptionHandler;
+import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.socket.BinaryMessage;
 import org.springframework.web.socket.CloseStatus;
 import org.springframework.web.socket.TextMessage;
@@ -206,10 +215,18 @@ public class BoardChatSocket extends AbstractWebSocketHandler{
 					chatList.add(chat);
 				}
 				allUsers.get(mem).sendMessage(new TextMessage(mapper.writeValueAsString(chatList)));
+				log.debug("전체 사용자 : " + allUsers);
+				log.debug("사용자 : " + mem);
+				log.debug("채팅 메세지 : "+chatList);
 				chatList.clear();
 			}
-		}else {
+		}else if(messageKey.equals("image")){
 			imageFileName.put(member, messageValue);
+		}else {
+			int boardId = Integer.parseInt(messageValue);
+			for(Member mem : rooms.get(boardId)) {
+				allUsers.get(mem).sendMessage(new TextMessage("leave"));
+			}
 		}
 	}
 	
@@ -275,5 +292,15 @@ public class BoardChatSocket extends AbstractWebSocketHandler{
 				}
 			}
 		}
+	}
+	
+	@ExceptionHandler(IOException.class)
+	@ResponseStatus(HttpStatus.SERVICE_UNAVAILABLE)   //(1)
+	public Object exceptionHandler(IOException e, HttpServletRequest request) {
+	    if (StringUtils.containsIgnoreCase(ExceptionUtils.getRootCauseMessage(e), "Broken pipe")) {   //(2)
+	        return null;        //(2)	socket is closed, cannot return any response    
+	    } else {
+	        return new HttpEntity<>(e.getMessage());  //(3)
+	    }
 	}
 }

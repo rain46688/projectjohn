@@ -50,7 +50,6 @@ public class BoardController {
 	
 	@RequestMapping("/board/boardList")
 	public ModelAndView boardList(ModelAndView mv) {
-		//list페이지에서 subList 보내줘야함
 		
 		List<Map> popularList = service.boardPopularList();
 		List<Map> newList = service.boardNewList();
