@@ -625,7 +625,7 @@ ion-icon#likeButton {
 
 let chatList = [];
 
-let chatSocket = new WebSocket("wss://172.30.1.31:8443${path}/chat");
+let chatSocket = new WebSocket("wss://rclass.iptime.org${path}/chat");
 
 /* const chatImageSocket = new WebSocket("wss://172.30.1.16:8443${path}/image"); */
 

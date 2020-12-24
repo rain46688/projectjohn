@@ -104,12 +104,29 @@ label, input {
 
 	cd .\Downloads\
 	
-	pscp -P 21578 .\20AM_john.war team1@rclass.iptime.org:/home/apache-tomcat-8.5.45/webapps/
+	pscp -P 21578 .\20AM_john_final.war team1@rclass.iptime.org:/home/apache-tomcat-8.5.45/webapps/
 	
 	team11
 
-	wss://rclass.iptime.org:9999
+	wss://rclass.iptime.org
 
+인
+message / messageList
+
+최
+expertList.jsp
+expertRequestList.jsp
+exchatRoom.jsp
+header.js
+
+지
+customerChat
+adminChat
+
+홍
+boardStreamPage.jsp
+boardVoiceList.jsp
+boardInsertSuccess.jsp
 	
 -->
 

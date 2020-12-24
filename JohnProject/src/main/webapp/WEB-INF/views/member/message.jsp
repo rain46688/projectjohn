@@ -124,7 +124,7 @@
 </section>
 <script>
 	//소켓 시작
-	const memberSocket=new WebSocket("wss://172.30.1.31:8443${path}/memberSocket");
+	const memberSocket=new WebSocket("wss://rclass.iptime.org${path}/memberSocket");
 
 	//소켓이 열림
 	memberSocket.onopen=function(){
