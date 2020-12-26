@@ -199,8 +199,8 @@
 		})
 	};
 
-	const memberSocket=new WebSocket("wss://172.30.1.31:8443${path}/memberSocket");
-	
+	const memberSocket=new WebSocket("wss://rclass.iptime.org${path}/memberSocket");
+
 	memberSocket.onopen=function(){
 		memberSocket.send("messageOnOpen");
 	};
