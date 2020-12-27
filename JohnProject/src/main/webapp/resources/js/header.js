@@ -4,7 +4,7 @@
  
 				'use strict';
 				
-				let st = "20AM_john_final";
+				let st = "20AM_john_final" ;
 				let ip = "wss://rclass.iptime.org/";
 				
 				//let st = "john";
