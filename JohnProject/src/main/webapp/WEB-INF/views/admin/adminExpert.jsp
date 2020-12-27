@@ -523,7 +523,7 @@ a:hover {
 								</div>
 								<div class="col">
 									<c:choose>
-										<c:when test="${m.leaveMem eq true }">X</c:when>
+										<c:when test="${m.leaveMem eq false }">X</c:when>
 										<c:otherwise>O</c:otherwise>
 									</c:choose>
 								</div>

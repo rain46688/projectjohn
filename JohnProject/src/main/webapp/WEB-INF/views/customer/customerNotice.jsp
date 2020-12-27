@@ -151,7 +151,10 @@ onclick="noticeWrite('${notice.noticeId}');">WRITE</button>
             		<div class="col"><c:out value="${n.noticeId }"/></div>
             		<div class="col"><c:out value="${n.noticeTitle }"/></div>
             		<div class="col"><c:out value="${n.noticeAdminNickname }"/></div>
-            		<div class="col"><c:out value="${n.noticeEnrolldate }"/></div>
+            		<div class="col"> <fmt:formatDate value="${n.noticeEnrolldate }" pattern="yyyy.MM.dd HH:mm"/></div>
+            		
+            		
+            		
             		</div>
             		</a>
 					</div>

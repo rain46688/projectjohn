@@ -233,7 +233,7 @@ padding-bottom: 3%;
             		<div class="col"><c:out value="${r.reportId }"/></div> 
             		<div class="col"><c:out value="${r.reportType }"/></div> 
             		<div class="col"><c:out value="${r.reportTitle }"/></div> 
-            		<div class="col"><c:out value="${r.reportDate }"/></div> 
+            		<div class="col"><fmt:formatDate value="${r.reportDate }" pattern="yyyy.MM.dd HH:mm"/></div> 
             		<div class="col" style="color:red"><c:choose>
 						<c:when test="${r.reportIscheck eq false }">처리전</c:when>
 						<c:otherwise>처리완료</c:otherwise>

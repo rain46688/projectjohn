@@ -62,6 +62,15 @@
 
 }
 
+.marginTop31{
+	border:2px solid ;
+	border-radius:20px;
+	margin-top:3%;
+	background-color:white;
+	padding: 5%;
+
+}
+
 .marginTop4{ /*신고내용:*/
 	margin-top:3%;
 	font-size:20px;
@@ -271,9 +280,10 @@ border-radius:20px;
 		<div class="input-group marginTop4">
         <img src="${path }/resources/images/admin/check.png" width="30px" height="30px">&nbsp;신고내용&nbsp;:
         </div>
-        <div class="input-group marginTop5">
-        <textarea class="form-control" name="reportContent" placeholder="내용" required readonly id="reportContent">
-        <c:out value="${report.reportContent }"/></textarea>
+        <div class="input-group marginTop31">
+        <%-- <textarea class="form-control" name="reportContent" placeholder="내용" required readonly id="reportContent">
+        <c:out value="${report.reportContent }"/></textarea> --%>
+        ${report.reportContent }
 		</div>
         
         

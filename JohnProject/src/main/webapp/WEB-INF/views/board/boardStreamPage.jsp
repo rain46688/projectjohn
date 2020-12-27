@@ -503,7 +503,7 @@ ion-icon#likeButton {
     </div>
 <c:if test="${currBoard.ISCLOSE eq 0 }">
 <script src="https://unpkg.com/peerjs@1.3.1/dist/peerjs.min.js"></script>
-<!-- <script defer src="https://172.30.1.31:83/socket.io/socket.io.js"></script> -->
+<script defer src="https://172.30.1.31:83/socket.io/socket.io.js"></script>
 <script>
 	function fn_exit(){
 		
@@ -514,7 +514,7 @@ ion-icon#likeButton {
 		
 	}
 
-	/* $(document).ready(function() {
+	$(document).ready(function() {
 		const userId = uuidv4()+":"+${loginMember.usid};
 		var socket = io("https://172.30.1.31:83");
 		const videoGrid = document.getElementById('video-grid')
@@ -568,18 +568,6 @@ ion-icon#likeButton {
 			}
 			console.log(peers);
 		})
-		
-		myPeer.on('call', call => {
-			console.log('call 받음')
-			const video = document.createElement('audio')
-			console.log(call);
-			call.on('stream', userVideoStream => {
-				console.log(userVideoStream)
-				addVideoStream(video, userVideoStream)
-			})
-		}, function(err) {
-			  console.log(err);
-		})
 
 		
 		myPeer.on('open', id => {
@@ -591,6 +579,7 @@ ion-icon#likeButton {
 			const call = myPeer.call(userId, stream, {
 				metadata:${loginMember.usid}
 			});
+			call.answer(mediaStream);
 			const video = document.createElement('audio');
 			console.log(userId+"로 부터 들어옴");
 			call.on('stream', userVideoStream => {
@@ -604,9 +593,6 @@ ion-icon#likeButton {
 			})
 			
 			peers[userId] = call;
-			if(${currBoard.WRITER_USID} == ${loginMember.usid}){
-				location.reload(true);
-			}
 		}
 		
 		function addVideoStream(video, stream) {
@@ -618,7 +604,7 @@ ion-icon#likeButton {
 			videoGrid.appendChild(video);
 			console.log(video);
 		}
-	}); */
+	});
 </script>
 <script>
 'use strict'
@@ -626,10 +612,6 @@ ion-icon#likeButton {
 let chatList = [];
 
 let chatSocket = new WebSocket("wss://rclass.iptime.org${path}/chat");
-
-/* const chatImageSocket = new WebSocket("wss://172.30.1.16:8443${path}/image"); */
-
-/* const stompImage = Stomp.over(chatImageSocket); */
 
 document.ondrop = function(e){
 	e.preventDefault();
