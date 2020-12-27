@@ -486,11 +486,11 @@ public class AdminController {
 
 		if (result > 0) {
 			mv.addObject("msg", "전문가 승인이 완료되었습니다");
-			mv.addObject("loc", "/admin/adminMember");
+			mv.addObject("loc", "/admin/adminExpert");
 			mv.setViewName("common/msg");
 		} else {
 			mv.addObject("msg", "전문가 승인이 완료되었습니다");
-			mv.addObject("loc", "/admin/adminMember");
+			mv.addObject("loc", "/admin/adminExpert");
 		}
 
 		System.out.println("result=" + result);
