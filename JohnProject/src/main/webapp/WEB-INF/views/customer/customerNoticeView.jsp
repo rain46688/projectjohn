@@ -61,6 +61,14 @@
 
 }
 
+.marginTop31{
+	border:2px solid ;
+	border-radius:20px;
+	margin-top:3%;
+	background-color:white;
+	padding: 5%;
+}
+
 .marginTop4{ /*신고내용:*/
 	margin-top:3%;
 	font-size:20px;
@@ -141,7 +149,9 @@
 	        <img src="${path }/resources/images/admin/check.png" width="30px" height="30px">&nbsp;제목&nbsp;:&nbsp;<c:out value="${notice.noticeTitle }" />
 	        </div>
 	        <div class="input-group marginTop1">
-	        <img src="${path }/resources/images/admin/check.png" width="30px" height="30px">&nbsp;등록날짜&nbsp;:&nbsp;<c:out value="${notice.noticeEnrolldate }"/> 
+	        <img src="${path }/resources/images/admin/check.png" width="30px" height="30px">&nbsp;등록날짜&nbsp;:&nbsp;
+	        <fmt:formatDate value="${notice.noticeEnrolldate }" pattern="yyyy.MM.dd HH:mm"/>
+	       <%--  <c:out value="${notice.noticeEnrolldate }"/>  --%>
        		</div>
        	</div>
 		<%-- <c:forEach items="${noticeFile}" var="a" varStatus="vs">
@@ -149,8 +159,9 @@
         </c:forEach>  --%>
         
         
-        <div class="input-group marginTop5">
-        <textarea class="form-control" name="noticeContent" placeholder="내용" required id="editor1"><c:out value="${notice.noticeContent }"/></textarea>
+        <div class="input-group marginTop31">
+        <%-- <textarea class="form-control" name="noticeContent" placeholder="내용" required id="editor1"><c:out value="${notice.noticeContent }"/></textarea> --%>
+        ${notice.noticeContent }
         </div>
         <br>
         

@@ -114,7 +114,8 @@ a.menuLink:hover{
 		</a>
 	</div>
 	<div id="menu">
-			<a href="${path}/report/customerReport" id="aa" class="menuLink"> 
+			<%-- <a href="${path}/report/customerReport" id="aa" class="menuLink">  --%>
+			<a href="#" id="aa" class="menuLink">
 		<div class="menusOnSide">
 			<img src="${path }/resources/images/admin/siren (1).png"
 				class="menuImages">신고하기
