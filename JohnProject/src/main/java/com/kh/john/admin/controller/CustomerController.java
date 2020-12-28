@@ -83,60 +83,6 @@ public class CustomerController {
 	// 공지사항 글쓰기 완료
 	@RequestMapping(value = "/customer/customerNoticeFormEnd")
 	public ModelAndView NoticeFormEnd(Notice notice, ModelAndView mv, HttpServletRequest request) {
-//	public ModelAndView NoticeFormEnd(MultipartFile[] upFile, Notice notice, ModelAndView mv,
-//			HttpServletRequest request) {
-//		System.out.println("업파일" + upFile);
-//		System.out.println("파라미터노티스" + notice);
-//		String saveDir = request.getServletContext().getRealPath("resources/upload/notice");
-//		File dir = new File(saveDir);
-//		if (!dir.exists()) {
-//			dir.mkdirs();
-//		}
-//
-//		List<NoticeFile> files = new ArrayList();
-//
-//		for (MultipartFile f : upFile) {
-//			System.out.println("멀티파트파일:" + f);
-////			if(!f.isEmpty()) { 
-//			String originalFilename = f.getOriginalFilename();
-//			System.out.println("오리지널파일네임" + f.getOriginalFilename());
-//
-//			String ext = originalFilename.substring(originalFilename.lastIndexOf('.') + 1);
-//			System.out.println("ext:" + ext);
-//
-//			SimpleDateFormat sdf = new SimpleDateFormat("yyyy_MM_ddHHmmssSSS");
-//			int rndNum = (int) (Math.random() * 1000);
-//			String renamedFilename = sdf.format(new Date(System.currentTimeMillis())) + "_" + rndNum + "." + ext;
-//
-//			try {
-//				f.transferTo(new File(saveDir + "/" + renamedFilename));
-//			} catch (IOException e) {
-//				e.printStackTrace();
-//			}
-//
-//			NoticeFile noticeFile = new NoticeFile();
-//			noticeFile.setNoticeFileName(renamedFilename);
-//			files.add(noticeFile);
-//			System.out.println("노티스파일" + noticeFile);
-//			System.out.println("파일스" + files);
-//			// }
-//		}
-
-//		int result = service.insertNotice(notice, files);
-//		System.out.println("파일파일파일" + files);
-//		System.out.println("공지공지" + notice);
-//		System.out.println("result::::::" + result);
-//
-//		if (result > 0) {
-//			mv.addObject("msg", "등록성공!");
-//			mv.addObject("loc", "/customer/customerNotice");
-//			mv.setViewName("common/msg");
-//		} else {
-//			mv.addObject("msg", "실패");
-//			mv.addObject("loc", "/customer/customerNotice");
-//		}
-//
-//		return mv;
 
 		int result = service.insertNotice(notice);
 		System.out.println("공지공지" + notice);

@@ -114,7 +114,9 @@
 							<%-- <div class="col"><c:out value="${memberInfoList.memberUsid}"/></div> --%>
 							<div class="col" style="font-size:20px"><c:out value="${memberInfoList.latestMsg}"/></div>
 							<div class="col" style="font-size:17px"><c:out value="${memberInfoList.nickname}"/></div>
- 							<div class="col"><c:out value="${memberInfoList.time}"/></div>
+ 							<div class="col"><fmt:formatDate value="${memberInfoList.time}" pattern="yyyy.MM.dd HH:mm"/></div>
+ 							
+ 						
 						</div>
 						</a>
 					</div>

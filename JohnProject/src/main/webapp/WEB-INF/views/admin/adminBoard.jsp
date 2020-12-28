@@ -447,7 +447,7 @@ appearance: none;
 				<div class="col"><c:out value="${b.writerUsid }" /></div>
 				<div class="col"><c:out value="${b.writerNickname }" /></div>
 				<div class="col"><c:out value="${b.title }" /></div>
-				<div class="colDate"><c:out value="${b.enrollDate }" /></div>
+				<div class="colDate"><fmt:formatDate value="${b.enrollDate }" pattern="yyyy.MM.dd HH:mm"/></div>
 				<div class="col"><c:out value="${b.hit}" /></div>
 				<div class="col"><c:out value="${b.bigCategory }" /></div>
 				<div class="col"><c:out value="${b.smallCategory }" /></div>

@@ -85,6 +85,7 @@ public class AdminReportController {
 		
 		mv.addObject("msg",msg);
 		mv.addObject("loc","/admin/adminReport");
+		mv.setViewName("common/msg");
 		
 		return mv;
 	}
@@ -117,12 +118,12 @@ public class AdminReportController {
 	
 	//신고 게시글 답글달기
 	@RequestMapping("/admin/reportAnswer")
-	public ModelAndView reportAnswer(Report r, ModelAndView mv) {
+	public ModelAndView reportAnswer(Report r, ModelAndView mv, String reportId) {
 		int result = service.insertReportAnswer(r);
 		
 		if(result>0) {
 			mv.addObject("msg","등록 완료!");
-			mv.addObject("loc", "/admin/adminReport");
+			mv.addObject("loc", "/admin/adminReportView?reportId="+reportId);
 			mv.setViewName("common/msg");
 		}else {
 			mv.addObject("msg", "등록 실패ㅠㅠ");

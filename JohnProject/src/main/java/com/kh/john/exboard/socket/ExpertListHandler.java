@@ -87,25 +87,48 @@ public class ExpertListHandler extends TextWebSocketHandler {
 					} else {
 						// expertBoard가 DB에 생성이 되어있는 경우
 						for (ExpertBoard eb : blist) {
-							// 상담을 시작했다는것 experBoard가 생성되잇음
-							if (er.getExpertRequestMemUsid() == eb.getExpertBoardMemUsid()) {
-								// expert_board가 있는 상태
-								er.setStartCounsel(true);
-								// expertRequest랑 expertBoard의 상담 종료 flag값이 모두 true이면
-								if (er.getExpertIscounsel() == 1 && eb.getExpertBoardExpertend() == 1) {
-									// 상담 끝난 상태
-									er.setEndCounsel(true);
-								} else {
-									// 상담 아직 안끝난 상태
-									er.setEndCounsel(false);
-								}
 
+							if (er.getExpertRequestMemUsid() == eb.getExpertBoardMemUsid()
+									&& er.getExpertIscounsel() == 0) {
+								// 상담이 종료되어있지않는 상담 게시판이 있다.
+								er.setStartCounsel(true);
+								er.setEndCounsel(false);
+							} else if (er.getExpertRequestMemUsid() == eb.getExpertBoardMemUsid()
+									&& er.getExpertIscounsel() == 1) {
+								er.setStartCounsel(true);
+								er.setEndCounsel(true);
 							} else {
-								// 상담 시작 안했다는것 expert_board가 없는 상태
 								er.setEndCounsel(false);
 								er.setStartCounsel(false);
-								// false로 설정
 							}
+
+//							// 상담을 시작했다는것 experBoard가 생성되잇음
+//							if (er.getExpertRequestMemUsid() == eb.getExpertBoardMemUsid()) {
+//
+//								log.debug("닉 : " + er.getExpertRequestMemNick() + "날 : " + er.getExpertDateTmp()
+//										+ " eic : " + er.getExpertIscounsel() + " ebe : "
+//										+ eb.getExpertBoardExpertend());
+//
+//								// expert_board가 있는 상태
+//								// er.setStartCounsel(true);
+//								// expertRequest랑 expertBoard의 상담 종료 flag값이 모두 true이면
+//								if (er.getExpertIscounsel() == 1 && eb.getExpertBoardExpertend() == 1) {
+//									// 상담 끝난 상태
+//									er.setEndCounsel(true);
+//									er.setStartCounsel(true);
+//								} else {
+//									// 상담 아직 안끝난 상태
+//									er.setEndCounsel(false);
+//									er.setStartCounsel(false);
+//								}
+//
+//							} else {
+//								// 상담 시작 안했다는것 expert_board가 없는 상태
+//								er.setEndCounsel(false);
+//								er.setStartCounsel(false);
+//								// false로 설정
+//							}
+
 						}
 					}
 				}

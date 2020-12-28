@@ -180,7 +180,7 @@
 </section>
 
 <script>
-	const adminsocket = new WebSocket("wss://172.30.1.31:8443${path}/adminsocket");
+	const adminsocket = new WebSocket("wss://rclass.iptime.org${path}/adminsocket");
 	adminsocket.onopen = function() {
 		adminsocket.send("memberConnected");
 	}

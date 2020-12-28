@@ -65,65 +65,28 @@ public class CustomerReportController {
 		return mv;
 	}
 	
+	
 	//신고하기 글쓰기 완료
 	@RequestMapping(value="/report/customerReportEnd")
-	public ModelAndView customerReportEnd(Report report, ModelAndView mv, HttpServletRequest request) {
+	public ModelAndView customerReportEnd(Report report, ModelAndView mv, HttpServletRequest request, String reportWriterUsid) {
 		
-//		String saveDir = request.getServletContext().getRealPath("resources/upload/report");
-//		File dir = new File(saveDir);
-//		if(!dir.exists()) {
-//			dir.mkdirs();
-//		}
-//		
-//		List<ReportFile> files = new ArrayList();
-//		for(MultipartFile f : upFile) {
-//			//if(!f.isEmpty()) {
-//				String originalFilename = f.getOriginalFilename();
-//				String ext = originalFilename.substring(originalFilename.lastIndexOf('.')+1);
-//				
-//				SimpleDateFormat sdf = new SimpleDateFormat("yyyy_MM_ddHHmmssSSS");
-//				int rndNum = (int)(Math.random()*1000);
-//				String renamedFilename = sdf.format(new Date(System.currentTimeMillis())) + "_" + rndNum + "." + ext;
-//				try {
-//					f.transferTo(new File(saveDir + "/" + renamedFilename));
-//				}catch(IOException e) {
-//					e.printStackTrace();
-//				}
-//				ReportFile reportFile = new ReportFile();
-//				reportFile.setReportFileName(renamedFilename);
-//				files.add(reportFile);
-//			//}
-//		}
-//		int result = service.insertReport(report, files);
-//		
-//		if(result>0) {
-//			mv.addObject("msg","신고 완료!");
-//			mv.addObject("loc", "/report/customerReport");
-//			mv.setViewName("common/msg");
-//		}else {
-//			mv.addObject("msg", "실패");
-//			mv.addObject("loc", "/report/customerReport");
-//		}
-//		
-//		return mv;
-//	
-//	}
 		
 		int result = service.insertReport(report);
 		
 		
 		if(result>0) {
 			mv.addObject("msg","신고 완료!");
-			mv.addObject("loc", "/report/customerReport");
+			mv.addObject("loc", "/member/myPage/myReport?usid="+reportWriterUsid);
 			mv.setViewName("common/msg");
 		}else {
 			mv.addObject("msg", "실패");
-			mv.addObject("loc", "/report/customerReport");
+			mv.addObject("loc", "/member/myPage/myReport?usid="+reportWriterUsid);
 		}
 		
 		return mv;
 	
 	}
+	
 	
 	
 	@RequestMapping(value="/report/customerReportFileUpload", method=RequestMethod.POST)
