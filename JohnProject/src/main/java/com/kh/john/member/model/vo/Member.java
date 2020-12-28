@@ -20,4 +20,5 @@ public class Member {
 	private String memClass;
 	private String profilePic;
 	private String tel;
+	private boolean socialLogin;
 }

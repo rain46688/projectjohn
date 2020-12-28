@@ -810,4 +810,16 @@ public class MemberController {
 		return mv;
 	}
 	
+//	네이버 콜백
+	@RequestMapping("/callBackNaver")
+	public String callBackNaver(){
+		return "/member/callBackNaver";
+	}
+	
+//	네이버 회원가입
+	@RequestMapping("/signUpNaver")
+	public String signUpNaver(){
+		return "/member/signUpNaver";
+	}
+	
 }

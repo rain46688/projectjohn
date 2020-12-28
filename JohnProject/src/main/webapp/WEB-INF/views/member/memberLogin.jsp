@@ -13,8 +13,12 @@
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 <!-- 파비콘 -->
 <link rel="icon" type="image/png" href="${path }/resources/images/favicon.ico">
+<!-- css -->
 <link rel="stylesheet" href="${path }/resources/css/admin/memberLogin.css">
+<!-- 폰트 -->
 <link href="https://fonts.googleapis.com/css2?family=Black+Han+Sans&display=swap" rel="stylesheet">
+<!-- 네이버 아이디로 로그인 -->
+<script type="text/javascript" src="https://static.nid.naver.com/js/naveridlogin_js_sdk_2.0.0.js" charset="utf-8"></script>
 </head>
 <style>
     img.ham {
@@ -83,6 +87,9 @@
                         <div id="saveIdContainer">
                             <input type="checkbox" id="saveId" name="saveId">&nbsp;아이디 저장
                         </div>
+                        <div id="loginNaver">
+                            <a onclick="fn_loginNaver">네이버 아이디로 로그인</a>
+                        </div>
                         <button type="button" id="input_submit" class="input_field" onclick="fn_login()">Login</button>
                     </form>
 
@@ -91,6 +98,7 @@
                     <span id="create_account">
                         <a onclick="fn_signUp();">★회원가입★</a>
                     </span>
+                    <div id="naverIdLogin"></div>
                 </div>
             </div>
         </h1>
@@ -184,12 +192,27 @@
 
         //회원가입으로 가는 길
         function fn_signUp(){
-            const url="${path }/signUp";
+            const url="${path}/signUp";
             const title="signUp";
-            const status="left=500, top=100, width=800, height=800";
+            const status="left=500, top=100, width=850, height=800";
 
             open(url,title,status);
         }
+    </script>
+    <!-- 네이버아디디로로그인 초기화 Script -->
+    <script type="text/javascript">
+        var naverLogin = new naver.LoginWithNaverId(
+            {
+                clientId: "AMmEekjxUV4y7wrTtNF7",
+                callbackUrl: "https://localhost/john/callBackNaver",
+                isPopup: true, /* 팝업을 통한 연동처리 여부 */
+                loginButton: {color: "green", type: 3, height: 60} /* 로그인 버튼의 타입을 지정 */
+            }
+        );
+        
+        /* 설정정보를 초기화하고 연동을 준비 */
+        naverLogin.init();
+        
     </script>
 </body>
 </html>

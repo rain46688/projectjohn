@@ -19,9 +19,13 @@
 <!-- Latest compiled JavaScript -->
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/sockjs-client/1.5.0/sockjs.min.js"></script>
+<!-- css -->
 <link rel="stylesheet" href="${path}/resources/css/layout.css">
+<!-- font -->
 <link rel="preconnect" href="https://fonts.gstatic.com">
 <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+KR&display=swap" rel="stylesheet">
+<!-- 네이버 sdk -->
+<script type="text/javascript" src="https://static.nid.naver.com/js/naveridlogin_js_sdk_2.0.0.js" charset="utf-8"></script>
 </head>
 <style>
 	body *{
@@ -132,27 +136,12 @@
 		<div id="signUpField">
 			<h2 style="margin-bottom: 50px;">회원가입</h2>
 			<form id="memberEnrollFrm" name="memberEnrollFrm" action="${path}/signUpEnd" method="post" enctype="multipart/form-data">
-				<input type="email" id="id" name="memEmail" class="input" placeholder="이메일" required style="width: 59%;">
-				<input type="button" class="button" id="certibtn" value="인증번호 전송" style="text-align: center;"><br>
-				<div class="constrain" id="idConstrain"></div>
-				<div class="constrain" id="idDuplicateAjax"></div>
-				<div style="display:none;" id="certiDiv">
-					<input type="text" class="input" id="certiNum" name="certiNum" placeholder="인증번호를 입력해주세요." required>
-					<div style="display:none;" id="certiResult"></div>
-					<div class="constrain" id="certiDuplicate"></div>
-				</div>
-
-				<input type="password" placeholder="비밀번호" class="input" id="pw" name="memPwd" minlength="4" maxlength="16" required>
-				<div class="constrain" id="pwConstrain"></div>
-				<input type="password" placeholder="비밀번호 확인" class="input" id="pw2">
-				<div class="constrain" id="pw2Constrain"></div>
+				<input type="email" id="id" name="memEmail" class="input" readonly>
 				
 				<input type="text" placeholder="닉네임" class="input" id="nickname" name="memNickname" maxlength="10" required>
 				<div class="constrain" id="nnConstrain"></div>
 				<div class="constrain" id="nickDuplicateAjax"></div>
 
-				
-				
 				<input type="text" placeholder="이름" class="input checkLength" id="name" name="memName" minlength="2" maxlength="5" required>
 				<div class="constrain" id="nameConstrain"></div>
 				
@@ -161,12 +150,10 @@
 						성별
 					</div>
 					<div class="dividedText">
-						<input type="radio" class="gender" name="gender" id="male" value="M"><label for="gender0">&nbsp;남</label>
-						&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-						<input type="radio" class="gender" name="gender" id="female" value="F"><label for="gender1">&nbsp;여</label>
+						<input type="hidden" class="gender input" name="gender" id="gender" readonly>
+						<input type="text" class="gender input" id="gender2" readonly>
 					</div>
 				</div>
-				<div class="constrain" id="gdConstrain"></div>
 				
 				<div class="dividedForm" style="margin-bottom: 0;">
 					<div class="dividedTitle">
@@ -174,22 +161,8 @@
 					</div>
 					<div class="dividedText">
 						<input type="text" class="input birthdate" id="year" name="year" maxlength="4" placeholder="년(4자)" style="width: 33%;">
-						<select class="input birthdate" id="month" name="month" style="width: 32%;">
-							<option>월</option>
-							<option value="01">1</option>
-							<option value="02">2</option>
-							<option value="03">3</option>
-							<option value="04">4</option>
-							<option value="05">5</option>
-							<option value="06">6</option>
-							<option value="07">7</option>
-							<option value="08">8</option>
-							<option value="09">9</option>                                    
-							<option value="10">10</option>
-							<option value="11">11</option>
-							<option value="12">12</option>
-						</select>
-						<input type="text" class="input birthdate" id="date" name="date" maxlength="2" placeholder="일" style="width: 32%;">
+						<input type="text" class="input birthdate" id="month" name="month" style="width: 32%;" readonly>
+						<input type="text" class="input birthdate" id="date" name="date" maxlength="2" placeholder="일" style="width: 32%;" readonly>
 					</div>
 				</div>
 				<div class="constrain" id="bdConstrain"></div>
@@ -234,145 +207,16 @@
 				<div class="removeLicenseDiv" id="removeLicenseDiv2">
 					<button type="button" class="removeLicenseBtn licenseBtn" id="removeLicenseBtn2">삭제</button>
 				</div>
+				
+				<input type="hidden" name="usid" readonly>
 
 				<button class="bottombtns" type="button" style="width:40%; margin-top: 30px;" onclick="fn_enroll();">가입</button>
 				<button class="bottombtns" type="reset" style="width:40%; margin-top: 30px;">취소</button>
 
 			</form>
 		</div>
-	</div>	
+	</div>
 	<script>
-		// id제약조건
-		var idPattern = /^[0-9a-zA-Z]([-_\.]?[0-9a-zA-Z])*@[0-9a-zA-Z]([-_\.]?[0-9a-zA-Z])*\.[a-zA-Z]{2,3}$/i;
-		const id=$("#id").val().trim();
-		$(function(){
-			$("#id").blur(e=>{
-				const id=$("#id").val().trim();
-				if(id===""){
-					$("#idConstrain").html("필수 입력 항목입니다.");
-					$("#idConstrain").css({"display":"block"});
-				}
-			})
-			$("#id").keyup(function(e){
-				const id=$("#id").val().trim();
-				$("input[name=checked_id]").val('');
-				if(id.length!=0&&!idPattern.test(id)){
-					$("#idConstrain").html("이메일 형식을 지켜주세요.");
-					$("#idConstrain").css({"display":"block"});
-				}
-				else{
-					$("#idConstrain").css({"display":"none"});
-				}
-			});
-		});
-		$("#id").keyup(e=>{
-			$.ajax({
-				url:"${path}/emailDuplicate",
-				data:{"memEmail":$("#id").val().trim()},
-				type:"post",
-				dataType:"html",
-				success: function(data){
-					console.log(data);
-					$("#idDuplicateAjax").html(data);
-					$("#idDuplicateAjax").css({"display":"block"});
-				}
-			});
-		});
-
-		$("#certibtn").click(e=>{
-			const id=$("#id").val().trim();
-			if(id==="" || !idPattern.test(id)){
-				alert("이메일 주소를 입력해주세요.")
-			}else if($("#checkIdhidden").val()=='existed'){
-				alert("중복된 아이디는 사용할 수 없습니다.")
-			}else{
-				$.ajax({
-					url: "${path}/certiEmail",
-					data: {"email":$("#id").val()},
-					type: "post",
-					dataType: "html",
-				success:function(data){
-					console.log(data);
-					$("#certiDiv").css({"display":"block"});
-					$("#certiResult").html(data);
-					alert("인증번호를 발송했습니다. 메일함을 확인해주세요.");
-				}
-				});
-			};
-		});
-
-		$("#certiNum").keyup(e=>{
-			if($("#certiKey").val().trim()==$("#certiNum").val().trim()){
-				$("#certiDuplicate").html("인증번호가 일치합니다.");
-				$("#certiDuplicate").css({"display":"block"});
-				$("#certiDuplicate").css({"color":"green"});
-			}else{
-				$("#certiDuplicate").html("인증번호가 일치하지 않습니다.");
-				$("#certiDuplicate").css({"display":"block"});
-				$("#certiDuplicate").css({"color":"red"});
-			}
-		})
-
-		$("#id").keyup(e=>{
-			$("#certiNum").val('');
-			$("#certiDuplicate").html('');
-			$("#certiResult").html('');
-		});
-
-		$('#id').on('keypress', function(e){
-			if(e.keyCode==13) {
-				$("#certibtn").click();
-			}
-		});  
-
-		// pw제약조건
-		var pwPattern = /^(?=.*[A-Za-z])(?=.*[0-9])[A-Za-z0-9]{4,16}$/;
-		$(function(){
-			$("#pw").blur(e=>{
-				const pw=$("#pw").val().trim();
-				if(pw===""){
-					$("#pwConstrain").html("필수 입력 항목입니다.");
-					$("#pwConstrain").css({"display":"block"});
-				}
-			})
-			$("#pw").keyup(function(e){
-				const pw=$("#pw").val().trim();
-				const pw2=$("#pw2").val().trim();
-				if(!pwPattern.test(pw)){
-					$("#pwConstrain").html("4~16자 영문, 숫자를 혼합하여 입력해주세요");
-					$("#pwConstrain").css({"display":"block"});
-				}else{
-					$("#pwConstrain").css({"display":"none"});
-				}				
-				if(pw!=pw2){
-					$("#pw2Constrain").html("비밀번호 확인을 해주세요.");
-					$("#pw2Constrain").css({"display":"block"});
-				}
-			});
-			$("#pw2").blur(e=>{
-				const pw=$("#pw").val().trim();
-				const pw2=$("#pw2").val().trim();
-				if(pw2===""){
-					$("#pw2Constrain").html("비밀번호 확인을 해주세요.");
-					$("#pw2Constrain").css({"display":"block"});
-				}else if(pw!=pw2){
-					$("#pw2Constrain").html("비밀번호가 일치하지 않습니다.");
-					$("#pw2Constrain").css({"display":"block"});
-				}
-			})
-			$("#pw2").keyup(function(e){
-				const pw=$("#pw").val().trim();
-				const pw2=$("#pw2").val().trim();
-				if(pw!=pw2){
-					$("#pw2Constrain").html("비밀번호가 일치하지 않습니다.");
-					$("#pw2Constrain").css({"display":"block"});
-				}else{
-					$("#pw2Constrain").css({"display":"none"});
-				}
-
-			});
-		});
-
 		// 닉네임 제약조건
 		var nnPattern= /[0-9]|[a-z]|[A-Z]|[ㄱ-ㅎ|ㅏ-ㅣ|가-힣]{1,10}/;
 		$(function(){
@@ -531,62 +375,22 @@
 			$(".removeLicenseDiv").css({"display":"none"});
 		});
 
-		//성별
-		$("#male").click(function(e){
-			$("#gdConstrain").css({"display":"none"});
-		});
-		$("#female").click(function(e){
-			$("#gdConstrain").css({"display":"none"});
-		});
-
 		//생년월일 제약조건
 		var yyPattern=/[0-9]{4}$/;
-		var ddPattern=/[0-9]{2}$/;
 		$(function(){
 			$("#year").keyup(function(e){
 				const yy=$("#year").val().trim();
-				const mm=$("#month").val();
 				if(!yyPattern.test(yy)){
 					$("#bdConstrain").html("태어난 년도 네 자리를 입력해주세요");
-					$("#bdConstrain").css({"display":"block"});
-				}else if(yyPattern.test(yy)&& (mm==="월"||mm==="")){
-					$("#bdConstrain").html("태어난 월을 선택해주세요");
 					$("#bdConstrain").css({"display":"block"});
 				}else{
 					$("#bdConstrain").css({"display":"none"});
 				}
 			});
-			$("#date").keyup(function(e){
-				const mm=$("#month").val();
-				const dd=$("#date").val().trim();
-				if(mm==="01" || mm==="03" || mm==="05" || mm==="07" || mm==="08" || mm==="10" || mm==="12"){
-					if(!ddPattern.test(dd) || Number(dd)>31){
-						$("#bdConstrain").html("태어난 날을 두 자리로 입력해주세요");
-						$("#bdConstrain").css({"display":"block"});
-					}else{
-						$("#bdConstrain").css({"display":"none"});
-					}
-				}else if(mm==="02"){
-					if(!ddPattern.test(dd) || Number(dd)>29){
-						$("#bdConstrain").html("태어난 날을 두 자리로 입력해주세요");
-						$("#bdConstrain").css({"display":"block"});
-					}else{
-						$("#bdConstrain").css({"display":"none"});
-					}
-				}else{
-					if(!ddPattern.test(dd) || Number(dd)>30){
-						$("#bdConstrain").html("태어난 날을 두 자리로 입력해주세요");
-						$("#bdConstrain").css({"display":"block"});
-					}else{
-						$("#bdConstrain").css({"display":"none"});
-					}
-				}
-			});
+			
 			$(".birthdate").blur(e=>{
 				const yy=$("#year").val().trim();
-				const mm=$("#month").val().trim();
-				const dd=$("#date").val().trim();
-				if(yy==="" || mm==="" || dd==="" || mm=="월"){
+				if(yy===""){
 					$("#bdConstrain").html("필수 입력 항목입니다.");
 					$("#bdConstrain").css({"display":"block"});
 					$("#bdConstrain").css({"color":"red"});
@@ -594,27 +398,8 @@
 					$("#bdConstrain").html("태어난 년도 네 자리를 입력해주세요.");
 					$("#bdConstrain").css({"display":"block"});
 					$("#bdConstrain").css({"color":"red"});
-				}else if(yy!==""&&(mm==="01" || mm==="03" || mm==="05" || mm==="07" || mm==="08" || mm==="10" || mm==="12")){
-					if(!ddPattern.test(dd) || Number(dd)>31){
-						$("#bdConstrain").html("태어난 날을 두 자리로 입력해주세요");
-						$("#bdConstrain").css({"display":"block"});
-					}else{
-						$("#bdConstrain").css({"display":"none"});
-					}
-				}else if(yy!==""&&mm==="02"){
-					if(!ddPattern.test(dd) || Number(dd)>29){
-						$("#bdConstrain").html("태어난 날을 두 자리로 입력해주세요");
-						$("#bdConstrain").css({"display":"block"});
-					}else{
-						$("#bdConstrain").css({"display":"none"});
-					}
 				}else{
-					if(!ddPattern.test(dd) || Number(dd)>30){
-						$("#bdConstrain").html("태어난 날을 두 자리로 입력해주세요");
-						$("#bdConstrain").css({"display":"block"});
-					}else{
-						$("#bdConstrain").css({"display":"none"});
-					}
+					$("#bdConstrain").css({"display":"none"});
 				}
 			});	
 		});
@@ -663,24 +448,6 @@
 
 		//유효성 확인
 		function fn_enroll(){
-			//아이디
-			const id=$("#id").val().trim();
-			if(id===""){
-				$("#idConstrain").html("필수 입력 항목입니다.");
-				$("#idConstrain").css({"display":"block"});
-			}
-			//비밀번호
-			const pw=$("#pw").val().trim();
-			if(pw===""){
-				$("#pwConstrain").html("필수 입력 항목입니다.");
-				$("#pwConstrain").css({"display":"block"});
-			}
-			//비밀번호 확인
-			const pw2=$("#pw2").val().trim();
-			if(pw2===""){
-				$("#pw2Constrain").html("비밀번호 확인을 해주세요.");
-				$("#pw2Constrain").css({"display":"block"});
-			}
 			//닉네임
 			const nn=$("#nickname").val().trim();
 			if(nn===""){
@@ -702,18 +469,9 @@
 				$("#mcConstrain").css({"display":"block"});
 				$("#mcConstrain").css({"color":"red"});
 			}
-			//성별
-			const gender=$('input:radio[name="gender"]:checked').val();
-			if(gender==null){
-				$("#gdConstrain").html("필수 선택 항목입니다.");
-				$("#gdConstrain").css({"display":"block"});
-				$("#gdConstrain").css({"color":"red"});
-			}
 			//생년월일
 			const yy=$("#year").val().trim();
-			const mm=$("#month").val().trim();
-			const dd=$("#date").val().trim();
-			if(yy==="" || mm==="" || dd==="" || mm=="월"){
+			if(yy===""){
 				$("#bdConstrain").html("필수 입력 항목입니다.");
 				$("#bdConstrain").css({"display":"block"});
 				$("#bdConstrain").css({"color":"red"});
@@ -725,12 +483,6 @@
 				$("#pnConstrain").css({"display":"block"});
 			}
 			//중복확인을 했나요
-			if($("#checkIdhidden").val()=='existed'){
-				alert('아이디 중복 확인을 해주세요.');
-			}
-			if($("#certiKey").val()!=$("#certiNum").val()){
-				alert('이메일 인증을 확인해주세요.');
-			}
 			if($("#checkNNhidden").val()=='existed'){
 				alert('닉네임 중복 확인을 해주세요.');
 			}
@@ -739,12 +491,10 @@
 			}
 
 			//제약조건을 만족했나요
-			if(id!=="" && (pw!==""&&pwPattern.test(pw)) && (pw2!==""&&pw===pw2) && (nn!==""&&nnPattern.test(nn))
+			if((nn!==""&&nnPattern.test(nn))
 				&& (memClass==10||memClass.length>1) && (name!==""&&namePattern.test(name))
-				&& (gender.length==1||gender.length>1)
-				&& (yy!=="" && yyPattern.test(yy)) && mm!=="" && mm!=="월" && (dd!==""&&ddPattern.test(dd)) 
-				&& (phone!==""&&pnPattern.test(phone))
-				&& $("#checkIdhidden").val()!='existed' && $("#checkNNhidden").val()!='existed' 
+				&& (yy!=="" && yyPattern.test(yy)) && (phone!==""&&pnPattern.test(phone))
+				&& $("#checkNNhidden").val()!='existed' 
 				&& $("#checkPNhidden").val()!='existed' && $("#certiKey").val().trim()==$("#certiNum").val().trim()
 			){
 				$("#memberEnrollFrm").submit();
@@ -754,6 +504,40 @@
 
 		}
 
+	</script>
+	<script>
+		var naverLogin = new naver.LoginWithNaverId(
+			{
+				clientId: "AMmEekjxUV4y7wrTtNF7",
+				callbackUrl: "https://localhost/john/callBackNaver",
+				isPopup: false,
+				callbackHandle: false
+			}
+		);
+		naverLogin.init();
+	
+		naverLogin.getLoginStatus(function (status) {
+			if (status) {
+				var email = naverLogin.user.getEmail();
+				var gender = naverLogin.user.getGender();
+				var birthday = naverLogin.user.getBirthday();
+				var uniqId = naverLogin.user.getId();
+				$("#id").val(email);
+				$("#gender").val(gender);
+				if(gender=='F'){
+					$("#gender2").val('여성');
+				}else{
+					$("#gender2").val('남성');
+				}
+				var birthmm=birthday.substring(0,2);
+				var birthdd=birthday.substring(3);
+				$("#month").val(birthmm);
+				$("#date").val(birthdd);
+				$("#usid").val(uniqId);
+			} else {
+				console.log("AccessToken이 올바르지 않습니다.");
+			}
+		});
 	</script>
 </section>
 </body>
