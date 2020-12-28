@@ -4,8 +4,13 @@
  
 				'use strict';
 				
+				let st = "20AM_john_final";
+				let ip = "wss://rclass.iptime.org/";
+				
+				//let st = "john";
+				//let ip = "wss://192.168.219.105/"
 
-				const alsocket = new WebSocket("wss://192.168.219.105/john/alsocket");
+				const alsocket = new WebSocket(ip+st+"/alsocket");
 
 				//============================
 				// 소켓 오픈 하면서 알람 리스트 가져오기
@@ -23,11 +28,11 @@
 					
 
 					//각각 페이지에 따라 분기 처리 
-					if(window.location.pathname == '/john/member/myPage/expertRequestPrintList'){
+					if(window.location.pathname == '/'+st+'/member/myPage/expertRequestPrintList'){
 						console.log("헤더 분기 1");
 						alsetting(msg);
 						exListsendMessage("start");
-					}else if(window.location.pathname != '/john/expert/expertApply'){
+					}else if(window.location.pathname != '/'+st+'/expert/expertApply'){
 						alsetting(msg);
 					}
 				};

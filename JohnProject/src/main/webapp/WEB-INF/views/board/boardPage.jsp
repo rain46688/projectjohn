@@ -288,6 +288,14 @@ ion-icon#likeButton {
 #boardFuncs a {
 	color:rgb(0,0,0,0.8);
 }
+
+#textInsertBtn {
+	background-color:#00316d;
+}
+
+#textInsertBtn:hover {
+	background-color:rgb(0,49,109,0.9);
+}
 	
 </style>
 <script>
@@ -308,7 +316,7 @@ ion-icon#likeButton {
         ${currBoard.CONTENT }
       </div>
 	  <div id="boardFuncs">
-	  	<a href="location.href='${path}/report/customerReport?boardId=${currBoard.WRITER_USID }&nick=${currBoard.WRITER_NICKNAME }'">신고하기</a>
+	  	<a href="${path}/report/customerReport?boardId=${currBoard.BOARD_ID }&nick=${currBoard.WRITER_NICKNAME }">신고하기</a>
 	  	<c:if test="${currBoard.WRITER_USID eq loginMember.usid }">
 	  	<a href="#" onclick='fn_modify();'>수정하기</a>
 	  	<a href="#" onclick="fn_delete();">삭제하기</a>

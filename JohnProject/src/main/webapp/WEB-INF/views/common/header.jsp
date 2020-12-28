@@ -64,8 +64,8 @@
 }
 
 #profileImage {	
-	width:40px;
-	height:40px;
+	width:35px;
+	height:35px;
 	object-fit:cover;
 }
 
@@ -272,7 +272,9 @@
 						<div class="dropdown-content">
 								  <a href="${path }/member/myPage?usid=${loginMember.usid}">마이페이지</a>
 								  <a href="${path}/customer/customerNotice">고객센터</a>
+								  <c:if test="${loginMember.memNickname eq '관리자' }">
 								  <a href="${path}/admin/adminMember">ADMIN</a>
+								  </c:if>
 								  <a href="${path}/board/boardInsert">글쓰기</a>
 								  <a href="${path}/member/logout">로그아웃</a>
 								</div>

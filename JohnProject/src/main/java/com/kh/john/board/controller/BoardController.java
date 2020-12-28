@@ -50,7 +50,6 @@ public class BoardController {
 	
 	@RequestMapping("/board/boardList")
 	public ModelAndView boardList(ModelAndView mv) {
-		//list페이지에서 subList 보내줘야함
 		
 		List<Map> popularList = service.boardPopularList();
 		List<Map> newList = service.boardNewList();
@@ -157,8 +156,13 @@ public class BoardController {
 		int result = service.boardInsert(b);
 		
 		if(result>0) {
+			if(b.getBigCategory().equals("음성게시판")) {
+				mv.addObject("boardId",result);
+				mv.setViewName("board/boardInsertSuccess");
+			}else {
 			redirectAttribute.addAttribute("boardNo", result);
 			mv.setViewName("redirect:/board/boardPage");
+			}
 		}else {
 			mv.addObject("msg", "글 등록에 실패했습니다");
 			mv.addObject("loc", "/board/boardList");

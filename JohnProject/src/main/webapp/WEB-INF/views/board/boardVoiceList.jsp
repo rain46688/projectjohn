@@ -297,6 +297,10 @@ div.glider {
 	bottom: 38%;
 }
 
+ion-icon[name=volume-high-outline]{
+color:blue;
+}
+
 </style>
 <script src="${path }/resources/js/glider.js"></script>
 <link rel="stylesheet" type="text/css" href="${path }/resources/css/glider.css">
@@ -334,7 +338,7 @@ div.glider {
 	}); */
 	
 	//소켓연결
-	const socket = new SockJS("https://172.30.1.16:8443${path}/list");
+	const socket = new SockJS("https://rclass.iptime.org${path}/list");
 	let message = ''; 
 	socket.onopen = function(e){
 		socket.send('boardList');
@@ -383,6 +387,7 @@ div.glider {
 	    html += "<div class=\"card1-header\">";
 		html += "<p>"+item.ENROLL_DATE+" ";
 		html += "<span class=\"hits\">";
+		html += "<ion-icon name=\"volume-high-outline\"></ion-icon> ";
 		html += "<ion-icon class=\"heart\" name=\"heart-outline\"></ion-icon> "+item.LIKE_NUM+" ";
 		html += "</span></p>";
 		html += "<h2>"+item.TITLE+"</h2>";

@@ -407,7 +407,8 @@ h1 {
 	// 필요한 변수 등록 
 	// 전체 배열, 백업용 배열,  소켓
 	// ============================
-	const exlistconn = new WebSocket('wss://192.168.219.105${path}/exlistSocket');
+	const exlistconn = new WebSocket('wss://rclass.iptime.org${path}/exlistSocket');
+	//const exlistconn = new WebSocket('wss://192.168.219.105${path}/exlistSocket');
 	let exboardList = [];
 	let backupList = [];
 	
@@ -429,12 +430,13 @@ h1 {
 			exboardList = JSON.parse(msg.data);
 			backupList = JSON.parse(msg.data);
 			setting();
-		}else{
-			console.log("상담 신청이 없다~~~~!!!");
-			let pbhtml = "<div class='divRow '><div class='divCell'><div><img id='noli' src='${path}/resources/images/noli.png' alt='' width='150px' height='150px'></div><div class='empty'>상담 신청이 없습니다.</div></div></div>";
-			$(".divListBody").html(pbhtml);
+			
+			if(exboardList.length == 0){
+				console.log("상담 신청이 없다~~~~!!!");
+				let pbhtml = "<div class='divRow '><div class='divCell'><div><img id='noli' src='${path}/resources/images/noli.png' alt='' width='150px' height='150px'></div><div class='empty'>상담 신청이 없습니다.</div></div></div>";
+				$(".divListBody").html(pbhtml);				
+			}
 		}
-
 	}
 
 	// ============================
@@ -469,17 +471,21 @@ h1 {
 				}
 				if(e['endCounsel'] != null){
 					pbhtml +="<div class='divRow ' ><div class='divCell'>"+e['expertRequestMemNick']+"</div><div class='divCell'>"+e['expertDateTmp']+"</div><div class='divCell'>"+e['expertCounselTime']+"</div><div class='divCell'>";
-					if(e['endCounsel'] == false){
+					//pbhtml +="<div class='divRow ' ><div class='divCell'>"+e['expertRequestMemNick']+","+e['endCounsel']+","+e['startCounsel']+"</div><div class='divCell'>"+e['expertDateTmp']+"</div><div class='divCell'>"+e['expertCounselTime']+"</div><div class='divCell'>";
+					if(e['endCounsel'] == false){//endCounsel false
 							if(e['startCounsel']== false){
 								//end start 둘다 false이면 요청 온 상태
+								//상담시작
 									pbhtml +=	 "<div class='button-7'><div class='eff-7'></div><a  class='johnbtn' onclick='counselStart(\""+e['expertRequestMemUsid']+"\",\""+e['expertRequestMemNick']+"\");'>상담 시작</a></div>";	 
 							}else{
 								//end false에서 start true면 진행중인 상태
+								//채팅 접속
 								pbhtml +=	 "<div class='button-6'><div class='eff-6'></div><a  class='johnbtn' onclick='counselConn(\""+e['expertRequestMemUsid']+"\",\""+e['expertRequestMemNick']+"\");'>채팅 접속</a></div>";
 							}
 					}else{
 						pbhtml +="상담 완료";
 					}
+					
 					pbhtml +=	 "</div><div class='divCell'><div class='button-7'><div class='eff-7'></div><a  class='johnbtn' onclick='exmemInfo(\""+"${loginMember.usid}"+"\",\""+e['expertRequestMemUsid']+"\");'>회원 정보</a></div></div></div>";	 
 				}
 			});

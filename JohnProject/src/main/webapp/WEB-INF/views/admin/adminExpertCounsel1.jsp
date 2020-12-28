@@ -229,20 +229,20 @@ padding-bottom: 3%;
 			<div class="col">상담요구사항</div>
 		</div>
 		
-		<c:forEach items="${list }" var="ex">
+		<c:forEach items="${list }" var="list">
 			<div class="board_list_body">
 			<div class="item">
-				<div class="col"><c:out value="${ex.expertRequetExUsid }" /></div>
-				<div class="col"><c:out value="${ex.expertRequestMemUsid }" /></div>
-				<div class="col"><c:out value="${ex.expertRequetExNick }" /></div>
-				<div class="col"><c:out value="${ex.expertRequestMemNick }" /></div>
+				<div class="col"><c:out value="${list.expertRequetExUsid}"/></div>
+				<div class="col"><c:out value="${list.expertRequestMemUsid}"/></div>
+				<div class="col"><c:out value="${list.expertRequetExNick}"/></div>
+				<div class="col"><c:out value="${list.expertRequestMemNick}"/></div>
 				<div class="col" style="color:red"><c:choose>
-						<c:when test="${ex.expertIscounsel eq 0 }">진행중</c:when>
+						<c:when test="${list.expertIscounsel eq 0 }">진행중</c:when>
 						<c:otherwise>종료</c:otherwise>
 					</c:choose></div>
-				<div class="col"><c:out value="${ex.expertDate}" /></div>
-				<div class="col"><c:out value="${ex.expertCounselTime }" /></div>
-				<div class="col"><c:out value="${ex.expertCounselRequire }" /></div>
+				<div class="col"><c:out value="${list.expertDate}" /></div>
+				<div class="col"><c:out value="${list.expertCounselTime }" /></div>
+				<div class="col"><c:out value="${list.expertCounselRequire }" /></div>
 			</div>
 			</div>
 		</c:forEach>

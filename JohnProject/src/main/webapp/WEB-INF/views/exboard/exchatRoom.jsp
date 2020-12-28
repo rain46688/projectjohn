@@ -548,7 +548,7 @@ textarea {
 			// package com.kh.john.exboard.socket.ExpertHandler
 			// ============================
 				
-			const conn = new WebSocket('wss://192.168.219.105${path}/ertc');
+			const conn = new WebSocket('wss://rclass.iptime.org${path}/ertc');
 
 			conn.onopen = function() {
 				console.log("onopen => signaling server 연결");

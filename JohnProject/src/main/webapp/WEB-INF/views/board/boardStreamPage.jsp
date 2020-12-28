@@ -34,6 +34,7 @@ hr {
 }
 
 #writerInfo {
+height:1.9em;
   display:flex;
 }
 
@@ -43,8 +44,8 @@ hr {
 }
 
 #writerImg {
-  width:25px;
-  height:25px;
+  width:30px;
+  height:30px;
 }
 
 #writerNick {
@@ -53,6 +54,8 @@ hr {
   align-items:center;
   margin-left:2.5px;
   margin-right:5px;
+  min-width:3em;
+  max-width:6em;
 }
 
 #writerComment{
@@ -401,10 +404,10 @@ ion-icon#likeButton {
           <hr id="titleHr">
           <div id="writerInfo">
             <div id="writerProfile">
-              <img src="" id="writerImg">
+              <img src="${path }/resources/profile_images/${currBoard.WRITER_PROFILE}" id="writerImg">
             </div>
             <div id="writerNick">
-              Nickname
+              ${currBoard.WRITER_NICKNAME }
             </div>
             <div id="writerComment">
               <input type="text" value="방장의 한마디" id="writerComIn"
@@ -500,11 +503,12 @@ ion-icon#likeButton {
     </div>
 <c:if test="${currBoard.ISCLOSE eq 0 }">
 <script src="https://unpkg.com/peerjs@1.3.1/dist/peerjs.min.js"></script>
-<script defer src="https://172.30.1.16:83/socket.io/socket.io.js"></script>
+<script defer src="https://172.30.1.31:83/socket.io/socket.io.js"></script>
 <script>
 	function fn_exit(){
 		
 		if(confirm('정말 대화방을 종료하시겠습니까?')){
+			chatSocket.send("leave:"+"${currBoard.BOARD_ID}");
 			location.href="${path}/board/boardExit?boardId=${currBoard.BOARD_ID}";
 		}
 		
@@ -512,13 +516,12 @@ ion-icon#likeButton {
 
 	$(document).ready(function() {
 		const userId = uuidv4()+":"+${loginMember.usid};
-		var socket = io("https://172.30.1.16:83");
+		var socket = io("https://172.30.1.31:83");
 		const videoGrid = document.getElementById('video-grid')
 		const myPeer = new Peer(undefined, {
-			host: '/172.30.1.16',
+			host: '/172.30.1.31',
 			port: '3000',
-			secure:true,
-			/* debug:3 */
+			secure:true
 		});
 		const dataConnection = myPeer.connect(myPeer.id, {
 			metadata:${loginMember.usid}
@@ -565,18 +568,6 @@ ion-icon#likeButton {
 			}
 			console.log(peers);
 		})
-		
-		myPeer.on('call', call => {
-			console.log('call 받음')
-			const video = document.createElement('audio')
-			console.log(call);
-			call.on('stream', userVideoStream => {
-				console.log(userVideoStream)
-				addVideoStream(video, userVideoStream)
-			})
-		}, function(err) {
-			  console.log(err);
-		})
 
 		
 		myPeer.on('open', id => {
@@ -585,11 +576,14 @@ ion-icon#likeButton {
 		})
 
 		function connectToNewUser(userId, stream){
-			const call = myPeer.call(userId, stream)
+			const call = myPeer.call(userId, stream, {
+				metadata:${loginMember.usid}
+			});
+			call.answer(mediaStream);
 			const video = document.createElement('audio');
-			
 			console.log(userId+"로 부터 들어옴");
 			call.on('stream', userVideoStream => {
+				console.log(userVideoStream.metadata);
 				console.log('stream 실행')
 				addVideoStream(video, userVideoStream);
 			})
@@ -603,6 +597,7 @@ ion-icon#likeButton {
 		
 		function addVideoStream(video, stream) {
 			video.srcObject = stream;
+			console.log(stream.metadata);
 			video.addEventListener('loadedmetadata', () => {
 				video.play();
 			})
@@ -616,11 +611,7 @@ ion-icon#likeButton {
 
 let chatList = [];
 
-const chatSocket = new WebSocket("wss://172.30.1.16:8443${path}/chat");
-
-/* const chatImageSocket = new WebSocket("wss://172.30.1.16:8443${path}/image"); */
-
-/* const stompImage = Stomp.over(chatImageSocket); */
+let chatSocket = new WebSocket("wss://rclass.iptime.org${path}/chat");
 
 document.ondrop = function(e){
 	e.preventDefault();
@@ -655,6 +646,27 @@ function handleFileDrop(file){
 	fileReader.readAsArrayBuffer(file);
 } 
 
+$(document).ready( function() {
+	window.addEventListener("beforeunload", function(event) {
+		event.preventDefault();
+		console.log("화면 종료");
+		chatSocket.close();
+	});
+});
+
+chatSocket.onerror = function(e) {
+	
+	console.log(e);
+}
+
+chatSocket.onclose = function(e) {
+	console.log('???????');
+	console.log(e);
+}
+
+if(chatSocket.readyState==3){
+	chatSocket.close();
+}
 
 chatSocket.onopen = function(e){
   	let user = {boardId:${currBoard.BOARD_ID},
@@ -663,6 +675,11 @@ chatSocket.onopen = function(e){
   				isFirst:true};
 	chatSocket.send('chat:'+JSON.stringify(user));
 }
+
+chatSocket.onclose = function(e) {
+	chatSocket.close();
+	chatSocket = new WebSocket("wss://172.30.1.31:8443${path}/chat");
+};
 
 chatSocket.onmessage = function(e){
 	if(e.data.substring(0,5) == 'image'){
@@ -675,9 +692,12 @@ chatSocket.onmessage = function(e){
 		img.setAttribute('src','${path}/resources/images/'+fileName);
 		
 		box1.appendChild(img);
+	}else if(e.data == 'leave') {
+		alert('방장이 대화를 종료하였습니다.');
+		location.href = "${path}/board/boardList";
 	}else{
 	chatList = JSON.parse(e.data);
-	/* console.log(chatList); */
+	console.log(chatList);
 	//사용자 숫자를 알기 위한 배열
 	let tempList= [];
 
@@ -761,6 +781,8 @@ document.getElementById('commentText').onkeypress = function(e){
 	}
 }
 
+
+
 //방장의 한마디 엔터에 반응하기
 document.getElementById('writerComIn').onkeypress = function(e){
 	document.getElementById('writerComIn').style.color = 'black';
@@ -769,6 +791,8 @@ document.getElementById('writerComIn').onkeypress = function(e){
 		document.getElementById('commentTextBtn').click();
 	}
 }
+
+
 
 //채팅입력하기
 function fn_chatInsert(){

@@ -366,7 +366,7 @@ appearance: none;
 						<a href="javascript:deleteMember(${m.usid});">
 						<div class="item">
 					<div class="col"><c:out value="${m['usid']}"/></div>
-					<div class="col"><c:out value="${m['memEmail']}"/></div>
+					<div class="colE"><c:out value="${m['memEmail']}"/></div>
 					<div class="col"><c:out value="${m['memName']}"/></div>
 					<div class="col"><c:out value="${m['memNickname']}"/></div>
 					<div class="col"><c:out value="${m['gender'] eq 'M' ? 'M' : 'F' }"/></div>
@@ -374,7 +374,7 @@ appearance: none;
 					<div class="col"><c:out value="${m['enrollDate']}"/></div>
 					<div class="col"><c:out value="${m['point']}"/></div>
 					<div class="col"><c:choose>
-										<c:when test="${m['leaveMem'] eq true }">X</c:when>
+										<c:when test="${m['leaveMem'] eq false }">X</c:when>
 										<c:otherwise>O</c:otherwise>
 									</c:choose></div>
 					<div class="col"><c:out value="${m['memClass']}"/></div>

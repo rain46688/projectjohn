@@ -133,49 +133,7 @@
 	<div id="title"><h4><img src="${path }/resources/images/admin/siren.png" width="30px" height="27px">&nbsp;신고하기</h4></div>
 	<hr color="black">
 	<div id="editor">
-	
-		<%-- <c:if test="${b == null}">
-		<form id="frm" action="${path}/report/customerReportEnd" method="POST"
-			enctype="multipart/form-data">
-			<div class="input-group marginTop1">
-			<img src="${path }/resources/images/admin/check.png" width="30px" height="30px">&nbsp;신고대상 게시물&nbsp;:&nbsp;<input name="reportBoardId" type="text" /> <!-- 신고대상게시물번호 --><!-- 변경요망 -->
-			</div>
-			<div class="input-group marginTop2">
-			<img src="${path }/resources/images/admin/check.png" width="30px" height="30px">&nbsp;신고대상 회원&nbsp;:&nbsp;<input name="reportTargetNickname" type="text"/><!-- 변경요망 -->
-			</div>
-			<div class="input-group marginTop">
-			<select class="custom-select custom-select-sm" name="reportType" id="reportType">
-				<option value="" selected disabled>신고유형을 선택하세요</option>
-				<option value="홍보성">홍보성</option>
-				<option value="권리침해">권리침해</option>
-				<option value="선정성">선정성</option>
-				<option value="인신공격">인신공격</option>
-				<option value="기타">기타</option>
-			</select>
-			</div>
-			
-			<div class="input-group marginTop">
-			<input class="form-control" type="text" name="reportTitle" id="reportTitle" placeholder="제목을 입력하세요">
-			</div>
-			
-			<input type="hidden"  name="reportWriterUsid" value="${loginMember.getUsid()}">
- 			<input type="hidden"  name="reportTargetUsid" value=""><!-- 변경요망 -->
- 			<input type="hidden"  name="reportUserNickname" value="${loginMember.getMemNickname() }">
-	 			
-			
-			
-			<div id="textEditor" class="marginTop">
-				<textarea cols="80" id="editor1" name="reportContent" rows="10" data-sample-short placeholder='내용을 입력해주세요'></textarea>
-			</div>
-	
-			<div id="submitBtn">
-				<button class="marginTop btn btn-outline-secondary" type="button" onclick="fn_submit();" id="bbtn">글 등록</button>
-				 <input type="reset" class="marginTop btn btn-outline-secondary" value="취소" id="bbtn">
-				</div>
-			</form>
-			</c:if> --%>
-			
-			<%-- <c:if test="${b != null}"> --%>
+
 			<form id="frm" action="${path}/report/customerReportEnd" method="POST"
 			enctype="multipart/form-data">
 			<div class="input-group marginTop1">
@@ -202,8 +160,9 @@
 			<input type="hidden"  name="reportWriterUsid" value="${loginMember.getUsid()}">
  			<input type="hidden"  name="reportTargetUsid" value="${b.writerUsid}"><!-- 변경요망 -->
  			<input type="hidden"  name="reportUserNickname" value="${loginMember.getMemNickname() }">
-	 			
-
+	 		<input type="hidden" name="reportBoardId" value="${b.boardId }">
+	 		<input type="hidden" name="reportTargetNickname" value="${b.writerNickname }">
+ 
 			<div id="textEditor" class="marginTop">
 				<textarea cols="80" id="editor1" name="reportContent" rows="10" data-sample-short placeholder='내용을 입력해주세요'></textarea>
 			</div>

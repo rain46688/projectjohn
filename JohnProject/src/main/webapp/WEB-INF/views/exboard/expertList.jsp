@@ -563,7 +563,7 @@ html, body, div, span, applet, object, iframe, h1, h2, h3, h4, h5, h6, p, blockq
 	// ============================
 	//소켓 실행
 	// ============================
-		const exboardListConn = new WebSocket('wss://192.168.219.105${path}/exlistSocket');
+		const exboardListConn = new WebSocket('wss://rclass.iptime.org${path}/exlistSocket');
 		
 		exboardListConn.onopen = function() {
 			console.log("onopen");

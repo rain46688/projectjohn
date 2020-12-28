@@ -183,7 +183,7 @@
 </section>
 
 <script>
-	const adminsocket = new WebSocket("wss://localhost${path}/adminsocket");
+	const adminsocket = new WebSocket("wss://rclass.iptime.org${path}/adminsocket");
 	adminsocket.onopen = function() {
 		adminsocket.send("memberConnected");
 	}
@@ -251,9 +251,10 @@
 							let txt = $("#inputMessage").val();
 							var date = new Date();
 							
+							if(txt!=""){
 								sendChat('${loginMember.usid}', '${memberInfo.usid}', txt, date, "");
 								$('#inputMessage').val("");
-								
+							}
 						}
 					});
 		     

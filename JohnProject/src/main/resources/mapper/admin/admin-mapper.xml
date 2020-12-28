@@ -60,10 +60,10 @@
 		<id property="adminChatDate" column="admin_chat_date"/>
 		<id property="adminChatFile" column="admin_chat_file"/>
 	</resultMap>
-	<resultMap type="com.kh.john.exboard.model.vo.ExpertRequest" id="expertRequestMap">
-		<id column="EXPERT_REQUET_EX_USID" property="expertRequetExUsid" />
+	<resultMap type="exrequest" id="expertRequestMap">
+		<id column="EXPERT_REQUEST_EX_USID" property="expertRequetExUsid" />
 		<id column="EXPERT_REQUEST_MEM_USID" property="expertRequestMemUsid" />
-		<id column="EXPERT_REQUET_EX_NICK" property="expertRequetExNick" />
+		<id column="EXPERT_REQUEST_EX_NICK" property="expertRequetExNick" />
 		<id column="EXPERT_REQUEST_MEM_NICK" property="expertRequestMemNick" />
 		<id column="EXPERT_ISCOUNSEL" property="expertIscounsel" />
 		<id column="EXPERT_DATE" property="expertDate" />
@@ -286,7 +286,7 @@
 	</select>
 	<select id="selectBeforeExpertCount" resultType="_int">
 		SELECT COUNT(*)
-		FROM MEMBER WHERE MEM_CLASS LIKE('일반유저') AND LEAVE_MEM LIKE 0
+		FROM MEMBER WHERE MEM_CLASS LIKE('예비전문가') AND LEAVE_MEM LIKE 0
 	</select>
 
 	<select id="updateMemberToExpert" parameterType="map" resultMap="memberMap">
