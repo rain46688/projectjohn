@@ -32,11 +32,15 @@ import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.google.gson.Gson;
 import com.google.gson.JsonIOException;
 import com.kh.john.board.model.service.BoardService;
 import com.kh.john.board.model.vo.Board;
 import com.kh.john.board.model.vo.Subscribe;
+import com.kh.john.exboard.model.service.ExboardService;
+import com.kh.john.exboard.model.service.ExboardServiceImpl;
 import com.kh.john.exboard.model.vo.ExpertBoard;
 import com.kh.john.exboard.model.vo.ExpertRequest;
 import com.kh.john.member.model.service.MemberService;
@@ -58,6 +62,9 @@ public class MemberController {
 	@Autowired
 	private BoardService bService;
 
+	@Autowired
+	private ExboardService exService;
+	
 	@Autowired
 	private AES256Util aes;
 
@@ -184,6 +191,10 @@ public class MemberController {
 				msg = "탈퇴한 회원입니다.";
 				loc = "/memberLogin";
 				path = "common/msg";
+			}else if(loginMember.isSocialLogin()==true){
+				msg = "소셜 로그인으로 로그인 해주세요.";
+				loc = "/memberLogin";
+				path = "common/msg";
 			}else {		
 				List<Subscribe> list = bService.boardSubList(loginMember.getUsid());
 				m.addAttribute("subList", list);
@@ -285,8 +296,13 @@ public class MemberController {
 
 //	전문가용 div로 가는 길
 	@RequestMapping("/divForExpert")
-	public String divForExpert() {
-		return "member/uploadLicense";
+	public ModelAndView divForExpert(ModelAndView mv, HttpSession session) throws Exception {
+		List<String> likindList=exService.selectLicenseKind();
+		List<String> comkindList=exService.selectCompanyKind();
+		mv.addObject("likindList", likindList);
+		mv.addObject("comkindList", comkindList);
+		mv.setViewName("member/uploadLicense");
+		return mv;
 	}
 
 //	회원가입 로직
@@ -319,7 +335,6 @@ public class MemberController {
 
 		// 회원구분
 		String classMem = param.get("memClass").toString();
-		System.out.println("**********"+classMem);
 		if (classMem == "normalUser") {
 			member.setMemClass("일반유저");
 			result = service.signUpEnd(member);
@@ -466,7 +481,6 @@ public class MemberController {
 //	프사 변경
 	@RequestMapping("/member/myPage/updatePic")
 	public ModelAndView updatePic(ModelAndView mv, HttpServletRequest request, MultipartFile filePic, Member member, @SessionAttribute("loginMember") Member loginMember) {
-		System.out.println(filePic.getOriginalFilename());
 		String saveDir=request.getServletContext().getRealPath("/resources/profile_images");
 		File dir=new File(saveDir);
 		if(!dir.exists()) {
@@ -694,7 +708,6 @@ public class MemberController {
 		int usid=loginMember.getUsid();
 		List<ExpertBoard> expertBoardList=service.expertBoardList(cPage,numPerPage,usid);
 		int totalData=service.expertBoardCount(usid);
-		System.out.println("*******************"+totalData);
 		mv.addObject("pageBar",myPagePageBar.getPageBar(totalData, cPage, numPerPage, "counselingHistory", loginMember.getUsid()));
 		mv.addObject("totalData", totalData);
 		mv.addObject("expertBoardList", expertBoardList);
@@ -810,4 +823,156 @@ public class MemberController {
 		return mv;
 	}
 	
+//	네이버 콜백
+	@RequestMapping("/callBackNaver")
+	public String callBackNaver(){
+		return "/member/callBackNaver";
+	}
+	
+//	네이버 회원가입으로 가는 길
+	@RequestMapping("/signUpNaver")
+	public String signUpNaver(){
+		return "/member/signUpNaver";
+	}
+	
+//	네이버 회원가입
+	@RequestMapping("/signUpNaverEnd")
+	public String signUpNaverEnd(
+			@RequestParam(value="licenseFileName", required = false) MultipartFile[] licenseFileNames,
+			@RequestParam(value="licenseDate", required = false) Date[] licenseDates,
+			@RequestParam(value="licenseType", required = false) String[] licenseTypes,
+			@RequestParam(value="licenseCompany", required = false) String[] licenseCompanies,
+			@RequestParam Map param, Member member, Model m, HttpServletRequest request)
+			throws NoSuchAlgorithmException, UnsupportedEncodingException, GeneralSecurityException {
+		
+		// 암호화(id,폰)
+		String encodeId = aes.encrypt(param.get("memEmail").toString());
+		member.setMemEmail(encodeId);
+		String encodePhone = aes.encrypt(param.get("tel").toString());
+		member.setTel(encodePhone);
+		// 가상 비밀번호
+		UuidGenerator uuid=new UuidGenerator();
+		String tempPw=uuid.generateUuid(12);
+		String encodePw = encoder.encode(tempPw);
+		member.setMemPwd(encodePw);
+		// 생일 합치기
+		String birthdayStr = param.get("year") + "-" + param.get("month") + "-" + param.get("date");
+		Date birthday = Date.valueOf(birthdayStr);
+		member.setBirthday(birthday);
+
+		int result = 0;
+		String msg = "";
+		String loc = "";
+		String script="";
+
+		// 회원구분
+		String classMem = param.get("memClass").toString();
+		if (classMem.equals("normalUser")) {
+			member.setMemClass("일반유저");
+			result = service.signUpNaverEnd(member);
+			if (result > 0) {
+				msg = "회원가입완료";
+				script= "window.close()";
+			} else {
+				msg = "회원가입실패";
+				script= "window.close()";
+			}
+
+		} else {
+			member.setMemClass("예비전문가");
+			
+			String saveDir = request.getServletContext().getRealPath("/resources/upload/upload_license");
+			File dir = new File(saveDir);
+			if (!dir.exists()) {
+				dir.mkdirs();
+			}
+			List<License> licenseList = new ArrayList<License>();
+			
+			for(int i=0; i<licenseFileNames.length; i++) {
+				License license=new License();
+				MultipartFile f = licenseFileNames[i];
+				if(!f.isEmpty()) {
+					String originalFilename = f.getOriginalFilename();
+					String ext = originalFilename.substring(originalFilename.lastIndexOf('.')+1);
+					
+					SimpleDateFormat sdf = new SimpleDateFormat("yyyy_MM_ddHHmmssSSS");
+					int rndNum = (int)(Math.random()*1000);
+					String renamedFilename = sdf.format(new Date(System.currentTimeMillis())) + "_" + rndNum + "_john." + ext;
+					try {
+						f.transferTo(new File(saveDir + "/" + renamedFilename));
+					}catch(IOException e) {
+						e.printStackTrace();
+					}
+					license.setLicenseFileName(renamedFilename);
+					license.setLicenseDate(licenseDates[i]);
+					license.setLicenseType(licenseTypes[i]);
+					license.setLicenseCompany(licenseCompanies[i]);
+					licenseList.add(license);
+				}
+			}
+			if(classMem == "expertUser" && licenseList.size()<1) {
+				msg="최소 한 개의 자격증을 등록해야 합니다.";
+				script="history.back()";
+			}else {
+				int resultExpert=service.signUpNaverExpert(member, licenseList);
+				if(resultExpert>0) {
+					msg = "회원가입완료";
+					script= "window.close()";
+				} else {
+					msg = "회원가입실패";
+					script= "window.close()";
+				}				
+			}
+		}
+
+		m.addAttribute("msg", msg);
+		m.addAttribute("loc", loc);
+		m.addAttribute("script",script);
+
+		return "common/msgWithScript";
+	}
+	
+//	소셜 아이디 중복검사
+	@RequestMapping("/socialDuplicate")
+	public void socialDuplicate(@RequestParam("email") String email, HttpServletResponse response) throws JsonIOException, IOException, NoSuchAlgorithmException, GeneralSecurityException {
+		String result="";
+		String encEmail=aes.encrypt(email);
+		Member member=new Member();
+		member.setMemEmail(encEmail);
+		member=service.selectMemberById(member);
+		if(member==null) {
+			result="available";			
+		}else {
+			if(member.isLeaveMem()==true) {
+				result="leaveMem";
+			}else {				
+				result="unavailable";
+			}
+		}
+		response.setContentType("application/json;charset=UTF-8");
+		new Gson().toJson(result,response.getWriter());
+	}
+	
+	@RequestMapping("/socialLogin")
+	public void socialLogin(@RequestParam("email") String email, HttpServletResponse response, Model m, HttpSession session, RedirectAttributes redirectAttributes) throws NoSuchAlgorithmException, GeneralSecurityException, JsonIOException, IOException {
+		String encEmail=aes.encrypt(email);
+		Member member=new Member();
+		member.setMemEmail(encEmail);
+		member=service.selectMemberById(member);
+		String result="";
+		if (session.getAttribute("bnum") != null) {
+			String bo = (String) session.getAttribute("bnum");
+			log.debug("bo : " + bo);
+			session.removeAttribute("bnum");
+			m.addAttribute("loginMember", member);
+			redirectAttributes.addAttribute("bno", bo);
+			result="/expert/expertRoom";
+		} else {
+			//로그인 성공하면 리다이렉트
+			m.addAttribute("loginMember", member);
+			result="/board/boardList";
+		}
+		response.setContentType("application/json;charset=UTF-8");
+		new Gson().toJson(result,response.getWriter());			
+	}
 }

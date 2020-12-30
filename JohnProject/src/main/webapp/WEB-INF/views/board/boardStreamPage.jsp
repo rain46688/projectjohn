@@ -1,6 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ include file="/WEB-INF/views/common/header.jsp"%>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/stomp.js/2.3.3/stomp.min.js"></script>
 <style>
 	#video-grid {
         display:grid;
@@ -410,7 +409,7 @@ ion-icon#likeButton {
               ${currBoard.WRITER_NICKNAME }
             </div>
             <div id="writerComment">
-              <input type="text" value="방장의 한마디" id="writerComIn"
+              <input type="text" value="방장이 대화방에 접속하고 있지 않습니다." id="writerComIn"
               <c:if test="${loginMember.usid ne currBoard.WRITER_USID }">
 	        	readonly
 	        	</c:if>
@@ -502,8 +501,8 @@ ion-icon#likeButton {
         </div>
     </div>
 <c:if test="${currBoard.ISCLOSE eq 0 }">
-<script src="https://unpkg.com/peerjs@1.3.1/dist/peerjs.min.js"></script>
-<script defer src="https://172.30.1.31:83/socket.io/socket.io.js"></script>
+<script src="${path }/resources/js/peerJS.js"></script>
+<script defer src="https://rclass.iptime.org:83/socket.io/socket.io.js"></script>
 <script>
 	function fn_exit(){
 		
@@ -516,10 +515,10 @@ ion-icon#likeButton {
 
 	$(document).ready(function() {
 		const userId = uuidv4()+":"+${loginMember.usid};
-		var socket = io("https://172.30.1.31:83");
+		var socket = io("https://rclass.iptime.org:83");
 		const videoGrid = document.getElementById('video-grid')
 		const myPeer = new Peer(undefined, {
-			host: '/172.30.1.31',
+			host: '/rclass.iptime.org',
 			port: '3000',
 			secure:true
 		});
@@ -527,13 +526,11 @@ ion-icon#likeButton {
 			metadata:${loginMember.usid}
 		})
 		
-		console.log(dataConnection.metadata);
 		let myVideo = document.createElement('audio')
 		myVideo.muted = true;
 		
 		const peers = {};
 		
-		console.log(peers);
 		
 		navigator.mediaDevices.getUserMedia({
 			video:false,
@@ -542,9 +539,7 @@ ion-icon#likeButton {
 			addVideoStream(myVideo, stream)
 			
 			myPeer.on('call', call => {
-				console.log('call 받음')
 				call.answer(stream)
-				console.log('call 받음2222')
 				const video = document.createElement('audio')
 				call.on('stream', userVideoStream => {
 					addVideoStream(video, userVideoStream)
@@ -553,7 +548,6 @@ ion-icon#likeButton {
 			
 			//새로운 유저가 들어왔을 때
 			socket.on('user-connected', userId => {
-				console.log('새로운 유저가 들어옴:'+userId)
 				connectToNewUser(userId, stream)
 			})
 		}, function(err) {
@@ -561,17 +555,13 @@ ion-icon#likeButton {
 		})
 		
 		socket.on('user-disconnected', userId => {
-			console.log('유저가 나감')
 			if(peers[userId]){
 				peers[userId].close();
-				console.log('close 실행')
 			}
-			console.log(peers);
 		})
 
 		
 		myPeer.on('open', id => {
-			console.log('룸에 조인함')
 			socket.emit('join-room', ROOM_ID, id);
 		})
 
@@ -579,16 +569,11 @@ ion-icon#likeButton {
 			const call = myPeer.call(userId, stream, {
 				metadata:${loginMember.usid}
 			});
-			call.answer(mediaStream);
 			const video = document.createElement('audio');
-			console.log(userId+"로 부터 들어옴");
 			call.on('stream', userVideoStream => {
-				console.log(userVideoStream.metadata);
-				console.log('stream 실행')
 				addVideoStream(video, userVideoStream);
 			})
 			call.on('close',()=>{
-				console.log('close 실행')
 				video.remove();
 			})
 			
@@ -597,12 +582,10 @@ ion-icon#likeButton {
 		
 		function addVideoStream(video, stream) {
 			video.srcObject = stream;
-			console.log(stream.metadata);
 			video.addEventListener('loadedmetadata', () => {
 				video.play();
 			})
 			videoGrid.appendChild(video);
-			console.log(video);
 		}
 	});
 </script>
@@ -649,20 +632,10 @@ function handleFileDrop(file){
 $(document).ready( function() {
 	window.addEventListener("beforeunload", function(event) {
 		event.preventDefault();
-		console.log("화면 종료");
 		chatSocket.close();
 	});
 });
 
-chatSocket.onerror = function(e) {
-	
-	console.log(e);
-}
-
-chatSocket.onclose = function(e) {
-	console.log('???????');
-	console.log(e);
-}
 
 if(chatSocket.readyState==3){
 	chatSocket.close();
@@ -676,10 +649,6 @@ chatSocket.onopen = function(e){
 	chatSocket.send('chat:'+JSON.stringify(user));
 }
 
-chatSocket.onclose = function(e) {
-	chatSocket.close();
-	chatSocket = new WebSocket("wss://172.30.1.31:8443${path}/chat");
-};
 
 chatSocket.onmessage = function(e){
 	if(e.data.substring(0,5) == 'image'){
@@ -697,7 +666,6 @@ chatSocket.onmessage = function(e){
 		location.href = "${path}/board/boardList";
 	}else{
 	chatList = JSON.parse(e.data);
-	console.log(chatList);
 	//사용자 숫자를 알기 위한 배열
 	let tempList= [];
 

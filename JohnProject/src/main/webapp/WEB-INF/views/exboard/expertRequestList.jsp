@@ -407,24 +407,25 @@ h1 {
 	// 필요한 변수 등록 
 	// 전체 배열, 백업용 배열,  소켓
 	// ============================
-	const exlistconn = new WebSocket('wss://rclass.iptime.org${path}/exlistSocket');
-	//const exlistconn = new WebSocket('wss://192.168.219.105${path}/exlistSocket');
+	//const exlistconn = new WebSocket('wss://rclass.iptime.org${path}/exlistSocket');
+	const exlistconn = new WebSocket('wss://192.168.219.105${path}/exlistSocket');
+	
 	let exboardList = [];
 	let backupList = [];
 	
 	exlistconn.onopen = function() {
-		console.log("onopen");
+		//console.log("onopen");
 		//아무거나 보내서 식별함
 		exListsendMessage("start");
 		
 		let newURL = window.location.pathname;
-		console.log(newURL);
+		//console.log(newURL);
 	}
 
 	exlistconn.onmessage = function(msg) {
-		console.log("onmessage리퀘스트 리스트");
+		//console.log("onmessage리퀘스트 리스트");
 		let check = (msg.data).includes("Request");
-		console.log("포함 여부2 : "+check);
+		//console.log("포함 여부2 : "+check);
 		
 		if(check){
 			exboardList = JSON.parse(msg.data);
@@ -432,7 +433,7 @@ h1 {
 			setting();
 			
 			if(exboardList.length == 0){
-				console.log("상담 신청이 없다~~~~!!!");
+				//console.log("상담 신청이 없다~~~~!!!");
 				let pbhtml = "<div class='divRow '><div class='divCell'><div><img id='noli' src='${path}/resources/images/noli.png' alt='' width='150px' height='150px'></div><div class='empty'>상담 신청이 없습니다.</div></div></div>";
 				$(".divListBody").html(pbhtml);				
 			}
@@ -444,7 +445,7 @@ h1 {
 	// ============================
 	function setting(){
 		// 기본 속성으로 리스트 정렬
-		console.log("셋팅 실행");
+		//console.log("셋팅 실행");
 		search($("#searchSelect").val(),$("#searchInput").val());
 		exboardList = excompare(exboardList, $("#sortSelect").val(),$("#sortType").val());
 		// 뿌려줌
@@ -453,7 +454,7 @@ h1 {
 	
 	function exListsendMessage(message) {
 		exlistconn.send(message);
-		console.log("exListsendMessage");
+		//console.log("exListsendMessage");
 	};
 	
 	
@@ -461,7 +462,7 @@ h1 {
 	//리스트 출력
 	// ============================
 	function listPrint(list){
-		console.log("리스트 길이ㅋ : "+list.length);
+		//console.log("리스트 길이ㅋ : "+list.length);
 		let pbhtml = "";
 		let num = 3;
 		if(list.length > 0){
@@ -490,7 +491,7 @@ h1 {
 				}
 			});
 		}else{
-			console.log("상담 신청이 없다~~~~");
+			//console.log("상담 신청이 없다~~~~");
 			pbhtml = "<div class='divRow '><div class='divCell'><div><img id='noli' src='${path}/resources/images/noli.png' alt='' width='150px' height='150px'></div><div class='empty'>상담 신청이 없습니다.</div></div></div>";
 		}
 		$(".divListBody").html(pbhtml);
@@ -502,8 +503,8 @@ h1 {
 	// ============================
 	$("#sortSelect").on('change', e => {
 		let keyword = $(e.target).val();
-		console.log("sort : "+keyword);
-		console.log("type : "+$("#sortType").val());
+		//console.log("sort : "+keyword);
+		//console.log("type : "+$("#sortType").val());
 		exboardList = excompare(exboardList, $("#sortSelect").val(),$("#sortType").val());
 		listTestConsolelog(exboardList);
 		listPrint(exboardList);
@@ -515,7 +516,7 @@ h1 {
 	// ============================
 	$("#sortType").on('change', e => {
 		let keyword = $(e.target).val();
-		console.log("type : "+keyword);
+		//console.log("type : "+keyword);
 		let field = $("#sortSelect").val();
 		exboardList = excompare(exboardList,field,keyword);
 		listTestConsolelog(exboardList);
@@ -528,15 +529,15 @@ h1 {
 	//정렬 하기 2
 	// ============================
 	let excompare = function(list, field, type){
-		console.log(" field : "+field+" type : "+type);
+		//console.log(" field : "+field+" type : "+type);
 		if(type == 'desc'){
-			console.log("내림!");
+			//console.log("내림!");
 			list.sort((a,b) => {
 				return a[field] > b[field] ? -1 : a[field] > b[field] ? 1 : 0;
 			});
 			return list;
 		}else{
-			console.log("오름!");
+			//console.log("오름!");
 			list.sort((a,b) => {
 				return a[field] < b[field] ? -1 : a[field] > b[field] ? 1 : 0;
 			});
@@ -549,7 +550,7 @@ h1 {
 	// ============================
 	function listTestConsolelog(list,type){
 		list.forEach((e, i)=>{
-			console.log(e['expertRequestMemNick']);	
+			//console.log(e['expertRequestMemNick']);	
 		});
 	}
 	
@@ -559,7 +560,7 @@ h1 {
 	// ============================
 	function searchkey(){
 		if(window.event.keyCode == 13) {
-			console.log("search 엔터 버튼 클릭");
+			//console.log("search 엔터 버튼 클릭");
 			search($("#searchSelect").val(),$("#searchInput").val());
 		}
 		return false;
@@ -569,7 +570,7 @@ h1 {
 	//검색 버튼
 	// ============================
 	$("#searchBtn22").click(e => {
-		console.log("검색");
+		//console.log("검색");
 		search($("#searchSelect").val(),$("#searchInput").val());
 	});
 
@@ -578,25 +579,25 @@ h1 {
 	//검색 함수
 	// ============================
 	function search(keyword, inputval){
-		console.log("search 버튼 클릭");
+		//console.log("search 버튼 클릭");
 		
 		if(inputval == ""){
-			console.log("값 비어있음");
+			//console.log("값 비어있음");
 			exboardList = backupList;
 			listPrint(exboardList);
 		}else{
-			console.log("값 비어있지않음");
+			//console.log("값 비어있지않음");
 			exboardList = backupList;
 			if (keyword == 'nic'){
-				console.log("닉");
+				//console.log("닉");
 				exboardList = findKeyword(exboardList,'expertRequestMemNick',inputval);
 				listPrint(exboardList);
 			}else if (keyword == 'date'){
-				console.log("날짜");
+				//console.log("날짜");
 				exboardList = findKeyword(exboardList,'expertDateTmp',inputval);
 				listPrint(exboardList);
 			}else if (keyword == 'time'){
-				console.log("시간");
+				//console.log("시간");
 				exboardList = findKeyword(exboardList,'expertCounselTime',inputval);
 				listPrint(exboardList);
 			}
@@ -608,7 +609,7 @@ h1 {
 	//검색검색!검색검색!검색검색!검색검색!
 	// ============================
 	function findKeyword(list, keyword,val){
-		console.log("keyword : "+keyword+" val : "+val);
+		//console.log("keyword : "+keyword+" val : "+val);
 		let tmpList = [];
 		list.forEach((e,i) => {
 			if(e[keyword].includes(val)){
@@ -620,7 +621,7 @@ h1 {
 	
 	$("#counselSelect").on('change', e => {
 		let key = $(e.target).val();
-		console.log("counselSelect : "+key);
+		//console.log("counselSelect : "+key);
 		exboardList = backupList;
 		exboardList = findKeywordCounsel(exboardList, key);
 		listPrint(exboardList);
@@ -661,7 +662,7 @@ h1 {
 	// ============================
 	let bno = "";
 	function counselStart(num,nick){
-		console.log("num : "+num);
+		//console.log("num : "+num);
 		let result = confirm("해당 회원과 상담을 진행하시겠습니까?");
 		if(result){
 			  $.ajax({
@@ -672,11 +673,11 @@ h1 {
 			 	   },
 			 	   url:"${path}/expert/selectExpertBno",
 			 	   success:function (data){
-			 		   console.log("data : "+data);
+			 		   //console.log("data : "+data);
 			 		 bno = data;
 			 		 //알람 발송 - 상담이 진행됬다는 알람 - 페이지가 넘어가기때문에 바로 변경해줄 사항 없음
 			 		 sendAlarm("${loginMember.usid}",num,"expert",bno,"${loginMember.memNickname}");
-			 		 console.log("${loginMember.usid} "+"num : "+num+"bno : "+bno+" ${loginMember.memNickname}");
+			 		 //console.log("${loginMember.usid} "+"num : "+num+"bno : "+bno+" ${loginMember.memNickname}");
 					location.replace('${path}/expert/counselStart?no='+num+"&nic="+nick+"&bno="+bno);
 			 	   }
 			    }); 
@@ -688,7 +689,7 @@ h1 {
 	//상담 재연결 -> 채팅방 입장 , 이미 방은 생성되있는 상태
 	// ============================
 	function counselConn(num,nick){
-		console.log("num : "+num);
+		//console.log("num : "+num);
 		location.replace('${path}/expert/counselConn?no='+num+"&nick="+nick);
 	}
 	
@@ -696,7 +697,7 @@ h1 {
 	//회원 상세보기
 	// ============================
 	function exmemInfo(usid,musid){
-		console.log(usid, musid);
+		//console.log(usid, musid);
 		 window.open("${path}/expert/memInfo?usid="+usid+"&musid="+musid,'회원','width=600, height=600, toolbar=no, menubar=no, scrollbars=no, resizable=no');
 	}
 	

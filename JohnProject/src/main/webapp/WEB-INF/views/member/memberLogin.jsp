@@ -13,8 +13,12 @@
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 <!-- 파비콘 -->
 <link rel="icon" type="image/png" href="${path }/resources/images/favicon.ico">
+<!-- css -->
 <link rel="stylesheet" href="${path }/resources/css/admin/memberLogin.css">
+<!-- 폰트 -->
 <link href="https://fonts.googleapis.com/css2?family=Black+Han+Sans&display=swap" rel="stylesheet">
+<!-- 네이버 아이디로 로그인 -->
+<script type="text/javascript" src="https://static.nid.naver.com/js/naveridlogin_js_sdk_2.0.0.js" charset="utf-8"></script>
 </head>
 <style>
     img.ham {
@@ -73,17 +77,16 @@
                 <div id="form_right">
                     <form id="loginForm" action="${path}/memberLoginEnd" method="POST">
                         <div class="input_container">
-                            <!-- <i class="fas fa-envelope"></i> -->
                             <input placeholder="Email" type="email" name="memEmail" id="mem_email" class="input_field">
                         </div>
                         <div class="input_container">
-                            <!-- <i class="fas fa-lock"></i> -->
                             <input  placeholder="Password" type="password" name="memPwd" id="memPwd" class="input_field">
                         </div>
                         <div id="saveIdContainer">
                             <input type="checkbox" id="saveId" name="saveId">&nbsp;아이디 저장
                         </div>
                         <button type="button" id="input_submit" class="input_field" onclick="fn_login()">Login</button>
+                        <div id="naverIdLogin"></div>
                     </form>
 
                     <span id="find_password">까먹었다&nbsp;<a onclick="fn_findIdPage();">아이디</a>&nbsp;<a onclick="fn_findPwPage();">비밀번호</a></span>
@@ -184,12 +187,28 @@
 
         //회원가입으로 가는 길
         function fn_signUp(){
-            const url="${path }/signUp";
+            const url="${path}/signUp";
             const title="signUp";
-            const status="left=500, top=100, width=800, height=800";
+            const status="left=500, top=100, width=850, height=800";
 
             open(url,title,status);
         }
+    </script>
+    <!-- 네이버아이디로로그인 초기화 Script -->
+    <script type="text/javascript">
+        var naverLogin = new naver.LoginWithNaverId(
+            {
+                clientId: "AMmEekjxUV4y7wrTtNF7",
+                /*callbackUrl: "https://localhost/john/callBackNaver",*/
+                callbackUrl: "https://rclass.iptime.org/20AM_john_final/callBackNaver",
+                isPopup: true, /* 팝업을 통한 연동처리 여부 */
+                loginButton: {color: "white", type: 3, height: 60} /* 로그인 버튼의 타입을 지정 */
+            }
+        );
+        
+        /* 설정정보를 초기화하고 연동을 준비 */
+        naverLogin.init();
+        
     </script>
 </body>
 </html>

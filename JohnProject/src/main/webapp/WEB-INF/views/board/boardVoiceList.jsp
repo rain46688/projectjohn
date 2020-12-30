@@ -338,14 +338,13 @@ color:blue;
 	}); */
 	
 	//소켓연결
-	const socket = new SockJS("https://rclass.iptime.org${path}/list");
+	const socket = new SockJS("https://rclass.iptime.org/${path}/list");
 	let message = ''; 
 	socket.onopen = function(e){
 		socket.send('boardList');
 	}
 	
 	socket.onmessage = function(e){
-		console.log(JSON.parse(e.data));
 		let voiceList = JSON.parse(e.data);
 		let html = "";
 		for(let i = 0; i < voiceList.length; i++){

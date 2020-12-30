@@ -114,7 +114,6 @@
 
     //자격증 추가
     function fn_addLicenseDiv2(){
-        console.log($(".license1").val());
         $("#licenseDiv2").css({"display":"block"});
         $("#license3Btn").css({"display":"block"});
         $("#license2Remove").css({"display":"block"});

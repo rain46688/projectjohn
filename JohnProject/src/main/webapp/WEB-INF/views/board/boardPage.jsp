@@ -30,6 +30,7 @@
   padding:2em;
   /* border:1px red solid; */
   border-right:1px silver solid;
+  overflow: auto;
 }
 
 #titleHr {
@@ -151,6 +152,10 @@
 .judgeBtns button#disagree-disabled:hover {
   background-color:#00316d;
   color:white;
+}
+
+#commentSection {
+	height:100%;
 }
 
 #commentSection #commentPrint {
@@ -714,10 +719,8 @@ function commentListPrint(commentList) {
 
 //댓글 수정
 $(document).on('click','.modify',function(e){
-	console.log(e);
 	let comId = $(e.target).parent().children('input').val();
 	let value = $(e.target).parent().parent().children('.commentContent').text();
-	console.log(comId , value);
 	let html = "<input class='modifyInput' type='text' size='20' value="+value+">";
 	html += "<button onclick='fn_commentModify("+comId+", this);'>수정하기</button>"
 	$(e.target).parent().parent().children('.commentContent').html(html);
@@ -744,7 +747,6 @@ function fn_commentModify(comId, e) {
 //댓글 삭제
 function fn_commentDelete(comId){
 	if(confirm('정말로 삭제하시겠습니까?')){
-		console.log(comId);
 		$.ajax({
 			url:"${path}/board/boardCommentDelete",
 			type:"post",
@@ -786,9 +788,6 @@ function fn_commentInsert(){
 
 //댓글 좋아요, 싫어요 업데이트
 function fn_commentLike(key, comId, e){
-	console.log(key, comId);
-	
-	
 	let loginUsid = ${loginMember.usid};
 	let value;
 	if(key == 'like'){

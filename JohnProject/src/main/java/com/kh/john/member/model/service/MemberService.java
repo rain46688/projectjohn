@@ -131,10 +131,8 @@ public interface MemberService {
 	//포인트 충전
 	int chargePoint(Member member);
 
-
+	//	소셜 회원가입
+	int signUpNaverEnd(Member member);
+	int signUpNaverExpert(Member member, List<License> licenseList);
 	
-
-
-
-
 }

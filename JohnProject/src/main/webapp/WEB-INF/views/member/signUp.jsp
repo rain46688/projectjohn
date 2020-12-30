@@ -29,15 +29,14 @@
 	}
 	#signUpBox {
 		width: 780px;
-		padding: 8% 0 0;
 		margin: auto;
 	}
 	#signUpField {
 		position: relative;
 		background: #FFFFFF;
 		max-width: 80%;
-		margin: 0 auto 200px;
-		padding: 10px 45px 20px 45px;
+		margin: 0 auto;
+		padding: 20px 45px 20px 45px;
 		text-align: center;
 	}
 	#signUpField .input {
@@ -110,7 +109,7 @@
 	}
 	div.divForExpert{
 		width: 100%;
-		margin: 2.5rem auto;
+		margin: 2rem auto;
 		margin-top: 0;
 		padding: 1rem;
 		background-color: white;
@@ -129,7 +128,7 @@
 </style>
 <body>
 <section>
-	<div id="signUpBox" style="padding-top: 50px;">
+	<div id="signUpBox">
 		<div id="signUpField">
 			<h2 style="margin-bottom: 50px;">회원가입</h2>
 			<form id="memberEnrollFrm" name="memberEnrollFrm" action="${path}/signUpEnd" method="post" enctype="multipart/form-data">
@@ -273,7 +272,6 @@
 				type:"post",
 				dataType:"html",
 				success: function(data){
-					console.log(data);
 					$("#idDuplicateAjax").html(data);
 					$("#idDuplicateAjax").css({"display":"block"});
 				}
@@ -293,7 +291,6 @@
 					type: "post",
 					dataType: "html",
 				success:function(data){
-					console.log(data);
 					$("#certiDiv").css({"display":"block"});
 					$("#certiResult").html(data);
 					alert("인증번호를 발송했습니다. 메일함을 확인해주세요.");

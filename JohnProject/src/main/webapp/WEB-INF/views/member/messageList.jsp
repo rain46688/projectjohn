@@ -172,12 +172,21 @@
 					let container=$("<div/>").attr("class","container");
 					$.each(data,function(i,v){
 						if(v['usid']!='${loginMember.usid}'){
-							let div=$("<div/>").attr("class","result");
-							let otherProfilePic=$("<div/>").attr("class","searchPic").html($("<img/>").attr({"src":"${path}/resources/profile_images/"+v['profilePic'],"class":"picImg"}));
-							let otherNick=$("<div/>").attr({"class":"searchNick"}).html(v['memNickname']);
-							let radioBtn=$("<div/>").attr("class","searchRadio").html($("<input/>").attr({"type":"radio","name":"selectMember","value":v['memNickname']}));
-							div.append(otherProfilePic).append(otherNick).append(radioBtn);
-							container.append(div);
+							if(v['leaveMem']=='1'){
+								let div=$("<div/>").attr("class","result");
+								let otherProfilePic=$("<div/>").attr("class","searchPic").html($("<img/>").attr({"src":"${path}/resources/profile_images/"+v['profilePic'],"class":"picImg"}));
+								let otherNick=$("<div/>").attr({"class":"searchNick"}).html('탈퇴한 회원입니다.');
+								let radioBtn=$("<div/>").attr("class","searchRadio").html($("<input/>").attr({"type":"radio","name":"selectMember","disabled":"true"}));
+								div.append(otherProfilePic).append(otherNick).append(radioBtn);
+								container.append(div);
+							}else{
+								let div=$("<div/>").attr("class","result");
+								let otherProfilePic=$("<div/>").attr("class","searchPic").html($("<img/>").attr({"src":"${path}/resources/profile_images/"+v['profilePic'],"class":"picImg"}));
+								let otherNick=$("<div/>").attr({"class":"searchNick"}).html(v['memNickname']);
+								let radioBtn=$("<div/>").attr("class","searchRadio").html($("<input/>").attr({"type":"radio","name":"selectMember","value":v['memNickname']}));
+								div.append(otherProfilePic).append(otherNick).append(radioBtn);
+								container.append(div);
+							}
 						}
 					})
 					$("#searchResult").html(container);
@@ -200,6 +209,7 @@
 	};
 
 	const memberSocket=new WebSocket("wss://rclass.iptime.org${path}/memberSocket");
+	//const memberSocket=new WebSocket("wss://localhost${path}/memberSocket");
 
 	memberSocket.onopen=function(){
 		memberSocket.send("messageOnOpen");
@@ -295,7 +305,6 @@
 		}
 	}
 	memberSocket.onclose=function(){
-		console.log('onclose실행');
 	}
 </script>
 </body>

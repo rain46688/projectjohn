@@ -436,11 +436,11 @@ textarea {
 			"display" : "inline-block"
 		});
 		let files = e.originalEvent.dataTransfer.files;
-		console.log("files : " + files);
+		//console.log("files : " + files);
 		for (let i = 0; i < files.length; i++) {
 			let file = files[i];
 			let size = uploadFiles.push(file); 
-			console.log("확인 : "+file);
+			//console.log("확인 : "+file);
 		}
 		
 		// ============================
@@ -448,17 +448,17 @@ textarea {
 		// ============================
 		let formData = new FormData();
 		$.each(uploadFiles, function(i, file) {
-		console.log("파일 이름 : "+file.name);
+		//console.log("파일 이름 : "+file.name);
 		
 		let f = (file.name).substring((file.name).lastIndexOf('.'),(file.name).length);
 		
 		if(f != '.png' && f != '.jpg' && f != '.jpeg' && f != '.gif'){
-			console.log("업로드 안됨 파일 이름 : "+file.name);
+			//console.log("업로드 안됨 파일 이름 : "+file.name);
 			alert('이미지 파일만 업로드 가능합니다.');
 		}else{
 			//formData.append('upFile', file, file.name);
-			console.log("file : "+file);
-			console.log("업로드 됨 파일 이름 : "+file.name);
+			//console.log("file : "+file);
+			//console.log("업로드 됨 파일 이름 : "+file.name);
 			// ============================
 			// 소켓을 이용해서 이미지 전송
 			// ============================
@@ -493,7 +493,7 @@ textarea {
 		imgprint+="<img  class='upload' src='${path}/resources/upload_images/"+msg+"' title='"+msg+"' onclick='imgView(event);' style='cursor: pointer'/>";
 		
 		if($("#imgDiv").children().html() != ''){
-			console.log("빔");
+			//console.log("빔");
 			$("#imgDiv").html("");
 		}
 		
@@ -548,10 +548,11 @@ textarea {
 			// package com.kh.john.exboard.socket.ExpertHandler
 			// ============================
 				
-			const conn = new WebSocket('wss://rclass.iptime.org${path}/ertc');
+			//const conn = new WebSocket('wss://rclass.iptime.org${path}/ertc');
+			const conn = new WebSocket('wss://192.168.219.105${path}/ertc');
 
 			conn.onopen = function() {
-				console.log("onopen => signaling server 연결");
+				//console.log("onopen => signaling server 연결");
 				if ("${loginMember.memClass}" != '전문가') {
 					sendMessage(new ExboardMsg("SYS",
 							"${loginMember.memNickname}", "접속",
@@ -563,57 +564,57 @@ textarea {
 			// 받은 메세지를 분기 처리해서 나눔
 			// ============================
 			conn.onmessage = function(msg) {
-				console.log("onmessage => 메세지 출력 : " + msg);
+				//console.log("onmessage => 메세지 출력 : " + msg);
 				let content = JSON.parse(msg.data);
-				console.log("content.type : " + content.type);
+				//console.log("content.type : " + content.type);
 				if (content.type === 'expert') {
-					console.log(" === 분기 expert === ");
+					//console.log(" === 분기 expert === ");
 					start();
 				} else if (content.type === 'offer') {
-					console.log(" === 분기 offer === ");
+					//console.log(" === 분기 offer === ");
 					start();
 					pc
 							.setRemoteDescription(new rtc_session_description(
 									content));
 					doAnswer();
 				} else if (content.type === 'answer') {
-					console.log(" === 분기 answer === ");
+					//console.log(" === 분기 answer === ");
 					pc
 							.setRemoteDescription(new rtc_session_description(
 									content));
 
 				} else if (content.type === 'candidate') {
-					console.log(" === 분기 candidate === ");
+					//console.log(" === 분기 candidate === ");
 					let candidate = new RTCIceCandidate({
 						sdpMLineIndex : content.label,
 						candidate : content.candidate
 					});
 					pc.addIceCandidate(candidate);
 				} else if (content.type == 'SYS') {
-					console.log(" === 분기 SYS === ");
+					//console.log(" === 분기 SYS === ");
 					start();
 					user_usid = content.id;
 				} else if (content.type == 'TXT') {
-					console.log(" === 분기 TXT === ");
+					//console.log(" === 분기 TXT === ");
 					$("#edit").html(content.msg);
 					$("#edit").scrollTop($("#edit")[0].scrollHeight);
 				} else if (content.type == 'CAM') {
-					console.log(" === 분기 CAM === ");
+					//console.log(" === 분기 CAM === ");
 					if (content.msg === 'off') {
 						video2.srcObject = null;
 					} else {
 						video2.srcObject = remoteStream;
 					}
 				} else if (content.type == 'FILE2') {
-					console.log(" === 분기 FILE2 === ");
+					//console.log(" === 분기 FILE2 === ");
 					//웹소켓 업로드 일반용 다음 구현한거
-					console.log("content : " + content.msg);
+					//console.log("content : " + content.msg);
 					imgDivPrint2(content.msg);
 				} else if (content.type == 'END') {
-					console.log(" === 분기 END === ");
+					//console.log(" === 분기 END === ");
 					location.replace('${path}/board/boardList');
 				}else if(content.type == 'MEMEND'){
-					console.log(" === 분기 MEMEND === ");
+					//console.log(" === 분기 MEMEND === ");
 					let experthtml = "";
 					
 					experthtml += "<div class='button-8'> <div class='eff-8'></div><a class='johnbtn' onclick='counselEnd();'>완료</a></div>";
@@ -623,12 +624,12 @@ textarea {
 			};
 
 			conn.onclose = function() {
-				console.log('onclose 실행');
+				//console.log('onclose 실행');
 			};
 
 			function sendMessage(message) {
 				conn.send(JSON.stringify(message));
-				console.log("메세지 보내는 함수 sendMessage");
+				//console.log("메세지 보내는 함수 sendMessage");
 			};
 
 			//---------------------------- 비디오 적합 여부 설정 -------------------------------------
@@ -645,28 +646,28 @@ textarea {
 		// 브라우저 적합성 확인
 		// ============================
 			if (navigator.getUserMedia) {
-				console.log("getUserMedia");
+				//console.log("getUserMedia");
 				get_user_media = navigator.getUserMedia.bind(navigator);
 				//get_user_media = navigator.mediaDevices.getUserMedia(constraints);
-				console.log("navigator : "+navigator);
-				console.log("navigator.getUserMedia.bind(navigator) : "+navigator.getUserMedia.bind(navigator));
+				//console.log("navigator : "+navigator);
+				//console.log("navigator.getUserMedia.bind(navigator) : "+navigator.getUserMedia.bind(navigator));
 				videoStart();
 				rtc_peer_connection = RTCPeerConnection;
 				rtc_session_description = RTCSessionDescription;
 			} else if (navigator.mozGetUserMedia) {
-				console.log("mozGetUserMedia");
+				//console.log("mozGetUserMedia");
 				get_user_media = navigator.mozGetUserMedia.bind(navigator);
 				videoStart();
 				rtc_peer_connection = mozRTCPeerConnection;
 				rtc_session_description = mozRTCSessionDescription;
 			} else if (navigator.webkitGetUserMedia) {
-				console.log("webkitGetUserMedia");
+				//console.log("webkitGetUserMedia");
 				get_user_media = navigator.webkitGetUserMedia.bind(navigator);
 				videoStart();
 				rtc_peer_connection = webkitRTCPeerConnection;
 				rtc_session_description = webkitRTCSessionDescription;
 			} else {
-				console.log("지원안하는 브라우저");
+				//console.log("지원안하는 브라우저");
 				alert("지원하지 않는 브라우저입니다. firefox chrome브라우저를 이용하세요");
 				flag = false;
 			}
@@ -675,18 +676,18 @@ textarea {
 			// 오디오나 비디오 사용여부 확인 NOT FOUND가 뜨면 장치 설정에 문제가 있을수있다. 드라이버를 다시 받아보거나 삽질해보기
 			// ============================
 		 	function videoStart() {
-				console.log("constraints : "+constraints);
-				console.log("get_user_media : "+get_user_media);
+				//console.log("constraints : "+constraints);
+				//console.log("get_user_media : "+get_user_media);
 				get_user_media(constraints, function(stream) {
-					console.log('stream 함수 => 스트림 요청 성공');
+					//console.log('stream 함수 => 스트림 요청 성공');
 					localStream = stream;
-					console.log("localStream : " + localStream);
+					//console.log("localStream : " + localStream);
 					if ("${loginMember.memClass}" == '전문가') {
 						video1.srcObject = localStream;
 					}
 					sendMessage(new ExboardMsg("expert"));
-					console.log("메세지 보냄!");
-					console.log("gotStream 함수 => start 실행");
+					//console.log("메세지 보냄!");
+					//console.log("gotStream 함수 => start 실행");
 					start();
 				}, function(e) {
 					alert('카메라 오류 : ' + e+" \n 메세지 : "+e.message);
@@ -701,11 +702,11 @@ textarea {
 			// ============================
 			function start() {
 				if (flag && typeof localStream !== 'undefined') {
-					console.log("peer 연결 부분 분기 진입");
+					//console.log("peer 연결 부분 분기 진입");
 					createPeerConnection();
 					pc.addStream(localStream);
 					flag = false;
-					console.log("do call 실행됨 ");
+					//console.log("do call 실행됨 ");
 					doCall();
 				}
 			};
@@ -714,7 +715,7 @@ textarea {
 			// PeerConnection객체를 생성하고 Media Capability 정보를 교환 sdp(Session Description Protocol) 형식을 따르는 blob인 offer와 answer를 주고 받으며 교환함
 			// ============================
 			function createPeerConnection() {
-				console.log("createPeerConnection 실행");
+				//console.log("createPeerConnection 실행");
 				try {
 					//configuration에는 STUN & TURN 서버가 있음
 					//STUN : Session Traversal Utilities for NAT의 약자로 자신의 공인 아이피를 알아오기위해 STUN 서버에 요청하고 STUN 서버는 공인 IP주소를 응답함.
@@ -723,9 +724,9 @@ textarea {
 					pc.onicecandidate = handleIceCandidate;
 					pc.onaddstream = handleRemoteStreamAdded;
 					pc.onremovestream = handleRemoteStreamRemoved;
-					console.log(" RTCPeerConnection 생성 완료 ");
+					//console.log(" RTCPeerConnection 생성 완료 ");
 				} catch (e) {
-					console.log(" RTCPeerConnection 생성 에러발생 : " + e.message);
+					//console.log(" RTCPeerConnection 생성 에러발생 : " + e.message);
 					alert("RTCPeerConnection 에러");
 					return;
 				}
@@ -735,7 +736,7 @@ textarea {
 			// createPeerConnection 함수에서 호출함
 			// ============================
 			function handleRemoteStreamAdded(event) {
-				console.log("RemoteStream 추가됨");
+				//console.log("RemoteStream 추가됨");
 				//원격 스트림에 스트림을 넣어줌
 				remoteStream = event.stream;
 				if ("${loginMember.memClass}" != '전문가') {
@@ -753,7 +754,7 @@ textarea {
 			// start 함수에서 호출함
 			// ============================
 			function doCall() {
-				console.log("createOff 함수를 통해서 통신 요청");
+				//console.log("createOff 함수를 통해서 통신 요청");
 				pc.createOffer(setLocalAndSendMessage, handleCreateOfferError);
 			};
 
@@ -761,7 +762,7 @@ textarea {
 			// 소켓 메세지 에서 분기 처리로 호출함
 			// ============================
 			function doAnswer() {
-				console.log('peer에게 응답 보내기.');
+				//console.log('peer에게 응답 보내기.');
 				pc.createAnswer().then(setLocalAndSendMessage,
 						onCreateSessionDescriptionError);
 			};
@@ -772,9 +773,9 @@ textarea {
 			//ICE : Interactive Connectivity Establishment의 약자로 두 단말이 서로 통신할수 있는 최적의 경로를 찾을수있도록 도와주는 프레임워크임.
 			// ============================
 			function handleIceCandidate(event) {
-				console.log('icecandidate 실행 event : ' + event);
+				//console.log('icecandidate 실행 event : ' + event);
 				if (event.candidate) {
-					console.log('icecandidate 응답 보내기 ');
+					//console.log('icecandidate 응답 보내기 ');
 					sendMessage({
 						type : 'candidate',
 						label : event.candidate.sdpMLineIndex,
@@ -782,17 +783,17 @@ textarea {
 						candidate : event.candidate.candidate
 					});
 				} else {
-					console.log('handleIceCandidate 탐색 종료');
+					//console.log('handleIceCandidate 탐색 종료');
 				}
 			};
 
 			function handleRemoteStreamRemoved(event) {
-				console.log('원격 스트림 삭제됨 Event : ' + event);
+				//console.log('원격 스트림 삭제됨 Event : ' + event);
 			};
 
 			function setLocalAndSendMessage(sessionDescription) {
 				pc.setLocalDescription(sessionDescription);
-				console.log("setLocalAndSendMessage 응답 보내기 : "
+				//console.log("setLocalAndSendMessage 응답 보내기 : "
 						+ sessionDescription);
 				sendMessage(sessionDescription);
 			};
@@ -800,7 +801,7 @@ textarea {
 			//---------------------------- 잡다한 메소드 -------------------------------------
 
 			function handleCreateOfferError(event) {
-				console.log('Offer부분 생성 에러 error: ', event);
+				//console.log('Offer부분 생성 에러 error: ', event);
 			};
 
 			function onCreateSessionDescriptionError(error) {
@@ -828,10 +829,10 @@ textarea {
 				if (key.keyCode == 13) {
 					let txt = $("#edit").html();
 					//$("#extext").val("");
-					console.log("메세지 : "+txt);
+					//console.log("메세지 : "+txt);
 					sendMessage(new ExboardMsg("TXT", "", txt));
 					//counselText = txt.replaceAll("\n",'<br>');
-					//console.log(counselText);
+					////console.log(counselText);
 					//$("#expertTextDiv").html($("#expertTextDiv").html()+"<p>"+txt+"</p>");
 					//$("#expertTextDiv").scrollTop($("#expertTextDiv")[0].scrollHeight);
 				}
@@ -841,7 +842,7 @@ textarea {
 			//상담 종료 해당 텍스트 에어리어의 기록 디비에 저장하고 종료
 			// ============================
 			function counselEnd() {
-				console.log("user_usid : " + user_usid);
+				//console.log("user_usid : " + user_usid);
 				let result = confirm("해당 회원과 상담을 종료 하시겠습니까?");
 				if (result) {
 					let form = document.createElement("form");
@@ -866,7 +867,7 @@ textarea {
 			 		//exit(); 
 					sendMessage(new ExboardMsg("END","${loginMember.memClass}", "종료"));
 					//알람 발송 - 상담이 완료됬다는 알람 - 페이지가 넘어가기때문에 바로 변경해줄 사항 없음
-					console.log("usid : ${loginMember.usid}"+" 유저 usid : "+user_usid+" bno : ${bno}"+"닉 : ${loginMember.memNickname}");
+					//console.log("usid : ${loginMember.usid}"+" 유저 usid : "+user_usid+" bno : ${bno}"+"닉 : ${loginMember.memNickname}");
 					sendAlarm("${loginMember.usid}",user_usid,"expertend","${bno}","${loginMember.memNickname}");
 					result = false;
 				}
@@ -908,7 +909,7 @@ textarea {
 					data : {"bno":"${bno}"},
 					dataType : "json",
 					success : function(data){
-						console.log("data : "+data);
+						//console.log("data : "+data);
 						if(data == '1'){
 							let memhtml="";
 						
@@ -918,10 +919,10 @@ textarea {
 							
 							$("#buttonDiv").html(memhtml);
 							sendMessage(new ExboardMsg("MEMEND","${loginMember.memClass}", "유저 종료"));
-							console.log("성공");
+							//console.log("성공");
 						}else{
 								
-							console.log("실패");
+							//console.log("실패");
 						}
 					}
 				})

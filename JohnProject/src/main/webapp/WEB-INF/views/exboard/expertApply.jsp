@@ -285,7 +285,7 @@ body{
 	// 상담 신청
 	// ============================
 	function expertRequest() {
-		console.log("상담 신청, ${mem.usid}");
+		//console.log("상담 신청, ${mem.usid}");
 
 		let result = confirm("상담 신청을 하시겠습니까?\n 전문가가 상담 시작후에는 취소가 불가합니다.");
 		
@@ -300,7 +300,7 @@ body{
 					url : "${path}/expert/expertRequest",
 					success : function(data) {
 						if (data == 1) {
-							console.log("상담 신청 성공");
+							//console.log("상담 신청 성공");
 							alert("상담 신청 성공");
 							$("input[name=time]").val("");
 							$("textarea[name=applyText]").val("");
@@ -311,18 +311,18 @@ body{
 							//알람 발송 - 상담이 추가됬다는 알람 - 해당 전문가가 보는 상담 내역을 갱신해줘야됨
 						sendAlarm("${loginMember.usid}","${mem.usid}","expertApply"," ","${loginMember.memNickname}");
 						} else if (data == 2) {
-							console.log("이미 상담 신청을 하셨습니다");
+							//console.log("이미 상담 신청을 하셨습니다");
 							alert("이미 상담 신청을 하셨습니다");
 						} else if(data == 9999){
-							console.log("현재 시간보다 과거를 선택했음");
+							//console.log("현재 시간보다 과거를 선택했음");
 							alert("선택하신 날짜가 맞지 않습니다.");
 						}
 						 else if(data == 9998){
-								console.log("희망 시간을 선택해주세요.");
+								//console.log("희망 시간을 선택해주세요.");
 								alert("희망 시간을 선택해주세요.");
 							}
 						else {
-							console.log("상담 신청 실패");
+							//console.log("상담 신청 실패");
 							alert("상담 신청 실패");
 						}
 					}
@@ -333,7 +333,7 @@ body{
 	// 상담 신청 취소
 	// ============================
 	function expertRequestCancel() {
-		console.log("상담 취소, ${mem.usid}");
+		//console.log("상담 취소, ${mem.usid}");
 		$
 				.ajax({
 					type : "GET",
@@ -344,7 +344,7 @@ body{
 					url : "${path}/expert/expertRequestCancel",
 					success : function(data) {
 						if (data == 1) {
-							console.log("상담 취소 성공");
+							//console.log("상담 취소 성공");
 							alert("상담 취소 성공");
 							//알람 발송 - 상담이 삭제됬다는 알람 - 해당 전문가가 보는 상담 내역을 갱신해줘야됨
 							sendAlarm("${loginMember.usid}","${mem.usid}","expertApplyCancel"," ","${loginMember.memNickname}");
@@ -352,10 +352,10 @@ body{
 							//$("#exbtn").html("<button class='btn btn-outline-success' onclick='expertRequest();''>상담 신청하기</button>");
 							$("#exbtn").html("<div class='button-7'> <div class='eff-7'></div> <a  class='johnbtn'  onclick='expertRequest();'>상담 신청하기</a></div>");
 						} else if(data == -1) {
-							console.log("상담이 이미 진행중이라 취소 불가합니다.");
+							//console.log("상담이 이미 진행중이라 취소 불가합니다.");
 							alert("상담이 이미 진행중이라 취소 불가합니다.");
 						}else{
-							console.log("상담 취소 실패");
+							//console.log("상담 취소 실패");
 							alert("상담 취소 실패");
 						}
 					}

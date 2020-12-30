@@ -117,14 +117,22 @@
 	<div id="msgContainer">
 		<div id="savedContainer"></div>
 		<div id="textingContainer">
-			<input type="text" id="message" placeholder="메세지를 입력하세요.">
-			<button type="button" class="btn btn-outline-dark" id="sendMessage" onclick="fn_sendMessage()">전송</button>
+			<c:choose>
+				<c:when test="${otherInfo.leaveMem eq true}">
+					<input type="text" id="message" placeholder="탈퇴한 회원입니다." readonly style="background-color: lightgrey; width: 100%;">
+				</c:when>
+				<c:otherwise>
+					<input type="text" id="message" placeholder="메세지를 입력하세요.">
+					<button type="button" class="btn btn-outline-dark" id="sendMessage" onclick="fn_sendMessage()">전송</button>
+				</c:otherwise>
+			</c:choose>
 		</div>
 	</div>
 </section>
 <script>
 	//소켓 시작
 	const memberSocket=new WebSocket("wss://rclass.iptime.org${path}/memberSocket");
+	//const memberSocket=new WebSocket("wss://localhost${path}/memberSocket");
 
 	//소켓이 열림
 	memberSocket.onopen=function(){
@@ -203,7 +211,6 @@
 	}
 	
 	memberSocket.onclose=function(){
-		console.log('onclose실행');
 	}
 </script>
 </body>

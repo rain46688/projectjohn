@@ -9,6 +9,7 @@
 	<link href="https://fonts.googleapis.com/css2?family=Noto+Serif+KR&display=swap" rel="stylesheet">
 	<script type="module" src="https://unpkg.com/ionicons@5.2.3/dist/ionicons/ionicons.esm.js"></script>
 	<script nomodule="" src="https://unpkg.com/ionicons@5.2.3/dist/ionicons/ionicons.js"></script>
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
 </head>
 <style>
 	#container_logo{
@@ -157,11 +158,13 @@
 			</div>
 		</a>
 		<hr>
-		<a class="menuLink nav-link" href="${path}/member/myPage/applyExpertPage?usid=${loginMember.usid}">
-			<div class="menuContainer">
-				<img src="${path}/resources/images/driver-license-wh.png" class="sideIcon">
-				전문가 신청하기
-			</div>
-		</a>
+		<c:if test="${loginMember.getMemClass() eq '일반유저'}">
+			<a class="menuLink nav-link" href="${path}/member/myPage/applyExpertPage?usid=${loginMember.usid}">
+				<div class="menuContainer">
+					<img src="${path}/resources/images/driver-license-wh.png" class="sideIcon">
+					전문가 신청하기
+				</div>
+			</a>
+		</c:if>
 	</div>
 </div>

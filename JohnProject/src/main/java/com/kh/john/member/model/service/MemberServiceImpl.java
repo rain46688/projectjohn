@@ -285,6 +285,23 @@ public class MemberServiceImpl implements MemberService {
 		return result;
 	}
 
+	@Override
+	public int signUpNaverEnd(Member member) {
+		return dao.signUpNaverEnd(session, member);
+	}
+
+	@Override
+	public int signUpNaverExpert(Member member, List<License> licenseList) {
+		int result=dao.signUpNaverEnd(session, member);
+		
+		if(!licenseList.isEmpty()) {
+			for(License l : licenseList) {
+				dao.signUpExpert(session,l);
+			}
+		}
+		return result;
+	}
+
 
 	
 

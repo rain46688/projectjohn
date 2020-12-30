@@ -175,8 +175,6 @@ public class BoardController {
 	@RequestMapping(value="board/boardModify", method=RequestMethod.POST)
 	public ModelAndView boardModify(ModelAndView mv, @RequestParam Map<String, Object> param) {
 		
-		log.debug(""+param);
-		
 		mv.addObject("param", param);
 		mv.setViewName("board/boardModify");
 		
