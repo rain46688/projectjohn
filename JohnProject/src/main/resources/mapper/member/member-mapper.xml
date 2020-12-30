@@ -24,7 +24,7 @@
 
 <insert id="signUpEnd" parameterType="member">
 	INSERT INTO MEMBER VALUES(SEQ_MEMBER_NO.NEXTVAL, #{memEmail}, #{memPwd}, #{memName}, #{memNickname}, #{gender}, 
-		#{birthday,jdbcType=DATE}, DEFAULT, DEFAULT, DEFAULT, DEFAULT, #{memClass}, DEFAULT, #{tel})
+		#{birthday,jdbcType=DATE}, DEFAULT, DEFAULT, DEFAULT, DEFAULT, #{memClass}, DEFAULT, #{tel}, DEFAULT)
 </insert>
 
 <insert id="signUpExpert" parameterType="license">
@@ -246,6 +246,7 @@
 	<result property="memClass" column="mem_class"/>
 	<result property="profilePic" column="profile_pic"/>
 	<result property="tel" column="tel"/>
+	<result property="socialLogin" column="social_login"/>
 </resultMap>
 <resultMap type="com.kh.john.board.model.vo.Board" id="boardMap">
 	<result property="boardId" column="board_id"/>

@@ -37,6 +37,8 @@ import com.google.gson.JsonIOException;
 import com.kh.john.board.model.service.BoardService;
 import com.kh.john.board.model.vo.Board;
 import com.kh.john.board.model.vo.Subscribe;
+import com.kh.john.exboard.model.service.ExboardService;
+import com.kh.john.exboard.model.service.ExboardServiceImpl;
 import com.kh.john.exboard.model.vo.ExpertBoard;
 import com.kh.john.exboard.model.vo.ExpertRequest;
 import com.kh.john.member.model.service.MemberService;
@@ -58,6 +60,9 @@ public class MemberController {
 	@Autowired
 	private BoardService bService;
 
+	@Autowired
+	private ExboardService exService;
+	
 	@Autowired
 	private AES256Util aes;
 
@@ -285,8 +290,13 @@ public class MemberController {
 
 //	전문가용 div로 가는 길
 	@RequestMapping("/divForExpert")
-	public String divForExpert() {
-		return "member/uploadLicense";
+	public ModelAndView divForExpert(ModelAndView mv, HttpSession session) throws Exception {
+		List<String> likindList=exService.selectLicenseKind();
+		List<String> comkindList=exService.selectCompanyKind();
+		mv.addObject("likindList", likindList);
+		mv.addObject("comkindList", comkindList);
+		mv.setViewName("member/uploadLicense");
+		return mv;
 	}
 
 //	회원가입 로직
@@ -822,4 +832,20 @@ public class MemberController {
 		return "/member/signUpNaver";
 	}
 	
+//	소셜 아이디 중복검사
+	@RequestMapping("/socialDuplicate")
+	public void socialDuplicate(@RequestParam("email") String email, HttpServletResponse response) throws NoSuchAlgorithmException, GeneralSecurityException, JsonIOException, IOException {
+		String result="";
+		String encEmail=aes.encrypt(email);
+		Member member=new Member();
+		member.setMemEmail(encEmail);
+		member=service.selectMemberById(member);
+		if(member!=null) {
+			result="unavailable";
+		}else {
+			result="available";
+		}
+		response.setContentType("application/json;charset=UTF-8");
+		new Gson().toJson(result,response.getWriter());
+	}
 }

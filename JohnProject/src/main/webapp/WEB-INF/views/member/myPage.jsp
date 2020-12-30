@@ -322,13 +322,15 @@
 				</div>
 				<button type="button" class="btn btn-outline-dark btn-sm" onclick="location.href='${path}/member/myPage/myReport?usid=${loginMember.usid}'">이동하기</button>
 			</div>
-			<div class="board">
-				<img src="${path}/resources/images/driver-license.png" class="pageIcon">
-				<div class="boardTitle">
-					전문가 신청하기	
+			<c:if test="${loginMember.getMemClass() eq '일반유저'}">
+				<div class="board">
+					<img src="${path}/resources/images/driver-license.png" class="pageIcon">
+					<div class="boardTitle">
+						전문가 신청하기	
+					</div>
+					<button type="button" class="btn btn-outline-dark btn-sm" onclick="location.href='${path}/member/myPage/applyExpertPage?usid=${loginMember.usid}'">이동하기</button>
 				</div>
-				<button type="button" class="btn btn-outline-dark btn-sm" onclick="location.href='${path}/member/myPage/applyExpertPage?usid=${loginMember.usid}'">이동하기</button>
-			</div>
+			</c:if>
 		</div>
 	</div>
 </div>

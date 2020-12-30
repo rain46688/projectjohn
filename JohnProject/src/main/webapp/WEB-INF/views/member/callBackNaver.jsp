@@ -9,11 +9,11 @@
 	<meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<title>NaverLoginSDK</title>
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 </head>
 
 <body>
 
-	callback 처리중입니다. 이 페이지에서는 callback을 처리하고 바로 main으로 redirect하기때문에 이 메시지가 보이면 안됩니다.
 
 	<!-- (1) LoginWithNaverId Javscript SDK -->
 	<script type="text/javascript" src="https://static.nid.naver.com/js/naveridlogin_js_sdk_2.0.0.js" charset="utf-8"></script>
@@ -38,8 +38,23 @@
 		window.addEventListener('load', function () {
 			naverLogin.getLoginStatus(function (status) {
 				if (status) {
-                    window.resizeTo(850, 800);
-					window.location.replace("${path}/signUpNaver");
+					var email = naverLogin.user.getEmail();
+					$.ajax({
+						url:"${path}/socialDuplicate",
+						data:{"email":email},
+						type:"post",
+						dataType:"json",
+						success:function(data){
+							if(data=='unavailable'){
+								window.resizeTo(850, 800);
+								alert('이미 회원가입 된 아이디입니다.');
+								window.close();
+							}else{
+								window.resizeTo(850, 800);
+								window.location.replace("${path}/signUpNaver");
+							}
+						}
+					})
 				} else {
 					console.log("callback 처리에 실패하였습니다.");
 				}

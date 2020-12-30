@@ -87,9 +87,9 @@
                         <div id="saveIdContainer">
                             <input type="checkbox" id="saveId" name="saveId">&nbsp;아이디 저장
                         </div>
-                        <div id="loginNaver">
+                        <!-- <div id="loginNaver">
                             <a onclick="fn_loginNaver">네이버 아이디로 로그인</a>
-                        </div>
+                        </div> -->
                         <button type="button" id="input_submit" class="input_field" onclick="fn_login()">Login</button>
                     </form>
 
@@ -98,7 +98,7 @@
                     <span id="create_account">
                         <a onclick="fn_signUp();">★회원가입★</a>
                     </span>
-                    <div id="naverIdLogin"></div>
+                    <!-- <div id="naverIdLogin"></div> -->
                 </div>
             </div>
         </h1>
