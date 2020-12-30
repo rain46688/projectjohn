@@ -66,10 +66,10 @@
     <input type="date" class="inputUL license1" name="licenseDate">
     <!-- 자격증 종류 -->
     <div class="input-group col-xs-12" style="width: 80%; margin: 0 10%;">
-        <div style="margin: 1rem 0;">
+        <div style="margin: 1rem 0; width: 30%; text-align: left;">
             자격증 종류
         </div>
-        <select name="licenseType" class="inputUL" style="width: 50%;">
+        <select name="licenseType" class="inputUL" style="width: 60%; margin-right: 0;">
 			<option selected>선택 안함</option>
             <c:forEach items="${likindList }" var="lity">
                 <option value="${lity}">${lity}</option>
@@ -78,16 +78,15 @@
     </div>
     <!-- 자격증 발급 기관 -->
     <div class="input-group col-xs-12" style="width: 80%; margin: 0 10%;">
-        <div style="margin: 1rem 0;">
+        <div style="margin: 1rem 0; width: 30%; text-align: left;">
             자격증 발급 기관
         </div>
-        <select name="licenseCompany" class="inputUL" style="width: 50%;">
+        <select name="licenseCompany" class="inputUL" style="width: 60%; margin-right: 0;">
 			<option selected>선택 안함</option>
             <c:forEach items="${comkindList }" var="comli">
                 <option value="${comli}">${comli}</option>
             </c:forEach>
         </select>
     </div>
-    <!-- <input type="text" class="inputUL license1" name="licenseCompany" placeholder="자격증 발급 기관을 입력해주세요."> -->
 </div>
 

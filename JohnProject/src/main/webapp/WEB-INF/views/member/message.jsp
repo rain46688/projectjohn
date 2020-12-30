@@ -211,7 +211,6 @@
 	}
 	
 	memberSocket.onclose=function(){
-		console.log('onclose실행');
 	}
 </script>
 </body>

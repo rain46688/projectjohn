@@ -45,13 +45,21 @@
 						type:"post",
 						dataType:"json",
 						success:function(data){
-							if(data=='unavailable'){
+							if(data=='available'){
 								window.resizeTo(850, 800);
-								alert('이미 회원가입 된 아이디입니다.');
-								window.close();
-							}else{
-								window.resizeTo(850, 800);
+								alert('통합 회원가입이 필요합니다.');
 								window.location.replace("${path}/signUpNaver");
+							}else{
+								$.ajax({
+									url:"${path}/socialLogin",
+									data:{"email":email},
+									type:"post",
+									dataType:"json",
+									success:function(data){
+										opener.document.location.replace("${path}"+data);
+										window.close();
+									}
+								})
 							}
 						}
 					})

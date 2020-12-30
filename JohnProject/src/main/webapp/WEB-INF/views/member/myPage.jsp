@@ -340,7 +340,6 @@
         IMP.init('imp53290509');
         var money = $('input[name="money"]:checked').val();
 		var usid='${loginMember.usid}';
-        console.log(money);
 
         IMP.request_pay({
             pg : 'kakaopay',

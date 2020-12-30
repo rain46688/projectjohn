@@ -77,20 +77,16 @@
                 <div id="form_right">
                     <form id="loginForm" action="${path}/memberLoginEnd" method="POST">
                         <div class="input_container">
-                            <!-- <i class="fas fa-envelope"></i> -->
                             <input placeholder="Email" type="email" name="memEmail" id="mem_email" class="input_field">
                         </div>
                         <div class="input_container">
-                            <!-- <i class="fas fa-lock"></i> -->
                             <input  placeholder="Password" type="password" name="memPwd" id="memPwd" class="input_field">
                         </div>
                         <div id="saveIdContainer">
                             <input type="checkbox" id="saveId" name="saveId">&nbsp;아이디 저장
                         </div>
-                        <!-- <div id="loginNaver">
-                            <a onclick="fn_loginNaver">네이버 아이디로 로그인</a>
-                        </div> -->
                         <button type="button" id="input_submit" class="input_field" onclick="fn_login()">Login</button>
+                        <div id="naverIdLogin"></div>
                     </form>
 
                     <span id="find_password">까먹었다&nbsp;<a onclick="fn_findIdPage();">아이디</a>&nbsp;<a onclick="fn_findPwPage();">비밀번호</a></span>
@@ -98,7 +94,6 @@
                     <span id="create_account">
                         <a onclick="fn_signUp();">★회원가입★</a>
                     </span>
-                    <!-- <div id="naverIdLogin"></div> -->
                 </div>
             </div>
         </h1>
@@ -199,14 +194,14 @@
             open(url,title,status);
         }
     </script>
-    <!-- 네이버아디디로로그인 초기화 Script -->
+    <!-- 네이버아이디로로그인 초기화 Script -->
     <script type="text/javascript">
         var naverLogin = new naver.LoginWithNaverId(
             {
                 clientId: "AMmEekjxUV4y7wrTtNF7",
                 callbackUrl: "https://localhost/john/callBackNaver",
                 isPopup: true, /* 팝업을 통한 연동처리 여부 */
-                loginButton: {color: "green", type: 3, height: 60} /* 로그인 버튼의 타입을 지정 */
+                loginButton: {color: "white", type: 3, height: 60} /* 로그인 버튼의 타입을 지정 */
             }
         );
         

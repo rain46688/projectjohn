@@ -184,7 +184,7 @@ h1::before {
   -ms-grid-columns: 1fr;
   grid-template-columns: 1fr;
   grid-gap: 20px;
-  padding: 10% 5%;
+  padding: 5%;
   width: 500px;
   height: 500px;
 }
@@ -222,9 +222,8 @@ h1::before {
   font-size: 1.3rem;
   font-weight: 400;
   padding-left: 30px;
-/*   font-family: 'Black Han Sans', sans-serif; */
-  margin-top: 30px;
-  margin-bottom: 30px;
+  margin-top: 15px;
+  margin-bottom: 15px;
 }
 
 .input_field:hover,
@@ -271,8 +270,7 @@ div#saveIdContainer{
 #create_account {
   display: block;
   position: relative;
-  top: 10px;
-/*   font-family: 'Black Han Sans', sans-serif; */
+  top: -10px;
 }
 
 a {

@@ -171,6 +171,10 @@
 	UPDATE MEMBER SET POINT=#{point} WHERE USID=#{usid}
 </update>
 
+<insert id="signUpNaverEnd" parameterType="member">
+	INSERT INTO MEMBER VALUES(SEQ_MEMBER_NO.NEXTVAL, #{memEmail}, #{memPwd}, #{memName}, #{memNickname}, #{gender}, 
+		#{birthday,jdbcType=DATE}, DEFAULT, DEFAULT, DEFAULT, DEFAULT, #{memClass}, DEFAULT, #{tel}, 1)
+</insert>
 
 <resultMap type="exrequest" id="exrequestMap">
 	<id column="EXPERT_REQUET_EX_USID" property="expertRequetExUsid" />

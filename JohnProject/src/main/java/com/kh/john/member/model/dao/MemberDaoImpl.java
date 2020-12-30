@@ -225,5 +225,10 @@ public class MemberDaoImpl implements MemberDao {
 		return session.update("member.chargePoint", member);
 	}
 
+	@Override
+	public int signUpNaverEnd(SqlSessionTemplate session, Member member) {
+		return session.insert("member.signUpNaverEnd",member);
+	}
+
 
 }

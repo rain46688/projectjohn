@@ -135,7 +135,7 @@
 	<div id="signUpBox">
 		<div id="signUpField">
 			<h2 style="margin-bottom: 50px;">회원가입</h2>
-			<form id="memberEnrollFrm" name="memberEnrollFrm" action="${path}/signUpEnd" method="post" enctype="multipart/form-data">
+			<form id="memberEnrollFrm" name="memberEnrollFrm" action="${path}/signUpNaverEnd" method="post" enctype="multipart/form-data">
 				<input type="email" id="id" name="memEmail" class="input" readonly>
 				
 				<input type="text" placeholder="닉네임" class="input" id="nickname" name="memNickname" maxlength="10" required>
@@ -207,8 +207,6 @@
 				<div class="removeLicenseDiv" id="removeLicenseDiv2">
 					<button type="button" class="removeLicenseBtn licenseBtn" id="removeLicenseBtn2">삭제</button>
 				</div>
-				
-				<input type="hidden" name="usid" readonly>
 
 				<button class="bottombtns" type="button" style="width:40%; margin-top: 30px;" onclick="fn_enroll();">가입</button>
 				<button class="bottombtns" type="reset" style="width:40%; margin-top: 30px;">취소</button>
@@ -495,7 +493,7 @@
 				&& (memClass==10||memClass.length>1) && (name!==""&&namePattern.test(name))
 				&& (yy!=="" && yyPattern.test(yy)) && (phone!==""&&pnPattern.test(phone))
 				&& $("#checkNNhidden").val()!='existed' 
-				&& $("#checkPNhidden").val()!='existed' && $("#certiKey").val().trim()==$("#certiNum").val().trim()
+				&& $("#checkPNhidden").val()!='existed'
 			){
 				$("#memberEnrollFrm").submit();
 			}else{
@@ -533,7 +531,6 @@
 				var birthdd=birthday.substring(3);
 				$("#month").val(birthmm);
 				$("#date").val(birthdd);
-				$("#usid").val(uniqId);
 			} else {
 				console.log("AccessToken이 올바르지 않습니다.");
 			}

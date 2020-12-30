@@ -98,6 +98,6 @@ public interface MemberDao {
 
 	int chargePoint(SqlSessionTemplate session, Member member);
 
-
+	int signUpNaverEnd(SqlSessionTemplate session, Member member);
 
 }
