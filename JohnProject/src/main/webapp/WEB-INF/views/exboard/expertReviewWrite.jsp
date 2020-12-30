@@ -208,7 +208,7 @@ textarea {
 	// 
 	// ============================
 	if ("${duplicate}" != 0) {
-		console.log("이미 작성한 리뷰");
+		//console.log("이미 작성한 리뷰");
 		alert("이미 작성한 후기입니다.");
 		window.close();
 	}
@@ -241,7 +241,7 @@ textarea {
 			},
 			dataType : 'json',
 			success : function(data) {
-				console.log(data);
+				//console.log(data);
 				if (data == 1) {
 					alert("성공적으로 등록되었습니다.");
 				} else {
@@ -259,7 +259,7 @@ textarea {
 	$('.starRev span').click(function() {
 		$(this).parent().children('span').removeClass('checked');
 		$(this).addClass('checked').prevAll('span').addClass('checked');
-		console.log("스타 카운트 : " + startcount());
+		//console.log("스타 카운트 : " + startcount());
 		return false;
 	});
 

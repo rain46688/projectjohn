@@ -674,7 +674,7 @@ $("#licenseupFlag").click(e=>{
 	// 자격증 수정 완료 버튼
 	// ============================
 function modifyLicense(){
-	console.log("자격증 수정 완료");
+	//console.log("자격증 수정 완료");
 	let formData = new FormData();
 	let frm = $(".licenseUpload");
 	let type = $(".licenseTypeSelect");
@@ -682,29 +682,29 @@ function modifyLicense(){
 	let comp = $(".licenseCompanySelect");
 	let idinput = $(".licenseIdInput");
  	for(let i = 0; i < 3; i++){
- 		console.log(" ============================== ")
- 		console.log("자격증 id : "+$(idinput[i]).val());
- 		console.log("자격증 타입 : "+$(type[i]).val());
- 		console.log("자격증 날짜 : "+$(date[i]).val());
- 		console.log("자격증 기관 : "+$(comp[i]).val());
+ 		//console.log(" ============================== ")
+ 		//console.log("자격증 id : "+$(idinput[i]).val());
+ 		//console.log("자격증 타입 : "+$(type[i]).val());
+ 		//console.log("자격증 날짜 : "+$(date[i]).val());
+ 		//console.log("자격증 기관 : "+$(comp[i]).val());
 		if(frm[i].files[0] != null){
-		console.log("이미지 선택함 : "+(frm[i].files[0]).name);
+		//console.log("이미지 선택함 : "+(frm[i].files[0]).name);
 		formData.append('upFile',frm[i].files[0],(frm[i].files[0]).name);
 		formData.append('types',$(type[i]).val());
 		formData.append('dates',$(date[i]).val());
 		formData.append('linum',$(idinput[i]).val());
 		formData.append('companys',$(comp[i]).val());
 		}else{
-			console.log("이미지 선택 안함 : ");
+			//console.log("이미지 선택 안함 : ");
 			
 			if($(type[i]).val() != '선택 안함' && $(comp[i]).val() != '선택 안함'){
 				alert('수정하시려면 자격증 이미지는 필수로 선택해주세요');
 				return false;
 			}
 		}
-		console.log(" ============================== ")
+		//console.log(" ============================== ")
 	}
- 	console.log("서버 전송 직전 출력");
+ 	//console.log("서버 전송 직전 출력");
 	$.ajax({
 		url : '${path}/expert/modifyLicense',
 		data : formData,
@@ -713,7 +713,7 @@ function modifyLicense(){
 		processData : false,
 		dataType : "json",
 		success : function(data) {
-			console.log("전송 완료 후 출력 data : " + data);
+			//console.log("전송 완료 후 출력 data : " + data);
 			if(data == 1){
 				alert("수정 완료 되었습니다.");
 			}else{
@@ -728,21 +728,21 @@ function modifyLicense(){
 	// 수정완료 버튼
 	// ============================
 function modify(){
-	console.log("수정 완료");
+	//console.log("수정 완료");
 	let frm2 = $("#profileUpload")[0].files[0];
-	console.log("frm2 : "+frm2);
+	//console.log("frm2 : "+frm2);
 	const career = $("input[name=career]").val();
 	const counselSelect = $("#counselSelect option:selected").val()
 	const fistTime = $("input[name=fistTime]").val()
 	const seTime = $("input[name=seTime]").val()
 	const modiText = $("#exTextArea").val()
-	console.log("career : "+career);
-	console.log("counselSelect : "+counselSelect);
-	console.log("fistTime : "+fistTime);
-	console.log("seTime : "+seTime);
-	console.log("modiText : "+modiText);
+	//console.log("career : "+career);
+	//console.log("counselSelect : "+counselSelect);
+	//console.log("fistTime : "+fistTime);
+	//console.log("seTime : "+seTime);
+	//console.log("modiText : "+modiText);
 	let formData = new FormData();
-	console.log("z :  "+frm2);
+	//console.log("z :  "+frm2);
 	if(frm2 == undefined){
 		formData.append('beforeProfile',"${loginMember.profilePic}");
 	}else{
@@ -761,7 +761,7 @@ function modify(){
 		processData : false,
 		dataType : "json",
 		success : function(data) {
-			console.log("수정 data : " + data);
+			//console.log("수정 data : " + data);
 			if(data == 1){
 				alert("수정 완료 되었습니다.");
 			}else{
@@ -800,12 +800,12 @@ for(let i = 1; i < 4; i++){
 	
 	$("#licenseUpload"+i).change(function(e){
 	    e.preventDefault();
-		console.log("이미지 선택됨");
-		console.log("files : " + $("#licenseUpload"+i).val());
+		//console.log("이미지 선택됨");
+		//console.log("files : " + $("#licenseUpload"+i).val());
 		let file2 = $("#licenseUpload"+i).val();
 		
 		let f = (file2).substring((file2).lastIndexOf('.'),(file2).length);
-		console.log(f);
+		//console.log(f);
 		fileViewUpload(f,liWith1,liHeight1,$('#licenseImg'+i),this)
 	});
 }
