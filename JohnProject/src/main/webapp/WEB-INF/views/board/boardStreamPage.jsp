@@ -410,7 +410,7 @@ ion-icon#likeButton {
               ${currBoard.WRITER_NICKNAME }
             </div>
             <div id="writerComment">
-              <input type="text" value="방장의 한마디" id="writerComIn"
+              <input type="text" value="방장이 대화방에 접속하고 있지 않습니다." id="writerComIn"
               <c:if test="${loginMember.usid ne currBoard.WRITER_USID }">
 	        	readonly
 	        	</c:if>

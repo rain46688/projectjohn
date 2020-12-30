@@ -30,6 +30,7 @@
   padding:2em;
   /* border:1px red solid; */
   border-right:1px silver solid;
+  overflow: auto;
 }
 
 #titleHr {
@@ -151,6 +152,10 @@
 .judgeBtns button#disagree-disabled:hover {
   background-color:#00316d;
   color:white;
+}
+
+#commentSection {
+	height:100%;
 }
 
 #commentSection #commentPrint {
