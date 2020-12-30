@@ -4,11 +4,11 @@
  
 				'use strict';
 				
-				let st = "20AM_john_final" ;
-				let ip = "wss://rclass.iptime.org/";
+				//let st = "20AM_john_final" ;
+				//let ip = "wss://rclass.iptime.org/";
 				
-				//let st = "john";
-				//let ip = "wss://192.168.219.105/"
+				let st = "john";
+				let ip = "wss://192.168.219.105/"
 
 				const alsocket = new WebSocket(ip+st+"/alsocket");
 
