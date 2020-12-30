@@ -507,7 +507,8 @@
 		var naverLogin = new naver.LoginWithNaverId(
 			{
 				clientId: "AMmEekjxUV4y7wrTtNF7",
-				callbackUrl: "https://localhost/john/callBackNaver",
+				/*callbackUrl: "https://localhost/john/callBackNaver",*/
+				callbackUrl: "https://rclass.iptime.org/20AM_john_final/callBackNaver",
 				isPopup: false,
 				callbackHandle: false
 			}

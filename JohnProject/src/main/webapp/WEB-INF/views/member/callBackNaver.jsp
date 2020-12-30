@@ -24,7 +24,8 @@
 		var naverLogin = new naver.LoginWithNaverId(
 			{
 				clientId: "AMmEekjxUV4y7wrTtNF7",
-				callbackUrl: "https://localhost/john/callBackNaver",
+				/*callbackUrl: "https://localhost/john/callBackNaver",*/
+				callbackUrl: "https://rclass.iptime.org/20AM_john_final/callBackNaver",
 				isPopup: true,
 				callbackHandle: true
 				/* callback 페이지가 분리되었을 경우에 callback 페이지에서는 callback처리를 해줄수 있도록 설정합니다. */
@@ -49,6 +50,10 @@
 								window.resizeTo(850, 800);
 								alert('통합 회원가입이 필요합니다.');
 								window.location.replace("${path}/signUpNaver");
+							}else if(data=='leaveMem'){
+								window.resizeTo(850, 800);
+								alert('탈퇴한 회원입니다.');
+								window.close();
 							}else{
 								$.ajax({
 									url:"${path}/socialLogin",

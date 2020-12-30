@@ -943,7 +943,11 @@ public class MemberController {
 		if(member==null) {
 			result="available";			
 		}else {
-			result="unavailable";
+			if(member.isLeaveMem()==true) {
+				result="leaveMem";
+			}else {				
+				result="unavailable";
+			}
 		}
 		response.setContentType("application/json;charset=UTF-8");
 		new Gson().toJson(result,response.getWriter());
@@ -969,6 +973,6 @@ public class MemberController {
 			result="/board/boardList";
 		}
 		response.setContentType("application/json;charset=UTF-8");
-		new Gson().toJson(result,response.getWriter());
+		new Gson().toJson(result,response.getWriter());			
 	}
 }

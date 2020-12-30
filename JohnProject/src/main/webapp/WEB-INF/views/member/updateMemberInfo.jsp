@@ -130,23 +130,25 @@
 	}
 </style>
 <section id="content">
-	<div class="field">
-		<div class="titleContainer">
-			비밀번호 변경하기
+	<c:if test="${loginMember.socialLogin eq false}">
+		<div class="field">
+			<div class="titleContainer">
+				비밀번호 변경하기
+			</div>
+			<hr class="infoHr">
+			<div class="formContainer">
+				<form action="${path}/member/myPage/updatePw?usid=${loginMember.usid }" method="POST" id="updatePwForm">
+					<input type="password" id="crtPw" name="crtPw" class="textField" placeholder="현재 비밀번호">
+					<div class="constrain" id="crtPwConstrain"></div>
+					<input type="password" id="newPw" name="newPw" class="textField" placeholder="새로운 비밀번호">
+					<div class="constrain" id="newPwConstrain"></div>
+					<input type="password" id="newPw2" name="newPw2" class="textField" placeholder="새로운 비밀번호 확인">
+					<div class="constrain" id="newPwConstrain2"></div>
+					<button type="button" class="formBtn btn btn-outline-dark" onclick="fn_updatePw()">변경하기</button>
+				</form>
+			</div>
 		</div>
-		<hr class="infoHr">
-		<div class="formContainer">
-			<form action="${path}/member/myPage/updatePw?usid=${loginMember.usid }" method="POST" id="updatePwForm">
-				<input type="password" id="crtPw" name="crtPw" class="textField" placeholder="현재 비밀번호">
-				<div class="constrain" id="crtPwConstrain"></div>
-				<input type="password" id="newPw" name="newPw" class="textField" placeholder="새로운 비밀번호">
-				<div class="constrain" id="newPwConstrain"></div>
-				<input type="password" id="newPw2" name="newPw2" class="textField" placeholder="새로운 비밀번호 확인">
-				<div class="constrain" id="newPwConstrain2"></div>
-				<button type="button" class="formBtn btn btn-outline-dark" onclick="fn_updatePw()">변경하기</button>
-			</form>
-		</div>
-	</div>
+	</c:if>
 	<div class="field">
 		<div class="titleContainer">
 			닉네임 변경하기

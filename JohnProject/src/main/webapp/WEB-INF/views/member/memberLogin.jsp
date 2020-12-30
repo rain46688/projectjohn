@@ -199,7 +199,8 @@
         var naverLogin = new naver.LoginWithNaverId(
             {
                 clientId: "AMmEekjxUV4y7wrTtNF7",
-                callbackUrl: "https://localhost/john/callBackNaver",
+                /*callbackUrl: "https://localhost/john/callBackNaver",*/
+                callbackUrl: "https://rclass.iptime.org/20AM_john_final/callBackNaver",
                 isPopup: true, /* 팝업을 통한 연동처리 여부 */
                 loginButton: {color: "white", type: 3, height: 60} /* 로그인 버튼의 타입을 지정 */
             }

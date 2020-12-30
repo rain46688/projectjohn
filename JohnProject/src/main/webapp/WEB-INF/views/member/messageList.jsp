@@ -208,8 +208,8 @@
 		})
 	};
 
-	// const memberSocket=new WebSocket("wss://rclass.iptime.org${path}/memberSocket");
-	const memberSocket=new WebSocket("wss://localhost${path}/memberSocket");
+	const memberSocket=new WebSocket("wss://rclass.iptime.org${path}/memberSocket");
+	//const memberSocket=new WebSocket("wss://localhost${path}/memberSocket");
 
 	memberSocket.onopen=function(){
 		memberSocket.send("messageOnOpen");
