@@ -1,6 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ include file="/WEB-INF/views/common/header.jsp"%>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/stomp.js/2.3.3/stomp.min.js"></script>
 <style>
 	#video-grid {
         display:grid;
@@ -502,7 +501,7 @@ ion-icon#likeButton {
         </div>
     </div>
 <c:if test="${currBoard.ISCLOSE eq 0 }">
-<script src="https://unpkg.com/peerjs@1.3.1/dist/peerjs.min.js"></script>
+<script src="${path }/resources/js/peerJS.js"></script>
 <script defer src="https://rclass.iptime.org:83/socket.io/socket.io.js"></script>
 <script>
 	function fn_exit(){
@@ -570,7 +569,6 @@ ion-icon#likeButton {
 			const call = myPeer.call(userId, stream, {
 				metadata:${loginMember.usid}
 			});
-			call.answer(mediaStream);
 			const video = document.createElement('audio');
 			call.on('stream', userVideoStream => {
 				addVideoStream(video, userVideoStream);
@@ -651,10 +649,6 @@ chatSocket.onopen = function(e){
 	chatSocket.send('chat:'+JSON.stringify(user));
 }
 
-chatSocket.onclose = function(e) {
-	chatSocket.close();
-	chatSocket = new WebSocket("wss://rclass.iptime.org${path}/chat");
-};
 
 chatSocket.onmessage = function(e){
 	if(e.data.substring(0,5) == 'image'){

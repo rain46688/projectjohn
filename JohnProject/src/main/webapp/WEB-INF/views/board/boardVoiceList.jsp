@@ -338,7 +338,7 @@ color:blue;
 	}); */
 	
 	//소켓연결
-	const socket = new SockJS("https://rclass.iptime.org${path}/list");
+	const socket = new SockJS("https://rclass.iptime.org/${path}/list");
 	let message = ''; 
 	socket.onopen = function(e){
 		socket.send('boardList');
