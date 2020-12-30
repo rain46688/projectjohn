@@ -490,7 +490,6 @@ div#pageBar{
 <script defer>
 	'use strict'
 	let imgs = document.querySelectorAll('.card1-content img');
-	console.log(imgs);
 	imgs.forEach(element => {
 		element.removeAttribute("style");
 		element.style.width = '30px';
