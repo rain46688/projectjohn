@@ -503,7 +503,7 @@ ion-icon#likeButton {
     </div>
 <c:if test="${currBoard.ISCLOSE eq 0 }">
 <script src="https://unpkg.com/peerjs@1.3.1/dist/peerjs.min.js"></script>
-<script defer src="https://172.30.1.31:83/socket.io/socket.io.js"></script>
+<script defer src="https://rclass.iptime.org:83/socket.io/socket.io.js"></script>
 <script>
 	function fn_exit(){
 		
@@ -516,10 +516,10 @@ ion-icon#likeButton {
 
 	$(document).ready(function() {
 		const userId = uuidv4()+":"+${loginMember.usid};
-		var socket = io("https://172.30.1.31:83");
+		var socket = io("https://rclass.iptime.org:83");
 		const videoGrid = document.getElementById('video-grid')
 		const myPeer = new Peer(undefined, {
-			host: '/172.30.1.31',
+			host: '/rclass.iptime.org',
 			port: '3000',
 			secure:true
 		});
@@ -678,7 +678,7 @@ chatSocket.onopen = function(e){
 
 chatSocket.onclose = function(e) {
 	chatSocket.close();
-	chatSocket = new WebSocket("wss://172.30.1.31:8443${path}/chat");
+	chatSocket = new WebSocket("wss://rclass.iptime.org${path}/chat");
 };
 
 chatSocket.onmessage = function(e){
