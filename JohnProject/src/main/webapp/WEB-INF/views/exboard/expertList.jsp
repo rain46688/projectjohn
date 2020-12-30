@@ -543,7 +543,7 @@ html, body, div, span, applet, object, iframe, h1, h2, h3, h4, h5, h6, p, blockq
 	// 상담 신청 버튼
 	// ============================
 		 function counsel(no,nic){
-			 console.log("no : "+no+" nic : "+nic);
+			 //console.log("no : "+no+" nic : "+nic);
 			 window.open("${path}/expert/expertApply?no="+no+"&nic="+nic,'회원','width=800, height=800, toolbar=no, menubar=no, scrollbars=no, resizable=yes');
 		 }
 
@@ -563,18 +563,19 @@ html, body, div, span, applet, object, iframe, h1, h2, h3, h4, h5, h6, p, blockq
 	// ============================
 	//소켓 실행
 	// ============================
-		const exboardListConn = new WebSocket('wss://rclass.iptime.org${path}/exlistSocket');
+//		const exboardListConn = new WebSocket('wss://rclass.iptime.org${path}/exlistSocket');
+		const exboardListConn = new WebSocket('wss://192.168.219.105${path}/exlistSocket');	
 		
 		exboardListConn.onopen = function() {
-			console.log("onopen");
+			////console.log("onopen");
 			exboardListsendMessage("start2");
 			exboardListsendMessage("start3");
 		}
 		
 		exboardListConn.onmessage = function(msg) {
-			console.log("onmessage 그냥 리스트");
+			////console.log("onmessage 그냥 리스트");
 			let check = (msg.data).includes("Request");
-			console.log("포함 여부 : "+check);
+			////console.log("포함 여부 : "+check);
 			
 			if(!check){
 				if(newexboardList.length == 0){
@@ -591,7 +592,7 @@ html, body, div, span, applet, object, iframe, h1, h2, h3, h4, h5, h6, p, blockq
 		
 		function exboardListsendMessage(message) {
 			exboardListConn.send(message);
-			console.log("exboardListsendMessage");
+			//console.log("exboardListsendMessage");
 		};
 		
 		
@@ -600,7 +601,7 @@ html, body, div, span, applet, object, iframe, h1, h2, h3, h4, h5, h6, p, blockq
 	// ============================
 		 $(".counsel-title").click(e => {
 			 	let cate = $(e.target).html();
-				console.log(cate);//직장 상담 등등 출력
+				//console.log(cate);//직장 상담 등등 출력
 				$("#categoryHidden").val(cate);//히든 인풋에 카테고리 입력, 파라미터 대신
 				//리스트 출력
 				printUpExpertList();
@@ -614,12 +615,12 @@ html, body, div, span, applet, object, iframe, h1, h2, h3, h4, h5, h6, p, blockq
 	//위 리스트 출력		
 	// ============================
 		function printUpExpertList(){
-			console.log("printUpExpertList 실행");
+			//console.log("printUpExpertList 실행");
 			let tempprinthtml = "";
 			let flag = true;
 			const cate = $("#categoryHidden").val();
-			console.log("출력전 카테고리 : "+cate);
-			console.log("길이 : "+newexboardList.length );
+			//console.log("출력전 카테고리 : "+cate);
+			//console.log("길이 : "+newexboardList.length );
 				tempprinthtml = "<div id='emptyupdiv'><div class='empty'><h1>등록된 상담사가 없습니다.</h1></div></div>";
 				
 				newexboardList.forEach((e, i)=>{
@@ -667,8 +668,8 @@ html, body, div, span, applet, object, iframe, h1, h2, h3, h4, h5, h6, p, blockq
 				tempprinthtml = "<div class='emptyReview'><h1>등록된 리뷰가 없습니다.</h1></div>";
 				let flag = true;
 				const cate = $("#categoryHidden").val();
-				console.log("리뷰 출력전 카테고리 : "+cate);
-				console.log("리뷰 길이 : "+newexReviewList.length );
+				//console.log("리뷰 출력전 카테고리 : "+cate);
+				//console.log("리뷰 길이 : "+newexReviewList.length );
 				newexReviewList.forEach((e, i)=>{
 					if(e['bexpertCounselArea'] == cate){
 						let content="내용 없음";

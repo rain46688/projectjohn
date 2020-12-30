@@ -16,34 +16,34 @@
     </appender>
     
     <logger name="com" additivity="false">
-        <level value="debug" />
+        <level value="error" />
         <appender-ref ref="console"/>
     </logger>
     
      <logger name="jdbc.sqlonly" additivity="false"> 
-       <level value="info"/>
+       <level value="error"/>
        <appender-ref ref="console-infolog"/>
      </logger>
          
      <logger name="jdbc.resultsettable" additivity="false"> 
-       <level value="info"/>
+       <level value="error"/>
        <appender-ref ref="console"/>
      </logger>
     
     <logger name="org.springframework.core">
-        <level value="info" />
+        <level value="error" />
     </logger>
     
     <logger name="org.springframework.beans">
-        <level value="info" />
+        <level value="error" />
     </logger>
     
     <logger name="org.springframework.context">
-        <level value="info" />
+        <level value="error" />
     </logger>
  
     <logger name="org.springframework.web">
-        <level value="info" />
+        <level value="error" />
     </logger>
  
     <root>

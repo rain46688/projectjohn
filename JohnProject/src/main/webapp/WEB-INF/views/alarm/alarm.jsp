@@ -138,7 +138,7 @@ html, body, div, span, applet, object, iframe, h1, h2, h3, h4, h5, h6, p, blockq
 'use strict';
 
  let newURL = window.location.pathname;
-console.log(newURL); 
+//console.log(newURL); 
 //			/john/alarm/alarmList
 let alarmList = [];
 
@@ -154,19 +154,19 @@ $(".nav-link").click(e =>{
 	};
 	$(e.target).addClass('active');
 	item = $(e.target).html();
-	//console.log("item : "+item);
+	////console.log("item : "+item);
 	if(item === '상담'){
 		item = 'expert';
 		printalfunc(alarmList, item);
-		//console.log("change : "+item);
+		////console.log("change : "+item);
 	}else if(item === '게시판'){
 		item = 'board';
 		printalfunc(alarmList, item);
-		//console.log("change : "+item);
+		////console.log("change : "+item);
 	}else if(item === '신고'){
 		item = 'report';
 		printalfunc(alarmList, item);
-		//console.log("change : "+item);
+		////console.log("change : "+item);
 	}
 	//나중에 추가?
 });
@@ -180,7 +180,7 @@ function matchAtagHtml(){
 	for(let i=0; i < allnav.length; i++){
 		if($(allnav[i]).hasClass('active')){
 			item = $(allnav[i]).html();
-			console.log("선택된것 : "+item);
+			//console.log("선택된것 : "+item);
 		}
 	};
 	if(item === '상담'){
@@ -194,7 +194,7 @@ function matchAtagHtml(){
 }
 
 $("#check").click(e => {
-	console.log("선택");
+	//console.log("선택");
 	printalfunc(alarmList,matchAtagHtml());
 });
 
@@ -206,17 +206,17 @@ $("#delete").click(e=>{
 	var result = confirm("현재 탭의 알람을 읽음 처리하시겠습니까?");
 	if(result){
 	
-	console.log("del");
+	//console.log("del");
 	let readList = [];
 	let ataghtml = matchAtagHtml();
 	alarmList.forEach((e, i)=>{
 			if(e['alarmType'].includes(ataghtml) && e['alarmIscheked'] == false){
-								console.log(e['alarmId']);
+								//console.log(e['alarmId']);
 								readList.push(e);
 			}
 	});
 	if(readList.length == 0){
-		console.log("읽음 처리할 알람 없음");
+		//console.log("읽음 처리할 알람 없음");
 	}
 	alsocket.send(JSON.stringify(readList));
 	alsocket.send('list');
@@ -228,16 +228,16 @@ $("#delete").click(e=>{
 // 종 모양 출력 ! 넣어주기
 //============================
 function printBell(list){
-	console.log("printBell 알람.jsp");
+	//console.log("printBell 알람.jsp");
 	$("#number").html("");
 	let count = 0;
-	console.log(" ================ ")
+	//console.log(" ================ ")
 	list.forEach((e, i)=>{
 		if(e['alarmType'] != 'expertApplyCancel' && e['alarmIscheked'] == false){//안 읽은 알람을 탐색해서 카운트를 증가시킴
 			count++;
 		}
 	});
-	console.log("카운트 : "+count);
+	//console.log("카운트 : "+count);
 	if(count > 0){
 		//체크가 안된 알람이 1개 이상 있다는것
 		$("#number").html("<div id='al'>!</div>");
@@ -249,12 +249,12 @@ function printBell(list){
 // ============================
 function printalfunc(list, type){
 	let print="";
-	console.log("printalfunc 실행 리스트 길이 : "+list.length+" 타입 : "+type);
+	//console.log("printalfunc 실행 리스트 길이 : "+list.length+" 타입 : "+type);
 	let allselectflag = $("#check").is(":checked");
-	//console.log("체크 여부 : "+allselectflag);
+	////console.log("체크 여부 : "+allselectflag);
 	if(list.length > 0){
 	list.forEach((e, i)=>{
-		//console.log(e['alarmType']+" : "+e['alarmType'].includes(type));
+		////console.log(e['alarmType']+" : "+e['alarmType'].includes(type));
 		if(allselectflag == true && e['alarmType'].includes(type)){
 			//모두 보기가 체크된 경우
 			print += typeifprint(e,e['alarmType']);
@@ -264,17 +264,17 @@ function printalfunc(list, type){
 			}
 	//forEach 끝
 	});
-	console.log("반복 끝");
+	//console.log("반복 끝");
 	if(print == ''){
-		console.log("빔1")
+		//console.log("빔1")
 		print = "<div class='emptyAl'><div><img id='nome' src='${path}/resources/images/nome.png' alt='' width='100px' height='100px'></div>알람 메세지가 없습니다.</div>";
 	}
 	//리스트 0개 아닐때
 	}else{
-		console.log("빔2");
+		//console.log("빔2");
 		print = "<div class='emptyAl'><div><img id='nome' src='${path}/resources/images/nome.png' alt='' width='100px' height='100px'></div>알람 메세지가 없습니다!!</div>";
 	}
-	console.log("html 프린트");
+	//console.log("html 프린트");
 	$(".alarmPrintDiv").html(print);
 	//ajax 후 호버 함수 실행 / 안하면 호버 적용안됨!
 	divhover();
@@ -286,28 +286,28 @@ function printalfunc(list, type){
 function typeifprint(e,type){
 	let print2="";
 	if(type == 'expert'){
-		console.log("ex");
+		//console.log("ex");
 		let extitle = "1 : 1 영상 상담 요청이있습니다.";
 		let excontent= "안녕하세요 상담사 "+e['alarmSendMemNickname']+"입니다.<br> 아래 링크로 바로 접속하셔서 상담 진행하시면됩니다.<br><a href='${path }/expert/expertRoom?bno="+e['alarmMsgContent']+"'>-클릭해서 상담 접속-</a>";
 		print2 += printAlarmBoardContent(e,extitle,excontent);
 	}else if(type == 'expertend'){
-		console.log("exe");
+		//console.log("exe");
 		let extitle = "후기를 작성해주세요 완료된 상담이 있습니다.";
 		let excontent="안녕하세요 존경장님 상담은 만족스러우신가요? <br>더 나은 서비스에 대해 상담 결과에 대해 <br>아래 링크로 바로 접속하셔서 후기를 <br>작성해주시면 감사하겠습니다.<br>";
 		excontent += "<a style='cursor:pointer;' onclick='writereview("+e['alarmMsgContent']+");'>-클릭해서 후기 작성-</a>";
 		print2 += printAlarmBoardContent(e,extitle,excontent);
 	}else if(type == 'expertApply'){
-		console.log("exe");
+		//console.log("exe");
 		let extitle = e['alarmSendMemNickname']+"님이 상담 신청하셨습니다.";
 		let excontent="안녕하세요 상담사님 아래 링크로 접속해서 내역을 확인해주세요<br><a href='${path }/member/myPage/expertRequestPrintList?usid=${loginMember.usid}'>-클릭해서 확인-</a>";
 		print2 += printAlarmBoardContent(e,extitle,excontent);
 	}else if(type == 'board'){
-		console.log("bo");
+		//console.log("bo");
 		let extitle = "TEST용 게시글 알람 사용자한테 보여질 제목입니다.";
 		let excontent = "TEST용 게시글 알람 사용자한테 보여질 내용입니다.";
 		print2 += printAlarmBoardContent(e,extitle,excontent);
 	}else if(type == 'report'){
-		console.log("re");
+		//console.log("re");
 		let extitle = "TEST용 신고 알람 사용자한테 보여질 제목입니다.";
 		let excontent = "TEST용 신고 알람 사용자한테 보여질 내용입니다.";
 		print2 += printAlarmBoardContent(e,extitle,excontent);
@@ -338,7 +338,7 @@ function printAlarmBoardContent(e, title, content){
 // ============================
 
 function writereview(bno){
-	console.log("bno : "+bno);
+	//console.log("bno : "+bno);
 	window.open("","popForm","width=500, height=500, toolbar=no, menubar=no, scrollbars=no, resizable=no");
 	let forms = document.createElement("form");
 	forms.setAttribute("charset","UTF-8");

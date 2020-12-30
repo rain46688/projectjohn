@@ -4,11 +4,11 @@
  
 				'use strict';
 				
-				let st = "20AM_john_final";
-				let ip = "wss://rclass.iptime.org/";
+				//let st = "20AM_john_final" ;
+				//let ip = "wss://rclass.iptime.org/";
 				
-				//let st = "john";
-				//let ip = "wss://192.168.219.105/"
+				let st = "john";
+				let ip = "wss://192.168.219.105/"
 
 				const alsocket = new WebSocket(ip+st+"/alsocket");
 
@@ -16,7 +16,7 @@
 				// 소켓 오픈 하면서 알람 리스트 가져오기
 				//============================
 				alsocket.onopen = function() {
-					console.log('오픈');
+					//console.log('오픈');
 					alsocket.send('list');
 				};
 
@@ -24,12 +24,12 @@
 				// 메세지에서 분기 처리 알람이 오면 RequestPrintList 바로 갱신해주기위해 분기 넣음
 				//============================
 				alsocket.onmessage = function(msg) {
-					console.log("알람 온 메세지 onmessage 실행됨");
+					//console.log("알람 온 메세지 onmessage 실행됨");
 					
 
 					//각각 페이지에 따라 분기 처리 
 					if(window.location.pathname == '/'+st+'/member/myPage/expertRequestPrintList'){
-						console.log("헤더 분기 1");
+						//console.log("헤더 분기 1");
 						alsetting(msg);
 						exListsendMessage("start");
 					}else if(window.location.pathname != '/'+st+'/expert/expertApply'){
@@ -46,7 +46,7 @@
 						alarmList = aldata;
 						//알람 종 표시
 						printBell(alarmList);
-						console.log("리스트 길이 : "+alarmList.length);
+						//console.log("리스트 길이 : "+alarmList.length);
 						printalfunc(alarmList,matchAtagHtml());
 				};
 
